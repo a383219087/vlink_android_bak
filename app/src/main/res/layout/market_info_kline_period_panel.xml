@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="isblack" type="Boolean"/>
+    </data>
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--背景-->
+    <View
+        android:id="@+id/id_kline_period_more_bg_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/kline_tools_bg" />
+    <!--主图 指标-->
+    <LinearLayout
+        android:id="@+id/id_kline_period_more_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_14">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_half"
+            android:background="@{isblack ? @color/panel_line_color_kline_night:@color/panel_line_color}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_kline_scale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_14"
+                android:layout_weight="1"
+                android:overScrollMode="never"
+                android:visibility="visible" />
+            <!--横屏视图-->
+            <LinearLayout
+                android:id="@+id/layout_landscape"
+                android:layout_width="@dimen/dp_42"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/tv_landscape"
+                    android:layout_width="@dimen/dp_14"
+                    android:layout_height="@dimen/dp_14"
+                    android:src="@drawable/quotes_zoom"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+</layout>

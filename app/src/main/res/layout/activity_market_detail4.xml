@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?><!--主界面-->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yjkj.chainup.new_version.activity.MarketDetail4Activity">
+
+    <data>
+
+        <variable
+            name="isblack"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+        android:fitsSystemWindows="true">
+
+
+        <!--标题栏-->
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/page_head_height"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ib_back"
+                style="@style/left_back_img_style"
+                android:layout_alignParentLeft="true" />
+
+            <View
+                android:id="@+id/v_line"
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@id/ib_back"
+                android:background="@{isblack ? @color/line_color_kline_night : @color/line_color}"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_coin_map"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/v_line"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@{ isblack ? @color/market_kline_line_kline_night : @color/market_kline_line}" />
+
+                <ImageView
+                    android:id="@+id/icon_coin_more"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/tv_coin_map"
+                    style="@style/textStyle_title_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:text="XRP/USDT"
+                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }" />
+
+                <com.yjkj.chainup.new_version.view.CustomTagView
+                    android:id="@+id/ctv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_5" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/ib_share"
+                android:layout_width="@dimen/dp_37"
+                android:layout_height="@dimen/dp_36"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/ib_collect"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/contract_share" />
+
+            <ImageView
+                android:id="@+id/ib_collect"
+                android:layout_width="@dimen/dp_42"
+                android:layout_height="@dimen/dp_36"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_15"
+                android:src="@drawable/quotes_optional_default" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_title">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/market_info_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_50"
+                android:layout_marginBottom="@dimen/dp_74"
+                app:srlEnableLoadMore="false"
+                app:srlEnableRefresh="false">
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:id="@+id/id_cl_kline_coordinator"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.appbar.AppBarLayout
+                        android:id="@+id/id_abl_kline_appbar_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:orientation="vertical"
+                        app:elevation="0dp"
+                        app:layout_behavior="com.yjkj.chainup.new_version.activity.widget.FlingBehavior">
+
+                        <com.google.android.material.appbar.CollapsingToolbarLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:elevation="0dp"
+                            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/coin_info_item"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_15"
+                                    android:layout_marginRight="@dimen/dp_15">
+                                    <!--最新成交价-->
+                                    <RelativeLayout
+                                        android:id="@+id/layout_coin_left"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:id="@+id/tv_close_price"
+                                            style="@style/textStyle_green_28"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="@dimen/dp_5"
+                                            android:singleLine="true"
+                                            tools:text="4.96000000000" />
+
+                                        <TextView
+                                            android:id="@+id/tv_converted_close_price"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@id/tv_close_price"
+                                            android:ellipsize="end"
+                                            android:singleLine="true"
+                                            android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color}"
+                                            android:textSize="@dimen/sp_14"
+                                            tools:text="≈0000000287690.05CNY" />
+
+                                        <TextView
+                                            android:id="@+id/tv_rose"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@id/tv_close_price"
+                                            android:layout_marginLeft="@dimen/dp_8"
+                                            android:layout_toRightOf="@id/tv_converted_close_price"
+                                            android:ellipsize="end"
+                                            android:singleLine="true"
+                                            android:textColor="@color/main_green"
+                                            android:textSize="@dimen/sp_14"
+                                            tools:text="+1.88%" />
+
+
+                                    </RelativeLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:baselineAligned="false"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintHorizontal_bias="1"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintLeft_toRightOf="@id/layout_coin_left"
+                                        app:layout_constraintRight_toRightOf="parent">
+
+                                        <!--涨跌幅 & 高-->
+
+                                        <!--24H & 低-->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <!--低-->
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="right">
+
+                                                <TextView
+                                                    android:id="@+id/tv_kline_text_low"
+                                                    android:layout_width="@dimen/dp_40"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginRight="@dimen/dp_10"
+                                                    android:gravity="right"
+                                                    android:text="@string/kline_text_low"
+                                                    android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color }"
+                                                    android:textSize="@dimen/sp_12" />
+
+                                                <TextView
+                                                    android:id="@+id/tv_low_price"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="right"
+                                                    android:ellipsize="end"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+                                                    android:textSize="@dimen/sp_12"
+                                                    tools:text="4162.99999" />
+
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dp_6"
+                                                android:gravity="right">
+
+                                                <TextView
+                                                    android:id="@+id/tv_high"
+                                                    android:layout_width="@dimen/dp_40"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="right"
+                                                    android:layout_marginRight="@dimen/dp_10"
+                                                    android:gravity="right"
+                                                    android:text="@string/kline_text_high"
+                                                    android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color }"
+                                                    android:textSize="@dimen/sp_12" />
+
+                                                <TextView
+                                                    android:id="@+id/tv_high_price"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="right"
+                                                    android:ellipsize="end"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+                                                    android:textSize="@dimen/sp_12"
+                                                    tools:text="4162" />
+
+                                            </LinearLayout>
+
+                                            <!--24H-->
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dp_6"
+                                                android:gravity="right">
+
+                                                <TextView
+                                                    android:id="@+id/tv_common_text_dayVolume"
+                                                    android:layout_width="@dimen/dp_40"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginRight="@dimen/dp_10"
+                                                    android:gravity="right"
+                                                    android:text="@string/common_text_dayVolume"
+                                                    android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color }"
+                                                    android:textSize="@dimen/sp_12" />
+
+
+                                                <TextView
+                                                    android:id="@+id/tv_24h_vol"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:ellipsize="end"
+                                                    android:singleLine="true"
+                                                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+                                                    android:textSize="@dimen/sp_12"
+                                                    tools:text="16290000000" />
+
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+
+                                    </LinearLayout>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                <!--K线部分-->
+                                <LinearLayout
+                                    android:id="@+id/layout_line"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:background="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+                                    android:orientation="vertical">
+
+                                    <!--K线的控制项-->
+                                    <LinearLayout
+                                        android:id="@+id/trade_time_group_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dp_34"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/dp_4">
+
+                                        <LinearLayout
+                                            android:id="@+id/rv_kline_scale_default"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible" />
+
+                                        <!--深度-->
+                                        <RelativeLayout
+                                            android:id="@+id/layout_depth_view"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:background="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+                                            android:clickable="true"
+                                            android:descendantFocusability="beforeDescendants"
+                                            android:focusable="false"
+                                            android:gravity="center"
+                                            android:paddingLeft="@dimen/dp_10"
+                                            android:paddingRight="@dimen/dp_10">
+
+                                            <TextView
+                                                android:id="@+id/tv_depth_view"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerInParent="true"
+                                                android:text="@string/kline_action_depth"
+                                                android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color }"
+                                                android:textSize="@dimen/sp_12"
+                                                android:textStyle="bold" />
+                                        </RelativeLayout>
+                                        <!--指标-->
+                                        <RelativeLayout
+                                            android:id="@+id/layout_indicator"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:clickable="true"
+                                            android:descendantFocusability="beforeDescendants"
+                                            android:focusable="false"
+                                            android:gravity="center"
+                                            android:paddingLeft="@dimen/dp_10"
+                                            android:paddingRight="@dimen/dp_10">
+
+                                            <com.yjkj.chainup.new_version.view.LabelTextView
+                                                android:id="@+id/tv_indicator"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:paddingLeft="@dimen/dp_4"
+                                                android:paddingRight="@dimen/dp_8"
+                                                android:text="@string/kline_text_scale"
+                                                android:textColor="@{isblack ? @color/normal_text_color_kline_night : @color/normal_text_color}"
+                                                android:textSize="@dimen/sp_12"
+                                                android:textStyle="bold"
+                                                app:label_backgroundColor="@{isblack ? @color/normal_icon_color_kline_night : @color/normal_icon_color}"
+                                                app:label_bottom_height="true"
+                                                app:label_distance="0dp"
+                                                app:label_height="@dimen/dp_4"
+                                                app:label_orientation="RIGHT_BOTTOM"
+                                                app:label_strokeColor="@{isblack ? @color/panel_array_bottom_color_kline_night : @color/panel_array_bottom_color}"
+                                                app:label_text=""
+                                                app:label_textSize="@dimen/sp_12"
+                                                app:label_textStyle="BOLD" />
+                                        </RelativeLayout>
+
+
+                                    </LinearLayout>
+
+                                    <View
+                                        android:id="@+id/kline_tab_indicator"
+                                        android:layout_width="@dimen/dp_50"
+                                        android:layout_height="@dimen/dp_2"
+                                        android:layout_gravity="bottom"
+                                        android:background="@drawable/shape_kline_tab_indicator" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dp_half"
+                                        android:background="@{isblack ? @color/panel_line_color_kline_night :@color/panel_line_color}" />
+
+                                    <!--TODO Kline视图-->
+                                    <FrameLayout
+                                        android:id="@+id/layout_kline"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <com.yjkj.chainup.kline.view.KLineChartView
+                                            android:id="@+id/v_kline"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/dp_400"
+                                            android:nestedScrollingEnabled="false"
+                                            app:kc_background_color="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+                                            app:kc_grid_line_color="@{isblack ? @color/kline_grid_line_new_kline_night : @color/kline_grid_line_new}"
+                                            app:kc_marker_value_color="@{isblack ? @color/chart_max_min_kline_night : @color/chart_max_min}"
+                                            app:kc_selector_background_color="@{isblack ? @color/marker_bg_kline_night : @color/marker_bg}" />
+
+                                        <ImageView
+                                            android:id="@+id/iv_logo"
+                                            android:layout_width="@dimen/dp_100"
+                                            android:layout_height="@dimen/dp_20"
+                                            android:layout_gravity="bottom|left"
+                                            android:layout_marginLeft="@dimen/dp_10"
+                                            android:layout_marginBottom="@dimen/dp_100"
+                                            android:adjustViewBounds="true"
+                                            android:clickable="false"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:usesCleartextTraffic="true"
+                                            tools:visibility="gone" />
+
+                                        <include
+                                            android:id="@+id/customize_depth_chart"
+                                            layout="@layout/depth_chart_com"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/dp_400"
+                                            android:background="@{isblack ? @color/bg_card_color_kline_night : @color/bg_card_color}"
+                                            android:visibility="invisible" />
+                                    </FrameLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/trade_bottom_Info_etf"
+                                        style="@style/trade_tips_kline_style_15"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:visibility="gone">
+
+                                        <TextView
+                                            android:id="@+id/trade_bottomInformation"
+                                            style="@style/textStyle_value_82_12"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:textColor="@color/main_blue"
+                                            tools:ignore="DuplicateIds" />
+
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dp_10"
+                                        android:background="@{isblack? @color/bg_color_kline_night:@color/bg_color}" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_collapseMode="pin">
+
+
+                            <com.flyco.tablayout.SlidingTabLayout
+                                android:id="@+id/stl_depth_dealt"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_40"
+                                android:clickable="true"
+                                app:tl_indicator_color="@color/main_blue"
+                                app:tl_indicator_corner_radius="@dimen/dp_4"
+                                app:tl_indicator_height="@dimen/dp_2"
+                                app:tl_indicator_width="@dimen/dp_16"
+                                app:tl_indicator_width_equal_title="false"
+                                app:tl_tab_space_equal="true"
+                                app:tl_textBold="BOTH"
+                                app:tl_textSelectColor="@color/text_color"
+                                app:tl_textUnSelectColor="@color/normal_text_color"
+                                app:tl_textSize="@dimen/sp_14" />
+
+                        </LinearLayout>
+                    </com.google.android.material.appbar.AppBarLayout>
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_half"
+                                android:background="@{isblack ? @color/line_color_kline_night : @color/line_color}" />
+
+                            <com.yjkj.chainup.wedegit.WrapContentViewPager
+                                android:id="@+id/vp_depth_dealt"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:overScrollMode="never" />
+
+                        </LinearLayout>
+                    </androidx.core.widget.NestedScrollView>
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_74"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_half"
+                    android:background="@{isblack ? @color/line_color_kline_night : @color/line_color}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="@dimen/dp_15">
+                    <!--买-->
+                    <Button
+                        android:id="@+id/btn_buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/contract_action_buy"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sidebar_text_size" />
+                    <!--卖-->
+                    <Button
+                        android:id="@+id/btn_sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/contract_action_sell"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sidebar_text_size" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <!--K线图的指标-->
+        <include
+            android:id="@+id/ly_kline_panel"
+            layout="@layout/market_info_kline_panel_new"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            bind:isblack="@{isblack}" />
+
+        <include
+            android:id="@+id/ly_kline_more_panel"
+            layout="@layout/market_info_kline_period_panel"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            bind:isblack="@{isblack}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

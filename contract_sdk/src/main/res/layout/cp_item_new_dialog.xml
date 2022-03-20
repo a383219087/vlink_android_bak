@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cp_bg_item_new_dialog"
+    android:orientation="vertical">
+
+
+
+    <com.chainup.contract.view.CpMaxHeightRecyclerView
+        android:id="@+id/recycler_view"
+        app:maxHeight="@dimen/dp_400"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/item_line_view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/bg_color" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:text="@string/cp_overview_text56"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_price_type"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10"
+    android:clickable="true"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_trade_order_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contract_action_limitPrice"
+        android:textColor="@color/text_color"
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/coins_unfold" />
+
+
+</RelativeLayout>

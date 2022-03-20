@@ -1,0 +1,76 @@
+package com.yjkj.chainup.app;
+
+import android.app.Application;
+import android.content.ContextWrapper;
+import android.util.Log;
+
+
+//import com.google.firebase.analytics.FirebaseAnalytics;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.mmkv.MMKV;
+import com.yjkj.chainup.R;
+import com.yjkj.chainup.extra_service.analytics.UmenStatisticsUtil;
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
+import com.yjkj.chainup.extra_service.push.UmengPushUtil;
+import com.yjkj.chainup.util.ContextUtil;
+import com.yjkj.chainup.util.DateUtils;
+import com.yjkj.chainup.util.LogUtil;
+import com.yjkj.chainup.util.PackageUtil;
+
+import java.io.File;
+
+import cn.ljuns.logcollector.LogCollector;
+import cn.ljuns.logcollector.LogNetCollector;
+import cn.ljuns.logcollector.util.LevelUtils;
+import cn.ljuns.logcollector.util.TypeUtils;
+
+/**
+ * @Description: 项目公共组件服务的初始化操作
+ * @Author: wanghao
+ * @CreateDate: 2019-08-08 11:27
+ * @UpdateUser: wanghao
+ * @UpdateDate: 2019-08-08 11:27
+ * @UpdateRemark: 更新说明
+ */
+public class CommonComponent {
+
+    private static CommonComponent mCommonComponent;
+
+    private CommonComponent() {
+
+    }
+
+    public static CommonComponent getInstance() {
+        if (null == mCommonComponent) {
+            mCommonComponent = new CommonComponent();
+        }
+        return mCommonComponent;
+    }
+
+
+    public void init(Application context) {
+        GlobalAppComponent.init(context);
+        LogUtil.e(this.getClass().getSimpleName(),"init start");
+        MMKV.initialize(context);
+        LogUtil.e(this.getClass().getSimpleName(),"init MMKV");
+        ArouterUtil.init(context);
+        LogUtil.e(this.getClass().getSimpleName(),"init ArouterUtil");
+        if (AppConfig.isBuglyOpen) {
+            CrashReport.UserStrategy user = new CrashReport.UserStrategy(context);
+            user.setAppReportDelay(10000);
+            Bugly.init(context, ContextUtil.getString(R.string.buglyId), false,user);
+        }
+
+//        if (AppConfig.isFirebaseAnalyticsOpen) {
+//            FirebaseAnalytics.getInstance(context);
+//        }
+        String time = DateUtils.Companion.getYearLongDayMS();
+        LogNetCollector.getInstance(context)
+                .setCleanCache(false)
+                .start(time);
+        LogUtil.e(this.getClass().getSimpleName(),"init end");
+
+
+    }
+}

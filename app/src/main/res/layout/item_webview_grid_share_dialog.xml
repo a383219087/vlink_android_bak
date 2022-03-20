@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_contract_share_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_grid_share_dialog"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/tv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_224"
+            android:background="@mipmap/gridtrading_shareit" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_share_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_bg"
+            android:layout_marginTop="@dimen/dp_24"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_24">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14">
+
+
+                <TextView
+                    android:id="@+id/tv_profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/dp_12"
+                    tools:text="累计盈利(USDT)" />
+
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_profit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_32"
+                    tools:text="累计盈利" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_content_profit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_28"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_28"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_profit_price"
+                        style="@style/textStyle_text_nor_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_mix_tradeCoinPair" />
+
+                    <TextView
+                        android:id="@+id/tv_profit_price_vale"
+                        style="@style/textStyle_title_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:text="2016/01/16" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_loss_price"
+                        style="@style/textStyle_text_nor_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quant_run_time" />
+
+                    <TextView
+                        android:id="@+id/tv_loss_price_value"
+                        style="@style/textStyle_title_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:text="+5945.4532 USDT" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_profit_sum"
+                        style="@style/textStyle_text_nor_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/quant_order_pending_totalcount" />
+
+                    <TextView
+                        android:id="@+id/tv_profit_sum_value"
+                        style="@style/textStyle_title_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:gravity="right"
+                        android:text="已完成" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@+id/ll_share_content_layout"
+            android:layout_marginTop="@dimen/dp_18"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_app_name"
+                style="@style/textStyle_title_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_toRightOf="@id/iv_logo"
+                android:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/textStyle_title_10_zero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_app_name"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_toRightOf="@id/iv_logo"
+                android:text="@string/common_share_detail" />
+
+            <ImageView
+                android:id="@+id/tv_qr_code"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/dp_20" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_272"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/tv_swipe_down"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_24"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:padding="5dp"
+            android:src="@mipmap/gridtrading_left"  />
+
+        <ImageView
+            android:id="@+id/tv_swipe_next"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_32"
+            android:padding="5dp"
+            android:src="@mipmap/gridtrading_right" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_below="@id/rl_contract_share_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_44"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@color/main_blue"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:text="@string/common_share_confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_card_color"
+    android:paddingLeft="@dimen/dp_15"
+    android:paddingTop="@dimen/dp_20"
+    android:paddingRight="@dimen/dp_15"
+    android:paddingBottom="@dimen/dp_20"
+    >
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_logo"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@id/iv_logo"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        tools:text="IOTX"
+        />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toRightOf="@id/tv_name"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_10"
+        tools:text="「待开始」"
+        />
+
+    <ImageView
+        android:id="@+id/iv_label"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_16"
+        android:layout_alignBottom="@id/tv_status"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@id/tv_status"
+        />
+
+    <TextView
+        android:id="@+id/tv_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_logo"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@id/iv_logo"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_10"
+        tools:text="持币一期"
+        />
+
+    <TextView
+        android:id="@+id/tv_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        tools:text="8.88%"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_current"
+        android:layout_alignParentRight="true"
+        android:text="@string/pos_string_interestRate"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_10"
+        />
+
+    <TextView
+        android:id="@+id/tv_lockDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_logo"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/pos_string_lockDateNumber"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_12"
+        />
+
+    <TextView
+        android:id="@+id/tv_dayNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_lockDay"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_14"
+        tools:text="2"
+        />
+
+    <TextView
+        android:id="@+id/tv_lockProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_lockDay"
+        android:layout_marginTop="@dimen/dp_11"
+        android:text="@string/pos_string_lockProcess"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_12"
+        />
+
+    <TextView
+        android:id="@+id/tv_progressNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_lockProgress"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_14"
+        tools:text="90%"
+        />
+</RelativeLayout>

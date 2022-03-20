@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_card_color"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_17"
+        android:layout_marginBottom="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            tools:text="BTC/USDT" />
+
+        <TextView
+            android:id="@+id/tv_strategy_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_15"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            style="@style/textStyle_text_nor_14"
+            tools:text="@string/asset_lever_history" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_grid_profits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_grid_profit" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_annual_earnings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/grid_annualized_yield" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_position_and"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_position_profit" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_price_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_price_section" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_network_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/grid_type" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_investment_assets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_initial_quote_amount" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_grid_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_grid_amount" />
+
+    <com.yjkj.chainup.wedegit.GridTextView
+        android:id="@+id/gt_entrust_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:contentSize="14sp"
+        app:contentView=""
+        app:titleView="@string/quant_entrust_date" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_32"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_17"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/dp_13">
+
+        <TextView
+            android:id="@+id/tv_running_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/termination_network"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="end"
+            tools:text="@string/quant_run_time" />
+
+        <TextView
+            android:id="@+id/im_check_share"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_toLeftOf="@+id/tv_check_details"
+            android:drawableTop="@mipmap/gridtrading_share"
+            style="@style/textStyle_title_10_zero"
+            android:drawablePadding="@dimen/dp_6"
+            android:text="@string/contract_share_label"
+            android:visibility="gone"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_check_details"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_32"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_grid"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_6"
+            android:text="@string/quant_view_detail"
+            android:textColor="@color/main_color" />
+
+        <TextView
+            android:id="@+id/termination_network"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/tv_check_details"
+            android:background="@drawable/bg_grid"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="@dimen/dp_8"
+            android:text="@string/quant_stop_strategy"
+            android:visibility="visible"
+            android:textColor="@color/main_color" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/bg_color" />
+</LinearLayout>

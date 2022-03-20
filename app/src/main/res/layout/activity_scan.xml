@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <com.yjkj.chainup.wedegit.ViewfinderViewV2
+            android:id="@+id/viewfinder_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="45dp" />
+        <!--android:background="#000000"-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_height="45dp">
+
+            <com.yjkj.chainup.wedegit.ChainHeaderView
+                android:layout_width="match_parent"
+                app:chain_header_color_bg="@android:color/transparent"
+                app:chain_header_hide_tran="true"
+                app:chain_header_hide_line="true"
+                android:layout_height="45dp"/>
+
+            <TextView
+                android:id="@+id/btn_add_pic"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/scan_text_album"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

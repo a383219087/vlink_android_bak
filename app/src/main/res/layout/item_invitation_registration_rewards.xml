@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_registration_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_toLeftOf="@+id/ll_invitation_registration_rule_description_layout"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        tools:text="@string/rewards_invitation_register" />
+
+    <LinearLayout
+        android:id="@+id/ll_invitation_registration_rule_description_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_invitation_registration_rule_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/rules_and_regulations"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12"
+            android:visibility="visible" />
+
+        <!--右箭头-->
+        <ImageView
+            android:id="@+id/iv_arrow"
+            style="@style/right_arrow_img_style"
+            android:layout_marginLeft="@dimen/dp_5" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/view_line_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_half"
+        android:layout_below="@+id/tv_registration_title"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@color/new_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line_1"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_15"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_inviter"
+                style="@style/BorrowingReturnTitleStyle"
+                tools:text="@string/number_friends" />
+
+
+            <TextView
+                android:id="@+id/tv_inviter_number_content"
+                style="@style/BorrowingReturnContentStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:textColor="@color/main_blue"
+                tools:text="dddddddddd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_commission_ratio_reward_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_commission_ratio"
+                style="@style/BorrowingReturnTitleStyle"
+                tools:text="@string/rewards_amount" />
+
+
+            <TextView
+                android:id="@+id/tv_commission_ratio_reward"
+                style="@style/BorrowingReturnContentStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:textColor="@color/main_blue"
+                tools:text="dddddddddd" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_card_color"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            style="@style/NewVersionCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+
+        <ImageView
+            android:id="@+id/tv_cancel"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:scaleType="centerInside"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:src="@drawable/login_close"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/ll_register_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_cancel"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="26dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_title_phone"
+                style="@style/RegisterTitleSelect"
+                android:visibility="gone"
+                android:layout_below="@+id/tv_cancel"
+                android:text="@string/register_action_phone" />
+
+            <TextView
+                android:id="@+id/tv_title_email"
+                style="@style/RegisterTitleNoSelect"
+                android:visibility="gone"
+                android:layout_below="@+id/tv_cancel"
+                android:layout_marginLeft="20dp"
+                android:text="@string/register_action_mail" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_register_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <com.yjkj.chainup.new_version.view.PwdSettingView
+            style="@style/NewVersionPwdStyle"
+            android:layout_width="300dp"
+            android:layout_below="@+id/ll_register_title"
+            android:layout_marginTop="@dimen/dp_50"
+            android:visibility="gone"
+            app:hint_text=""
+            app:icon_res2="@drawable/login_unfold"
+            app:isEditable="false"
+            app:isPwdShow="false"
+            app:textContent="@string/default_area" />
+
+        <LinearLayout
+            android:id="@+id/pws_view"
+            style="@style/NewVersionPwdStyle"
+            android:layout_below="@+id/ll_register_title"
+            android:layout_marginTop="@dimen/dp_72"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_area_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_area"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="14dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/login_unfold" />
+        </LinearLayout>
+
+        <com.yjkj.chainup.new_version.view.CustomizeEditText
+            android:id="@+id/cet_view"
+            style="@style/NewVersionEditTextStyle"
+            android:layout_below="@+id/pws_view"
+            android:layout_marginTop="@dimen/dp_40"
+            android:hint="@string/register_text_phone"
+            android:textColor="@color/text_color"
+            android:textCursorDrawable="@drawable/et_cursor_color"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:id="@+id/cet_view_line"
+            style="@style/NewVersionLineStyle"
+            android:layout_below="@+id/cet_view" />
+
+        <com.yjkj.chainup.new_version.view.CommonlyUsedButton
+            android:id="@+id/cub_view"
+            style="@style/NewVersionCommonlyUsedButtonStyle"
+            android:layout_below="@+id/cet_view_line"
+            app:bgColor="@color/main_blue"
+            app:bottonTextContent="@string/common_action_next" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cub_view"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="30dp">
+
+            <TextView
+                android:id="@+id/tv_mail_or_phone_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:text="@string/register_action_mail"
+                android:textColor="@color/main_blue"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_existing_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/register_tip_exsitUser"
+                android:textColor="@color/normal_text_color" />
+
+            <TextView
+                android:id="@+id/tv_go_login"
+                style="@style/NewVersionRegisterOrLogin"
+                android:layout_toRightOf="@+id/tv_existing_account"
+                android:text="@string/login_action_login"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

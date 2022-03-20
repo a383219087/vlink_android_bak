@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_fiat_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_fiat_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_fold_currencyType"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_14" />
+
+
+        <ImageView
+            android:id="@+id/iv_change_fiat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:src="@drawable/dropdown" />
+
+        <TextView
+            android:id="@+id/tv_coin_trading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/iv_change_fiat"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp_14"
+            tools:text="222222" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/rl_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_fiat_layout"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_15"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl_buy_title_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_buy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_action_buy"
+                android:textColor="@color/green"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_13"
+                android:layout_toRightOf="@+id/tv_buy_title"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
+                tools:text="ssss" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_buy_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_buy_title"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:orientation="horizontal">
+            <!--委托数量-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_price_title"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交均价(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_price"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:gravity="center"
+                    tools:text="0.014450" />
+
+            </LinearLayout>
+
+            <!--委托价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_quantity_title"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交数量(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_quantity"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="0.014450" />
+
+            </LinearLayout>
+
+
+            <!--委托价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_amount_amount"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交金额(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_amount"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="0.014450" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_sell_title_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sell_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_action_sell"
+                android:textColor="@color/red"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tv_time_sell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_13"
+                android:layout_toRightOf="@+id/tv_sell_title"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
+                tools:text="ssss" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sell_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_sell_title"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:orientation="horizontal">
+            <!--委托数量-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_price_title_sell"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交均价(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_price_sell"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:gravity="center"
+                    tools:text="0.014450" />
+
+            </LinearLayout>
+
+            <!--委托价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_quantity_title_sell"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交数量(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_quantity_sell"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="0.014450" />
+
+            </LinearLayout>
+
+
+            <!--委托价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_amount_amount_sell"
+                    style="@style/textStyle_value_82_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="成交金额(BTC)" />
+
+                <TextView
+                    android:id="@+id/tv_clinch_deal_amount_sell"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="0.014450" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@color/line_color" />
+
+</LinearLayout>

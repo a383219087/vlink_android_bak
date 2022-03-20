@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable name="isblack" type="Boolean"/>
+    </data>
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="310dp"
+    android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:windowTranslucentStatus="true"
+        >
+
+    <LinearLayout
+        android:layout_width="310dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@{isblack? @color/bg_card_color_kline_night : @color/bg_card_color }">
+
+        <TextView
+            android:id="@+id/tv_coin_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:text="@string/trade_bb_titile"
+            android:layout_marginTop="@dimen/dp_4"
+            android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+            android:textSize="@dimen/sp_22"
+            android:textStyle="bold" />
+
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tl_market_aa"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_6"
+            android:clickable="true"
+            app:tl_indicator_color="@color/main_blue"
+            app:tl_indicator_corner_radius="@dimen/dp_4"
+            app:tl_indicator_height="@dimen/dp_2"
+            app:tl_indicator_width="@dimen/dp_16"
+            app:tl_indicator_width_equal_title="false"
+            app:tl_textBold="SELECT"
+            app:tl_textSize="@dimen/sp_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_line_height"
+            android:background="@{isblack ? @color/line_color_kline_night : @color/line_color}"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_market_aa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:alpha="0.70"
+        android:layout_weight="4.0"
+        android:id="@+id/alpha_ll"
+        android:visibility="gone"
+        android:orientation="vertical"/>
+</LinearLayout>
+</layout>

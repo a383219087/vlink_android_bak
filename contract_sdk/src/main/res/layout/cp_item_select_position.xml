@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/cp_bg_layout_pop"
+        android:orientation="vertical"
+      >
+        <TextView
+            android:id="@+id/tv_long_title"
+            style="@style/textStyle_text_nor_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="持有仓位/有挂单时不可改变保证金模式"
+            android:textColor="#FFA34F" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_linear_blue_bg"
+                android:text="全仓"
+                android:textColor="@color/main_blue"
+                android:textSize="14sp" />
+
+            <Button
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_linear_grey_bg"
+                android:text="逐仓"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_show_position_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="什么是全仓和逐仓" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_position_info"
+            style="@style/textStyle_text_nor_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。
+\n\n逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

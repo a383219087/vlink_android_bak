@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_grid_list"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:clickable="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tl_indicator_color="@color/main_blue"
+        app:tl_indicator_height="@dimen/dp_3"
+        app:tl_indicator_width="@dimen/dp_20"
+        app:tl_indicator_width_equal_title="false"
+        app:tl_textBold="SELECT"
+        app:tl_textSelectColor="@color/text_color"
+        app:tl_textUnSelectColor="@color/normal_text_color"
+        app:tl_textSize="@dimen/sp_16" />
+
+
+    <TextView
+        android:id="@+id/iv_gedui"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:padding="@dimen/dp_4"
+        android:drawablePadding="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="center_vertical"
+        style="@style/textStyle_title_12"
+        android:drawableLeft="@mipmap/gridtrading_guide"
+        android:text="@string/quant_grid_guide"
+        app:layout_constraintBottom_toBottomOf="@id/stl_grid_list"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/stl_grid_list" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

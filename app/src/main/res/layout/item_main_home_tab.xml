@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/item_tab_view_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:background="@drawable/tabbar_home_selected" />
+
+            <ImageView
+                android:id="@+id/toast"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:visibility="invisible"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_right_red" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:layout_marginTop="4dp"
+            android:text="首"
+            android:textColor="@color/selector_article_tab_text_color"
+            android:textSize="@dimen/sp_10" />
+    </LinearLayout>
+
+</LinearLayout>

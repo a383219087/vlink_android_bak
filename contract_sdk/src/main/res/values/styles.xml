@@ -1,0 +1,295 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bg_color</item>
+        <item name="colorPrimaryDark">@color/bg_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="NoBackGroundDialog" parent="@android:style/Theme.Dialog">
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="leftin_rightout_DialogFg_animstyle_buff" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/cp_slide_left_in</item>
+        <item name="android:windowExitAnimation">@anim/cp_slide_left_out</item>
+    </style>
+    <!--左上角返回箭头样式-->
+    <style name="left_back_img_style">
+        <item name="android:layout_width">@dimen/page_head_height</item>
+        <item name="android:layout_height">@dimen/page_head_height</item>
+        <item name="android:src">@drawable/cp_ic_return</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+    <style name="common_horizon_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_line_height</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+    <!--右箭头样式-->
+    <style name="right_arrow_img_style">
+        <item name="android:layout_width">7dp</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@drawable/cp_enter</item>
+    </style>
+    <style name="leftin_rightout_DialogFg_animstyle" parent="android:Animation">
+        <!--<item name="android:windowEnterAnimation">@android:anim/translucent_exit</item>
+        <item name="android:windowExitAnimation">@android:anim/translucent_enter</item>-->
+        <item name="android:windowEnterAnimation">@anim/cp_slide_right_out</item>
+        <item name="android:windowExitAnimation">@anim/cp_slide_left_in_v2</item>
+    </style>
+    <style name="ToolbarType_riches">
+        <item name="tl_textSelectColor">@color/main_blue</item>
+        <item name="tl_textUnSelectColor">@color/normal_text_color</item>
+        <item name="tl_indicator_color">@color/main_color</item>
+        <item name="tl_textSize">@dimen/sp_16</item>
+        <item name="tl_textBold">SELECT</item>
+        <item name="tl_indicator_corner_radius">@dimen/dp_1_5</item>
+        <item name="tl_indicator_style">NORMAL</item>
+        <item name="tl_indicator_height">@dimen/dp_2</item>
+        <item name="tl_indicator_width">26dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="tl_iconVisible">false</item>
+        <item name="tl_tab_space_equal">false</item>
+    </style>
+    <style name="ToolbarType_bar_home_tab" parent="@style/ToolbarType_riches">
+        <item name="android:paddingTop">0dp</item>
+        <item name="tl_indicator_color">@color/transparent</item>
+        <item name="tl_tab_padding">@dimen/dp_18</item>
+        <item name="tl_textSelectColor">@color/main_blue</item>
+        <item name="tl_textBold">BOTH</item>
+    </style>
+
+    <style name="textStyle_title_bold">
+        <item name="android:fontFamily">@font/dinpro_medium</item>
+    </style>
+
+    <style name="textStyle_title_14" parent="textStyle_title_bold">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dp_2</item>
+    </style>
+
+    <style name="textStyle_value_82_12" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:layout_marginTop">@dimen/dp_half</item>
+    </style>
+
+    <style name="textStyle_value_82_10" parent="textStyle_value_82_12">
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="textStyle_select_14">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textStyle_title_14_zero" parent="textStyle_title_14">
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_title_10_zero" parent="textStyle_title_14_zero">
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="textStyle_title_16" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_title_20" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_title_18" parent="textStyle_title_20">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="TopDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/dialogTopAnim</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 背景有灰度 -->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+    </style>
+
+    <style name="dialogTopAnim">
+        <item name="android:windowEnterAnimation">@anim/top_dialog_appear</item>
+        <item name="android:windowExitAnimation">@anim/top_dialog_disappear</item>
+    </style>
+
+    <style name="dialogBottomAnim">
+        <item name="android:windowEnterAnimation">@anim/cp_slide_down_in</item>
+        <item name="android:windowExitAnimation">@anim/cp_slide_down_out</item>
+    </style>
+
+    <style name="textStyle_value_c5_12" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/edit_hint_color</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_title_12" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_nor_title_12" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/trade_coin_select_nor</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+    <style name="textStyle_value_hint_12" parent="textStyle_value_c5_12">
+        <item name="android:textColor">@color/hint_color</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+
+    <style name="textStyle_tips_14" parent="textStyle_select_14">
+        <item name="android:textColor">@color/btn_normal_text_color</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+    <style name="textStyle_high_14" parent="textStyle_select_14">
+        <item name="android:textColor">@color/main_blue</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_while_14" parent="textStyle_title_14">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+    </style>
+
+    <style name="textStyle_green_28" parent="textStyle_title_20">
+        <item name="android:textSize">@dimen/sp_28</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+        <item name="android:textColor">@color/main_green</item>
+    </style>
+
+    <style name="textStyle_green_16" parent="textStyle_green_28">
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="textStyle_green_11" parent="textStyle_green_28">
+        <item name="android:textSize">@dimen/sp_11</item>
+    </style>
+    <style name="textStyle_green_20" parent="textStyle_green_28">
+        <item name="android:textSize">@dimen/sp_20</item>
+    </style>
+
+    <style name="textStyle_tips_12" parent="textStyle_value_c5_12">
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+    <style name="textStyle_tips_bold_14" parent="textStyle_value_c5_12">
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/dinpro_bold</item>
+    </style>
+
+    <style name="textStyle_nor_12" parent="textStyle_title_14">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_marginTop">@dimen/dp_zero</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+    <style name="textStyle_text_nor_12" parent="textStyle_nor_12">
+        <item name="android:textColor">@color/normal_text_color</item>
+    </style>
+
+    <style name="textStyle_text_nor_10" parent="textStyle_nor_12">
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="textStyle_text_nor_bold_12" parent="textStyle_nor_12">
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:fontFamily">@font/dinpro_medium</item>
+    </style>
+
+    <style name="textStyle_value_tag_10" parent="textStyle_value_c5_12">
+        <item name="android:textColor">@color/tag_content_color</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:fontFamily">@font/dinpro_regular</item>
+    </style>
+
+    <style name="common_horizon_line_style_left_16" parent="common_horizon_line_style">
+        <item name="android:layout_marginLeft">@dimen/dp_16</item>
+    </style>
+
+    <style name="trade_tips_style_15" >
+        <item name="android:layout_marginLeft">@dimen/dp_15</item>
+        <item name="android:layout_marginRight">@dimen/dp_15</item>
+        <item name="android:layout_marginTop">@dimen/dp_15</item>
+        <item name="android:paddingLeft">@dimen/dp_12</item>
+        <item name="android:paddingRight">@dimen/dp_12</item>
+        <item name="android:paddingTop">@dimen/dp_12</item>
+        <item name="android:paddingBottom">@dimen/dp_12</item>
+        <item name="android:background">@drawable/bg_tag_bead</item>
+    </style>
+
+    <style name="item_adjust_margin_dialog_title_check" >
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="item_adjust_margin_dialog_title_no_check" >
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+    <style name="DialogFullScreen" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <attr name="corner_radius" format="dimension" />
+
+    <declare-styleable name="GeneralRoundLinearLayout">
+        <attr name="corner_radius" />
+    </declare-styleable>
+    <declare-styleable name="GeneralRoundRelativeLayout">
+        <attr name="corner_radius" />
+    </declare-styleable>
+    <declare-styleable name="GeneralRoundFrameLayout">
+        <attr name="corner_radius" />
+    </declare-styleable>
+    <declare-styleable name="GeneralRoundConstraintLayout">
+        <attr name="corner_radius" />
+    </declare-styleable>
+    <style name="moreBoxAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/cp_more_box_out</item>
+        <item name="android:windowExitAnimation">@anim/cp_more_box_in</item>
+    </style>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_card_color"
+    tools:context=".ui.fragment.CpCapitalRateFragment">
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/cp_contract_data_text5"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/text_color"
+        android:textSize="20sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/cp_contract_data_text20"
+            android:textSize="10sp"
+            android:textColor="@color/normal_text_color"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/cp_overview_text26"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            android:textColor="@color/normal_text_color"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="500dp"
+        tools:itemCount="20"
+        tools:listitem="@layout/cp_item_contract_capital_rate" />
+
+</LinearLayout>

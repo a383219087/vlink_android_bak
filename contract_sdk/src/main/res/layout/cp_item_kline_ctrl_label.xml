@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <com.chainup.contract.view.CpLabelTextView
+        android:id="@+id/tv_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal|bottom"
+        android:paddingLeft="@dimen/dp_2"
+        android:paddingRight="@dimen/dp_2"
+        android:paddingBottom="-5dp"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_12"
+        app:label_backgroundColor="@color/normal_icon_color"
+        app:label_distance="0dp"
+        app:label_height="@dimen/dp_4"
+        app:label_orientation="RIGHT_BOTTOM"
+        app:label_text=""
+        app:label_textSize="@dimen/sp_12"
+        app:label_textStyle="NORMAL"
+        tools:text="30" />
+     <ImageView
+         android:id="@+id/tv_line"
+         android:layout_width="20dp"
+         android:visibility="gone"
+         android:layout_centerHorizontal="true"
+         android:layout_alignParentBottom="true"
+         android:background="@color/main_blue"
+         android:layout_height="2dp"/>
+</RelativeLayout>

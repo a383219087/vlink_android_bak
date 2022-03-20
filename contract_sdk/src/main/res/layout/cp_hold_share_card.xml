@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="486dp"
+    android:background="@drawable/cp_bg_contract_share_dialog"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_share_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:scaleType="centerCrop"
+            android:src="@drawable/contract_bigloss" />
+        <TextView
+            android:id="@+id/tv_share_time"
+            android:layout_width="wrap_content"
+            android:text="03/16 12:00:37"
+            android:textSize="10sp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/cp_bg_contract_share_time"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:text="--"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        tools:text="小赚一笔！" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_earned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4px"
+            android:text="+0.00%"
+            style="@style/textStyle_title_14"
+            android:textColor="@color/main_green"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/sl_str_profit_rate_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/cp_stoporder_text3"
+            android:textColor="@color/normal_text_color"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_earned"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <LinearLayout
+            android:gravity="center|left"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_contract_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BTC-USDT"
+                android:textColor="@color/text_color"
+                style="@style/textStyle_title_14"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:background="@drawable/cp_border_green_fill"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="2dp"
+                android:layout_marginTop="3dp"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="2dp"
+                android:drawableRight="@drawable/contract_domorethan"
+                android:drawablePadding="3dp"
+                android:text="@string/cp_calculator_text22"
+                android:textColor="@color/main_green"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_latest_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cp_order_text31"
+                android:textColor="@color/normal_text_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_latest_price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="--"
+                android:textColor="@color/text_color"
+                android:textSize="14sp"
+                style="@style/textStyle_title_14"
+                tools:text="5249.00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_open_price_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cp_order_text30"
+                android:textColor="@color/normal_text_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_open_price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="--"
+                android:textColor="@color/text_color"
+                android:textSize="14sp"
+                style="@style/textStyle_title_14"
+                tools:text="5230.00" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--底部二维码-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_color" />
+
+        <ImageView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15">
+
+            <ImageView
+                android:id="@+id/iv_app_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/iv_app_icon"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_app_icon"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_down_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_app_icon"
+                    android:text="@string/cp_stoporder_text4"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_app_icon"
+                android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
+                android:background="@drawable/cp_bg_share_scan_code"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tv_scan_down_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cp_stoporder_text5"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/cp_contract_share_arrow" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+

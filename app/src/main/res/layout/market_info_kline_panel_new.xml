@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="isblack" type="Boolean"/>
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/id_kline_index_setting_bg_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/kline_tools_bg" />
+        <!--主图 指标-->
+        <LinearLayout
+            android:id="@+id/id_kline_index_setting_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{isblack ? @color/bg_card_color_kline_night:@color/bg_card_color}"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_half"
+                android:background="@{isblack ? @color/panel_line_color_kline_night:@color/panel_line_color}" />
+
+            <RelativeLayout
+                android:id="@+id/rg_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_14">
+
+                <TextView
+                    android:id="@+id/tv_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:gravity="center"
+                    android:text="@string/kline_action_main"
+                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_ma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_toRightOf="@id/tv_main"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="MA"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_boll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@id/rb_ma"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="BOLL"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+            </RelativeLayout>
+
+            <!--副图 指标-->
+            <RelativeLayout
+                android:id="@+id/rl_vice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_18">
+
+                <TextView
+                    android:id="@+id/tv_vice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:gravity="center"
+                    android:text="@string/kline_action_assistant"
+                    android:textColor="@{isblack ? @color/text_color_kline_night : @color/text_color }"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold" />
+
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_macd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_toRightOf="@+id/tv_vice"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="MACD"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_kdj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@+id/rb_macd"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="KDJ"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_rsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@+id/rb_kdj"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="RSI"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_wr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@+id/rb_rsi"
+                    android:background="@{isblack ? @drawable/bg_kline_options_night : @drawable/bg_kline_options }"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
+                    android:text="WR"
+                    android:textColor="@{isblack?@color/color_options_text_night : @color/color_options_text }"
+                    android:textSize="@dimen/sp_12" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
+

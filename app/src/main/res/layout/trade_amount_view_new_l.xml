@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--选择订单类型-->
+
+    <com.yjkj.chainup.new_version.view.depth.btn.PriceTypeButton
+        android:id="@+id/tv_order_type"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="true" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--下单-->
+        <com.yjkj.chainup.new_version.view.depth.TradeView
+            android:id="@+id/trade_amount_view_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/dp_7" />
+
+        <com.yjkj.chainup.new_version.view.depth.TradeView
+            android:id="@+id/trade_amount_view_sell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dp_7" />
+
+    </LinearLayout>
+    <!--下单-->
+    <com.yjkj.chainup.new_version.view.CommonlyUsedButton
+        android:id="@+id/cbtn_l_create_order_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_12"
+        app:bottonTextContent="@string/login_action_login" />
+
+
+</LinearLayout>

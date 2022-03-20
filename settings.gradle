@@ -1,0 +1,2 @@
+include ':contract_sdk'
+include ':app', ':logcollector',':ws_library',':model_library' ,':talkingdata_library'

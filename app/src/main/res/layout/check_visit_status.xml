@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/check_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/top_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_5"
+            app:cardBackgroundColor="@color/default_unselected_color"
+            app:cardCornerRadius="@dimen/dp_8"
+            app:cardElevation="@dimen/dp_3">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/check_visit_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@drawable/check_visit_status_bg">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:src="@mipmap/check_visit_status_img2" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/check_visit_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="@string/customSetting_limitAccess_title"
+                    android:textColor="#1F3F59"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/check_visit_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_20"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="尊敬的用户您好，为了积极配合该区域相关法律要求，本站暂停为如下区域进行服务：，给您带来了不便敬请谅解！"
+                    android:textColor="#828EA1"
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_ll" />
+
+    <ImageView
+        android:id="@+id/check_visit_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:src="@mipmap/check_visit_status_img1"
+        app:layout_constraintBottom_toBottomOf="@+id/top_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_agent_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        tools:text="黄金合约经纪人" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_contract_agent_rule_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_contract_agent_rule_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="规则说明"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12"
+            android:visibility="visible" />
+
+        <!--右箭头-->
+        <ImageView
+            android:id="@+id/iv_arrow"
+            style="@style/right_arrow_img_style"
+            android:layout_marginLeft="@dimen/dp_5" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/view_line_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_half"
+        android:layout_below="@+id/tv_agent_title"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@color/new_line" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line_1"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_15"
+        android:orientation="horizontal">
+
+
+        <com.yjkj.chainup.new_version.view.TwoLayersTextView
+            android:id="@+id/tl_agent_return_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:contentView=""
+            app:showGravity="LEFT"
+            app:titleView="@string/coAgent_text_return" />
+
+        <com.yjkj.chainup.new_version.view.TwoLayersTextView
+            android:id="@+id/tl_agent_child_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:contentView=""
+            app:showGravity="CENTER"
+            app:titleView="@string/coAgent_text_level2return" />
+
+        <com.yjkj.chainup.new_version.view.TwoLayersTextView
+            android:id="@+id/tl_agent_childReturn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            app:contentView=""
+            app:showGravity="RIGHT"
+            app:titleView="@string/coAgent_text_childReturn" />
+
+    </LinearLayout>
+
+    <com.yjkj.chainup.new_version.view.TwoLayersTextView
+        android:id="@+id/tl_agent_childTotal_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_scale"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        app:contentView=""
+        app:showGravity="LEFT"
+        app:titleView="@string/coAgent_text_childTotal" />
+
+
+    <com.yjkj.chainup.new_version.view.TwoLayersTextView
+        android:id="@+id/tl_agent_childTotalUSDT_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_scale"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        app:contentView=""
+        app:showGravity="RIGHT"
+        app:titleView="@string/coAgent_text_childTotalUSDT" />
+
+    <com.yjkj.chainup.new_version.view.TwoLayersTextView
+        android:id="@+id/tl_agent_yesterdayReturn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tl_agent_childTotal_layout"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        app:contentView=""
+        app:showGravity="LEFT"
+        app:titleView="@string/coAgent_text_yesterdayReturn" />
+
+    <com.yjkj.chainup.new_version.view.TwoLayersTextView
+        android:id="@+id/tl_agent_byesterdayReturn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tl_agent_childTotal_layout"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        app:contentView=""
+        app:showGravity="RIGHT"
+        app:titleView="@string/coAgent_text_byesterdayReturn" />
+
+
+</RelativeLayout>

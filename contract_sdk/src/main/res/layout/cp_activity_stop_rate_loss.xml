@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_card_color"
+    android:orientation="vertical">
+    <com.chainup.contract.view.CpSlTitleBarLayout
+        android:id="@+id/title_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_105"
+        app:elevation="0dp"
+        app:slTitle="" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:scaleType="centerInside"
+            android:src="@drawable/cp_ic_return"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:text="@string/cp_overview_text12"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/tv_stop_loss_tip"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:scaleType="centerInside"
+            android:src="@drawable/cp_contract_instructions"/>
+
+    </RelativeLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_card_color"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="15dp"
+            android:paddingRight="@dimen/dp_16">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:text="卖"
+                    android:textSize="@dimen/sp_16"
+                    tools:textColor="@color/main_red" />
+
+                <TextView
+                    android:id="@+id/tv_contract_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BTC/USDT"
+                    style="@style/textStyle_value_82_10"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_contract_name_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/tv_contract_name"
+                    android:background="@drawable/cp_tag_order_bg"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="@color/main_blue"
+                    android:textSize="10sp"
+                    tools:text="全仓20X" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="18dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_open_price_key"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_order_text30"
+                        android:textColor="@color/tab_nor_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_open_price_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+
+android:layout_marginTop="@dimen/dp_4"                        style="@style/textStyle_text_nor_12"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        tools:text="19872" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_position_key"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_extra_text90"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_position_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="-10 / 10" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_order_text31"
+                        android:textColor="@color/tab_nor_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mark_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:layout_marginTop="@dimen/dp_4"
+                        style="@style/textStyle_text_nor_12"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        tools:text="10000" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_calculator_text33"
+                        android:textColor="@color/tab_nor_text_color"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_force_close_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:layout_marginTop="@dimen/dp_4"
+                        style="@style/textStyle_text_nor_12"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        tools:text="10000" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/ll_tab_layout_stop_profit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cb_tab_stop_profit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/cp_trade_check_selector"
+                            android:clickable="false"
+                            android:enabled="false" />
+
+                        <TextView
+                            android:id="@+id/tv_tab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/cb_not_remind"
+                            android:text="@string/cp_stoporder_text1"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_tab_layout_stop_loss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/ll_tab_layout_stop_profit"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cb_tab_stop_loss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/cp_trade_check_selector"
+                            android:clickable="false"
+                            android:enabled="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/cb_not_remind"
+                            android:text="@string/cp_stoporder_text2"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_order_type"
+                        android:layout_width="130dp"
+                        android:layout_centerVertical="true"
+                        android:gravity="center|right"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_order_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|right"
+                            android:text="@string/cp_overview_text53"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="6dp"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/sp_12" />
+                        <ImageView
+                            android:id="@+id/img_order_type"
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/cp_contract_dropdown"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <com.chainup.contract.view.CpUISegmentedView
+                        android:id="@+id/sv_trade"
+                        android:visibility="gone"
+                        android:layout_width="150dp"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        app:equalWidth="true"
+                        app:defaultSelection="0"
+                        app:items="@array/array_loss"
+                        app:selectedColor="@color/default_segmented_selected_color"
+                        app:selectedTextColor="@color/default_selected_text_color"
+                        app:stretch="true"
+                        app:unselectedColor="@color/default_segmented_unselected_color"
+                        app:unselectedTextColor="@color/default_unselected_text_color" />
+
+                    <Button
+                        android:id="@+id/btn_cancel_stop_profit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/cp_bg_trade_et_focused"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/sp_14"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/ll_stop_profit"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <!--触发价格-->
+                <LinearLayout
+                    android:id="@+id/ll_trigger_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/cp_bg_trade_et_unfocused"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/cp_overview_text15"
+                        android:paddingLeft="12dp"
+                        android:textColor="@color/normal_text_color"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:id="@+id/et_stop_profit_trigger_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/cp_content_text31"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color"
+                        android:textCursorDrawable="@drawable/cp_et_cursor_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_stop_profit_trigger_coin_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="@dimen/dp_10"
+                        style="@style/textStyle_text_nor_12"
+                        android:textColor="@color/normal_text_color"
+                        tools:text="USDT" />
+
+
+                </LinearLayout>
+                <!--执行价格-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_stop_profit_price"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_weight="1"
+                        android:background="@drawable/cp_bg_trade_et_unfocused"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/cp_order_text36"
+                            android:paddingLeft="12dp"
+                            android:textColor="@color/normal_text_color"
+                            android:layout_height="wrap_content"/>
+
+                        <EditText
+                            android:id="@+id/et_stop_profit_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/cp_content_text31"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:singleLine="true"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/hint_color"
+                            android:textCursorDrawable="@drawable/cp_et_cursor_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_market_price_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:text="@string/cp_extra_text57"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="@dimen/sp_14"
+                            android:visibility="gone" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_stop_profit_coin_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:paddingRight="10dp"
+                            android:text="USDT"
+                            style="@style/textStyle_text_nor_12"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_stop_profit_price_hint"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0"
+                        android:background="@color/bg_color"
+                        android:gravity="center"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="@string/cp_overview_text53"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/sp_14"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_estimate_stop_profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_red"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    android:textSize="12sp"
+                    tools:text="预计亏损：-1000 USDT"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_stop_loss"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+
+                <!--触发价格-->
+                <LinearLayout
+                    android:id="@+id/ll_stop_loss_trigger_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@drawable/cp_bg_trade_et_unfocused"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/cp_overview_text16"
+                        android:paddingLeft="12dp"
+                        android:textColor="@color/normal_text_color"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/et_stop_loss_trigger_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/cp_content_text31"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color"
+                        android:textCursorDrawable="@drawable/cp_et_cursor_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_stop_loss_trigger_coin_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="@dimen/dp_10"
+                        style="@style/textStyle_text_nor_12"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="USDT" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_stop_loss_price"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/cp_bg_trade_et_unfocused"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="@string/cp_order_text37"
+                            android:paddingLeft="12dp"
+                            android:textColor="@color/normal_text_color"
+                            android:layout_height="wrap_content"/>
+
+                        <EditText
+                            android:id="@+id/et_stop_loss_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/cp_content_text31"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:singleLine="true"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/hint_color"
+                            android:textCursorDrawable="@drawable/cp_et_cursor_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_market_loss_price_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:text="@string/cp_extra_text57"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="@dimen/sp_14"
+                            android:visibility="gone"
+                            tools:visibility="gone" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_stop_loss_coin_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:paddingRight="10dp"
+                            android:text="USDT"
+                            style="@style/textStyle_text_nor_12"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_stop_loss_price_hint"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0"
+                        android:background="@color/bg_color"
+                        android:gravity="center"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="@string/cp_overview_text53"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/sp_14"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/main_red"
+                    android:id="@+id/tv_estimate_loss_profit"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="预计亏损：-1000 USDT"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_volume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@drawable/cp_bg_trade_et_unfocused"
+                    android:orientation="vertical">
+
+
+                    <!--交易量-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_stop_profit_position"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.65"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/cp_overview_text8"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:singleLine="true"
+                            android:textSize="@dimen/sp_14"
+                            android:textColorHint="@color/hint_color"
+                            android:textCursorDrawable="@drawable/cp_et_cursor_color" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_stop_profit_volume_unit"
+                            style="@style/textStyle_text_nor_12"
+                            android:textColor="@color/normal_text_color"
+                            android:textSize="@dimen/sp_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|right"
+                            android:paddingRight="@dimen/dp_10"
+                            tools:text="BTC" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_half"
+                        android:layout_marginLeft="@dimen/dp_half"
+                        android:layout_marginRight="@dimen/dp_half"
+                        android:background="@color/tabbar_divide_color" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_trade"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_30"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_1st"
+                            style="@style/textStyle_text_nor_bold_12"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/cp_percent_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="10%"
+                            android:textColor="@color/cp_percent_btn_text"/>
+
+                        <View
+                            android:layout_width="@dimen/dp_half"
+                            android:layout_height="match_parent"
+                            android:background="@color/tabbar_divide_color" />
+
+                        <RadioButton
+                            android:id="@+id/rb_2nd"
+                            style="@style/textStyle_text_nor_bold_12"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/cp_percent_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="20%"
+                            android:textColor="@color/cp_percent_btn_text"/>
+
+                        <View
+                            android:layout_width="@dimen/dp_half"
+                            android:layout_height="match_parent"
+                            android:background="@color/tabbar_divide_color" />
+
+                        <RadioButton
+                            android:id="@+id/rb_3rd"
+                            style="@style/textStyle_text_nor_bold_12"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/cp_percent_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="50%"
+                            android:textColor="@color/cp_percent_btn_text" />
+
+                        <View
+                            android:layout_width="@dimen/dp_half"
+                            android:layout_height="match_parent"
+                            android:background="@color/tabbar_divide_color" />
+
+                        <RadioButton
+                            android:id="@+id/rb_4th"
+                            style="@style/textStyle_text_nor_bold_12"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/cp_percent_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:text="100%"
+                            android:textColor="@color/cp_percent_btn_text"/>
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <com.chainup.contract.view.CpUISegmentedView
+                    android:id="@+id/cp_loss_trade"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_36"
+                    app:equalWidth="true"
+                    app:defaultSelection="3"
+                    app:items="@array/array_items"
+                    app:selectedColor="@color/default_segmented_selected_color"
+                    app:selectedTextColor="@color/default_selected_text_color"
+                    app:stretch="true"
+                    app:unselectedColor="@color/default_segmented_unselected_color"
+                    app:unselectedTextColor="@color/default_unselected_text_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_order_text35"
+                        android:textColor="@color/normal_text_color"
+                        android:layout_marginTop="4dp"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_can_close_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.201 BTC"
+                        android:layout_marginLeft="5dp"
+                        style="@style/textStyle_nor_12"
+                        android:textColor="@color/normal_text_color"
+                        android:layout_marginTop="4dp"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+
+                    <Button
+                        android:id="@+id/btn_cancel_stop_loss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/cp_bg_trade_et_focused"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+                <!--委托数量 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_36"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dp_26"
+                    android:background="@drawable/cp_bg_trade_et_unfocused"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_stop_loss_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/cp_order_text66"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/hint_color"
+                        android:textCursorDrawable="@drawable/cp_et_cursor_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_stop_loss_volume_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|right"
+                        android:maxLines="1"
+                        android:paddingRight="@dimen/dp_10"
+                        android:singleLine="true"
+                        android:text="@string/cp_overview_text9"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/sp_12" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <com.chainup.contract.view.CpCommonlyUsedButton
+                android:id="@+id/tv_confirm_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:textColor="@color/white"
+                app:bottonTextContent="@string/cp_calculator_text16"
+                app:bgColor="@color/main_blue"
+                />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

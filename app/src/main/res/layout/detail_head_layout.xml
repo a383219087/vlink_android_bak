@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="123dp"
+    android:padding="@dimen/dp_15">
+
+    <ImageView
+        android:id="@+id/iv_return"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/dp_3"
+        android:src="@drawable/ic_return" />
+
+    <ImageView
+        android:id="@+id/iv_message"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/personal_mail" />
+
+    <TextView
+        android:id="@+id/tv_PoS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_toLeftOf="@id/iv_message"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_14"
+        tools:text="PoS记录" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_below="@id/iv_return"
+        android:layout_marginTop="@dimen/dp_20" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_toRightOf="@id/iv_logo"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_23"
+        android:textStyle="bold"
+        tools:text="IOTX" />
+
+    <TextView
+        android:text="@string/pos_string_detail"
+        android:drawablePadding="@dimen/dp_5"
+        android:id="@+id/tv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:drawableRight="@drawable/enter"
+        android:textColor="@color/normal_text_color"
+        android:textSize="@dimen/sp_12"
+        tools:text="查看公告" />
+</RelativeLayout>

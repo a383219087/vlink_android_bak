@@ -1,0 +1,1101 @@
+Battery History (0% used, 1724 used of 1024KB, 114 strings using 8952):
+                    0 (10) RESET:TIME: 2019-06-17-19-25-06
+                    0 (2) 100 status=discharging health=good plug=none temp=350 volt=4378 charge=0 +running +wake_lock +wifi_radio +screen phone_signal_strength=excellent +wifi_running +wifi wifi_signal_strength=4 wifi_suppl=completed proc=1000:"com.qualcomm.qti.services.secureui:sui_service"
+                    0 (2) 100 proc=u0a206:"com.tencent.mm:push"
+                    0 (2) 100 proc=u0a1:"android.process.acore"
+                    0 (2) 100 proc=u0a754:"com.baidu.searchbox.lite"
+                    0 (2) 100 proc=1000:"com.qualcomm.qti.modemtestmode"
+                    0 (2) 100 proc=1000:"WebViewLoader-arm64-v8a"
+                    0 (2) 100 proc=u0a45:"com.miui.analytics"
+                    0 (2) 100 proc=u0a20:"com.miui.home"
+                    0 (2) 100 proc=u0a2:"com.lbe.security.miui"
+                    0 (2) 100 proc=u0a79:"com.xiaomi.market"
+                    0 (2) 100 proc=u0a33:"com.xiaomi.micloud.sdk"
+                    0 (2) 100 proc=u0a64:"com.miui.hybrid:entrance"
+                    0 (2) 100 proc=u0a10:"com.android.documentsui"
+                    0 (2) 100 proc=1001:"com.miui.vsimcore"
+                    0 (2) 100 proc=1000:"com.miui.whetstone"
+                    0 (2) 100 proc=1000:"com.miui.powerkeeper"
+                    0 (2) 100 proc=u0a27:"com.miui.audioeffect"
+                    0 (2) 100 proc=1000:"com.android.settings"
+                    0 (2) 100 proc=1000:"com.miui.wmsvc"
+                    0 (2) 100 proc=u0a106:"com.miui.core"
+                    0 (2) 100 proc=u0a70:"com.xiaomi.metoknlp"
+                    0 (2) 100 proc=1000:"org.simalliance.openmobileapi.service"
+                    0 (2) 100 proc=u0a111:"com.qualcomm.qti.gsma.services.nfc:remote"
+                    0 (2) 100 proc=1000:"org.simalliance.openmobileapi.service:remote"
+                    0 (2) 100 proc=u0a29:"com.svox.pico"
+                    0 (2) 100 proc=1000:"com.qualcomm.qti.smcinvokepkgmgr"
+                    0 (2) 100 proc=9801:"com.android.thememanager"
+                    0 (2) 100 proc=u0a139:"com.baidu.input_mi"
+                    0 (2) 100 proc=u0a872:"com.chainup.exchange.bikicoin"
+                    0 (2) 100 proc=u0a239:"com.tencent.mobileqq:MSF"
+                    0 (2) 100 proc=u0a74:"com.miui.cloudservice"
+                    0 (2) 100 proc=u0a88:"com.miui.systemAdSolution"
+                    0 (2) 100 proc=9810:"com.xiaomi.finddevice"
+                    0 (2) 100 proc=1000:"com.android.keychain"
+                    0 (2) 100 proc=u0a63:"com.miui.guardprovider"
+                    0 (2) 100 proc=1000:"com.miui.contentcatcher"
+                    0 (2) 100 proc=1000:"com.goodix.fingerprint"
+                    0 (2) 100 proc=1001:"com.qualcomm.qcrilmsgtunnel"
+                    0 (2) 100 proc=u0a239:"com.tencent.mobileqq"
+                    0 (2) 100 proc=u0a88:"com.miui.systemAdSolution:ui"
+                    0 (2) 100 proc=u0a80:"com.android.printspooler"
+                    0 (2) 100 proc=u0a99:"com.miui.virtualsim:authentication"
+                    0 (2) 100 proc=u0a39:"com.android.statementservice"
+                    0 (2) 100 proc=u0a95:"com.android.smspush"
+                    0 (2) 100 proc=u0a206:"com.tencent.mm"
+                    0 (2) 100 proc=u0a14:"android.ext.services"
+                    0 (2) 100 proc=u0a46:"com.xiaomi.providers.appindex"
+                    0 (2) 100 proc=u0a86:"com.qualcomm.qti.StatsPollManager"
+                    0 (2) 100 proc=1000:"com.miui.securitycenter"
+                    0 (2) 100 proc=u0a25:"com.miui.video"
+                    0 (2) 100 proc=u0a101:"com.xiaomi.account"
+                    0 (2) 100 proc=u0a102:"com.xiaomi.simactivate.service"
+                    0 (2) 100 proc=u0a120:"com.miui.weather2"
+                    0 (2) 100 proc=1000:"com.miui.securitycenter.remote"
+                    0 (2) 100 proc=u0a98:"com.xiaomi.xmsf"
+                    0 (2) 100 proc=u0a9:"com.android.defcontainer"
+                    0 (2) 100 proc=1000:"com.miui.daemon"
+                    0 (2) 100 proc=u0a74:"com.miui.micloudsync"
+                    0 (2) 100 proc=u0a12:"android.process.media"
+                    0 (2) 100 proc=1000:".dataservices"
+                    0 (2) 100 proc=1000:"com.android.systemui"
+                    0 (2) 100 proc=1027:"com.android.nfc"
+                    0 (2) 100 proc=1001:"com.android.phone"
+                    0 (2) 100 proc=9802:"com.android.updater"
+                    0 (2) 100 proc=1000:"com.android.settings:remote"
+                    0 (2) 100 proc=u0a506:"com.eg.android.AlipayGphone:push"
+                    0 (2) 100 proc=u0a26:"com.android.mms"
+                    0 (2) 100 proc=u0a22:"com.android.browser"
+                    0 (2) 100 top=u0a872:"com.chainup.exchange.bikicoin"
+                    0 (2) 100 wake_lock_in=-1:"screen"
+                    0 (2) 100 user=0:"0"
+                    0 (2) 100 userfg=0:"0"
+                +23ms (2) 100 +wake_lock_in=1000:"*vibrator*"
+                +72ms (2) 100 -wake_lock_in=1000:"*vibrator*"
+               +958ms (2) 100 +wake_lock_in=1000:"StatusBar"
+             +2s961ms (2) 100 -wake_lock_in=1000:"StatusBar"
+             +6s751ms (2) 100 +wake_lock_in=u0a872:"*launch*"
+             +8s075ms (2) 100 +wake_lock_in=1000:"NetworkStats"
+             +8s159ms (2) 100 -wake_lock_in=1000:"NetworkStats"
+            +15s833ms (2) 100 +alarm=u0a206:"*walarm*:ALARM_ACTION(5887)"
+            +15s837ms (2) 100 +wake_lock_in=u0a206:"PlatformComm"
+            +15s855ms (2) 100 +wake_lock_in=u0a206:"*walarm*:ALARM_ACTION(5887)"
+            +15s860ms (2) 100 -wake_lock_in=u0a206:"PlatformComm"
+            +15s861ms (2) 100 +wake_lock_in=u0a206:"PlatformComm"
+            +15s863ms (2) 100 +wake_lock_in=u0a206:"MicroMsg.Alarm"
+            +15s864ms (2) 100 -alarm=u0a206:"*walarm*:ALARM_ACTION(5887)"
+            +15s864ms (2) 100 -wake_lock_in=u0a206:"*walarm*:ALARM_ACTION(5887)"
+            +15s935ms (2) 100 -wake_lock_in=u0a206:"PlatformComm"
+            +15s935ms (2) 100 +wake_lock_in=u0a206:"PlatformComm"
+            +16s065ms (2) 100 -wake_lock_in=u0a206:"MicroMsg.Alarm"
+            +16s437ms (2) 100 -wake_lock_in=u0a206:"PlatformComm"
+            +16s751ms (2) 100 -wake_lock_in=u0a872:"*launch*"
+            +17s754ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +19s756ms (2) 100 -wake_lock_in=1000:"StatusBar"
+            +22s672ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +24s685ms (2) 100 -wake_lock_in=1000:"StatusBar"
+            +24s871ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +26s873ms (2) 100 -wake_lock_in=1000:"StatusBar"
+            +26s952ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +28s954ms (2) 100 -wake_lock_in=1000:"StatusBar"
+            +29s454ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +31s272ms (2) 100 +wake_lock_in=u0a872:"*launch*"
+            +31s456ms (2) 100 -wake_lock_in=1000:"StatusBar"
+            +41s284ms (2) 100 -wake_lock_in=u0a872:"*launch*"
+            +44s849ms (2) 100 +wake_lock_in=u0a872:"*launch*"
+            +49s845ms (3) 100 status=not-charging volt=4236
+            +50s346ms (3) 100 status=charging +wake_lock_in=1001:"RILJ"
+            +50s579ms (2) 100 -wake_lock_in=1001:"RILJ"
+            +50s579ms (2) 100 stats=0:"battery-state"
+            +50s593ms (3) 100 plug=usb +plugged +job=u0a155:"com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android"
+            +50s605ms (2) 100 +wake_lock_in=1000:"LocationManagerService"
+            +50s606ms (2) 100 +charging +wake_lock_in=u0a155:"*job*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android"
+            +50s607ms (2) 100 -wake_lock_in=1000:"LocationManagerService"
+            +50s609ms (2) 100 +job=u0a338:"com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android"
+            +50s611ms (2) 100 +job=u0a338:"com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android"
+            +50s611ms (2) 100 +wake_lock_in=u0a338:"*job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android"
+            +50s612ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s613ms (2) 100 +wake_lock_in=u0a338:"*job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android"
+            +50s615ms (2) 100 +wake_lock_in=u0a155:"*sync*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频"
+            +50s624ms (2) 100 -wake_lock_in=u0a155:"*sync*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频"
+            +50s629ms (2) 100 -job=u0a155:"com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android"
+            +50s629ms (2) 100 -wake_lock_in=u0a155:"*job*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android"
+            +50s629ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s629ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s634ms (2) 100 +wake_lock_in=u0a338:"*sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条"
+            +50s639ms (2) 100 -wake_lock_in=u0a338:"*sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条"
+            +50s639ms (2) 100 -job=u0a338:"com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android"
+            +50s640ms (2) 100 -wake_lock_in=u0a338:"*job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android"
+            +50s640ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s640ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s644ms (2) 100 +wake_lock_in=1000:"*vibrator*"
+            +50s650ms (2) 100 +wake_lock_in=u0a338:"*sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條"
+            +50s656ms (2) 100 -wake_lock_in=u0a338:"*sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條"
+            +50s657ms (2) 100 -job=u0a338:"com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android"
+            +50s657ms (2) 100 -wake_lock_in=u0a338:"*job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android"
+            +50s657ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+            +50s688ms (2) 100 -wake_lock_in=1000:"*vibrator*"
+            +50s735ms (2) 100 +wake_lock_in=1000:"StatusBar"
+            +51s026ms (2) 100 volt=4204
+            +52s392ms (3) 100 volt=4329 -wake_lock_in=1000:"StatusBar"
+            +53s696ms (2) 100 +alarm=1000:"*alarm*:android.intent.action.TIME_TICK"
+            +53s697ms (2) 100 +wake_lock_in=1000:"*alarm*:android.intent.action.TIME_TICK"
+            +53s720ms (2) 100 -alarm=1000:"*alarm*:android.intent.action.TIME_TICK"
+            +53s720ms (2) 100 -wake_lock_in=1000:"*alarm*:android.intent.action.TIME_TICK"
+            +54s850ms (2) 100 -wake_lock_in=u0a872:"*launch*"
+          +1m12s385ms (2) 100 +wake_lock_in=1000:"StatusBar"
+          +1m14s387ms (2) 100 -wake_lock_in=1000:"StatusBar"
+          +1m19s034ms (2) 100 +alarm=u0a754:"*walarm*:com.baidu.action.SOFIRE.VIEW"
+          +1m19s038ms (2) 100 +wake_lock_in=u0a754:"*walarm*:com.baidu.action.SOFIRE.VIEW"
+          +1m19s038ms (2) 100 +alarm=u0a122:"*walarm*:com.jingdong.app.mall.service.WatchDogService"
+          +1m19s039ms (2) 100 +alarm=u0a446:"*walarm*:*job.delay*"
+          +1m19s039ms (2) 100 +alarm=u0a63:"*walarm*:com.tencent.tmsdk.HeartBeatPlot.ACTION_HEARTBEAT_PLOT_ALARM_CYCLE"
+          +1m19s041ms (2) 100 +alarm=u0a63:"*walarm*:action_keep_alive_after_send_end"
+          +1m19s047ms (2) 100 +alarm=1000:"*walarm*:WifiConnectivityManager Schedule Periodic Scan Timer"
+          +1m19s047ms (2) 100 +alarm=1000:"*alarm*:miui.intent.action.powerkeeper_alarm"
+          +1m19s047ms (2) 100 +alarm=u0a206:"*alarm*:com.tencent.mm.TrafficStatsReceiver"
+          +1m19s048ms (2) 100 -alarm=u0a754:"*walarm*:com.baidu.action.SOFIRE.VIEW"
+          +1m19s048ms (2) 100 +wake_lock_in=u0a122:"*alarm*"
+          +1m19s048ms (2) 100 -wake_lock_in=u0a754:"*walarm*:com.baidu.action.SOFIRE.VIEW"
+          +1m19s048ms (2) 100 -alarm=u0a446:"*walarm*:*job.delay*"
+          +1m19s050ms (2) 100 -alarm=1000:"*walarm*:WifiConnectivityManager Schedule Periodic Scan Timer"
+          +1m19s050ms (2) 100 -alarm=u0a122:"*walarm*:com.jingdong.app.mall.service.WatchDogService"
+          +1m19s050ms (2) 100 +wake_lock_in=u0a63:"*alarm*"
+          +1m19s050ms (2) 100 -wake_lock_in=u0a122:"*alarm*"
+          +1m19s051ms (2) 100 -alarm=u0a63:"*walarm*:com.tencent.tmsdk.HeartBeatPlot.ACTION_HEARTBEAT_PLOT_ALARM_CYCLE"
+          +1m19s051ms (2) 100 +wifi_scan -alarm=1000:"*alarm*:miui.intent.action.powerkeeper_alarm"
+          +1m19s057ms (2) 100 +job=u0a120:"com.miui.weather2/.service.job.ScheduleCheckService"
+          +1m19s059ms (2) 100 +job=u0a184:"com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android"
+          +1m19s060ms (2) 100 +job=u0a150:"com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android"
+          +1m19s062ms (2) 100 +job=u0a446:"com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android"
+          +1m19s062ms (2) 100 +wake_lock_in=u0a184:"*job*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android"
+          +1m19s063ms (2) 100 +wake_lock_in=u0a150:"*job*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android"
+          +1m19s063ms (2) 100 +wake_lock_in=u0a446:"*job*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android"
+          +1m19s065ms (2) 100 +wake_lock_in=u0a120:"*job*/com.miui.weather2/.service.job.ScheduleCheckService"
+          +1m19s066ms (2) 100 -alarm=u0a63:"*walarm*:action_keep_alive_after_send_end"
+          +1m19s066ms (2) 100 +wake_lock_in=u0a206:"*alarm*"
+          +1m19s066ms (2) 100 -wake_lock_in=u0a63:"*alarm*"
+          +1m19s083ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s085ms (2) 100 +wake_lock_in=u0a184:"*sync*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手"
+          +1m19s089ms (2) 100 -alarm=u0a206:"*alarm*:com.tencent.mm.TrafficStatsReceiver"
+          +1m19s089ms (2) 100 -wake_lock_in=u0a206:"*alarm*"
+          +1m19s092ms (2) 100 -wake_lock_in=u0a184:"*sync*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手"
+          +1m19s092ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s092ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s093ms (2) 100 -job=u0a184:"com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android"
+          +1m19s094ms (2) 100 -wake_lock_in=u0a184:"*job*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android"
+          +1m19s094ms (2) 100 +wake_lock_in=u0a150:"*sync*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065"
+          +1m19s097ms (2) 100 -wake_lock_in=u0a150:"*sync*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065"
+          +1m19s099ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s099ms (2) 100 +wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s101ms (2) 100 -job=u0a150:"com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android"
+          +1m19s101ms (2) 100 -wake_lock_in=u0a150:"*job*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android"
+          +1m19s102ms (2) 100 +wake_lock_in=u0a446:"*sync*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏"
+          +1m19s104ms (2) 100 -wake_lock_in=u0a446:"*sync*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏"
+          +1m19s106ms (2) 100 -job=u0a446:"com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android"
+          +1m19s106ms (2) 100 -wake_lock_in=u0a446:"*job*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android"
+          +1m19s114ms (2) 100 +wake_lock_in=1001:"RILJ"
+          +1m19s115ms (2) 100 -wake_lock_in=1000:"SyncLoopWakeLock"
+          +1m19s119ms (2) 100 -wifi_scan -wake_lock_in=1001:"RILJ"
+          +1m19s135ms (2) 100 +wifi_scan +wake_lock_in=1001:"RILJ"
+          +1m19s148ms (2) 100 -wake_lock_in=1001:"RILJ"
+          +1m19s750ms (2) 100 -job=u0a120:"com.miui.weather2/.service.job.ScheduleCheckService"
+          +1m19s750ms (2) 100 -wake_lock_in=u0a120:"*job*/com.miui.weather2/.service.job.ScheduleCheckService"
+          +1m20s222ms (2) 100 +wake_lock_in=1001:"RILJ"
+          +1m20s226ms (2) 100 -wifi_scan -wake_lock_in=1001:"RILJ"
+          +1m29s716ms (2) 100 +wake_lock_in=1001:"RILJ"
+          +1m29s720ms (2) 100 -wake_lock_in=1001:"RILJ"
+          +1m29s721ms (2) 100 stats=0:"dump"
+
+Per-PID Stats:
+  PID 1672 wake time: +266ms
+  PID 1986 wake time: +16s28ms
+  PID 2155 wake time: +21ms
+  PID 1672 wake time: +16ms
+  PID 1672 wake time: +685ms
+  PID 1672 wake time: +2ms
+  PID 1672 wake time: +38ms
+  PID 1672 wake time: +23ms
+  PID 1672 wake time: +32ms
+  PID 1672 wake time: +32ms
+  PID 5887 wake time: +599ms
+  PID 1672 wake time: +46ms
+  PID 1672 wake time: +43ms
+  PID 1672 wake time: +10ms
+  PID 1672 wake time: +30s13ms
+
+Daily stats:
+  Current start time: 2019-06-17-05-02-44
+  Next min deadline: 2019-06-18-01-00-00
+  Next max deadline: 2019-06-18-03-00-00
+  Current daily discharge step durations:
+    #0: +3m0s355ms to 96 (screen-on, power-save-off, device-idle-off)
+    #1: +1m40s194ms to 97 (screen-on, power-save-off, device-idle-off)
+    #2: +2m40s326ms to 98 (screen-on, power-save-off, device-idle-off)
+    #3: +48m42s241ms to 85 (screen-off, power-save-off, device-idle-on)
+      Discharge total time: 23h 21m 17s 900ms  (from 4 steps)
+      Discharge screen off time: 3d 9h 10m 24s 100ms  (from 1 steps)
+      Discharge screen off device idle time: 3d 9h 10m 24s 100ms  (from 1 steps)
+      Discharge screen on time: 4h 4m 55s 800ms  (from 3 steps)
+  Current daily charge step durations:
+    #0: +2m40s320ms to 89 (screen-off, power-save-off, device-idle-off)
+    #1: +4m20s561ms to 88 (power-save-off, device-idle-off)
+      Charge total time: 5h 50m 44s 0ms  (from 2 steps)
+      Charge screen off time: 4h 27m 12s 0ms  (from 1 steps)
+    Package changes:
+      Update com.bishijie vers=35
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.bikicoin vers=4009
+  Daily from 2019-06-16-05-09-44 to 2019-06-17-05-02-44:
+    Discharge step durations:
+      #0: +1h36m44s446ms to 87 (screen-off, power-save-off)
+      #1: +1h58m48s45ms to 88 (screen-off, power-save-off)
+      #2: +30m16s995ms to 89 (screen-off, power-save-off, device-idle-on)
+      #3: +2h10m23s204ms to 90 (screen-off, power-save-off, device-idle-on)
+      #4: +40m38s796ms to 91 (screen-off, power-save-off, device-idle-on)
+      #5: +3h21m13s575ms to 92 (screen-off, power-save-off, device-idle-on)
+      #6: +59m1s758ms to 93 (screen-off, power-save-off, device-idle-on)
+      #7: +1h46m47s256ms to 94 (screen-off, power-save-off, device-idle-on)
+      #8: +1h46m24s825ms to 95 (screen-off, power-save-off, device-idle-on)
+      #9: +4h15m30s309ms to 96 (screen-off, power-save-off)
+      #10: +43m48s471ms to 97 (screen-off, power-save-off, device-idle-on)
+      #11: +1h58m26s788ms to 98 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 7d 13h 40m 37s 200ms  (from 12 steps)
+        Discharge screen off time: 7d 13h 40m 37s 200ms  (from 12 steps)
+        Discharge screen off device idle time: 6d 11h 0m 18s 500ms  (from 9 steps)
+  Daily from 2019-06-15-10-27-28 to 2019-06-16-05-09-44:
+    Package changes:
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.miui.player vers=10591
+  Daily from 2019-06-14-06-01-34 to 2019-06-15-10-27-28:
+    Discharge step durations:
+      #0: +3m44s843ms to 87 (screen-off, power-save-off, device-idle-off)
+      #1: +4m0s163ms to 88 (power-save-off, device-idle-off)
+      #2: +2m20s283ms to 89 (screen-on, power-save-off, device-idle-off)
+      #3: +3m0s364ms to 90 (screen-on, power-save-off, device-idle-off)
+      #4: +1m40s198ms to 91 (screen-on, power-save-off, device-idle-off)
+      #5: +3m0s353ms to 92 (screen-on, power-save-off, device-idle-off)
+      #6: +2m42s813ms to 93 (power-save-off, device-idle-off)
+      #7: +4m50s923ms to 94 (screen-off, power-save-off, device-idle-off)
+      #8: +3m3s300ms to 95 (power-save-off, device-idle-off)
+      #9: +2m0s280ms to 96 (screen-on, power-save-off, device-idle-off)
+      #10: +1h39m31s994ms to 96 (screen-off, power-save-off)
+      #11: +27m15s843ms to 97 (screen-off, power-save-off)
+      #12: +56m25s242ms to 98 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 1d 3h 23m 9s 200ms  (from 13 steps)
+        Discharge screen off time: 2d 15h 56m 16s 900ms  (from 5 steps)
+        Discharge screen off device idle time: 3d 22h 2m 4s 200ms  (from 1 steps)
+        Discharge screen on time: 4h 0m 29s 500ms  (from 5 steps)
+    Package changes:
+      Update com.sdu.didi.psnger vers=558
+      Update com.yidian.xiaomi vers=50201
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.anysoft.tyyd vers=85
+      Update com.netease.edu.ucmooc vers=2019061012
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.android.thememanager vers=594
+      Update com.tencent.mobileqq vers=1204
+      Update com.anysoft.tyyd vers=86
+  Daily from 2019-06-13-04-30-09 to 2019-06-14-06-01-34:
+    Discharge step durations:
+      #0: +4h38m42s5ms to 95 (screen-off, power-save-off)
+      #1: +11m45s908ms to 96 (screen-off, power-save-off, device-idle-on)
+      #2: +52m52s392ms to 97 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 7d 22h 44m 36s 800ms  (from 3 steps)
+        Discharge screen off time: 7d 22h 44m 36s 800ms  (from 3 steps)
+        Discharge screen off device idle time: 2d 5h 51m 55s 0ms  (from 2 steps)
+    Package changes:
+      Update com.android.calendar vers=10030602
+      Update com.miui.weather2 vers=10012100
+      Update com.android.deskclock vers=9201701
+      Update com.miui.hybrid vers=10420101
+      Update com.kingsoft vers=212
+      Update com.Qunar vers=191
+      Update com.vmall.client vers=550
+      Update com.mobike.mobikeapp vers=81701
+      Update com.tencent.weread vers=10137720
+      Update com.ss.android.article.video vers=364
+      Update com.baidu.searchbox.lite vers=21169408
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.netease.cloudmusic vers=144
+      Update com.sankuai.meituan vers=1000000202
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.chainup.exchange.chainup4 vers=4008
+      Update com.ss.android.article.video vers=365
+      Update com.miui.voiceassist vers=304007003
+  Daily from 2019-06-12-04-01-34 to 2019-06-13-04-30-09:
+    Discharge step durations:
+      #0: +3h20m10s420ms to 50 (screen-off, power-save-off, device-idle-on)
+      #1: +1h59m41s747ms to 51 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 11d 2h 33m 28s 300ms  (from 2 steps)
+        Discharge screen off time: 11d 2h 33m 28s 300ms  (from 2 steps)
+        Discharge screen off device idle time: 11d 2h 33m 28s 300ms  (from 2 steps)
+    Charge step durations:
+      #0: +7m0s955ms to 89 (power-save-off, device-idle-off)
+      #1: +28m23s399ms to 88 (power-save-off, device-idle-off)
+      #2: +6m0s730ms to 87 (screen-off, power-save-off, device-idle-off)
+      #3: +14m21s746ms to 86 (power-save-off, device-idle-off)
+      #4: +4m0s482ms to 85 (screen-off, power-save-off, device-idle-off)
+      #5: +4m0s484ms to 84 (screen-off, power-save-off, device-idle-off)
+      #6: +6m30s373ms to 83 (screen-off, power-save-off, device-idle-off)
+      #7: +4m10s900ms to 82 (screen-off, power-save-off, device-idle-off)
+      #8: +5m0s601ms to 81 (screen-off, power-save-off, device-idle-off)
+      #9: +9m41s163ms to 80 (screen-off, power-save-off, device-idle-off)
+      #10: +4m40s563ms to 79 (screen-off, power-save-off, device-idle-off)
+      #11: +3m0s359ms to 78 (screen-off, power-save-off, device-idle-off)
+      #12: +4m20s560ms to 77 (screen-off, power-save-off, device-idle-off)
+      #13: +4m0s476ms to 76 (screen-off, power-save-off, device-idle-off)
+      #14: +2m20s269ms to 75 (screen-off, power-save-off, device-idle-off)
+      #15: +5m40s691ms to 74 (screen-off, power-save-off, device-idle-off)
+      #16: +3m0s364ms to 73 (screen-off, power-save-off, device-idle-off)
+      #17: +4m40s547ms to 72 (screen-off, power-save-off, device-idle-off)
+      #18: +2m40s327ms to 71 (screen-off, power-save-off, device-idle-off)
+      #19: +4m0s481ms to 70 (screen-off, power-save-off, device-idle-off)
+      #20: +2m20s284ms to 69 (screen-off, power-save-off, device-idle-off)
+      #21: +3m0s352ms to 68 (screen-off, power-save-off, device-idle-off)
+      #22: +2m0s243ms to 67 (screen-off, power-save-off, device-idle-off)
+      #23: +3m0s365ms to 66 (screen-off, power-save-off, device-idle-off)
+      #24: +2m40s316ms to 65 (screen-off, power-save-off, device-idle-off)
+      #25: +2m0s248ms to 64 (screen-off, power-save-off, device-idle-off)
+      #26: +3m0s350ms to 63 (screen-off, power-save-off, device-idle-off)
+      #27: +2m40s543ms to 62 (screen-off, power-save-off, device-idle-off)
+      #28: +3m20s176ms to 61 (screen-off, power-save-off, device-idle-off)
+      #29: +2m40s322ms to 60 (screen-off, power-save-off, device-idle-off)
+      #30: +4m20s523ms to 59 (screen-off, power-save-off, device-idle-off)
+      #31: +38m23s318ms to 58 (power-save-off, device-idle-off)
+      #32: +7m11s13ms to 57 (screen-on, power-save-off, device-idle-off)
+      #33: +8m0s957ms to 56 (power-save-off, device-idle-off)
+      #34: +5m20s640ms to 55 (screen-off, power-save-off, device-idle-off)
+      #35: +8m0s964ms to 54 (screen-off, power-save-off, device-idle-off)
+      #36: +58m47s101ms to 53 (power-save-off, device-idle-off)
+        Charge total time: 12h 48m 36s 700ms  (from 37 steps)
+        Charge screen off time: 6h 47m 28s 900ms  (from 30 steps)
+        Charge screen on time: 11h 58m 21s 300ms  (from 1 steps)
+    Package changes:
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.kingsoft vers=210
+      Update cn.com.bmac.nfc vers=4001
+      Update com.xiaomi.jr vers=115
+      Update com.zhihu.android vers=1298
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=4007
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=4008
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.chainup4 vers=4007
+  Daily from 2019-06-11-03-45-01 to 2019-06-12-04-01-34:
+    Discharge step durations:
+      #0: +1h17m47s334ms to 53 (screen-off, power-save-off, device-idle-on)
+      #1: +1h9m14s289ms to 54 (screen-off, power-save-off)
+      #2: +5m14s72ms to 42 (power-save-off, device-idle-off)
+      #3: +1h55m3s988ms to 14 (screen-off, power-save-off, device-idle-on)
+      #4: +2h32m21s349ms to 15 (screen-off, power-save-off, device-idle-on)
+      #5: +1h19m22s324ms to 16 (screen-off, power-save-off, device-idle-on)
+      #6: +2h10m13s612ms to 17 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 6d 5h 49m 45s 200ms  (from 7 steps)
+        Discharge screen off time: 7d 5h 20m 48s 200ms  (from 6 steps)
+        Discharge screen off device idle time: 7d 16h 56m 12s 100ms  (from 5 steps)
+    Charge step durations:
+      #0: +29m43s630ms to 56 (power-save-off, device-idle-off)
+      #1: +7m0s839ms to 54 (screen-on, power-save-off, device-idle-off)
+      #2: +13m41s661ms to 53 (power-save-off, device-idle-off)
+      #3: +1h45m8s64ms to 52 (power-save-off, device-idle-off)
+      #4: +3m0s362ms to 51 (power-save-off, device-idle-off)
+      #5: +20m22s514ms to 50 (power-save-off, device-idle-off)
+      #6: +3m0s350ms to 49 (screen-off, power-save-off, device-idle-off)
+      #7: +5m0s606ms to 48 (power-save-off, device-idle-off)
+      #8: +3m40s452ms to 47 (screen-on, power-save-off, device-idle-off)
+      #9: +4m20s511ms to 46 (power-save-off, device-idle-off)
+      #10: +9m21s173ms to 45 (power-save-off, device-idle-off)
+      #11: +1h32m50s705ms to 44 (power-save-off, device-idle-off)
+      #12: +3m20s392ms to 44 (screen-on, power-save-off, device-idle-off)
+      #13: +6m0s724ms to 43 (screen-on, power-save-off, device-idle-off)
+      #14: +2h42m19s810ms to 42 (screen-on, power-save-off, device-idle-off)
+      #15: +6m20s788ms to 46 (screen-off, power-save-off, device-idle-off)
+      #16: +3m20s400ms to 45 (screen-off, power-save-off, device-idle-off)
+      #17: +2m0s238ms to 44 (screen-off, power-save-off, device-idle-off)
+      #18: +3m0s365ms to 43 (screen-off, power-save-off, device-idle-off)
+      #19: +1m40s195ms to 42 (screen-off, power-save-off, device-idle-off)
+      #20: +2m40s325ms to 41 (screen-off, power-save-off, device-idle-off)
+      #21: +1m40s204ms to 40 (screen-off, power-save-off, device-idle-off)
+      #22: +3m40s440ms to 39 (power-save-off, device-idle-off)
+      #23: +2m20s281ms to 38 (screen-on, power-save-off, device-idle-off)
+      #24: +5m20s632ms to 37 (power-save-off, device-idle-off)
+      #25: +3m0s369ms to 36 (screen-off, power-save-off, device-idle-off)
+      #26: +1m40s191ms to 35 (screen-off, power-save-off, device-idle-off)
+      #27: +3m20s399ms to 34 (screen-off, power-save-off, device-idle-off)
+      #28: +2m0s239ms to 33 (screen-off, power-save-off, device-idle-off)
+      #29: +3m20s410ms to 32 (screen-off, power-save-off, device-idle-off)
+      #30: +2m20s278ms to 31 (screen-off, power-save-off, device-idle-off)
+      #31: +3m40s441ms to 30 (screen-off, power-save-off, device-idle-off)
+      #32: +2m20s273ms to 29 (screen-off, power-save-off, device-idle-off)
+      #33: +2m40s321ms to 28 (screen-off, power-save-off, device-idle-off)
+      #34: +2m0s239ms to 27 (screen-off, power-save-off, device-idle-off)
+      #35: +2m20s289ms to 26 (screen-off, power-save-off, device-idle-off)
+      #36: +2m20s282ms to 25 (screen-off, power-save-off, device-idle-off)
+      #37: +2m0s229ms to 24 (screen-off, power-save-off, device-idle-off)
+      #38: +3m0s362ms to 23 (screen-off, power-save-off, device-idle-off)
+      #39: +2m20s278ms to 22 (screen-off, power-save-off, device-idle-off)
+      #40: +3m0s359ms to 21 (screen-off, power-save-off, device-idle-off)
+      #41: +2m0s241ms to 20 (screen-off, power-save-off, device-idle-off)
+      #42: +3m20s410ms to 19 (screen-off, power-save-off, device-idle-off)
+      #43: +2m20s270ms to 18 (screen-off, power-save-off, device-idle-off)
+      #44: +3m20s404ms to 17 (screen-off, power-save-off, device-idle-off)
+        Charge total time: 20h 29m 42s 100ms  (from 45 steps)
+        Charge screen off time: 4h 31m 58s 300ms  (from 28 steps)
+        Charge screen on time: 2d 3h 18m 28s 300ms  (from 6 steps)
+    Package changes:
+      Update com.chainup.exchange.chainup4 vers=0
+      Update com.meican.android vers=3002600
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=4006
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=0
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.chainup.exchange.bikicoin vers=4007
+      Update com.taoche.qctt vers=7700
+      Update com.cubic.autohome vers=1009
+      Update com.okinc.okex vers=430
+  Daily from 2019-06-10-04-12-55 to 2019-06-11-03-45-01:
+    Discharge step durations:
+      #0: +3h34m38s347ms to 19 (screen-off, power-save-off, device-idle-on)
+      #1: +2h45m15s562ms to 20 (screen-off, power-save-off, device-idle-on)
+      #2: +3h8m9s229ms to 21 (screen-off, power-save-off, device-idle-on)
+      #3: +2h10m15s843ms to 22 (screen-off, power-save-off)
+      #4: +2h14m49s588ms to 23 (power-save-off)
+      #5: +2h45m46s959ms to 24 (screen-off, power-save-off, device-idle-on)
+      #6: +2h5m14s263ms to 25 (screen-off, power-save-off, device-idle-on)
+      #7: +1h48m34s685ms to 26 (screen-off, power-save-off, device-idle-on)
+      #8: +1h2m6s955ms to 27 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 9d 23h 47m 18s 100ms  (from 9 steps)
+        Discharge screen off time: 10d 1h 40m 23s 0ms  (from 8 steps)
+        Discharge screen off device idle time: 10d 5h 10m 57s 100ms  (from 7 steps)
+  Daily from 2019-06-09-04-26-48 to 2019-06-10-04-12-55:
+    Discharge step durations:
+      #0: +57m37s377ms to 29 (screen-off, power-save-off, device-idle-on)
+      #1: +1h6m45s381ms to 30 (screen-off, power-save-off, device-idle-on)
+      #2: +57m8s905ms to 31 (screen-off, power-save-off, device-idle-on)
+      #3: +1h34m18s152ms to 32 (screen-off, power-save-off, device-idle-on)
+      #4: +1h27m47s858ms to 33 (screen-off, power-save-off, device-idle-on)
+      #5: +2h4m1s185ms to 34 (screen-off, power-save-off, device-idle-on)
+      #6: +1h42m21s554ms to 35 (screen-off, power-save-off)
+      #7: +2h12m32s65ms to 36 (screen-off, power-save-off, device-idle-on)
+      #8: +4h49m59s898ms to 37 (screen-off, power-save-off, device-idle-on)
+      #9: +1h41m34s468ms to 38 (screen-off, power-save-off, device-idle-on)
+      #10: +3h41m20s659ms to 39 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 8d 10h 20m 31s 800ms  (from 11 steps)
+        Discharge screen off time: 8d 10h 20m 31s 800ms  (from 11 steps)
+        Discharge screen off device idle time: 8d 13h 30m 59s 400ms  (from 10 steps)
+  Daily from 2019-06-08-03-24-31 to 2019-06-09-04-26-48:
+    Discharge step durations:
+      #0: +3h32m44s640ms to 41 (screen-off, power-save-off, device-idle-on)
+      #1: +2h20m16s811ms to 42 (screen-off, power-save-off, device-idle-on)
+      #2: +2h33m22s939ms to 43 (screen-off, power-save-off)
+      #3: +3h31m52s339ms to 44 (screen-off, power-save-off, device-idle-on)
+      #4: +2h0m13s93ms to 45 (screen-off, power-save-off, device-idle-on)
+      #5: +4h11m34s717ms to 46 (screen-off, power-save-off, device-idle-on)
+      #6: +48m12s320ms to 47 (screen-off, power-save-off, device-idle-on)
+      #7: +1h31m44s545ms to 48 (screen-off, power-save-off, device-idle-on)
+      #8: +56m59s586ms to 49 (screen-off, power-save-off, device-idle-on)
+      #9: +1h28m11s472ms to 50 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 9d 13h 12m 4s 600ms  (from 10 steps)
+        Discharge screen off time: 9d 13h 12m 4s 600ms  (from 10 steps)
+        Discharge screen off device idle time: 9d 10h 15m 50s 200ms  (from 9 steps)
+  Daily from 2019-06-07-03-30-18 to 2019-06-08-03-24-31:
+    Discharge step durations:
+      #0: +1h22m9s732ms to 52 (screen-off, power-save-off, device-idle-on)
+      #1: +45m1s694ms to 53 (screen-off, power-save-off, device-idle-on)
+      #2: +1h10m8s409ms to 54 (screen-off, power-save-off, device-idle-on)
+      #3: +58m38s0ms to 55 (screen-off, power-save-off, device-idle-on)
+      #4: +44m1s355ms to 56 (screen-off, power-save-off)
+      #5: +56m37s772ms to 57 (screen-off, power-save-off)
+      #6: +33m59s716ms to 58 (screen-off, power-save-off, device-idle-on)
+      #7: +49m31s667ms to 59 (screen-off, power-save-off, device-idle-on)
+      #8: +30m28s514ms to 60 (screen-off, power-save-off, device-idle-on)
+      #9: +44m11s709ms to 61 (screen-off, power-save-off, device-idle-on)
+      #10: +31m26s923ms to 62 (screen-off, power-save-off, device-idle-on)
+      #11: +53m2s520ms to 63 (screen-off, power-save-off, device-idle-on)
+      #12: +40m41s987ms to 64 (screen-off, power-save-off, device-idle-on)
+      #13: +44m33s69ms to 65 (screen-off, power-save-off, device-idle-on)
+      #14: +50m57s567ms to 66 (screen-off, power-save-off, device-idle-on)
+      #15: +1h15m15s697ms to 67 (screen-off, power-save-off, device-idle-on)
+      #16: +1h3m1s634ms to 68 (screen-off, power-save-off, device-idle-on)
+      #17: +1h18m12s484ms to 69 (screen-off, power-save-off, device-idle-on)
+      #18: +53m30s398ms to 70 (screen-off, power-save-off, device-idle-on)
+      #19: +1h2m34s828ms to 71 (screen-off, power-save-off)
+      #20: +2h32m1s818ms to 72 (power-save-off)
+      #21: +2h34m48s753ms to 73 (screen-off, power-save-off, device-idle-on)
+        Discharge total time: 4d 8h 9m 42s 900ms  (from 22 steps)
+        Discharge screen off time: 4d 1h 3m 22s 0ms  (from 21 steps)
+        Discharge screen off device idle time: 4d 2h 7m 4s 800ms  (from 18 steps)
+    Package changes:
+      Update com.miui.bugreport vers=20303
+
+Statistics since last charge:
+  System starts: 0, currently on battery: false
+  Estimated battery capacity: 3500 mAh
+  Time on battery: 50s 593ms (56.4%) realtime, 50s 593ms (56.4%) uptime
+  Time on battery screen off: 0ms (0.0%) realtime, 0ms (0.0%) uptime
+  Total run time: 1m 29s 768ms realtime, 1m 29s 767ms uptime
+  Discharge: 0 mAh
+  Screen off discharge: 0 mAh
+  Screen on discharge: 0 mAh
+  Start clock time: 2019-06-17-19-25-06
+  Screen on: 50s 593ms (100.0%) 0x, Interactive: 50s 593ms (100.0%)
+  Screen brightnesses:
+    dark 50s 593ms (100.0%)
+  Mobile total received: 0B, sent: 0B (packets received 0, sent 0)
+  Phone signal levels:
+    excellent 50s 593ms (100.0%) 0x
+  Signal scanning time: 0ms
+  Radio types:
+    none 50s 593ms (100.0%) 0x
+  Mobile radio active time: 0ms (0.0%) 0x
+  Radio Idle time:   39s 740ms (99.4%)
+  Radio Rx time:     234ms (0.6%)
+  Radio Tx time:     0ms (0.0%)
+    [0] 0ms (--%)
+    [1] 0ms (--%)
+    [2] 0ms (--%)
+    [3] 0ms (--%)
+    [4] 0ms (--%)
+  Radio Power drain: 0mAh
+  Wi-Fi total received: 759.02KB, sent: 309.74KB (packets received 2553, sent 1571)
+  Wifi on: 50s 593ms (100.0%), Wifi running: 50s 593ms (100.0%)
+  Wifi states: (no activity)
+  Wifi supplicant states:
+    completed 50s 593ms (100.0%) 0x
+  Wifi signal levels:
+    level(4) 50s 593ms (100.0%) 0x
+  WiFi Idle time:   0ms (--%)
+  WiFi Rx time:     0ms (--%)
+  WiFi Tx time:     0ms (--%)
+  WiFi Power drain: 0mAh
+  Bluetooth total received: 0B, sent: 0B
+  Bluetooth scan time: 0ms 
+  Bluetooth Idle time:   0ms (--%)
+  Bluetooth Rx time:     0ms (--%)
+  Bluetooth Tx time:     0ms (--%)
+  Bluetooth Power drain: 0mAh
+
+  Device battery use since last full charge
+    Amount discharged (lower bound): 0
+    Amount discharged (upper bound): 0
+    Amount discharged while screen on: 0
+    Amount discharged while screen off: 0
+
+  Estimated power use (mAh):
+    Capacity: 3500, Computed drain: 6.14, actual drain: 0
+    Uid u0a872: 3.42 ( cpu=3.42 wifi=0.000770 )
+    Screen: 1.02
+    Uid 1000: 0.638 ( cpu=0.638 wifi=0.00000019 )
+    Uid 0: 0.386 ( cpu=0.386 wifi=0.0000323 )
+    Uid 1036: 0.261 ( cpu=0.261 )
+    Idle: 0.256
+    Cell standby: 0.0973 ( radio=0.0973 )
+    Uid u0a139: 0.0309 ( cpu=0.0309 )
+    Uid u0a239: 0.00787 ( cpu=0.00331 sensor=0.00457 )
+    Uid 9999: 0.00386 ( cpu=0.00386 )
+    Wifi: 0.00377 ( cpu=0.00110 wifi=0.00267 )
+    Uid 1040: 0.00220 ( cpu=0.00220 )
+    Uid u0a206: 0.00165 ( cpu=0.00165 wifi=0.00000058 )
+    Uid 1013: 0.00110 ( cpu=0.00110 )
+    Uid u0a22: 0.00110 ( cpu=0.00110 )
+    Uid 1001: 0.000551 ( cpu=0.000551 )
+    Uid 1041: 0.000551 ( cpu=0.000551 )
+    Uid u0a14: 0.000551 ( cpu=0.000551 )
+    Uid u0a20: 0.000551 ( cpu=0.000551 )
+    Uid u0a98: 0.000551 ( cpu=0.000551 )
+    Uid u0a506: 0.000551 ( cpu=0.000551 )
+    Uid u0a754: 0.000551 ( cpu=0.000551 )
+
+  0:
+    Wi-Fi network: 11.66KB received, 2.71KB sent (packets 100 received, 66 sent)
+    Total cpu time: u=400ms s=6s 610ms p=0mAh
+    (nothing executed)
+  1000:
+    Wi-Fi network: 0B received, 40B sent (packets 0 received, 1 sent)
+    User activity: 1 other, 3 button, 51 touch
+    Wake lock LocationManagerService realtime
+    Wake lock *alarm* realtime
+    Wake lock *vibrator* realtime
+    Wake lock NetworkStats realtime
+    Wake lock StatusBar realtime
+    Wake lock SyncLoopWakeLock realtime
+    Vibrator: 73ms realtime (5 times)
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=7s 390ms s=4s 190ms p=0mAh
+  1001:
+    Wake lock RILJ realtime
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=10ms s=0ms p=0mAh
+  1010:
+    Total cpu time: u=0ms s=20ms p=0mAh
+    (nothing executed)
+  1013:
+    Total cpu time: u=20ms s=0ms p=0mAh
+    (nothing executed)
+  1027:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+  1036:
+    Total cpu time: u=2s 960ms s=1s 770ms p=0mAh
+    (nothing executed)
+  1040:
+    Total cpu time: u=0ms s=40ms p=0mAh
+    (nothing executed)
+  1041:
+    Total cpu time: u=0ms s=10ms p=0mAh
+    (nothing executed)
+  9801:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  9802:
+    Foreground for: 50s 593ms 
+    Total running: 50s 593ms 
+  9810:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+  9999:
+    Total cpu time: u=10ms s=60ms p=0mAh
+    (nothing executed)
+  u0a1:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a2:
+    Foreground for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a9:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a10:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a12:
+    Background for: 990ms 
+    Cached for: 49s 603ms 
+    Total running: 50s 593ms 
+    Apk com.android.providers.media:
+      Service com.android.providers.media.MtpService:
+        Created for: 0ms uptime
+        Starts: 1, launches: 1
+  u0a14:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=10ms s=0ms p=0mAh
+  u0a20:
+    Foreground activities: 50s 593ms realtime (0 times) (running)
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=10ms s=0ms p=0mAh
+  u0a22:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=20ms s=0ms p=0mAh
+  u0a25:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a26:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a27:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a29:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a33:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a35:
+    Foreground activities: 50s 593ms realtime (0 times) (running)
+  u0a39:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a45:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a46:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a63:
+    Wake lock *alarm* realtime
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a64:
+    Foreground for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a70:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a74:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a79:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a80:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a86:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a88:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a95:
+    Foreground for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a98:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=0ms s=10ms p=0mAh
+  u0a99:
+    Top for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a101:
+    Background for: 990ms 
+    Cached for: 49s 603ms 
+    Total running: 50s 593ms 
+  u0a102:
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a106:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a111:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+  u0a120:
+    Wake lock *job*/com.miui.weather2/.service.job.ScheduleCheckService realtime
+    Job com.miui.weather2/.service.job.ScheduleCheckService: (not used)
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+    Apk com.miui.weather2:
+      (nothing executed)
+  u0a122:
+    Wake lock *alarm* realtime
+  u0a139:
+    Fg Service for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=380ms s=180ms p=0mAh
+  u0a145:
+    Foreground activities: 50s 593ms realtime (0 times) (running)
+  u0a150:
+    Wake lock *sync*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065 realtime
+    Wake lock *job*/com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android realtime
+    Job com.tencent.weread.push.syncadapter/com.tencent.weread.account/152641065:android: (not used)
+  u0a155:
+    Wake lock *job*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android realtime
+    Wake lock *sync*/com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频 realtime
+    Job com.ss.android.account.AccountProvider32/com.ss.android.article.video/西瓜视频:android: (not used)
+  u0a184:
+    Wake lock *sync*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手 realtime
+    Wake lock *job*/com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android realtime
+    Job com.qihoo.appstore.account.syncprovider/com.qihoo.appstore.account/360手机助手:android: (not used)
+  u0a206:
+    Wi-Fi network: 77B received, 117B sent (packets 1 received, 2 sent)
+    Wake lock *alarm* realtime
+    Wake lock PlatformComm realtime
+    Wake lock MicroMsg.Alarm realtime
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=20ms s=10ms p=0mAh
+    Apk com.tencent.mm:
+      Wakeup alarm *walarm*:ALARM_ACTION(5887): 1 times
+  u0a239:
+    Sensor 19: 50s 593ms realtime (0 times)
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=40ms s=20ms p=0mAh
+  u0a338:
+    Wake lock *job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android realtime
+    Wake lock *sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條 realtime
+    Wake lock *sync*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条 realtime
+    Wake lock *job*/com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android realtime
+    Job com.ss.android.account.AccountProvider/com.ss.android.article.news/今日頭條:android: (not used)
+    Job com.ss.android.account.AccountProvider/com.ss.android.article.news/今日头条:android: (not used)
+  u0a446:
+    Wake lock *job*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android realtime
+    Wake lock *sync*/com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏 realtime
+    Job com.kingsoft.account.provider/com.kingsoft.account.type/词霸锁屏:android: (not used)
+  u0a492:
+    Foreground activities: 50s 593ms realtime (0 times) (running)
+  u0a506:
+    Background for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=0ms s=10ms p=0mAh
+    Apk com.eg.android.AlipayGphone:
+      Service com.alipay.pushsdk.push.AppInfoRecvIntentService:
+        Created for: 15ms uptime
+        Starts: 1, launches: 1
+  u0a754:
+    Wake lock *alarm* realtime
+    Cached for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=10ms s=0ms p=0mAh
+    Apk com.baidu.searchbox.lite:
+      (nothing executed)
+  u0a872:
+    Wi-Fi network: 747.29KB received, 306.87KB sent (packets 2452 received, 1502 sent)
+    Wake lock *launch* realtime
+    Foreground activities: 49s 805ms realtime (6 times) (running)
+    Top for: 50s 593ms 
+    Total running: 50s 593ms 
+    Total cpu time: u=58s 790ms s=3s 280ms p=0mAh
+    Proc com.chainup.exchange.bikicoin:
+      CPU: 0ms usr + 0ms krn ; 1m 47s 420ms fg
+    Apk com.chainup.exchange.bikicoin:
+      Service com.google.android.gms.measurement.AppMeasurementService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+

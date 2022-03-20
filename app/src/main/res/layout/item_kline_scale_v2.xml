@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatRadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cbtn_view"
+    android:layout_width="@dimen/dp_50"
+    android:layout_height="@dimen/dp_22"
+    android:background="@drawable/bg_kline_options"
+    android:button="@null"
+    android:checked="false"
+    android:gravity="center"
+    android:text="MACD"
+    android:textColor="@color/color_options_text"
+    android:textSize="@dimen/sp_12" />

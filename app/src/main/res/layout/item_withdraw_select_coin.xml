@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="55dp">
+    <TextView
+        android:id="@+id/tv_coin_name"
+        android:layout_width="wrap_content"
+        android:text="USDT"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center|right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_coin_balance"
+            android:layout_width="wrap_content"
+            android:text="566.00"
+            android:textSize="14sp"
+            android:textColor="@color/text_color"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_4th_value"
+            android:layout_width="wrap_content"
+            android:text="≈¥3962.44"
+            android:textSize="12sp"
+            android:textColor="#6F7B91"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:src="@color/line_color" />
+
+</RelativeLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="524dp"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:background="@drawable/cp_bg_item_dialog_bg"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/dp_6"
+                android:text="@string/cp_content_text18"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/tv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/cp_overview_text44"
+                android:textColor="@color/normal_text_color"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tv_confirm_btn"
+            android:layout_below="@+id/rl_title"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/tv_vontract_info"
+                style="@style/textStyle_tips_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:lineSpacingExtra="@dimen/dp_6"
+                android:text="一、当您在合约市场进行交易时，若因市场走势对您不利产生亏损，导致您的持仓保证金不足。本交易所合约将会按照系统约定对您的持仓进行强平委托并披露强平明细，请您留意。\n二、请您务必认真阅读并遵守本交易所的业务规则。了解合约机制和运行原理，了解市场的各种风险，合理安排资金进行交易。"
+                android:textColor="#6A7A97"
+                android:textSize="@dimen/sp_14" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/tv_confirm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_below="@+id/rl_3"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_25"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/bg_select_button_blue"
+            android:text="@string/cp_extra_text150"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</LinearLayout>

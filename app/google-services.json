@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "593588431430",
+    "firebase_url": "https://bikiapp.firebaseio.com",
+    "project_id": "bikiapp",
+    "storage_bucket": "bikiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593588431430:android:5c904972cd99b7cc",
+        "android_client_info": {
+          "package_name": "com.chainup.exchange.bikicoin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593588431430-j5b1gdp1d7uru3a26te26lka4gpdk3js.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhwASrY3OM5hx9AruZ9SZN-3bDg_1ZAXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593588431430-j5b1gdp1d7uru3a26te26lka4gpdk3js.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593588431430-rsst7mhe92cj379fgans7sekdsfu4ou4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chainup.exchange.bikicoin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

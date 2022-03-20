@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_20"
+    android:layout_marginRight="@dimen/dp_20"
+    app:cardBackgroundColor="@color/bg_card_color"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/tv_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/cp_extra_text66"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_profit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="市价止盈"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_profit_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="当市场价格到达 {止盈触发价} ，系统将为你提交一个市价单：{数量}{张/币}@市价，市价单的成交价格完全取决于当时的盘口，大仓位请分批止盈！"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_loss_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="市价止损"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_loss_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="当市场价格到达 {止盈触发价} ，系统将为你提交一个市价单：{数量}{张/币}@市价，市价单的成交价格完全取决于当时的盘口，大仓位请分批止盈！"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_not_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_marginTop="18dp">
+
+                    <CheckBox
+                        android:id="@+id/cb_not_again"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/cp_box_check_selector"
+                        android:checked="false" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cp_overview_text57"
+                        android:layout_marginLeft="9dp"
+                        android:textColor="@color/btn_normal_text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal"
+            android:layout_below="@+id/tv_content_layout"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_44"
+                android:layout_below="@+id/tv_content_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/dp_16"
+                android:background="@drawable/bg_select_button_white"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/sp_16"
+                android:text="@string/cp_overview_text56"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_44"
+                android:layout_below="@+id/tv_content_layout"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_select_button_blue"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sp_16"
+                android:text="@string/cp_calculator_text29"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

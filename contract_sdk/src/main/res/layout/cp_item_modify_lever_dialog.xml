@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cp_bg_item_new_dialog"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <RelativeLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cp_contract_setting_text8"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/cp_overview_text44"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/line_color" />
+
+    <TextView
+        android:id="@+id/tv_level_user_max"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="wrap_content"
+        android:text="不可超过当前持仓最高杠杆60X"
+        android:textSize="10sp"
+        android:textColor="@color/normal_text_color"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cp_bg_trade_et_unfocused"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_input"
+            style="@style/textStyle_text_nor_12"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/img_add"
+            android:layout_toRightOf="@+id/img_reduce"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_reduce"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_remove_24" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/img_reduce"
+            android:background="@color/line_color" />
+
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_add_24" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/img_add"
+            android:background="@color/line_color" />
+    </RelativeLayout>
+    <com.chainup.contract.view.bubble.CpBubbleSeekBar
+        android:id="@+id/seek_layout"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        app:bsb_hide_bubble="true"
+        app:bsb_max="100"
+        app:bsb_min="1"
+        app:bsb_progress="50"
+        app:bsb_second_track_color="@color/main_blue"
+        app:bsb_second_track_drawable="@drawable/cp_icon_circle_small"
+        app:bsb_section_count="5"
+        app:bsb_section_text_color="@color/stroke_hint_color"
+        app:bsb_section_text_position="below_section_mark"
+        app:bsb_section_text_size="12sp"
+        app:bsb_show_section_mark="true"
+        app:bsb_show_section_text="true"
+        app:bsb_show_thumb_text="false"
+        app:bsb_thumb_drawable="@drawable/cp_icon_circle_big"
+        app:bsb_thumb_radius="15dp"
+        app:bsb_thumb_radius_on_dragging="12dp"
+        app:bsb_track_color="@color/stroke_hint_color"
+        app:bsb_track_size="2dp"
+        app:bsb_second_track_size="2dp"
+        app:bsb_track_drawable="@drawable/cp_icon_circle_small_default" />
+
+    <TextView
+        android:id="@+id/tv_level_tip"
+        android:layout_width="match_parent"
+        android:text="@string/cp_contract_setting_text9"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/main_red_80"
+        android:layout_marginTop="13dp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_amount_user_max_key"
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="持仓上限约(张)"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_amount_user_max"
+                style="@style/textStyle_text_nor_12"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50293"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_can_open_key"
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可开(张)"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_can_open"
+                style="@style/textStyle_text_nor_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50293"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.chainup.contract.view.CpCommonlyUsedButton
+        android:id="@+id/btn_close_position"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="22dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:bgColor="@color/main_blue"
+        app:bottonTextContent="@string/cp_calculator_text16" />
+
+</LinearLayout>

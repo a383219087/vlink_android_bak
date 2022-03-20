@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cp_bg_item_new_dialog"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cp_order_text41"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/cp_overview_text44"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_contract_info"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_8"
+            android:text="卖"
+            android:textSize="@dimen/sp_16"
+            tools:textColor="@color/main_red" />
+
+        <TextView
+            android:id="@+id/tv_contract_name"
+            style="@style/textStyle_title_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_side"
+            android:text="LTC/USDT" />
+        <TextView
+            android:id="@+id/tv_level_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/tv_contract_name"
+            android:background="@drawable/cp_tag_order_bg"
+            android:paddingLeft="6dp"
+            android:paddingTop="2dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/main_blue"
+            android:textSize="12sp"
+            tools:text="全仓20X" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cp_order_text42"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/cp_order_text49"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/tv_order_tips_layout"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/cp_bg_trade_market_tip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_marginTop="7dp"
+        android:text="@string/cp_order_text48"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/sp_14"
+        android:visibility="visible"
+        app:stv_stroke_color="@color/marker_border"
+        app:stv_stroke_width="0.5px"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cp_order_text43"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12"/>
+    </RelativeLayout>
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/tv_position_amount"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/cp_bg_trade_market_tip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_marginTop="7dp"
+        android:text="全部仓位：32张"
+        android:textColor="@color/hint_color"
+        android:textSize="@dimen/sp_14"
+        android:visibility="visible"
+        app:stv_stroke_color="@color/marker_border"
+        app:stv_stroke_width="0.5px"/>
+
+    <com.chainup.contract.view.CpCommonlyUsedButton
+        android:id="@+id/btn_close_position"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="22dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:bgColor="@color/main_blue"
+        app:bottonTextContent="@string/cp_calculator_text29" />
+
+</LinearLayout>

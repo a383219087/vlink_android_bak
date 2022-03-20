@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.yjkj.chainup.freestaking.PosDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/detail_head"
+            layout="@layout/detail_head_layout" />
+
+
+        <include
+            android:id="@+id/current_item"
+            layout="@layout/expected_return_layout"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/rl_activityProgressParent"
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:layout_marginTop="@dimen/dp_9"
+            android:background="@color/bg_card_color"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="@string/pos_string_process"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                tools:text="活动进度" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_50"
+                android:background="@color/line_color" />
+
+            <TextView
+                android:id="@+id/tv_grandTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view1"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/pos_string_allEarn"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
+                tools:text="平台累计发放" />
+
+            <TextView
+                android:id="@+id/tv_grandTotalNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_grandTotal"
+                android:layout_alignLeft="@id/tv_grandTotal"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:text="1000.000" />
+
+            <TextView
+                android:id="@+id/tv_already"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view1"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_120"
+                android:text="@string/pos_string_myEarn"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
+                tools:text="您已经获得" />
+
+            <TextView
+                android:id="@+id/tv_alreadyNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_already"
+                android:layout_alignLeft="@id/tv_already"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:text="1000.000" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_activityProgressParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_9"
+            android:background="@color/bg_card_color"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="@string/pos_string_process"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                tools:text="活动进度" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_14"
+                android:background="@color/line_color" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_recruitmentStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_state_lockStart"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/tv_recruitmentEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_state_lockEnd"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_interestStart"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_recruitmentStart"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/tv_interestStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_state_InterestStart"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_recruitmentEnd"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_interestEnd"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/tv_interestEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_state_InterestEnd"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_one"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@drawable/audit_uncomplete"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_recruitmentStart"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recruitmentStart" />
+
+                <ImageView
+                    android:id="@+id/image_two"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@drawable/audit_uncomplete"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_recruitmentEnd"
+                    app:layout_constraintRight_toRightOf="@id/tv_recruitmentEnd"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recruitmentEnd" />
+
+                <ImageView
+                    android:id="@+id/image_three"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@drawable/audit_uncomplete"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_interestStart"
+                    app:layout_constraintRight_toRightOf="@id/tv_interestStart"
+                    app:layout_constraintTop_toBottomOf="@id/tv_interestStart" />
+
+                <ImageView
+                    android:id="@+id/image_four"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@drawable/audit_uncomplete"
+                    app:layout_constraintRight_toRightOf="@id/tv_interestEnd"
+                    app:layout_constraintTop_toBottomOf="@id/tv_interestEnd" />
+
+                <ProgressBar
+                    android:id="@+id/progress_one"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginRight="@dimen/dp_6"
+                    android:progressDrawable="@drawable/progressbar_color"
+                    app:layout_constraintBottom_toBottomOf="@id/image_one"
+                    app:layout_constraintLeft_toRightOf="@id/image_one"
+                    app:layout_constraintRight_toLeftOf="@id/image_two"
+                    app:layout_constraintTop_toTopOf="@id/image_one" />
+
+                <ProgressBar
+                    android:id="@+id/progress_two"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginRight="@dimen/dp_6"
+                    android:progressDrawable="@drawable/progressbar_color"
+                    app:layout_constraintBottom_toBottomOf="@id/image_two"
+                    app:layout_constraintLeft_toRightOf="@id/image_two"
+                    app:layout_constraintRight_toLeftOf="@id/image_three"
+                    app:layout_constraintTop_toTopOf="@id/image_two" />
+
+                <ProgressBar
+                    android:id="@+id/progress_three"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginRight="@dimen/dp_6"
+                    android:progressDrawable="@drawable/progressbar_color"
+                    app:layout_constraintBottom_toBottomOf="@id/image_three"
+                    app:layout_constraintLeft_toRightOf="@id/image_three"
+                    app:layout_constraintRight_toLeftOf="@id/image_four"
+                    app:layout_constraintTop_toTopOf="@id/image_three" />
+
+                <TextView
+                    android:id="@+id/tv_yearMonthDayOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_one"
+                    tools:text="2019/10/20" />
+
+                <TextView
+                    android:id="@+id/tv_yearMonthDayTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="@id/image_two"
+                    app:layout_constraintRight_toRightOf="@id/image_two"
+                    app:layout_constraintTop_toBottomOf="@id/image_two"
+                    tools:text="2019/10/20" />
+
+                <TextView
+                    android:id="@+id/tv_yearMonthDayThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="@id/image_three"
+                    app:layout_constraintRight_toRightOf="@id/image_three"
+                    app:layout_constraintTop_toBottomOf="@id/image_three"
+                    tools:text="2019/10/20" />
+
+                <TextView
+                    android:id="@+id/tv_yearMonthDayFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_four"
+                    tools:text="2019/10/20" />
+
+                <TextView
+                    android:id="@+id/tv_timeOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yearMonthDayOne"
+                    tools:text="00:00" />
+
+                <TextView
+                    android:id="@+id/tv_timeTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_yearMonthDayTwo"
+                    app:layout_constraintRight_toRightOf="@id/tv_yearMonthDayTwo"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yearMonthDayTwo"
+                    tools:text="00:00" />
+
+                <TextView
+                    android:id="@+id/tv_timeThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_yearMonthDayThree"
+                    app:layout_constraintRight_toRightOf="@id/tv_yearMonthDayThree"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yearMonthDayThree"
+                    tools:text="00:00" />
+
+                <TextView
+                    android:id="@+id/tv_timeFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/dp_10"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_yearMonthDayFour"
+                    tools:text="00:00" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_lock"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_85"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_15"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_string_lockProcess"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="锁仓进度" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/pos_string_toutalAmount"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="锁仓总额" />
+
+                <ProgressBar
+                    android:id="@+id/lock_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_5"
+                    android:layout_centerVertical="true"
+                    android:progressDrawable="@drawable/progressbar_color" />
+
+                <TextView
+                    android:id="@+id/tv_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="45%" />
+
+                <TextView
+                    android:id="@+id/lock_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="1000.00 ATOM" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_lockePosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_25"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_30"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/ll_alreadyLocke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pos_state_locked"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="您已锁仓" />
+
+                    <TextView
+                        android:id="@+id/tv_lockPosition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        tools:text="1000.000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_cumulativeDistribution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="57dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pos_string_allEarn"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="平台累计发放" />
+
+                    <TextView
+                        android:id="@+id/tv_cumulativeDistribution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        tools:text="1000.000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_youHaveObtained"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_alreadyLocke"
+                    android:layout_marginTop="@dimen/dp_26"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pos_string_myEarn"
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="您已经获得" />
+
+                    <TextView
+                        android:id="@+id/tv_alreadyGot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        tools:text="1000.000" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_lockNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_36"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_numberLock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="锁仓数量:" />
+
+                <TextView
+                    android:id="@+id/tv_numberLockMaxMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="（单次锁仓最低数量：100 ZEL）" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_40"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="9"
+                        android:background="@null"
+                        android:hint="@string/pos_string_inputLockNumber"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/normal_text_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_all"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/pos_string_all"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="全部" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/outline_color" />
+
+                <TextView
+                    android:id="@+id/availableBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/available_balance"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="可用余额 100.00 ATOM" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/expectedReturn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_20"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_twoDayIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pos_string_twoDaysEarn"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="2日预计收益" />
+
+                <TextView
+                    android:id="@+id/tv_twoDayIncomeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    tools:text="1000" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/incomeBreakdown"
+            layout="@layout/income_breakdown_layout"
+            android:layout_width="match_parent"
+            android:layout_height="314dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:visibility="visible" />
+
+        <include
+            layout="@layout/pos_rules_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

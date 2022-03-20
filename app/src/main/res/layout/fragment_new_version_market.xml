@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_bg_color"
+    android:orientation="vertical">
+
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_market"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:paddingTop="@dimen/dp_10"
+        app:tl_indicator_color="@color/main_blue"
+        app:tl_indicator_corner_radius="@dimen/dp_4"
+        app:tl_indicator_height="@dimen/dp_3"
+        app:tl_indicator_width="@dimen/dp_20"
+        app:tl_indicator_width_equal_title="false"
+        app:tl_textBold="SELECT"
+        app:tl_tab_space_equal="true"
+        android:visibility="gone"
+        app:tl_textSelectColor="@color/tab_select_text_color"
+        app:tl_textUnSelectColor="@color/tab_nor_text_color"
+        app:tl_textSize="@dimen/sp_16" />
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_market_loop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:paddingTop="@dimen/dp_10"
+        app:tl_indicator_color="@color/main_blue"
+        app:tl_indicator_corner_radius="@dimen/dp_4"
+        app:tl_indicator_height="@dimen/dp_3"
+        app:tl_indicator_width="@dimen/dp_20"
+        app:tl_indicator_width_equal_title="false"
+        app:tl_tab_space_equal="false"
+        app:tl_textBold="SELECT"
+        android:visibility="gone"
+        app:tl_textSelectColor="@color/tab_select_text_color"
+        app:tl_textUnSelectColor="@color/tab_nor_text_color"
+        app:tl_textSize="@dimen/sp_16" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_half"
+        android:background="@color/line_color" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_market"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_card_color"
+        android:overScrollMode="never" />
+
+
+</LinearLayout>

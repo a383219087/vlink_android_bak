@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/item_layout_bg"
+    android:layout_height="@dimen/dp_56">
+
+
+    <LinearLayout
+        android:id="@+id/content_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/textStyle_title_16"
+                tools:text="LTC" />
+
+
+            <com.yjkj.chainup.new_version.view.CustomTagView
+                android:id="@+id/ctv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_coin_name"
+                android:layout_marginTop="@dimen/dp_4" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_close_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="5734.580000"
+                style="@style/textStyle_title_16" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_rose"
+                android:layout_width="@dimen/dp_78"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="-16.68%"
+                android:textColor="@color/main_blue"
+                style="@style/textStyle_while_14"
+                app:stv_corner="@dimen/dp_4"
+                app:stv_solid="@color/main_blue_15" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/item_view_market_line"
+        style="@style/common_horizon_line_style_left_16"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

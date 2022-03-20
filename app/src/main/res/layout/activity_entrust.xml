@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_card_color"
+    android:fitsSystemWindows="true"
+    tools:context="com.yjkj.chainup.new_version.activity.CurrentEntrustFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_back_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:src="@drawable/ic_return" />
+
+
+        <ImageView
+            android:id="@+id/right_icon"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_15"
+            android:src="@drawable/screening"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_current_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_back_layout"
+        android:layout_marginTop="@dimen/dp_6"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_8"
+            android:singleLine="true"
+            android:text="@string/contract_text_currentEntrust"
+            android:textColor="@drawable/kline_index_text_selector"
+            android:textSize="@dimen/sp_28"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rb_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_20"
+            android:singleLine="true"
+            android:text="@string/contract_text_historyCommision"
+            android:textColor="@drawable/kline_index_text_selector"
+            android:textSize="@dimen/sp_16" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/layout_item_tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@+id/rg_current_history"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/global_divider_width"
+            android:background="@color/global_divider_color" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/fl_type1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_type1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@mipmap/coins_drop_down"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:gravity="center"
+                    android:text="@string/common_action_allTradingPairs"
+                    android:textColor="@color/baseColorPrimaryText"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="@dimen/global_divider_width"
+                android:layout_height="match_parent"
+                android:background="@color/global_divider_color" />
+
+            <FrameLayout
+                android:id="@+id/fl_type2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_type2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@mipmap/coins_drop_down"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:gravity="center"
+                    android:text="@string/common_action_sendall"
+                    android:textColor="@color/baseColorPrimaryText"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="@dimen/global_divider_width"
+                android:layout_height="match_parent"
+                android:background="@color/global_divider_color" />
+
+            <FrameLayout
+                android:id="@+id/fl_type3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_type3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@mipmap/coins_drop_down"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:gravity="center"
+                    android:text="@string/common_action_alltypes"
+                    android:textColor="@color/baseColorPrimaryText"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/v_line3"
+                android:layout_width="@dimen/global_divider_width"
+                android:layout_height="match_parent"
+                android:background="@color/global_divider_color" />
+
+            <FrameLayout
+                android:id="@+id/fl_type4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/fl_type4_tv_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_type4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableRight="@mipmap/coins_drop_down"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center"
+                        android:text="@string/common_action_allstatus"
+                        android:textColor="@color/baseColorPrimaryText"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/baseColorDeepestBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+
+
+    <com.yjkj.chainup.new_version.view.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_item_tools"
+        android:background="@color/bg_card_color" />
+
+
+</RelativeLayout>

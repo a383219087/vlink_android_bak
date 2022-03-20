@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/im_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_116"
+        android:src="@mipmap/quotes_norecords" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_add_like"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_28"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingBottom="@dimen/dp_6"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@drawable/shape_hot_coin_empty"
+        android:descendantFocusability="blocksDescendants"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/quotes_addoptionalicon" />
+        <TextView
+            android:id="@+id/tv_add_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textColor="@color/kline_color_bg_select_stroke"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+</LinearLayout>

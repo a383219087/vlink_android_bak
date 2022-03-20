@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_coin"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/btn_item"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/mainTab_text_transaction"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:stv_corner="@dimen/dp_3"
+        app:stv_left_bottom_corner="true"
+        app:stv_left_top_corner="true"
+        app:stv_right_bottom_corner="true"
+        app:stv_right_top_corner="true"
+        app:stv_solid="@color/main_blue"
+        app:stv_stroke_color="@color/line_color"
+        app:stv_stroke_width="@dimen/dp_1" />
+</LinearLayout>

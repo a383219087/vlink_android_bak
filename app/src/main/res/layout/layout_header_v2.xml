@@ -1,0 +1,50 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/btn_header_back"
+        android:layout_width="@dimen/header_bar_height"
+        android:layout_height="@dimen/header_bar_height"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/tv_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_bar_height"
+        android:layout_marginLeft="@dimen/header_bar_height"
+        android:layout_marginRight="@dimen/header_bar_height"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="ChainUP"
+        android:textColor="#333333"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/btn_header_right"
+        android:layout_width="@dimen/header_bar_height"
+        android:layout_height="@dimen/header_bar_height"
+        android:layout_gravity="right"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_scan"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tx_header_right"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/header_bar_height"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="@string/otc_text_orderComplete"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/sp_16"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/head_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/new_line_color" />
+
+</merge>

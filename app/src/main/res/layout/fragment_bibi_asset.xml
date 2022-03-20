@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_contract"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_card_color"
+        android:orientation="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_search_layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/bg_card_color"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/fragment_my_asset_order_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/img_small_assets_tip"
+            android:button="@drawable/new_hide_small_symbol"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:text="@string/assets_action_privacy"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:id="@+id/img_small_assets_tip"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:src="@drawable/assets_doubt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/fragment_my_asset_order_hide"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/search" />
+
+            <com.yjkj.chainup.new_version.view.CustomizeEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_card_color"
+                android:gravity="center_vertical"
+                android:hint="@string/assets_action_search"
+                android:imeOptions="normal"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/hint_color"
+                android:textCursorDrawable="@drawable/et_cursor_color"
+                android:textSize="@dimen/sp_12" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_card_color"
+                android:focusable="true"
+                android:hint="@string/assets_action_search"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/hint_color"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <EditText
+
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/fragment_my_asset_order_hide"
+            android:background="@color/bg_card_color"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="@dimen/dp_10"
+            android:focusable="true"
+            android:hint="@string/assets_action_search"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/sp_12"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_half"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line_color" />
+
+    </RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

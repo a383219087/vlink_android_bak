@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_price_item_for_sell_range"
+            style="@style/textStyle_text_nor_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:lines="1"
+            android:text="--"
+            tools:text="43860" />
+
+        <TextView
+            android:id="@+id/tv_price_item_for_depth_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:lines="1"
+            android:text="--"
+            style="@style/textStyle_text_nor_12"
+            tools:text="0.3200" />
+
+
+        <TextView
+            android:id="@+id/tv_quantity_item_for_depth_sell"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
+            android:lines="1"
+            android:text="--"
+            style="@style/textStyle_text_nor_12"
+            tools:text="0.3200" />
+
+
+
+
+    </LinearLayout>
+</FrameLayout>

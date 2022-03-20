@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#50000000"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/bg_card_color"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:id="@+id/rv_kline_ctrl_more"
+        android:layout_toLeftOf="@+id/tv_landscape"
+        android:layout_width="match_parent"
+        tools:itemCount="8"
+        tools:listitem="@layout/cp_item_kline_ctrl_more"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/ll_dissmiss"
+        android:layout_width="match_parent"
+        android:layout_height="1500dp"
+        android:background="@color/transparent"
+        android:orientation="vertical" />
+</LinearLayout>

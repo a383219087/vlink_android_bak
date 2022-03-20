@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chainup.contract">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".app.CpMyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/contract_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.CpWebViewActivity"></activity>
+        <!-- <activity android:name=".CpMainActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpAdjustMarginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpCoinDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractAssetRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractEntrustActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractHistoricalPositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractStopRateLossActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpSelectLeverageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpSelectPositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

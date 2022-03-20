@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_layout_more"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_recharge"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:layout_height="@dimen/dp_36"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_text_recharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contract_action_limitPrice"
+            style="@style/textStyle_title_14" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_transfer"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:layout_height="@dimen/dp_36"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_action_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contract_action_marketPrice"
+            style="@style/textStyle_title_14" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

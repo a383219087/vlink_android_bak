@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.yjkj.chainup.freestaking.ProjectDescriptionActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_detail"
+        app:navigationIcon="@drawable/ic_return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize">
+        <TextView
+            android:text="@string/pos_string_detail"
+            android:layout_gravity="center"
+            android:id="@+id/tv_title"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="项目详情"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_26"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/pos_string_projectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="项目名称"/>
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_projectName"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="XXXXXX"/>
+
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="@dimen/dp_26"
+        android:layout_marginLeft="@dimen/dp_15"
+        tools:text="简介"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/normal_text_color"
+        android:text="@string/pos_string_introduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+<!--    <com.yjkj.chainup.wedegit.MultiItemTextView-->
+<!--        android:id="@+id/tv_introduction"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="@dimen/dp_15"-->
+<!--        android:layout_marginRight="@dimen/dp_5" />-->
+    <TextView
+        android:lineSpacingExtra="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/text_color"
+        tools:text="简介简介简介简介简介简介简介"
+        android:id="@+id/tv_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15" />
+
+
+</LinearLayout>

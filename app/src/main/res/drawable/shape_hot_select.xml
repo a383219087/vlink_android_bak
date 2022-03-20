@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/kline_color_select_bg"/>
+    <stroke android:width="@dimen/dp_half" android:color="@color/kline_color_bg_select_stroke"/>
+    <corners android:radius="@dimen/dp_4"/>
+</shape>

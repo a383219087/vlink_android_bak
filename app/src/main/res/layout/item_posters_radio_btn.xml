@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_exclusive_posters"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_share_image"
+        android:layout_width="match_parent"
+        android:layout_height="224dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="@dimen/dp_6">
+
+        <TextView
+            android:id="@+id/tv_iphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:textColor="@color/text_color"
+            android:textSize="10sp"
+            tools:text="ssssss" />
+
+        <TextView
+            android:id="@+id/tv_invitation_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_iphone"
+            android:layout_marginTop="@dimen/dp_2"
+            android:textColor="@color/text_color"
+            android:textSize="6sp"
+            tools:text="ajsdkaslkdalksjdlaksjdlkas" />
+
+        <ImageView
+            android:id="@+id/tv_invitation_qr_code"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_8" />
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_invitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_gravity="center"
+        android:button="@drawable/bg_complaint"
+        android:clickable="false" />
+
+
+</LinearLayout>

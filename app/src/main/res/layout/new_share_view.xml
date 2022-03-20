@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/rl_new_share_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/rl_share_content_layout"
+        android:scaleType="fitXY" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_share_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_110"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/tv_share_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_20"
+            android:textColor="@color/price_text_color_night"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            tools:text="123456789012"
+            />
+        <TextView
+            android:id="@+id/tv_share_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/iv_new_share_qr"
+            android:layout_below="@+id/tv_share_account"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_40"
+            android:textSize="@dimen/sp_14"
+            tools:text="邀请您加入【MOMO】，长按识别二维码"
+            android:textColor="#828EA1"/>
+        <ImageView
+            android:id="@+id/iv_new_share_qr"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_19" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_contract"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_card_color" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
