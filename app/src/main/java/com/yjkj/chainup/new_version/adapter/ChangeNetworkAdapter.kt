@@ -1,6 +1,7 @@
 package com.yjkj.chainup.new_version.adapter
 
 import android.text.TextUtils
+import android.util.Log
 import android.widget.RadioButton
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
@@ -63,6 +64,7 @@ class ChangeNetworkAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R.l
         }
         val netWorkUrl = PublicInfoDataService.getInstance().newWorkURL
         if (TextUtils.isEmpty(netWorkUrl)) {
+            Log.e("我是改变地址2", "serverUrl：${Utils.getAPIInsideString(ApiConstants.BASE_URL)}")
             PublicInfoDataService.getInstance().saveNewWorkURL(Utils.getAPIInsideString(ApiConstants.BASE_URL))
         }
         val isCheck = netWorkUrl == item.optString("hostName")

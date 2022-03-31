@@ -877,9 +877,10 @@ public class PublicInfoDataService {
      * 2 - 极验
      */
     public int getVerifyType(@Nullable JSONObject data) {
-        data = getData(data);
-        if (null != data)
+        if (null != data){
+            data = getData(data);
             return data.optInt("verificationType");
+        }
         return 0;
     }
 

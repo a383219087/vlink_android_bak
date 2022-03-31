@@ -1156,6 +1156,8 @@ public class Utils {
             return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/wsswap/realTime"));
         } else if (str.contains("/contract-kline-api/ws")) {
             return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/contract-kline-api/ws"));
+        } else if (StringUtil.isDoMainIPUrl(URI.create(str).getHost())) {
+            return URI.create(str).getHost();
         } else {
             return str.substring(str.indexOf(".") + ".".length(), str.lastIndexOf("/"));
         }
@@ -1234,14 +1236,15 @@ public class Utils {
         Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
         if (null == specialList || specialList.size() == 0) {
             if (TextUtils.isEmpty(domainUrl)) {
-                if(isApi){
+                if (isApi) {
                     PublicInfoDataService.getInstance().saveNewWorkURL(domain);
-                }else{
+                    Log.e("我是改变地址3", "serverUrl："+domain);
+                } else {
                     PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
                 }
                 return url;
             } else {
-                return returnSpeedUrlV2(domainUrl,url);
+                return returnSpeedUrlV2(domainUrl, url);
             }
         } else {
             for (JSONObject json : specialList) {
@@ -1252,14 +1255,15 @@ public class Utils {
                 }
             }
             if (TextUtils.isEmpty(domainUrl)) {
-                if(isApi){
+                if (isApi) {
+                    Log.e("我是改变地址4", "serverUrl："+domain);
                     PublicInfoDataService.getInstance().saveNewWorkURL(domain);
-                }else{
+                } else {
                     PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
                 }
                 return url;
             } else {
-                return returnSpeedUrlV2(domainUrl,url);
+                return returnSpeedUrlV2(domainUrl, url);
             }
 
         }
@@ -1274,42 +1278,7 @@ public class Utils {
     }
 
 
-    public static String getSpecialList(String url, String domain, String replaceUrl) {
 
-        if (url.contains("/hongbaoapi")) {
-            return url.replace(domain, "service." + replaceUrl);
-        } else if (url.contains("/kline-api")) {
-            return url.replace(domain, "ws." + replaceUrl);
-
-        } else if (url.contains("/otc-chat")) {
-            return url.replace(domain, "ws2." + replaceUrl);
-
-        } else if (url.contains("/wsswap/realTime")) {
-            return url.replace(domain, "ws3." + replaceUrl);
-
-        } else if (url.contains("/contract-kline-api/ws")) {
-            return url.replace(domain, "ws3." + replaceUrl);
-
-        } else if (url.contains("otcappapi")) {
-            return url.replace(domain, "otcappapi." + replaceUrl);
-
-        } else if (url.contains("coappapi")) {
-            return url.replace(domain, "coappapi." + replaceUrl);
-
-        } else {
-            return url.replace(domain, "appapi." + replaceUrl);
-        }
-    }
-
-    public static <T> List<T> deepCopy(List<T> src)
-            throws IOException, ClassNotFoundException {
-        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(byteOut);
-        out.writeObject(src);
-        ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
-        ObjectInputStream in = new ObjectInputStream(byteIn);
-        return (List<T>) in.readObject();
-    }
 
     public static <T> ArrayList<T> jsonToArrayList(String json, Class<T> clazz) {
         Type type = new TypeToken<ArrayList<JsonObject>>() {
@@ -1416,33 +1385,8 @@ public class Utils {
         }
     }
 
-    public static String getAPIHostInsideStringIP(String str) {
-        if (str.indexOf("//") < 0) {
-            return "";
-        }
-        if (str.lastIndexOf("/") < 0) {
-            return "";
-        }
-        if (str.contains("/hongbaoapi")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/hongbaoapi"));
-        } else if (str.contains("/kline-api")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/kline-api"));
-        } else if (str.contains("/otc-chat")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/otc-chat"));
-        } else if (str.contains("/wsswap/realTime")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/wsswap/realTime"));
-        } else if (str.contains("/contract-kline-api/ws")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/contract-kline-api/ws"));
-        } else {
-            return str.substring(str.indexOf("//") + "//".length(), str.lastIndexOf("/"));
-        }
-    }
 
-    public static String returnReplaceUrlIP(String normalUrl, String domain, String replaceUrl) {
-        String url = normalUrl;
-        url = normalUrl.replace(domain, replaceUrl);
-        return url;
-    }
+
 
     public static String netUrl(boolean isApi) {
         if (isApi) return PublicInfoDataService.getInstance().getNewWorkURL();

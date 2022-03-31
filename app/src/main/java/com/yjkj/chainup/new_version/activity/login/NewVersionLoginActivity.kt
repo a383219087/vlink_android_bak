@@ -50,12 +50,12 @@ class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
     /**
      * 密码
      */
-    var pwdTextContent = ""
+    var pwdTextContent = "R314062258"
 
     /**
      * 账号
      */
-    var accountContent = ""
+    var accountContent = "314062259@qq.com"
 
     /**
      * 极验

@@ -2,6 +2,7 @@ package com.yjkj.chainup.net
 
 
 import android.text.TextUtils
+import android.util.Log
 import com.contract.sdk.ContractSDKAgent
 import com.fengniao.news.util.DateUtil
 import com.google.gson.JsonObject
@@ -1813,6 +1814,7 @@ class HttpClient private constructor() {
                 it.reConfigWsUrl(NetUrl.getContractSocketUrl())
             }
         }else{
+            Log.e("我是改变地址", "serverUrl：$serverUrl")
             PublicInfoDataService.getInstance().saveNewWorkURL(serverUrl)
             HttpHelper.instance.clearServiceMap()
             refreshApi()

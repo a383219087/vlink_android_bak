@@ -122,8 +122,8 @@ class NewMainActivity : NBaseActivity() {
     override fun onInit(savedInstanceState: Bundle?) {
         super.onInit(savedInstanceState)
         fragmentManager = supportFragmentManager
-        val intent = Intent(this, NetworkLineService::class.java)
-        startService(intent)
+//        val intent = Intent(this, NetworkLineService::class.java)
+//        startService(intent)
         loadData()
         getIntentData()
         RouteApp.getInstance().execApp(pushUrl, this)

@@ -39,35 +39,35 @@ class NetworkLineService(name: String = "NetworkLineService") : IntentService(na
         if (!ApiConstants.isSaasNetwork()) {
             return
         }
-        Thread(Runnable {
-            try {
-                val jsonFile = Utils.getJSONLink(null)
-                val jsonFileCompanyID = Utils.getJSONLink(ApiConstants.APP_COMPANY_ID)
-                PublicInfoDataService.getInstance().saveCetData(jsonFile)
-                PublicInfoDataService.getInstance().saveCompanyIDData(jsonFileCompanyID)
-                if (!TextUtils.isEmpty(jsonFile)) {
-                    var jsonObject = JSONObject(jsonFile)
-                    val links = PublicInfoDataService.getInstance().getLinkData(true)
-                    retryCount = jsonObject.optInt("retryCount", retryCount)
-                    retryInterval = jsonObject.optInt("retryInterval", retryInterval)
-                    differance = jsonObject.optInt("differance", differance)
-                    if (links != null && links.size != 0) {
-                        // 测速
-                        liksArray.addAll(links)
-                        for ((index, item) in liksArray.withIndex()) {
-                            val line = item.optString("hostName")
-                            linesSpeed.put(line, arrayListOf())
-                            linesNum.put(line, (index + 1))
-                        }
-                        LogUtil.v(TAG, "liksArray ${liksArray.size}")
-                        loopTime()
-                    }
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }).start()
+//        Thread(Runnable {
+//            try {
+//                val jsonFile = Utils.getJSONLink(null)
+//                val jsonFileCompanyID = Utils.getJSONLink(ApiConstants.APP_COMPANY_ID)
+//                PublicInfoDataService.getInstance().saveCetData(jsonFile)
+//                PublicInfoDataService.getInstance().saveCompanyIDData(jsonFileCompanyID)
+//                if (!TextUtils.isEmpty(jsonFile)) {
+//                    var jsonObject = JSONObject(jsonFile)
+//                    val links = PublicInfoDataService.getInstance().getLinkData(true)
+//                    retryCount = jsonObject.optInt("retryCount", retryCount)
+//                    retryInterval = jsonObject.optInt("retryInterval", retryInterval)
+//                    differance = jsonObject.optInt("differance", differance)
+//                    if (links != null && links.size != 0) {
+//                        // 测速
+//                        liksArray.addAll(links)
+//                        for ((index, item) in liksArray.withIndex()) {
+//                            val line = item.optString("hostName")
+//                            linesSpeed.put(line, arrayListOf())
+//                            linesNum.put(line, (index + 1))
+//                        }
+//                        LogUtil.v(TAG, "liksArray ${liksArray.size}")
+//                        loopTime()
+//                    }
+//                }
+//
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }).start()
     }
 
     private fun loopTime() {

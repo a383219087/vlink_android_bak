@@ -64,7 +64,7 @@ public class NetInterceptor implements Interceptor {
         LogUtil.e(TAG, printTime);
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("url", neworiUrl);
-        LogUtil.d(TAG, "NetInterceptor==response is " + response);
+        LogUtil.e(TAG, "NetInterceptor==response is " + response);
         AppAnalyticsExt.Companion.getInstance().network(AppAnalyticsExt.Companion.getAPP_HTTP_httpTrack(), map);
         if (response.code() == 200) {
             if (time >= 400) {

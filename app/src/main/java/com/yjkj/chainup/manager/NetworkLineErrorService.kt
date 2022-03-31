@@ -34,9 +34,9 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 
     override fun onHandleIntent(p0: Intent?) {
         LogUtil.v(TAG, "onHandleIntent()")
-//        if (!ApiConstants.isSaasNetwork()) {
-//            return
-//        }
+        if (!ApiConstants.isSaasNetwork()) {
+            return
+        }
         Thread(Runnable {
             try {
                 val jsonFile = PublicInfoDataService.getInstance().cetData
