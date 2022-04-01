@@ -56,6 +56,9 @@ android {
         threadCount = 8
     }
 
+    dataBinding {
+        enabled = true
+    }
 
     signingConfigs {
         debug {//调试版本的签名配置

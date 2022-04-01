@@ -26,6 +26,17 @@ public class StringUtils {
 
 
     /**
+     * 判断字符串是否为空
+     *
+     * @return true：空 ，false：非空
+     */
+    public static boolean isEmpty(String str) {
+        if ((null != str) && (!"".equals(str)) && (!"null".equals(str))) {
+            return false;
+        }
+        return true;
+    }
+    /**
      * 获取SpannableString,用于设置和输入框字体大小不同的提示语
      *
      * @param hint 提示语

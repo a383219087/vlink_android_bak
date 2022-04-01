@@ -37,7 +37,8 @@ public class RoutePath {
     public static final String NewVerifyActivity = "/personalCenter/NewVerifyActivity";
     public static final String WebviewActivity = "/personalCenter/WebviewActivity";
     public static final String UdeskWebViewActivity = "/personalCenter/UdeskWebViewActivity";
-    public static final String ContractAgentActivity = "/personalCenter/ContractAgentActivity";
+    public static final String ContractAgentActivity = "/personalCenter/ContractAgentActivity1";
+    public static final String ContractAgentActivity1 = "/personalCenter/ContractAgentActivity";
     public static final String InvitationRewardActivity = "/personalCenter/InvitationRewardActivity";
     public static final String ChangenNetworkActivity = "/personalCenter/ChangenNetworkActivity";
 

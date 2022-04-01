@@ -57,7 +57,7 @@ import java.text.DecimalFormat
  * @Email buptjinlong@163.com
  * @description
  */
-@Route(path = RoutePath.ContractAgentActivity)
+@Route(path = RoutePath.ContractAgentActivity1)
 class ContractAgentActivity : NBaseActivity() {
     override fun setContentView() = R.layout.activity_contract_agent
 

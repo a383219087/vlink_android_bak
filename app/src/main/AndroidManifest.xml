@@ -254,6 +254,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity android:name=".new_version.activity.personalCenter.ContractAgentActivity" />
+        <activity android:name=".new_version.activity.personalCenter.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
 
         <activity android:name=".new_contract.activity.ClMarketDetail4Activity" />

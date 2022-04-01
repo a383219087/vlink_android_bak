@@ -20,6 +20,25 @@ class TimeUtil private constructor() {
         }
     }
 
+    private var lastClickTime: Long = 0
+    private val CLICK_TIME = 800 //快速点击间隔时间
+
+
+    /**
+     * @Author: hl
+     * @Date: created at 2020/3/27 14:39
+     * @Description: 是否快速点击判断
+     */
+    fun isFastDoubleClick(): Boolean {
+        val time = System.currentTimeMillis()
+        val timeD = time - lastClickTime
+        if (0 < timeD && timeD < CLICK_TIME) {
+            return true
+        }
+        lastClickTime = time
+        return false
+    }
+
     /**
      * @return 年月日
      */

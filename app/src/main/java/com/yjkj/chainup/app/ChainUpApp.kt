@@ -78,7 +78,6 @@ class ChainUpApp : CpMyApp() {
 
             Handler().postDelayed({
                 WsAgentManager.instance.socketUrl(ApiConstants.SOCKET_ADDRESS, true)
-//                WsContractAgentManager.instance.socketUrl(NetUrl.getContractSocketNewUrl(), true)
                 CpWsContractAgentManager.instance.socketUrl(CpClLogicContractSetting.getWsUrl(this), true)
             }, 1500)
             setCurrentTheme()
