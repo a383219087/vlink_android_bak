@@ -1,14 +1,12 @@
-package com.yjkj.chainup.new_version.activity.personalCenter
+package com.yjkj.chainup.new_version.activity.invite
 
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
-import com.yjkj.chainup.databinding.ActivityInvitesCodeBinding
 import com.yjkj.chainup.databinding.DialogNewInviteCodeBinding
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.new_version.activity.personalCenter.vm.EditInviteCodesViewModel
-import com.yjkj.chainup.new_version.activity.personalCenter.vm.MyInviteCodesViewModel
+import com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel
 
 
 @Route(path = RoutePath.EditInviteCodesActivity)

@@ -1,10 +1,9 @@
-package com.yjkj.chainup.new_version.activity.personalCenter.vm
+package com.yjkj.chainup.new_version.activity.invite.vm
 
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
-import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.db.constant.RoutePath

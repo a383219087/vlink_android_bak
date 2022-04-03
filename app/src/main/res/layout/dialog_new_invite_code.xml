@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.personalCenter.vm.EditInviteCodesViewModel" />
+            type="com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel" />
 
         <import type="android.view.View" />
 

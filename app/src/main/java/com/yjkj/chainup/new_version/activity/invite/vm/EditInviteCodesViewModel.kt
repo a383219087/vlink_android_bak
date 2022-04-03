@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.activity.personalCenter.vm
+package com.yjkj.chainup.new_version.activity.invite.vm
 
 
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +18,11 @@ class EditInviteCodesViewModel : BaseViewModel() {
 
     fun checkNum(type:Int){
         check.value=type
+
+    }
+
+
+    fun onCheckedChanged(){
 
     }
 
