@@ -19,8 +19,14 @@ class ContractAgentActivity1 : BaseMVActivity<ContractAgentViewModel?, ActivityC
 
     override fun setContentView() = R.layout.activity_contract_agent1
     override fun initData() {
-        mViewModel?.myInviteCodes()
+        mViewModel?.myBonus()
+        mViewModel?.top10()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel?.myInviteCodes()
     }
 
 

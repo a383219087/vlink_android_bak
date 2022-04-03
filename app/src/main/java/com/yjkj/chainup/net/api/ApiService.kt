@@ -21,6 +21,7 @@ import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.http.*
+import java.util.HashMap
 
 /**
  * @author Bertking
@@ -503,7 +504,28 @@ interface ApiService {
      */
     @POST("/invite_code/myInviteCodes")
     fun myInviteCodes(): Observable<HttpResult<List<AgentCodeBean>>>
-
+    /**
+     * 创建邀请码
+     */
+    @FormUrlEncoded
+    @POST("/invite_code/createInviteCode")
+    fun createInviteCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<AgentCodeBean>>
+    /**
+     * 更新默认邀请码
+     */
+    @FormUrlEncoded
+    @POST("/invite_code/updateDefaultCode")
+    fun updateDefaultCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
+    /**
+     * 我的邀请统计
+     */
+    @GET("/invite_code/myBonus")
+    fun myBonus(): Observable<HttpResult<InviteBean>>
+    /**
+     * 返佣前10
+     */
+    @GET("/invite_code/top10")
+    fun top10(): Observable<HttpResult<List<InviteBean>>>
 
 }
 

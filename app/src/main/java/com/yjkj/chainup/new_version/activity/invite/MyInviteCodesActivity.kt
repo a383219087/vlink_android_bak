@@ -17,7 +17,7 @@ class MyInviteCodesActivity : BaseMVActivity<MyInviteCodesViewModel?, ActivityIn
     override fun setContentView() = R.layout.activity_invites_code
     override fun initData() {
         mViewModel?.context?.value = mActivity
-        mViewModel?.myInviteCodes()
+
         mBinding?.toolBar?.listener = object : PersonalCenterView.MyProfileListener {
             override fun onclickHead() {
 
@@ -38,6 +38,11 @@ class MyInviteCodesActivity : BaseMVActivity<MyInviteCodesViewModel?, ActivityIn
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel?.myInviteCodes()
     }
 
 

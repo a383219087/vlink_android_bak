@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yjkj.chainup.bean.InviteBean" />
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="排行"
+                android:gravity="center"
+                android:textColor="@color/text_color_level_4"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="用户昵称"
+                android:gravity="center"
+                android:textColor="@color/text_color_level_4"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="邀请人数"
+                android:gravity="center"
+                android:textColor="@color/text_color_level_4"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="返利金额"
+                android:gravity="center"
+                android:textColor="@color/text_color_level_4"
+                android:textSize="15sp" />
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@{(item.index+1)+``}"
+                android:gravity="center"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="用户昵称"
+                android:gravity="center"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="@{item.userCount+``}"
+                android:gravity="center"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="@{item.amount+``}"
+                android:gravity="center"
+                android:textColor="@color/text_color_red"
+                android:textSize="15sp" />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</layout>
