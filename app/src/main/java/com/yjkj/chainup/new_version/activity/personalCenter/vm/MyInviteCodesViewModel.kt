@@ -1,6 +1,7 @@
 package com.yjkj.chainup.new_version.activity.personalCenter.vm
 
 
+import android.content.Context
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +16,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class MyInviteCodesViewModel : BaseViewModel() {
 
+    var context = MutableLiveData<Context>()
 
     interface OnItemListener {
         fun onClick(item: AgentCodeBean)
@@ -38,7 +40,7 @@ class MyInviteCodesViewModel : BaseViewModel() {
             items.clear()
             for (i in 0 until it.data.size){
                 val bean=it.data[i]
-                bean.rateInt=it.data[i].rate.toInt()
+                bean.rateInt=it.data[i].rate.toDouble().toInt()
                 items.add(bean)
             }
 

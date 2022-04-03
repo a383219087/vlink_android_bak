@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="默认邀请码"
+            android:text="@{item.remark}"
             android:textColor="@color/text_color"
             android:textSize="15sp" />
 
@@ -79,9 +79,10 @@
             android:padding="5dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="邀请码"
+                android:layout_weight="1"
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 
@@ -103,9 +104,10 @@
             android:padding="5dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="邀请链接"
+                android:layout_weight="1"
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 

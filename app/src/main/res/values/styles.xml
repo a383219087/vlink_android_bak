@@ -299,8 +299,14 @@
     <style name="AccountDivider" parent="Divider">
         <item name="android:layout_marginStart">@dimen/account_margin_start</item>
     </style>
+    <style name="Picture.Theme.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">#80000000</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="dialogTheme" parent="Picture.Theme.Translucent">
 
-
+    </style>
     <style name="VerificationTV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
