@@ -18,8 +18,7 @@
         android:id="@+id/rv_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/v_title"
-        />
+        android:layout_below="@+id/v_title" />
 
 
     <com.yjkj.chainup.new_version.view.CommonlyUsedButton

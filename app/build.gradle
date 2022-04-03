@@ -218,6 +218,9 @@ dependencies {
     api "com.squareup.retrofit2:converter-protobuf:$config.dependencies.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$config.dependencies.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$config.dependencies.retrofitVersion"
+    api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
+    api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'
+    api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2:4.0.0'
 
     api "com.squareup.okhttp3:logging-interceptor:$config.dependencies.okhttp3loggingVersion"
 

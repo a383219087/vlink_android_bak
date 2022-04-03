@@ -190,7 +190,7 @@ class HttpClient private constructor() {
     }
 
 
-    private fun createApi(): ApiService {
+     fun createApi(): ApiService {
         if (!StringUtil.isHttpUrl(BASE_URL))
             BASE_URL = AppConfig.default_host
         val retrofit = Retrofit.Builder()

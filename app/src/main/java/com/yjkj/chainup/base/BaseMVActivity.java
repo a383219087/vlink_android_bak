@@ -17,9 +17,8 @@ public abstract class BaseMVActivity<VM extends BaseViewModel, VDB extends ViewD
         extends NBaseActivity {
 
 
-    protected BaseMVActivity() {
-    }
-
+    protected BaseMVActivity() { }
+    protected abstract void initData();
 
     protected VM mViewModel;
     protected VDB mBinding;
@@ -48,6 +47,7 @@ public abstract class BaseMVActivity<VM extends BaseViewModel, VDB extends ViewD
         mBinding.setVariable(BR._all, mViewModel);
         mBinding.executePendingBindings();//立即更新UI
         getLifecycle().addObserver(mViewModel);
+        initData();
 
     }
 

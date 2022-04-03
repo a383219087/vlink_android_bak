@@ -30,18 +30,7 @@ import retrofit2.http.*
  */
 interface ApiService {
 
-    /**
-     * 手机注册
-     */
-    @POST("user/reg_mobile")
-    fun regMobile(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
-
-    /**
-     * 邮箱注册
-     */
-    @POST("user/reg_email")
-    fun regEmail(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
     /**
      * 手机短信验证码
@@ -55,46 +44,6 @@ interface ApiService {
      */
     @POST("v4/common/emailValidCode")
     fun sendEmailVerifyCode(@Body requestBody: RequestBody): Observable<HttpResult<String>>
-
-    /**
-     * 邮箱登录
-     */
-    @POST("user/login_in")
-    fun loginByEmail(@Body requestBody: RequestBody): Observable<HttpResult<JsonObject>>
-
-    /**
-     * 获取公共协议
-     */
-    @GET("common/terms")
-    fun getCommonTerms(@QueryMap map: Map<String, String>): Observable<HttpResult<List<TermsBean>>>
-
-
-    /**
-     * 忘记密码 step 2
-     */
-    @POST("user/reset_password_step_two")
-    fun resetPwdStep2(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-
-    /**
-     * 忘记密码 step 3
-     */
-    @POST("user/reset_password_step_three")
-    fun resetPwdStep3(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-
-    /**
-     * 修改登录密码
-     */
-    @POST("user/password_update")
-    fun changeLoginPwd(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-
-    /**
-     * 获取初始信息
-     */
-    @POST("common/public_info")
-    fun getInitInfo(@Body requestBody: RequestBody): Observable<HttpResult<InitInfo>>
 
 
     /**
@@ -360,11 +309,7 @@ interface ApiService {
     @POST("app-auth/user/quick_login")
     fun newQuickLogin(@Body requestBody: RequestBody): Observable<HttpResult<JsonObject>>
 
-    /**
-     * 获取极验
-     */
-    @POST("common/tartCaptcha")
-    fun getTartCaptcha(@Body requestBody: RequestBody): Observable<HttpResult<String>>
+
 
     /**
      *图片临时token
@@ -551,6 +496,13 @@ interface ApiService {
      */
     @POST("co/agent/getAgentInfo")
     fun getAgentInfo(@Body requestBody: RequestBody): Observable<HttpResult<AgentInfoBean>>
+
+
+    /**
+     * 我的邀请码
+     */
+    @POST("/invite_code/myInviteCodes")
+    fun myInviteCodes(): Observable<HttpResult<List<AgentCodeBean>>>
 
 
 }
