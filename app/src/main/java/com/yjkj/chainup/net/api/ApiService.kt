@@ -527,5 +527,12 @@ interface ApiService {
     @GET("/invite_code/top10")
     fun top10(): Observable<HttpResult<List<InviteBean>>>
 
+    /**
+     * 我的下级
+     */
+    @FormUrlEncoded
+    @POST("/invite_code/myNextAgentUsers")
+    fun myNextAgentUsers(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
+
 }
 

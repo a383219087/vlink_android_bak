@@ -73,6 +73,9 @@ class ContractAgentViewModel : BaseViewModel() {
     fun toMyInviteCodesActivity() {
         ArouterUtil.navigation(RoutePath.MyInviteCodesActivity, null)
     }
+    fun toMoreNextInvite() {
+        ArouterUtil.navigation(RoutePath.MyInviteActivity, null)
+    }
 
     fun onEditClick() {
         ARouter.getInstance().build(RoutePath.EditInviteCodesActivity)

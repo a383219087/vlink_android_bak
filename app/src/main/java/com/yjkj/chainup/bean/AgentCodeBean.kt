@@ -23,3 +23,26 @@ data class InviteBean(
     var index: Int
 
 ):Serializable
+
+data class MyNextInvite(
+    val accountAmountStr: Any,
+    val auditStatus: Int,
+    val auditTime: Long,
+    val bonusAmountStr: Any,
+    val childRoleId: Int,
+    val childRoleName: String,
+    val ctime: Long,
+    val feeAmountStr: Any,
+    val id: Int,
+    val inviteCode: String,
+    val level: Int,
+    val mtime: Any,
+    val pid: Int,
+    val roleId: Int,
+    val roleName: String,
+    val status: Int,
+    val takeDate: Long,
+    val type: Int,
+    val uid: Int,
+    val uidPath: String
+):Serializable

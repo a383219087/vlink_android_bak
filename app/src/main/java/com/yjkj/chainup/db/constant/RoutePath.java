@@ -39,10 +39,12 @@ public class RoutePath {
     public static final String UdeskWebViewActivity = "/personalCenter/UdeskWebViewActivity";
     public static final String ContractAgentActivity = "/personalCenter/ContractAgentActivity1";
     public static final String MyInviteCodesActivity = "/personalCenter/MyInviteCodesActivity";
+    public static final String MyInviteActivity = "/personalCenter/MyInviteActivity";
     public static final String EditInviteCodesActivity = "/personalCenter/EditInviteCodesActivity";
     public static final String ContractAgentActivity1 = "/personalCenter/ContractAgentActivity";
     public static final String InvitationRewardActivity = "/personalCenter/InvitationRewardActivity";
     public static final String ChangenNetworkActivity = "/personalCenter/ChangenNetworkActivity";
+    public static final String FriendsFragment = "/personalCenter/FriendsFragment";
 
     /*
      * 登录注册模块

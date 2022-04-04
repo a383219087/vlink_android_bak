@@ -376,6 +376,7 @@
         <activity android:name=".new_version.activity.invite.MyInviteCodesActivity" />
         <activity android:name=".new_version.activity.invite.EditInviteCodesActivity"
             android:theme="@style/dialogTheme"/>
+        <activity android:name=".new_version.activity.invite.MyInviteActivity" />
 
 
         <meta-data
