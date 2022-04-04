@@ -20,6 +20,7 @@ data class InviteBean(
     val amount: Double,
     val uid: Int,
     val userCount: Int,
+    val txCount: Int,
     var index: Int
 
 ):Serializable

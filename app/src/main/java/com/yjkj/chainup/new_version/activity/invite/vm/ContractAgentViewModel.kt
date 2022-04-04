@@ -1,10 +1,19 @@
 package com.yjkj.chainup.new_version.activity.invite.vm
 
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.text.TextUtils
+import android.view.View
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -12,8 +21,15 @@ import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
+import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.util.DisplayUtil
+import com.yjkj.chainup.util.ImageTools
+import com.yjkj.chainup.util.ScreenShotUtil
+import com.yjkj.chainup.util.ToastUtils
 
 import io.reactivex.functions.Consumer
+import kotlinx.android.synthetic.main.activity_contract_agent.*
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -84,4 +100,42 @@ class ContractAgentViewModel : BaseViewModel() {
             .navigation()
     }
 
+
+
+    fun onShareClick(view:View) {
+        val list: ArrayList<String> = arrayListOf(bean.value!!.inviteCode,bean.value!!.inviteCode)
+      var dialog = NewDialogUtils.showInvitationPosters(view.context as Activity, list, object : NewDialogUtils.DialogSharePostersListener {
+            @SuppressLint("CheckResult")
+            override fun saveIamgePosters(imageUrl: String, shareView: ImageView) {
+                var bitmap = (shareView.drawable as BitmapDrawable).bitmap
+                val rxPermissions = RxPermissions(view.context as Activity)
+                /**
+                 * 获取读写权限
+                 */
+                rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .subscribe { granted ->
+                        if (granted) {
+                            if (bitmap != null) {
+                                val saveImageToGallery = ImageTools.saveImageToGallery4ContractAgent(view.context, bitmap)
+                                if (saveImageToGallery) {
+                                    ToastUtils.showToast("保存成功")
+                                } else {
+                                    ToastUtils.showToast("保存失败")
+                                }
+                            } else {
+                                ToastUtils.showToast("保存失败")
+                            }
+                        } else {
+                            ToastUtils.showToast("保存失败")
+                        }
+                    }
+
+            }
+
+            override fun saveIamgePostersNew(imageUrl: String) {
+
+            }
+        })
+
+    }
 }

@@ -147,6 +147,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:text="立即邀请"
+            android:onClick="@{(v)->onItemListener.onClick(item,v)}"
             android:textColor="@color/white"
             app:ResColor="@{R.color.main_blue}"
             app:radius="@{15}"/>

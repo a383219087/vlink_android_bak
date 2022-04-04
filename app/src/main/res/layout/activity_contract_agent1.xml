@@ -164,6 +164,7 @@
                             android:layout_marginBottom="5dp"
                             android:gravity="center"
                             android:text="立即邀请"
+                            android:onClick="@{(v)->_all.onShareClick(v)}"
                             android:textColor="@color/white"
                             app:ResColor="@{R.color.main_blue}"
                             app:radius="@{15}" />
@@ -260,7 +261,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="0"
+                                    android:text="@{_all.myBonusBean.txCount+``}"
                                     android:textColor="@color/red"
                                     android:textSize="15sp" />
 

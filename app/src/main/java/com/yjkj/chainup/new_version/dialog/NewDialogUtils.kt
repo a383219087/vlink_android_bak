@@ -3860,6 +3860,7 @@ class NewDialogUtils {
                                     0 -> {
                                         if (listener != null) {
                                             listener?.saveIamgePosters(imageUrl, viewHolder.getView<ImageView>(R.id.iv_share_image))
+
                                         }
                                     }
                                     1 -> {
