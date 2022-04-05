@@ -46,6 +46,10 @@ public class RoutePath {
     public static final String ChangenNetworkActivity = "/personalCenter/ChangenNetworkActivity";
     public static final String FriendsFragment = "/personalCenter/FriendsFragment";
 
+    public static final String DocumentaryActivity = "/documentary/DocumentaryActivity";
+    public static final String FirstFragment = "/documentary/FirstFragment";
+    public static final String MineFragment = "/documentary/MineFragment";
+
     /*
      * 登录注册模块
      */

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="_all"
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.FirstViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.R" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:background="#F5F5F5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:ResColor="@{R.color.text_color_orange}"
+                app:radius="@{10}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="持仓估值"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="0.0CNY"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="=0USDT"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="今日预计收益（USDT）"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="0.0"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right|center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="收益率"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="0.0%"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="交易员列表"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="仅显示有位置"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="数据每小时更新一次"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="综合排名"
+                        app:radius="@{3}"
+                        android:onClick="@{()->_all.setIndex(0)}"
+                        app:ResColor="@{_all.index==0?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==0?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@{_all.index==0?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="进2周收益"
+                        android:layout_marginLeft="5dp"
+                        app:radius="@{3}"
+                        android:onClick="@{()->_all.setIndex(1)}"
+                        app:ResColor="@{_all.index==1?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==1?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@{_all.index==1?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="累计收益"
+                        android:layout_marginLeft="5dp"
+                        app:radius="@{3}"
+                        app:ResColor="@{_all.index==2?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==2?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:onClick="@{()->_all.setIndex(2)}"
+                        android:textColor="@{_all.index==2?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="累计交易系数"
+                        app:radius="@{3}"
+                        android:layout_marginLeft="5dp"
+                        app:ResColor="@{_all.index==3?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==3?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:onClick="@{()->_all.setIndex(3)}"
+                        android:textColor="@{_all.index==3?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="当前跟随人数"
+                        app:radius="@{3}"
+                        app:ResColor="@{_all.index==4?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==4?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:onClick="@{()->_all.setIndex(4)}"
+                        android:textColor="@{_all.index==4?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:itemBinding="@{_all.itemBinding}"
+                    app:items="@{_all.items}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

@@ -557,6 +557,9 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
                 putString("type", ParamConstant.ADD_COIN_MAP)
             })
         }
+        tvDocumentary?.setOnClickListener {
+            ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
+        }
         iv_market_msg?.setOnClickListener {
             if (LoginManager.checkLogin(mActivity, true)) {
                 startActivity(Intent(mActivity, MailActivity::class.java))
