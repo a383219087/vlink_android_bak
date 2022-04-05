@@ -85,6 +85,9 @@ class MyInviteCodesViewModel : BaseViewModel() {
             }
             val map = HashMap<String, Any>()
             map["inviteCode"] = item.inviteCode
+            map["rate"] = item.rate
+            map["remark"] = item.remark
+            map["isDefault"] = "1"
             startTask(apiService.updateDefaultCode(map), Consumer {
                 myInviteCodes()
             }, Consumer {

@@ -20,6 +20,9 @@ class EditInviteCodesViewModel : BaseViewModel() {
     var isCheck = MutableLiveData(false)
 
 
+    var inviteCode = MutableLiveData("")
+
+
     fun checkNum(type: Int) {
         checkNum.value = type
         when (type) {
@@ -35,6 +38,7 @@ class EditInviteCodesViewModel : BaseViewModel() {
      fun initData(bean:AgentCodeBean?){
          remark.value=bean?.remark
          rate.value = bean?.rateInt
+         inviteCode.value=bean?.inviteCode
          when (bean?.rateInt) {
              0 -> checkNum.value = 1
              30 -> checkNum.value = 2
@@ -49,15 +53,29 @@ class EditInviteCodesViewModel : BaseViewModel() {
 
 
     fun onSure() {
-        val map = HashMap<String, Any>()
-        map["rate"] = rate.value.toString()
-        map["remark"] = remark.value.toString()
-        map["isDefault"] = if (isCheck.value == true) "1" else "0"
-        startTask(apiService.createInviteCode(map), Consumer{
-            finish()
-        }, Consumer {
+        if(inviteCode.value?.isEmpty()!!){
+            val map = HashMap<String, Any>()
+            map["rate"] = rate.value.toString()
+            map["remark"] = remark.value.toString()
+            map["isDefault"] = if (isCheck.value == true) "1" else "0"
+            startTask(apiService.createInviteCode(map), Consumer{
+                finish()
+            }, Consumer {
 
-        });
+            })
+
+        } else{
+            val map = HashMap<String, Any>()
+            map["rate"] = rate.value.toString()
+            map["remark"] = remark.value.toString()
+            map["inviteCode"] = inviteCode.value.toString()
+            map["isDefault"] = if (isCheck.value == true) "1" else "0"
+            startTask(apiService.updateDefaultCode(map), Consumer{
+                finish()
+            }, Consumer {
+
+            })
+        }
 
     }
 }

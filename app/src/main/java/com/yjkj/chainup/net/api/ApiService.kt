@@ -514,7 +514,7 @@ interface ApiService {
      * 更新默认邀请码
      */
     @FormUrlEncoded
-    @POST("/invite_code/updateDefaultCode")
+    @POST("/invite_code/update")
     fun updateDefaultCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
     /**
      * 我的邀请统计

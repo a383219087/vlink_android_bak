@@ -62,18 +62,18 @@ android {
 
     signingConfigs {
         debug {//调试版本的签名配置
-            storeFile file("chainup_debug_keystore")
+            storeFile file("../app/key/chainup.jks")
             keyAlias "chainup"
-            storePassword "chainup2018"
-            keyPassword "chainup2018"
+            storePassword "chainup"
+            keyPassword "chainup"
             v1SigningEnabled true
             v2SigningEnabled true
         }
         release {
-            storeFile file("chaindown.jks")
-            keyAlias "$change.keyAlias"
-            storePassword "123456"
-            keyPassword "123456"
+            storeFile file("../app/key/chainup.jks")
+            keyAlias "chainup"
+            storePassword "chainup"
+            keyPassword "chainup"
             v1SigningEnabled true
             v2SigningEnabled true
         }
