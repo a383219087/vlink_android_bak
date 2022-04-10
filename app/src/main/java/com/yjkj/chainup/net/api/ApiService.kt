@@ -511,6 +511,11 @@ interface ApiService {
     @POST("/invite_code/createInviteCode")
     fun createInviteCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<AgentCodeBean>>
     /**
+     * 返佣比例查询
+     */
+    @POST("/invite_code/agentRoles")
+    fun agentRoles(): Observable<HttpResult<List<InviteRate>>>
+    /**
      * 更新默认邀请码
      */
     @FormUrlEncoded
@@ -532,7 +537,12 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/invite_code/myNextAgentUsers")
-    fun myNextAgentUsers(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
+    fun myNextAgentUsers(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<InviteBean>>>>
+    /**
+     * 我的返佣
+     */
+    @GET("/invite_code/bonusList")
+    fun bonusList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
 
 }
 

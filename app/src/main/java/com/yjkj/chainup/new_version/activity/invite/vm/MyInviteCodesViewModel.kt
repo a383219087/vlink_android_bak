@@ -29,6 +29,8 @@ class MyInviteCodesViewModel : BaseViewModel() {
 
     var context = MutableLiveData<Context>()
 
+    var isShowDialog = MutableLiveData<AgentCodeBean>(null)
+
     interface OnItemListener {
         fun onClick(item: AgentCodeBean,view: View)
         fun onEditClick(item: AgentCodeBean)
@@ -73,10 +75,8 @@ class MyInviteCodesViewModel : BaseViewModel() {
         }
 
         override fun onEditClick(item: AgentCodeBean) {
-            ARouter.getInstance().build(RoutePath.EditInviteCodesActivity)
-                .withInt("type", 2)
-                .withSerializable("bean", item)
-                .navigation()
+            isShowDialog.value=item
+
         }
 
         override fun onDefault(item: AgentCodeBean) {

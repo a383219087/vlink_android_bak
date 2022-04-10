@@ -15,11 +15,10 @@ import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
-class MyFriendsViewModel : BaseViewModel() {
+class CommissionViewModel : BaseViewModel() {
 
-
-    val itemBinding = ItemBinding.of<InviteBean>(BR.item, R.layout.item_invite_rank)
-    val items: ObservableList<InviteBean> = ObservableArrayList()
+    val itemBinding = ItemBinding.of<MyNextInvite>(BR.item, R.layout.item_invite)
+    val items: ObservableList<MyNextInvite> = ObservableArrayList()
 
 
     var isRefreshing = MutableLiveData(false)
@@ -39,7 +38,7 @@ class MyFriendsViewModel : BaseViewModel() {
         val map = HashMap<String, Any>()
         map["pages"] = page.toString()
         map["pageSize"] ="20"
-        startTask(apiService.myNextAgentUsers(map), Consumer {
+        startTask(apiService.bonusList(map), Consumer {
             if (page == 1) {
                 items.clear()
                 isRefreshing.value = !isRefreshing.value!!
@@ -49,16 +48,7 @@ class MyFriendsViewModel : BaseViewModel() {
             if (it.data.data.isNullOrEmpty()) {
                 return@Consumer
             }
-            for (i in 0 until it.data.data.size) {
-                val bean = it.data.data[i]
-                if (page==1){
-                    bean.index = i
-                }else{
-                    bean.index = items.size
-                }
-
-                items.add(bean)
-            }
+            items.addAll(it.data.data)
 
         }, Consumer {
 

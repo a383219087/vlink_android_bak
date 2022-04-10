@@ -74,12 +74,12 @@ class ChainUpApp : CpMyApp() {
             LogUtil.e(TAG,"headerParams ${headerParams}")
             AppAnalyticsExt.instance.init(this, headerParams)
 
-            CpClLogicContractSetting.setApiWsUrl(this,NetUrl.getContractNewUrl(),NetUrl.getContractSocketNewUrl())
+//            CpClLogicContractSetting.setApiWsUrl(this,NetUrl.getContractNewUrl(),NetUrl.getContractSocketNewUrl())
 
-            Handler().postDelayed({
-                WsAgentManager.instance.socketUrl(ApiConstants.SOCKET_ADDRESS, true)
-                CpWsContractAgentManager.instance.socketUrl(CpClLogicContractSetting.getWsUrl(this), true)
-            }, 1500)
+//            Handler().postDelayed({
+//                WsAgentManager.instance.socketUrl(ApiConstants.SOCKET_ADDRESS, true)
+//                CpWsContractAgentManager.instance.socketUrl(CpClLogicContractSetting.getWsUrl(this), true)
+//            }, 1500)
             setCurrentTheme()
             initAppStatusListener()
 

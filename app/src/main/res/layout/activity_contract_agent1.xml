@@ -68,7 +68,7 @@
                             android:text="默认邀请码"
                             android:textColor="@color/text_color"
                             android:textSize="15sp"
-                            app:onClick="@{()->_all.onEditClick()}" />
+                            app:onClick="@{(v)->_all.onEditClick(v)}" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

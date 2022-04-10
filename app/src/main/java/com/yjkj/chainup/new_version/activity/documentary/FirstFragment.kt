@@ -14,7 +14,6 @@ import com.yjkj.chainup.new_version.activity.invite.vm.MyFriendsViewModel
 @Route(path = RoutePath.FirstFragment)
 class FirstFragment : BaseMVFragment<FirstViewModel?, FragmentFirstBinding>() {
     override fun setContentView(): Int = R.layout.fragment_first
-
     override fun initView() {
 
     }

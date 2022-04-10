@@ -1,5 +1,7 @@
 package com.yjkj.chainup.new_version.activity.invite
 
+import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.R
@@ -24,9 +26,12 @@ class MyInviteCodesActivity : BaseMVActivity<MyInviteCodesViewModel?, ActivityIn
             }
 
             override fun onclickRightIcon() {
-                ARouter.getInstance().build(RoutePath.EditInviteCodesActivity)
-                    .withInt("type", 1)
-                    .navigation()
+                EditInviteCodesDialog().apply {
+                    val bundle = Bundle()
+                    bundle.putInt("type", 1)
+                    this.arguments = bundle
+
+                }.showDialog(supportFragmentManager,"")
 
             }
 
@@ -37,6 +42,19 @@ class MyInviteCodesActivity : BaseMVActivity<MyInviteCodesViewModel?, ActivityIn
             }
 
         }
+        mViewModel?.isShowDialog?.observe(this, Observer {
+            if (it==null){
+                return@Observer
+            }
+
+            EditInviteCodesDialog().apply {
+                val bundle = Bundle()
+                bundle.putInt("type", 2)
+                bundle.putSerializable("bean",it)
+                this.arguments = bundle
+            }.showDialog(supportFragmentManager,"")
+
+        })
 
     }
 

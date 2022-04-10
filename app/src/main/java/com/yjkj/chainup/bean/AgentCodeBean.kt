@@ -47,3 +47,19 @@ data class MyNextInvite(
     val uid: Int,
     val uidPath: String
 ):Serializable
+
+data class InviteRate(
+    val childId: Any,
+    val childName: Any,
+    val ctime: Long,
+    val id: Int,
+    val isLeader: Int,
+    val mtime: Long,
+    val optionType: Int,
+    val rate: Int,
+    var checkRate: Int,
+    val roleName: String,
+    val status: Int,
+    val symbolId: Int,
+    val symbolName: Any
+):Serializable

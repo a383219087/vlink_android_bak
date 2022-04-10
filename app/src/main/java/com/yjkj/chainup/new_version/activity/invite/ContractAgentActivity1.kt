@@ -1,9 +1,12 @@
 package com.yjkj.chainup.new_version.activity.invite
 
+import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityContractAgent1Binding
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.invite.vm.ContractAgentViewModel
 
@@ -21,6 +24,19 @@ class ContractAgentActivity1 : BaseMVActivity<ContractAgentViewModel?, ActivityC
     override fun initData() {
         mViewModel?.myBonus()
         mViewModel?.top10()
+        mViewModel?.isShowDialog?.observe(this, Observer {
+            if (it==0){
+                return@Observer
+            }
+            EditInviteCodesDialog().apply {
+             val bundle = Bundle()
+                bundle.putInt("type", 2)
+                bundle.putSerializable("bean",mViewModel?.bean?.value)
+                this.arguments = bundle
+
+            }.showDialog(supportFragmentManager,"")
+
+        })
 
     }
 
@@ -28,6 +44,9 @@ class ContractAgentActivity1 : BaseMVActivity<ContractAgentViewModel?, ActivityC
         super.onResume()
         mViewModel?.myInviteCodes()
     }
+
+
+
 
 
 }

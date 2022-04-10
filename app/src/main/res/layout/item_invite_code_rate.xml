@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+         type="com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel.Item" />
+<!--            type="com.yjkj.chainup.bean.InviteRate" />-->
+
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel.OnItemListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="15dp"
+            app:onClick="@{()->onItemListener.onClick(item.bean)}"
+            app:radius="@{5}"
+            app:ResColor="@{item.checkRate!=item.bean.rate?R.color.text_color_99:R.color.main_color}"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="@{item.bean.rate+`%`}"
+            android:textColor="@{item.checkRate==item.bean.rate?@color/white:@color/text_color}"
+            android:textSize="13sp" />
+
+
+    </FrameLayout>
+
+
+</layout>

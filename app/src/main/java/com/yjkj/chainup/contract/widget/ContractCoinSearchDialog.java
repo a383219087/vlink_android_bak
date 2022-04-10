@@ -1,14 +1,15 @@
 package com.yjkj.chainup.contract.widget;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
 
 import com.contract.sdk.ContractPublicDataAgent;
 import com.contract.sdk.ContractSDKAgent;
@@ -21,7 +22,6 @@ import com.yjkj.chainup.R;
 import com.yjkj.chainup.base.NBaseDialogFragment;
 import com.yjkj.chainup.contract.fragment.SlCoinSearchItemFragment;
 import com.yjkj.chainup.db.constant.ParamConstant;
-import com.yjkj.chainup.extra_service.eventbus.EventBusUtil;
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 import com.yjkj.chainup.manager.LanguageUtil;
@@ -186,6 +186,7 @@ public class ContractCoinSearchDialog extends NBaseDialogFragment {
         }
 
     }
+
 
     @Override
     public void showDialog(FragmentManager manager, String tag) {

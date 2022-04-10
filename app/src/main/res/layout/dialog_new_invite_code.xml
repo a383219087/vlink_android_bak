@@ -15,14 +15,11 @@
 
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp"
-        >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minWidth="300dp"
             app:radius="@{15}"
             app:ResColor="@{R.color.bg_card_color}"
             android:gravity="center"
@@ -48,96 +45,108 @@
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_about"
+                android:layout_width="match_parent"
+                android:layout_margin="15dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:gravity="left"
-                android:orientation="horizontal">
+                app:itemBinding="@{_all.itemBinding}"
+                app:items="@{_all.items}"
+                app:spanCount="5"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingLeft="7dp"
-                    app:onClick="@{()->_all.checkNum(1)}"
-                    app:radius="@{5}"
-                    app:ResColor="@{_all.checkNum!=1?R.color.gray:R.color.main_color}"
-                    android:paddingTop="3dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="3dp"
-                    android:text="0%"
-                    android:textColor="@{_all.checkNum==1?@color/white:@color/text_color}"
-                    android:textSize="15sp" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="left"-->
+<!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    app:onClick="@{()->_all.checkNum(2)}"
-                    app:radius="@{5}"
-                    app:ResColor="@{_all.checkNum!=2?R.color.gray:R.color.main_color}"
-                    android:gravity="center"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="3dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="3dp"
-                    android:text="30%"
-                    android:textColor="@{_all.checkNum==2?@color/white:@color/text_color}"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="7dp"-->
+<!--                    app:onClick="@{()->_all.checkNum(1)}"-->
+<!--                    app:radius="@{5}"-->
+<!--                    app:ResColor="@{_all.checkNum!=1?R.color.gray:R.color.main_color}"-->
+<!--                    android:paddingTop="3dp"-->
+<!--                    android:paddingRight="7dp"-->
+<!--                    android:paddingBottom="3dp"-->
+<!--                    android:text="0%"-->
+<!--                    android:textColor="@{_all.checkNum==1?@color/white:@color/text_color}"-->
+<!--                    android:textSize="15sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    app:onClick="@{()->_all.checkNum(3)}"
-                    app:radius="@{5}"
-                    app:ResColor="@{_all.checkNum!=3?R.color.gray:R.color.main_color}"
-                    android:gravity="center"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="3dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="3dp"
-                    android:text="50%"
-                    android:textColor="@{_all.checkNum==3?@color/white:@color/text_color}"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    app:onClick="@{()->_all.checkNum(2)}"-->
+<!--                    app:radius="@{5}"-->
+<!--                    app:ResColor="@{_all.checkNum!=2?R.color.gray:R.color.main_color}"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="7dp"-->
+<!--                    android:paddingTop="3dp"-->
+<!--                    android:paddingRight="7dp"-->
+<!--                    android:paddingBottom="3dp"-->
+<!--                    android:text="30%"-->
+<!--                    android:textColor="@{_all.checkNum==2?@color/white:@color/text_color}"-->
+<!--                    android:textSize="15sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    app:onClick="@{()->_all.checkNum(4)}"
-                    app:radius="@{5}"
-                    app:ResColor="@{_all.checkNum!=4?R.color.gray:R.color.main_color}"
-                    android:textColor="@{_all.checkNum==4?@color/white:@color/text_color}"
-                    android:gravity="center"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="3dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="3dp"
-                    android:text="70%"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    app:onClick="@{()->_all.checkNum(3)}"-->
+<!--                    app:radius="@{5}"-->
+<!--                    app:ResColor="@{_all.checkNum!=3?R.color.gray:R.color.main_color}"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="7dp"-->
+<!--                    android:paddingTop="3dp"-->
+<!--                    android:paddingRight="7dp"-->
+<!--                    android:paddingBottom="3dp"-->
+<!--                    android:text="50%"-->
+<!--                    android:textColor="@{_all.checkNum==3?@color/white:@color/text_color}"-->
+<!--                    android:textSize="15sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    app:onClick="@{()->_all.checkNum(5)}"
-                    app:radius="@{5}"
-                    app:ResColor="@{_all.checkNum!=5?R.color.gray:R.color.main_color}"
-                    android:gravity="center"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="3dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="3dp"
-                    android:text="90%"
-                    android:textColor="@{_all.checkNum==5?@color/white:@color/text_color}"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    app:onClick="@{()->_all.checkNum(4)}"-->
+<!--                    app:radius="@{5}"-->
+<!--                    app:ResColor="@{_all.checkNum!=4?R.color.gray:R.color.main_color}"-->
+<!--                    android:textColor="@{_all.checkNum==4?@color/white:@color/text_color}"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="7dp"-->
+<!--                    android:paddingTop="3dp"-->
+<!--                    android:paddingRight="7dp"-->
+<!--                    android:paddingBottom="3dp"-->
+<!--                    android:text="70%"-->
+<!--                    android:textSize="15sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    app:onClick="@{()->_all.checkNum(5)}"-->
+<!--                    app:radius="@{5}"-->
+<!--                    app:ResColor="@{_all.checkNum!=5?R.color.gray:R.color.main_color}"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="7dp"-->
+<!--                    android:paddingTop="3dp"-->
+<!--                    android:paddingRight="7dp"-->
+<!--                    android:paddingBottom="3dp"-->
+<!--                    android:text="90%"-->
+<!--                    android:textColor="@{_all.checkNum==5?@color/white:@color/text_color}"-->
+<!--                    android:textSize="15sp" />-->
 
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -240,7 +249,6 @@
 
 
         </LinearLayout>
-    </FrameLayout>
 
 
 </layout>
