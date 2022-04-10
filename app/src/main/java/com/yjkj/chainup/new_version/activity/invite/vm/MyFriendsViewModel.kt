@@ -52,9 +52,9 @@ class MyFriendsViewModel : BaseViewModel() {
             for (i in 0 until it.data.data.size) {
                 val bean = it.data.data[i]
                 if (page==1){
-                    bean.index = i
+                    bean.index = 10
                 }else{
-                    bean.index = items.size
+                    bean.index = 10
                 }
 
                 items.add(bean)
