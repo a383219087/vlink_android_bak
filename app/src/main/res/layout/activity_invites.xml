@@ -22,21 +22,14 @@
         android:layout_marginTop="@dimen/dp_30"
         android:background="#F5F5F5">
 
-        <com.flyco.tablayout.SlidingScaleTabLayout
+
+        <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/sub_tab_layout"
+            style="@style/ToolbarType_bar_home_tab"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            app:layout_collapseMode="parallax"
-            app:tl_indicator_height="0dp"
-            app:tl_tab_padding="10dp"
-            app:tl_tab_vertical_gravity="Bottom"
-            app:tl_textBold="BOTH"
-            app:tl_textSelectColor="@color/tab_select_text_color"
-            app:tl_textSelectSize="28sp"
-            app:tl_textUnSelectColor="@color/tab_nor_text_color"
-            app:tl_textUnSelectSize="16sp" />
+            android:layout_height="@dimen/dp_44"
+            android:background="@color/bg_card_color"
+            app:tl_indicator_color="@color/main_color" />
 
         <com.chainup.contract.view.CpNoScrollViewPager
             android:id="@+id/vp_order"

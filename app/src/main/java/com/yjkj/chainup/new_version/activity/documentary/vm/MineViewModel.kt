@@ -29,7 +29,7 @@ class MineViewModel : BaseViewModel() {
     }
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
+        ItemBinding.of<String>(BR.item, R.layout.item_documentary_mine).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<String> = ObservableArrayList()
 
 

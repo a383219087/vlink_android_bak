@@ -177,7 +177,6 @@
         <activity android:name=".new_version.activity.personalCenter.RealNameCertificaionSuccessActivity" />
         <activity android:name=".new_version.activity.personalCenter.RealNameCertificationChooseCountriesActivity" />
         <activity android:name=".new_version.activity.personalCenter.ChangenNetworkActivity" />
-        <activity android:name=".new_version.activity.personalCenter.InvitationRewardActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewOTCOrdersActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOTCBuyActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOTCSellActivity" />
@@ -253,7 +252,6 @@
             android:name=".contract.activity.SlContractSearchActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
-        <activity android:name=".new_version.activity.personalCenter.ContractAgentActivity" />
         <activity android:name=".new_version.activity.invite.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
 
