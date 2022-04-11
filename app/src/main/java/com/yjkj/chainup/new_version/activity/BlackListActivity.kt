@@ -3,6 +3,7 @@ package com.yjkj.chainup.new_version.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.LanguageUtil
@@ -44,7 +45,7 @@ class BlackListActivity : NewBaseActivity() {
 
 
     fun initView() {
-        rv_black_list?.layoutManager = LinearLayoutManager(context)
+         rv_black_list?.layoutManager = LinearLayoutManager(context)
         rv_black_list?.adapter = adapter
         adapter.setEmptyView(EmptyForAdapterView(context))
 

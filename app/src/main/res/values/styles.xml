@@ -18,7 +18,6 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
-
     <!--<item name="android:windowBackground">@drawable/splash_bg_theme</item>-->
     <style name="AppTheme.Splash" parent="AppTheme">
         <item name="android:windowBackground">@drawable/bg_splash</item>

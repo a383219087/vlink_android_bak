@@ -17,10 +17,10 @@ class CommissionFragment : BaseMVFragment<CommissionViewModel?, FragmentCommissi
     override fun initView() {
         mViewModel?.getList(1)
         mViewModel?.isRefreshing?.observe(this, Observer {
-            mBinding?.twinklingRefreshLayout?.finishRefreshing()
+            mBinding?.twinklingRefreshLayout?.finishRefresh()
         })
         mViewModel?.isLoadMore?.observe(this, Observer {
-            mBinding?.twinklingRefreshLayout?.finishLoadmore()
+            mBinding?.twinklingRefreshLayout?.finishLoadMore()
         })
     }
 

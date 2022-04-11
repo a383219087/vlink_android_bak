@@ -397,6 +397,5 @@ dependencies {
     api project(path: ':talkingdata_library')
     implementation 'com.binioter:guideview:1.0.0'
     api 'com.qmuiteam:qmui:1.2.0'
-    api 'com.lcodecorex:tkrefreshlayout:1.0.7'
 
 }

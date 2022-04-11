@@ -21,7 +21,7 @@
         android:background="#F5F5F5"
         android:orientation="vertical">
 
-        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/twinklingRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,8 @@
                 app:itemBinding="@{_all.itemBinding}"
                 app:items="@{_all.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
     </LinearLayout>
