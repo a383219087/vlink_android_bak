@@ -1,18 +1,11 @@
 package com.yjkj.chainup.new_version.activity.personalCenter
 
-import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewManager
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.request.RequestOptions
@@ -23,16 +16,11 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.AgentBean
 import com.yjkj.chainup.bean.AgentInfoBean
 import com.yjkj.chainup.bean.AgentUserBean
-import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.freestaking.ITEM_ID
-import com.yjkj.chainup.freestaking.PROJECT_TYPE
-import com.yjkj.chainup.freestaking.bean.MyPosRecordBean
-import com.yjkj.chainup.freestaking.bean.NotificationRefreshBean
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
@@ -47,7 +35,6 @@ import kotlinx.android.synthetic.main.activity_contract_agent.*
 import kotlinx.android.synthetic.main.item_contract_agent_content.*
 import kotlinx.android.synthetic.main.item_invitation_layout.*
 import kotlinx.android.synthetic.main.item_invitation_registration_rewards.*
-import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.text.DecimalFormat
 
@@ -227,16 +214,16 @@ class ContractAgentActivity : NBaseActivity() {
             } else {
                 list.add(posterTwoImg)
             }
-            dialog = NewDialogUtils.showInvitationPosters(this, list, object : NewDialogUtils.DialogSharePostersListener {
-                override fun saveIamgePosters(imageUrl: String, shareView: ImageView) {
-                    createShareView(shareView)
-                    dialog?.dismiss()
-                }
-
-                override fun saveIamgePostersNew(imageUrl: String) {
-
-                }
-            })
+//            dialog = NewDialogUtils.showInvitationPosters(this, list, object : NewDialogUtils.DialogSharePostersListener {
+//                override fun saveIamgePosters(imageUrl: String, shareView: ImageView) {
+//                    createShareView(shareView)
+//                    dialog?.dismiss()
+//                }
+//
+//                override fun saveIamgePostersNew(imageUrl: String) {
+//
+//                }
+//            })
         }
 
         /**
