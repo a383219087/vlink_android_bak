@@ -1539,7 +1539,8 @@
     <string name="more_way">Grandes</string>
     <string name="empty_way">Curto</string>
     <string name="contract_text_openAverage">Abrir</string>
-    <string name="contract_max_volume">Qtd. de posição inferior a %s%s</string>&lt;!-- 红包END --&gt;<string name="common_text_contactTitle">Informações de contato</string>
+    <string name="contract_max_volume">Qtd. de posição inferior a %s</string>
+    <string name="common_text_contactTitle">Informações de contato</string>
     <string name="common_text_realNameTitle">Informações sobre o nome real</string>
     <string name="common_tip_showContactOTC">O comprador pode verificá-lo em 2 minutos após o pagamento.</string>
     <string name="common_action_hideMore">Menos</string>
@@ -1765,8 +1766,11 @@
     <string name="etf_text_networthPrompt">Valor líquido para compra = valor líquido no último ponto de ajuste * [1+ 3 * (preço da última transação à vista - preço do último ponto de ajuste à vista) / preço do último ponto de ajuste à vista * 100%]；\n\nValor líquido para venda = líquido valor no último ponto de ajuste * [1- 3 * (preço da última transação à vista - preço do último ponto de ajuste à vista) / preço do último ponto de ajuste à vista * 100%]；\n\nTenha cuidado ao negociar a um preço que se desvie significativamente do o valor líquido</string>
     <string name="etf_text_knowRisk">Eu concordo</string>
     <string name="etf_text_disclaimer">Isenção de responsabilidade</string>
-    <string name="etf_text_disclaimerDetail1">Caros clientes, obrigado por usar os produtos e serviços relevantes da Darico's Leveraged ETF. Por favor, leia atentamente as instruções relacionadas a isso e certifique-se de seguir cuidadosamente as “Dicas de Risco” mencionadas abaixo. Ao clicar em 'Concordo', considera-se que você concorda com todo o conteúdo da isenção de responsabilidade e está completamente ciente dos riscos envolvidos nos ETFs de Leverage Trading.</string>
-    <string name="etf_text_disclaimerDetail2">Por favor, siga este link para as instruções relacionadas aos ETFs de negociação de alavancagem - 'Link'</string>
+    <string name="etf_text_disclaimerDetail1" formatted="false">Caros clientes, obrigado por usar os produtos e serviços relevantes da Darico\'s Leveraged ETF. Por
+        favor, leia atentamente as instruções relacionadas a isso e certifique-se de seguir cuidadosamente as “Dicas de Risco” mencionadas abaixo.
+        Ao clicar em \'Concordo\', considera-se que você concorda com todo o conteúdo da isenção de responsabilidade e está completamente ciente dos riscos envolvidos nos ETFs de Leverage Trading.</string>
+    <string name="etf_text_disclaimerDetail2">Por favor, siga este link para as instruções relacionadas aos ETFs de negociação de alavancagem -
+        \'Link\'</string>
     <string name="etf_text_disclaimerDetail3">Dicas de risco:\n 1.Seu preço de compra/venda não deve se desviar muito do valor líquido dos ativos. Caso contrário, você encontrará perdas substanciais.\n 2. No caso de você colocar o pedido na direção oposta, existe o risco de o preço do ativo se aproximar de zero em situações adversas. Assim, lembramos que as perdas incorridas durante este processo devem ser suportadas por você. Esta isenção de responsabilidade, juntamente com os demais acordos de troca, deve ser acordada antes de usar este serviço oferecido pela Darioco.</string>
     <string name="etf_text_faq">《Perguntas frequentes para ETF alavancado》</string>
     <string name="common_text_halveZone">Metade</string>
@@ -2926,7 +2930,8 @@
     <string name="quant_grid_order_status_stop_user_balance">O saldo do usuário é baixo</string>
     <string name="quant_grid_order_status_stop_sys_fix">fim da exceção</string>
     <string name="quant_limitInvestment_error">O valor mínimo deve ser maior que %s</string>
-    <string name="etf_notes_explain">%s é um produto ETF que acompanha %s no dia %s e é mais adequado para negociação e retenção no lado atual do mercado.</string>
+    <string name="etf_notes_explain" formatted="false"> %s é um produto ETF que acompanha %s no dia %s e é mais adequado para negociação e retenção no lado atual do
+        mercado.</string>
     <string name="etf_notes_multipleL">Subiu %s vezes</string>
     <string name="etf_notes_multipleS">para baixo %s vezes</string>
     <string name="etf_multipleS">X Longo</string>
@@ -2964,7 +2969,8 @@
     <string name="contract_assets_record_transfer_from_swap_account">Depósitos</string>
     <string name="contract_assets_record_transfer_to_swap_account">Saques</string>
     <string name="etf_notes_explain_info">Informações do ETF</string>
-    <string name="etf_notes_explain_tips">Dica de risco: %s é um produto ETF que rastreia a barra %s de %s\ no mesmo dia, o que é mais adequado para negociação unilateral e detenção de curto prazo. O produto oscila muito e tem o risco de desgaste da rede.</string>
+    <string name="etf_notes_explain_tips" formatted="false">Dica de risco: %s é um produto ETF que rastreia a barra %s de %s no mesmo dia, o que é mais adequado
+        para negociação unilateral e detenção de curto prazo. O produto oscila muito e tem o risco de desgaste da rede.</string>
     <string name="etf_info_lever">Alavancagem (Meta/Atual)</string>
     <string name="etf_info_rules">Ajuste de posição cronometrado. as regras</string>
     <string name="etf_info_rules_no">Sem ajuste de posição cronometrado. as regras</string>
@@ -2996,7 +3002,8 @@
     <string name="etf_question_c">Qual das descrições a seguir é imprecisa sobre ETFs de alavancagem?</string>
     <string name="etf_question_d">A taxa diária do fundo não é descontada do patrimônio do usuário, ela é cobrada descontando o valor líquido, correto?</string>
     <string name="etf_question_e">Qual das opções a seguir não faz parte do mecanismo de ajuste de posição do ETF da plataforma?</string>
-    <string name="etf_question_anwsersa">Se o preço do BTC aumentar em 1%, o valor líquido do ETF de alavancagem aumentará cerca de 3% // se o preço do BTC diminuir em 1%, o valor líquido do ETF de alavancagem cairá cerca de 3%</string>
+    <string name="etf_question_anwsersa" formatted="false">Se o preço do BTC aumentar em 1%, o valor líquido do ETF de alavancagem aumentará cerca de 3% // se o
+        preço do BTC diminuir em 1%, o valor líquido do ETF de alavancagem cairá cerca de 3%</string>
     <string name="etf_question_anwsersb">É necessário um depósito de garantia, o produto tem uma data de vencimento, existe o risco de liquidação da posição // nenhum depósito de garantia é necessário, nenhuma data de vencimento do produto e nenhum risco de liquidação da posição</string>
     <string name="etf_question_anwsersc">Em um mercado unilateral, ETFs de alavancagem podem ter ganhos de juros compostos // ETFs de alavancagem são adequados para participações de longo e curto prazo, em mercados voláteis, o valor líquido dos ETFs de alavancagem pode se desgastar</string>
     <string name="etf_question_anwsersd">Corrigir // Erro</string>

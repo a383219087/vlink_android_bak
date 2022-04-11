@@ -1792,7 +1792,7 @@
     <string name="more_way">لمبی</string>
     <string name="empty_way">مختصر</string>
     <string name="contract_text_openAverage">کھولیں۔</string>
-    <string name="contract_max_volume">سے کم پوزیشن کا %s%s مقدار</string>
+    <string name="contract_max_volume" formatted="false">سے کم پوزیشن کا %s%s مقدار</string>
     <!--红包END-->
     <string name="common_text_contactTitle">رابطے کی معلومات</string>
     <string name="common_text_realNameTitle">اصلی نام کی معلومات</string>
@@ -2055,8 +2055,10 @@
     <string name="etf_text_networthPrompt">لمبے کے لیے خالص قدر = آخری ایڈجسٹمنٹ پوائنٹ پر خالص قدر * [1+ 3 * (تازہ ترین اسپاٹ ٹرانزیکشن پرائس-اسپاٹ آخری ایڈجسٹمنٹ پوائنٹ کی قیمت) / اسپاٹ آخری ایڈجسٹمنٹ پوائنٹ کی قیمت * 100% ] ； \n\ n نیٹ ویلیو برائے مختصر = نیٹ آخری ایڈجسٹمنٹ پوائنٹ پر ویلیو * [1- 3 * (تازہ ترین اسپاٹ ٹرانزیکشن پرائس-اسپاٹ آخری ایڈجسٹمنٹ پوائنٹ پرائس) / اسپاٹ آخری ایڈجسٹمنٹ پوائنٹ پرائس * 100%] ； \n\ nبراہ کرم اس قیمت پر ٹریڈ کرتے وقت محتاط رہیں جس سے نمایاں طور پر انحراف ہو۔ خالص قدر</string>
     <string name="etf_text_knowRisk">میں راضی ہوں</string>
     <string name="etf_text_disclaimer">ڈس کلیمر</string>
-    <string name="etf_text_disclaimerDetail1">پیارے کلائنٹس، Darico کی لیوریجڈ ETF مصنوعات اور متعلقہ خدمات استعمال کرنے کا شکریہ۔ براہ کرم اس سے متعلق ہدایات کو غور سے پڑھیں اور ذیل میں دی گئی 'خطرے کی تجاویز' پر احتیاط سے عمل کرنا یقینی بنائیں۔ 'I Agree' پر کلک کرنے سے آپ کو ڈس کلیمر میں موجود تمام مشمولات سے متفق سمجھا جاتا ہے، اور لیوریج ٹریڈنگ ETFs میں شامل خطرات سے پوری طرح آگاہ ہیں۔ </string>
-    <string name="etf_text_disclaimerDetail2">براہ کرم لیوریج ٹریڈنگ ای ٹی ایف سے متعلق ہدایات کے لیے اس لنک پر عمل کریں - 'لنک'</string>
+    <string name="etf_text_disclaimerDetail1" formatted="false">پیارے کلائنٹس، Darico کی لیوریجڈ ETF مصنوعات اور متعلقہ خدمات استعمال کرنے کا شکریہ۔ براہ کرم اس سے
+        متعلق ہدایات کو غور سے پڑھیں اور ذیل میں دی گئی \'خطرے کی تجاویز\' پر احتیاط سے عمل کرنا یقینی بنائیں۔ \'\I Agree\'\ پر کلک کرنے سے آپ کو ڈس
+        کلیمر میں موجود تمام مشمولات سے متفق سمجھا جاتا ہے، اور لیوریج ٹریڈنگ ETFs میں شامل خطرات سے پوری طرح آگاہ ہیں۔ </string>
+    <string name="etf_text_disclaimerDetail2">براہ کرم لیوریج ٹریڈنگ ای ٹی ایف سے متعلق ہدایات کے لیے اس لنک پر عمل کریں - \'\لنک\'\</string>
     <string name="etf_text_disclaimerDetail3"> خطرے کی تجاویز:\n 1. آپ کی خرید/فروخت کی قیمت اثاثوں کی خالص قیمت سے زیادہ انحراف نہیں کرنی چاہیے۔ بصورت دیگر، آپ کو کافی نقصانات کا سامنا کرنا پڑے گا۔\n 2. آپ کے مخالف سمت میں آرڈر دینے کی صورت میں، منفی حالات میں اثاثہ کی قیمت کے صفر تک پہنچنے کا خطرہ ہے۔ لہذا، ہم آپ کو یاد دلاتے ہیں کہ اس عمل کے دوران ہونے والے نقصانات کو خود ہی برداشت کرنا ہوگا۔ Darioco کی طرف سے پیش کردہ اس سروس کو استعمال کرنے سے پہلے ایکسچینج کے دیگر معاہدوں کے ساتھ اس دستبرداری سے اتفاق کیا جائے گا۔ </string>
     <string name="etf_text_faq">《ETF برائے لیوریجڈ FAQ》</string>
     <string name="common_text_halveZone">آدھا کرنا</string>
@@ -3245,7 +3247,8 @@
     <string name="quant_grid_order_status_stop_user_balance">صارف کا بیلنس کم ہے۔</string>
     <string name="quant_grid_order_status_stop_sys_fix">استثنا ختم</string>
     <string name="quant_limitInvestment_error">سے زیادہ ہونی چاہیے۔ %s کم از کم رقم</string>
-    <string name="etf_notes_explain">کو ٹریک کرتا ہے اور مارکیٹ کے موجودہ پہلو پر ٹریڈنگ اور ہولڈنگ کے لیے بہتر ہے۔ %s کو دن %s پروڈکٹ ہے جو ETF ایک %s</string>
+    <string name="etf_notes_explain" formatted="false">کو ٹریک کرتا ہے اور مارکیٹ کے موجودہ پہلو پر ٹریڈنگ اور ہولڈنگ کے لیے بہتر ہے۔ %s کو دن %s پروڈکٹ ہے جو ETF
+        ایک %s</string>
     <string name="etf_notes_multipleL">%s بار اوپر</string>
     <string name="etf_notes_multipleS">%s بار نیچے</string>
     <string name="etf_multipleS">ایکس لانگ</string>
@@ -3284,7 +3287,8 @@
     <string name="contract_assets_record_transfer_from_swap_account">جمع</string>
     <string name="contract_assets_record_transfer_to_swap_account">واپسی</string>
     <string name="etf_notes_explain_info">ETF کی معلومات</string>
-    <string name="etf_notes_explain_tips">بار کو اسی دن ٹریک کرتا ہے، جو یکطرفہ تجارت اور مختصر مدت کے انعقاد کے لیے زیادہ موزوں ہے۔ پروڈکٹ میں بہت زیادہ اتار چڑھاؤ آتا ہے اور اسے خالص پہننے کا خطرہ ہوتا ہے۔ %s\'s %s پروڈکٹ ہے جو ETF ایک %s :رسک ٹِپ</string>
+    <string name="etf_notes_explain_tips" formatted="false">بار کو اسی دن ٹریک کرتا ہے، جو یکطرفہ تجارت اور مختصر مدت کے انعقاد کے لیے زیادہ موزوں ہے۔ پروڈکٹ میں
+        بہت زیادہ اتار چڑھاؤ آتا ہے اور اسے خالص پہننے کا خطرہ ہوتا ہے۔ %s\'s %s پروڈکٹ ہے جو ETF ایک %s :رسک ٹِپ</string>
     <string name="etf_info_lever">لیوریج (ٹارگٹ/موجودہ)</string>
     <string name="etf_info_rules">وقتی پوزیشن کو ایڈجسٹ کریں۔ قواعد</string>
     <string name="etf_info_rules_no">ٹائمڈ پوزیشن ایڈجسٹ نہیں ہے۔ قواعد</string>
@@ -3320,7 +3324,8 @@ ETF کو دو قسموں میں تقسیم کیا گیا ہے: ٹائمڈ پوز
     <string name="etf_question_d">یومیہ فنڈ ریٹ صارف کے اثاثہ جات سے نہیں کاٹا جاتا ہے، یہ خالص قیمت کاٹ کر وصول کیا جاتا ہے، کیا یہ درست ہے؟</string>
     <string name="etf_question_e">پوزیشن ایڈجسٹمنٹ میکانزم کا حصہ نہیں ہے؟ ETF مندرجہ ذیل میں سے کون سا پلیٹ فارم</string>
 
-    <string name="etf_question_anwsersa">اگر BTC کی قیمت میں 1% اضافہ ہوتا ہے، لیوریجڈ ETF کی خالص قدر میں تقریباً 3% اضافہ ہو گا // اگر BTC کی قیمت میں 1% کی کمی ہو جاتی ہے، تو لیوریج ETF کی خالص قدر تقریباً 3% تک گر جائے گی۔</string>
+    <string name="etf_question_anwsersa" formatted="false">اگر BTC کی قیمت میں 1% اضافہ ہوتا ہے، لیوریجڈ ETF کی خالص قدر میں تقریباً 3% اضافہ ہو گا // اگر BTC کی
+        قیمت میں 1% کی کمی ہو جاتی ہے، تو لیوریج ETF کی خالص قدر تقریباً 3% تک گر جائے گی۔</string>
     <string name="etf_question_anwsersb">ایک گروی ڈپازٹ درکار ہے، پروڈکٹ کی میعاد ختم ہونے کی تاریخ ہے، پوزیشن لیکویڈیشن کا خطرہ ہے // کسی قسم کی ڈیپازٹ کی ضرورت نہیں ہے، پروڈکٹ کی میعاد ختم ہونے کی تاریخ نہیں ہے، اور پوزیشن پرسماپن کا کوئی خطرہ نہیں ہے۔</string>
     <string name="etf_question_anwsersc">یکطرفہ مارکیٹ میں، لیوریج ETFs میں کمپاؤنڈ سود کا فائدہ ہو سکتا ہے // لیوریج ETFs طویل مدتی اور قلیل مدتی ہولڈنگز کے لیے موزوں ہیں، غیر مستحکم مارکیٹوں میں، لیوریج ETFs کی خالص قیمت ختم ہو سکتی ہے۔</string>
     <string name="etf_question_anwsersd">درست // غلطی</string>

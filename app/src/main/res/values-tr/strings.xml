@@ -19,7 +19,7 @@
   <string name="title_bind_phone">Telefonu Bağla</string>
   <string name="title_verification_phone">Telefonu Doğrula</string>
   <string name="title_bind_email">Telefonu Bağla</string>
-  <string name="title_verification_email">E-mail'i doğrula</string>
+  <string name="title_verification_email">E-mail\'i doğrula</string>
   <string name="title_change_nickname">Takma adı değiştir</string>
   <string name="title_notification">Bildirim</string>
   <string name="title_personal_center">Kişisel Merkez</string>
@@ -475,9 +475,9 @@
   <string name="otc_transfer_fee">Transfer tutarı (0 komisyon)</string>
   <string name="otc_input_transfer_num">Giriş transfer miktarı</string>
   <string name="otc_transfer_all">Hepsini aktar</string>
-  <string name="otc_not_open_transfer">Bu jeton henüz OTC'de transfer edilemez.</string>
-  <string name="otc_not_open_recharge">Bu jeton henüz OTC'de yüklenmek için uygun değil</string>
-  <string name="otc_not_open_withdraw">Bu jeton henüz OTC'de çekilemez</string>
+  <string name="otc_not_open_transfer">Bu jeton henüz OTC\'de transfer edilemez.</string>
+  <string name="otc_not_open_recharge">Bu jeton henüz OTC\'de yüklenmek için uygun değil</string>
+  <string name="otc_not_open_withdraw">Bu jeton henüz OTC\'de çekilemez</string>
   <string name="otc_canuse">Mevcut</string>
   <string name="otc_notuse">Dondurulmuş</string>
   <string name="otc_all_money_num">Toplam Varlıklar (BTC)</string>
@@ -650,7 +650,7 @@
   <string name="otc_fund_pwd_alert_sample">*Büyük şifre giriş şifresi ile aynı olmayacaktır.</string>
   <string name="otc_choose_symbol">filtre</string>
   <string name="otc_ad_prompt_one">Sipariş, [chainup] dakika içinde ödenecektir</string>
-  <string name="otc_pay_prompt">Siparişi ödediyseniz, lütfen Ödedim'e tıklayın, aksi takdirde kayıplara neden olabilir</string>
+  <string name="otc_pay_prompt">Siparişi ödediyseniz, lütfen Ödedim\'e tıklayın, aksi takdirde kayıplara neden olabilir</string>
   <string name="otc_exchange_prompt">İşlem hatırlatıcısı</string>
   <string name="otc_exchange_prompt_value">Lütfen ödeme sırasında dijital para birimi ile ilgili içerik belirtmeyiniz. Ödemeniz doğrudan satıcının hesabına aktarılacaktır. İşlem sırasında satıcılar tarafından satılan dijital varlıklar, platform tarafından emanet edilir ve korunur. Alıcı, anlaşmaları günde üç kez iptal ederse, o günkü satın alma işlevi sınırlı olacaktır.</string>
   <string name="otc_shensu_reason_4">Şikayet nedeni</string>
@@ -684,9 +684,9 @@
   <string name="fingerprint_login">parmak izi girişi</string>
   <string name="account_login">hesap girişi</string>
   <string name="fingerprint_recognition">parmak izi tanıma</string>
-  <string name="tap_to_fingerprint">Doğrulamayı başlatmak için lütfen Parmak İzi Tanıma'ya tıklayın</string>
+  <string name="tap_to_fingerprint">Doğrulamayı başlatmak için lütfen Parmak İzi Tanıma\'ya tıklayın</string>
   <string name="face_recongnition">Yüz tanıma</string>
-  <string name="tap_to_face">Doğrulamayı başlatmak için lütfen Yüz Tanıma'ya tıklayın</string>
+  <string name="tap_to_face">Doğrulamayı başlatmak için lütfen Yüz Tanıma\'ya tıklayın</string>
   <string name="input_pwd_again">şifreyi tekrar girin</string>
   <string name="pwd_setting">şifre ayarı</string>
   <string name="pwd_rule_new">Lütfen rakam ve harflerden oluşan 8-20 karakterlik bir şifre giriniz</string>
@@ -852,7 +852,7 @@
   <string name="business_details">İş ayrıntıları</string>
   <string name="smscode_opend">SMS doğrulama açık</string>
   <string name="format_error">yanlış format</string>
-  <string name="otcsafealert_action_bindphoneorgoogle">Telefonu veya google'ı bağla</string>
+  <string name="otcsafealert_action_bindphoneorgoogle">Telefonu veya google\'ı bağla</string>
   <string name="otc_text_waitSendCoin">piyasaya sürülecek madeni paralar</string>
   <!--CoinMapIntroFragment-->
   <string name="withdraw_text_trustaddressNoMoreAuth">Bir sonraki para çekme işlemi için SMS, e-posta veya Google doğrulamasına gerek yoktur.</string>
@@ -866,8 +866,8 @@
   <string name="email">e-posta</string>
   <string name="otc_action_confirmSendCoin_confirm">alındıyı onayla</string>
   <string name="pyamethod_text_wxpay">WeChat</string>
-  <string name="bibi_to_otc">OTC'ye bozuk para</string>
-  <string name="otc_to_coin">OTC'den Coin'e</string>
+  <string name="bibi_to_otc">OTC\'ye bozuk para</string>
+  <string name="otc_to_coin">OTC\'den Coin\'e</string>
   <string name="scanning_qr_code_registration">Kaydolmak için tarayın</string>
   <!--以下新增-->
   <string name="address_action_addnew">Yeni arttı</string>
@@ -881,7 +881,7 @@
   <string name="alert_common_iknow">Anla</string>
   <string name="alert_content_otcRPdesc">Bu referans fiyat, piyasadaki ana borsanın ana para çiftlerine atıfta bulunularak hesaplanır. Sadece referans olması için nihai kapanış maliyeti değildir.</string>
   <string name="alipay_text_account">Alipay hesabı</string>
-  <string name="alipay_text_bind">Alipay'i bağla</string>
+  <string name="alipay_text_bind">Alipay\'i bağla</string>
   <string name="alipay_text_qrcode">Alipay toplama QR kodu</string>
   <string name="appeal_action_reasonLessPaid">Aldığım miktar sipariş miktarından az.</string>
   <string name="appeal_action_reasonNotPaid">İlgili diğer kişinin ödemesini almadım.</string>
@@ -927,7 +927,7 @@
   <string name="charge_tip_addressWarning">Lütfen bu para biriminde olmayan varlıkları yukarıdaki adrese yüklemeyin. Aksi halde mallar iade edilemez.</string>
   <string name="charge_tip_notavailable">Şu anda yükleme için uygun para birimi yok</string>
   <string name="charge_tip_tagWarning">Doldurma sırasında doldurma adresi ve etiket (Not) doldurulmalıdır. Bu, hesabınızın tek kimliğidir. Boş bilgi veya yanlış bilgi varlık kaybına yol açacaktır.</string>
-  <string name="common_action_activeGoogle">Google Authenticator'ı Etkinleştir</string>
+  <string name="common_action_activeGoogle">Google Authenticator\'ı Etkinleştir</string>
   <string name="common_action_cancelUpgrade">Geçici olarak yükseltme yapma</string>
   <string name="common_action_copy">kopyala</string>
   <string name="common_action_edit">değiştirmek</string>
@@ -998,7 +998,7 @@
   <string name="common_tip_gestureLimitPoint">En az 5 noktayı bağlayacak, tekrar giriş yapacaktır.</string>
   <string name="common_tip_gestureLose">Hareket parolası geçersiz. Giriş yapmak için lütfen hesap şifresini kullanın.</string>
   <string name="common_tip_gestureTime">Yanlış hareket şifresi, %s fırsat var.</string>
-  <string name="common_tip_googleAuth">Google Auth'a girin. kod</string>
+  <string name="common_tip_googleAuth">Google Auth\'a girin. kod</string>
   <string name="common_tip_hasNoCoinPair">Şu an için böyle bir döviz çifti yok.</string>
   <string name="common_tip_imgUploadFail">Resim yüklenemedi</string>
   <string name="common_tip_imgUploadSuccess">Resim başarıyla yüklendi</string>
@@ -1332,7 +1332,7 @@
   <string name="otc_text_pwd">Yasal ihale fonu şifresi</string>
   <string name="otc_text_rp">Referans fiyatı</string>
   <string name="otc_text_sendCoinTime">madeni para basma zamanı</string>
-  <string name="otc_text_totalBargainAmount">Geçmiş işlemler (BTC'ye eşdeğer)</string>
+  <string name="otc_text_totalBargainAmount">Geçmiş işlemler (BTC\'ye eşdeğer)</string>
   <string name="otc_text_tradeObjectBuy">Satın almak</string>
   <string name="otc_text_tradeObjectSell">Satmak</string>
   <string name="otc_text_tradingPrice">işlem tutarı</string>
@@ -1379,9 +1379,9 @@
   <string name="otc_tip_sendCoinSuccess">Madeni paraları başarıyla verin.</string>
   <string name="otc_tip_tradeHintContent">Lütfen aktarım sırasında dijital para birimi ile ilgili bilgileri belirtmeyiniz. Havaleniz doğrudan satıcı hesabına gidecek. Ticaret sırasında satıcı tarafından satılan dijital varlıklar platform tarafından yönetilecek ve korunacaktır. Her gün siparişleri iptal etmek için sadece 3 fırsat vardır. Aksi takdirde, satın alma işlevi sınırlı olacaktır.</string>
   <string name="otc_tip_tradeHintTitle">Ticaret hatırlatmak</string>
-  <string name="otcSafeAlert_action_bindGoogle">Google'ı bağla</string>
+  <string name="otcSafeAlert_action_bindGoogle">Google\'ı bağla</string>
   <string name="otcSafeAlert_action_bindphone">Bağlantı Telefonu</string>
-  <string name="otcSafeAlert_action_bindphoneOrGoogle">Telefon veya Google Authenticator'ı bağla</string>
+  <string name="otcSafeAlert_action_bindphoneOrGoogle">Telefon veya Google Authenticator\'ı bağla</string>
   <string name="otcSafeAlert_action_identify">Gerçek Ad Kimlik Doğrulaması</string>
   <string name="otcSafeAlert_action_nickname">Takma ad</string>
   <string name="otcSafeAlert_text_otcBuyDesc">Fiat satın almak için aşağıdaki ayarları tamamlamanız gerekir.</string>
@@ -1452,10 +1452,10 @@
   <string name="safety_action_editMail">Değişim e-posta</string>
   <string name="safety_action_editPhone">Telefonu Değiştir</string>
   <string name="safety_action_faceIdNextTime">Bana daha sonra hatırlat</string>
-  <string name="safety_action_googleBind">Google Authenticator'ı bağla</string>
+  <string name="safety_action_googleBind">Google Authenticator\'ı bağla</string>
   <string name="safety_action_otcPassword">Ticaret Şifresi Belirle</string>
   <string name="safety_action_setGesturePassword">Lütfen hareket şifresini ayarlayın.</string>
-  <string name="safety_explain_googleauthStepOne">GoogleAuthentication'ı açın, "+" düğmesini tıklayın, "Anahtarı manuel olarak girilsin mi?" öğesini seçin ve sayfada aşağıdaki etkinleştirme kodunu girin.</string>
+  <string name="safety_explain_googleauthStepOne">GoogleAuthentication\'ı açın, "+" düğmesini tıklayın, "Anahtarı manuel olarak girilsin mi?" öğesini seçin ve sayfada aşağıdaki etkinleştirme kodunu girin.</string>
   <string name="safety_explain_googleauthStepTwo">Başarılı bir şekilde ekledikten sonra, belirli bir süre sınırı olan 6 haneli bir doğrulama kodu alacaksınız. Lütfen sona ermeden önce aşağıya doldurun.</string>
   <string name="safety_text_bindMail">Bağlantı E-postası</string>
   <string name="safety_text_confrimPasswod">Ticaret Şifresini Onayla</string>
@@ -1478,9 +1478,9 @@
   <string name="transaction_text_tradeSum">Toplam</string>
   <string name="transaction_text_tradeValue">İşlem Miktarı</string>
   <string name="transaction_tip_buyVolume">Alış miktarı</string>
-  <string name="transfer_action_exToOtc">Fiat'a Kripto</string>
+  <string name="transfer_action_exToOtc">Fiat\'a Kripto</string>
   <string name="transfer_action_goTransaction">İşlem yapmak için git</string>
-  <string name="transfer_action_otcToEx">Fiat'tan Kriptoya</string>
+  <string name="transfer_action_otcToEx">Fiat\'tan Kriptoya</string>
   <string name="transfer_text_from">İtibaren</string>
   <string name="transfer_text_guideTransaction">Başarılı bir şekilde transfer, hemen ticarete başlamak ister misiniz?</string>
   <string name="transfer_text_otc">Mahkeme dışı sermaye transferi</string>
@@ -1508,7 +1508,7 @@
   <string name="withdraw_text_trustAddress">Bu adrese güven</string>
   <string name="withdraw_text_txConfirmCount">Onay miktarı</string>
   <string name="withdraw_tip_addressEmpty">Lütfen para çekme adresini doldurun.</string>
-  <string name="withdraw_tip_bindGoogleFirst">Paranızın güvenliğini sağlamak için lütfen Google Authenticator'ı bağladıktan sonra geri çekin.</string>
+  <string name="withdraw_tip_bindGoogleFirst">Paranızın güvenliğini sağlamak için lütfen Google Authenticator\'ı bağladıktan sonra geri çekin.</string>
   <string name="withdraw_tip_confirmCancelWithdraw">Bu para çekme işlemini iptal ettiğinizden emin misiniz?</string>
   <string name="withdraw_tip_didCancelWithdraw">Para çekme işlemi iptal edildi.</string>
   <string name="withdraw_tip_feeRangeError">Hizmet bedeli kapsamı</string>
@@ -1518,12 +1518,12 @@
   <string name="withdraw_tip_pleaseInputRemark">Lütfen bir not girin</string>
   <string name="withdraw_tip_successWithSaveAddress">Başarılı bir şekilde para çekin ve para çekme adresini kaydedin.</string>
   <string name="withdraw_tip_tagEmpty">Lütfen etiketi doldurun.</string>
-  <string name="withdraw_tip_trustDesc">Bir sonraki para çekme işlemi için SMS, e-posta veya Google Authenticator'a gerek yoktur.</string>
+  <string name="withdraw_tip_trustDesc">Bir sonraki para çekme işlemi için SMS, e-posta veya Google Authenticator\'a gerek yoktur.</string>
   <string name="withdraw_tip_withdrawMaxValueError">Her seferinde, maksimum para çekme miktarı</string>
-  <string name="withdraw_tip_withdrawMinArrivalError">Alınan miktar 0'dan fazla olmalıdır.</string>
+  <string name="withdraw_tip_withdrawMinArrivalError">Alınan miktar 0\'dan fazla olmalıdır.</string>
   <string name="withdraw_tip_withdrawMinValueError">Minimum para çekme miktarı</string>
   <string name="withdraw_tip_withdrawSuccess">Başarıyla geri çekil</string>
-  <string name="wxpay_text_bind">WeChat'i bağla</string>
+  <string name="wxpay_text_bind">WeChat\'i bağla</string>
   <string name="wxpay_text_qrcode">WeChat koleksiyonu QR kodu</string>
   <string name="filter_otc_appeal">Şikayet</string>
   <string name="filter_otc_appealCancel">Şikayeti iptal et</string>
@@ -1584,8 +1584,8 @@
   <string name="redpacket_sendout_people">insanlar</string>
   <string name="redpacket_sendout_copyRedPacket">Kırmızı Paket Bağlantılarını Kopyala</string>
   <string name="redpacket_send_longPress">Kırmızı Paketi tanımlamak için uzun basın</string>
-  <string name="redpacket_send_from">%s'den</string>
-  <string name="common_text_pleaseBindGoogleFirst">Lütfen önce telefonu veya Google Authenticator'ı bağlayın.</string>
+  <string name="redpacket_send_from">%s\'den</string>
+  <string name="common_text_pleaseBindGoogleFirst">Lütfen önce telefonu veya Google Authenticator\'ı bağlayın.</string>
   <string name="redpacket_click_prompt">Fonlarınızın güvenliğini sağlamak için lütfen aşağıdaki güvenlik sertifikasını tamamlayın</string>
   <string name="redpacket_send_inputAmount">Lütfen miktarı girin</string>
   <string name="redpacket_send_enterNumber">Numarayı girin</string>
@@ -1610,10 +1610,10 @@
   <string name="redpacket_send_exchangeAccount">Döviz Hesabı</string>
   <string name="redpacket_sendout_cannotReplicated">Bağlantının süresi doldu ve kopyalanamaz</string>
   <string name="redpacket_send_noMoney">Yetersiz kullanılabilir bakiye</string>
-  <string name="redpacket_send_notExceed">Tek toplam ödeme tutarı %s'yi aşamaz</string>
-  <string name="redpacket_send_notLess">Tek Kırmızı Paket %s'den az değil</string>
-  <string name="redpacket_send_singleNotExceed">Tek bir Kırmızı Paketin miktarı %s'yi geçemez</string>
-  <string name="redpacket_send_numNotExceed">Her bir Kırmızı Paket miktarı %s'den fazla olamaz</string>
+  <string name="redpacket_send_notExceed">Tek toplam ödeme tutarı %s\'yi aşamaz</string>
+  <string name="redpacket_send_notLess">Tek Kırmızı Paket %s\'den az değil</string>
+  <string name="redpacket_send_singleNotExceed">Tek bir Kırmızı Paketin miktarı %s\'yi geçemez</string>
+  <string name="redpacket_send_numNotExceed">Her bir Kırmızı Paket miktarı %s\'den fazla olamaz</string>
   <string name="contract_flat_long">Kapat(Uzun)</string>
   <string name="contract_flat_short">Kapat(Kısa)</string>
   <string name="contract_text_marketPriceFlat">Piyasa Kapanışı (Tümü)</string>
@@ -1657,7 +1657,7 @@
   <string name="b2c_text_singleWithdrawMin">Tek minimum para çekme miktarı: %s</string>
   <string name="b2c_text_singleWithdrawMax">Tek bir işlem için maksimum para çekme limiti: %s</string>
   <string name="b2c_text_todaywithdraw">Bugün çekilebilecek miktar: %s</string>
-  <string name="b2c_recharge_min">Tek bir yeniden yükleme %s'den az olmamalıdır</string>
+  <string name="b2c_recharge_min">Tek bir yeniden yükleme %s\'den az olmamalıdır</string>
   <string name="b2c_text_withdrawAccountList">Para Çekme Hesabı Listesi</string>
   <string name="b2c_text_withdrawRecord">para çekme kaydı</string>
   <string name="b2c_text_bank">banka</string>
@@ -1702,7 +1702,7 @@
   <string name="otc_text_advertiseLeaveWords">Reklam mesajı (gerekli değil）</string>
   <string name="otc_confirm_giveupEdit">Bu düzenlemeden vazgeçmekten emin misiniz?</string>
   <string name="otc_market_price">Piyasalar</string>
-  <string name="otc_outPrice_percentMax">Premium fiyat, %50,00'den fazla olmayacaktır.</string>
+  <string name="otc_outPrice_percentMax">Premium fiyat, %50,00\'den fazla olmayacaktır.</string>
   <string name="otc_payMoney_timeLimit">Ödeme süresi 5 ila 60 dakika arasında olmalıdır</string>
   <string name="otc_mustWrite_tex">Lütfen gerekli bir alanı girin</string>
   <string name="otc_MustWrite">Gerekli</string>
@@ -1769,7 +1769,7 @@
   <string name="apply_for_loan">Kredi başvurusunda bulunun</string>
   <string name="coin_text_horizontalDish">Yatay</string>
   <string name="coin_text_verticalDish">Dikey</string>
-  <string name="leverage_risk_prompt">Risk oranı %110'a ulaştığında, sistem tüm kredi varlığınızı geri dönüştürmeye zorlayacaktır.</string>
+  <string name="leverage_risk_prompt">Risk oranı %110\'a ulaştığında, sistem tüm kredi varlığınızı geri dönüştürmeye zorlayacaktır.</string>
   <string name="coin_text_coin">Değiş tokuş</string>
   <string name="leverage_text_leverage">Kaldıraç</string>
   <string name="coin_text_recharge">Depozito</string>
@@ -1804,8 +1804,8 @@
   <string name="otcSafeAlert_text_settingDesc_forotc">Paranızın güvenliğini sağlamak için lütfen aşağıdaki OTC işlem yapılandırmasını tamamlayın</string>
   <string name="otcSafeAlert_text_title_forotc">OTC yapılandırmasından önce aşağıdaki ayarları tamamlamanız gerekir</string>
   <string name="safety_text_editOtcPassword_forotc">OTC Fon Parolasını Değiştirin</string>
-  <string name="transfer_action_exToOtc_forotc">OTC'ye bozuk para</string>
-  <string name="transfer_action_otcToEx_forotc">OTC'den para birimine</string>
+  <string name="transfer_action_exToOtc_forotc">OTC\'ye bozuk para</string>
+  <string name="transfer_action_otcToEx_forotc">OTC\'den para birimine</string>
   <string name="otc_asset_availableBalance_forotc">OTC Hesabı Kullanılabilir Bakiyesi</string>
   <string name="b2c_text_announcements">Önlemler</string>
   <string name="b2c_text_transferRemark">Transfer Notları</string>
@@ -1817,7 +1817,7 @@
   <string name="b2c_Withdrawal_Time">para çekme süresi</string>
   <string name="b2c_Deal_Time">işlem süresi</string>
   <string name="b2c_text_bankNo">Banka hesabı</string>
-  <string name="b2c_text_singleNoLessthan">Tek bir yeniden yükleme %s'den az olmamalıdır</string>
+  <string name="b2c_text_singleNoLessthan">Tek bir yeniden yükleme %s\'den az olmamalıdır</string>
   <string name="b2c_Transfer_Vouchers">transfer fişi</string>
   <string name="b2c_text_rechargeSuccess">Başarılı bir şekilde şarj edin, inceleme bekleniyor</string>
   <string name="b2c_text_addTransferCredentials">Lütfen transfer kuponu ekleyin</string>
@@ -1849,12 +1849,12 @@
   <string name="link_name">Zincir adı</string>
   <string name="etf_text_networth">Net değer</string>
   <string name="etf_text_seeAnnouncement">Daha fazla ayrıntı görün</string>
-  <string name="etf_text_etfPrompt">1. \'3L\', temel alınan çiftin fiyatındaki %1'lik artışı ve ürünün net değerinin %3'lük artışını ifade eder. \n 2.\'3S\', temel alınan çiftin fiyatındaki %1'lik düşüş ve ürünün net değerinin %3'lük düşüş anlamına gelir. \n 3. Tipik olarak, net değer her gün saat 0'da ayarlanır. Aşırı piyasa gün içinde ayarlanacaktır.\n 4.Her kaldıraç, ilgili yönetim ücretini günlük olarak tahsil edecektir. \n 5. Lütfen alım satım yapmadan önce varlığın net değerine dikkat edin. Aşırı koşullarda fiyatın sıfıra yaklaşma riski vardır. Bu nedenle, ilgili riskleri anladığınızdan emin olun.</string>
+  <string name="etf_text_etfPrompt">1. \'3L\', temel alınan çiftin fiyatındaki %1\'lik artışı ve ürünün net değerinin %3\'lük artışını ifade eder. \n 2.\'3S\', temel alınan çiftin fiyatındaki %1\'lik düşüş ve ürünün net değerinin %3\'lük düşüş anlamına gelir. \n 3. Tipik olarak, net değer her gün saat 0\'da ayarlanır. Aşırı piyasa gün içinde ayarlanacaktır.\n 4.Her kaldıraç, ilgili yönetim ücretini günlük olarak tahsil edecektir. \n 5. Lütfen alım satım yapmadan önce varlığın net değerine dikkat edin. Aşırı koşullarda fiyatın sıfıra yaklaşma riski vardır. Bu nedenle, ilgili riskleri anladığınızdan emin olun.</string>
   <string name="etf_text_networthPrompt">Uzun için Net Değer = Son düzenleme noktasındaki net değer * [1+ 3 * (En son spot işlem fiyatı-spot son ayarlama noktası fiyatı) / spot son ayarlama noktası fiyatı * %100]；\n\nKısa İçin Net Değer = Net son ayarlama noktasındaki değer * [1- 3 * (En son spot işlem fiyatı-spot son ayarlama noktası fiyatı) / spot son ayarlama noktası fiyatı * 100%]；\n\nLütfen şu fiyattan önemli ölçüde sapan bir fiyatla işlem yaparken dikkatli olun net değer</string>
   <string name="etf_text_knowRisk">Kabul ediyorum</string>
   <string name="etf_text_disclaimer">sorumluluk reddi</string>
-  <string name="etf_text_disclaimerDetail1">Değerli müşterilerimiz, Darico'nun Kaldıraçlı ETF ürünlerini ve ilgili hizmetlerini kullandığınız için teşekkür ederiz. Lütfen bununla ilgili talimatları dikkatlice okuyun ve aşağıda belirtilen 'Risk İpuçları'nı dikkatlice uyguladığınızdan emin olun. 'Kabul Ediyorum' seçeneğine tıklayarak, sorumluluk reddi beyanındaki tüm içeriği kabul ettiğiniz ve Kaldıraç Ticareti ETF'lerinin içerdiği risklerin tamamen farkında olduğunuz kabul edilir.</string>
-  <string name="etf_text_disclaimerDetail2">Kaldıraç ticareti ETF'leri ile ilgili talimatlar için lütfen bu bağlantıyı takip edin - "Bağlantı"</string>
+  <string name="etf_text_disclaimerDetail1">Değerli müşterilerimiz, Darico\'nun Kaldıraçlı ETF ürünlerini ve ilgili hizmetlerini kullandığınız için teşekkür ederiz. Lütfen bununla ilgili talimatları dikkatlice okuyun ve aşağıda belirtilen \'Risk İpuçları\'nı dikkatlice uyguladığınızdan emin olun. \'Kabul Ediyorum\' seçeneğine tıklayarak, sorumluluk reddi beyanındaki tüm içeriği kabul ettiğiniz ve Kaldıraç Ticareti ETF\'lerinin içerdiği risklerin tamamen farkında olduğunuz kabul edilir.</string>
+  <string name="etf_text_disclaimerDetail2">Kaldıraç ticareti ETF\'leri ile ilgili talimatlar için lütfen bu bağlantıyı takip edin - "Bağlantı"</string>
   <string name="etf_text_disclaimerDetail3">Risk ipuçları:\n 1. Alış/satış fiyatınız varlıkların net değerinden fazla sapmamalıdır. Aksi takdirde ciddi kayıplarla karşılaşırsınız.\n 2.Siparişi ters yönde verirseniz, olumsuz durumlarda varlığın fiyatının sıfıra yaklaşma riski vardır. Bu nedenle, bu süreçte meydana gelen kayıpların sizin tarafınızdan karşılanması gerektiğini hatırlatırız. Bu sorumluluk reddi ve borsadaki diğer anlaşmalar, Darioco tarafından sunulan bu hizmet kullanılmadan önce kabul edilecektir.</string>
   <string name="etf_text_faq">《Kaldıraçlı ETF için SSS》</string>
   <string name="common_text_halveZone">yarıya indirmek</string>
@@ -1915,7 +1915,7 @@
   <string name="contract_buy_closeLess_tip">(Kapat Uzun)</string>
   <string name="contract_sell_closeMore_tip">(Kapat Kısa)</string>
   <string name="sl_str_forced_close_price_tips">Tahmini tasfiye fiyatı referans tasfiye fiyatıdır. Çapraz pozisyonlar, Çapraz Teminat modunda mevcut marjı paylaşır ve diğer açık pozisyonların kâr ve zararına bağlı olarak tasfiye fiyatı değişecektir.&lt;br&gt;Makul fiyat tahmini tasfiye fiyatına ulaştığında, pozisyon sistem tarafından tasfiye edilecektir. . Tasfiye fiyatı görüntülenmiyorsa, mevcut pozisyonun likidasyon riskinin olmadığı anlamına gelir.</string>
-  <string name="sl_str_floating_gains_balance_tips">Mevcut gerçekleşmemiş kar ve zarar, kapanış anında makul bir fiyattan tahmin edilir ve nihai kar ve zarar gerçektir. En son fiyattan kapatılan gerçekleşmemiş kar ve zararı görüntülemek için lütfen [Ayarlar]'da fiyatı ayarlayın.</string>
+  <string name="sl_str_floating_gains_balance_tips">Mevcut gerçekleşmemiş kar ve zarar, kapanış anında makul bir fiyattan tahmin edilir ve nihai kar ve zarar gerçektir. En son fiyattan kapatılan gerçekleşmemiş kar ve zararı görüntülemek için lütfen [Ayarlar]\'da fiyatı ayarlayın.</string>
   <string name="contract_text_realisedPNLDetail">Gerçekleşen Detaylar</string>
   <string name="contract_eranOrLosstips">Gerçekleşen kar ve zarar, kapatılan pozisyonun kapanış kar ve zararını, mevcut pozisyonun açılış işlem ücretini, kapanış işlem ücretini ve sermaye maliyetini içerir. Maliyetin detayları aşağıdaki gibidir:</string>
   <string name="sl_str_gains_balance_fee">Finansman Ücreti</string>
@@ -1961,7 +1961,7 @@
   <string name="sl_str_contract_calculator">Hesap makinesi</string>
   <string name="sl_str_funds_transfer">Aktar</string>
   <string name="sl_str_risk_disclosure">Risk Açıklaması</string>
-  <string name="sl_str_risk_disclosure_notice">1. Kontrat piyasasında işlem yaptığınızda piyasa düşerse pozisyon marjınız yetersiz kalacaktır. Borsa Swapının zorunlu bir tasfiye emri vereceğini ve sistem sözleşmesine göre size tasfiye detaylarını göndereceğini lütfen unutmayın. \n2. Lütfen dikkatlice okuyunuz ve exchange Swap'ın iş kurallarına uyunuz. Sözleşme mekanizmasını ve çalışma prensibini anlayın, piyasanın çeşitli risklerini anlayın ve ticaret için makul bir şekilde fon ayarlayın. \n3. Bazı aşırı piyasa koşullarında açık pozisyonlarınızı kapatmak zor veya imkansız olabilir. Örneğin, kârınız tüm sözleşme pazarında etkin sözleşme PnL'de ilk sırada yer aldığında ve sigorta fonu zararları karşılamak için yetersiz kaldığında. \n4. Yerel kanunlarda, düzenlemelerde ve politikalarda değişiklik olması, borsa ticaret kurallarında değişiklik yapılması ve acil durum önlemlerinin getirilmesi durumunda, borsa açık pozisyonları sürdüremeyeceğinizi önceden bildirecektir, ancak pozisyon marjı ve kârlı bakiye ödenmeye devam edecektir. ! \n5. Deprem, sel, yangın ve diğer faktörler veya bilgisayar sistemi ve iletişim sistemi arızaları vb. santralin kontrolü dışındaki herhangi bir nedenle, siparişiniz kısmen veya tamamen gerçekleştirilemeyebilir ve zarara uğrayabilirsiniz. \n6. Spekülatif işlemler gibi "hedge" işlemleri de fiyat dalgalanmalarından kaynaklanan risklerle karşı karşıyadır. Lütfen ilgili mekanizmayı önceden anlayın. \r\n7. Hesabınızı üçüncü bir tarafa ödünç verirseniz, sözleşme mevduatınızın güvenliği etkilenebilir. Lütfen kişisel hesabınızı dikkatlice koruyun.</string>
+  <string name="sl_str_risk_disclosure_notice">1. Kontrat piyasasında işlem yaptığınızda piyasa düşerse pozisyon marjınız yetersiz kalacaktır. Borsa Swapının zorunlu bir tasfiye emri vereceğini ve sistem sözleşmesine göre size tasfiye detaylarını göndereceğini lütfen unutmayın. \n2. Lütfen dikkatlice okuyunuz ve exchange Swap\'ın iş kurallarına uyunuz. Sözleşme mekanizmasını ve çalışma prensibini anlayın, piyasanın çeşitli risklerini anlayın ve ticaret için makul bir şekilde fon ayarlayın. \n3. Bazı aşırı piyasa koşullarında açık pozisyonlarınızı kapatmak zor veya imkansız olabilir. Örneğin, kârınız tüm sözleşme pazarında etkin sözleşme PnL\'de ilk sırada yer aldığında ve sigorta fonu zararları karşılamak için yetersiz kaldığında. \n4. Yerel kanunlarda, düzenlemelerde ve politikalarda değişiklik olması, borsa ticaret kurallarında değişiklik yapılması ve acil durum önlemlerinin getirilmesi durumunda, borsa açık pozisyonları sürdüremeyeceğinizi önceden bildirecektir, ancak pozisyon marjı ve kârlı bakiye ödenmeye devam edecektir. ! \n5. Deprem, sel, yangın ve diğer faktörler veya bilgisayar sistemi ve iletişim sistemi arızaları vb. santralin kontrolü dışındaki herhangi bir nedenle, siparişiniz kısmen veya tamamen gerçekleştirilemeyebilir ve zarara uğrayabilirsiniz. \n6. Spekülatif işlemler gibi "hedge" işlemleri de fiyat dalgalanmalarından kaynaklanan risklerle karşı karşıyadır. Lütfen ilgili mekanizmayı önceden anlayın. \r\n7. Hesabınızı üçüncü bir tarafa ödünç verirseniz, sözleşme mevduatınızın güvenliği etkilenebilir. Lütfen kişisel hesabınızı dikkatlice koruyun.</string>
   <string name="sl_str_open_contract_account_btn">Riskleri anlıyorum ve sözleşmeli ticarete başlıyorum</string>
   <string name="sl_str_account_created_successfully">Başarı yarat</string>
   <string name="sl_str_cancel_orders">Hepsi İptal</string>
@@ -1998,7 +1998,7 @@
   <string name="sl_str_load_text">Yükleniyor...</string>
   <string name="sl_str_limit_price_tips">sınır</string>
   <string name="sl_str_display_unit">Birim</string>
-  <string name="sl_str_pnl_calculator">Unrlz'yi hesapla</string>
+  <string name="sl_str_pnl_calculator">Unrlz\'yi hesapla</string>
   <string name="sl_str_plan_settings">Önceden Ayarlanmış Ayar</string>
   <string name="sl_str_strategy_effective_time">Geçerli Dönem</string>
   <string name="sl_str_in_24_hours">24 saat</string>
@@ -2006,7 +2006,7 @@
   <string name="sl_str_trigger_type">Tetik. tip</string>
   <string name="sl_str_coin_unit">Madeni para</string>
   <string name="sl_str_contract_type">Sözleşme</string>
-  <string name="sl_str_pl_calculator">PNL'yi hesapla</string>
+  <string name="sl_str_pl_calculator">PNL\'yi hesapla</string>
   <string name="sl_str_liquidation_price">tasfiye</string>
   <string name="sl_str_profit_rate">Hedef kâr</string>
   <string name="sl_str_direction">Yan</string>
@@ -2055,7 +2055,7 @@
   <string name="sl_str_24h_vol">Cilt(24s)</string>
   <string name="sl_str_sell_empty">MAX</string>
   <string name="sl_str_sell_max">MAX</string>
-  <string name="sl_str_no_contract_account">%1$s'yi Takas Hesabına Aktarın</string>
+  <string name="sl_str_no_contract_account">%1$s\'yi Takas Hesabına Aktarın</string>
   <string name="sl_str_open_risk_tips">Son işlem fiyatından açılış fiyatı sapması çok büyük, lütfen riske dikkat edin</string>
   <string name="sl_str_close_risk_tips">Son işlem fiyatından kapanış fiyatı sapması çok büyük, lütfen riske dikkat edin</string>
   <string name="sl_str_open_market_risk_tips">Açılış ortalama fiyatının son işlem fiyatından çok büyük olduğu tahmin ediliyor, lütfen riske dikkat edin.</string>
@@ -2078,7 +2078,7 @@
   <string name="sl_str_win_intro3">Bu kolay!</string>
   <string name="sl_str_win_intro4">Tanrı beni durduramaz</string>
   <string name="sl_str_win_intro5">kazanan kazanan tavuk yemeği</string>
-  <string name="sl_str_share_explain">- Nihai yorum hakkı %s'e aittir -</string>
+  <string name="sl_str_share_explain">- Nihai yorum hakkı %s\'e aittir -</string>
   <string name="sl_str_wallet_balance">cüzdan bakiyesi</string>
   <string name="sl_str_margin_balance">Marj Bakiyesi</string>
   <string name="sl_str_asset_record">Finansman Kaydı</string>
@@ -2097,7 +2097,7 @@
   <string name="sl_str_quick_buy">Madeni Para Satın Al</string>
   <string name="sl_str_str_open_quick_deposit_tips">Hesabınızda herhangi bir varlık yok, doğrudan şarj edebilir veya yasal para birimi işlemleri satın alabilirsiniz.</string>
   <string name="contract_bb_transfer_to_contract">DEĞİŞTİRMEK İÇİN SPOT</string>
-  <string name="sl_str_contract_to_coin">SPOT'A TAKAS</string>
+  <string name="sl_str_contract_to_coin">SPOT\'A TAKAS</string>
   <string name="sl_str_Insufficient_funds">Yetersiz bakiye</string>
   <string name="sl_str_Immediately_transfer">Aktar</string>
   <string name="sl_str_contract_no_asset_tips">&gt;Hesabınızda para yok, lütfen önce para yatırın</string>
@@ -2106,8 +2106,8 @@
   <string name="sl_str_bankruptcy_details">Tasfiye Detayı</string>
   <string name="sl_str_rose">kazanmak</string>
   <string name="sl_str_fall">Düşmek</string>
-  <string name="sl_str_reduce_position_tips">%1$s'de işaretli fiyat %2$s'de. Sistemdeki sigorta fonlarının yetersiz olması nedeniyle, kar sıralaması durumuna göre %3$s fiyatından otomatik kaldıraçsızlaştırma gerçekleşecektir.</string>
-  <string name="sl_str_wiped_out_tips0">%1$s, %2$s sözleşmesinde işaretli fiyat %3$s olduğunda, pozisyonunuz %4$s - marj oranı %5$s'lik sürdürme marj oranından düşüktür, bu nedenle zorunlu tasfiyeyi tetikler</string>
+  <string name="sl_str_reduce_position_tips">%1$s\'de işaretli fiyat %2$s\'de. Sistemdeki sigorta fonlarının yetersiz olması nedeniyle, kar sıralaması durumuna göre %3$s fiyatından otomatik kaldıraçsızlaştırma gerçekleşecektir.</string>
+  <string name="sl_str_wiped_out_tips0">%1$s, %2$s sözleşmesinde işaretli fiyat %3$s olduğunda, pozisyonunuz %4$s - marj oranı %5$s\'lik sürdürme marj oranından düşüktür, bu nedenle zorunlu tasfiyeyi tetikler</string>
   <string name="sl_str_wiped_out_tips1">%1$s, %2$s sözleşmesinde işaretli fiyat %3$s olduğunda, pozisyonunuz %4$s - marj oranı %5$s sürdürme marj oranından düşüktür, bu nedenle marj çağrısı tetiklenir</string>
   <string name="sl_str_wiped_out_tips2">According to the insurance fund and maintenance margin balance, an emir %1$s fiyatından verilir ve pozisyon karı belirlenen fiyata kapatılır, ancak pozisyon tasfiyesi için fiili işlem fiyatı belirlenen fiyata eşit olmayabilir</string>
   <string name="sl_str_force_close_mechanism">Zorunlu tasfiye mekanizmasını anlamak</string>
@@ -2117,10 +2117,10 @@
   <string name="sl_str_order_timeout">Siparişin süresi doldu</string>
   <string name="sl_str_trigger_failed">Yürütme başarısız oldu</string>
   <string name="sl_lever_strring">Kaldıraç ayarı</string>
-  <string name="sl_select_lever_warn">Yüksek seviye, RİSK'e dikkat edin lütfen!</string>
+  <string name="sl_select_lever_warn">Yüksek seviye, RİSK\'e dikkat edin lütfen!</string>
   <string name="sl_str_blowing_up_datail">Tasfiye ayrıntıları</string>
   <string name="sl_str_insufficient">Yetersiz bakiye</string>
-  <string name="sl_str_trigger_failed_info">%1$s içinde, %2$s'ın %3$s'ı, planlanan siparişi tetiklemek için %4$s'a ulaştı. %5$s nedeniyle sipariş gönderilemedi ve yürütme başarısız oldu.</string>
+  <string name="sl_str_trigger_failed_info">%1$s içinde, %2$s\'ın %3$s\'ı, planlanan siparişi tetiklemek için %4$s\'a ulaştı. %5$s nedeniyle sipariş gönderilemedi ve yürütme başarısız oldu.</string>
   <string name="sl_str_trigger_failed_reason3">Yetersiz hesap marjı bakiyesi</string>
   <string name="sl_str_trigger_failed_reason4">İşlem tamamlandıktan sonra bile pozisyon güçlü olacak</string>
   <string name="sl_str_trigger_failed_reason5">Sipariş parametreleri geçersiz, tetikleme başarısız</string>
@@ -2140,7 +2140,7 @@
   <string name="sl_str_position">pozisyonlar</string>
   <string name="sl_str_share_confirm">Paylaşımı Onayla</string>
   <string name="sl_str_platform_des">Değiş tokuş</string>
-  <string name="sl_str_scan_down_app">APP'yi indirmek için kodu tarayın</string>
+  <string name="sl_str_scan_down_app">APP\'yi indirmek için kodu tarayın</string>
   <string name="sl_str_tab_contract_info">bilgi</string>
   <string name="sl_str_book_confirm">İkinci sipariş onayı</string>
   <string name="sl_str_switch_lever">Kaldıraç</string>
@@ -2207,7 +2207,7 @@
   <string name="common_share_winPrompt50">Tanrı beni durduramaz</string>
   <string name="common_share_winPrompt100">kazanan kazanan tavuk yemeği</string>
   <string name="common_text_cancelkyc">Reddedilen yetki</string>
-  <string name="upload_image_limit">8M'den küçük JPG, JPEG veya PNG formatındaki resimleri destekleyin.</string>
+  <string name="upload_image_limit">8M\'den küçük JPG, JPEG veya PNG formatındaki resimleri destekleyin.</string>
   <string name="kline_text_changeValue">Değiştirmek</string>
   <string name="kline_text_changeRate">Değiştirmek</string>
   <string name="common_text_verifyInfoTitle">Kendiniz çalıştırıldığından emin olmak için lütfen aşağıdaki bilgileri doldurun:</string>
@@ -2236,8 +2236,8 @@
   <string name="game_applyDetail">Oyuna giriş için hesap bilgileriniz (hesap, takma ad, avatar vb.) için başvurun</string>
   <string name="game_refuse">reddetmek</string>
   <string name="game_authorLogin">Yetkili giriş</string>
-  <string name="common_kyc_chargeAndwithdraw">Herhangi bir para yatırma veya çekme işleminden önce KYC doğrulaması gereklidir. Lütfen KYC'nizi gönderin.</string>
-  <string name="common_kyc_trading">Ticaretten önce KYC doğrulaması gereklidir. Lütfen KYC'nizi gönderin.</string>
+  <string name="common_kyc_chargeAndwithdraw">Herhangi bir para yatırma veya çekme işleminden önce KYC doğrulaması gereklidir. Lütfen KYC\'nizi gönderin.</string>
+  <string name="common_kyc_trading">Ticaretten önce KYC doğrulaması gereklidir. Lütfen KYC\'nizi gönderin.</string>
   <string name="coAgent_text_agentStepA">Arkadaşlarınıza davetiye gönderin</string>
   <string name="coAgent_text_agentStepB">Sözleşmeli komisyoncu olmak</string>
   <string name="coAgent_text_agentStepC">Sözleşmeler ticareti yaparak kar elde edersiniz</string>
@@ -2253,8 +2253,8 @@
   <string name="coAgent_check_my_rights">Haklarımı görmek için giriş yap</string>
   <string name="coAgent_text_level2return">Seviye 2 İletişim Oranı</string>
   <string name="login_success_action_alert_title">Risk reddi</string>
-  <string name="login_success_action_alert_message">Hesapta güvenlik riskleri var. Lütfen şifreyi ve GA'yı zamanında değiştirin</string>
-  <string name="login_success_action_alert_google">GA'yı değiştir</string>
+  <string name="login_success_action_alert_message">Hesapta güvenlik riskleri var. Lütfen şifreyi ve GA\'yı zamanında değiştirin</string>
+  <string name="login_success_action_alert_google">GA\'yı değiştir</string>
   <string name="contract_text_mybeCost">Tahmini maliyeti</string>
   <string name="customSetting_action_title">Sorun geri bildirimi</string>
   <string name="customSetting_action_upload">Günlük yükle</string>
@@ -2269,7 +2269,7 @@
   <string name="contract_tips_experienceGold">Alım satım bonusu doğrudan çekilemez, ancak kârlı kısım çekilebilir. Alım satım bonusu, pozisyon açmak, alım satım ücreti ödemek, fonlama ücreti ve pozisyonları kapatmak için ödeme yapmak için kullanılabilir. Alım satım bonusu, ücret veya pozisyon kaybı</string>
   <string name="contract_bonus_Issue">Bonus sorunu</string>
   <string name="contract_bonus_recycle">Bonus Geri Dönüşüm</string>
-  <string name="contract_sting_newPriceMessage">En son fiyat %s'ye ulaştığında komisyon piyasa fiyatı üzerinden gerçekleştirilir.</string>
+  <string name="contract_sting_newPriceMessage">En son fiyat %s\'ye ulaştığında komisyon piyasa fiyatı üzerinden gerçekleştirilir.</string>
   <string name="contract_sting_moreLossMessage">Stop-loss emrinin tetik fiyatı ve icra fiyatı: zorunlu tasfiye fiyatından yüksek ve son fiyattan düşük olmalıdır.</string>
   <string name="contract_sting_moreProfitMessage">Kar al emrinin tetikleyici fiyatı ve yürütme fiyatı: en son fiyattan yüksek olmalıdır.</string>
   <string name="contract_sting_lessLossMessage">Stop-loss emrinin tetik fiyatı ve icra fiyatı: zorunlu tasfiye fiyatından düşük ve son fiyattan yüksek olmalıdır.</string>
@@ -2307,7 +2307,7 @@
   <string name="registration_date">Kayıt Tarihi</string>
   <string name="total_commission">Toplam komisyon</string>
   <string name="share_your_tailored_poster">Size özel posterinizi paylaşın</string>
-  <string name="invite_you_qr">Sizi [%s]'e katılmaya davet edin, QR kodunu tanımlamak için resme basın</string>
+  <string name="invite_you_qr">Sizi [%s]\'e katılmaya davet edin, QR kodunu tanımlamak için resme basın</string>
   <string name="password_reset_tips">Şifre değiştirildikten sonra para çekme işlemi 48 saat boyunca devre dışı bırakılır.</string>
   <string name="please_check_with_google_auth">Lütfen google auth ile kontrol edin</string>
   <string name="phone_didSendCode_to">bir kod gönderdik</string>
@@ -2324,8 +2324,8 @@
   <string name="assets_suspend_deposit">Depozitoyu Askıya Al</string>
   <string name="assets_suspend_withdraw">Geri Çekmeyi Askıya Al</string>
   <string name="assets_suspend_deposit_Withdraw">Para Yatırma/Çekmeyi Askıya Al</string>
-  <string name="assets_less_than_0.0001BTC">0.0001BTC'den az</string>
-  <string name="assets_security_advice_tips">Müşteri destek personelimiz dahil hiç kimseye kimlik bilgilerinizi, SMS'lerinizi, e-postalarınızı veya google kimlik doğrulama kodunuzu GÖNDERMEYİN. Borsamızın eleman üyesi olduğunu beyan eden herkes HİÇBİRDİR. DONT, dijital varlığınızın herhangi bir miktarını borsamızın personeli olduğunu iddia eden herkese aktarır.</string>
+  <string name="assets_less_than_0.0001BTC">0.0001BTC\'den az</string>
+  <string name="assets_security_advice_tips">Müşteri destek personelimiz dahil hiç kimseye kimlik bilgilerinizi, SMS\'lerinizi, e-postalarınızı veya google kimlik doğrulama kodunuzu GÖNDERMEYİN. Borsamızın eleman üyesi olduğunu beyan eden herkes HİÇBİRDİR. DONT, dijital varlığınızın herhangi bir miktarını borsamızın personeli olduğunu iddia eden herkese aktarır.</string>
   <string name="alert_common_i_understand">Anladım</string>
   <string name="assets_balance_zero_tips">Bakiyeniz sıfır, kripto para birimleri elde etmek için OTC piyasasında para yatırın veya ticaret yapın.</string>
   <string name="assets_total_balances">Toplam Bakiyeler (BTC)</string>
@@ -2336,7 +2336,7 @@
   <string name="market_text_custom_add">Ekle</string>
   <string name="market_text_custom_finish">Tamamlandı</string>
   <string name="contract_asset_account">Dijital Hesap</string>
-  <string name="assets_security_advice_tips1">Müşteri destek personelimiz dahil hiç kimseye kimlik bilgilerinizi, SMS'lerinizi, e-postalarınızı veya google kimlik doğrulama kodunuzu GÖNDERMEYİN.</string>
+  <string name="assets_security_advice_tips1">Müşteri destek personelimiz dahil hiç kimseye kimlik bilgilerinizi, SMS\'lerinizi, e-postalarınızı veya google kimlik doğrulama kodunuzu GÖNDERMEYİN.</string>
   <string name="assets_security_advice_tips2">Borsamızın eleman üyesi olduğunu beyan eden herkes HİÇBİRDİR.</string>
   <string name="assets_security_advice_tips3">DONT, dijital varlığınızın herhangi bir miktarını borsamızın personeli olduğunu iddia eden herkese aktarır.</string>
   <string name="account_action_token_expire_tip">Jetonun süresi doldu, lütfen tekrar deneyin.</string>
@@ -2358,7 +2358,7 @@
   <string name="customSetting_text_coDescNew">Şimdi yeni gelecekler</string>
   <string name="customSetting_text_coDescOld">Eski gelecekler şimdi</string>
   <string name="customSetting_coAlert_title">Yeni vadeli işlem sistemi yakında geliyor</string>
-  <string name="customSetting_coAlert_desc">Değerli kullanıcılar, Merhaba:\nKullanıcılara daha iyi hizmet verebilmek ve daha profesyonel sözleşme hizmetleri sunmak için kalıcı sözleşmenin yeni web sürümü ve APP sürümü yakında kullanıma sunulacak.\n1. Resmi geçişten önce, kullanmanız için çift versiyonlu bir sözleşme sistemi sunuyoruz. Aynı zamanda, yeni sözleşme yeni başladığında, birçok kusur olabilir. Bir hata veya herhangi bir öneri bulursanız, lütfen şu bağlantı aracılığıyla gönderin:\n2. O zaman, eski sözleşme sistemi erişimi durduracaktır. Eski sözleşmenin kullanıcıları, pozisyonlarını zamanında kapatmalı ve karşılık gelen zamandan önce varlıklarını döviz hesabına transfer etmelidir; zamanında kapanmaz ve transfer edilmezse, platform o andaki piyasa fiyatına dayanacaktır. Otomatik tasfiye ve takas ve varlıkların döviz hesaplarına aktarılması; doldurulmayan siparişler sistem tarafından otomatik olarak iptal edilecektir.\n3. Gezinme üst kayan katmanı aracılığıyla eski ve yeni sözleşmeler arasında serbestçe geçiş yapabilirsiniz. [Yeni/eski sürümü değiştir]'e tıkladıktan sonra, sözleşme işlemlerine, sözleşme varlıklarına, sözleşme emirlerine ve sözleşmeyle ilgili işlem işlevlerine eriştiğinizde aynı anda geçiş yapacaksınız; sözleşme Verilerinin eski ve yeni sürümlerinin birlikte çalışabilir olmadığını lütfen unutmayın;\nEtkilenen işlevler şunları içerir ancak bunlarla sınırlı değildir: sözleşme komisyoncusu, sözleşme deneyim ücreti, sözleşme belgeseli, sözleşme yarışması;\n4. Sözleşme varlıklarınızın sözleşme hesabına aktarılmadan önce döviz hesabına aktarılması gerekir;</string>
+  <string name="customSetting_coAlert_desc">Değerli kullanıcılar, Merhaba:\nKullanıcılara daha iyi hizmet verebilmek ve daha profesyonel sözleşme hizmetleri sunmak için kalıcı sözleşmenin yeni web sürümü ve APP sürümü yakında kullanıma sunulacak.\n1. Resmi geçişten önce, kullanmanız için çift versiyonlu bir sözleşme sistemi sunuyoruz. Aynı zamanda, yeni sözleşme yeni başladığında, birçok kusur olabilir. Bir hata veya herhangi bir öneri bulursanız, lütfen şu bağlantı aracılığıyla gönderin:\n2. O zaman, eski sözleşme sistemi erişimi durduracaktır. Eski sözleşmenin kullanıcıları, pozisyonlarını zamanında kapatmalı ve karşılık gelen zamandan önce varlıklarını döviz hesabına transfer etmelidir; zamanında kapanmaz ve transfer edilmezse, platform o andaki piyasa fiyatına dayanacaktır. Otomatik tasfiye ve takas ve varlıkların döviz hesaplarına aktarılması; doldurulmayan siparişler sistem tarafından otomatik olarak iptal edilecektir.\n3. Gezinme üst kayan katmanı aracılığıyla eski ve yeni sözleşmeler arasında serbestçe geçiş yapabilirsiniz. [Yeni/eski sürümü değiştir]\'e tıkladıktan sonra, sözleşme işlemlerine, sözleşme varlıklarına, sözleşme emirlerine ve sözleşmeyle ilgili işlem işlevlerine eriştiğinizde aynı anda geçiş yapacaksınız; sözleşme Verilerinin eski ve yeni sürümlerinin birlikte çalışabilir olmadığını lütfen unutmayın;\nEtkilenen işlevler şunları içerir ancak bunlarla sınırlı değildir: sözleşme komisyoncusu, sözleşme deneyim ücreti, sözleşme belgeseli, sözleşme yarışması;\n4. Sözleşme varlıklarınızın sözleşme hesabına aktarılmadan önce döviz hesabına aktarılması gerekir;</string>
   <string name="cl_margin_mode_str">Kenar Boşluğu Modu</string>
   <string name="cl_isolated_mode_tip_str">İzole mod: İzole hesaba bir miktar bakiye tahsis edilir. İzole bakiye, bakım marjının altına düştüğünde, izole pozisyonlar tasfiye edilir. Bu modda, Marj dengesi artırılabilir veya azaltılabilir.</string>
   <string name="cl_cross_mode_tip_str">Çapraz mod: Tüm pozisyonlar, tasfiye edilmekten kaçınmak için tüm çapraz hesap bakiyesini kullanır. Tasfiye gerçekleşirse, çapraz pozisyonlar ve çapraz bakiye kaybedilir.</string>
@@ -2388,7 +2388,7 @@
   <string name="cl_price_str">Fiyat</string>
   <string name="cl_volume_str">Hacim</string>
   <string name="cl_cost_str">Maliyet</string>
-  <string name="cl_preference_setting_tip_str">Tekrar fark ETMEYİN. [Tercih Ayarı]'nda Sıfırla</string>
+  <string name="cl_preference_setting_tip_str">Tekrar fark ETMEYİN. [Tercih Ayarı]\'nda Sıfırla</string>
   <string name="cl_order_price_str">Sipariş Fiyatı</string>
   <string name="cl_order_volume_str">Miktar</string>
   <string name="cl_reduce_only_str">Yalnızca Azalt</string>
@@ -2456,7 +2456,7 @@
   <string name="cl_coin_margined_perpetual_str">Madeni para marjlı kalıcı</string>
   <string name="cl_mixed_coin_margined_perpetual_str">Sürekli marjlı Karışık Madeni Para</string>
   <string name="cl_demo_perpetual_str">Demo kalıcı</string>
-  <string name="cl_str_risk_disclosure_notice">1. Kontrat piyasasında işlem yaptığınızda piyasa düşerse pozisyon marjınız yetersiz kalacaktır. Borsa Swapının zorunlu bir tasfiye emri vereceğini ve sistem sözleşmesine göre size tasfiye detaylarını göndereceğini lütfen unutmayın. \n2. Lütfen dikkatlice okuyunuz ve exchange Swap'ın iş kurallarına uyunuz. Sözleşme mekanizmasını ve çalışma prensibini anlayın, piyasanın çeşitli risklerini anlayın ve ticaret için makul bir şekilde fon ayarlayın. \n3. Bazı aşırı piyasa koşullarında açık pozisyonlarınızı kapatmak zor veya imkansız olabilir. Örneğin, kârınız tüm sözleşme pazarında etkin sözleşme PnL'de ilk sırada yer aldığında ve sigorta fonu zararları karşılamak için yetersiz kaldığında. \n4. Yerel kanunlarda, düzenlemelerde ve politikalarda değişiklik olması, borsa ticaret kurallarında değişiklik yapılması ve acil durum önlemlerinin getirilmesi durumunda, borsa açık pozisyonları sürdüremeyeceğinizi önceden bildirecektir, ancak pozisyon marjı ve kârlı bakiye ödenmeye devam edecektir. ! \n5. Deprem, sel, yangın ve diğer faktörler veya bilgisayar sistemi ve iletişim sistemi arızaları vb. santralin kontrolü dışındaki herhangi bir nedenle, siparişiniz kısmen veya tamamen gerçekleştirilemeyebilir ve zarara uğrayabilirsiniz. \n6. Spekülatif işlemler gibi "hedge" işlemleri de fiyat dalgalanmalarından kaynaklanan risklerle karşı karşıyadır. Lütfen ilgili mekanizmayı önceden anlayın. \r\n7. Hesabınızı üçüncü bir tarafa ödünç verirseniz, sözleşme mevduatınızın güvenliği etkilenebilir. Lütfen kişisel hesabınızı dikkatlice koruyun.</string>
+  <string name="cl_str_risk_disclosure_notice">1. Kontrat piyasasında işlem yaptığınızda piyasa düşerse pozisyon marjınız yetersiz kalacaktır. Borsa Swapının zorunlu bir tasfiye emri vereceğini ve sistem sözleşmesine göre size tasfiye detaylarını göndereceğini lütfen unutmayın. \n2. Lütfen dikkatlice okuyunuz ve exchange Swap\'ın iş kurallarına uyunuz. Sözleşme mekanizmasını ve çalışma prensibini anlayın, piyasanın çeşitli risklerini anlayın ve ticaret için makul bir şekilde fon ayarlayın. \n3. Bazı aşırı piyasa koşullarında açık pozisyonlarınızı kapatmak zor veya imkansız olabilir. Örneğin, kârınız tüm sözleşme pazarında etkin sözleşme PnL\'de ilk sırada yer aldığında ve sigorta fonu zararları karşılamak için yetersiz kaldığında. \n4. Yerel kanunlarda, düzenlemelerde ve politikalarda değişiklik olması, borsa ticaret kurallarında değişiklik yapılması ve acil durum önlemlerinin getirilmesi durumunda, borsa açık pozisyonları sürdüremeyeceğinizi önceden bildirecektir, ancak pozisyon marjı ve kârlı bakiye ödenmeye devam edecektir. ! \n5. Deprem, sel, yangın ve diğer faktörler veya bilgisayar sistemi ve iletişim sistemi arızaları vb. santralin kontrolü dışındaki herhangi bir nedenle, siparişiniz kısmen veya tamamen gerçekleştirilemeyebilir ve zarara uğrayabilirsiniz. \n6. Spekülatif işlemler gibi "hedge" işlemleri de fiyat dalgalanmalarından kaynaklanan risklerle karşı karşıyadır. Lütfen ilgili mekanizmayı önceden anlayın. \r\n7. Hesabınızı üçüncü bir tarafa ödünç verirseniz, sözleşme mevduatınızın güvenliği etkilenebilir. Lütfen kişisel hesabınızı dikkatlice koruyun.</string>
   <string name="cl_str_buy_open">Açık Uzun</string>
   <string name="cl_str_sell_open">Açık Kısa</string>
   <string name="cl_str_buy_close">Kapat Kısa</string>
@@ -2481,7 +2481,7 @@
   <string name="cl_currentsymbol_title3">Mevcut fonlama oranı</string>
   <string name="cl_currentsymbol_title4">Tahmini fonlama oranı</string>
   <string name="cl_currentsymbol_title5">24 saat hacim</string>
-  <string name="cl_currentsymbol_explain1">Mark fiyatı, PNL'yi hesaplamak ve tasfiye etmek için kullanılır. Piyasa manipülasyonu durumunda, işaret fiyatı son piyasa fiyatından mahsup edilebilir</string>
+  <string name="cl_currentsymbol_explain1">Mark fiyatı, PNL\'yi hesaplamak ve tasfiye etmek için kullanılır. Piyasa manipülasyonu durumunda, işaret fiyatı son piyasa fiyatından mahsup edilebilir</string>
   <string name="cl_currentsymbol_explain2">Spot piyasada dayanak gerçeğe uygun değer</string>
   <string name="cl_currentsymbol_explain3">Dönem sonunu kapatmak için kullanılan fonlama oranı</string>
   <string name="cl_currentsymbol_explain4">Vade sonunu kapatmak için kullanılan son vadeye göre hesaplanan cari fonlama oranı. Pozitif, uzun pozisyonların kısa pozisyonlara fonlama ücreti ödediği anlamına gelir.</string>
@@ -2587,9 +2587,9 @@
   <string name="cl_tradeform_text13">En son fiyat geçtiğinde, tetikleyici fiyat sistemi, gönderdiğiniz durdurma emrini etkinleştirir.</string>
   <string name="cl_tradeform_text14">Açık değer</string>
   <string name="cl_tradeform_text16">24 saat içinde otomatik olarak iptal et</string>
-  <string name="cl_tradeform_text17">7D'de otomatik olarak iptal et</string>
-  <string name="cl_tradeform_text18">14D'de otomatik olarak iptal et</string>
-  <string name="cl_tradeform_text19">30D'de otomatik olarak iptal et</string>
+  <string name="cl_tradeform_text17">7D\'de otomatik olarak iptal et</string>
+  <string name="cl_tradeform_text18">14D\'de otomatik olarak iptal et</string>
+  <string name="cl_tradeform_text19">30D\'de otomatik olarak iptal et</string>
   <string name="cl_tradeform_text20">Açık</string>
   <string name="cl_tradeform_text21">Kapat</string>
   <string name="cl_tradeform_text22">Limit emri</string>
@@ -2661,7 +2661,7 @@
   <string name="cl_depositmode_text12">kenar boşluğu modu</string>
   <string name="cl_reminder_text1">tetik fiyatı</string>
   <string name="cl_reminder_text2">Fiyat</string>
-  <string name="cl_reminder_text3">[Tercihler]'de sonraki sıfırlamayı fark etmeyin</string>
+  <string name="cl_reminder_text3">[Tercihler]\'de sonraki sıfırlamayı fark etmeyin</string>
   <string name="cl_reminder_text4">Miktar</string>
   <string name="cl_reminder_text5">Hacim</string>
   <string name="cl_reminder_text6">Kullanılan bakiye</string>
@@ -2694,7 +2694,7 @@
   <string name="cl_positionlis_text5">Cont.</string>
   <string name="cl_positionlis_text6">Pozisyon hacimleri: Bu sözleşmede ne kadar hacim tuttuğunuz. Pozitif, uzun negatif, kısa demektir. Mevcut: hacim kapatılabilir. Kapanış emri gönder veya sadece emri azalt, her ikisi de pozisyon hacmini azaltabilir.</string>
   <string name="cl_positionlis_text7">Uzun/kısa pozisyon ortalama alış/satış fiyatı</string>
-  <string name="cl_positionlis_text8">Mark fiyatı, PNL'yi hesaplamak ve tasfiye etmek için kullanılır. Piyasa manipülasyonu durumunda, işaret fiyatı son piyasa fiyatından mahsup edilebilir</string>
+  <string name="cl_positionlis_text8">Mark fiyatı, PNL\'yi hesaplamak ve tasfiye etmek için kullanılır. Piyasa manipülasyonu durumunda, işaret fiyatı son piyasa fiyatından mahsup edilebilir</string>
   <string name="cl_positionlis_text9">İşaret fiyatı bu fiyatı geçtiğinde pozisyonunuz tasfiye edilecektir.</string>
   <string name="cl_positionlis_text10">Marj dengesi.</string>
   <string name="cl_positionlis_text14">Geçmek</string>
@@ -3018,7 +3018,7 @@
   <string name="quant_grid_order_status_stop_loss">Tetik durdurma kaybı</string>
   <string name="quant_grid_order_status_stop_user_balance">Kullanıcı bakiyesi düşük</string>
   <string name="quant_grid_order_status_stop_sys_fix">istisna sonu</string>
-  <string name="quant_limitInvestment_error">Minimum miktar %s'den büyük olmalıdır</string>
+  <string name="quant_limitInvestment_error">Minimum miktar %s\'den büyük olmalıdır</string>
   <string name="etf_notes_explain">%s, %s gününü %s takip eden bir ETF ürünüdür ve piyasanın mevcut tarafında alım satım yapmak ve tutmak için daha uygundur.</string>
   <string name="etf_notes_multipleL">%s kez yukarı</string>
   <string name="etf_notes_multipleS">%s kez aşağı</string>
@@ -3069,7 +3069,7 @@
   <string name="etf_notes_auto_lever_time">Günlük 00:00 (GMT+8)</string>
   <string name="etf_notes_manual_lever_time">Gerçek kaldıraç birden çok kez %s kez ulaşıldı</string>
   <string name="etf_notes_manual_lever_tran">Pozisyon ayarı nedir?</string>
-  <string name="etf_notes_manual_lever_tran_info">Günlük pozisyon ayarlaması ile sistem, ETF'lerin alt seviyelerindeki sözleşme kaldıraç pozisyonlarının kar artırımını ve zarar azaltımını yapar. Bu, kullanıcının ETF kaldıraç oranının kararlaştırılan oran ile tutarlı olmasını sağlar. ETF iki türe ayrılır: zamanlı pozisyon ayarı. ve zamanlamalı konum ayarının olmadığı, zamanlamalı konum ayarının olmadığı. platformun günlük sabit zaman noktasında ETF'lerin günün başında kararlaştırılan çoklu kaldıraçta olmasını sağlamak için kullanılan pozisyon yeniden dengeleme yönetimini yürüteceğini ifade eder; geçici bir konum ayarını ifade eder. bir ETF'nin fiili kaldıraç çarpanı bir gün içinde belirli bir seviyeyi aştığında ve pozisyon, pozisyon ayarlandıktan sonra kararlaştırılan çoklu kaldıraçtır.</string>
+  <string name="etf_notes_manual_lever_tran_info">Günlük pozisyon ayarlaması ile sistem, ETF\'lerin alt seviyelerindeki sözleşme kaldıraç pozisyonlarının kar artırımını ve zarar azaltımını yapar. Bu, kullanıcının ETF kaldıraç oranının kararlaştırılan oran ile tutarlı olmasını sağlar. ETF iki türe ayrılır: zamanlı pozisyon ayarı. ve zamanlamalı konum ayarının olmadığı, zamanlamalı konum ayarının olmadığı. platformun günlük sabit zaman noktasında ETF\'lerin günün başında kararlaştırılan çoklu kaldıraçta olmasını sağlamak için kullanılan pozisyon yeniden dengeleme yönetimini yürüteceğini ifade eder; geçici bir konum ayarını ifade eder. bir ETF\'nin fiili kaldıraç çarpanı bir gün içinde belirli bir seviyeyi aştığında ve pozisyon, pozisyon ayarlandıktan sonra kararlaştırılan çoklu kaldıraçtır.</string>
   <string name="etf_notes_lever_next_if">Sonraki konum ayarı durumu tetikler</string>
   <string name="etf_notes_lever_manual">1、Zamanlanmış konum ayarı yok: çoklu kaldıraç&gt;= %s</string>
   <string name="etf_notes_lever_auto">2、Zamanlanmış konum ayarı：günlük 00:00（GMT+8）</string>
@@ -3084,14 +3084,14 @@
   <string name="market_tab_etf_type_auto">Zamanlanmış konum ayarı</string>
   <string name="etf_question_title">bilgi testi</string>
   <string name="etf_question_next">Sonraki soru</string>
-  <string name="etf_question_a">BTC3L kaldıraç ETF'si ne anlama geliyor?</string>
-  <string name="etf_question_b">Kaldıraç ETF'leri, sıradan kaldıraç ürünlerine kıyasla belirli bir katsayı kullanarak spot kazançları ve düşüşleri izleyen belirteçlerdir, kaldıraç ETF'lerinin ana özellikleri nelerdir?</string>
-  <string name="etf_question_c">Kaldıraçlı ETF'lerle ilgili aşağıdaki açıklamalardan hangisi yanlıştır?</string>
+  <string name="etf_question_a">BTC3L kaldıraç ETF\'si ne anlama geliyor?</string>
+  <string name="etf_question_b">Kaldıraç ETF\'leri, sıradan kaldıraç ürünlerine kıyasla belirli bir katsayı kullanarak spot kazançları ve düşüşleri izleyen belirteçlerdir, kaldıraç ETF\'lerinin ana özellikleri nelerdir?</string>
+  <string name="etf_question_c">Kaldıraçlı ETF\'lerle ilgili aşağıdaki açıklamalardan hangisi yanlıştır?</string>
   <string name="etf_question_d">Günlük fon oranı kullanıcının varlıklarından düşülmez, net değerden düşülerek tahsil edilir, doğru mu?</string>
   <string name="etf_question_e">Aşağıdakilerden hangisi platform ETF konum ayar mekanizmasının bir parçası değildir?</string>
-  <string name="etf_question_anwsersa">BTC'nin fiyatı %1 artarsa &#x200B;&#x200B;kaldıraç ETF'sinin net değeri yaklaşık %3 artar // BTC'nin fiyatı %1 düşerse kaldıraç ETF'sinin net değeri yaklaşık %3 düşer</string>
+  <string name="etf_question_anwsersa">BTC\'nin fiyatı %1 artarsa &#x200B;&#x200B;kaldıraç ETF\'sinin net değeri yaklaşık %3 artar // BTC\'nin fiyatı %1 düşerse kaldıraç ETF\'sinin net değeri yaklaşık %3 düşer</string>
   <string name="etf_question_anwsersb">Rehin depozitosu gereklidir, ürünün son kullanma tarihi vardır, pozisyon tasfiyesi riski vardır // rehin depozitosu gerekmez, ürün son kullanma tarihi yoktur ve pozisyon tasfiyesi riski yoktur</string>
-  <string name="etf_question_anwsersc">Tek taraflı bir piyasada, kaldıraçlı ETF'lerin bileşik faiz kazançları olabilir // kaldıraçlı ETF'ler hem uzun vadeli hem de kısa vadeli holdingler için uygundur, değişken piyasalarda kaldıraç ETF'lerinin net değeri yıpranabilir</string>
+  <string name="etf_question_anwsersc">Tek taraflı bir piyasada, kaldıraçlı ETF\'lerin bileşik faiz kazançları olabilir // kaldıraçlı ETF\'ler hem uzun vadeli hem de kısa vadeli holdingler için uygundur, değişken piyasalarda kaldıraç ETF\'lerinin net değeri yıpranabilir</string>
   <string name="etf_question_anwsersd">Doğru // Hata</string>
   <string name="etf_question_anwserse">Zamanlanmış konum ayarı: Belirli bir çoklu/zamanlanmış konum ayarının günlük izleme noktasının net değerinin, kaldıracı çoklu hedef çoklu ayarlamak için günlük sabit zaman noktası: kaldıracı çoklu hedefe ayarlamak için günlük sabit zaman noktası çoklu, belirli bir çoklu // değişken kaldıraç ayarlama konumunun günlük izleme noktasının net değerinin: kaldıraç ETF\'nin gerçek kaldıraç değeri, konumu ayarlamak için ayarlanan değişken kaldıraç aralığını aştığında</string>
   <!--FreeStaking-->
@@ -3117,7 +3117,7 @@
   <string name="pos_string_allEarn">Platformun kümülatif dağılımı</string>
   <string name="pos_string_myEarn">sahipsin</string>
   <string name="pos_sting_potocolTitle">Proje risklerini tam olarak anlayacağıma söz veriyorum</string>
-  <string name="pos_sting_agree">PoS'u kabul edin</string>
+  <string name="pos_sting_agree">PoS\'u kabul edin</string>
   <string name="pos_state_lockStart">işe alım başlangıcı</string>
   <string name="pos_state_lockEnd">Son tarih</string>
   <string name="pos_state_InterestStart">Faiz hesaplamasının başlangıcı</string>
@@ -3158,7 +3158,7 @@
   <string name="coAgent_text1">----</string>
   <string name="coAgent_text2">Tavsiye indirimi</string>
   <string name="coAgent_text3">Seviye 2 İletişim Oranı</string>
-  <string name="coAgent_text4">Broker'ın temettü</string>
+  <string name="coAgent_text4">Broker\'ın temettü</string>
   <string name="coAgent_text5">Kurallar ve düzenlemeler</string>
   <string name="coAgent_text6">Toplam müşteri(kişi)</string>
   <string name="coAgent_text7">Birikmiş karlar (USDT)</string>
