@@ -158,6 +158,8 @@
                     android:textColor="@color/text_color"
                     android:textSize="12sp" />
 
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -223,21 +225,73 @@
                         android:textColor="@{_all.index==3?@color/red:@color/text_color_33}"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
                         android:text="当前跟随人数"
                         app:radius="@{3}"
+                        android:onClick="@{()->_all.setIndex(4)}"
                         app:ResColor="@{_all.index==4?R.color.white:R.color.text_color_99}"
                         app:StrokeResColor="@{_all.index==4?R.color.red:R.color.text_color_99}"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:onClick="@{()->_all.setIndex(4)}"
                         android:textColor="@{_all.index==4?@color/red:@color/text_color_33}"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="进2周收益率"
+                        android:layout_marginLeft="5dp"
+                        app:radius="@{3}"
+                        android:onClick="@{()->_all.setIndex(5)}"
+                        app:ResColor="@{_all.index==5?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==5?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@{_all.index==5?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="累计收益率"
+                        android:layout_marginLeft="5dp"
+                        app:radius="@{3}"
+                        app:ResColor="@{_all.index==6?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==6?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:onClick="@{()->_all.setIndex(6)}"
+                        android:textColor="@{_all.index==6?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="近2周胜率"
+                        app:radius="@{3}"
+                        android:layout_marginLeft="5dp"
+                        app:ResColor="@{_all.index==7?R.color.white:R.color.text_color_99}"
+                        app:StrokeResColor="@{_all.index==7?R.color.red:R.color.text_color_99}"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:onClick="@{()->_all.setIndex(7)}"
+                        android:textColor="@{_all.index==7?@color/red:@color/text_color_33}"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+
 
 
 

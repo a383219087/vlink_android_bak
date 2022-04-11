@@ -23,15 +23,11 @@ class FirstViewModel : BaseViewModel() {
         override fun onClick() {
 
         }
-
-
-
     }
 
     val itemBinding =
         ItemBinding.of<String>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<String> = ObservableArrayList()
-
 
 
     fun setIndex(i :Int){
