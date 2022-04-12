@@ -45,8 +45,13 @@ public class RoutePath {
     public static final String CommissionFragment = "/personalCenter/CommissionFragment";
 
     public static final String DocumentaryActivity = "/documentary/DocumentaryActivity";
+    public static final String TradersActivity = "/documentary/TradersActivity";
     public static final String FirstFragment = "/documentary/FirstFragment";
     public static final String MineFragment = "/documentary/MineFragment";
+    public static final String NowDocumentaryFragment = "/documentary/NowDocumentaryFragment";
+    public static final String HistoryDocumentaryFragment = "/documentary/HistoryDocumentaryFragment";
+
+    public static final String FinancialActivity = "/financial/FinancialActivity";
 
     /*
      * 登录注册模块

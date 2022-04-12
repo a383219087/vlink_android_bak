@@ -7,22 +7,20 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityContractAgent1Binding
 import com.yjkj.chainup.databinding.ActivityDocumentaryBinding
+import com.yjkj.chainup.databinding.ActivityTradersBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.vm.DocumentaryViewModel
+import com.yjkj.chainup.new_version.activity.documentary.vm.TradersViewModel
 import com.yjkj.chainup.new_version.activity.invite.vm.ContractAgentViewModel
 import kotlinx.android.synthetic.main.activity_documentary.*
 
 
-@Route(path = RoutePath.DocumentaryActivity)
-class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocumentaryBinding?>(){
+@Route(path = RoutePath.TradersActivity)
+class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding?>(){
 
-        private var mFragments: ArrayList<Fragment>? = null
-    override fun setContentView() = R.layout.activity_documentary
+    override fun setContentView() = R.layout.activity_traders
     override fun initData() {
-        mFragments = ArrayList()
-        mFragments?.add(   ARouter.getInstance().build(RoutePath.FirstFragment).navigation() as Fragment)
-        mFragments?.add(   ARouter.getInstance().build(RoutePath.MineFragment).navigation() as Fragment)
-        mBinding?.subTabLayout?.setViewPager(mBinding?.vpOrder, arrayOf("首页","我的跟单"), this, mFragments)
+
 
     }
 

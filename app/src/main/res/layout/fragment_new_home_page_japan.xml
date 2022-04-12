@@ -69,7 +69,9 @@
 
             </LinearLayout>
 
-            <View android:id="@+id/ll_advertising_line" style="@style/common_horizon_line_style" />
+            <View
+                android:id="@+id/ll_advertising_line"
+                style="@style/common_horizon_line_style" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

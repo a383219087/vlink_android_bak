@@ -376,6 +376,8 @@
 <!--            android:theme="@style/dialogTheme"/>-->
         <activity android:name=".new_version.activity.invite.MyInviteActivity" />
         <activity android:name=".new_version.activity.documentary.DocumentaryActivity" />
+        <activity android:name=".new_version.activity.financial.FinancialActivity" />
+        <activity android:name=".new_version.activity.documentary.TradersActivity" />
 
 
         <meta-data

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
@@ -56,12 +57,12 @@ abstract class NBaseFragment : Fragment() {
 
     protected var layoutView: View? = null
 
-    protected var mActivity: Activity? = null
+    protected var mActivity: FragmentActivity? = null
     protected var mContext: ChainUpApp? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mActivity = context as Activity
+        mActivity = context as FragmentActivity
         mContext = mActivity?.application as ChainUpApp
     }
 
