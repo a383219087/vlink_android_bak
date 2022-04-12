@@ -5,15 +5,11 @@ import android.graphics.Bitmap
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
-import com.bumptech.glide.request.RequestOptions
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.util.BitmapUtils
-import com.yjkj.chainup.util.GlideUtils
 import com.yjkj.chainup.util.SystemUtils
 import kotlinx.android.synthetic.main.new_share_view.view.*
 

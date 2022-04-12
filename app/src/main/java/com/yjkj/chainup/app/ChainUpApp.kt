@@ -10,17 +10,13 @@ import android.os.*
 import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.multidex.MultiDexApplication
 import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
 import com.chainup.contract.app.CpMyApp
-import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpLocalManageUtil
-import com.chainup.contract.ws.CpWsContractAgentManager
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
 import com.contract.sdk.net.ContractHttpConfig
-import com.contract.sdk.utils.SwapLogUtil
 import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.contract.cloud.ContractCloudAgent
@@ -30,7 +26,6 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.push.DemoPushService
 import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
@@ -38,7 +33,6 @@ import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.ForegroundCallbacks
 import com.yjkj.chainup.ws.WsAgentManager
-import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit

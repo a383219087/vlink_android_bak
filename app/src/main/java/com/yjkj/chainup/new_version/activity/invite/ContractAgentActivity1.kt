@@ -6,7 +6,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityContractAgent1Binding
-import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.invite.vm.ContractAgentViewModel
 
@@ -22,6 +21,7 @@ class ContractAgentActivity1 : BaseMVActivity<ContractAgentViewModel?, ActivityC
 
     override fun setContentView() = R.layout.activity_contract_agent1
     override fun initData() {
+        mViewModel?.activity?.value=this
         mViewModel?.myBonus()
         mViewModel?.top10()
         mViewModel?.isShowDialog?.observe(this, Observer {

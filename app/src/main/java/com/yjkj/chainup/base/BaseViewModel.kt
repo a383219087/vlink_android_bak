@@ -3,6 +3,7 @@ package com.yjkj.chainup.base
 
 
 import androidx.lifecycle.*
+import com.yjkj.chainup.common.binding.command.BindingFunction
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiService
 import io.reactivex.Observable
@@ -77,6 +78,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
             mCompositeDisposable = null
         }
     }
+
+
 
 
 }

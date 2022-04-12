@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
@@ -16,7 +14,6 @@ import androidx.fragment.app.FragmentManager
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -38,7 +35,6 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.cloud.ContractCloudAgent
 import com.yjkj.chainup.contract.fragment.SlContractFragment
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
@@ -55,19 +51,15 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.manager.NetworkLineService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
-import com.yjkj.chainup.new_contract.ClContractFragment
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
-import com.yjkj.chainup.new_version.contract.ContractFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
-import com.yjkj.chainup.new_version.fragment.NewVersionOTCTradingFragment
 import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager

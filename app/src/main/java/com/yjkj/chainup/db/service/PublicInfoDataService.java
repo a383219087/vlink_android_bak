@@ -11,7 +11,6 @@ import android.util.Log;
 import com.chainup.contract.utils.CpClLogicContractSetting;
 import com.google.gson.Gson;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.app.AppConfig;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.bean.IncrementConfigBean;
 import com.yjkj.chainup.bean.coin.CoinMapBean;
@@ -34,12 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @Description:

@@ -3,7 +3,6 @@ package com.yjkj.chainup.util
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -15,10 +14,8 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.new_version.bean.QuotesBeanTypeAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.util.SystemUtils
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.util.*

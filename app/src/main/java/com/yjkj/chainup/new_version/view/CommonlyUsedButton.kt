@@ -2,13 +2,13 @@ package com.yjkj.chainup.new_version.view
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import androidx.core.content.ContextCompat
 import android.text.Html
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.yjkj.chainup.R
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.wedegit.DisplayUtils
@@ -31,8 +31,13 @@ class CommonlyUsedButton @JvmOverloads constructor(
     interface OnBottonListener {
         fun bottonOnClick()
     }
+    interface OnBottonListener1 {
+        fun bottonOnClick(v: View)
+    }
 
     var listener: OnBottonListener? = null
+    var listener1: OnBottonListener1? = null
+
     var normalBgColor = ContextCompat.getColor(context, R.color.main_blue)
         set(value) {
             field = value
@@ -73,7 +78,7 @@ class CommonlyUsedButton @JvmOverloads constructor(
         tv_complainCommand_content.setTextColor(textColor)
         bg_color.setBackgroundColor(normalBgColor)
 
-        var bottonlistener = BottonListener()
+        val bottonlistener = BottonListener()
         rl_layout.setOnTouchListener(bottonlistener)
         rl_layout.setOnClickListener(bottonlistener)
         if (!normalEnable) {
@@ -177,8 +182,13 @@ class CommonlyUsedButton @JvmOverloads constructor(
                 if (!Utils.isFastClick()) {
                     listener?.bottonOnClick()
                 }
-
             }
+            if (listener1 != null && clicked) {
+                if (!Utils.isFastClick()) {
+                    listener1?.bottonOnClick(v!!)
+                }
+            }
+
         }
 
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -196,6 +206,7 @@ class CommonlyUsedButton @JvmOverloads constructor(
         }
 
     }
+
 
 
 }

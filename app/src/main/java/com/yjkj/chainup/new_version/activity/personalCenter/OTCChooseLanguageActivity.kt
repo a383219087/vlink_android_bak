@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
-import android.util.Log
 import com.chainup.contract.utils.CpLocalManageUtil
 import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.R

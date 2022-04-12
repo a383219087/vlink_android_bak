@@ -59,7 +59,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home_title.*
-import kotlinx.android.synthetic.main.fragment_new_otc_trading_detail.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.swipe_refresh
 import kotlinx.android.synthetic.main.no_network_remind.*

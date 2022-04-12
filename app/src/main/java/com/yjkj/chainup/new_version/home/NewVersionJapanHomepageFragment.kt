@@ -1,16 +1,13 @@
 package com.yjkj.chainup.new_version.home
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.core.widget.NestedScrollView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import com.gcssloop.widget.PagerGridLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.*
@@ -28,7 +25,6 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
-import com.youth.banner.config.BannerConfig
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.listener.OnBannerListener
 import kotlinx.android.synthetic.main.activity_home_title.*

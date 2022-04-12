@@ -3,7 +3,6 @@ package com.yjkj.chainup.new_version.activity.personalCenter
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.request.RequestOptions
@@ -18,7 +17,6 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
