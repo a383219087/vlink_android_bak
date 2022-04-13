@@ -134,12 +134,18 @@
                 android:layout_height="@dimen/dp_half"
                 android:background="@color/line_color" />
 
-            <com.yjkj.chainup.wedegit.WrapContentViewPager
-                android:id="@+id/vp_order"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bg_card_color"
-                android:overScrollMode="never" />
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+<!--            <com.yjkj.chainup.wedegit.WrapContentViewPager-->
+<!--                android:id="@+id/vp_order"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@color/bg_card_color"-->
+<!--                android:overScrollMode="never" />-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
