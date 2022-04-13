@@ -302,6 +302,12 @@
 
 
                 </LinearLayout>
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/twinklingRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:onLoadMoreCommand="@{_all.onLoadMoreCommand}"
+                    app:onRefreshCommand="@{_all.onRefreshCommand}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -310,7 +316,7 @@
                     app:items="@{_all.items}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
             </LinearLayout>
 
