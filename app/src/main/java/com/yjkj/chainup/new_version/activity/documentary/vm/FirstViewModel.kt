@@ -53,7 +53,7 @@ class FirstViewModel : BaseViewModel() {
 
     fun getList(page :Int) {
         val map = HashMap<String, Any>()
-        map["pages"] = page.toString()
+        map["page"] = page.toString()
         map["pageSize"] ="20"
         map["orderBy"] =when(index.value){
             1->"profitUSDT"
@@ -66,7 +66,7 @@ class FirstViewModel : BaseViewModel() {
             else->"all"
 
         }
-        startTask(apiService.bonusList(map), Consumer {
+        startTask(apiService.traderUserList(map), Consumer {
             if (page == 1) {
                 items.clear()
                 isRefreshing.value = !isRefreshing.value!!

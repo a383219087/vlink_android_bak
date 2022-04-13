@@ -544,10 +544,11 @@ interface ApiService {
     @GET("/invite_code/bonusList")
     fun bonusList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
     /**
-     * 我的返佣
+     * 交易员列表
      */
-    @GET("/traderUser/list")
-    fun traderUserList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
+    @FormUrlEncoded
+    @POST("/traderUser/list")
+    fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<CommissionBean>>>>
 
 }
 
