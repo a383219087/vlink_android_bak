@@ -18,7 +18,7 @@ class FirstFragment : BaseMVFragment<FirstViewModel?, FragmentFirstBinding>() {
             mBinding?.twinklingRefreshLayout?.finishRefresh()
         })
         mViewModel?.isLoadMore?.observe(this, Observer {
-            mBinding?.twinklingRefreshLayout?.finishLoadMore()
+            mBinding?.twinklingRefreshLayout?.finishLoadMore(true)
         })
     }
 

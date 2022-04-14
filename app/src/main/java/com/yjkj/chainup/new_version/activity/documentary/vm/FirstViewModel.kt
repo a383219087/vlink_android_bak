@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import io.reactivex.functions.Consumer
@@ -29,8 +30,8 @@ class FirstViewModel : BaseViewModel() {
     }
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
-    val items: ObservableList<String> = ObservableArrayList()
+        ItemBinding.of<CommissionBean>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
+    val items: ObservableList<CommissionBean> = ObservableArrayList()
 
     var isRefreshing = MutableLiveData(false)
     var isLoadMore = MutableLiveData(false)
@@ -49,6 +50,8 @@ class FirstViewModel : BaseViewModel() {
 
     fun setIndex(i :Int){
         index.value=i
+        page = 1
+        getList(1)
     }
 
     fun getList(page :Int) {
@@ -73,9 +76,10 @@ class FirstViewModel : BaseViewModel() {
             } else {
                 isLoadMore.value = !isLoadMore.value!!
             }
-            if (it.data.data.isNullOrEmpty()) {
+            if (it.data.isNullOrEmpty()) {
                 return@Consumer
             }
+            items.addAll(it.data)
 
         }, Consumer {
 

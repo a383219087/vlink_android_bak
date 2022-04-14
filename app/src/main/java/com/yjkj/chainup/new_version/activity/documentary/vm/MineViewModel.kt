@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.common.binding.command.BindingConsumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -15,6 +17,7 @@ class MineViewModel : BaseViewModel() {
     fun setIndex(i :Int){
         index.value=i
     }
+    var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
     interface OnItemListener {
         fun onClick()
 

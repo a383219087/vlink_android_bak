@@ -121,31 +121,58 @@
 
             </LinearLayout>
 
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/sub_tab_layout"
-                style="@style/ToolbarType_bar_home_tab"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_44"
-                android:background="@color/bg_card_color"
-                app:tl_indicator_color="@color/main_color" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="当前跟单"
+                android:onClick="@{()->_all.setIndex(0)}"
+                android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="历史跟单"
+                android:onClick="@{()->_all.setIndex(1)}"
+                android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="我的交易员"
+                android:onClick="@{()->_all.setIndex(2)}"
+                android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
+                android:textSize="15sp" />
+
+
+
+        </LinearLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_half"
                 android:background="@color/line_color" />
 
-            <FrameLayout
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                app:addOnPageChangeListener="@{_all.onPageChangeListener}"
+                app:select="@{_all.index}"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </FrameLayout>
-
-<!--            <com.yjkj.chainup.wedegit.WrapContentViewPager-->
-<!--                android:id="@+id/vp_order"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@color/bg_card_color"-->
-<!--                android:overScrollMode="never" />-->
+                android:layout_height="match_parent" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

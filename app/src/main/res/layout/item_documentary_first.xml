@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.yjkj.chainup.bean.CommissionBean" />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -57,7 +57,7 @@
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
-                        android:text="奔跑的狗子" />
+                        android:text="@{item.uid+``}" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -153,7 +153,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="54.33%"
+                android:text="@{item.profitRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -161,7 +161,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="52.94%"
+                android:text="@{item.winRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="11745.17"
+                android:text="@{item.profitUSDT+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 
@@ -218,7 +218,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="1154.33%"
+                android:text="@{item.totalRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -226,7 +226,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="270"
+                android:text="@{item.orderCount+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -234,7 +234,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="17"
+                android:text="@{item.followerCount+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 

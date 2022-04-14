@@ -548,7 +548,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/traderUser/list")
-    fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<CommissionBean>>>>
+    fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
 
 }
 

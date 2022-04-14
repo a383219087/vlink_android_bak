@@ -22,7 +22,7 @@ public class RefreshLayoutAdapter {
         if (onLoadMoreCommand != null) {
             layout.setEnableLoadMore(true);
             layout.setOnLoadMoreListener(refreshLayout -> {
-                onRefreshCommand.execute();
+                onLoadMoreCommand.execute();
             });
 
         }

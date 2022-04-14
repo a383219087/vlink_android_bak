@@ -9,6 +9,7 @@ import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentMineBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.vm.MineViewModel
+import com.yjkj.chainup.util.FmPagerAdapter
 
 
 @Route(path = RoutePath.MineFragment)
@@ -22,6 +23,7 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
         mFragments?.add(ARouter.getInstance().build(RoutePath.NowDocumentaryFragment).navigation() as Fragment)
         mFragments?.add(ARouter.getInstance().build(RoutePath.HistoryDocumentaryFragment).navigation() as Fragment)
         mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
+        mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 //        pageAdapter = CpNVPagerAdapter(
 //            childFragmentManager,
 //            arrayOf("当前跟单", "历史跟单", "我的交易员").toMutableList(),
@@ -29,7 +31,7 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
 //        )
 //        mBinding?.vpOrder?.adapter = pageAdapter
 //        mBinding?.vpOrder?.offscreenPageLimit = 3
-        mBinding?.subTabLayout?.setTitle( arrayOf("当前跟单", "历史跟单", "我的交易员"))
+
 
     }
 
