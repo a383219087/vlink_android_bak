@@ -3,7 +3,6 @@ package com.yjkj.chainup.net.api
 import com.google.gson.JsonObject
 import com.yjkj.chainup.bean.*
 import com.yjkj.chainup.bean.address.AddressBean
-import com.yjkj.chainup.bean.coin.InitInfo
 import com.yjkj.chainup.bean.coin.RateBean
 import com.yjkj.chainup.bean.dev.MessageBean
 import com.yjkj.chainup.bean.dev.NoticeBean
@@ -19,9 +18,7 @@ import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.http.*
-import java.util.HashMap
 
 /**
  * @author Bertking
@@ -549,6 +546,21 @@ interface ApiService {
     @FormUrlEncoded
     @POST("/traderUser/list")
     fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
+    /**
+     * 我跟单的交易员列表
+     */
+    @GET("/traderUser/myTraders")
+    fun myTraders(): Observable<HttpResult<List<CommissionBean>>>
+    /**
+     * 查看交易员申请状态
+     */
+    @GET("/traderUser/currentStatus")
+    fun currentStatus(): Observable<HttpResult<CommissionBean>>
+    /**
+     * 申请成为交易员
+     */
+    @GET("/traderUser/applyBecomeTrader")
+    fun applyBecomeTrader(): Observable<HttpResult<CommissionBean>>
 
 }
 

@@ -15,102 +15,109 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:elevation="0dp">
 
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:ResColor="@{R.color.text_color_orange}"
                 app:layout_scrollFlags="scroll"
-                app:radius="@{10}">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="持仓估值"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="0.0CNY"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="=0USDT"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
-
+                android:layout_margin="15dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:ResColor="@{R.color.text_color_orange}"
+                    app:radius="@{10}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="持仓估值"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="0.0CNY"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="=0USDT"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="今日预计收益（USDT）"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="今日预计收益（USDT）"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="0.0"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="0.0"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="收益率"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="0.0%"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
 
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="收益率"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="0.0%"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
+                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -118,62 +125,79 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:text="成为交易员"
+                    android:paddingTop="3dp"
+                    app:onClick="@{()->_all.appTraders()}"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+
+                    app:ResColor="@{R.color.main_blue}"/>
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                app:layout_scrollFlags="noScroll"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(0)}"
+                    android:text="当前跟单"
+                    android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(1)}"
+                    android:text="历史跟单"
+                    android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(2)}"
+                    android:text="我的交易员"
+                    android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
 
             </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="当前跟单"
-                android:onClick="@{()->_all.setIndex(0)}"
-                android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
-                android:textSize="15sp" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="历史跟单"
-                android:onClick="@{()->_all.setIndex(1)}"
-                android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
-                android:textSize="15sp" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="我的交易员"
-                android:onClick="@{()->_all.setIndex(2)}"
-                android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
-                android:textSize="15sp" />
-
-
-
-        </LinearLayout>
-
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_half"
+                app:layout_scrollFlags="noScroll"
                 android:background="@color/line_color" />
 
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                app:addOnPageChangeListener="@{_all.onPageChangeListener}"
-                app:select="@{_all.index}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:addOnPageChangeListener="@{_all.onPageChangeListener}"
+            app:select="@{_all.index}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

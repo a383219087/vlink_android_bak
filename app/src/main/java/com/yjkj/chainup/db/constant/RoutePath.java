@@ -46,6 +46,7 @@ public class RoutePath {
 
     public static final String DocumentaryActivity = "/documentary/DocumentaryActivity";
     public static final String TradersActivity = "/documentary/TradersActivity";
+    public static final String ApplyTradersActivity = "/documentary/ApplyTradersActivity";
     public static final String FirstFragment = "/documentary/FirstFragment";
     public static final String MineFragment = "/documentary/MineFragment";
     public static final String NowDocumentaryFragment = "/documentary/NowDocumentaryFragment";

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yjkj.chainup.bean.CommissionBean"  />
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.MyTradersModel.OnItemListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="@{()->onItemListener.onClick()}"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:ResColor="@{R.color.white}"
+        app:radius="@{15}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="交易员"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_66" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="跟随金额(USDT)"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_66" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="跟随（USDT）"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_66" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{item.profitRatio+`%`}"
+                android:textSize="12sp"
+                android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{item.winRatio+`%`}"
+                android:textSize="12sp"
+                android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{item.profitUSDT+``}"
+                android:textSize="12sp"
+                android:textColor="@color/text_color" />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</layout>

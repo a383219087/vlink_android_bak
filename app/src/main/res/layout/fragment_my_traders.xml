@@ -19,7 +19,12 @@
       android:layout_height="match_parent">
 
 
-
+      <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:itemBinding="@{_all.itemBinding}"
+          app:items="@{_all.items}"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
 

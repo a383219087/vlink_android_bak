@@ -12,6 +12,7 @@ import com.yjkj.chainup.new_version.activity.documentary.vm.MyTradersModel
 class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBinding>() {
     override fun setContentView(): Int = R.layout.fragment_my_traders
     override fun initView() {
+        mViewModel?.getList()
 
     }
 

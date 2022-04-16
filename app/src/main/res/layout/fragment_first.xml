@@ -31,101 +31,120 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="15dp">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:ResColor="@{R.color.text_color_orange}"
-                app:radius="@{10}">
+                   android:orientation="vertical"
+                   android:padding="10dp"
+                   app:ResColor="@{R.color.text_color_orange}"
+                   app:radius="@{10}">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="持仓估值"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="持仓估值"
+                       android:textColor="@color/white"
+                       android:textSize="12sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="0.0CNY"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="5dp"
+                       android:text="0.0CNY"
+                       android:textColor="@color/white"
+                       android:textSize="12sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="=0USDT"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="5dp"
+                       android:text="=0USDT"
+                       android:textColor="@color/white"
+                       android:textSize="10sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"
+                       android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                       <LinearLayout
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="今日预计收益（USDT）"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="5dp"
+                               android:text="今日预计收益（USDT）"
+                               android:textColor="@color/white"
+                               android:textSize="10sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="0.0"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="收益率"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="0.0%"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="5dp"
+                               android:text="0.0"
+                               android:textColor="@color/white"
+                               android:textSize="10sp" />
 
 
-                    </LinearLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:gravity="right|center_vertical"
+                           android:orientation="vertical">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="5dp"
+                               android:text="收益率"
+                               android:textColor="@color/white"
+                               android:textSize="10sp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="5dp"
+                               android:text="0.0%"
+                               android:textColor="@color/white"
+                               android:textSize="10sp" />
 
 
-                </LinearLayout>
+                       </LinearLayout>
 
 
-            </LinearLayout>
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center|right"
+                   android:text="成为交易员"
+                   android:paddingTop="3dp"
+                   android:paddingBottom="3dp"
+                   app:onClick="@{()->_all.appTraders()}"
+                   android:paddingLeft="5dp"
+                   android:paddingRight="5dp"
+                   app:ResColor="@{R.color.main_blue}"/>
+
+
+           </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
