@@ -379,6 +379,7 @@
         <activity android:name=".new_version.activity.financial.FinancialActivity" />
         <activity android:name=".new_version.activity.documentary.TradersActivity" />
         <activity android:name=".new_version.activity.documentary.ApplyTradersActivity" />
+        <activity android:name=".new_version.activity.binary.BinaryActivity" />
 
 
         <meta-data

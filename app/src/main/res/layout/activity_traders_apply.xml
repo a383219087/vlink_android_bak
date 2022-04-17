@@ -19,7 +19,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         android:background="#F5F5F5">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{_all.statusString}"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_color" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            app:onClick="@{()->_all.applyCurrentStatus()}"
+            android:text="申请成为交易员"
+            android:textSize="16sp"
+            android:layout_margin="30dp"
+            app:ResColor="@{R.color.main_blue}"
+            android:textColor="@color/white" />
+
+
+
+
 
 
 

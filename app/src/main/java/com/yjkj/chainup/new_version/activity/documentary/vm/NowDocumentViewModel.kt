@@ -9,16 +9,28 @@ import com.yjkj.chainup.base.BaseViewModel
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
+
+
 class NowDocumentViewModel : BaseViewModel() {
 
     interface OnItemListener {
         fun onClick()
+        fun onShareClick()
 
     }
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick() {
 
+        }
+
+        override fun onShareClick() {
+//            EditInviteCodesDialog().apply {
+//                val bundle = Bundle()
+//                bundle.putInt("type", 1)
+//                this.arguments = bundle
+//
+//            }.showDialog(supportFragmentManager,"")
         }
     }
 

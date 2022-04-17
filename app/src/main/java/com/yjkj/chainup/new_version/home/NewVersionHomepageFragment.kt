@@ -559,6 +559,9 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
         tvDocumentary?.setOnClickListener {
             ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
         }
+        tvBinary?.setOnClickListener {
+            ArouterUtil.navigation(RoutePath.BinaryActivity, null)
+        }
         iv_market_msg?.setOnClickListener {
             if (LoginManager.checkLogin(mActivity, true)) {
                 startActivity(Intent(mActivity, MailActivity::class.java))

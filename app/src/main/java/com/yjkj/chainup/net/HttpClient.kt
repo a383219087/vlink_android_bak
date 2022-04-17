@@ -37,9 +37,7 @@ import com.yjkj.chainup.new_version.bean.*
 import com.yjkj.chainup.new_version.home.AdvertModel
 import com.yjkj.chainup.new_version.redpackage.bean.*
 import com.yjkj.chainup.treaty.bean.*
-import com.yjkj.chainup.util.HttpsUtils
-import com.yjkj.chainup.util.NetworkUtils
-import com.yjkj.chainup.util.StringUtil
+import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
 import io.reactivex.Observable
 import okhttp3.*
@@ -1429,56 +1427,56 @@ class HttpClient private constructor() {
 
 
     //添加header
-    /*private inner class HeaderInterceptor : Interceptor {
-
-        override fun intercept(chain: Interceptor.Chain): Response {
-
-            var originalRequest: Request
-
-            val packageManager = ChainUpApp.appContext.packageManager
-            val packInfo = packageManager.getPackageInfo(ChainUpApp.appContext.packageName, 0)
-            if (UserDataService.getInstance().isLogined) {
-                if (token == null) {
-                    token = UserDataService.getInstance().token
-                }
-
-                originalRequest = chain.request()
-                        .newBuilder()
-                        .header("Content-Type", "application/json;charset=utf-8")
-                        .header("Build-CU", packInfo.versionCode.toString())
-                        .header("SysVersion-CU", SystemUtils.getSystemVersion())
-                        .header("SysSDK-CU", Build.VERSION.SDK_INT.toString())
-                        .header("Channel-CU", "")
-                        .header("Mobile-Model-CU", SystemUtils.getSystemModel())
-                        .header("UUID-CU:APP", Settings.System.getString(ChainUpApp.appContext.contentResolver, Settings.System.ANDROID_ID)
-                                ?: "")
-                        .header("Platform-CU", "android")
-                        .header("Network-CU", NetworkUtils.getNetType())
-                        .header("exchange-language", NLanguageUtil.getLanguage())
-                        .header("exchange-token", token)
-                        .header("exchange-client", "app")
-                        .build()
-            } else {
-                originalRequest = chain.request()
-                        .newBuilder()
-                        .header("Content-Type", "application/json;charset=utf-8")
-                        .header("Build-CU", packInfo.versionCode.toString())
-                        .header("SysVersion-CU", SystemUtils.getSystemVersion())
-                        .header("SysSDK-CU", Build.VERSION.SDK_INT.toString())
-                        .header("Channel-CU", "")
-                        .header("Mobile-Model-CU", SystemUtils.getSystemModel())
-                        .header("UUID-CU:APP", Settings.System.getString(ChainUpApp.appContext.contentResolver, Settings.System.ANDROID_ID)
-                                ?: "")
-                        .header("Platform-CU", "android")
-                        .header("Network-CU", NetworkUtils.getNetType())
-                        .header("exchange-language", NLanguageUtil.getLanguage())
-                        .header("exchange-client", "app")
-                        .build()
-            }
-
-            return chain.proceed(originalRequest)
-        }
-    }*/
+//   private inner class HeaderInterceptor : Interceptor {
+//
+//        override fun intercept(chain: Interceptor.Chain): Response {
+//
+//            var originalRequest: Request
+//
+//            val packageManager = ChainUpApp.appContext.packageManager
+//            val packInfo = packageManager.getPackageInfo(ChainUpApp.appContext.packageName, 0)
+//            if (UserDataService.getInstance().isLogined) {
+//                if (token == null) {
+//                    token = UserDataService.getInstance().token
+//                }
+//
+//                originalRequest = chain.request()
+//                        .newBuilder()
+//                        .header("Content-Type", "application/json;charset=utf-8")
+//                        .header("Build-CU", packInfo.versionCode.toString())
+//                        .header("SysVersion-CU", SystemUtils.getSystemVersion())
+//                        .header("SysSDK-CU", Build.VERSION.SDK_INT.toString())
+//                        .header("Channel-CU", "")
+//                        .header("Mobile-Model-CU", SystemUtils.getSystemModel())
+//                        .header("UUID-CU:APP", Settings.System.getString(ChainUpApp.appContext.contentResolver, Settings.System.ANDROID_ID)
+//                                ?: "")
+//                        .header("Platform-CU", "android")
+//                        .header("Network-CU", NetworkUtils.getNetType())
+//                        .header("exchange-language", NLanguageUtil.getLanguage())
+//                        .header("exchange-token", token)
+//                        .header("exchange-client", "app")
+//                        .build()
+//            } else {
+//                originalRequest = chain.request()
+//                        .newBuilder()
+//                        .header("Content-Type", "application/json;charset=utf-8")
+//                        .header("Build-CU", packInfo.versionCode.toString())
+//                        .header("SysVersion-CU", SystemUtils.getSystemVersion())
+//                        .header("SysSDK-CU", Build.VERSION.SDK_INT.toString())
+//                        .header("Channel-CU", "")
+//                        .header("Mobile-Model-CU", SystemUtils.getSystemModel())
+//                        .header("UUID-CU:APP", Settings.System.getString(ChainUpApp.appContext.contentResolver, Settings.System.ANDROID_ID)
+//                                ?: "")
+//                        .header("Platform-CU", "android")
+//                        .header("Network-CU", NetworkUtils.getNetType())
+//                        .header("exchange-language", NLanguageUtil.getLanguage())
+//                        .header("exchange-client", "app")
+//                        .build()
+//            }
+//
+//            return chain.proceed(originalRequest)
+//        }
+//    }
 
 
     /**

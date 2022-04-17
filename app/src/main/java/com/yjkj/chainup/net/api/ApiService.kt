@@ -555,12 +555,12 @@ interface ApiService {
      * 查看交易员申请状态
      */
     @GET("/traderUser/currentStatus")
-    fun currentStatus(): Observable<HttpResult<CommissionBean>>
+    fun currentStatus(): Observable<HttpResult<CurrentStatusBean>>
     /**
      * 申请成为交易员
      */
-    @GET("/traderUser/applyBecomeTrader")
-    fun applyBecomeTrader(): Observable<HttpResult<CommissionBean>>
+    @POST("/traderUser/applyBecomeTrader")
+    fun applyBecomeTrader(): Observable<HttpResult<String>>
 
 }
 
