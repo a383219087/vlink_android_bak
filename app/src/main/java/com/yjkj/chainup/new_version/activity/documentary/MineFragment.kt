@@ -24,13 +24,7 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
         mFragments?.add(ARouter.getInstance().build(RoutePath.HistoryDocumentaryFragment).navigation() as Fragment)
         mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
-//        pageAdapter = CpNVPagerAdapter(
-//            childFragmentManager,
-//            arrayOf("当前跟单", "历史跟单", "我的交易员").toMutableList(),
-//            mFragments
-//        )
-//        mBinding?.vpOrder?.adapter = pageAdapter
-//        mBinding?.vpOrder?.offscreenPageLimit = 3
+
 
 
     }

@@ -21,12 +21,15 @@ class FirstViewModel : BaseViewModel() {
     var index = MutableLiveData(0)
 
     interface OnItemListener {
-        fun onClick()
+        fun onClick(item: CommissionBean)
 
     }
 
     var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick() {
+        override fun onClick(item: CommissionBean) {
+            ARouter.getInstance().build(RoutePath.TradersActivity)
+                .withSerializable("bean",item)
+                .navigation()
 
         }
     }

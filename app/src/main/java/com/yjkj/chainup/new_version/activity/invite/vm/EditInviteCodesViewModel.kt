@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.activity.invite.vm
 
 
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData

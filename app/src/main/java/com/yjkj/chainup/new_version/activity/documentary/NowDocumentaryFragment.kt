@@ -12,6 +12,7 @@ import com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel
 class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNowDocumentaryBinding>() {
     override fun setContentView(): Int = R.layout.fragment_now_documentary
     override fun initView() {
+        mViewModel?.activity?.value=mActivity
 
     }
 
