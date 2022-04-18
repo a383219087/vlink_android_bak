@@ -9,15 +9,22 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
-class BinaryViewModel : BaseViewModel() {
+class OptionsViewModel : BaseViewModel() {
     var activity = MutableLiveData<FragmentActivity>()
 
+    var index = MutableLiveData(0)
+
+    fun setIndex(i :Int){
+        index.value=i
+    }
     interface OnItemListener {
         fun onClick()
         fun onShareClick()
@@ -26,9 +33,7 @@ class BinaryViewModel : BaseViewModel() {
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick() {
-            ARouter.getInstance().build(RoutePath.OptionsActivity)
 
-                .navigation()
         }
 
         override fun onShareClick() {

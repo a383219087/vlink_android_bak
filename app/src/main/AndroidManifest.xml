@@ -24,17 +24,14 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
-
-    <!-- j -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- j -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <permission
         android:name="getui.permission.GetuiService.${applicationId}"
         android:protectionLevel="normal" />
+
     <application
         android:name=".app.ChainUpApp"
         android:allowBackup="true"
@@ -49,6 +46,9 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:name,android:icon">
         <activity
+            android:name=".new_version.activity.binary.OptionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".new_version.activity.leverage.BorrowRecordsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".new_version.activity.leverage.HistoryLoanActivity" />
@@ -59,13 +59,11 @@
         <activity android:name=".new_version.activity.b2c.B2CBankListActivity" />
         <activity android:name=".new_version.activity.b2c.B2CWithdrawAccountActivity" />
         <activity android:name=".new_version.activity.b2c.B2CWithdrawAccountListActivity" />
-
         <activity android:name=".new_version.activity.b2c.B2CRechargeActivity" />
         <activity android:name=".new_version.activity.b2c.B2CWithdrawActivity" />
         <activity android:name=".new_version.activity.b2c.B2CCashFlowDetailActivity" />
         <activity android:name=".new_version.activity.b2c.B2CCashFlowActivity" />
         <activity android:name=".new_version.activity.EntrustDetailActivity" />
-
         <activity android:name=".freestaking.FreeStakingActivity" />
         <activity android:name=".freestaking.IncomeDetailActivity" />
         <activity android:name=".freestaking.PosDetailsActivity" />
@@ -76,9 +74,11 @@
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
+
                 <!-- 以下必写  intent-filter 需要单独写  如果和上面的 MAIN写一起无效 -->
                 <action android:name="android.intent.action.VIEW" />
 
@@ -90,15 +90,11 @@
                     android:scheme="biki" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".new_version.activity.NewMainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
         <activity android:name=".new_version.redpackage.RedPackageDetailActivity" />
-
         <activity android:name=".new_version.redpackage.ReceiveRedPackageListActivity" />
-
         <activity android:name=".new_version.redpackage.GrantRedPackageListActivity" />
         <activity
             android:name=".new_version.contract.HorizonContractMarketDetailActivity"
@@ -118,12 +114,10 @@
         <activity
             android:name=".new_version.activity.CoinMapActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
-
         <activity
             android:name=".new_version.activity.personalCenter.NewCoinMapActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".new_version.activity.personalCenter.HelpCenterActivity" />
-
         <activity
             android:name=".new_version.activity.personalCenter.UdeskWebViewActivity"
             android:screenOrientation="portrait" />
@@ -155,7 +149,6 @@
         <activity
             android:name=".new_version.activity.login.NewVersionLoginActivity"
             android:launchMode="singleTask" />
-
         <activity android:name=".new_version.activity.login.NewVersionRegisterActivity" />
         <activity android:name=".new_version.activity.login.NewSetPasswordActivity" />
         <activity android:name=".new_version.activity.login.NewVersionForgetPwdActivity" />
@@ -211,7 +204,6 @@
         <activity android:name=".new_version.activity.MarketDetail4Activity" />
         <activity android:name=".new_version.contract.NContractCurrentEntrustActivity" />
         <activity android:name=".new_version.contract.NContractHistoryEntrustActivity" />
-
         <activity
             android:name=".new_version.activity.HorizonMarketDetailActivity"
             android:screenOrientation="landscape" />
@@ -221,9 +213,7 @@
         <activity android:name=".new_version.redpackage.CreateRedPackageActivity" />
         <activity android:name=".new_version.activity.asset.NewCoinActivity" />
         <activity android:name=".new_version.activity.EntrustDetialsActivity" />
-        <activity android:name=".new_version.activity.asset.CaptureActivity" />
-
-        <!-- 合约start -->
+        <activity android:name=".new_version.activity.asset.CaptureActivity" /> <!-- 合约start -->
         <activity android:name=".contract.activity.SlContractEntrustActivity" />
         <activity android:name=".contract.activity.SlContractEntrustDetailActivity" />
         <activity
@@ -251,10 +241,8 @@
         <activity
             android:name=".contract.activity.SlContractSearchActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
         <activity android:name=".new_version.activity.invite.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
-
         <activity android:name=".new_contract.activity.ClMarketDetail4Activity" />
         <activity
             android:name=".new_contract.activity.ClHorizonMarketDetailActivity"
@@ -262,12 +250,9 @@
         <activity
             android:name=".new_contract.activity.ClHoldShareActivity"
             android:theme="@style/SlTransparentActivity" />
-
-          <activity
+        <activity
             android:name=".new_version.activity.KolShareActivity"
             android:theme="@style/SlTransparentActivity" />
-
-
         <activity
             android:name=".new_contract.activity.ClContractStopRateLossActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -285,21 +270,16 @@
         <activity android:name=".new_contract.activity.ClContractDetailActivity" />
         <activity android:name=".new_contract.activity.ClContractEntrustDetailActivity" />
         <activity android:name=".new_contract.activity.ClContractHistoricalPositionActivity" />
-
         <activity android:name=".new_version.activity.personalCenter.contract.ContractChangeActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOtcActivity" />
-        <activity android:name=".new_version.activity.grid.HistoryGridActivity"/>
-        <activity android:name=".new_version.activity.grid.GridExecutionDetailsActivity"/>
-        <!-- 合约end -->
+        <activity android:name=".new_version.activity.grid.HistoryGridActivity" />
+        <activity android:name=".new_version.activity.grid.GridExecutionDetailsActivity" /> <!-- 合约end -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.5" />
-
-        <!-- firebase-->
+            android:value="2.5" /> <!-- firebase -->
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -323,9 +303,7 @@
             android:value="${GETUI_APP_KEY}" />
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="${GETUI_APP_SECRET}" />
-
-        <!-- 配置SDK核心服务 -->
+            android:value="${GETUI_APP_SECRET}" /> <!-- 配置SDK核心服务 -->
         <service
             android:name="com.igexin.sdk.PushService"
             android:exported="false"
@@ -349,14 +327,10 @@
             android:exported="true"
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复 -->
         <service
             android:name=".extra_service.push.HandlePushIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <!-- 用户自定义服务名 -->
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- 用户自定义服务名 -->
         <service
             android:name=".extra_service.push.DemoPushService"
             android:exported="true"
@@ -367,13 +341,10 @@
             android:name=".extra_service.push.PushControll"
             android:theme="@style/Theme.Style.Push" />
         <activity android:name=".new_version.activity.personalCenter.push.PushSettingsActivity" />
-
         <activity android:name=".new_version.activity.leverage.list.LeverActivity" />
-
         <activity android:name=".new_version.activity.leverage.TradeETFQuestionActivity" />
-        <activity android:name=".new_version.activity.invite.MyInviteCodesActivity" />
-<!--        <activity android:name=".new_version.activity.invite.EditInviteCodesActivity"-->
-<!--            android:theme="@style/dialogTheme"/>-->
+        <activity android:name=".new_version.activity.invite.MyInviteCodesActivity" /> <!-- <activity android:name=".new_version.activity.invite.EditInviteCodesActivity" -->
+        <!-- android:theme="@style/dialogTheme"/> -->
         <activity android:name=".new_version.activity.invite.MyInviteActivity" />
         <activity android:name=".new_version.activity.documentary.DocumentaryActivity" />
         <activity android:name=".new_version.activity.financial.FinancialActivity" />
@@ -381,11 +352,9 @@
         <activity android:name=".new_version.activity.documentary.ApplyTradersActivity" />
         <activity android:name=".new_version.activity.binary.BinaryActivity" />
 
-
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"
             android:value="GlideModule" />
     </application>
-
 
 </manifest>

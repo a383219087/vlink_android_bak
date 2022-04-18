@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="String" />
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.new_version.activity.binary.vm.BinaryViewModel.OnItemListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="@{()->onItemListener.onClick()}"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:ResColor="@{R.color.white}"
+        app:radius="@{15}">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:ResColor="@{R.color.red}"
+                    app:radius="@{48}"/>
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    android:text="BTC/USDT" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/new_green"
+                    android:textSize="15sp"
+                    android:text="39910.72" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:text="猜涨跌"
+                    app:ResColor="@{R.color.entrust_buy_color}"
+                    app:radius="@{20}"
+                    android:layout_height="wrap_content">
+
+                </Button>
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</layout>

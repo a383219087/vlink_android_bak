@@ -29,6 +29,5 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
 
     }
 
-
 }
 

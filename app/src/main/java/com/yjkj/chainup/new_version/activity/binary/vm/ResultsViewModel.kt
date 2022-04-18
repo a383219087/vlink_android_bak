@@ -1,21 +1,19 @@
 package com.yjkj.chainup.new_version.activity.binary.vm
 
-
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
-import com.alibaba.android.arouter.launcher.ARouter
+import androidx.lifecycle.ViewModel
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
-
-class BinaryViewModel : BaseViewModel() {
+class ResultsViewModel : BaseViewModel() {
+    // TODO: Implement the ViewModel
     var activity = MutableLiveData<FragmentActivity>()
 
     interface OnItemListener {
@@ -26,20 +24,17 @@ class BinaryViewModel : BaseViewModel() {
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick() {
-            ARouter.getInstance().build(RoutePath.OptionsActivity)
-
-                .navigation()
+            ClosePositionDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
 
         override fun onShareClick() {
-            TODO("Not yet implemented")
+            ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
-
     }
 
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_binary).bindExtra(BR.onItemListener, onItemListener)
+        ItemBinding.of<String>(BR.item, R.layout.item_results).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<String> = ObservableArrayList()
 
     override fun onCreate() {
@@ -50,5 +45,4 @@ class BinaryViewModel : BaseViewModel() {
         items.add("")
         items.add("")
     }
-
 }

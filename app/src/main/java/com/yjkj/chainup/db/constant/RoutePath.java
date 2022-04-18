@@ -54,6 +54,11 @@ public class RoutePath {
     public static final String HistoryDocumentaryFragment = "/documentary/HistoryDocumentaryFragment";
 
     public static final String BinaryActivity = "/binary/BinaryActivity";
+    public static final String OptionsActivity = "/binary/OptionsActivity";
+    public static final String CurrentFragment = "/binary/CurrentFragment";
+    public static final String MydealFragment = "/binary/MydealFragment";
+    public static final String RankingFragment = "/binary/RankingFragment";
+    public static final String ResultsFragment = "/binary/ResultsFragment";
 
     public static final String FinancialActivity = "/financial/FinancialActivity";
 
