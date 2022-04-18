@@ -27,12 +27,10 @@ class BinaryViewModel : BaseViewModel() {
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick() {
             ARouter.getInstance().build(RoutePath.OptionsActivity)
-
                 .navigation()
         }
 
         override fun onShareClick() {
-            TODO("Not yet implemented")
         }
 
     }

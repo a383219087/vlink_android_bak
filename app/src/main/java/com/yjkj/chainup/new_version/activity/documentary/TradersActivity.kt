@@ -29,6 +29,7 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
     override fun setContentView() = R.layout.activity_traders
     override fun initData() {
         mViewModel?.item?.value=item
+        mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
         mFragments?.add(ARouter.getInstance().build(RoutePath.NowDocumentaryFragment).navigation() as Fragment)
         mFragments?.add(ARouter.getInstance().build(RoutePath.HistoryDocumentaryFragment).navigation() as Fragment)

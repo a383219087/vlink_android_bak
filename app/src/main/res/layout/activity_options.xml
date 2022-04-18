@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
-    >
+    xmlns:tool="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="_all"
             type="com.yjkj.chainup.new_version.activity.binary.vm.OptionsViewModel" />
+
         <import type="android.view.View" />
+
         <import type="com.yjkj.chainup.R" />
     </data>
 
@@ -15,225 +18,240 @@
         android:id="@+id/binaryoptionRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#F5F5F5">
+        android:background="#F5F5F5"
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="#F5F5F5">
-            <LinearLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
 
-                    android:padding="10dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_scrollFlags="scroll"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#FFFFFF"
                     android:orientation="horizontal"
-                    android:background="#FFFFFF">
-                    <TextView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="0dp"
-                        android:text="BTC/USDT 秒时趋势"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="@color/assets_center_text_color_day"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                    </TextView>
+                    android:padding="10dp">
 
-                        <TextView
-                            android:layout_marginRight="10dp"
-                            android:layout_gravity="center_vertical"
-                            android:text="游戏规则"
-                            android:textSize="13sp"
-                            android:textColor="@color/bottom_lib_dialog_cancel_text_color"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></TextView>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="BTC/USDT 秒时趋势"
+                        android:textColor="@color/assets_center_text_color_day"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:text="游戏规则"
+                        android:textColor="@color/bottom_lib_dialog_cancel_text_color"
+                        android:textSize="13sp" />
+
                     <View
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
                         android:layout_gravity="center_vertical"
                         app:ResColor="@{R.color.entrust_buy_color}"
-                        app:radius="@{10}"
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"></View>
+                        app:radius="@{10}" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@color/base_green"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_200"></LinearLayout>
+                    android:layout_height="@dimen/dp_200"
+                    android:background="@color/base_green" />
+
                 <TextView
-                    android:textColor="@color/assets_center_text_color_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="你还未参加，快下单试试吧~"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:textColor="@color/assets_center_text_color_day" />
+
                 <LinearLayout
-                    android:background="@color/new_line"
-                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:background="@color/new_line"
+                    android:orientation="horizontal">
+
                     <Button
-                        android:text="1/2"
                         android:layout_width="50dp"
-                        android:layout_height="wrap_content">
-                    </Button>
+                        android:layout_height="wrap_content"
+                        android:text="1/2" />
+
                     <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:background="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:background="@color/white">
+
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textColor="@color/assets_center_text_color_day"
                             android:layout_marginLeft="10dp"
                             android:text="10"
-                            android:textSize="20sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></TextView>
+                            android:textColor="@color/assets_center_text_color_day"
+                            android:textSize="20sp" />
+
                         <View
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"></View>
+                            android:layout_weight="1" />
+
                         <TextView
-                            android:layout_marginRight="10dp"
-                            android:layout_gravity="center"
-                            android:textColor="@color/assets_center_text_color_day"
-                            android:text="USDT"
-                            android:textSize="18sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></TextView>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:text="USDT"
+                            android:textColor="@color/assets_center_text_color_day"
+                            android:textSize="18sp" />
                     </LinearLayout>
+
                     <Button
-                        android:text="2x"
                         android:layout_width="50dp"
-                        android:layout_height="wrap_content">
-                    </Button>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:background="@color/new_line"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50">
-                   <TextView
-                       android:layout_gravity="center"
-                       android:textSize="13sp"
-                       android:text="最小 10 USDT,最大 5050 USDT"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"></TextView>
-                    <View
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"></View>
-                    <TextView
-                        android:layout_gravity="center"
-                        android:textSize="13sp"
-                        android:text="可用 795.58 USDT"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"></TextView>
+                        android:text="2x" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@color/new_line"
-                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:text="看涨（100%）"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        app:ResColor="@{R.color.colorRise}"
-                        android:layout_marginRight="@dimen/dk_dp_20"
-                        android:layout_height="wrap_content"></Button>
-                    <Button
-                        android:text="看跌（0%）"
-                        app:ResColor="@{R.color. colorDrop}"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"></Button>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    app:layout_scrollFlags="noScroll"
-                    android:gravity="center"
+                    android:background="@color/new_line"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="最小 10 USDT,最大 5050 USDT"
+                        android:textSize="13sp" />
+
+                    <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:onClick="@{()->_all.setIndex(0)}"
-                        android:text="当前交易"
-                        android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
-                        android:textSize="15sp" />
+                        android:layout_weight="1" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:onClick="@{()->_all.setIndex(1)}"
-                        android:text="我的交易"
-                        android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
-                        android:textSize="15sp" />
+                        android:layout_gravity="center"
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:onClick="@{()->_all.setIndex(2)}"
-                        android:text="历史结果"
-                        android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
-                        android:textSize="15sp" />
+                        android:text="可用 795.58 USDT"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
-                    <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/new_line"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dk_dp_20"
+                        android:layout_weight="1"
+                        android:text="看涨（100%）"
+                        app:ResColor="@{R.color.colorRise}" />
+
+                    <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:onClick="@{()->_all.setIndex(3)}"
-                        android:text="排行榜"
-                        android:textColor="@{_all.index==3?@color/main_color:@color/text_color}"
-                        android:textSize="15sp" />
+                        android:text="看跌（0%）"
+                        app:ResColor="@{R.color. colorDrop}"
+                        style="?android:attr/buttonBarButtonStyle" />
 
                 </LinearLayout>
 
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_half"
-                    app:layout_scrollFlags="noScroll"
-                    android:background="@color/line_color" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="noScroll">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(0)}"
+                    android:text="当前交易"
+                    android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(1)}"
+                    android:text="我的交易"
+                    android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(2)}"
+                    android:text="历史结果"
+                    android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(3)}"
+                    android:text="排行榜"
+                    android:textColor="@{_all.index==3?@color/main_color:@color/text_color}"
+                    android:textSize="15sp" />
+
             </LinearLayout>
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_half"
+                android:background="@color/line_color"
+                app:layout_scrollFlags="noScroll" />
+
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"

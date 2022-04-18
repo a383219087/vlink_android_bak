@@ -13,7 +13,7 @@ import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class MydealViewModel : BaseViewModel() {
-    // TODO: Implement the ViewModel
+
     var activity = MutableLiveData<FragmentActivity>()
 
     interface OnItemListener {

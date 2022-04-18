@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="_all"
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.CreateTradersViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.R" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_15"
+            app:ResColor="@{R.color.bg_color}"
+            app:topLeftRadius="@{20}"
+            app:topRightRadius="@{20}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:elevation="7dp"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                app:ResColor="@{R.color.white}"
+                app:radius="@{10}">
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:ResColor="@{R.color.red}"
+                    app:radius="@{48}" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="奔跑单狗子"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="忙着赚钱，什么都不想说"
+                        android:textColor="@color/text_color_66"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="10%"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="利润分成比例"
+                        android:textColor="@color/text_color_66"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="跟单设置"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户协议"
+                    android:textColor="@color/text_color_66"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                app:ResColor="@{R.color.text_color_ee}"
+                app:radius="@{30}"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="按固定比例"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setCheckIndex(0)}"
+                    app:ResColor="@{_all.checkIndex==0?R.color.main_blue:R.color.new_home_page_tab_color}"
+                    app:radius="@{30}"
+                    android:textColor="@{_all.checkIndex==0?@color/white:@color/text_color}"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="按固定金额"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setCheckIndex(1)}"
+                    app:ResColor="@{_all.checkIndex==1?R.color.main_blue:R.color.new_home_page_tab_color}"
+                    android:textColor="@{_all.checkIndex==1?@color/white:@color/text_color}"
+                    android:textSize="13sp" />
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_margin="15dp"
+                android:background="@color/main_blue"
+                android:gravity="center"
+                android:text="确定跟单"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+</layout>
