@@ -5,9 +5,11 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
+import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -22,17 +24,18 @@ class HistoryDocumentViewModel : BaseViewModel() {
         fun onClick()
         fun onShareClick()
 
+
     }
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick() {
-            ClosePositionDialog(). showDialog(activity.value?.supportFragmentManager,"")
-
+            ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity).navigation()
         }
 
         override fun onShareClick() {
             ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
+
     }
 
 

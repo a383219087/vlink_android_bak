@@ -351,6 +351,7 @@
         <activity android:name=".new_version.activity.documentary.TradersActivity" />
         <activity android:name=".new_version.activity.documentary.ApplyTradersActivity" />
         <activity android:name=".new_version.activity.binary.BinaryActivity" />
+        <activity android:name=".new_version.activity.documentary.DocumentaryDetailActivity" />
 
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"

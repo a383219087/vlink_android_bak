@@ -559,6 +559,9 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
         tvDocumentary?.setOnClickListener {
             ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
         }
+        tvFinance?.setOnClickListener {
+            ArouterUtil.navigation(RoutePath.BinaryActivity, null)
+        }
         tvBinary?.setOnClickListener {
             ArouterUtil.navigation(RoutePath.BinaryActivity, null)
         }

@@ -147,7 +147,56 @@
             android:text="04/12 15：13：38->04/12 15：17：14"
             android:textSize="12sp"
             android:textColor="@color/text_color_99" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="7dp"
+                app:onClick="@{()->onItemListener.onShareClick1()}"
+                app:radius="@{5}"
+                app:ResColor="@{R.color.text_color_99}"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="追加本金"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="7dp"
+                app:onClick="@{()->onItemListener.onShareClick2()}"
+                app:radius="@{5}"
+                app:ResColor="@{R.color.text_color_99}"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="止盈止亏"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="7dp"
+                app:onClick="@{()->onItemListener.onShareClick3()}"
+                app:radius="@{5}"
+                app:ResColor="@{R.color.text_color_99}"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="平仓"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+
+        </LinearLayout>
 
 
 
