@@ -1822,8 +1822,7 @@ class HttpClient private constructor() {
 
     //检查更新
     fun checkNetworkLine(serverUrl: String): Observable<ResponseBody> {
-        val map = getBaseMap()
-        return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth(DataHandler.encryptParams(map))
+        return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth()
     }
 
     //网络上报

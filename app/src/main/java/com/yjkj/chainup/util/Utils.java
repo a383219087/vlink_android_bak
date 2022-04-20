@@ -34,8 +34,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.geetest.sdk.GT3ConfigBean;
 import com.geetest.sdk.GT3ErrorBean;
 import com.geetest.sdk.GT3GeetestUtils;
@@ -62,8 +60,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -74,7 +70,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -1229,12 +1224,8 @@ public class Utils {
         }
         String domain = getAPIInsideString(url);
         String apiHost = getAPIHostInsideString(url);
-        ArrayList<JSONObject> specialList = PublicInfoDataService.getInstance().getSpecialList();
-        String text = PublicInfoDataService.getInstance().getTextDoMain();
         String domainUrl = netUrl(isApi);
-
         Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
-        if (null == specialList || specialList.size() == 0) {
             if (TextUtils.isEmpty(domainUrl)) {
                 if (isApi) {
                     PublicInfoDataService.getInstance().saveNewWorkURL(domain);
@@ -1246,27 +1237,7 @@ public class Utils {
             } else {
                 return returnSpeedUrlV2(domainUrl, url);
             }
-        } else {
-            for (JSONObject json : specialList) {
-                if (null != json && json.length() > 0) {
-                    if (json.optString("host").equals(apiHost)) {
-                        return returnReplaceUrl(url, domain, json.optString("force_domain"));
-                    }
-                }
-            }
-            if (TextUtils.isEmpty(domainUrl)) {
-                if (isApi) {
-                    Log.e("我是改变地址4", "serverUrl："+domain);
-                    PublicInfoDataService.getInstance().saveNewWorkURL(domain);
-                } else {
-                    PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
-                }
-                return url;
-            } else {
-                return returnSpeedUrlV2(domainUrl, url);
-            }
 
-        }
     }
 
 

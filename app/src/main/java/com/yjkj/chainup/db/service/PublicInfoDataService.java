@@ -1,17 +1,15 @@
 package com.yjkj.chainup.db.service;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
-
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.chainup.contract.utils.CpClLogicContractSetting;
 import com.google.gson.Gson;
-import com.yjkj.chainup.R;
-import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.bean.IncrementConfigBean;
 import com.yjkj.chainup.bean.coin.CoinMapBean;
 import com.yjkj.chainup.db.MMKVDb;
@@ -27,7 +25,6 @@ import com.yjkj.chainup.util.LogUtil;
 import com.yjkj.chainup.util.StringOfExtKt;
 import com.yjkj.chainup.util.StringUtil;
 import com.yjkj.chainup.util.SystemUtils;
-import com.yjkj.chainup.util.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -158,147 +155,16 @@ public class PublicInfoDataService {
         return data;
     }
 
-    /**
-     * 获取域名
-     *
-     * @return
-     */
-    public String getDoMain() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return "";
-        }
-        return json.optString("saas_domain", "");
-    }
-
-    public String getTextDoMain() {
-        JSONObject jsonObject = getCetData();
-        if (null == jsonObject || jsonObject.length() == 0) {
-            return "";
-        }
-        return jsonObject.optString("test_list", "");
-    }
-
-    /**
-     * 获取是否使用本地cet
-     *
-     * @return
-     */
-    public String getLinks() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return "";
-        }
-        return json.optString("links", "");
-    }
 
 
-    /**
-     * 获取是否使用本地cet
-     *
-     * @return
-     */
-    public boolean getAndroidOnline() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return false;
-        }
-        return json.optBoolean("android_on", false);
-    }
 
 
-    /**
-     * 返回首页广告位新的
-     */
-    public JSONObject getCustomConfig(JSONObject data) {
-        data = getData(data);
-        if (null != data) {
-            return data.optJSONObject("custom_config");
-        }
-        return null;
-    }
-
-    /**
-     * 获取cet下载地址
-     *
-     * @return
-     */
-    public String getCetUrl() {
-        return "https://chainup-ui.oss-cn-beijing.aliyuncs.com/ioscer.cer";
-    }
-
-    /**
-     * 获取使用哪个cet
-     *
-     * @return
-     */
-    public String getCet() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return "";
-        }
-        return json.optString("saas_cer_fileName", "");
-    }
-
-    /**
-     * 获取特殊列表
-     *
-     * @return
-     */
-    public ArrayList<JSONObject> getSpecialList() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return null;
-        }
-        JSONArray jsonArray = json.optJSONArray("special_list");
-        if (null == jsonArray || jsonArray.length() == 0) {
-            return null;
-        }
-        return JSONUtil.arrayToList(jsonArray);
-    }
-
-    /**
-     * 获取特殊列表
-     *
-     * @return
-     */
-    public ArrayList<JSONObject> getTextList() {
-        JSONObject json = getCetData();
-        if (null == json || json.length() == 0) {
-            return null;
-        }
-        JSONArray jsonArray = json.optJSONArray("test_list");
-        if (null == jsonArray || jsonArray.length() == 0) {
-            return null;
-        }
-        return JSONUtil.arrayToList(jsonArray);
-    }
 
 
-    public String getCerName() {
-        ArrayList<JSONObject> textList = getTextList();
-        for (JSONObject json : textList) {
-            if (null != json && json.length() > 0) {
-                if (json.optString("host").equals(Utils.getAPIHostInsideString(ChainUpApp.appContext.getApplicationContext().getString(R.string.baseUrl)))) {
-                    return json.optString("saas_cer_fileName");
-                }
-            }
-        }
-        return "";
-    }
 
-    public String getTestDomain() {
-        ArrayList<JSONObject> textList = getTextList();
-        if (null == textList) return "";
-        for (JSONObject json : textList) {
-            if (null != json && json.length() > 0) {
-                if (json.optString("host").equals(Utils.getAPIHostInsideString(ChainUpApp.appContext.getApplicationContext().getString(R.string.baseUrl)))) {
-                    return json.optString("saas_domain");
-                }
-            }
-        }
-        return "";
-    }
+
+
+
 
 
     /*
@@ -1691,67 +1557,9 @@ public class PublicInfoDataService {
         mMMKVDb.saveBooleanData(GRID_STATE_DIALOG_STATUS, isShow);
     }
 
-    public boolean getGridStateDialogStatus() {
-        return mMMKVDb.getBooleanData(GRID_STATE_DIALOG_STATUS, false);
-    }
 
-    public void saveCompanyIDData(String data) {
-        if (null != data) {
-            mMMKVDb.saveData(SAVE_CET_COMPANYID_DATA, data);
-        } else {
-            mMMKVDb.removeValueForKey(SAVE_CET_COMPANYID_DATA);
-        }
-    }
 
-    public JSONObject getCompanyIDData() {
-        JSONObject data = null;
-        String dataStr = mMMKVDb.getData(SAVE_CET_COMPANYID_DATA);
-        if (StringUtil.checkStr(dataStr)) {
-            try {
-                data = new JSONObject(dataStr);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                data = new JSONObject();
-            }
-        }
-        return data;
-    }
 
-    public ArrayList<JSONObject> getLinkData(boolean isHttpUrl) {
-        // 默认线路
-        JSONObject link = getCetData();
-        // 自定义线路
-        JSONObject companyIDLink = getCompanyIDData();
-        ArrayList<JSONObject> linkArrays = new ArrayList<JSONObject>(getLinkDataByJSONArray(link, isHttpUrl, true));
-        if (companyIDLink != null) {
-            if (!companyIDLink.isNull("merge_open")) {
-                int open = companyIDLink.optInt("merge_open");
-                ArrayList<JSONObject> linkArrayCompanyID = getLinkDataByJSONArray(companyIDLink, isHttpUrl, false);
-                if (open == 1) {
-                    return StringOfExtKt.getLinksByCompany(linkArrays, linkArrayCompanyID);
-                }
-                return linkArrayCompanyID;
-            }
-        }
-        return linkArrays;
-    }
-
-    public ArrayList<JSONObject> getLinkDataByJSONArray(JSONObject link, boolean isHttpUrl, boolean isMain) {
-        ArrayList<JSONObject> linkArrays = new ArrayList<JSONObject>();
-        if (link != null) {
-            JSONArray cetString = null;
-            if (isHttpUrl || !isMain) {
-                cetString = link.optJSONArray("links");
-            } else {
-                cetString = link.optJSONArray("ws_links");
-            }
-            if (cetString != null && cetString.length() != 0) {
-                ArrayList<JSONObject> linkDefaults = JSONUtil.arrayToList(cetString);
-                linkArrays.addAll(linkDefaults);
-            }
-        }
-        return linkArrays;
-    }
 
     public boolean isOpenETFSwitch() {
         JSONObject data = getData(null);

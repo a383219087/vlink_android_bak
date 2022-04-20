@@ -285,12 +285,7 @@ class PersonalCenterActivity : NBaseActivity() {
         aiv_announcement?.setOnClickListener {
             startActivity(Intent(this@PersonalCenterActivity, NoticeActivity::class.java))
         }
-        /**
-         * 切换网络
-         */
-        aiv_change_newwork?.setOnClickListener {
-            ArouterUtil.navigation(RoutePath.ChangenNetworkActivity, null)
-        }
+
     }
 
     /**

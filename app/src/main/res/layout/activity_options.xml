@@ -177,7 +177,7 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dk_dp_20"
+                        android:layout_marginRight="@dimen/dp_20"
                         android:layout_weight="1"
                         android:text="看涨（100%）"
                         app:ResColor="@{R.color.colorRise}" />

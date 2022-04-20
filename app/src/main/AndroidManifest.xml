@@ -169,7 +169,6 @@
         <activity android:name=".new_version.activity.personalCenter.RealNameCertificationActivity" />
         <activity android:name=".new_version.activity.personalCenter.RealNameCertificaionSuccessActivity" />
         <activity android:name=".new_version.activity.personalCenter.RealNameCertificationChooseCountriesActivity" />
-        <activity android:name=".new_version.activity.personalCenter.ChangenNetworkActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewOTCOrdersActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOTCBuyActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOTCSellActivity" />

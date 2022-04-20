@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,10 +12,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.ChainUpApp
+import com.yjkj.chainup.db.service.PublicInfoDataService
+import com.yjkj.chainup.manager.NetworkLineErrorService
+import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.ToastUtils
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.permissionIsGranted
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -26,9 +33,13 @@ class SplashActivity : AppCompatActivity() {
                 android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
+    private  var liksArray: ArrayList<String> = arrayListOf()
+    private var currentCheckIndex = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         if (Utils.checkDeviceHasNavigationBar2(this)) {
             iv_splash?.visibility = View.GONE
             rl_splash?.setBackgroundResource(R.drawable.bg_splash)
@@ -42,12 +53,56 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        if (hasPermission()) {
-            Handler().postDelayed({ goHome() }, 150)
-        } else {
-            requestPermission()
-        }
+        liksArray.add("http://47.242.7.76:8091")
+        liksArray.add("http://47.242.7.76:8091")
+        liksArray.add("http://47.242.7.76:8091")
+
+//        checkNetworkLine(liksArray[currentCheckIndex])
+                        if (hasPermission()) {
+                    Handler().postDelayed({ goHome() }, 150)
+                } else {
+                    requestPermission()
+                }
+
     }
+
+    @SuppressLint("CheckResult")
+    fun checkNetworkLine(baseUrl:String){
+        HttpClient.instance.checkNetworkLine(baseUrl)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+
+                val domainUrl = PublicInfoDataService.getInstance().newWorkURL
+//                    HttpClient.instance.changeNetwork(url)
+//                if (hasPermission()) {
+//                    Handler().postDelayed({ goHome() }, 150)
+//                } else {
+//                    requestPermission()
+//                }
+            }, {
+//                    liksArray[index].put("error", "error")
+                    LogUtil.v("sas", "getHeath error 线路 ${1 + 1}")
+//                    val tempArray = linesSpeed.get(liksArray[index].optString("hostName"))
+//                    tempArray?.run {
+//                        add("0")
+//                    }
+//                    if (currentCheckIndex != (liksArray.size - 1)) {
+//                        currentCheckIndex++
+//                        Observable.timer(10, TimeUnit.SECONDS)
+//                                .subscribeOn(Schedulers.io())
+//                                .observeOn(AndroidSchedulers.mainThread()).subscribe {
+//                                    getHeath(currentCheckIndex, liksArray[currentCheckIndex])
+//                                }
+//                    } else {
+//                        resetCheckStatus()
+//
+//                    }
+            })
+
+    }
+
+
 
     fun goHome() {
         startActivity(Intent(this@SplashActivity, NewMainActivity::class.java))//

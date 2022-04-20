@@ -26,6 +26,7 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.push.DemoPushService
 import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
+import com.yjkj.chainup.manager.NetworkLineErrorService
 import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
@@ -59,6 +60,7 @@ class ChainUpApp : CpMyApp() {
     override fun onCreate() {
         super.onCreate()
         app = this
+
         if (BuildConfig.APPLICATION_ID == getCurProcessName(this)) {
             appContext = this
             appStateChangeListener = getAppStateChangeListener()

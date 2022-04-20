@@ -233,8 +233,6 @@ abstract class NBaseActivity : AppCompatActivity(), View.OnClickListener {
     protected fun getMainModel() = mainModel ?: MainModel()
 
 
-    private var speedModel: SpeedModel? = null
-    protected fun getSpeedModel() = speedModel ?: SpeedModel()
 
     private var redPackageModel: RedPackageModel? = null
     protected fun getRedPackageModel() = redPackageModel ?: RedPackageModel()

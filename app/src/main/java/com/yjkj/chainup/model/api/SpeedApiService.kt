@@ -16,6 +16,6 @@ interface SpeedApiService {
     /**
      * 获取接口是否通
      */
-    @GET("health_check")
-    fun getHealth(@QueryMap map: Map<String, String>): Observable<ResponseBody>
+    @GET("/api/query/address")
+    fun getHealth(): Observable<ResponseBody>
 }

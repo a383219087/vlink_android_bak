@@ -51,26 +51,6 @@ class HttpHelper {
     private fun initOkHttpClient() {
         val buidler = OkHttpClient.Builder()
 
-        var certString = "cert.cer"
-        var array = arrayListOf<InputStream>()
-        if (AssetsUtil.isExist(certString)) {
-            array.add(ChainUpApp.appContext.resources.assets.open(certString))
-
-        }
-        val links = PublicInfoDataService.getInstance().links
-        if ((ApiConstants.APP_SWITCH_SAAS != "0" || PublicInfoDataService.getInstance().androidOnline) && !TextUtils.isEmpty(links)) {
-            var linksArray = JSONUtil.arrayToList(JSONArray(links))
-
-            if (null != linksArray) {
-                for (num in 0 until linksArray.size) {
-                    if (AssetsUtil.isExist("${linksArray[num].optString("hostFileName")}.cer")) {
-                        array.add(ChainUpApp.appContext.resources.assets.open("${linksArray[num].optString("hostFileName")}.cer"))
-                    }
-                }
-            }
-        }
-
-
         val sslParams = HttpsUtils.getSslSocketFactory(null, null, null)
 
         buidler.protocols(Collections.singletonList(Protocol.HTTP_1_1))
@@ -130,21 +110,6 @@ class HttpHelper {
     }
 
 
-    fun inSpecialList(domain: String): Boolean {
-        var list = PublicInfoDataService.getInstance().specialList
-        if (null == list) {
-            return false
-        } else {
-            for (json in list) {
-                if (null != json && json.length() > 0) {
-                    if (json.optString("host") == domain) {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
 
 
     /*
