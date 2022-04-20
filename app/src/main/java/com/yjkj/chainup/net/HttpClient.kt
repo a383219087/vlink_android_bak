@@ -1821,7 +1821,7 @@ class HttpClient private constructor() {
 
 
     //检查更新
-    fun checkNetworkLine(serverUrl: String): Observable<ResponseBody> {
+    fun checkNetworkLine(serverUrl: String): Observable<com.yjkj.chainup.model.api.HttpResult> {
         return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth()
     }
 

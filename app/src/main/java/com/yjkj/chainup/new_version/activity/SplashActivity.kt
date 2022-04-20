@@ -53,9 +53,9 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        liksArray.add("http://47.242.7.76:8091")
-        liksArray.add("http://47.242.7.76:8091")
-        liksArray.add("http://47.242.7.76:8091")
+        liksArray.add("http://47.242.7.76:9091")
+        liksArray.add("http://47.242.7.76:9091")
+        liksArray.add("http://47.242.7.76:9091")
 
 //        checkNetworkLine(liksArray[currentCheckIndex])
                         if (hasPermission()) {

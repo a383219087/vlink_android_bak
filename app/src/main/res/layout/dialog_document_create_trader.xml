@@ -524,7 +524,7 @@
                 android:padding="10dp"
                 app:ResColor="@{R.color.text_color_ee}"
                 app:radius="@{10}"
-                android:textColor=""
+                android:textColor="@color/white"
                 />
 
 
