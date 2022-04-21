@@ -20,6 +20,7 @@ class MineViewModel : BaseViewModel() {
         index.value=i
     }
     var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
+
     interface OnItemListener {
         fun onClick()
 
