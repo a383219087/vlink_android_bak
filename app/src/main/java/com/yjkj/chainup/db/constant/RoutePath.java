@@ -60,7 +60,11 @@ public class RoutePath {
     public static final String RankingFragment = "/binary/RankingFragment";
     public static final String ResultsFragment = "/binary/ResultsFragment";
 
+
     public static final String FinancialActivity = "/financial/FinancialActivity";
+    public static final String ProductFragment = "/financial/ProductFragment";
+    public static final String AutomaticDepositFragment = "/financial/AutomaticDepositFragment";
+    public static final String HoldFragment = "/financial/HoldFragment";
 
     /*
      * 登录注册模块

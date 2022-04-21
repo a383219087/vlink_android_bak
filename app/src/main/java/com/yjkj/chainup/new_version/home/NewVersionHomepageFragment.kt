@@ -560,7 +560,7 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
             ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
         }
         tvFinance?.setOnClickListener {
-            ArouterUtil.navigation(RoutePath.BinaryActivity, null)
+            ArouterUtil.navigation(RoutePath.FinancialActivity, null)
         }
         tvBinary?.setOnClickListener {
             ArouterUtil.navigation(RoutePath.BinaryActivity, null)
