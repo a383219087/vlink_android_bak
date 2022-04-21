@@ -1,8 +1,8 @@
 package com.yjkj.chainup.model.api
 
 import io.reactivex.Observable
-import okhttp3.ResponseBody
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 /**
  * @Author lianshangljl
@@ -14,8 +14,8 @@ interface SpeedApiService {
     /**
      * 获取接口是否通
      */
-    @GET("/api/query/address")
-    fun getHealth(): Observable<HttpResult>
+    @GET
+    fun getHealth(@Url url: String ): Observable<HttpResult>
 }
 
 data class HttpResult(

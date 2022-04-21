@@ -3,33 +3,27 @@ package com.yjkj.chainup.net_new
 import android.app.DownloadManager
 import android.content.IntentFilter
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.text.TextUtils
-import android.util.Log
 import android.webkit.MimeTypeMap
+import androidx.appcompat.app.AppCompatActivity
 import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.app.GlobalAppComponent
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.interceptor.NetInterceptor
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.util.*
 import com.yjkj.chainup.util.HttpsUtils
+import com.yjkj.chainup.util.StringUtil
+import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.wedegit.DownLoadReceiver
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.io.InputStream
 import java.util.*
-
 import java.util.concurrent.TimeUnit
 
 /**
@@ -99,13 +93,13 @@ class HttpHelper {
         //  request.setDestinationInExternalFilesDir(),也可以自己制定下载路径
 
         // 将下载请求加入下载队列
-        var downloadManager = ChainUpApp.appContext.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadManager = ChainUpApp.appContext.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
         // 加入下载队列后会给该任务返回一个long型的id，
         // 通过该id可以取消任务，重启任务等等
-        var taskId = downloadManager.enqueue(request)
+        val taskId = downloadManager.enqueue(request)
 
         //注册广播接收者，监听下载状态
-        var downLoadReceiver = DownLoadReceiver(ChainUpApp.appContext, downloadManager, taskId, ParamConstant.MFILENAME)
+        val downLoadReceiver = DownLoadReceiver(ChainUpApp.appContext, downloadManager, taskId, ParamConstant.MFILENAME)
         ChainUpApp.appContext.registerReceiver(downLoadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 

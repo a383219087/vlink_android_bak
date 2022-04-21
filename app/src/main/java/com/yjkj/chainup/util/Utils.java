@@ -1330,6 +1330,8 @@ public class Utils {
             if (methodUrl.indexOf("/") + 1 != methodUrl.length()) {
                 stringBuffer.append(urlPath);
             }
+
+            Log.e("我是输出新地址1", stringBuffer.toString());
             return stringBuffer.toString();
 
         } else if (isNewIp && !isIp) {
@@ -1347,11 +1349,18 @@ public class Utils {
             if (methodUrl.indexOf("/") + 1 != methodUrl.length()) {
                 stringBuffer.append(urlPath);
             }
+            Log.e("我是输出新地址2", stringBuffer.toString());
             return stringBuffer.toString();
         } else {
-            if (urlHost.split("\\.").length == 3) {
-                return str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl);
-            }
+//            if (urlHost.split("\\.").length == 3) {
+//                Log.e("我是输出新地址3", str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl));
+//                return str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl);
+//            }
+             if (newUrl.contains("http://")||newUrl.contains("https://")){
+                 return str.replace(urlHost, newUrl.split("//")[1]);
+             }
+
+            Log.e("我是输出新地址4", str.replace(urlHost, newUrl));
             return str.replace(urlHost, newUrl);
         }
     }

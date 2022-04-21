@@ -1822,7 +1822,7 @@ class HttpClient private constructor() {
 
     //检查更新
     fun checkNetworkLine(serverUrl: String): Observable<com.yjkj.chainup.model.api.HttpResult> {
-        return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth()
+        return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth(serverUrl)
     }
 
     //网络上报

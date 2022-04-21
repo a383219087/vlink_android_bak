@@ -50,7 +50,7 @@ public class NetInterceptor implements Interceptor {
         originReq = getBuilderHeader(originReq.newBuilder()).build();
 
         String neworiUrl = originReq.url().toString();
-        LogUtil.d(TAG, "NetInterceptor==neworiUrl is " + neworiUrl);
+        LogUtil.d("我是LogUtil", "NetInterceptor==neworiUrl is " + neworiUrl);
 
 
         Response response = chain.proceed(originReq);

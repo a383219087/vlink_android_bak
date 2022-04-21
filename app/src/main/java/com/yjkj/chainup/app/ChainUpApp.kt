@@ -16,18 +16,12 @@ import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpLocalManageUtil
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
-import com.contract.sdk.net.ContractHttpConfig
 import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
-import com.yjkj.chainup.contract.cloud.ContractCloudAgent
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.push.DemoPushService
-import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
-import com.yjkj.chainup.manager.NetworkLineErrorService
-import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
@@ -83,16 +77,9 @@ class ChainUpApp : CpMyApp() {
              * contract_version_settings    0 - 旧版合约   1 - 新版合约
              * isNewOldContract     true 新版  false 旧版
              */
-            var isNewOldContract: Boolean
+            val isNewOldContract: Boolean
             val mContractMode = PublicInfoDataService.getInstance().getContractMode()
-            if (mContractMode == 0 || mContractMode == -1) {
-                //旧版合约
-                isNewOldContract = false
-//                openContract()
-            } else {
-                //新版合约
-                isNewOldContract = true
-            }
+            isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
 
 //            val isNewOldContract = PublicInfoDataService.getInstance().isNewOldContract
 //            if (!isNewOldContract) {
@@ -107,7 +94,6 @@ class ChainUpApp : CpMyApp() {
         //  com.getui.demo.ChainUpPushService 为第三方自定义推送服务
         PushManager.getInstance().initialize(this, DemoPushService::class.java)
         // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
-        PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
         PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
     }
 
@@ -205,7 +191,6 @@ class ChainUpApp : CpMyApp() {
 
     var subscribe: Disposable? = null//保存订阅者
     fun startTime() {
-
         Log.e("LogUtils", "startTime time")
         restart()
         subscribe = io.reactivex.Observable.interval(0, CommonConstant.rateLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
@@ -258,35 +243,35 @@ class ChainUpApp : CpMyApp() {
         }
         return null
     }
-
-    private fun openContract() {
-        //合约SDK初始化  主进程才实例化
-        val contractHttpConfig = ContractHttpConfig()
-        contractHttpConfig.prefixHeader = "ex"
-        contractHttpConfig.contractUrl = NetUrl.getcontractUrl() + "fe-cov2-api/swap/"
-        contractHttpConfig.contractWsUrl = NetUrl.getContractSocketUrl()
-        contractHttpConfig.headerParams = SystemUtils.getHeaderParams()
-        contractHttpConfig.wsSignLength = 128
-        if (ContractCloudAgent.isCloudOpen) {
-            //是否是合约云SDK
-            ContractSDKAgent.isContractCloudSDK = true
-        } else {
-            contractHttpConfig.aesSecret = "lMYQry09AeIt6PNO"
-            //是否是合约云SDK
-            ContractSDKAgent.isContractCloudSDK = false
-        }
-        //合约SDK Http配置初始化
-        ContractSDKAgent.httpConfig = contractHttpConfig
-        //是否打开合约API异常日志收集
-        ContractSDKAgent.openErrorLogCollect = true
-        //通知合约SDK语言环境
-        ContractSDKAgent.isZhEnv = SystemUtils.isZh()
-        //合约SDK 必须设置 在最后调用
-        ContractSDKAgent.init(this)
-        UserDataService.getInstance().token
-        //延迟2秒初始化合约token
-        UserDataService.getInstance().notifyContractLoginStatusListener()
-    }
+//
+//    private fun openContract() {
+//        //合约SDK初始化  主进程才实例化
+//        val contractHttpConfig = ContractHttpConfig()
+//        contractHttpConfig.prefixHeader = "ex"
+//        contractHttpConfig.contractUrl = NetUrl.getcontractUrl() + "fe-cov2-api/swap/"
+//        contractHttpConfig.contractWsUrl = NetUrl.getContractSocketUrl()
+//        contractHttpConfig.headerParams = SystemUtils.getHeaderParams()
+//        contractHttpConfig.wsSignLength = 128
+//        if (ContractCloudAgent.isCloudOpen) {
+//            //是否是合约云SDK
+//            ContractSDKAgent.isContractCloudSDK = true
+//        } else {
+//            contractHttpConfig.aesSecret = "lMYQry09AeIt6PNO"
+//            //是否是合约云SDK
+//            ContractSDKAgent.isContractCloudSDK = false
+//        }
+//        //合约SDK Http配置初始化
+//        ContractSDKAgent.httpConfig = contractHttpConfig
+//        //是否打开合约API异常日志收集
+//        ContractSDKAgent.openErrorLogCollect = true
+//        //通知合约SDK语言环境
+//        ContractSDKAgent.isZhEnv = SystemUtils.isZh()
+//        //合约SDK 必须设置 在最后调用
+//        ContractSDKAgent.init(this)
+//        UserDataService.getInstance().token
+//        //延迟2秒初始化合约token
+//        UserDataService.getInstance().notifyContractLoginStatusListener()
+//    }
 
     override fun onActivityPaused(p0: Activity) {
         Log.d(TAG, "========onActivityPaused===")
