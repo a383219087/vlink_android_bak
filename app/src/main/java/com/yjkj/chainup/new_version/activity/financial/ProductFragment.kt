@@ -14,6 +14,10 @@ import com.yjkj.chainup.util.FmPagerAdapter
 
 @Route(path = RoutePath.ProductFragment)
 class ProductFragment : BaseMVFragment<ProductViewModel?, FragmentProductBinding>() {
+
+
+
+
     override fun setContentView(): Int = R.layout.fragment_product
     private var mFragments: ArrayList<Fragment>? = null
     var pageAdapter: CpNVPagerAdapter? = null

@@ -17,13 +17,15 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="15dp"
-        android:padding="15dp"
-        android:layout_width="match_parent"
         app:ResColor="@{R.color.white}"
         app:radius="@{15}"
-        android:layout_height="@dimen/dp_100">
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,8 +84,17 @@
                 android:text="固定年化"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>
+
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:background="@color/chart_ma5"
+            android:layout_height="1dp"></View>
     </LinearLayout>
+
+
 
 
 </layout>
