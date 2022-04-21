@@ -46,9 +46,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:name,android:icon">
         <activity
-            android:name=".new_version.activity.financial.Allfragment"
-            android:exported="false" />
-        <activity
             android:name=".new_version.activity.binary.OptionsActivity"
             android:exported="false" />
         <activity
@@ -349,11 +346,11 @@
         <!-- android:theme="@style/dialogTheme"/> -->
         <activity android:name=".new_version.activity.invite.MyInviteActivity" />
         <activity android:name=".new_version.activity.documentary.DocumentaryActivity" />
-        <activity android:name=".new_version.activity.financial.FinancialActivity" />
         <activity android:name=".new_version.activity.documentary.TradersActivity" />
         <activity android:name=".new_version.activity.documentary.ApplyTradersActivity" />
         <activity android:name=".new_version.activity.binary.BinaryActivity" />
         <activity android:name=".new_version.activity.documentary.DocumentaryDetailActivity" />
+        <activity android:name=".new_version.activity.financial.FinancialActivity" />
 
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"
