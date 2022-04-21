@@ -1228,8 +1228,8 @@ public class Utils {
         Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
             if (TextUtils.isEmpty(domainUrl)) {
                 if (isApi) {
-                    PublicInfoDataService.getInstance().saveNewWorkURL(domain);
-                    Log.e("我是改变地址3", "serverUrl："+domain);
+                    PublicInfoDataService.getInstance().saveNewWorkURL(apiHost);
+                    Log.e("我是改变地址3", "serverUrl："+apiHost);
                 } else {
                     PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
                 }

@@ -36,20 +36,20 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 
     override fun onHandleIntent(p0: Intent?) {
         LogUtil.v(TAG, "onHandleIntent()")
-
-        liksArray.add("http://47.242.7.76/")
-        liksArray.add("http://47.242.7.76/")
-        liksArray.add("http://47.242.7.76/")
-        mdDisposable.add(Observable.interval(3, retryInterval.toLong(), TimeUnit.SECONDS).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe {
-                if (it < retryCount) {
-                    LogUtil.e(TAG, "当前测速 ${it + 1}")
-                    getHeath(currentCheckIndex, liksArray[currentCheckIndex])
-                } else {
-                    mdDisposable.dispose()
-                    // 发起请求
-                }
-            })
+//
+//        liksArray.add("http://47.242.7.76/")
+//        liksArray.add("http://47.242.7.76/")
+//        liksArray.add("http://47.242.7.76/")
+//        mdDisposable.add(Observable.interval(3, retryInterval.toLong(), TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread()).subscribe {
+//                if (it < retryCount) {
+//                    LogUtil.e(TAG, "当前测速 ${it + 1}")
+//                    getHeath(currentCheckIndex, liksArray[currentCheckIndex])
+//                } else {
+//                    mdDisposable.dispose()
+//                    // 发起请求
+//                }
+//            })
 
     }
 
