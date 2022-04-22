@@ -17,6 +17,7 @@
     </data>
 
     <LinearLayout
+        android:onClick="@{()->onItemListener.onClick()}"
         app:ResColor="@{R.color.white}"
         app:radius="@{15}"
         android:orientation="vertical"

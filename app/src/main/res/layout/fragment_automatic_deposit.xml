@@ -18,6 +18,33 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent">
 
+     <LinearLayout
+         android:layout_margin="15dp"
+         app:radius="@{10}"
+         app:ResColor="@{R.color.minute_yellow}"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/dp_50">
+     </LinearLayout>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_marginTop="@dimen/dp_80"
+         android:layout_marginLeft="15dp"
+         android:layout_marginRight="15dp"
+         android:padding="15dp"
+         android:layout_height="wrap_content">
+
+     </LinearLayout>
+
+     <Button
+         android:textSize="20sp"
+         android:layout_gravity="bottom"
+         android:textColor="@color/white"
+         android:text="一键开启"
+         app:radius="@{15}"
+         android:background="@color/chart_tab_indicator"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"></Button>
+
  </FrameLayout>
 
 
