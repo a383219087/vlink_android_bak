@@ -369,7 +369,7 @@ class WsAgentManager private constructor() {
     }
 
     fun reConnection() {
-        Log.e(TAG, "WS 是否不重连 ${isAppStopWs} mCount ${mCount} isChange ${isAppRestartStopWs}")
+        Log.e(TAG, "WS 是否不重连1 ${isAppStopWs} mCount ${mCount} isChange ${isAppRestartStopWs}")
         mWebSocket = null
         isConnection = false
         isAppStopLast = true
@@ -438,7 +438,7 @@ class WsAgentManager private constructor() {
 
     private var isConnection = false
     private fun initWS() {
-        Log.e(TAG, "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
+        Log.e("我是ws", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
         if (isConnection) {
             return
         }
@@ -696,7 +696,6 @@ class WsAgentManager private constructor() {
 
     fun stopWs(url: String, isReStop: Boolean = true) {
         isAppStopWs = false
-        this.serverUrl = url
         isAppRestartStopWs = isReStop
         stopPong()
         mWebSocket?.cancel()

@@ -58,18 +58,18 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 
     @SuppressLint("CheckResult")
     private fun getHeath(index: Int, url: String) {
-        val startTime = System.currentTimeMillis()
-        val baseUrl = Utils.returnSpeedUrl(url, ApiConstants.BASE_URL)
-        HttpClient.instance.checkNetworkLine(baseUrl)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val domainUrl = PublicInfoDataService.getInstance().newWorkURL
-                    if (url != domainUrl) {
-                        HttpClient.instance.changeNetwork(url)
-                    }
-                    resetCheckStatus()
-                }, {
+//        val startTime = System.currentTimeMillis()
+//        val baseUrl = Utils.returnSpeedUrl(url, ApiConstants.BASE_URL)
+//        HttpClient.instance.checkNetworkLine(baseUrl)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    val domainUrl = PublicInfoDataService.getInstance().newWorkURL
+//                    if (url != domainUrl) {
+//                        HttpClient.instance.changeNetwork(url)
+//                    }
+//                    resetCheckStatus()
+//                }, {
 //                    liksArray[index].put("error", "error")
 //                    LogUtil.v(TAG, "getHeath error 线路 ${index + 1}")
 //                    val tempArray = linesSpeed.get(liksArray[index].optString("hostName"))
@@ -87,7 +87,7 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 //                        resetCheckStatus()
 //
 //                    }
-                })
+//                })
     }
 
 

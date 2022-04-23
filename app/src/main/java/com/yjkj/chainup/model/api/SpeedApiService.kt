@@ -1,5 +1,6 @@
 package com.yjkj.chainup.model.api
 
+import com.yjkj.chainup.net.api.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -15,10 +16,10 @@ interface SpeedApiService {
      * 获取接口是否通
      */
     @GET
-    fun getHealth(@Url url: String ): Observable<HttpResult>
+    fun getHealth(@Url url: String ): Observable<HttpResultUrlData>
 }
 
-data class HttpResult(
+data class HttpResultUrlData(
     val baseUrl: String,
     val contractSocketAddress: String,
     val contractUrl: String,

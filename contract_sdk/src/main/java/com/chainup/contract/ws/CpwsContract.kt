@@ -318,7 +318,7 @@ class CpWsContractAgentManager private constructor() {
     }
 
     fun reConnection() {
-        Log.e(TAG, "WS 是否不重连 ${isAppStopWs} mCount ${mCount}")
+        Log.e(TAG, "WS 是否不重连2 ${isAppStopWs} mCount ${mCount}")
         mWebSocket = null
         isConnection = false
         if (!isAppStopWs) {
@@ -382,7 +382,7 @@ class CpWsContractAgentManager private constructor() {
 
     private var isConnection = false
     private fun initWS() {
-        Log.e(TAG, "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
+        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
         if (isConnection || serverUrl.isEmpty() || !serverUrl.startsWith("ws")) {
             return
         }

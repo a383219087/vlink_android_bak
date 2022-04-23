@@ -13,7 +13,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
 import com.chainup.contract.app.CpMyApp
+import com.chainup.contract.net.CpNetUrl.getContractSocketNewUrl
+import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpLocalManageUtil
+import com.chainup.contract.ws.CpWsContractAgentManager
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
 import com.igexin.sdk.PushManager
@@ -22,6 +25,9 @@ import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.push.DemoPushService
 import com.yjkj.chainup.manager.DataInitService
+import com.yjkj.chainup.model.api.HttpResultUrlData
+import com.yjkj.chainup.net.api.ApiConstants
+import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
@@ -49,6 +55,7 @@ class ChainUpApp : CpMyApp() {
     companion object {
         lateinit var appContext: Context
         lateinit var app: Application
+         var url: HttpResultUrlData?=null
     }
 
     override fun onCreate() {
@@ -64,12 +71,7 @@ class ChainUpApp : CpMyApp() {
             LogUtil.e(TAG,"headerParams ${headerParams}")
             AppAnalyticsExt.instance.init(this, headerParams)
 
-//            CpClLogicContractSetting.setApiWsUrl(this,NetUrl.getContractNewUrl(),NetUrl.getContractSocketNewUrl())
 
-//            Handler().postDelayed({
-//                WsAgentManager.instance.socketUrl(ApiConstants.SOCKET_ADDRESS, true)
-//                CpWsContractAgentManager.instance.socketUrl(CpClLogicContractSetting.getWsUrl(this), true)
-//            }, 1500)
             setCurrentTheme()
             initAppStatusListener()
 

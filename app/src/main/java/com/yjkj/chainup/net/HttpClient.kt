@@ -23,10 +23,7 @@ import com.yjkj.chainup.freestaking.bean.FreeStakingBean
 import com.yjkj.chainup.freestaking.bean.FreeStakingDetailBean
 import com.yjkj.chainup.freestaking.bean.MyPosRecordBean
 import com.yjkj.chainup.interceptor.NetInterceptor
-import com.yjkj.chainup.model.api.ContractApiService
-import com.yjkj.chainup.model.api.OTCApiService
-import com.yjkj.chainup.model.api.RedPackageApiService
-import com.yjkj.chainup.model.api.SpeedApiService
+import com.yjkj.chainup.model.api.*
 import com.yjkj.chainup.net.api.ApiConstants.*
 import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.net.api.HttpResult
@@ -1820,10 +1817,7 @@ class HttpClient private constructor() {
     }
 
 
-    //检查更新
-    fun checkNetworkLine(serverUrl: String): Observable<com.yjkj.chainup.model.api.HttpResult> {
-        return HttpHelper.instance.getspeedUrlService(serverUrl, SpeedApiService::class.java).getHealth(serverUrl)
-    }
+
 
     //网络上报
     fun uploadNetWorkLog(oldLine: String, newLine: String, network_line_json: String): Observable<ResponseBody> {
