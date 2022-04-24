@@ -18,7 +18,6 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -1218,25 +1217,65 @@ public class Utils {
     }
 
 
-    public static String returnAPIUrl(String url, boolean isApi) {
-        if (isLetterDigit(url) < 4) {
-            return url;
-        }
-        String domain = getAPIInsideString(url);
-        String apiHost = getAPIHostInsideString(url);
-        String domainUrl = netUrl(isApi);
-        Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
-            if (TextUtils.isEmpty(domainUrl)) {
-                if (isApi) {
-                    PublicInfoDataService.getInstance().saveNewWorkURL(domain);
-                    Log.e("我是改变地址3", "serverUrl："+domain);
-                } else {
-                    PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
-                }
-                return url;
-            } else {
-                return returnSpeedUrlV2(domainUrl, url);
+    public static String returnAPIUrl(String url, boolean isApi,String type) {
+
+        if (ChainUpApp.Companion.getUrl()!=null){
+            String returnUrl ="";
+            if (type.equals("baseUrl")){
+                returnUrl= ChainUpApp.Companion.getUrl().getBaseUrl();
             }
+            if (type.equals("contractSocketAddress")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getContractSocketAddress();
+            }
+            if (type.equals("contractUrl")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getContractUrl();
+            }
+            if (type.equals("httpHostUrlContractV2")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getHttpHostUrlContractV2();
+            }
+            if (type.equals("otcBaseUrl")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getOtcBaseUrl();
+            }
+            if (type.equals("otcSocketAddress")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getOtcSocketAddress();
+            }
+            if (type.equals("redPackageUrl")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getRedPackageUrl();
+            }
+            if (type.equals("socketAddress")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getSocketAddress();
+            }
+            if (type.equals("wssHostContractV2")){
+                returnUrl=  ChainUpApp.Companion.getUrl().getWssHostContractV2();
+            }
+
+            return  returnUrl+(isApi?"/":"");
+
+        }
+
+        return  url;
+
+//        if (isLetterDigit(url) < 4) {
+//            return url;
+//        }
+//        String domain = getAPIInsideString(url);
+//        String apiHost = getAPIHostInsideString(url);
+//        String domainUrl = netUrl(isApi);
+//        Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
+//            if (TextUtils.isEmpty(domainUrl)) {
+//                if (isApi) {
+//                    PublicInfoDataService.getInstance().saveNewWorkURL(apiHost);
+//                    Log.e("我是改变地址3", "serverUrl："+apiHost);
+//                } else {
+//                    PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
+//                }
+//                Log.e("我是改变地址3", "url："+url);
+//                return url;
+//            } else {
+//                Log.e("我是改变地址3", "url："+returnSpeedUrlV2(domainUrl, url));
+//
+//                return returnSpeedUrlV2(domainUrl, url);
+//            }
 
     }
 
@@ -1330,6 +1369,8 @@ public class Utils {
             if (methodUrl.indexOf("/") + 1 != methodUrl.length()) {
                 stringBuffer.append(urlPath);
             }
+
+            Log.e("我是输出新地址1", stringBuffer.toString());
             return stringBuffer.toString();
 
         } else if (isNewIp && !isIp) {
@@ -1347,11 +1388,18 @@ public class Utils {
             if (methodUrl.indexOf("/") + 1 != methodUrl.length()) {
                 stringBuffer.append(urlPath);
             }
+            Log.e("我是输出新地址2", stringBuffer.toString());
             return stringBuffer.toString();
         } else {
-            if (urlHost.split("\\.").length == 3) {
-                return str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl);
-            }
+//            if (urlHost.split("\\.").length == 3) {
+//                Log.e("我是输出新地址3", str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl));
+//                return str.replace(urlHost.substring(urlHost.indexOf(".") + 1), newUrl);
+//            }
+             if (newUrl.contains("http://")||newUrl.contains("https://")){
+                 return str.replace(urlHost, newUrl.split("//")[1]);
+             }
+
+            Log.e("我是输出新地址4", str.replace(urlHost, newUrl));
             return str.replace(urlHost, newUrl);
         }
     }

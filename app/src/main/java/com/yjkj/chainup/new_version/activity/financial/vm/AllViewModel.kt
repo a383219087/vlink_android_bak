@@ -18,7 +18,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 class AllViewModel : BaseViewModel(){
 
     var activity = MutableLiveData<FragmentActivity>()
-
+    var page = MutableLiveData<Int>()
     interface OnItemListener {
         fun onClick()
 
@@ -51,7 +51,7 @@ class AllViewModel : BaseViewModel(){
     }
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_all).bindExtra(BR.onItemListener, onItemListener)
+        ItemBinding.of<String>(BR.item, R.layout.item_all)
     val items: ObservableList<String> = ObservableArrayList()
 
     override fun onCreate() {

@@ -23,9 +23,15 @@ class ProductFragment : BaseMVFragment<ProductViewModel?, FragmentProductBinding
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
         mFragments = ArrayList()
-        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment).navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment).navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment).navigation() as Fragment)
+        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment)
+            .withInt("index",0)
+            .navigation() as Fragment)
+        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment)
+            .withInt("index",1)
+            .navigation() as Fragment)
+        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment)
+            .withInt("index",2)
+            .navigation() as Fragment)
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
     }

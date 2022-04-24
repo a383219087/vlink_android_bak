@@ -53,6 +53,7 @@
                     android:id="@+id/aiv_invite_friends_enter"
                     android:layout_width="match_parent"
                     android:layout_height="46.5dp"
+                    android:visibility="gone"
                     android:background="@color/bg_card_color"
                     app:icon="@drawable/personal_invitegoodfriends"
                     app:itemTitle="@string/common_action_inviteFriend"

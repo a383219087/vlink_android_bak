@@ -36,20 +36,20 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 
     override fun onHandleIntent(p0: Intent?) {
         LogUtil.v(TAG, "onHandleIntent()")
-
-        liksArray.add("http://47.242.7.76/")
-        liksArray.add("http://47.242.7.76/")
-        liksArray.add("http://47.242.7.76/")
-        mdDisposable.add(Observable.interval(3, retryInterval.toLong(), TimeUnit.SECONDS).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe {
-                if (it < retryCount) {
-                    LogUtil.e(TAG, "当前测速 ${it + 1}")
-                    getHeath(currentCheckIndex, liksArray[currentCheckIndex])
-                } else {
-                    mdDisposable.dispose()
-                    // 发起请求
-                }
-            })
+//
+//        liksArray.add("http://47.242.7.76/")
+//        liksArray.add("http://47.242.7.76/")
+//        liksArray.add("http://47.242.7.76/")
+//        mdDisposable.add(Observable.interval(3, retryInterval.toLong(), TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread()).subscribe {
+//                if (it < retryCount) {
+//                    LogUtil.e(TAG, "当前测速 ${it + 1}")
+//                    getHeath(currentCheckIndex, liksArray[currentCheckIndex])
+//                } else {
+//                    mdDisposable.dispose()
+//                    // 发起请求
+//                }
+//            })
 
     }
 
@@ -58,18 +58,18 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 
     @SuppressLint("CheckResult")
     private fun getHeath(index: Int, url: String) {
-        val startTime = System.currentTimeMillis()
-        val baseUrl = Utils.returnSpeedUrl(url, ApiConstants.BASE_URL)
-        HttpClient.instance.checkNetworkLine(baseUrl)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val domainUrl = PublicInfoDataService.getInstance().newWorkURL
-                    if (url != domainUrl) {
-                        HttpClient.instance.changeNetwork(url)
-                    }
-                    resetCheckStatus()
-                }, {
+//        val startTime = System.currentTimeMillis()
+//        val baseUrl = Utils.returnSpeedUrl(url, ApiConstants.BASE_URL)
+//        HttpClient.instance.checkNetworkLine(baseUrl)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    val domainUrl = PublicInfoDataService.getInstance().newWorkURL
+//                    if (url != domainUrl) {
+//                        HttpClient.instance.changeNetwork(url)
+//                    }
+//                    resetCheckStatus()
+//                }, {
 //                    liksArray[index].put("error", "error")
 //                    LogUtil.v(TAG, "getHeath error 线路 ${index + 1}")
 //                    val tempArray = linesSpeed.get(liksArray[index].optString("hostName"))
@@ -87,7 +87,7 @@ class NetworkLineErrorService(name: String = "NetworkLineService") : IntentServi
 //                        resetCheckStatus()
 //
 //                    }
-                })
+//                })
     }
 
 
