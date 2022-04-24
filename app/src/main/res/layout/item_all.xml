@@ -11,6 +11,9 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.new_version.activity.financial.vm.AllViewModel.OnItemListener" />
     </data>
 
     <LinearLayout

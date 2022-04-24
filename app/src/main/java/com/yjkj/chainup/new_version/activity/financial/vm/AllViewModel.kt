@@ -51,7 +51,7 @@ class AllViewModel : BaseViewModel(){
     }
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_all)
+        ItemBinding.of<String>(BR.item, R.layout.item_all).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<String> = ObservableArrayList()
 
     override fun onCreate() {

@@ -46,6 +46,9 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:name,android:icon">
         <activity
+            android:name=".new_version.activity.financial.HolddetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".new_version.activity.financial.UsdtActivity"
             android:exported="false" />
         <activity
