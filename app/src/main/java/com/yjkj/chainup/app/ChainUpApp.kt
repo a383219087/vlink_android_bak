@@ -166,6 +166,7 @@ class ChainUpApp : CpMyApp() {
             LocalManageUtil.saveSelectLanguage(this, "vi_VN")
             CpLocalManageUtil.saveSelectLanguage(this, "vi_VN")
         }
+
     }
 
 

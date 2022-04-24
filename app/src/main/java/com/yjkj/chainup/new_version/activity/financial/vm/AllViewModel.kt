@@ -33,22 +33,7 @@ class AllViewModel : BaseViewModel(){
 
     }
 
-    fun onShareClick() {
-        ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
 
-    fun onShareClick1() {
-        AddMoneyDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
-
-    fun onShareClick2() {
-        WinAndStopDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
-
-    fun onShareClick3() {
-        ClosePositionDialog(). showDialog(activity.value?.supportFragmentManager,"")
-
-    }
 
     val itemBinding =
         ItemBinding.of<String>(BR.item, R.layout.item_all).bindExtra(BR.onItemListener, onItemListener)

@@ -1,39 +1,29 @@
 package com.chainup.contract.ui.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.blankj.utilcode.util.KeyboardUtils;
 import com.chainup.contract.R;
 import com.chainup.contract.adapter.CpPageAdapter;
 import com.chainup.contract.base.CpNBaseDialogFragment;
 import com.chainup.contract.eventbus.CpEventBusUtil;
 import com.chainup.contract.eventbus.CpMessageEvent;
 import com.chainup.contract.eventbus.CpNLiveDataUtil;
-import com.chainup.contract.utils.CpJsonUtils;
 import com.chainup.contract.utils.ChainUpLogUtil;
+import com.chainup.contract.utils.CpJsonUtils;
 import com.chainup.contract.utils.CpSoftKeyboardUtil;
 import com.chainup.contract.ws.CpWsContractAgentManager;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -177,23 +167,24 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             return;
         }
         for (int i = 0; i < mContractList.length(); i++) {
+            String contractType="E";
             try {
                 ChainUpLogUtil.e("合约币对", mContractList.getJSONObject(i).get("symbol").toString());
                 // (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
                 ChainUpLogUtil.e("合约方向", mContractList.getJSONObject(i).get("contractSide").toString());
                 int contractSide = mContractList.getJSONObject(i).getInt("contractSide");
-                String contractType = mContractList.getJSONObject(i).getString("contractType");
-                int classification = mContractList.getJSONObject(i).getInt("classification");
-                //classification 1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
-                //1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
-                if (classification == 1 ) {
-                    isHasU = true;
-                } else if (classification == 2 ) {
-                    isHasB = true;
-                } else if (classification == 4) {
-                    isHasM = true;
-                } else {
-                    isHasH = true;
+                 contractType = mContractList.getJSONObject(i).getString("contractType");
+                //E,USDT合约 2,币本位合约 H,混合合约 S,模拟合约
+                switch (contractType) {
+                    case "E":
+                        isHasU = true;
+                        break;
+                    case "H":
+                        isHasM = true;
+                        break;
+                    case "S":
+                        isHasH = true;
+                        break;
                 }
 //                if (contractSide == 1 && contractType.equals("E")) {
 //                    isHasU = true;
@@ -238,6 +229,7 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text11"));
             fragments.add(CpCoinSearchItemFragment.newInstance(3, contractListJson));
         }
+
 
 
         ViewPager vp_market_aa = findViewById(R.id.vp_market_aa);

@@ -663,7 +663,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
         mUserAssetsInfoJson?.apply {
             if (!isNull("accountList")) {
                 val mOrderListJson = optJSONArray("accountList")
-                for (i in 0..(mOrderListJson.length() - 1)) {
+                for (i in 0 until mOrderListJson.length()) {
                     val obj = mOrderListJson.getJSONObject(i)
                     var canUseAmountStr = obj.getString("canUseAmount")
                     marginCoin = mContractJson?.optString("marginCoin").toString()
