@@ -12,9 +12,8 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
-        <variable
-            name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.HolddetailViewModel.OnItemListener" />
+
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,7 +30,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->onItemListener.onClick()}"
                 android:orientation="vertical"
                 android:padding="15dp"
                 app:ResColor="@{R.color.white}"
@@ -47,7 +45,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         app:ResColor="@{R.color.warn_yellow}"
-                        app:radius="@{10}"></View>
+                        app:radius="@{10}"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -59,7 +57,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:text=" UDST 活期"
-                            android:textSize="16sp"></TextView>
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -67,13 +65,13 @@
                             android:layout_marginLeft="10dp"
                             android:text=" 产品详情"
                             android:textColor="@color/barcode_possible_result_points"
-                            android:textSize="12sp"></TextView>
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></View>
+                        android:layout_weight="1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -87,7 +85,7 @@
                             android:layout_marginLeft="10dp"
                             android:text=" 2%"
                             android:textColor="@color/barcode_viewfinder_laser"
-                            android:textSize="13sp"></TextView>
+                            android:textSize="13sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -95,7 +93,7 @@
                             android:layout_marginLeft="10dp"
                             android:text=" 固定年化"
                             android:textColor="@color/barcode_possible_result_points"
-                            android:textSize="12sp"></TextView>
+                            android:textSize="12sp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -109,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="昨日收益（USDT）"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -117,7 +115,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="累计收益（USDT）"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -125,7 +123,7 @@
                         android:layout_weight="1"
                         android:gravity="right"
                         android:text="预计年收益（USDT）"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -137,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="0.00"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -145,7 +143,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="0.28"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -154,7 +152,7 @@
                         android:layout_weight="1"
                         android:gravity="right"
                         android:text="18.18"
-                        android:textSize="12sp"></TextView>
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
                 <TextView
@@ -162,13 +160,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="存入金额（USDT）"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="900.28"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="12sp"/>
 
             </LinearLayout>
 
@@ -183,7 +181,7 @@
                     android:text="全部"
                     android:textSize="15sp"
                     app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{20}"></Button>
+                    app:radius="@{20}"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -191,7 +189,7 @@
                     android:text="存入记录"
                     android:textSize="15sp"
                     app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{20}"></Button>
+                    app:radius="@{20}"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -199,7 +197,7 @@
                     android:text="收益明细"
                     android:textSize="15sp"
                     app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{20}"></Button>
+                    app:radius="@{20}"/>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -207,7 +205,7 @@
                     android:text="取出记录"
                     android:textSize="15sp"
                     app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{20}"></Button>
+                    app:radius="@{20}"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -225,27 +223,72 @@
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout">
 
             <LinearLayout
+                android:onClick="@{()->_all.onSave()}"
+                app:ResColor="@{R.color.otc_recharge}"
+                app:radius="@{10}"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:padding="10dp"
                 android:layout_height="wrap_content">
                 <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"></View>
+                    android:layout_height="match_parent"/>
                 <View
+                    android:layout_gravity="center"
                     app:ResColor="@{R.color.warn_yellow}"
                     app:radius="@{10}"
                     android:layout_width="20dp"
-                    android:layout_height="20dp">
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:textSize="18sp"
+                    android:text="继续存入"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
                 </View>
+
             </LinearLayout>
 
             <LinearLayout
+                android:onClick="@{()->_all.onOut()}"
+                app:ResColor="@{R.color.otc_recharge}"
+                app:radius="@{10}"
+                android:layout_marginLeft="20dp"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"></LinearLayout>
+                android:padding="10dp"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+                <View
+                    android:layout_gravity="center"
+                    app:ResColor="@{R.color.warn_yellow}"
+                    app:radius="@{10}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:textSize="18sp"
+                    android:text="取出"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+                </View>
+
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

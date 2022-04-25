@@ -3,6 +3,7 @@ package com.yjkj.chainup.new_version.activity.financial
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 
@@ -21,6 +22,9 @@ class HolddetailActivity : BaseMVActivity<HolddetailViewModel?, ActivityHolddeta
 
 
     }
+
+
+
 
 
 }
