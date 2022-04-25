@@ -17,7 +17,6 @@
     </data>
 
     <LinearLayout
-        android:onClick="@{()->onItemListener.onClick()}"
         app:ResColor="@{R.color.white}"
         app:radius="@{15}"
         android:orientation="vertical"
@@ -31,12 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <View
             android:layout_gravity="center"
             android:layout_width="@dimen/dp_20"
             app:ResColor="@{R.color.entrust_buy_color}"
             app:radius="@{10}"
-            android:layout_height="@dimen/dp_20"></View>
+            android:layout_height="@dimen/dp_20" />
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
