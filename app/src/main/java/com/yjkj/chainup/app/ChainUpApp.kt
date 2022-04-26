@@ -19,11 +19,10 @@ import com.chainup.contract.utils.CpLocalManageUtil
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
-import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.extra_service.push.DemoPushService
+
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.net.api.ApiConstants
@@ -94,9 +93,9 @@ class ChainUpApp : CpMyApp() {
         }
         webViewSetPath(this)
         //  com.getui.demo.ChainUpPushService 为第三方自定义推送服务
-        PushManager.getInstance().initialize(this, DemoPushService::class.java)
+//        PushManager.getInstance().initialize(this, DemoPushService::class.java)
         // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
-        PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
+//        PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
     }
 
     private fun getProcessName(context: Context): String? {

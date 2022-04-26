@@ -13,10 +13,8 @@ import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.net.CpNetUrl.getContractSocketNewUrl
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.ws.CpWsContractAgentManager
-import com.igexin.sdk.PushManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
-import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
@@ -88,7 +86,7 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     HttpClient.instance.changeNetwork(it.baseUrl)
                 }
-                PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
+//                PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
                 CpClLogicContractSetting.setApiWsUrl(this,it.contractUrl, it.contractSocketAddress)
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
