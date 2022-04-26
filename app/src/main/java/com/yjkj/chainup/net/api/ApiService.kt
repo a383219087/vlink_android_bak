@@ -567,6 +567,13 @@ interface ApiService {
     @FormUrlEncoded
     @POST("/traderUser/create")
     fun createTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
+    /**
+     * 创建跟单
+     */
+    @POST("/increment/project_list")
+    fun projectList(): Observable<HttpResult<String>>
+
+
 
 }
 

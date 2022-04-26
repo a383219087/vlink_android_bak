@@ -23,7 +23,5 @@ class AllFragment : BaseMVFragment<AllViewModel?, AllFragmentBinding>() {
     override fun initView() {
         mViewModel?.page?.value=index
 
-
-
     }
 }

@@ -46,17 +46,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
+
         <View
             android:layout_marginLeft="10dp"
             app:ResColor="@{R.color.entrust_buy_color}"
             app:radius="@{10}"
             android:layout_gravity="center"
             android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_20"></View>
+            android:layout_height="@dimen/dp_20" />
+
         <View
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"></View>
+            android:layout_height="match_parent" />
         <TextView
             android:layout_gravity="center"
             android:textColor="@color/barcode_viewfinder_laser"
@@ -69,22 +71,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
+
             <TextView
                 android:layout_gravity="center"
                 android:textColor="@color/color_gray"
                 android:text="不限总额"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></TextView>
+                android:layout_height="wrap_content" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent" />
+
             <TextView
                 android:layout_gravity="center"
                 android:textColor="@color/color_gray"
                 android:text="固定年化"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></TextView>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -92,7 +97,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:background="@color/chart_ma5"
-            android:layout_height="1dp"></View>
+            android:layout_height="1dp" />
     </LinearLayout>
 
 

@@ -15,24 +15,13 @@ import com.chainup.contract.base.CpNBaseActivity
 import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.ui.fragment.*
+import com.chainup.contract.ui.fragment.CpCapitalRateFragment
+import com.chainup.contract.ui.fragment.CpContractParaFragment
+import com.chainup.contract.ui.fragment.CpInsuranceFundFragment
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.view.CpNewDialogUtils
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.timmy.tdialog.TDialog
 import kotlinx.android.synthetic.main.cp_activity_contract_detail.*
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.dissmiss
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.ic_close
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.img_order_type
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.ll_coin_select
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.ll_common_select
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.ll_order_type
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.recycler_view
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.rv_left
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.rv_right
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.sub_tab_layout
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.tv_order_type
-import kotlinx.android.synthetic.main.cp_activity_contract_detail.vp_order
 import org.json.JSONArray
 
 
@@ -153,38 +142,38 @@ class CpContractDetailActivity : CpNBaseActivity() {
         var isHasM = false //模拟合约
         val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(this))
         var positionLeft = 0
-        for (i in 0..(mContractList.length() - 1)) {
+        for (i in 0 until mContractList.length()) {
             val obj = mContractList.getJSONObject(i)
             val contractSide = obj.getInt("contractSide")
             val contractType = obj.getString("contractType")
             val id = obj.getInt("id")
-            var classification = 1
-            if (!obj.isNull("classification")){
-                classification = obj.getInt("classification")
-            }
+
             //classification 1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
-            if (classification==1) {
-                isHasU = true
-                sideListU.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else if (classification==2) {
-                isHasB = true
-                sideListB.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else if (classification==4) {
-                isHasM = true
-                sideListM.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else {
-                isHasH = true
-                sideListH.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+            when (contractType) {
+                "E" -> {
+                    isHasU = true
+                    sideListU.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                "S" -> {
+                    isHasM = true
+                    sideListM.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                else -> {
+                    isHasH = true
+                    sideListH.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
             }
             if (CpContractEntrustNewActivity.mContractId == id) {
-                positionLeft = if (classification==1) {
-                    0
-                } else if (classification==2) {
-                    1
-                } else if (classification==4) {
-                    3
-                } else {
-                    2
+                positionLeft = when (contractType) {
+                    "E" -> {
+                        0
+                    }
+                    "S" -> {
+                        3
+                    }
+                    else -> {
+                        2
+                    }
                 }
             }
         }

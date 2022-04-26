@@ -214,11 +214,11 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text13"));
             fragments.add(CpCoinSearchItemFragment.newInstance(1, contractListJson));
         }
-        //币本位
-        if (isHasB) {
-            showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text10"));
-            fragments.add(CpCoinSearchItemFragment.newInstance(0, contractListJson));
-        }
+//        //币本位
+//        if (isHasB) {
+//            showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text10"));
+//            fragments.add(CpCoinSearchItemFragment.newInstance(0, contractListJson));
+//        }
         //混合
         if (isHasH) {
             showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text12"));

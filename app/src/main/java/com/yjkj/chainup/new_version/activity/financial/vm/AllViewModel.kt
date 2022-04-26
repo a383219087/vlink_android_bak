@@ -9,16 +9,17 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.new_version.activity.documentary.AddMoneyDialog
-import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
-import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
-import com.yjkj.chainup.new_version.activity.documentary.WinAndStopDialog
+import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class AllViewModel : BaseViewModel(){
 
     var activity = MutableLiveData<FragmentActivity>()
     var page = MutableLiveData<Int>()
+
+    var list = MutableLiveData<List<String>>()
+
+
     interface OnItemListener {
         fun onClick()
 
@@ -30,7 +31,6 @@ class AllViewModel : BaseViewModel(){
                 .navigation()
         }
 
-
     }
 
 
@@ -39,15 +39,17 @@ class AllViewModel : BaseViewModel(){
         ItemBinding.of<String>(BR.item, R.layout.item_all).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<String> = ObservableArrayList()
 
-    override fun onCreate() {
-        super.onCreate()
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-    }
+
+
+     fun getList(){
+         startTask(apiService.currentStatus(), Consumer {
+
+
+         }, Consumer {
+
+         });
+     }
+
+
+
 }

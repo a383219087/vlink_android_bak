@@ -3,7 +3,6 @@ package com.yjkj.chainup.new_contract.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,17 +14,10 @@ import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.yjkj.chainup.new_contract.fragment.CpLiquidationPriceFragment
 import com.yjkj.chainup.new_contract.fragment.CpPlCalculatorFragment
 import com.yjkj.chainup.new_contract.fragment.CpProfitRateFragment
 import kotlinx.android.synthetic.main.cp_activity_contract_calculate.*
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.ll_coin_select
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.rv_left
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.rv_right
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.sub_tab_layout
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.tv_order_type
-import kotlinx.android.synthetic.main.cp_activity_contract_calculate.vp_order
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -106,38 +98,39 @@ class CpContractCalculateActivity : CpNBaseActivity() {
         var isHasM = false //模拟合约
         val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(this))
         var positionLeft = 0
-        for (i in 0..(mContractList.length() - 1)) {
+        for (i in 0 until mContractList.length()) {
             val obj = mContractList.getJSONObject(i)
             val contractSide = obj.getInt("contractSide")
             val contractType = obj.getString("contractType")
             val id = obj.getInt("id")
-            var classification = 1
-            if (!obj.isNull("classification")){
-                classification = obj.getInt("classification")
-            }
+
+            //E,USDT合约 2,币本位合约 H,混合合约 S,模拟合约
             //classification 1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
-            if (classification==1) {
-                isHasU = true
-                sideListU.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else if (classification==2) {
-                isHasB = true
-                sideListB.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else if (classification==4) {
-                isHasM = true
-                sideListM.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
-            } else {
-                isHasH = true
-                sideListH.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+            when (contractType) {
+                "E" -> {
+                    isHasU = true
+                    sideListU.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                "S" -> {
+                    isHasM = true
+                    sideListM.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                else -> {
+                    isHasH = true
+                    sideListH.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
             }
             if (CpContractEntrustNewActivity.mContractId == id) {
-                positionLeft = if (classification==1) {
-                    0
-                } else if (classification==2) {
-                    1
-                } else if (classification==4) {
-                    3
-                } else {
-                    2
+                positionLeft = when (contractType) {
+                    "E" -> {
+                        0
+                    }
+                    "S" -> {
+                        3
+                    }
+                    else -> {
+                        2
+                    }
                 }
             }
         }

@@ -22,7 +22,6 @@ import org.jetbrains.anko.doAsync
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
 
 class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsResultCallback {
     ///  (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
@@ -81,39 +80,25 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
 
     private fun updateData() {
         //index 1:usdt 0:反向 2：混合 3：模拟
-        for (i in 0..(mContractList.length() - 1)) {
+        for (i in 0 until mContractList.length()) {
             var obj: JSONObject = mContractList.get(i) as JSONObject
             var contractSide = obj.getInt("contractSide")
             val contractType = mContractList.getJSONObject(i).getString("contractType")
-            val classification = mContractList.getJSONObject(i).getInt("classification")
             //classification
-            //1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
-            if (index == 1 && classification == 1) {
+            //E,USDT合约 2,币本位合约 H,混合合约 S,模拟合约
+            if (index == 1 && contractSide == 1 && contractType.equals("E")) {
                 tickers.add(obj)
                 localTickers.add(obj)
-            } else if (index == 0 && classification == 2) {
+            } else if (index == 0 && contractSide == 0 && contractType.equals("E")) {
                 tickers.add(obj)
                 localTickers.add(obj)
-            } else if (index == 2 && classification==3) {
+            } else if (index == 2 && !contractType.equals("E")&& !contractType.equals("S")) {
                 tickers.add(obj)
                 localTickers.add(obj)
-            } else if (index == 3 && classification==4) {
+            } else if (index == 3 && contractType.equals("S")) {
                 tickers.add(obj)
                 localTickers.add(obj)
             }
-//            if (index == 1 && contractSide == 1 && contractType.equals("E")) {
-//                tickers.add(obj)
-//                localTickers.add(obj)
-//            } else if (index == 0 && contractSide == 0 && contractType.equals("E")) {
-//                tickers.add(obj)
-//                localTickers.add(obj)
-//            } else if (index == 2 && !contractType.equals("E")&& !contractType.equals("S")) {
-//                tickers.add(obj)
-//                localTickers.add(obj)
-//            } else if (index == 3 && contractType.equals("S")) {
-//                tickers.add(obj)
-//                localTickers.add(obj)
-//            }
             tickers.sortBy { it.getInt("sort") }
             localTickers.sortBy { it.getInt("sort") }
         }
