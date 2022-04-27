@@ -19,18 +19,17 @@ class ProductFragment : BaseMVFragment<ProductViewModel?, FragmentProductBinding
 
 
     override fun setContentView(): Int = R.layout.fragment_product
-    private var mFragments: ArrayList<Fragment>? = null
+    private val mFragments = mutableListOf<Fragment>()
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
-        mFragments = ArrayList()
-        mFragments?.add(ARouter.getInstance()
-            .build(RoutePath.AllFragment)
-            .withString("index","0")
-            .navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment)
+        mFragments.add(
+            ARouter.getInstance().build(RoutePath.AllFragment)
+                .withString("index","0")
+                .navigation() as Fragment)
+        mFragments.add(ARouter.getInstance().build(RoutePath.AllFragment)
             .withString("index","1")
             .navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.AllFragment)
+        mFragments.add(ARouter.getInstance().build(RoutePath.AllFragment)
             .withString("index","2")
             .navigation() as Fragment)
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
