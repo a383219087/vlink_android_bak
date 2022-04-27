@@ -18,7 +18,6 @@ import android.util.Log;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.yjkj.chainup.app.ChainUpApp;
-import com.yjkj.chainup.db.service.UserDataService;
 import com.yjkj.chainup.manager.LanguageUtil;
 import com.yjkj.chainup.net.api.ApiConstants;
 
@@ -242,13 +241,16 @@ public class SystemUtils {
     }
 
     public static HashMap<String, String> getHeaderParams() {
-        if (!TextUtils.isEmpty(UserDataService.getInstance().getToken())) {
-            HEADER_PARAMS.put("exchange-token", UserDataService.getInstance().getToken());
-        } else {
-            HEADER_PARAMS.remove("exchange-token");
-        }
-        HEADER_PARAMS.put("exchange-language", NLanguageUtil.getLanguage());
-        HEADER_PARAMS.put("appAcceptLanguage", NLanguageUtil.getLanguage());
+//        if (!TextUtils.isEmpty(UserDataService.getInstance().getToken())) {
+//            HEADER_PARAMS.put("exchange-token", UserDataService.getInstance().getToken());
+//        } else {
+//            HEADER_PARAMS.remove("exchange-token");
+//        }
+//        HEADER_PARAMS.put("exchange-language", NLanguageUtil.getLanguage());
+//        HEADER_PARAMS.put("appAcceptLanguage", NLanguageUtil.getLanguage());
+
+        HEADER_PARAMS.put("exchange-token","7c019d2602cd9c4c33d8eb7d5f8d86c912d097496371464bb18d005069850563");
+        HEADER_PARAMS.put("exchange-language", "zh_CN");
         return HEADER_PARAMS;
     }
 

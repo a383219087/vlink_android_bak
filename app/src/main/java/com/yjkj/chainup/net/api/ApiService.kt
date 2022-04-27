@@ -571,7 +571,7 @@ interface ApiService {
      * 创建跟单
      */
     @POST("/increment/project_list")
-    fun projectList(): Observable<HttpResult<String>>
+    fun projectList(): Observable<HttpResult<List<ProjectBean>>>
 
 
 

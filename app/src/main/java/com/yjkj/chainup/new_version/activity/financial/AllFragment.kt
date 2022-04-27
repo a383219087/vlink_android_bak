@@ -13,7 +13,7 @@ import com.yjkj.chainup.new_version.activity.financial.vm.AllViewModel
 class AllFragment : BaseMVFragment<AllViewModel?, AllFragmentBinding>() {
     @Autowired(name = "index")
     @JvmField
-    var index =0
+    var index ="0"
 
 
 
@@ -21,7 +21,8 @@ class AllFragment : BaseMVFragment<AllViewModel?, AllFragmentBinding>() {
 
     override fun setContentView(): Int = R.layout.all_fragment
     override fun initView() {
-        mViewModel?.page?.value=index
+        mViewModel?.page?.value=index.toInt()
+        mViewModel?.getList()
 
     }
 }
