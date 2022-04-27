@@ -42,7 +42,7 @@ class AllViewModel : BaseViewModel(){
 
 
      fun getList(){
-         startTask(apiService.currentStatus(), Consumer {
+         startTask(apiService.projectList(), Consumer {
 
 
          }, Consumer {
