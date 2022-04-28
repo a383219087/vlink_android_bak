@@ -568,10 +568,20 @@ interface ApiService {
     @POST("/traderUser/create")
     fun createTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
     /**
-     * 创建跟单
+     * 理财列表
      */
     @POST("/increment/project_list")
     fun projectList(): Observable<HttpResult<List<ProjectBean>>>
+    /**
+     * 理财详情
+     */
+    @POST("/increment/project_info")
+    fun projectInfo(@Body requestBody: RequestBody): Observable<HttpResult<ProjectInfo>>
+    /**
+     * 申请理财
+     */
+    @POST("/increment/project/apply")
+    fun apply(@Body requestBody: RequestBody): Observable<HttpResult<String>>
 
 
 

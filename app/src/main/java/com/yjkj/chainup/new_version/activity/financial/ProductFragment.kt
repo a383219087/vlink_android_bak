@@ -22,16 +22,9 @@ class ProductFragment : BaseMVFragment<ProductViewModel?, FragmentProductBinding
     private val mFragments = mutableListOf<Fragment>()
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
-        mFragments.add(
-            ARouter.getInstance().build(RoutePath.AllFragment)
-                .withString("index","0")
-                .navigation() as Fragment)
-        mFragments.add(ARouter.getInstance().build(RoutePath.AllFragment)
-            .withString("index","1")
-            .navigation() as Fragment)
-        mFragments.add(ARouter.getInstance().build(RoutePath.AllFragment)
-            .withString("index","2")
-            .navigation() as Fragment)
+        mFragments.add(AllFragment.newInstance(0))
+        mFragments.add(AllFragment.newInstance(1))
+        mFragments.add(AllFragment.newInstance(2))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
     }

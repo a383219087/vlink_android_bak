@@ -35,7 +35,7 @@ ext {
             appswitchsaas:"0",
             keyPassword:"123456",
 
-            buglyId:"3c87d4fe16",
+            buglyId:"a72519d9ba",
             exChainupBundleVersion:"4550",
             homepageService:"0",
             umAppKey:"5bc7f280b465f50f72000134",

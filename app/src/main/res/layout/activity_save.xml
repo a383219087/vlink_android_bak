@@ -5,16 +5,14 @@
     >
     <data>
 
+
         <variable
-            name="item"
-            type="String" />
+            name="_all"
+            type="com.yjkj.chainup.new_version.activity.financial.vm.SaveViewModel" />
 
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
-        <variable
-            name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.SaveViewModel.OnItemListener" />
     </data>
 
     <LinearLayout
@@ -50,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text=" UDST 活期"
+                        android:text="@{_all.bean.name}"
                         android:textSize="16sp"/>
 
                 <View
@@ -68,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginLeft="10dp"
-                        android:text=" 2%"
+                        android:text="@{_all.bean.gainRate+ `%`}"
                         android:textColor="@color/barcode_viewfinder_laser"
                         android:textSize="13sp"/>
 
@@ -101,7 +99,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"/>
                     <TextView
-                        android:text="可用：748.32USDT"
+                        android:text="@{`可用：`+_all.bean.userNormalAmount+_all.bean.baseCoin}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -114,16 +112,18 @@
                         android:textSize="15sp"
                         android:hint="请输入存入金额"
                         android:layout_width="0dp"
+                        android:text="@={_all.text}"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginLeft="20dp"
-                        android:text="USDT"
+                        android:text="@{_all.bean.baseCoin}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginLeft="10dp"
                         android:text="全部"
+                        android:onClick="@{()->_all.allOnClick()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -146,13 +146,14 @@
                             android:text="存款总额"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+
                         <View
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
                         <TextView
                             android:textSize="12sp"
-                            android:text="0 USDT"
+                            android:text="@{`0`+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -167,13 +168,14 @@
                             android:text="单笔限额"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+
                         <View
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
                         <TextView
                             android:textSize="12sp"
-                            android:text="1000-100000 USDT"
+                            android:text="@{_all.bean.buyAmountMin+`-`+_all.bean.buyAmountMax+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -188,13 +190,14 @@
                             android:text="预计每日收益"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+
                         <View
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
                         <TextView
                             android:textSize="12sp"
-                            android:text="0 USDT"
+                            android:text="@{`0`+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -212,6 +215,7 @@
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:text="确定存入"
+            android:onClick="@{()->_all.save()}"
             android:textColor="@color/white"
             android:layout_height="wrap_content"/>
 

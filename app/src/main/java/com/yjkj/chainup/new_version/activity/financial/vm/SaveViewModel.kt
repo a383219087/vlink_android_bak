@@ -1,42 +1,47 @@
 package com.yjkj.chainup.new_version.activity.financial.vm
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
-import com.yjkj.chainup.BR
-import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import me.tatarka.bindingcollectionadapter2.ItemBinding
+import com.yjkj.chainup.bean.ProjectBean
+import com.yjkj.chainup.bean.ProjectInfo
+import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.ToastUtils
+import io.reactivex.functions.Consumer
+import java.util.*
 
-class SaveViewModel:BaseViewModel() {
+class SaveViewModel : BaseViewModel() {
     var activity = MutableLiveData<FragmentActivity>()
 
-    interface OnItemListener {
-        fun onClick()
-        fun onSave()
-        fun onOut()
+    var bean = MutableLiveData<ProjectInfo>()
+    var id = MutableLiveData<String>()
 
-    }
 
-    var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick() {
-        }
+    var text = MutableLiveData<String>()
 
-        override fun onSave() {
 
-        }
-        override fun onOut() {
-
-        }
+    fun allOnClick() {
+        text.value = bean.value?.userNormalAmount.toString()
 
     }
 
 
+    fun save() {
+        if (text.value.isNullOrEmpty()) {
+            ToastUtils.showToast("请输入金额")
+            return
+        }
+        val map = TreeMap<String, String>()
+        map["amount"] = text.value.toString()
+        map["projectId"] = id.value.toString()
+        startTask(apiService.projectInfo(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+          ToastUtils.showToast("申请成功")
 
 
-    override fun onCreate() {
-        super.onCreate()
+        }, Consumer {
+            ToastUtils.showToast("申请失败")
+        })
 
     }
+
 }

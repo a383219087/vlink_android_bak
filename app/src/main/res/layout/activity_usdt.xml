@@ -6,15 +6,13 @@
     <data>
 
         <variable
-            name="item"
-            type="String" />
+            name="_all"
+            type="com.yjkj.chainup.new_version.activity.financial.vm.UsdtViewModel" />
 
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
-        <variable
-            name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.UsdtViewModel.OnItemListener" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -662,6 +660,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             app:radius="@{10}"
+            android:onClick="@{()->_all.toSaveActivity()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
