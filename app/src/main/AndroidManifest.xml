@@ -360,6 +360,7 @@
         <activity android:name=".new_version.activity.documentary.ApplyTradersActivity" />
         <activity android:name=".new_version.activity.binary.BinaryActivity" />
         <activity android:name=".new_version.activity.documentary.DocumentaryDetailActivity" />
+        <activity android:name=".new_version.activity.financial.OutActivity" />
 
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"

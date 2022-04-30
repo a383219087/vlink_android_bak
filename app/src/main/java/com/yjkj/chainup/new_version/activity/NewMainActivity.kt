@@ -574,7 +574,7 @@ class NewMainActivity : NBaseActivity() {
                         jsonObject.optJSONObject("data").run {
                             val contractList = optJSONArray("contractList")
                             var marginCoinList = optJSONArray("marginCoinList")
-                            if (contractList.length() == 0) {
+                            if (contractList==null||contractList.length() == 0) {
                                 return
                             }
                             LogicContractSetting.setContractJsonListStr(mActivity, contractList.toString())

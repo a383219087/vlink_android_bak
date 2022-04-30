@@ -33,7 +33,6 @@ class UsdtViewModel: BaseViewModel() {
 
     fun toSaveActivity(){
         ARouter.getInstance().build(RoutePath.SaveActivity)
-            .withSerializable("bean",bean.value)
             .withString("id",bean1.value?.id.toString())
             .navigation()
 

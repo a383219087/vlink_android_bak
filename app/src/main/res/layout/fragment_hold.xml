@@ -58,14 +58,14 @@
 
                  <TextView
                      android:textSize="25sp"
-                     android:text="5852.72"
+                     android:text="@{_all.bean.totalUserCurrentAmount+``}"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"/>
 
                  <TextView
                      android:layout_marginLeft="5dp"
                      android:textSize="18sp"
-                     android:text="CNY"
+                     android:text="@{_all.bean.countryCoin}"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"/>
 
@@ -95,7 +95,7 @@
 
              <TextView
                  android:layout_marginTop="5dp"
-                 android:text="≈900.28 USDT"
+                 android:text="@{`≈`+_all.bean.totalUserCurrentAmountCom+_all.bean.comCoin}"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
 
@@ -114,22 +114,16 @@
                  android:layout_height="wrap_content">
                  <TextView
                      android:textSize="12sp"
-                     android:text="昨日收益（USDT）"
+                     android:text="@{`昨日收益（`+_all.bean.comCoin+`)`}"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"/>
-                 <TextView
-                     android:gravity="center"
-                     android:textSize="12sp"
-                     android:layout_width="0dp"
-                     android:text="到期收益（USDT）"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"/>
+
                  <TextView
                      android:gravity="right"
                      android:textSize="12sp"
                      android:layout_width="0dp"
-                     android:text="总收益（USDT）"
+                     android:text="@{`总收益（`+_all.bean.comCoin+`)`}"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"/>
              </LinearLayout>
@@ -140,23 +134,17 @@
                  android:layout_height="wrap_content">
                  <TextView
                      android:textSize="12sp"
-                     android:text="0.00"
+                     android:text="@{_all.bean.totalYesterdayUserGainAmount+``}"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"/>
-                 <TextView
-                     android:gravity="center"
-                     android:textSize="12sp"
-                     android:layout_width="0dp"
-                     android:text="0.00"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"/>
+
                  <TextView
                      android:gravity="right"
                      android:layout_marginRight="10dp"
                      android:textSize="12sp"
                      android:layout_width="0dp"
-                     android:text="0.28"
+                     android:text="@{_all.bean.totalUserGainAmount+``}"
                      android:layout_height="wrap_content"
                      android:layout_weight="1"/>
              </LinearLayout>
@@ -169,21 +157,31 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
              <TextView
-                 app:ResColor="@{R.color.warn_yellow}"
+                 app:ResColor="@{_all.queryType==0?R.color.warn_yellow:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
                  android:text="持仓中"
+                 android:onClick="@{()->_all.setQuery(0)}"
+                 android:padding="5dp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
 
              <TextView
                  android:layout_marginLeft="10dp"
-                 app:ResColor="@{R.color.tabbar_divide_color}"
+                 app:ResColor="@{_all.queryType==1?R.color.warn_yellow:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
                  android:text="历史持仓"
+                 android:onClick="@{()->_all.setQuery(1)}"
+                 android:padding="5dp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
 
          </LinearLayout>
+         <com.scwang.smartrefresh.layout.SmartRefreshLayout
+             android:id="@+id/twinklingRefreshLayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:onLoadMoreCommand="@{_all.onLoadMoreCommand}"
+             app:onRefreshCommand="@{_all.onRefreshCommand}">
 
          <androidx.recyclerview.widget.RecyclerView
              android:layout_marginTop="10dp"
@@ -192,7 +190,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
      </LinearLayout>
 
 

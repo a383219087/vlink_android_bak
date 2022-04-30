@@ -56,7 +56,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text=" UDST 活期"
+                            android:text="@{_all.bean.projectName}"
                             android:textSize="16sp"/>
 
                         <TextView
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginLeft="10dp"
-                            android:text=" 2%"
+                            android:text="@{_all.bean.gainRate+`%`}"
                             android:textColor="@color/barcode_viewfinder_laser"
                             android:textSize="13sp"/>
 
@@ -106,7 +106,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="昨日收益（USDT）"
+                        android:text="@{`昨日收益（`+_all.bean.gainCoin+`)`}"
                         android:textSize="12sp"/>
 
                     <TextView
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="累计收益（USDT）"
+                        android:text="@{`累计收益（`+_all.bean.gainCoin+`)`}"
                         android:textSize="12sp"/>
 
                     <TextView
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="预计年收益（USDT）"
+                        android:text="@{`预计年收益（`+_all.bean.gainCoin+`)`}"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -134,7 +134,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0.00"
+                        android:text="@{_all.bean.yesterdayUserGainAmount+``}"
                         android:textSize="12sp"/>
 
                     <TextView
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="0.28"
+                        android:text="@{_all.bean.userGainAmount+``}"
                         android:textSize="12sp"/>
 
                     <TextView
@@ -151,7 +151,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="18.18"
+                        android:text="@{_all.bean.almostUserGainAmount+``}"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -159,13 +159,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="存入金额（USDT）"
+                    android:text="@{`存入金额（`+_all.bean.gainCoin+`)`}"
                     android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="900.28"
+                    android:text="@{_all.bean.userCurrentAmount+``}"
                     android:textSize="12sp"/>
 
             </LinearLayout>
@@ -180,7 +180,8 @@
                     android:layout_height="40dp"
                     android:text="全部"
                     android:textSize="15sp"
-                    app:ResColor="@{R.color.main_font_color}"
+                    app:ResColor="@{_all.detailType==4?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:onClick="@{()->_all.setDetailType(4)}"
                     app:radius="@{20}"/>
 
                 <Button
@@ -188,7 +189,8 @@
                     android:layout_height="40dp"
                     android:text="存入记录"
                     android:textSize="15sp"
-                    app:ResColor="@{R.color.main_font_color}"
+                    app:ResColor="@{_all.detailType==1?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:onClick="@{()->_all.setDetailType(1)}"
                     app:radius="@{20}"/>
 
                 <Button
@@ -196,7 +198,8 @@
                     android:layout_height="40dp"
                     android:text="收益明细"
                     android:textSize="15sp"
-                    app:ResColor="@{R.color.main_font_color}"
+                    app:ResColor="@{_all.detailType==3?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:onClick="@{()->_all.setDetailType(3)}"
                     app:radius="@{20}"/>
 
                 <Button
@@ -204,30 +207,41 @@
                     android:layout_height="40dp"
                     android:text="取出记录"
                     android:textSize="15sp"
-                    app:ResColor="@{R.color.main_font_color}"
+                    app:ResColor="@{_all.detailType==2?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:onClick="@{()->_all.setDetailType(2)}"
                     app:radius="@{20}"/>
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/twinklingRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:itemBinding="@{_all.itemBinding}"
-                app:items="@{_all.items}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:onLoadMoreCommand="@{_all.onLoadMoreCommand}"
+                app:onRefreshCommand="@{_all.onRefreshCommand}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="10dp"
+                    app:itemBinding="@{_all.itemBinding}"
+                    app:items="@{_all.items}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout">
 
             <LinearLayout
                 android:onClick="@{()->_all.onSave()}"
                 app:ResColor="@{R.color.otc_recharge}"
                 app:radius="@{10}"
+                android:visibility="@{_all.bean.isShowBuy()==1?View.VISIBLE:View.GONE}"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
+                android:layout_margin="@dimen/dp_10"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:layout_height="wrap_content">
@@ -259,9 +273,10 @@
                 android:onClick="@{()->_all.onOut()}"
                 app:ResColor="@{R.color.otc_recharge}"
                 app:radius="@{10}"
-                android:layout_marginLeft="20dp"
+                android:layout_margin="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
+                android:visibility="@{_all.bean.projectType&lt;2?View.VISIBLE:View.GONE}"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:layout_height="wrap_content">

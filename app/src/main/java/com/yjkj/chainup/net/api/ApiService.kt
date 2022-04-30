@@ -582,6 +582,21 @@ interface ApiService {
      */
     @POST("/increment/project/apply")
     fun apply(@Body requestBody: RequestBody): Observable<HttpResult<String>>
+    /**
+     * 退购接口
+     */
+    @POST("/increment/project/redeem")
+    fun redeem(@Body requestBody: RequestBody): Observable<HttpResult<String>>
+    /**
+     * 理财明细表
+     */
+    @POST("/increment/my_pos")
+    fun myPos(@Body requestBody: RequestBody): Observable<HttpResult<MyPos>>
+    /**
+     * 计息明细、存取明细查询接口
+     */
+    @POST("/increment/project/incrementActDetail")
+    fun incrementActDetail(@Body requestBody: RequestBody): Observable<HttpResult<IncrementActList>>
 
 
 

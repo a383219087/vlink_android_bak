@@ -64,6 +64,7 @@ public class RoutePath {
     public static final String FinancialActivity = "/financial/FinancialActivity";
     public static final String UsdtActivity = "/financial/UsdtActivity";
     public static final String SaveActivity = "/financial/SaveActivity";
+    public static final String OutActivity = "/financial/OutActivity";
     public static final String Holddetail = "/financial/Holddetail";
     public static final String ProductFragment = "/financial/ProductFragment";
 
