@@ -42,8 +42,8 @@ class HolddetailViewModel:BaseViewModel() {
         ItemBinding.of<Item>(BR.item, R.layout.item_holddetail)
     val items: ObservableList<Item> = ObservableArrayList()
 
-    //0持仓中1历史持仓
-    var detailType = MutableLiveData(0)
+
+    var detailType = MutableLiveData(4)
 
     var isRefreshing = MutableLiveData(false)
     var isLoadMore = MutableLiveData(false)

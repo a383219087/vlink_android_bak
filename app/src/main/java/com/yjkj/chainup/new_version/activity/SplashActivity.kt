@@ -65,12 +65,12 @@ class SplashActivity : AppCompatActivity() {
         }
         liksArray.add("http://8.219.64.81:8091")
         liksArray.add("http://8.219.72.62:8091")
-//        checkNetworkLine(liksArray[currentCheckIndex])
-                        if (hasPermission()) {
-                    Handler().postDelayed({ goHome() }, 150)
-                } else {
-                    requestPermission()
-                }
+        checkNetworkLine(liksArray[currentCheckIndex])
+//                        if (hasPermission()) {
+//                    Handler().postDelayed({ goHome() }, 150)
+//                } else {
+//                    requestPermission()
+//                }
 
     }
 

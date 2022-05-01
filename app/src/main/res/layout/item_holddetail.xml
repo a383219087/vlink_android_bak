@@ -11,9 +11,6 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
-        <variable
-            name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.HolddetailViewModel.OnItemListener" />
     </data>
 
     <LinearLayout
@@ -21,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:onClick="@{()->onItemListener.onClick()}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"

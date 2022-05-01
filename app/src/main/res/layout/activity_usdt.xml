@@ -137,7 +137,7 @@
 
         <TextView
             android:id="@+id/usdt_text1"
-            android:layout_marginTop="@dimen/dk_dp_10"
+            android:layout_marginTop="@dimen/dp_10"
             android:padding="5dp"
             android:text="高收益，无风险，到期自动回款"
             android:textColor="@color/base_text_grey_0"
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_marginTop="@dimen/dk_dp_10"
+            android:layout_marginTop="@dimen/dp_10"
             android:padding="5dp"
             android:text="当日存入，次日起息，滚动复利，灵活存取"
             android:textColor="@color/base_text_grey_0"
