@@ -7,6 +7,8 @@ import com.yjkj.chainup.model.NDataHandler
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.net_new.HttpParams
 import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
@@ -23,13 +25,9 @@ import okhttp3.ResponseBody
  * @Description: 合约具体请求
  */
 class NewContractModel : BaseDataManager() {
+    var contractApiService: ContractApiService = HttpClient.instance.createContractApi()
 
-    /**
-     * 获取合约公共信息
-     */
-    fun getPublicInfo(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getPublicInfo(getBaseReqBody()), consumer)
-    }
+
 
     /**
      * 获取合约用户配置信息（保证金模式/杠杆/交易喜好）

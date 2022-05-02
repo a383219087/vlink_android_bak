@@ -92,7 +92,7 @@ class ClContractHistoricalPositionActivity : NBaseActivity() {
         val mContractCoinListJsonStr = LogicContractSetting.getContractJsonListStr(mActivity)
         if (mContractCoinListJsonStr != null && mContractCoinListJsonStr.isNotEmpty()) {
             var mContractList = JSONArray(mContractCoinListJsonStr)
-            for (i in 0..(mContractList.length() - 1)) {
+            for (i in 0 until mContractList.length()) {
                 var obj: JSONObject = mContractList.get(i) as JSONObject
                 var id = obj.getInt("id")
                 var symbol = LogicContractSetting.getContractShowNameById(ContractSDKAgent.context, id)

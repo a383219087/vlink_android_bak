@@ -213,7 +213,7 @@ class HttpClient private constructor() {
     }
 
 
-    private fun createContractApi(): ContractApiService {
+    fun createContractApi(): ContractApiService {
         if (!StringUtil.isHttpUrl(CONTRACT_URL))
             CONTRACT_URL = AppConfig.default_host
         val retrofit = Retrofit.Builder()

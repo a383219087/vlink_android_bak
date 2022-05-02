@@ -22,10 +22,18 @@ import com.yjkj.chainup.new_version.view.ForegroundCallbacksListener
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.wedegit.ForegroundCallbacks
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONObject
 
 /**
  *
@@ -271,7 +279,18 @@ abstract class NBaseFragment : Fragment() {
         }
         disposablesTrade!!.add(disposable)
     }
-
+    /**
+     * 启动网络任务
+     */
+    fun <D> startTask(single: Observable<D>, onNext: Consumer<in D>, onError: Consumer<in Throwable>) {
+        if (disposables == null) {
+            disposables = CompositeDisposable()
+        }
+        disposables!!.add(
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError)
+        )
+    }
     /*
      *注销观察者，防止内存泄漏
      */
@@ -336,5 +355,7 @@ abstract class NBaseFragment : Fragment() {
         }
         return false
     }
-
+    fun toRequestBody(params: Map<String, String>): RequestBody {
+        return JSONObject(params).toString().toRequestBody("application/json;charset=utf-8".toMediaTypeOrNull())
+    }
 }

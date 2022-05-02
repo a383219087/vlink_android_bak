@@ -35,6 +35,8 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.RateManager
+import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.net_new.JSONUtil
 import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.new_contract.activity.ClMarketDetail4Activity
 import com.yjkj.chainup.new_contract.activity.ClSelectLeverageActivity
@@ -48,6 +50,7 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.fragment_cl_contract.*
 import kotlinx.android.synthetic.main.fragment_new_version_inter_homepage.vtc_advertising
 import org.greenrobot.eventbus.Subscribe
@@ -175,48 +178,53 @@ class ClContractFragment : NBaseFragment(), SwipeRefreshLayout.OnRefreshListener
 
     private fun loadContractPublicInfo() {
         symbolList = ArrayList()
-        addDisposable(getContractModel().getPublicInfo(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            contractList = optJSONArray("contractList")
-                            var marginCoinList = optJSONArray("marginCoinList")
-                            currentTimeMillis = optString("currentTimeMillis").toLong()
-                            getCurrentTimeMillis()
-                            if (contractList.length() == 0) {
-                                return
-                            }
-                            LogicContractSetting.setContractJsonListStr(context, contractList.toString())
-                            LogicContractSetting.setContractMarginCoinListStr(context, marginCoinList.toString())
-                            val arrays = arrayOfNulls<String>(contractList.length())
-                            var msgEvent = MessageEvent(MessageEvent.sl_contract_first_show_info_event)
+        val map = TreeMap<String, String>()
+        startTask(getContractModel().contractApiService.getPublicInfo(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+            val jsonObject = JSONUtil.mapToJson(it.data)
+            jsonObject.optJSONObject("data").run {
+                contractList = optJSONArray("contractList")
+                var marginCoinList = optJSONArray("marginCoinList")
+                currentTimeMillis = optString("currentTimeMillis").toLong()
+                getCurrentTimeMillis()
+                if (contractList.length() == 0) {
+                    return@Consumer
+                }
+                LogicContractSetting.setContractJsonListStr(context, contractList.toString())
+                LogicContractSetting.setContractMarginCoinListStr(context, marginCoinList.toString())
+                val arrays = arrayOfNulls<String>(contractList.length())
+                var msgEvent = MessageEvent(MessageEvent.sl_contract_first_show_info_event)
 
-                            for (i in 0..(contractList.length() - 1)) {
-                                var obj: JSONObject = contractList.get(i) as JSONObject
-                                var currentSymbolBuff = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
-                                arrays.set(i, currentSymbolBuff)
-                                symbolList.add(currentSymbolBuff)
-                                if (LogicContractSetting.getContractCurrentSelectedId(context) == obj.getInt("id")) {
-                                    msgEvent.msg_content = obj
-                                    currentSymbol = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
-                                }
-                            }
-                            if (msgEvent.msg_content == null) {
-                                msgEvent.msg_content = getContractJsonListSortOne(contractList)
-                            }
-
-                            var obj: JSONObject? = getContractJsonListSortOne(contractList)
-                            obj?.apply {
-                                if (TextUtils.isEmpty(currentSymbol)) {
-                                    currentSymbol = (getString("contractType") + "_" + getString("symbol").replace("-", "")).toLowerCase()
-                                }
-                                WsContractAgentManager.instance.sendMessage(hashMapOf("symbol" to currentSymbol, "step" to depthLevel), this@ClContractFragment)
-                            }
-                            EventBusUtil.post(msgEvent)
-                            showTabInfo(msgEvent.msg_content as JSONObject)
-                        }
+                for (i in 0..(contractList.length() - 1)) {
+                    var obj: JSONObject = contractList.get(i) as JSONObject
+                    var currentSymbolBuff = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
+                    arrays.set(i, currentSymbolBuff)
+                    symbolList.add(currentSymbolBuff)
+                    if (LogicContractSetting.getContractCurrentSelectedId(context) == obj.getInt("id")) {
+                        msgEvent.msg_content = obj
+                        currentSymbol = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
                     }
-                }))
+                }
+                if (msgEvent.msg_content == null) {
+                    msgEvent.msg_content = getContractJsonListSortOne(contractList)
+                }
+
+                var obj: JSONObject? = getContractJsonListSortOne(contractList)
+                obj?.apply {
+                    if (TextUtils.isEmpty(currentSymbol)) {
+                        currentSymbol = (getString("contractType") + "_" + getString("symbol").replace("-", "")).toLowerCase()
+                    }
+                    WsContractAgentManager.instance.sendMessage(hashMapOf("symbol" to currentSymbol, "step" to depthLevel), this@ClContractFragment)
+                }
+                EventBusUtil.post(msgEvent)
+                showTabInfo(msgEvent.msg_content as JSONObject)
+            }
+
+
+
+
+        }, Consumer {
+
+        })
 
     }
 

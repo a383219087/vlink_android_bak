@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import com.common.sdk.utlis.StringUtil;
+import com.yjkj.chainup.app.ChainUpApp;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -240,7 +242,17 @@ public class UtilSystem {
 
         return versionName;
     }
+    public static String getVersionName1() {
+        String versionName;
+        try {
+            versionName = ChainUpApp.appContext.getPackageManager()
+                    .getPackageInfo(ChainUpApp.appContext.getPackageName(), 0).versionName;
+        } catch (Exception e) {
+            versionName = StringUtil.EMPTY_STRING;
+        }
 
+        return versionName;
+    }
 
     public static void startApkInstallActivity(Context context, Uri uri) {
 

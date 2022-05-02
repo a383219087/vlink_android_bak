@@ -230,7 +230,8 @@ interface ContractApiService {
      *  获取合约公共信息
      */
     @POST("common/public_info")
-    fun getPublicInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
+    fun getPublicInfo(@Body requestBody: RequestBody): Observable<HttpResult<MutableMap<String, Any>>>
+
 
     /**
      *  获取合约公共实时信息    返回 标记价格 、资金费率 、指数价格

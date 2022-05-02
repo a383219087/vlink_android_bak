@@ -31,6 +31,7 @@ import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
@@ -50,8 +51,10 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
+import com.yjkj.chainup.net_new.JSONUtil
 import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
@@ -66,6 +69,7 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_main.*
 import kotlinx.android.synthetic.main.check_visit_status.*
@@ -73,7 +77,9 @@ import kotlinx.android.synthetic.main.no_network_remind.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 // TODO 优化
 @Route(path = RoutePath.NewMainActivity)
@@ -500,13 +506,6 @@ class NewMainActivity : NBaseActivity() {
             addDisposable(getMainModel().public_info_v4(MyNDisposableObserver(mActivity)))
         }
         contractOpen = PublicInfoDataService.getInstance().contractOpen(catchObj)
-        AppConstant.IS_NEW_CONTRACT = (PublicInfoDataService.getInstance().getContractMode() == 1)
-        if (AppConstant.IS_NEW_CONTRACT && contractOpen) {
-            var mContractObj = LogicContractSetting.getContractJsonListStr(mActivity)
-            if (TextUtils.isEmpty(mContractObj)) {
-                loadContractPublicInfo()
-            }
-        }
 
         if (ApiConstants.isGooglePlay()) {
             CheckUpdateUtil.update(mActivity, true)
@@ -567,23 +566,7 @@ class NewMainActivity : NBaseActivity() {
         }
     }
 
-    private fun loadContractPublicInfo() {
-        addDisposable(getContractModel().getPublicInfo(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            val contractList = optJSONArray("contractList")
-                            var marginCoinList = optJSONArray("marginCoinList")
-                            if (contractList==null||contractList.length() == 0) {
-                                return
-                            }
-                            LogicContractSetting.setContractJsonListStr(mActivity, contractList.toString())
-                            LogicContractSetting.setContractMarginCoinListStr(mActivity, marginCoinList.toString())
-                        }
-                    }
-                }))
 
-    }
 
     var hasCommmitBikiUserInfo = false
     fun loginToken() {
@@ -606,7 +589,9 @@ class NewMainActivity : NBaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        loopStart()
+        if(BuildConfig.isRelease){
+            loopStart()
+        }
     }
 
     override fun onPause() {
@@ -716,6 +701,7 @@ class NewMainActivity : NBaseActivity() {
         System.exit(0)
     }
 
+    @SuppressLint("CheckResult")
     private fun getAdvert() {
         homeAdvert(this)
         HttpClient.instance.getHomeAdvert()
@@ -742,7 +728,7 @@ class NewMainActivity : NBaseActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    fun isShouldHideKeyboard(v: View, event: MotionEvent): Boolean {
+    private fun isShouldHideKeyboard(v: View, event: MotionEvent): Boolean {
         if (v != null && (v is EditText)) {
             val l = intArrayOf(0, 0)
             v.getLocationInWindow(l)
@@ -750,12 +736,8 @@ class NewMainActivity : NBaseActivity() {
             val top = l[1]
             val bottom = top + v.getHeight()
             val right = left + v.getWidth()
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(event.x > left && event.x < right
+                    && event.y > top && event.y < bottom)
         }
         return false
     }
