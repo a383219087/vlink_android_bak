@@ -24,6 +24,7 @@ import okhttp3.ResponseBody
  */
 class ContractModel : BaseDataManager() {
 
+
     /**
      * 1. 合约的公共接口
      */

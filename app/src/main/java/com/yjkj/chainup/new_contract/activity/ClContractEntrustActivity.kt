@@ -259,32 +259,27 @@ class ClContractEntrustActivity : NBaseActivity() {
      */
     private fun loadContractData() {
         mContractId = intent.getIntExtra("contractId", 0)
+        addDisposable(getContractModel().getPublicInfo(
+            consumer = object : NDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    jsonObject.optJSONObject("data").run {
+                        var mContractList = optJSONArray("contractList")
+                        for (i in 0..(mContractList.length() - 1)) {
+                            var obj: JSONObject = mContractList.get(i) as JSONObject
+                            var id = obj.getInt("id")
+                            var symbol = LogicContractSetting.getContractShowNameById(context, id)
+                            contractList.add(TabInfo(symbol, i, id.toString()))
+                            if (mContractId == id) {
+                                mCurrContractInfo = mCurrContractInfo ?: contractList[i]
+                            }
+                        }
+                        mCurrContractInfo = mCurrContractInfo ?: contractList[0]
+                        updateContractUI()
 
-        val map = TreeMap<String, String>()
-        startTask(getContractModel().contractApiService.getPublicInfo(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-            val jsonObject = JSONUtil.mapToJson(it.data)
-            jsonObject.optJSONObject("data").run {
-                val mContractList = optJSONArray("contractList")
-                for (i in 0 until mContractList.length()) {
-                    val obj: JSONObject = mContractList.get(i) as JSONObject
-                    val id = obj.getInt("id")
-                    val symbol = LogicContractSetting.getContractShowNameById(context, id)
-                    contractList.add(TabInfo(symbol, i, id.toString()))
-                    if (mContractId == id) {
-                        mCurrContractInfo = mCurrContractInfo ?: contractList[i]
                     }
                 }
-                mCurrContractInfo = mCurrContractInfo ?: contractList[0]
-                updateContractUI()
 
-            }
-
-
-
-
-        }, Consumer {
-
-        })
+            }))
     }
 
     /**

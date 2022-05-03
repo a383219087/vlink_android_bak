@@ -27,7 +27,9 @@ import okhttp3.ResponseBody
 class NewContractModel : BaseDataManager() {
     var contractApiService: ContractApiService = HttpClient.instance.createContractApi()
 
-
+    fun getPublicInfo(consumer: DisposableObserver<ResponseBody>): Disposable? {
+        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPublicInfo(getBaseReqBody()), consumer)
+    }
 
     /**
      * 获取合约用户配置信息（保证金模式/杠杆/交易喜好）

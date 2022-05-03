@@ -10,7 +10,6 @@ import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.app.GlobalAppComponent
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.interceptor.NetInterceptor
 import com.yjkj.chainup.util.HttpsUtils
 import com.yjkj.chainup.util.StringUtil
 import com.yjkj.chainup.util.Utils

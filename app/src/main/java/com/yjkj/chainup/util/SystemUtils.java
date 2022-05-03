@@ -250,7 +250,7 @@ public class SystemUtils {
         }
         HEADER_PARAMS.put("exchange-language", NLanguageUtil.getLanguage());
         HEADER_PARAMS.put("appAcceptLanguage", NLanguageUtil.getLanguage());
-        HEADER_PARAMS.put("app.version", UtilSystem.getVersionName1());
+        HEADER_PARAMS.put("app-version", UtilSystem.getVersionName1());
 
 //        HEADER_PARAMS.put("exchange-token","0ba46a7703f4239888299609c76f49e77d00344944ee4b4d8ab16d45bfd30830");
 //        HEADER_PARAMS.put("exchange-language", "zh_CN");

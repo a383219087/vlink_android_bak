@@ -1,4 +1,4 @@
-package com.yjkj.chainup.interceptor;
+package com.yjkj.chainup.net_new;
 
 import android.app.Application;
 import android.content.Intent;
@@ -9,10 +9,9 @@ import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.service.UserDataService;
 import com.yjkj.chainup.manager.NetworkLineErrorService;
 import com.yjkj.chainup.model.model.MainModel;
-import com.yjkj.chainup.util.JsonUtils;
 import com.yjkj.chainup.net.api.HttpResult;
-import com.yjkj.chainup.net_new.NetUrl;
 import com.yjkj.chainup.util.DateUtils;
+import com.yjkj.chainup.util.JsonUtils;
 import com.yjkj.chainup.util.LogUtil;
 import com.yjkj.chainup.util.SystemUtils;
 

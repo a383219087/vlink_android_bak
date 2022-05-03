@@ -1,5 +1,6 @@
 package com.yjkj.chainup.model.api
 
+import com.yjkj.chainup.bean.PubilcBean
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -230,7 +231,12 @@ interface ContractApiService {
      *  获取合约公共信息
      */
     @POST("common/public_info")
-    fun getPublicInfo(@Body requestBody: RequestBody): Observable<HttpResult<MutableMap<String, Any>>>
+    fun getPublicInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
+    /**
+     *  获取合约公共信息
+     */
+    @POST("common/public_info")
+    fun getPublicInfo1(@Body requestBody: RequestBody): Observable<HttpResult<PubilcBean>>
 
 
     /**

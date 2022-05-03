@@ -40,7 +40,7 @@ class CommonService private constructor() {
             for (item in 0..cmsSymbolList.length()) {
                 val symbolItem = cmsSymbolList.optJSONObject(item)
                 try {
-                    symbolItem.remove("close")
+                 symbolItem.remove("close")
                     symbolItem.remove("rose")
                 } catch (e: Exception) {
                     e.printStackTrace()
