@@ -121,15 +121,7 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        //用户第一次拒绝权限  home键退出应用后再次回来  再提示一次授权
-        if (hasPermission()) {
-            Handler().postDelayed({ goHome() }, 150)
-        } else {
-            requestPermission()
-        }
-    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (PERMISSION_REQUEST_CODE_STORAGE == requestCode) {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel.Item" />
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel.OnItemListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:onClick="@{()->onItemListener.onClick(item)}"
+       android:orientation="vertical"
+       android:gravity="center"
+       android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="45dp"
+            app:src="@{item.resImg}"
+            />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:textColor="#041533"
+           android:layout_marginBottom="10dp"
+           android:layout_gravity="center"
+           android:textSize="11sp"
+           android:text="@{item.title}"
+        />
+
+
+
+
+
+
+
+   </LinearLayout>
+
+
+    </FrameLayout>
+
+
+</layout>

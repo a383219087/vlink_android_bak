@@ -3475,5 +3475,19 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="coAgent_text7">累计佣金折合(USDT)</string>
     <string name="coAgent_text8">昨日佣金折合(USDT)</string>
     <string name="coAgent_text9">前日佣金折合(USDT)</string>
+
+
+
+
+
+
+
+    <!--  奔跑的狗子新加-->
+
+    <string name="NewVersionHomePageViewModel_text1">期权</string>
+    <string name="NewVersionHomePageViewModel_text2">跟单</string>
+    <string name="NewVersionHomePageViewModel_text3">理财</string>
+    <string name="NewVersionHomePageViewModel_text4">游戏</string>
+    <string name="NewVersionHomePageViewModel_text5">分享有礼</string>
 </resources>
 

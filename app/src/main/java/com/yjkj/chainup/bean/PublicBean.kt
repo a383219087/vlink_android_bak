@@ -13,8 +13,11 @@ data class PubilcBean(
 
 data class EnableModuleInfo(
 
-    val trader :Int,
-    val increment :Int
+    val trader :Int?,
+    val increment :Int?,
+    val game :Int?,
+    val futures :Int?,
+    val share :Int?
 
 
     ) : Serializable

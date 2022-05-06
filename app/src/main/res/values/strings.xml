@@ -3379,5 +3379,21 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="coAgent_text7">Accumulated profits(USDT)</string>
     <string name="coAgent_text8">Profits yesterday(USDT)</string>
     <string name="coAgent_text9">Profits of the day before(USDT)</string>
+
+
+
+
+
+
+    <!--  奔跑的狗子新加-->
+
+    <string name="NewVersionHomePageViewModel_text1">futures</string>
+    <string name="NewVersionHomePageViewModel_text2">trader</string>
+    <string name="NewVersionHomePageViewModel_text3">increment</string>
+    <string name="NewVersionHomePageViewModel_text4">game</string>
+    <string name="NewVersionHomePageViewModel_text5">share</string>
+
+
+
 </resources>
 

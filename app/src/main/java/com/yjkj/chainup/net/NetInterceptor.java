@@ -1,4 +1,4 @@
-package com.yjkj.chainup.net_new;
+package com.yjkj.chainup.net;
 
 import android.app.Application;
 import android.content.Intent;

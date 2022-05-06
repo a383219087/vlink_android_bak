@@ -4,6 +4,7 @@ package com.yjkj.chainup.base
 
 import androidx.lifecycle.*
 import com.yjkj.chainup.common.binding.command.BindingFunction
+import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiService
 import io.reactivex.Observable
@@ -23,6 +24,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     var refreshUI = MutableLiveData(false)
     private var mCompositeDisposable: CompositeDisposable? = null
      var apiService: ApiService = HttpClient.instance.createApi()
+    var contractApiService: ContractApiService = HttpClient.instance.createContractApi()
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

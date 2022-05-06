@@ -35,9 +35,7 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.activity.ClMarketDetail4Activity
 import com.yjkj.chainup.new_contract.activity.ClSelectLeverageActivity
 import com.yjkj.chainup.new_contract.activity.ClSelectPositionActivity

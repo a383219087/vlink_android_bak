@@ -122,6 +122,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     override fun setContentView() = R.layout.fragment_new_version_homepage
 
     override fun initView() {
+        mViewModel?.context?.value=context!!
         otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
         leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
@@ -140,7 +141,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         initRedPacketView()
         setOnClick()
         initNetWorkRemind()
-        getPublicInfo()
+        mViewModel?.getPublicInfo(context!!)
         LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
 
         when (ApiConstants.HOME_PAGE_STYLE) {
@@ -162,19 +163,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     }
 
-    private fun getPublicInfo() {
-        val map = TreeMap<String, String>()
-        startTask(getContractModel().contractApiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-            val trader = it.data.enable_module_info.trader
-            val increment = it.data.enable_module_info.increment
-            tvDocumentary.visibility = if (trader == 1) View.VISIBLE else View.GONE
-            tvFinance.visibility = if (increment == 1) View.VISIBLE else View.GONE
 
-        }, Consumer {
-            LogUtil.d("我是", it.message)
-        })
-
-    }
 
     private fun initNetWorkRemind() {
         val spanStrStart = SpannableString(getString(R.string.check_network_settings))
@@ -573,24 +562,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
                 putString("type", ParamConstant.ADD_COIN_MAP)
             })
-        }
-        tvDocumentary?.setOnClickListener {
-            if (!LoginManager.checkLogin(context, true)) {
-                return@setOnClickListener
-            }
-            ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
-        }
-        tvFinance?.setOnClickListener {
-            if (!LoginManager.checkLogin(context, true)) {
-                return@setOnClickListener
-            }
-            ArouterUtil.navigation(RoutePath.FinancialActivity, null)
-        }
-        tvBinary?.setOnClickListener {
-            if (!LoginManager.checkLogin(context, true)) {
-                return@setOnClickListener
-            }
-            ArouterUtil.navigation(RoutePath.BinaryActivity, null)
         }
         iv_market_msg?.setOnClickListener {
             if (LoginManager.checkLogin(mActivity, true)) {

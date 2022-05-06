@@ -20,7 +20,7 @@
         android:id="@+id/v_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_card_color">
+        android:background="@color/bg_color">
 
         <include
             android:id="@+id/home_header"
@@ -243,41 +243,21 @@
                         layout="@layout/no_network_remind"
                         android:visibility="gone" />
 
-                    <LinearLayout
+
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvDocumentary"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="跟单"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvFinance"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="理财"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvBinary"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="二元期权"
-                            android:visibility="gone" />
+                        android:layout_height="wrap_content"
+                        android:visibility="@{_all.items.size()==0?View.GONE:View.VISIBLE}"
+                        app:ResColor="@{R.color.white}"
+                        android:paddingTop="10dp"
+                        app:radius="@{10}"
+                        android:layout_margin="@dimen/dp_10"
+                        app:itemBinding="@{_all.itemBinding}"
+                        app:items="@{_all.items}"
+                        app:spanCount="4"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 
-                    </LinearLayout>
 
 
                     <LinearLayout
