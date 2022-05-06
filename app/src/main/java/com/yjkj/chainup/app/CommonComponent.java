@@ -9,6 +9,7 @@ import android.util.Log;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mmkv.MMKV;
+import com.yjkj.chainup.BuildConfig;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.extra_service.analytics.UmenStatisticsUtil;
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
@@ -59,7 +60,7 @@ public class CommonComponent {
         if (AppConfig.isBuglyOpen) {
             CrashReport.UserStrategy user = new CrashReport.UserStrategy(context);
             user.setAppReportDelay(10000);
-            Bugly.init(context, ContextUtil.getString(R.string.buglyId), false,user);
+            Bugly.init(context, ContextUtil.getString(R.string.buglyId), BuildConfig.DEBUG,user);
         }
 
 //        if (AppConfig.isFirebaseAnalyticsOpen) {
