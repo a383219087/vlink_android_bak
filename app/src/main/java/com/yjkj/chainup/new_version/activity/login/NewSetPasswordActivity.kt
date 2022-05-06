@@ -13,16 +13,13 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.RegStep2Bean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.constant.WebTypeEnum
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.ActivityManager
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.InnerBrowserActivity
-import com.yjkj.chainup.new_version.activity.ItemDetailActivity
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.*

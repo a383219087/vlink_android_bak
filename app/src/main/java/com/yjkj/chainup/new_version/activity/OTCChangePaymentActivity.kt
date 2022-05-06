@@ -9,7 +9,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.EditPaymentActivity
 import com.yjkj.chainup.new_version.adapter.OTCChangeCityAdapter
 import com.yjkj.chainup.new_version.adapter.OTCChangePayCoinAdapter

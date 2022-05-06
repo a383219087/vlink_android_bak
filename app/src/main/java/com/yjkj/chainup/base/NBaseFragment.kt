@@ -1,13 +1,11 @@
 package com.yjkj.chainup.base
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 
 import com.yjkj.chainup.app.ChainUpApp
@@ -17,7 +15,7 @@ import com.yjkj.chainup.model.model.ContractModel
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.model.model.NewContractModel
 import com.yjkj.chainup.model.model.OTCModel
-import com.yjkj.chainup.net_new.NLoadingDialog
+import com.yjkj.chainup.net.NLoadingDialog
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksListener
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
 import com.yjkj.chainup.util.LogUtil

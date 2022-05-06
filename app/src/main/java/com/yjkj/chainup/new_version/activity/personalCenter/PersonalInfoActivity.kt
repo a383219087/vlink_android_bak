@@ -17,7 +17,7 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.FIRST_INDEX
 import com.yjkj.chainup.new_version.bean.ImageTokenBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -29,7 +29,6 @@ import com.yjkj.chainup.util.ToastUtils
 import com.yjkj.chainup.util.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_notice.*
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import kotlinx.android.synthetic.main.activity_personal_info.title_layout
 import org.json.JSONObject

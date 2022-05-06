@@ -47,7 +47,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.activity.ClContractEntrustActivity
 import com.yjkj.chainup.new_contract.adapter.ClContractPriceEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.ClCurrentOrderBean

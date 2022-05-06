@@ -11,7 +11,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.net_new.JSONUtil
+import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.new_version.adapter.NewContractDropAdapter
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.wedegit.WrapContentViewPager

@@ -21,16 +21,14 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.activity.ClContractAssetRecordActivity
 import com.yjkj.chainup.new_contract.adapter.ClContractAssetAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.util.ContextUtil
 import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.NToastUtil
 import kotlinx.android.synthetic.main.accet_header_view.view.*
-import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.rc_contract
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.swipe_refresh
 import org.json.JSONObject

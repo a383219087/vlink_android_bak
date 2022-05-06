@@ -1,19 +1,16 @@
 package com.yjkj.chainup.new_contract.adapter
 
 import android.content.Context
-import android.text.TextUtils
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.common.sdk.utlis.TimeFormatUtils
-import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.widget.ContractUpDownItemLayout
-import com.yjkj.chainup.net_new.NLoadingDialog
+import com.yjkj.chainup.net.NLoadingDialog
 import com.yjkj.chainup.new_contract.bean.ClCurrentOrderBean
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LogUtil

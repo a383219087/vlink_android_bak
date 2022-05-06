@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.yjkj.chainup.db.service.OTCPublicInfoDataService;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
-import com.yjkj.chainup.net_new.JSONUtil;
+import com.yjkj.chainup.net.JSONUtil;
 import com.yjkj.chainup.util.StringUtil;
 
 import org.json.JSONArray;

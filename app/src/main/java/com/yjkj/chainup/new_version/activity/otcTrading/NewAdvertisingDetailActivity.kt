@@ -12,8 +12,8 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NewAdvertisingDetailAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
@@ -20,8 +19,7 @@ import com.yjkj.chainup.contract.data.bean.TabInfo
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
-import com.yjkj.chainup.new_contract.adapter.ClContractAssetRecordAdapter
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.adapter.ClContractHistoricalPositionAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView

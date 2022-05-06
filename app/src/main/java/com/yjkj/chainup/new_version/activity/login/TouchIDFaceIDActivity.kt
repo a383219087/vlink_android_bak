@@ -22,7 +22,7 @@ import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.util.CryptoObjectHelper
 import com.yjkj.chainup.util.DisplayUtil

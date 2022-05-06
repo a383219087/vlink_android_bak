@@ -15,7 +15,7 @@ import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.NToastUtil
 import kotlinx.android.synthetic.main.cl_activity_contract_setting.*

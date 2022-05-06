@@ -28,7 +28,7 @@ import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.adapter.NCurrentEntrustAdapter
@@ -52,8 +52,6 @@ import kotlinx.android.synthetic.main.depth_vertical_layout.view.*
 import kotlinx.android.synthetic.main.fragment_cvctrade.*
 import kotlinx.android.synthetic.main.fragment_cvctrade.rv_current_entrust
 import kotlinx.android.synthetic.main.fragment_cvctrade.swipe_refresh
-import kotlinx.android.synthetic.main.fragment_cvctrade.v_container
-import kotlinx.android.synthetic.main.fragment_market_detail.*
 import kotlinx.android.synthetic.main.trade_amount_view.*
 import kotlinx.android.synthetic.main.trade_header_tools.*
 import kotlinx.android.synthetic.main.trade_header_view.*
@@ -65,7 +63,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.textColor
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 

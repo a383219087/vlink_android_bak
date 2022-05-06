@@ -5,7 +5,7 @@ import android.view.View
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.util.ColorUtil
 import kotlinx.android.synthetic.main.fragment_being_performed.*
 import kotlinx.android.synthetic.main.item_grid_buy.view.*

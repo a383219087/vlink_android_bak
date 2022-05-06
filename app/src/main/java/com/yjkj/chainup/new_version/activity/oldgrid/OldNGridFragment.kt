@@ -17,7 +17,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.DialogUtil

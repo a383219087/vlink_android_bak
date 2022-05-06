@@ -11,7 +11,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.model.model.OTCModel
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
 import org.json.JSONObject

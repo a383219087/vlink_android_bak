@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -23,7 +22,7 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.push.ActivityCollector
 import com.yjkj.chainup.model.model.*
-import com.yjkj.chainup.net_new.NLoadingDialog
+import com.yjkj.chainup.net.NLoadingDialog
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.SplashActivity
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksListener

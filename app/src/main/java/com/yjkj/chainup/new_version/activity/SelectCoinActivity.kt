@@ -23,7 +23,7 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.DepositActivity
 import com.yjkj.chainup.new_version.activity.asset.WithdrawActivity
 import com.yjkj.chainup.new_version.adapter.SelectCoinAdapter
@@ -31,7 +31,6 @@ import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.wedegit.SectionDecoration
 import kotlinx.android.synthetic.main.activity_search_coin.*
 import org.json.JSONObject
-import kotlin.reflect.typeOf
 
 /**
  * @description 新版的切换币种

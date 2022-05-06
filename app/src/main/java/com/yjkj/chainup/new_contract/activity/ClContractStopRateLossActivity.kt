@@ -13,7 +13,7 @@ import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.numberFilter
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton

@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.MotionEvent
-import android.view.View
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -15,13 +14,11 @@ import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.contract.widget.bubble.BubbleSeekBar
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
-import kotlinx.android.synthetic.main.cl_activity_select_leverage.*
 import kotlinx.android.synthetic.main.cl_fragment_contract_calculate_item.*
 import kotlinx.android.synthetic.main.cl_fragment_contract_calculate_item.et_input
 import kotlinx.android.synthetic.main.cl_fragment_contract_calculate_item.seekbar
@@ -33,7 +30,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 

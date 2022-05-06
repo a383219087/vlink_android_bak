@@ -2,26 +2,20 @@ package com.yjkj.chainup.new_version.activity.asset
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.CashFlowDetailActivity
 import com.yjkj.chainup.new_version.activity.CoinActivity
 import com.yjkj.chainup.new_version.activity.CoinActivity.Companion.SELECTED_TYPE
@@ -29,18 +23,14 @@ import com.yjkj.chainup.new_version.activity.NewBaseActivity
 import com.yjkj.chainup.new_version.adapter.Cash4ContractAdapter
 import com.yjkj.chainup.new_version.adapter.CashFlow4Adapter
 import com.yjkj.chainup.new_version.adapter.CashFlowAdapter
-import com.yjkj.chainup.new_version.bean.CashFlowSceneBean
 import com.yjkj.chainup.new_version.view.*
 import com.yjkj.chainup.treaty.bean.ContractCashFlowBean
 import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_new_version_transfer.*
 import kotlinx.android.synthetic.main.activity_withdraw_record.*
 import kotlinx.android.synthetic.main.activity_withdraw_record.title_layout
 import kotlinx.android.synthetic.main.activity_withdraw_record.tv_number_title
-import org.json.JSONObject
 
 
 /**

@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.request.RequestOptions
 import com.timmy.tdialog.TDialog
@@ -24,11 +23,10 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.DataManager
 import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.CoinActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.new_version.view.OnSaveSuccessListener
 import com.yjkj.chainup.new_version.view.UploadHelper
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.activity_b2_crecharge.*

@@ -2,24 +2,16 @@ package com.yjkj.chainup.extra_service.push
 
 import android.app.Activity
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.util.Log
-import com.google.gson.annotations.SerializedName
 
-import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net_new.JSONUtil
 import io.karn.notify.Notify
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.io.Serializable
 
 
 /**

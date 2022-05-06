@@ -2,7 +2,7 @@ package com.yjkj.chainup.new_version.home;
 
 import com.yjkj.chainup.manager.SymbolWsData;
 import com.yjkj.chainup.net.api.ApiConstants;
-import com.yjkj.chainup.net_new.websocket.MsgWSSClient;
+import com.yjkj.chainup.net.MsgWSSClient;
 import com.yjkj.chainup.util.LogUtil;
 import com.yjkj.chainup.util.WsLinkUtils;
 

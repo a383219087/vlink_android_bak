@@ -2,7 +2,6 @@ package com.yjkj.chainup.new_version.activity.like
 
 import android.os.Bundle
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -18,7 +17,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.model.model.MainModel
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyMarketForAdapterView
 import com.yjkj.chainup.util.LogUtil

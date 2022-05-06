@@ -12,7 +12,7 @@ import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.net.HttpClient.Companion.LOGIN_PWORD
 import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.util.StringUtil
 import com.yjkj.chainup.util.StringUtils
 import com.yjkj.chainup.util.verfitionTypeCheck

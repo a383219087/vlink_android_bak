@@ -32,7 +32,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.*
 import com.yjkj.chainup.model.model.MainModel
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
@@ -43,7 +43,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.depth_vertical_layout.view.ll_etf_item
 import kotlinx.android.synthetic.main.trade_amount_view_new.view.*
-import kotlinx.android.synthetic.main.trade_header_tools.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

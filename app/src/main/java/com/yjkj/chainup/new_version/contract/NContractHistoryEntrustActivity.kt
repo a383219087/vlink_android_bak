@@ -8,11 +8,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NContractHistoryEntrustAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.ScreeningPopupWindowView

@@ -2,9 +2,9 @@ package com.yjkj.chainup.model.datamanager
 
 import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.model.NDataHandler
-import com.yjkj.chainup.net_new.HttpHelper
-import com.yjkj.chainup.net_new.HttpParams
-import com.yjkj.chainup.net_new.HttpParamsV1
+import com.yjkj.chainup.net.HttpHelper
+import com.yjkj.chainup.net.HttpParams
+import com.yjkj.chainup.net.HttpParamsV1
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

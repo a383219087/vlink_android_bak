@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
 import com.chainup.contract.app.CpMyApp
-import com.chainup.contract.net.CpNetUrl.getContractSocketNewUrl
-import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpLocalManageUtil
-import com.chainup.contract.ws.CpWsContractAgentManager
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.BuildConfig
@@ -25,8 +22,6 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver

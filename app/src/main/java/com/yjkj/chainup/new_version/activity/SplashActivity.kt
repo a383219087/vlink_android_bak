@@ -9,16 +9,12 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.blankj.utilcode.util.SPUtils
-import com.chainup.contract.net.CpNetUrl.getContractSocketNewUrl
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.permissionIsGranted
 import com.yjkj.chainup.ws.WsAgentManager

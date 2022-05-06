@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.jaeger.library.StatusBarUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
@@ -18,19 +16,17 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.model.model.MainModel
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.util.ClipboardUtil
 import com.yjkj.chainup.util.DisplayUtil
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.wedegit.WrapContentViewPager
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_coin_map_intro.*
-import kotlinx.android.synthetic.main.item_payment_information.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.json.JSONObject
 import com.yjkj.chainup.databinding.FragmentCoinMapIntroBinding
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.util.ColorUtil
 
 
 /**

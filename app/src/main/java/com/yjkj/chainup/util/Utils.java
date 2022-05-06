@@ -45,7 +45,7 @@ import com.yjkj.chainup.R;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
 import com.yjkj.chainup.manager.LanguageUtil;
-import com.yjkj.chainup.net_new.NetUrl;
+import com.yjkj.chainup.net.NetUrl;
 import com.yjkj.chainup.new_version.view.Gt3GeeListener;
 import com.yjkj.chainup.new_version.view.OnSaveSuccessListener;
 

@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.text.SpannableString
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.model.model.MainModel
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.trade.ETFQuestAdapter
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
-import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
 import com.yjkj.chainup.util.addETFSenSpanBean
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_levert_list.*
 import org.json.JSONObject
 

@@ -25,9 +25,8 @@ import com.yjkj.chainup.manager.Contract2PublicInfoManager
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NContractCurrentEntrustAdapter
-import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.treaty.bean.ContractBean

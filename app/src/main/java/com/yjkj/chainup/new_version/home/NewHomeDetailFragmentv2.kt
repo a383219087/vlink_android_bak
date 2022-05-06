@@ -4,7 +4,6 @@ import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -14,15 +13,14 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NewHomepageBottomClinchDealAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomepageMarketAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.wedegit.WrapContentViewPager
 import kotlinx.android.synthetic.main.fragment_new_home_detail.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONArray
 import org.json.JSONObject
 

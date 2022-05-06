@@ -17,7 +17,7 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.*
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.personalCenter.MailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter

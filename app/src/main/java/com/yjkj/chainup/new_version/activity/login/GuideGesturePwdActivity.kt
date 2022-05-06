@@ -5,14 +5,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.util.ColorUtil
 import kotlinx.android.synthetic.main.activity_guide_gesture_pwd.*
-import org.json.JSONObject
 
 /**
  * @date 2018-11-13

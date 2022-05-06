@@ -1,7 +1,7 @@
 package com.yjkj.chainup.db.service;
 
 import com.yjkj.chainup.db.MMKVDb;
-import com.yjkj.chainup.net_new.JSONUtil;
+import com.yjkj.chainup.net.JSONUtil;
 import com.yjkj.chainup.util.StringUtil;
 
 import org.json.JSONArray;

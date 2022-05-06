@@ -3,12 +3,10 @@ package com.yjkj.chainup.new_version.activity.asset
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -18,7 +16,6 @@ import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.bean.AssetScreenBean
-import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.HomeTabMap
@@ -32,7 +29,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.*
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.OTCAssetAdapter
 import com.yjkj.chainup.new_version.adapter.OTCFundAdapter
 import com.yjkj.chainup.new_version.contract.ContractFragment
@@ -43,7 +40,6 @@ import com.yjkj.chainup.treaty.adapter.HoldContractAssterAdapter
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.fragment_bibi_asset.swipe_refresh
-import kotlinx.android.synthetic.main.fragment_new_grid.*
 import org.json.JSONObject
 
 private const val ARG_PARAM1 = "param1"

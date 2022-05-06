@@ -9,9 +9,8 @@ import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.cl_activity_select_position.*
 import org.json.JSONObject
 

@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import com.google.gson.JsonObject
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
@@ -18,8 +16,7 @@ import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.TitleShowListener
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.*

@@ -5,13 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
 import android.widget.TextView
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NPositionAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView

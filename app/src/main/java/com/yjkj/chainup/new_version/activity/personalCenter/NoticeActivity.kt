@@ -11,12 +11,9 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.NLoadingDialog
-import com.yjkj.chainup.new_version.activity.ItemDetailActivity
 import com.yjkj.chainup.new_version.adapter.NoticeAdapter
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
-import com.yjkj.chainup.util.StringUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

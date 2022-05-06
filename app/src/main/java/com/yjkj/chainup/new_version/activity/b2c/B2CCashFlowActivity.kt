@@ -13,11 +13,10 @@ import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.B2CCashFlowAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.ScreeningPopupWindowView
-import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.activity_b2_ccash_flow.*
 import org.json.JSONObject
 

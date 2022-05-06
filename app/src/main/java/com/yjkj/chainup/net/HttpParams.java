@@ -1,14 +1,6 @@
-package com.yjkj.chainup.net_new;
+package com.yjkj.chainup.net;
 
-import com.yjkj.chainup.db.service.UserDataService;
-import com.yjkj.chainup.util.StringUtil;
-
-import org.json.JSONObject;
-
-import java.util.Map;
 import java.util.TreeMap;
-
-import okhttp3.RequestBody;
 
 public class HttpParams {
 

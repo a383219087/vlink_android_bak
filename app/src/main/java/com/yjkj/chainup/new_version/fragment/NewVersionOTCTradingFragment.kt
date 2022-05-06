@@ -2,7 +2,6 @@ package com.yjkj.chainup.new_version.fragment
 
 
 import android.graphics.Typeface
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import android.view.View
@@ -16,7 +15,7 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.view.ScreeningPopupWindowView
 import com.yjkj.chainup.util.ColorUtil

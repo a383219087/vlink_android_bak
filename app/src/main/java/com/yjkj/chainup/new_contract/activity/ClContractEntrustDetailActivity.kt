@@ -10,13 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.contract.utils.getLineText
-import com.yjkj.chainup.contract.utils.onLineText
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.bean.ClCurrentOrderBean
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.BigDecimalUtils

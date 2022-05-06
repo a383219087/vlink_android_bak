@@ -7,8 +7,8 @@ import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.oldgrid.adapter.OldAlreadyPerformedAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.NToastUtil

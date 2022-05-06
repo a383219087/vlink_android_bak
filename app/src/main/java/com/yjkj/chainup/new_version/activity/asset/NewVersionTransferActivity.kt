@@ -2,19 +2,15 @@ package com.yjkj.chainup.new_version.activity.asset
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.fastjson.JSON
-import com.contract.sdk.ContractSDKAgent
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.common.sdk.utlis.MathHelper
@@ -40,7 +36,7 @@ import com.yjkj.chainup.manager.*
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.contract.ContractFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.*
@@ -54,7 +50,6 @@ import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_version_transfer.*
-import kotlinx.android.synthetic.main.cl_include_contract_trade_left_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal

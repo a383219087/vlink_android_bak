@@ -25,7 +25,7 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NCurrentEntrustAdapter
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -37,8 +37,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.depth_vertical_layout.view.*
 import kotlinx.android.synthetic.main.depth_vertical_layout_lever.view.trade_amount_view
-import kotlinx.android.synthetic.main.dialog_layout_lever.*
-import kotlinx.android.synthetic.main.fragment_cvctrade.*
 import kotlinx.android.synthetic.main.fragment_nlever.*
 import kotlinx.android.synthetic.main.fragment_nlever.rv_current_entrust
 import kotlinx.android.synthetic.main.fragment_nlever.swipe_refresh
@@ -51,7 +49,6 @@ import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.net.URI

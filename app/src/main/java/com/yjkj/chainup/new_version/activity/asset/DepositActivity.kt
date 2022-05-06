@@ -3,14 +3,10 @@ package com.yjkj.chainup.new_version.activity.asset
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import androidx.core.content.ContextCompat
-import com.google.zxing.multi.qrcode.QRCodeMultiReader
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
@@ -20,7 +16,7 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.CoinActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.*

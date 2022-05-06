@@ -2,20 +2,13 @@ package com.yjkj.chainup.new_version.activity.leverage.list
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.text.TextUtils
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.HistoryLoan4LeverAdapter
-import com.yjkj.chainup.new_version.adapter.NCurrentEntrustAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import kotlinx.android.synthetic.main.activity_contract_current_entrust.swipe_refresh
 import kotlinx.android.synthetic.main.activity_current_levert.*

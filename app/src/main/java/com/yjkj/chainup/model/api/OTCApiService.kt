@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.yjkj.chainup.bean.PersonAdsBean
 import com.yjkj.chainup.bean.UserInfo4OTC
 import com.yjkj.chainup.net.api.HttpResult
-import com.yjkj.chainup.net_new.NetUrl.biki_monitor_appUrl
+import com.yjkj.chainup.net.NetUrl.biki_monitor_appUrl
 import com.yjkj.chainup.new_version.bean.BlackListData
 import com.yjkj.chainup.new_version.bean.OTCIMMessageBean
 import com.yjkj.chainup.new_version.bean.OTCOrderDetailBean

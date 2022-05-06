@@ -6,9 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -20,8 +18,8 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.grid.adapter.AiGridAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -41,14 +39,11 @@ import kotlinx.android.synthetic.main.item_ai_grid_adapter.tv_balance_str
 import kotlinx.android.synthetic.main.item_ai_grid_adapter.tv_used_btc
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONObject
-import androidx.lifecycle.Observer
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
-import com.yjkj.chainup.util.*
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.item_grid_tips_profit.*
 import kotlinx.android.synthetic.main.trade_grid_history_tools.*
 import java.util.concurrent.TimeUnit
-import kotlin.math.max
 
 /**
  * @Author lianshangljl

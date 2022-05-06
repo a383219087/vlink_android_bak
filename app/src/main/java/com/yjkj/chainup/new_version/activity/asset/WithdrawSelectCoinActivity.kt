@@ -2,14 +2,10 @@ package com.yjkj.chainup.new_version.activity.asset
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
-import android.view.View
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,35 +13,19 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.jaeger.library.StatusBarUtil
-import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
-import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.bean.address.AddressBean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.*
-import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.CoinActivity
-import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.activity.SelectCoinActivity
-import com.yjkj.chainup.new_version.activity.TitleShowListener
-import com.yjkj.chainup.new_version.adapter.OTCFundAdapter
-import com.yjkj.chainup.new_version.adapter.SelectCoinAdapter
-import com.yjkj.chainup.new_version.adapter.WithdrawAddressAdapter
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.BigDecimalUtils
 import kotlinx.android.synthetic.main.activity_search_coin.et_search
 import kotlinx.android.synthetic.main.activity_search_coin.rv_coin
 import kotlinx.android.synthetic.main.activity_search_coin.tv_cancel
-import kotlinx.android.synthetic.main.activity_withdraw_select_coin.*
 import org.json.JSONObject
 
 

@@ -18,7 +18,7 @@ import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.ContractEntrustTabWidget
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.adapter.ClContractPlanEntrustAdapter
 import com.yjkj.chainup.new_contract.adapter.ClContractPriceEntrustAdapter
 import com.yjkj.chainup.new_contract.adapter.ClContractPriceEntrustNewAdapter

@@ -1,22 +1,16 @@
-package com.yjkj.chainup.net_new.rxjava
+package com.yjkj.chainup.net
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import android.text.TextUtils
-import com.yjkj.chainup.R
-import com.yjkj.chainup.app.AppConfig
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.NLoadingDialog
 import com.yjkj.chainup.new_version.activity.login.TouchIDFaceIDActivity
-import com.yjkj.chainup.util.ContextUtil
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
 import com.yjkj.chainup.util.NetworkUtils

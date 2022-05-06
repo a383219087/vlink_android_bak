@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.yjkj.chainup.app.ChainUpApp;
@@ -20,17 +18,12 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 import com.yjkj.chainup.model.model.MainModel;
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver;
+import com.yjkj.chainup.net.NDisposableObserver;
 import com.yjkj.chainup.new_version.activity.login.TouchIDFaceIDActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
-
-import static com.yjkj.chainup.new_version.activity.login.GesturesPasswordActivity.SET_LOGINANDSET;
-import static com.yjkj.chainup.new_version.activity.login.GesturesPasswordActivity.SET_STATUS;
-import static com.yjkj.chainup.new_version.activity.login.GesturesPasswordActivity.SET_TOKEN;
-import static com.yjkj.chainup.new_version.activity.login.GesturesPasswordActivity.SET_TYPE;
 
 
 /**

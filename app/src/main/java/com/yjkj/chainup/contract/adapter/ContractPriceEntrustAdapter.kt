@@ -3,7 +3,6 @@ package com.yjkj.chainup.contract.adapter
 import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -26,8 +25,7 @@ import com.yjkj.chainup.contract.extension.showQuoteName
 import com.yjkj.chainup.contract.utils.*
 import com.yjkj.chainup.contract.widget.ContractUpDownItemLayout
 import com.yjkj.chainup.contract.widget.SlDialogHelper
-import com.yjkj.chainup.contract.widget.pswkeyboard.widget.PopEnterPassword
-import com.yjkj.chainup.net_new.NLoadingDialog
+import com.yjkj.chainup.net.NLoadingDialog
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils.DialogBottomListener
 import com.yjkj.chainup.util.NToastUtil

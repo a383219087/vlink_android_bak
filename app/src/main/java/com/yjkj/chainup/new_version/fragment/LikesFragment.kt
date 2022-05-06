@@ -3,12 +3,10 @@ package com.yjkj.chainup.new_version.fragment
 import android.os.Bundle
 import android.os.Handler
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -23,11 +21,10 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolWsData
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.MarketDetailAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
-import com.yjkj.chainup.new_version.home.homeToast
 import com.yjkj.chainup.new_version.view.EmptyMarketForAdapterView
 import com.yjkj.chainup.util.ContextUtil
 import com.yjkj.chainup.util.LogUtil

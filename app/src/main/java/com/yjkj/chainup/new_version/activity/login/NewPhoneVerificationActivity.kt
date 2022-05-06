@@ -18,7 +18,7 @@ import com.yjkj.chainup.manager.ActivityManager
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.FindPwd2verifyActivity
 import com.yjkj.chainup.new_version.view.ComVerifyView
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton

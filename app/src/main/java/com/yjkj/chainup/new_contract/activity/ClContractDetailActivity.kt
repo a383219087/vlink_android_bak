@@ -1,25 +1,18 @@
 package com.yjkj.chainup.new_contract.activity
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import android.view.Gravity
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.contract.data.bean.TabInfo
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.util.BigDecimalUtils
 import kotlinx.android.synthetic.main.cl_activity_contract_detail.*
 import kotlinx.android.synthetic.main.cl_activity_contract_detail.title_layout
-import kotlinx.android.synthetic.main.cl_activity_contract_setting.*
-import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 

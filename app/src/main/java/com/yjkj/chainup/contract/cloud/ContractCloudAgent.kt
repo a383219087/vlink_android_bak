@@ -7,7 +7,7 @@ import com.yjkj.chainup.contract.data.bean.ContractCloudModel
 import com.yjkj.chainup.contract.listener.SLDoListener
 import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.net_new.NetUrl
+import com.yjkj.chainup.net.NetUrl
 import com.yjkj.chainup.util.NToastUtil
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody

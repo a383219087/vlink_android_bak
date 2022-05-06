@@ -34,9 +34,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        ndk {
-            abiFilters 'arm64-v8a','armeabi-v7a',"armeabi"
-        }
+
 
 
     }
@@ -118,7 +116,9 @@ android {
 //                    GETUI_APP_KEY : "$change.pushAppKey",
 //                    GETUI_APP_SECRET : "$change.pushAppSecret"
 //            ]
-
+            ndk {
+                abiFilters 'arm64-v8a','armeabi-v7a',"armeabi"
+            }
         }
         debug {
             minifyEnabled false
@@ -153,9 +153,9 @@ android {
 //                    GETUI_APP_KEY : "$change.pushAppKey",
 //                    GETUI_APP_SECRET : "$change.pushAppSecret"
 //            ]
-//            ndk {
-//                abiFilters "armeabi-v7a"
-//            }
+            ndk {
+                abiFilters 'arm64-v8a','armeabi-v7a',"armeabi",'x86'
+            }
         }
     }
 

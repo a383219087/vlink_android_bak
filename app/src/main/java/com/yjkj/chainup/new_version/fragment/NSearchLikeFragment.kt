@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.fragment
 
 
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -9,9 +8,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.TextView
@@ -19,7 +15,6 @@ import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
-import com.yjkj.chainup.databinding.DialogfgCoinSearchBinding
 import com.yjkj.chainup.databinding.FragmentSearchCoinBinding
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
@@ -33,12 +28,7 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.manager.SymbolWsData
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.websocket.MsgWSSClient
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NSearchCoinAdapter
 import com.yjkj.chainup.new_version.home.MarketWsData
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
@@ -47,8 +37,6 @@ import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
 import kotlinx.android.synthetic.main.fragment_search_coin.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.support.v4.runOnUiThread
-import org.jetbrains.anko.uiThread
 import org.json.JSONObject
 
 /**

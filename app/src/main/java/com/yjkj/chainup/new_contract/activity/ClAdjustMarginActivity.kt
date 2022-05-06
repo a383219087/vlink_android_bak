@@ -22,15 +22,13 @@ import com.yjkj.chainup.contract.utils.numberFilter
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.cl_activity_adjust_margin.*
 import kotlinx.android.synthetic.main.cl_activity_adjust_margin.tv_lever
-import kotlinx.android.synthetic.main.cl_include_contract_trade_left_layout.*
 import org.json.JSONObject
 import kotlin.math.min
 

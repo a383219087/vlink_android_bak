@@ -20,8 +20,8 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.grid.adapter.AiGridAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -31,7 +31,6 @@ import com.yjkj.chainup.util.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.item_ai_grid_adapter.*
 import kotlinx.android.synthetic.main.item_custom_grid_adapter.*
 import kotlinx.android.synthetic.main.item_custom_grid_adapter.gt_division_profits
 import kotlinx.android.synthetic.main.item_custom_grid_adapter.ll_profit_taking_price_layout
@@ -47,7 +46,6 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
-import kotlin.math.max
 
 /**
  * @Author lianshangljl

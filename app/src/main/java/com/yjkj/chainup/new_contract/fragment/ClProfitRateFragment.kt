@@ -15,11 +15,10 @@ import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.contract.widget.bubble.BubbleSeekBar
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
 import kotlinx.android.synthetic.main.cl_fragment_contract_calculate_item.*
 import org.greenrobot.eventbus.Subscribe
@@ -27,7 +26,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 

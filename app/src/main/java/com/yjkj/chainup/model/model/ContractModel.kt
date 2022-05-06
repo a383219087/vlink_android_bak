@@ -3,18 +3,11 @@ package com.yjkj.chainup.model.model
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.model.NDataHandler
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
-import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.net.api.HttpResult
-import com.yjkj.chainup.net_new.HttpParams
 import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
-import com.yjkj.chainup.treaty.bean.ActiveOrderListBean
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
 /**

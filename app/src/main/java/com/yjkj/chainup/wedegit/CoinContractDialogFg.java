@@ -9,8 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.base.NBaseDialogFragment;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
@@ -18,7 +17,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 import com.yjkj.chainup.manager.Contract2PublicInfoManager;
 import com.yjkj.chainup.net.api.ApiConstants;
-import com.yjkj.chainup.net_new.websocket.MsgWSSClient;
+import com.yjkj.chainup.net.MsgWSSClient;
 import com.yjkj.chainup.new_version.adapter.SelectContractAdapter;
 import com.yjkj.chainup.new_version.contract.ContractFragment;
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView;

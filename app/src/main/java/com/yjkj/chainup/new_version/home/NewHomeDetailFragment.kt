@@ -15,7 +15,7 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.JSONUtil
+import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.NewHomepageBottomClinchDealAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomepageMarketAdapter

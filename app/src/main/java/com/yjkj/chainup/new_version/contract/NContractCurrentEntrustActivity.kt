@@ -12,7 +12,7 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NContractCurrentEntrustAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.DisplayUtil
@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_contract_history_entrust.iv_back
 import kotlinx.android.synthetic.main.activity_contract_history_entrust.ly_appbar
 import kotlinx.android.synthetic.main.activity_contract_history_entrust.tv_sub_title
 import kotlinx.android.synthetic.main.activity_contract_history_entrust.tv_title
-import kotlinx.android.synthetic.main.layout_com_header.view.*
 import org.json.JSONObject
 import kotlin.math.abs
 

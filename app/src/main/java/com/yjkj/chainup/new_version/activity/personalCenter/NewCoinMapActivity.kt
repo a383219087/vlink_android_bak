@@ -17,8 +17,8 @@ import com.yjkj.chainup.db.service.SearchDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.CoinMapAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import kotlinx.android.synthetic.main.activity_new_coin_map.*

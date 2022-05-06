@@ -14,7 +14,7 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.B2CRecordsAdapter
 import com.yjkj.chainup.new_version.view.ASSETTOPUP
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView

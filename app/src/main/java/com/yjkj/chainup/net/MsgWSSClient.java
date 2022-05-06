@@ -1,7 +1,6 @@
-package com.yjkj.chainup.net_new.websocket;
+package com.yjkj.chainup.net;
 
 import com.yjkj.chainup.util.GZIPUtils;
-import com.yjkj.chainup.util.LogUtil;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;

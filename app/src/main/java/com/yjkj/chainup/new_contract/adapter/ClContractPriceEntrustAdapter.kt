@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.common.sdk.utlis.TimeFormatUtils
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.widget.ContractUpDownItemLayout
-import com.yjkj.chainup.net_new.NLoadingDialog
+import com.yjkj.chainup.net.NLoadingDialog
 import com.yjkj.chainup.new_contract.bean.ClCurrentOrderBean
 import java.util.*
 

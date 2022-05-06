@@ -13,16 +13,14 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.net_new.JSONUtil
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.AdvertisingManagementAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
-import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_advertising_management.*
 import org.json.JSONObject
 

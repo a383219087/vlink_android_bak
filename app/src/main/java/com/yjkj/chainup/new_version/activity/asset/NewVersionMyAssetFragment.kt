@@ -21,14 +21,13 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.OTCMyAssetHeatAdapter
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -38,9 +37,7 @@ import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.contract.fragment.asset.SlContractAssetFragment
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
-import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_contract.fragment.ClContractAssetFragment
-import com.yjkj.chainup.new_version.activity.leverage.NLeverFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
 

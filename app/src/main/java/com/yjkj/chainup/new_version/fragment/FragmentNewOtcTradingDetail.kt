@@ -1,10 +1,8 @@
 package com.yjkj.chainup.new_version.fragment
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -23,8 +21,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.otcTrading.NewVersionOTCBuyActivity
 import com.yjkj.chainup.new_version.activity.otcTrading.NewVersionOTCSellActivity
 import com.yjkj.chainup.new_version.adapter.NewOTCTradingAdapter

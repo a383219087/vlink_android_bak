@@ -9,7 +9,7 @@ import com.github.mikephil.charting.data.LineData
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.JSONUtil
+import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.wedegit.LineChartGreenDataSet

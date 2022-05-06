@@ -13,7 +13,7 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.OTCChangePaymentActivity
 import com.yjkj.chainup.new_version.adapter.PaymentAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils

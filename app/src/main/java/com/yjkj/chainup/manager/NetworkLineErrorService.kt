@@ -3,19 +3,9 @@ package com.yjkj.chainup.manager
 import android.annotation.SuppressLint
 import android.app.IntentService
 import android.content.Intent
-import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.JSONUtil
 import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.Utils
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import org.json.JSONObject
-import java.util.concurrent.TimeUnit
 
 class NetworkLineErrorService(name: String = "NetworkLineService") : IntentService(name) {
 

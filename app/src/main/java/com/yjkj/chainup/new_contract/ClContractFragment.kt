@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_contract
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
@@ -9,14 +8,12 @@ import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
-import com.contract.sdk.ContractSDKAgent
 import com.contract.sdk.data.Contract
 import com.contract.sdk.data.ContractTicker
 import com.timmy.tdialog.TDialog
@@ -35,7 +32,7 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.activity.ClMarketDetail4Activity
 import com.yjkj.chainup.new_contract.activity.ClSelectLeverageActivity
 import com.yjkj.chainup.new_contract.activity.ClSelectPositionActivity

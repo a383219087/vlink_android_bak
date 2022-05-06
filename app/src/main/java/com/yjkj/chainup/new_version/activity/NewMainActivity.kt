@@ -52,8 +52,8 @@ import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net_new.NetUrl
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NetUrl
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil

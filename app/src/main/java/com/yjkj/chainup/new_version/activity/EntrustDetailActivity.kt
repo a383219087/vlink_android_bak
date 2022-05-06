@@ -15,13 +15,12 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.EntrustDetailAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil
 import kotlinx.android.synthetic.main.activity_entrust_detai.*
-import kotlinx.android.synthetic.main.layout_com_header.view.*
 import kotlinx.android.synthetic.main.ly_entrust_detail_header.*
 import org.jetbrains.anko.textColor
 import org.json.JSONObject
