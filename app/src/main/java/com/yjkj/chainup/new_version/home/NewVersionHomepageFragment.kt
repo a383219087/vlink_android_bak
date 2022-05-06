@@ -27,9 +27,9 @@ import com.contract.sdk.impl.ContractTickerListener
 import com.gcssloop.widget.PagerGridLayoutManager
 import com.gcssloop.widget.PagerGridSnapHelper
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
-import com.yjkj.chainup.contract.uilogic.LogicContractSetting
+import com.yjkj.chainup.databinding.FragmentNewVersionHomepageBinding
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -38,11 +38,13 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.*
+import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.MailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
@@ -52,10 +54,10 @@ import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
+import com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
-import com.yjkj.chainup.ws.WsContractAgentManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
@@ -64,7 +66,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
-import kotlinx.android.synthetic.main.fragment_new_version_homepage.swipe_refresh
 import kotlinx.android.synthetic.main.no_network_remind.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -76,7 +77,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 /**
  * @Author lianshangljl
@@ -84,7 +84,7 @@ import kotlin.collections.ArrayList
  * @Email buptjinlong@163.com
  * @description 首页
  */
-class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
+class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?, FragmentNewVersionHomepageBinding>(), WsAgentManager.WsResultCallback {
 
     val getTopDataReqType = 1 // 首页顶部行情数据请求
     val homepageReqType = 2 // 首页数据请求
@@ -254,7 +254,6 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
         }
     }
 
-    val networkParams = hashMapOf<String, String>()
     private fun observeData() {
         NLiveDataUtil.observeData(this, Observer {
             if (null != it) {
