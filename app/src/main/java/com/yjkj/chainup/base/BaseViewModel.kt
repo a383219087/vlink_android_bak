@@ -11,6 +11,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
@@ -79,7 +83,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-
+     fun toRequestBody(params: Map<String, String>): RequestBody {
+        return JSONObject(params).toString().toRequestBody("application/json;charset=utf-8".toMediaTypeOrNull())
+    }
 
 
 }

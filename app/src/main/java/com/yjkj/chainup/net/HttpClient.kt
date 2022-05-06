@@ -22,11 +22,14 @@ import com.yjkj.chainup.freestaking.bean.CurrencyBean
 import com.yjkj.chainup.freestaking.bean.FreeStakingBean
 import com.yjkj.chainup.freestaking.bean.FreeStakingDetailBean
 import com.yjkj.chainup.freestaking.bean.MyPosRecordBean
+import com.yjkj.chainup.net_new.NetInterceptor
 import com.yjkj.chainup.model.api.*
 import com.yjkj.chainup.net.api.ApiConstants.*
 import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.net.retrofit.ResponseConverterFactory
+import com.yjkj.chainup.net_new.HttpHelper
+import com.yjkj.chainup.net_new.NetUrl
 import com.yjkj.chainup.new_version.bean.*
 import com.yjkj.chainup.new_version.home.AdvertModel
 import com.yjkj.chainup.new_version.redpackage.bean.*
@@ -210,7 +213,7 @@ class HttpClient private constructor() {
     }
 
 
-    private fun createContractApi(): ContractApiService {
+    fun createContractApi(): ContractApiService {
         if (!StringUtil.isHttpUrl(CONTRACT_URL))
             CONTRACT_URL = AppConfig.default_host
         val retrofit = Retrofit.Builder()

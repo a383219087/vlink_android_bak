@@ -238,6 +238,7 @@
                 <TextView
                     android:id="@+id/tvDocumentary"
                     android:layout_width="0dp"
+                    android:visibility="gone"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -245,6 +246,7 @@
                 <TextView
                     android:id="@+id/tvFinance"
                     android:layout_width="0dp"
+                    android:visibility="gone"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -254,6 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     android:gravity="center"
                     android:text="二元期权"/>
 

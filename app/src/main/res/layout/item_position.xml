@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.yjkj.chainup.new_version.activity.financial.vm.HoldViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -16,12 +16,13 @@
             type="com.yjkj.chainup.new_version.activity.financial.vm.HoldViewModel.OnItemListener" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:onClick="@{()->onItemListener.onClick()}"
+        android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
@@ -42,14 +43,15 @@
                 android:textSize="16sp"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:text=" UDST 活期"
+                android:text="@{item.item.projectName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </TextView>
+
             <View
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent" />
             <View
                 android:layout_gravity="center"
                 app:ResColor="@{R.color.warn_yellow}"
@@ -63,65 +65,72 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:textSize="12sp"
-                android:text="昨日收益（USDT）"
+                android:text="@{`昨日收益（`+item.item.gainCoin+`)`}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
+
             <TextView
                 android:gravity="center"
                 android:textSize="12sp"
                 android:layout_width="0dp"
-                android:text="累计收益（USDT）"
+                android:text="@{`累计收益（`+item.item.gainCoin+`)`}"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
+
             <TextView
                 android:gravity="right"
                 android:textSize="12sp"
                 android:layout_width="0dp"
-                android:text="预计年收益（USDT）"
+                android:text="@{`预计年收益（`+item.item.gainCoin+`)`}"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:textSize="12sp"
-                android:text="0.00"
+                android:text="@{item.item.yesterdayUserGainAmount+``}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
+
             <TextView
                 android:gravity="center"
                 android:textSize="12sp"
                 android:layout_width="0dp"
-                android:text="0.28"
+                android:text="@{item.item.userGainAmount+``}"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
+
             <TextView
                 android:gravity="right"
                 android:layout_marginRight="10dp"
                 android:textSize="12sp"
                 android:layout_width="0dp"
-                android:text="18.18"
+                android:text="@{item.item.almostUserGainAmount+``}"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
         </LinearLayout>
 
         <TextView
             android:layout_marginTop="10dp"
-            android:text="数量（USDT）"
+            android:text="@{`数量（`+item.item.gainCoin+`)`}"
             android:textSize="12sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content" />
+
         <TextView
             android:textSize="12sp"
             android:layout_width="wrap_content"
-            android:text="900.28"
-            android:layout_height="wrap_content"></TextView>
+            android:text="@{item.item.userCurrentAmount+``}"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

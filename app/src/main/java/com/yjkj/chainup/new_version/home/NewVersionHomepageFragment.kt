@@ -29,6 +29,7 @@ import com.gcssloop.widget.PagerGridSnapHelper
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
+import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -38,6 +39,7 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.*
+import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
@@ -53,11 +55,13 @@ import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
+import com.yjkj.chainup.ws.WsContractAgentManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.swipe_refresh
@@ -136,6 +140,7 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
         initRedPacketView()
         setOnClick()
         initNetWorkRemind()
+        getPublicInfo()
         LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
 
         when (ApiConstants.HOME_PAGE_STYLE) {
@@ -157,7 +162,21 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
 
     }
 
-    fun initNetWorkRemind() {
+    private fun getPublicInfo() {
+        val map = TreeMap<String, String>()
+        startTask(getContractModel().contractApiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+            val trader = it.data.enable_module_info.trader
+            val increment = it.data.enable_module_info.increment
+            tvDocumentary.visibility = if (trader == 1) View.VISIBLE else View.GONE
+            tvFinance.visibility = if (increment == 1) View.VISIBLE else View.GONE
+
+        }, Consumer {
+            LogUtil.d("我是", it.message)
+        })
+
+    }
+
+    private fun initNetWorkRemind() {
         val spanStrStart = SpannableString(getString(R.string.check_network_settings))
         val spanStrClick = SpannableString(getString(R.string.check_network))
         val index = spanStrStart.indexOf(spanStrClick.toString(), 0)
@@ -358,7 +377,7 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
                     var language = json?.optJSONObject("language")
                     if (contracts != null && contracts.length() > 0) {
                         var languageStr = language?.optString(SystemUtils.getSystemLanguage())
-                                ?: ""
+                            ?: ""
                         if (TextUtils.isEmpty(languageStr)) {
                             languageStr = language?.optString("en_US") ?: ""
                         }
@@ -438,7 +457,7 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
     }
 
 
-    fun loadContractData() {
+    private fun loadContractData() {
         ContractPublicDataAgent.registerTickerWsListener(this, object : ContractTickerListener() {
             override fun onWsContractTicker(ticker: ContractTicker) {
                 if (isHidden || !isVisible || !isResumed) {
@@ -557,12 +576,21 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
             })
         }
         tvDocumentary?.setOnClickListener {
+            if (!LoginManager.checkLogin(context, true)) {
+                return@setOnClickListener
+            }
             ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
         }
         tvFinance?.setOnClickListener {
+            if (!LoginManager.checkLogin(context, true)) {
+                return@setOnClickListener
+            }
             ArouterUtil.navigation(RoutePath.FinancialActivity, null)
         }
         tvBinary?.setOnClickListener {
+            if (!LoginManager.checkLogin(context, true)) {
+                return@setOnClickListener
+            }
             ArouterUtil.navigation(RoutePath.BinaryActivity, null)
         }
         iv_market_msg?.setOnClickListener {
@@ -776,7 +804,13 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
             return
         }
         for (i in contractHomeRecommendNameList.indices) {
-            fragments.add(NewSlCoinSearchItemFragment.newInstance(i, fragment_market, contractHomeRecommendList.get(i).toString()))
+            fragments.add(
+                NewSlCoinSearchItemFragment.newInstance(
+                    i,
+                    fragment_market,
+                    contractHomeRecommendList.get(i).toString()
+                )
+            )
         }
         var marketPageAdapter = NVPagerAdapter(childFragmentManager, contractHomeRecommendNameList, fragments)
         fragment_market?.adapter = marketPageAdapter
@@ -825,7 +859,15 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
             return
 
         for (i in titles.indices) {
-            fragments.add(NewHomeDetailFragmentItem.newInstance(titles[i], i, chooseType[i], fragment_market, serviceDatas.get(i).getJSONArray("list").toString()))
+            fragments.add(
+                NewHomeDetailFragmentItem.newInstance(
+                    titles[i],
+                    i,
+                    chooseType[i],
+                    fragment_market,
+                    serviceDatas.get(i).getJSONArray("list").toString()
+                )
+            )
         }
 
         var marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
@@ -1083,7 +1125,11 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
                     if (otcOpen) {
                         ArouterUtil.greenChannel(RoutePath.NewOTCOrdersActivity, null)
                     } else {
-                        NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
+                        NToastUtil.showTopToastNet(
+                            this.mActivity,
+                            false,
+                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+                        )
                     }
                 }
             }
@@ -1113,7 +1159,11 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
                         }
 
                     } else {
-                        NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
+                        NToastUtil.showTopToastNet(
+                            this.mActivity,
+                            false,
+                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+                        )
                     }
                 }
             }
@@ -1199,7 +1249,11 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
                 if (LoginManager.checkLogin(activity, true)) {
                     when (UserDataService.getInstance().authLevel) {
                         0 -> {
-                            NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "noun_login_pending"))
+                            NToastUtil.showTopToastNet(
+                                this.mActivity,
+                                false,
+                                LanguageUtil.getString(context, "noun_login_pending")
+                            )
                         }
                         1 -> {
                             ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
@@ -1431,10 +1485,10 @@ class NewVersionHomepageFragment : NBaseFragment(), WsAgentManager.WsResultCallb
         clearToolHttp()
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
             subscribeCoin = Observable.interval(10L, CommonConstant.homeLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                    .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                    .subscribe {
-                        getVPTab()
-                    }
+                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+                .subscribe {
+                    getVPTab()
+                }
         }
     }
 

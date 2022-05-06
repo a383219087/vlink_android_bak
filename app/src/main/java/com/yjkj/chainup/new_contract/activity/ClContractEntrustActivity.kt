@@ -18,15 +18,21 @@ import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.ContractEntrustTabWidget
-import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.net_new.JSONUtil
+import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.new_contract.adapter.ClContractPlanEntrustAdapter
 import com.yjkj.chainup.new_contract.adapter.ClContractPriceEntrustAdapter
 import com.yjkj.chainup.new_contract.adapter.ClContractPriceEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.ClCurrentOrderBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
+import com.yjkj.chainup.util.LogUtil
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.cl_activity_contract_entrust.*
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 /**
@@ -254,26 +260,26 @@ class ClContractEntrustActivity : NBaseActivity() {
     private fun loadContractData() {
         mContractId = intent.getIntExtra("contractId", 0)
         addDisposable(getContractModel().getPublicInfo(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            var mContractList = optJSONArray("contractList")
-                            for (i in 0..(mContractList.length() - 1)) {
-                                var obj: JSONObject = mContractList.get(i) as JSONObject
-                                var id = obj.getInt("id")
-                                var symbol = LogicContractSetting.getContractShowNameById(context, id)
-                                contractList.add(TabInfo(symbol, i, id.toString()))
-                                if (mContractId == id) {
-                                    mCurrContractInfo = mCurrContractInfo ?: contractList[i]
-                                }
+            consumer = object : NDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    jsonObject.optJSONObject("data").run {
+                        var mContractList = optJSONArray("contractList")
+                        for (i in 0..(mContractList.length() - 1)) {
+                            var obj: JSONObject = mContractList.get(i) as JSONObject
+                            var id = obj.getInt("id")
+                            var symbol = LogicContractSetting.getContractShowNameById(context, id)
+                            contractList.add(TabInfo(symbol, i, id.toString()))
+                            if (mContractId == id) {
+                                mCurrContractInfo = mCurrContractInfo ?: contractList[i]
                             }
-                            mCurrContractInfo = mCurrContractInfo ?: contractList[0]
-                            updateContractUI()
-
                         }
-                    }
+                        mCurrContractInfo = mCurrContractInfo ?: contractList[0]
+                        updateContractUI()
 
-                }))
+                    }
+                }
+
+            }))
     }
 
     /**

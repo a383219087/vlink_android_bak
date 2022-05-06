@@ -1,64 +1,40 @@
 package com.yjkj.chainup.new_version.activity.financial.vm
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
-import com.yjkj.chainup.BR
-import com.yjkj.chainup.R
+import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.new_version.activity.documentary.AddMoneyDialog
-import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
-import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
-import com.yjkj.chainup.new_version.activity.documentary.WinAndStopDialog
-import me.tatarka.bindingcollectionadapter2.ItemBinding
+import com.yjkj.chainup.bean.ProjectBean
+import com.yjkj.chainup.bean.ProjectInfo
+import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.net.DataHandler
+import io.reactivex.functions.Consumer
+import java.util.*
 
 class UsdtViewModel: BaseViewModel() {
-    var activity = MutableLiveData<FragmentActivity>()
+    var bean = MutableLiveData<ProjectInfo>()
+    var bean1 = MutableLiveData<ProjectBean>()
 
-    interface OnItemListener {
-        fun onClick()
 
+
+
+
+
+    fun getData(id:String) {
+        val map = TreeMap<String, String>()
+        map["id"] = id
+        startTask(apiService.projectInfo(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+            bean.value=it.data
+
+
+        }, Consumer {
+        })
     }
 
-    var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick() {
 
-        }
+    fun toSaveActivity(){
+        ARouter.getInstance().build(RoutePath.SaveActivity)
+            .withString("id",bean1.value?.id.toString())
+            .navigation()
 
-
-    }
-
-    fun onShareClick() {
-        ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
-
-    fun onShareClick1() {
-        AddMoneyDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
-
-    fun onShareClick2() {
-        WinAndStopDialog(). showDialog(activity.value?.supportFragmentManager,"")
-    }
-
-    fun onShareClick3() {
-        ClosePositionDialog(). showDialog(activity.value?.supportFragmentManager,"")
-
-    }
-
-    val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_all)
-    val items: ObservableList<String> = ObservableArrayList()
-
-    override fun onCreate() {
-        super.onCreate()
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
     }
 }

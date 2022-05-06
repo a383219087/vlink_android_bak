@@ -73,7 +73,7 @@ abstract class NDisposableObserver : DisposableObserver<ResponseBody> {
     }
 
     override fun onNext(responseBody: ResponseBody) {
-        LogUtil.d(TAG, "MyDisposableObserver==onNext==t is " + responseBody)
+        LogUtil.d(TAG, "MyDisposableObserver==onNext==t is $responseBody")
         closeLoadingDialog()
         var jsonObj = JSONUtil.parse(responseBody, isShowToast)
         if (null != jsonObj) {

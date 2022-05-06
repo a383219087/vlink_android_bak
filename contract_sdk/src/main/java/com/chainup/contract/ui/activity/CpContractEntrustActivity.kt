@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -18,6 +18,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.Gson
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
+import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractPriceEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
@@ -143,7 +144,10 @@ class CpContractEntrustActivity : CpNBaseActivity() {
                     if ((adapter.data[position] as CpCurrentOrderBean).type.equals("6")){
                         return@setOnItemChildClickListener
                     }
-                    CpContractEntrustDetailActivity.show(mActivity, adapter.data[position] as CpCurrentOrderBean)
+                    CpContractEntrustDetailActivity.show(
+                        mActivity,
+                        adapter.data[position] as CpCurrentOrderBean
+                    )
 
                 }
                 R.id.img_error_tips -> {

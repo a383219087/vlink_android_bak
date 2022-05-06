@@ -31,6 +31,7 @@ import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
@@ -50,10 +51,12 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net.NetUrl
-import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net_new.JSONUtil
+import com.yjkj.chainup.net_new.NetUrl
+import com.yjkj.chainup.net_new.rxjava.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
@@ -66,6 +69,7 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_main.*
 import kotlinx.android.synthetic.main.check_visit_status.*
@@ -73,7 +77,9 @@ import kotlinx.android.synthetic.main.no_network_remind.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 // TODO 优化
 @Route(path = RoutePath.NewMainActivity)
@@ -102,8 +108,7 @@ class NewMainActivity : NBaseActivity() {
     private var tradeFragment = TradeFragment()
     private var slContractFragment = SlContractFragment()
 
-    //    private var slCoContractFragment = ClContractFragment()
-//    private var slCoContractFragment = CpContractFragment()
+
     private var slCoContractFragment = CpContractNewTradeFragment()
 
     private var assetFragment = NewVersionMyAssetFragment()
@@ -129,7 +134,7 @@ class NewMainActivity : NBaseActivity() {
     /*
     *检测网络状态
     */
-    fun netChangeStatus() {
+    private fun netChangeStatus() {
         NetUtil.registerNetConnChangedReceiver(this)
         NetUtil.addNetConnChangedListener(object : NetUtil.Companion.NetConnChangedListener {
             override fun onNetConnChanged(connectStatus: NetUtil.Companion.ConnectStatus) {
@@ -176,15 +181,15 @@ class NewMainActivity : NBaseActivity() {
         WsAgentManager.instance.saveCID(cid)
         when (ApiConstants.HOME_VIEW_STATUS) {
             ParamConstant.DEFAULT_HOME_PAGE, ParamConstant.CONTRACT_HOME_PAGE -> {
-                var homePageFragment = NewVersionHomepageFragment()
+                val homePageFragment = NewVersionHomepageFragment()
                 fragmentList.add(homePageFragment)
             }
             ParamConstant.JAPAN_HOME_PAGE -> {
-                var japanHomepageFragment = NewVersionJapanHomepageFragment()
+                val japanHomepageFragment = NewVersionJapanHomepageFragment()
                 fragmentList.add(japanHomepageFragment)
             }
             ParamConstant.INTERNATIONAL_HOME_PAGE -> {
-                var homefristPageFragment = NewVersionHomepageFirstFragment()
+                val homefristPageFragment = NewVersionHomepageFirstFragment()
                 fragmentList.add(homefristPageFragment)
             }
         }
@@ -201,9 +206,7 @@ class NewMainActivity : NBaseActivity() {
             mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_market"))
 
             mTextviewList.add(LanguageUtil.getString(this, "assets_action_transaction"))
-            if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
 
-            }
             if (contractOpen) {
                 initContract()
             }
@@ -231,19 +234,7 @@ class NewMainActivity : NBaseActivity() {
             showLogoutDialog()
         }
     }
-//
-//    @RequiresApi(Build.VERSION_CODES.KITKAT)
-//    override fun onResume() {
-//        super.onResume()
-//        NewDialogUtils.showHomePageDialog(this)
-//        loginToken()
-//        if (!TextUtils.isEmpty(MMKV.defaultMMKV().getString("gameId", ""))) {
-//            if (LoginManager.checkLogin(this, false)) {
-//                DialogUtil.showAuthorizationDialog(this, gameID, gameName, gameToken)
-//            }
-//        }
-//
-//    }
+
 
     override fun initView() {
         showTabs()
@@ -364,21 +355,14 @@ class NewMainActivity : NBaseActivity() {
             setCurrentItem()
         } else if (MessageEvent.market_switch_type == event.msg_type) {
             //币币交易tab切换
-            var msg_content = event.msg_content
+            val msg_content = event.msg_content
             if (null != msg_content) {
                 curPosition = 1
                 setCurrentItem()
             }
         } else if (MessageEvent.login_bind_type == event.msg_type) {
-//            LogUtil.e("LogUtils", "登录监听 ${UserDataService.getInstance().token}  [] ${PushManager.getInstance().getClientid(this)}")
             CpClLogicContractSetting.setToken(UserDataService.getInstance().token)
-//            HttpClient.instance.bindToken(PushManager.getInstance().getClientid(this)).subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe({
-//
-//                    }, {
-//                        it.printStackTrace()
-//                    })
+
         } else if (MessageEvent.sl_contract_force_event == event.msg_type) {
             LogUtil.e("LogUtils", "重新配置新合约")
             showLogoutDialog()
@@ -401,9 +385,9 @@ class NewMainActivity : NBaseActivity() {
     /**
      * 根据ws重连次数判断网络
      */
-    fun wsConnectCount() {
+    private fun wsConnectCount() {
         if (connectCount > 10) {
-            if (mActivity?.let { NetUtil.isNetConnected(it) } != true) {
+            if (!mActivity.let(NetUtil.Companion::isNetConnected)) {
                 no_network_main_bg?.visibility = View.VISIBLE
                 main_bg?.visibility = View.GONE
             } else {
@@ -414,20 +398,23 @@ class NewMainActivity : NBaseActivity() {
             no_network_main_bg?.visibility = View.GONE
             main_bg?.visibility = View.VISIBLE
         }
-        var net_event_fragment = MessageEvent(MessageEvent.net_status_change)
-        EventBusUtil.post(net_event_fragment)
+        EventBusUtil.post(MessageEvent(MessageEvent.net_status_change))
     }
 
     override fun onCpMessageEvent(event: CpMessageEvent) {
-        if (CpMessageEvent.sl_contract_go_login_page == event.msg_type) {
-            LoginManager.checkLogin(this, true)
-        } else if (CpMessageEvent.sl_contract_go_fundsTransfer_page == event.msg_type) {
-            ArouterUtil.navigation(RoutePath.NewVersionTransferActivity, Bundle().apply {
-                putString(ParamConstant.TRANSFERSTATUS, ParamConstant.TRANSFER_CONTRACT)
-                putString(ParamConstant.TRANSFERSYMBOL, event.msg_content.toString())
-            })
-        } else if (CpMessageEvent.sl_contract_go_kyc_page == event.msg_type) {
-            ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+        when {
+            CpMessageEvent.sl_contract_go_login_page == event.msg_type -> {
+                LoginManager.checkLogin(this, true)
+            }
+            CpMessageEvent.sl_contract_go_fundsTransfer_page == event.msg_type -> {
+                ArouterUtil.navigation(RoutePath.NewVersionTransferActivity, Bundle().apply {
+                    putString(ParamConstant.TRANSFERSTATUS, ParamConstant.TRANSFER_CONTRACT)
+                    putString(ParamConstant.TRANSFERSYMBOL, event.msg_content.toString())
+                })
+            }
+            CpMessageEvent.sl_contract_go_kyc_page == event.msg_type -> {
+                ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+            }
         }
     }
 
@@ -500,13 +487,6 @@ class NewMainActivity : NBaseActivity() {
             addDisposable(getMainModel().public_info_v4(MyNDisposableObserver(mActivity)))
         }
         contractOpen = PublicInfoDataService.getInstance().contractOpen(catchObj)
-        AppConstant.IS_NEW_CONTRACT = (PublicInfoDataService.getInstance().getContractMode() == 1)
-        if (AppConstant.IS_NEW_CONTRACT && contractOpen) {
-            var mContractObj = LogicContractSetting.getContractJsonListStr(mActivity)
-            if (TextUtils.isEmpty(mContractObj)) {
-                loadContractPublicInfo()
-            }
-        }
 
         if (ApiConstants.isGooglePlay()) {
             CheckUpdateUtil.update(mActivity, true)
@@ -567,29 +547,13 @@ class NewMainActivity : NBaseActivity() {
         }
     }
 
-    private fun loadContractPublicInfo() {
-        addDisposable(getContractModel().getPublicInfo(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            val contractList = optJSONArray("contractList")
-                            var marginCoinList = optJSONArray("marginCoinList")
-                            if (contractList.length() == 0) {
-                                return
-                            }
-                            LogicContractSetting.setContractJsonListStr(mActivity, contractList.toString())
-                            LogicContractSetting.setContractMarginCoinListStr(mActivity, marginCoinList.toString())
-                        }
-                    }
-                }))
 
-    }
 
     var hasCommmitBikiUserInfo = false
     fun loginToken() {
         if (hasCommmitBikiUserInfo)
             return
-        var token = UserDataService.getInstance().token
+        val token = UserDataService.getInstance().token
         if (getString(R.string.applicationId) == "com.chainup.exchange.bikicoin" && !TextUtils.isEmpty(token)) {
             hasCommmitBikiUserInfo = true
             addDisposable(getOTCModel().loginInformation(token, object : NDisposableObserver(null, false) {
@@ -606,7 +570,9 @@ class NewMainActivity : NBaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        loopStart()
+        if(BuildConfig.isRelease){
+            loopStart()
+        }
     }
 
     override fun onPause() {
@@ -716,6 +682,7 @@ class NewMainActivity : NBaseActivity() {
         System.exit(0)
     }
 
+    @SuppressLint("CheckResult")
     private fun getAdvert() {
         homeAdvert(this)
         HttpClient.instance.getHomeAdvert()
@@ -742,7 +709,7 @@ class NewMainActivity : NBaseActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    fun isShouldHideKeyboard(v: View, event: MotionEvent): Boolean {
+    private fun isShouldHideKeyboard(v: View, event: MotionEvent): Boolean {
         if (v != null && (v is EditText)) {
             val l = intArrayOf(0, 0)
             v.getLocationInWindow(l)
@@ -750,12 +717,8 @@ class NewMainActivity : NBaseActivity() {
             val top = l[1]
             val bottom = top + v.getHeight()
             val right = left + v.getWidth()
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(event.x > left && event.x < right
+                    && event.y > top && event.y < bottom)
         }
         return false
     }

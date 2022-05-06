@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "ua.eshepelyuk.ManifestClasspath"
+
+
 //apply plugin: 'com.alibaba.arouter'
 //TODO 上线开启
 //apply plugin: 'com.google.gms.google-services'
@@ -88,6 +91,7 @@ android {
             signingConfig signingConfigs.release
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField  "boolean","isRelease","true"
             resValue "string", "buglyId", "$change.buglyId"
             resValue "string", "applicationId", "$change.applicationId"
             resValue "string", "baseUrl", "$change.baseUrl"
@@ -125,6 +129,7 @@ android {
             shrinkResources false
 
             signingConfig signingConfigs.debug
+            buildConfigField  "boolean","isRelease","false"
             resValue "string", "buglyId", "$change.buglyId"
             resValue "string", "applicationId", "$change.applicationId"
             resValue "string", "baseUrl", "$change.baseUrl"

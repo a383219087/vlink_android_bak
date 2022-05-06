@@ -17,6 +17,7 @@ import okhttp3.ResponseBody
  */
 class ContractModel : BaseDataManager() {
 
+
     /**
      * 1. 合约的公共接口
      */
@@ -313,9 +314,9 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getBusinessTransferList1(getBaseReqBody(map)), consumer)
     }
 
-    fun getPublicInfo(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPublicInfo(getBaseReqBody()), consumer)
-    }
+//    fun getPublicInfo(consumer: DisposableObserver<ResponseBody>): Disposable? {
+//        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPublicInfo(getBaseReqBody()), consumer)
+//    }
 
 
     fun getUserConfig(contractId: String = "", consumer: DisposableObserver<ResponseBody>): Disposable? {

@@ -29,10 +29,18 @@ import com.yjkj.chainup.new_version.view.ForegroundCallbacksListener
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
 import com.yjkj.chainup.util.LocalManageUtil
 import com.yjkj.chainup.util.NToastUtil
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONObject
 import java.lang.reflect.Method
 
 
@@ -219,12 +227,25 @@ abstract class NBaseActivity : AppCompatActivity(), View.OnClickListener {
         }
         disposables!!.add(disposable)
     }
+    /**
+     * 启动网络任务
+     */
+    fun <D> startTask(single: Observable<D>, onNext: Consumer<in D>, onError: Consumer<in Throwable>) {
+        if (disposables == null) {
+            disposables = CompositeDisposable()
+        }
+        disposables!!.add(
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError)
+        )
+    }
 
     /*
      *注销观察者，防止内存泄漏
      */
     fun clearDisposable() {
         disposables?.clear()
+        disposables?.dispose()
         disposables = null
     }
 
@@ -328,7 +349,9 @@ abstract class NBaseActivity : AppCompatActivity(), View.OnClickListener {
     fun isEmpty(str: String?): Boolean {
         return TextUtils.isEmpty(str)
     }
-
+    fun toRequestBody(params: Map<String, String>): RequestBody {
+        return JSONObject(params).toString().toRequestBody("application/json;charset=utf-8".toMediaTypeOrNull())
+    }
     /**
      * 设置状态栏的颜色
      * @param 0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字

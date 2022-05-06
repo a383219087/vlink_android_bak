@@ -8,7 +8,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.SaveViewModel" />
+            type="com.yjkj.chainup.new_version.activity.financial.vm.OutViewModel" />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="@{_all.bean.name}"
+                        android:text="@{_all.bean.projectName}"
                         android:textSize="16sp"/>
 
                 <View
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text="存入金额"
+                        android:text="取出金额"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <View
@@ -99,7 +99,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"/>
                     <TextView
-                        android:text="@{`可用：`+_all.bean.userNormalAmount+_all.bean.baseCoin}"
+                        android:text="@{`当前存款：`+_all.bean.userCurrentAmount+_all.bean.baseCoin}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:textSize="15sp"
-                        android:hint="请输入存入金额"
+                        android:hint="请输入取出金额"
                         android:layout_width="0dp"
                         android:text="@={_all.text}"
                         android:layout_weight="1"
@@ -128,81 +128,6 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:padding="10dp"
-                    app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{10}"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="存款总额"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent" />
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="@{`0`+_all.bean.baseCoin}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="单笔限额"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent" />
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="@{_all.bean.buyAmountMin+`-`+_all.bean.buyAmountMax+_all.bean.baseCoin}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="预计每日收益"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent" />
-                        <TextView
-                            android:textSize="12sp"
-                            android:text="@{`0`+_all.bean.baseCoin}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -214,7 +139,7 @@
             app:radius="@{10}"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:text="确定存入"
+            android:text="确定取出"
             android:onClick="@{()->_all.save()}"
             android:textColor="@color/white"
             android:layout_height="wrap_content"/>
