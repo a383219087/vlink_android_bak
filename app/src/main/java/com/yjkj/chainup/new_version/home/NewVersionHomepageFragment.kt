@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,12 +40,10 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.activity.NewMainActivity
-import com.yjkj.chainup.new_version.activity.personalCenter.MailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageContractAdapter
@@ -63,7 +60,6 @@ import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
 import kotlinx.android.synthetic.main.no_network_remind.*
@@ -75,7 +71,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -88,7 +83,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     val getTopDataReqType = 1 // 首页顶部行情数据请求
     val homepageReqType = 2 // 首页数据请求
-    val accountBalanceReqType = 5 //总账户资产请求
     val homeData = 11 //总账户资产请求
 
     /**
@@ -122,7 +116,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     override fun setContentView() = R.layout.fragment_new_version_homepage
 
     override fun initView() {
-        mViewModel?.context?.value=context!!
+        mViewModel?.mActivity?.value=mActivity
         otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
         leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
@@ -137,7 +131,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             initTop24HourView()
         }
 
-        setTopBar()
         initRedPacketView()
         setOnClick()
         initNetWorkRemind()
@@ -501,16 +494,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     }
 
 
-    private fun setTopBar() {
-        ns_layout?.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            val distance = resources.getDimension(R.dimen.dp_64)
-            if ((1 - scrollY / distance) < (0.0001)) {
-                item_view_market_line.visibility = View.VISIBLE
-            } else {
-                item_view_market_line.visibility = View.INVISIBLE
-            }
-        }
-    }
+
 
     /*
      * 资产tab跳转
@@ -551,28 +535,9 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     fun setOnClick() {
 
-        /**
-         * 个人中心
-         */
-        iv_personal_logo?.setOnClickListener {
-            ArouterUtil.navigation(RoutePath.PersonalCenterActivity, null)
-        }
-
-        layout_search?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString("type", ParamConstant.ADD_COIN_MAP)
-            })
-        }
-        iv_market_msg?.setOnClickListener {
-            if (LoginManager.checkLogin(mActivity, true)) {
-                startActivity(Intent(mActivity, MailActivity::class.java))
-            }
-        }
 
         iv_nation_more?.setOnClickListener {
-//            if (LoginManager.checkLogin(mActivity, true)) {
             startActivity(Intent(mActivity, NoticeActivity::class.java))
-//            }
         }
 
         if (SystemUtils.isZh()) {
@@ -1028,7 +993,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     /**
      * 对应的服务
      */
-    fun enter2Activity(temp: List<String>?) {
+    private fun enter2Activity(temp: List<String>?) {
 
         if (null == temp || temp.size <= 0)
             return
@@ -1295,12 +1260,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
      * 获取账户信息
      */
     var accountBalance = ""
-    var accountFlat = ""
-    private fun getAccountBalance() {
-        var disposable = getMainModel().getTotalAsset(MyNDisposableObserver(accountBalanceReqType))
-        addDisposable(disposable!!)
 
-    }
 
     override fun onWsMessage(json: String) {
         handleData(json)
@@ -1523,10 +1483,10 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     private fun initNoteBanner(cmsAppDataList: JSONArray?) {
         if (cmsAppDataList != null && cmsAppDataList.length() != 0) {
             rl_custom_config?.visibility = View.VISIBLE
-            var serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
+            val serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
             val arrayBanner = arrayListOf<String>()
             serviceDatas.forEach {
-                var imageUrl = it.optString("imageUrl")
+                val imageUrl = it.optString("imageUrl")
                 if (StringUtil.isHttpUrl(imageUrl)) {
                     arrayBanner.add(imageUrl)
                 }
@@ -1550,8 +1510,8 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     }
 
     private fun routeApp(obj: JSONObject?) {
-        var httpUrl = obj?.optString("httpUrl") ?: ""
-        var nativeUrl = obj?.optString("nativeUrl") ?: ""
+        val httpUrl = obj?.optString("httpUrl") ?: ""
+        val nativeUrl = obj?.optString("nativeUrl") ?: ""
         if (TextUtils.isEmpty(httpUrl)) {
             if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
                 enter2Activity(nativeUrl.split("?"))

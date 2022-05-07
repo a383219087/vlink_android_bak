@@ -2,14 +2,14 @@ package com.yjkj.chainup.new_version.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
-import androidx.core.widget.NestedScrollView
 import android.text.TextUtils
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.base.BaseMVFragment
+import com.yjkj.chainup.databinding.FragmentNewHomePageJapanBinding
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -18,28 +18,18 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.*
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.personalCenter.MailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
+import com.yjkj.chainup.new_version.home.vm.NewVersionJapanHomePageViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.listener.OnBannerListener
-import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_home_asset_login_japan.*
 import kotlinx.android.synthetic.main.fragment_new_home_asset_nologin_japan.*
 import kotlinx.android.synthetic.main.fragment_new_home_page_japan.*
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.banner_looper
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.fragment_market
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.iv_close_red_envelope
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.iv_nation_more
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.ll_advertising_layout
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.rl_red_envelope_entranc_layout
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.rl_red_envelope_entrance
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.stl_homepage_list
-import kotlinx.android.synthetic.main.fragment_new_home_page_japan.vtc_advertising
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -49,7 +39,7 @@ import org.json.JSONObject
  * @Email buptjinlong@163.com
  * @description
  */
-class NewVersionJapanHomepageFragment : NBaseFragment(), MarketWsData.RefreshWSListener {
+class NewVersionJapanHomepageFragment : BaseMVFragment<NewVersionJapanHomePageViewModel?, FragmentNewHomePageJapanBinding>(), MarketWsData.RefreshWSListener {
     override fun onRefreshWS(pos: Int) {
 
     }
@@ -80,15 +70,12 @@ class NewVersionJapanHomepageFragment : NBaseFragment(), MarketWsData.RefreshWSL
     override fun setContentView() = R.layout.fragment_new_home_page_japan
 
     override fun initView() {
-
+        mViewModel?.mActivity?.value=mActivity
         otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
         leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
-
-        setTopBar()
         initRedPacketView()
         setOnClick()
-
         LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
     }
 
@@ -251,16 +238,7 @@ class NewVersionJapanHomepageFragment : NBaseFragment(), MarketWsData.RefreshWSL
     }
 
 
-    fun setTopBar() {
-        ns_layout?.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            val distance = resources.getDimension(R.dimen.dp_64)
-            if ((1 - scrollY / distance) < (0.0001)) {
-                item_view_market_line.visibility = View.VISIBLE
-            } else {
-                item_view_market_line.visibility = View.INVISIBLE
-            }
-        }
-    }
+
 
     /*
      * 资产tab跳转
@@ -306,23 +284,6 @@ class NewVersionJapanHomepageFragment : NBaseFragment(), MarketWsData.RefreshWSL
             setAssetViewVisible()
         }
 
-        /**
-         * 个人中心
-         */
-        iv_personal_logo?.setOnClickListener {
-            ArouterUtil.navigation(RoutePath.PersonalCenterActivity, null)
-        }
-
-        layout_search?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString("type", ParamConstant.ADD_COIN_MAP)
-            })
-        }
-        iv_market_msg?.setOnClickListener {
-            if (LoginManager.checkLogin(mActivity, true)) {
-                startActivity(Intent(mActivity, MailActivity::class.java))
-            }
-        }
 
         iv_nation_more?.setOnClickListener {
 //            if (LoginManager.checkLogin(mActivity, true)) {

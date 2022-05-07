@@ -2,20 +2,20 @@ package com.yjkj.chainup.new_version.home
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
-import androidx.core.widget.NestedScrollView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.request.RequestOptions
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.base.BaseMVFragment
+import com.yjkj.chainup.databinding.FragmentNewVersionInterHomepageBinding
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -25,18 +25,17 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.*
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.activity.NewMainActivity
-import com.yjkj.chainup.new_version.activity.personalCenter.MailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageContractAdapter
-import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
+import com.yjkj.chainup.new_version.home.vm.NewVersionHomePageFirstViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
@@ -45,7 +44,6 @@ import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.banner_looper
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.fragment_market
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.iv_close_red_envelope
@@ -65,9 +63,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 /**
  * @Author lianshangljl
@@ -75,7 +71,7 @@ import kotlin.collections.ArrayList
  * @Email buptjinlong@163.com
  * @description 首页
  */
-class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
+class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstViewModel?, FragmentNewVersionInterHomepageBinding>(), WsAgentManager.WsResultCallback {
 
     val getTopDataReqType = 1 // 首页顶部行情数据请求
     val homepageReqType = 2 // 首页数据请求
@@ -94,16 +90,12 @@ class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResult
      */
     private var contractOpen = false
 
-    private var isAssetsShow = true
 
     var contractTotal: Double = 0.0
     var contractReturn = false
     var totalBalance: String = "0"
 
-    /**
-     * 功能服务
-     */
-    private var serviceAdapter: NewHomePageServiceAdapter? = null
+
 
 
     /*
@@ -115,7 +107,7 @@ class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResult
     override fun setContentView() = R.layout.fragment_new_version_inter_homepage
 
     override fun initView() {
-
+        mViewModel?.mActivity?.value=mActivity
         otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
         leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
@@ -125,8 +117,6 @@ class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResult
         if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             initTop24HourView()
         }
-
-        setTopBar()
         initRedPacketView()
         setOnClick()
         val data = CommonService.instance.getHomeData()
@@ -328,16 +318,7 @@ class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResult
     }
 
 
-    private fun setTopBar() {
-        ns_layout?.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            val distance = resources.getDimension(R.dimen.dp_64)
-            if ((1 - scrollY / distance) < (0.0001)) {
-                item_view_market_line.visibility = View.VISIBLE
-            } else {
-                item_view_market_line.visibility = View.INVISIBLE
-            }
-        }
-    }
+
 
     /*
      * 资产tab跳转
@@ -375,23 +356,7 @@ class NewVersionHomepageFirstFragment : NBaseFragment(), WsAgentManager.WsResult
 
     fun setOnClick() {
 
-        /**
-         * 个人中心
-         */
-        iv_personal_logo?.setOnClickListener {
-            ArouterUtil.navigation(RoutePath.PersonalCenterActivity, null)
-        }
 
-        layout_search?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString("type", ParamConstant.ADD_COIN_MAP)
-            })
-        }
-        iv_market_msg?.setOnClickListener {
-            if (LoginManager.checkLogin(mActivity, true)) {
-                startActivity(Intent(mActivity, MailActivity::class.java))
-            }
-        }
 
         iv_nation_more?.setOnClickListener {
 //            if (LoginManager.checkLogin(mActivity, true)) {

@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="_all"
+            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageFirstViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.R" />
+
+    </data>
+<RelativeLayout
     android:id="@+id/v_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/home_header"
+        app:vm="@{_all}"
         layout="@layout/activity_home_title" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/ns_layout"
         android:layout_width="match_parent"
+        app:setOnScrollChangeListener="@{_all.toTopBar}"
         android:layout_height="wrap_content"
         android:layout_below="@id/home_header"
         android:background="@color/bg_card_color">
@@ -210,3 +225,5 @@
     </FrameLayout>
 
 </RelativeLayout>
+
+</layout>

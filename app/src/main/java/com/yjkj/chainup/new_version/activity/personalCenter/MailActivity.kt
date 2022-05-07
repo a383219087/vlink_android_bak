@@ -1,20 +1,22 @@
 package com.yjkj.chainup.new_version.activity.personalCenter
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.dev.MessageBean
+import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.util.DisplayUtil
+import com.yjkj.chainup.new_version.activity.NewBaseActivity
+import com.yjkj.chainup.new_version.adapter.MailMsgAdapter
+import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.new_version.view.ScreeningPopupWindowView
-import com.yjkj.chainup.new_version.adapter.MailMsgAdapter
-import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.view.EmptyForAdapterView
+import com.yjkj.chainup.util.DisplayUtil
 import com.zyyoona7.popup.EasyPopup
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

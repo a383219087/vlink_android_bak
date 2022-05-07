@@ -7,7 +7,6 @@ import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
@@ -19,15 +18,14 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 import java.util.*
 
 
-class NewVersionHomePageViewModel : BaseViewModel() {
-    var context = MutableLiveData<Context>()
+class NewVersionHomePageViewModel : HomePageViewModel() {
 
     /**
      * 列表
      */
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item: Item) {
-            if (!LoginManager.checkLogin(context.value, true)) {
+            if (!LoginManager.checkLogin(mActivity.value, true)) {
                 return
             }
             when (item.index.value) {
@@ -128,6 +126,9 @@ class NewVersionHomePageViewModel : BaseViewModel() {
         })
 
     }
+
+
+
 
 
 }
