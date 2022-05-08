@@ -21,6 +21,11 @@ import java.util.*
 class NewVersionHomePageViewModel : HomePageViewModel() {
 
     /**
+     * 顶部广告图列表
+     */
+    var bannerImgUrls : ObservableList<String> = ObservableArrayList()
+
+    /**
      * 列表
      */
     var onItemListener: OnItemListener = object : OnItemListener {

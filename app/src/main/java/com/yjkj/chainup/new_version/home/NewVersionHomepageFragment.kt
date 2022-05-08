@@ -60,7 +60,6 @@ import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_home_title.*
 import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
 import kotlinx.android.synthetic.main.no_network_remind.*
 import kotlinx.coroutines.GlobalScope
@@ -301,7 +300,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             if (jsonObjects != null) {
                 CommonService.instance.saveHomeData(jsonObjects)
             }
-            val arrayGuide = arrayOf(layout_search, iv_nation_more, layout_top_24, recycler_center_service_layout)
+            val arrayGuide = arrayOf(mBinding?.homeHeader!!.layoutSearch, iv_nation_more, layout_top_24, recycler_center_service_layout)
             showGuideHomepage(mActivity, arrayGuide, data)
         }
         var noticeInfoList = data.optJSONArray("noticeInfoList")
@@ -401,11 +400,13 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             return
 
         bannerImgUrls.clear()
+        mViewModel?.bannerImgUrls?.clear()
         for (i in 0 until cmsAppAdvertList.length()) {
             var obj = cmsAppAdvertList.optJSONObject(i)
             var imageUrl = obj.optString("imageUrl")
             if (StringUtil.isHttpUrl(imageUrl)) {
                 bannerImgUrls.add(imageUrl)
+                mViewModel?.bannerImgUrls?.add(imageUrl)
             }
         }
         banner_looper?.apply {
@@ -432,7 +433,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                 forwardWeb(obj)
             }
         }
-        //banner设置方法全部调用完毕时最后调用
+       // banner设置方法全部调用完毕时最后调用
         banner_looper?.start()
 
     }
@@ -623,14 +624,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     var selectTopSymbol4Contract: ArrayList<ContractTicker> = arrayListOf()
 
 
-    fun showTopSymbols4ContractData() {
-        if (null == selectTopSymbol4Contract || selectTopSymbol4Contract?.size!! <= 0) {
-            setTopViewVisible(false)
-            return
-        }
-        setTopViewVisible(true)
-        topSymbol4ContractAdapter?.setNewData(selectTopSymbol4Contract)
-    }
+
 
     private fun showTopSymbolsData(topSymbol: JSONArray?) {
         selectTopSymbol = NCoinManager.getSymbols(topSymbol)

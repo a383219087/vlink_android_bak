@@ -15,7 +15,7 @@ import com.yjkj.chainup.common.binding.command.BindingCommand;
 public class NestedScrollViewAdapter {
 
     @BindingAdapter(value = {"setOnScrollChangeListener"}, requireAll = false)
-    public static void addOnPageChangeListener(NestedScrollView layout, final BindingCommand setOnScrollChangeListener) {
+    public static void addOnPageChangeListener(NestedScrollView layout, final BindingCommand<Boolean> setOnScrollChangeListener) {
          layout.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
               double distance=layout.getContext().getResources().getDimension(R.dimen.dp_64);
               if (setOnScrollChangeListener!=null){

@@ -111,7 +111,7 @@ class TradeFragment : NBaseFragment() {
 
     }
 
-    fun setGrdiView() {
+    private fun setGrdiView() {
         if (PublicInfoDataService.getInstance().isGridTradSwitch(null)) {
             var gridList = NCoinManager.getGridCroupList(null)
             if (gridList == null || gridList.size == 0) {
@@ -194,18 +194,22 @@ class TradeFragment : NBaseFragment() {
         super.fragmentVisibile(isVisibleToUser)
         LogUtil.d(TAG, "fragmentVisible==TradeFragment==isVisible is $isVisible  isVisibleToUser $isVisibleToUser")
         if (isVisibleToUser) {
-            if (currentIndex == ParamConstant.LEVER_INDEX_TAB) {
-                cvcTradeFragment.fragmentVisibile(false)
-                gridFragment.fragmentVisibile(false)
-                leverFragment.fragmentVisibile(true)
-            } else if (currentIndex == ParamConstant.CVC_INDEX_TAB) {
-                cvcTradeFragment.fragmentVisibile(true)
-                leverFragment.fragmentVisibile(false)
-                gridFragment.fragmentVisibile(false)
-            } else if (currentIndex == ParamConstant.GRID_INDEX_TAB) {
-                gridFragment.fragmentVisibile(true)
-                cvcTradeFragment.fragmentVisibile(false)
-                leverFragment.fragmentVisibile(false)
+            when (currentIndex) {
+                ParamConstant.LEVER_INDEX_TAB -> {
+                    cvcTradeFragment.fragmentVisibile(false)
+                    gridFragment.fragmentVisibile(false)
+                    leverFragment.fragmentVisibile(true)
+                }
+                ParamConstant.CVC_INDEX_TAB -> {
+                    cvcTradeFragment.fragmentVisibile(true)
+                    leverFragment.fragmentVisibile(false)
+                    gridFragment.fragmentVisibile(false)
+                }
+                ParamConstant.GRID_INDEX_TAB -> {
+                    gridFragment.fragmentVisibile(true)
+                    cvcTradeFragment.fragmentVisibile(false)
+                    leverFragment.fragmentVisibile(false)
+                }
             }
         } else {
             cvcTradeFragment.fragmentVisibile(false)
@@ -222,27 +226,31 @@ class TradeFragment : NBaseFragment() {
             if (null != msgContent && msgContent is Bundle) {
                 currentIndex = msgContent.getInt(ParamConstant.COIN_TRADE_TAB_INDEX)
                 var msgEvent: MessageEvent? = null
-                if (currentIndex == ParamConstant.LEVER_INDEX_TAB) {
-                    switchFragment(leverFragment)
-                    action4Selected(btn_bb, false)
-                    action4Selected(btn_grid, false)
-                    action4Selected(btn_lever)
-                    msgEvent = MessageEvent(MessageEvent.leverTrade_topTab_type)
-                    msgEvent.isLever = true
-                } else if (currentIndex == ParamConstant.CVC_INDEX_TAB) {
-                    switchFragment(cvcTradeFragment)
-                    action4Selected(btn_bb)
-                    action4Selected(btn_lever, false)
-                    action4Selected(btn_grid, false)
-                    msgEvent = MessageEvent(MessageEvent.coinTrade_topTab_type)
-                    msgEvent.isLever = false
-                } else {
-                    switchFragment(gridFragment)
-                    action4Selected(btn_bb, false)
-                    action4Selected(btn_lever, false)
-                    action4Selected(btn_grid)
-                    msgEvent = MessageEvent(MessageEvent.grid_topTab_type)
-                    msgEvent.isLever = false
+                when (currentIndex) {
+                    ParamConstant.LEVER_INDEX_TAB -> {
+                        switchFragment(leverFragment)
+                        action4Selected(btn_bb, false)
+                        action4Selected(btn_grid, false)
+                        action4Selected(btn_lever)
+                        msgEvent = MessageEvent(MessageEvent.leverTrade_topTab_type)
+                        msgEvent.isLever = true
+                    }
+                    ParamConstant.CVC_INDEX_TAB -> {
+                        switchFragment(cvcTradeFragment)
+                        action4Selected(btn_bb)
+                        action4Selected(btn_lever, false)
+                        action4Selected(btn_grid, false)
+                        msgEvent = MessageEvent(MessageEvent.coinTrade_topTab_type)
+                        msgEvent.isLever = false
+                    }
+                    else -> {
+                        switchFragment(gridFragment)
+                        action4Selected(btn_bb, false)
+                        action4Selected(btn_lever, false)
+                        action4Selected(btn_grid)
+                        msgEvent = MessageEvent(MessageEvent.grid_topTab_type)
+                        msgEvent.isLever = false
+                    }
                 }
                 LogUtil.d(TAG, "observeData==TradeFragment==币币交易==currentIndex is $currentIndex,msg_content is $msgContent")
                 msgEvent.msg_content = msgContent as Bundle

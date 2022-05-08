@@ -9,12 +9,16 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.ws.CpWsContractAgentManager
+import com.tencent.bugly.proguard.t
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
+import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.permissionIsGranted
 import com.yjkj.chainup.ws.WsAgentManager
@@ -61,6 +65,7 @@ class SplashActivity : AppCompatActivity() {
         }
         liksArray.add("http://8.219.64.81:8091")
         liksArray.add("http://8.219.72.62:8091")
+
         checkNetworkLine(liksArray[currentCheckIndex])
 //                        if (hasPermission()) {
 //                    Handler().postDelayed({ goHome() }, 150)
@@ -76,21 +81,32 @@ class SplashActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                LogUtil.d("我是SplashActivity",it.toString())
                 ChainUpApp.url = it
                 if (it.baseUrl.contains("http://") || it.baseUrl.contains("https://")) {
                     HttpClient.instance.changeNetwork(it.baseUrl.split("//")[1])
                 } else {
                     HttpClient.instance.changeNetwork(it.baseUrl)
                 }
+
 //                PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
                 CpClLogicContractSetting.setApiWsUrl(this,it.contractUrl, it.contractSocketAddress)
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
-                if (hasPermission()) {
-                    Handler().postDelayed({ goHome() }, 150)
-                } else {
-                    requestPermission()
+                if ( SPUtils.getInstance().getBoolean("SplashActivityIsFirst",true)){
+                    val intent = Intent(this, DataInitService::class.java)
+                    intent.putExtra("isFirst", true)
+                    startService(intent)
+                    SPUtils.getInstance().put("SplashActivityIsFirst", false)
                 }
+                Handler().postDelayed({
+                    if (hasPermission()) {
+                        Handler().postDelayed({ goHome() }, 200)
+                    } else {
+                        requestPermission()
+                    }
+                }, 200)
+
             }, {
                 if (currentCheckIndex < liksArray.size - 1) {
                     currentCheckIndex++

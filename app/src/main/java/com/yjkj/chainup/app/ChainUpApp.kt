@@ -12,6 +12,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
 import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
+import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpLocalManageUtil
 import com.chainup.talkingdata.AppAnalyticsExt
@@ -43,6 +44,7 @@ class ChainUpApp : CpMyApp() {
 //    var appCount = 0
     private var appStateChangeListener: AppStateChangeListener? = null
     private var currentState: Int = 0
+
 //    val STATE_FOREGROUND = 0
 //    val STATE_BACKGROUND = 1
 
@@ -182,7 +184,9 @@ class ChainUpApp : CpMyApp() {
             Log.d(TAG, "========appTurnIntoForeground===")
             isBackgroud = true
             WsAgentManager.instance.isBackgroud = false
-            startTime()
+            if (!SPUtils.getInstance().getBoolean("SplashActivityIsFirst",true)){
+                startTime()
+            }
         }
     }
 
