@@ -20,7 +20,7 @@ import org.json.JSONObject
 class NContractCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data = data, layoutId = R.layout.item_current_entrust_contract) {
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
 
-        item?.run {
+        item.run {
             val baseSymbol = optString("baseSymbol")
             val quoteSymbol = optString("quoteSymbol")
             val leverageLevel = optString("leverageLevel")
@@ -58,28 +58,28 @@ class NContractCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                 setTextColor(R.id.tv_side, ColorUtil.getMainColorType(isRise = side == "BUY"))
                 if (Contract2PublicInfoManager.isPureHoldPosition()) {
                     val text = if (side == "BUY") {
-                         LanguageUtil.getString(context, "contract_text_long")
+                        LanguageUtil.getString(context, "contract_text_long")
                     } else {
-                         LanguageUtil.getString(context, "contract_text_short")
+                        LanguageUtil.getString(context, "contract_text_short")
                     }
                     setText(R.id.tv_side, text)
                 } else {
                     if (side == "BUY") {
                         val text = if (action == "OPEN") {
                             //做多
-                             LanguageUtil.getString(context, "contract_action_long")
+                            LanguageUtil.getString(context, "contract_action_long")
                         } else {
                             //平多
-                             LanguageUtil.getString(context, "contract_balance_more")
+                            LanguageUtil.getString(context, "contract_balance_more")
                         }
                         setText(R.id.tv_side, text)
 
                     } else {
                         val text = if (action == "OPEN") {
                             // 做空
-                             LanguageUtil.getString(context, "contract_action_short")
+                            LanguageUtil.getString(context, "contract_action_short")
                         } else {
-                             LanguageUtil.getString(context, "contract_balance_empty")
+                            LanguageUtil.getString(context, "contract_balance_empty")
                         }
                         setText(R.id.tv_side, text)
                     }
@@ -102,7 +102,7 @@ class NContractCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                     title =  LanguageUtil.getString(context, "contract_text_trustPrice") + "(${quoteSymbol})"
                     value = if (type == "1") {
                         val price4Precision = Contract2PublicInfoManager.cutValueByPrecision(price.toString(), pricePrecision?.toInt()
-                                ?: 4)
+                            ?: 4)
                         price4Precision
                     } else {
                         ( LanguageUtil.getString(context, "contract_action_marketPrice"))
@@ -136,7 +136,7 @@ class NContractCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                  * 成交均价
                  */
                 val avgPrice4Precision = Contract2PublicInfoManager.cutValueByPrecision(avgPrice, pricePrecision?.toInt()
-                        ?: 4)
+                    ?: 4)
                 getView<PositionITemView>(R.id.tv_avg_price)?.run {
                     title =  LanguageUtil.getString(context, "contract_text_dealAverage") + "(${quoteSymbol})"
                     value = (avgPrice4Precision)

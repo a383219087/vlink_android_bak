@@ -177,7 +177,7 @@
         android:layout_marginBottom="@dimen/dp_13">
 
         <TextView
-            android:id="@id/tv_quantity_title"
+            android:id="@+id/tv_quantity_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/charge_text_volume"

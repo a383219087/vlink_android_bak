@@ -20,14 +20,12 @@ import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
 import com.yjkj.chainup.new_version.activity.SelectAreaActivity
 import com.yjkj.chainup.new_version.activity.TitleShowListener
-import com.yjkj.chainup.new_version.activity.WebviewActivity
 import com.yjkj.chainup.new_version.bean.AccountCertificationBean
 import com.yjkj.chainup.new_version.bean.KYCBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.DisplayUtil
 import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.StringUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_realname_certification_choose_countries.*
