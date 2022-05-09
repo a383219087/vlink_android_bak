@@ -535,8 +535,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
 
     fun setOnClick() {
-
-
         iv_nation_more?.setOnClickListener {
             startActivity(Intent(mActivity, NoticeActivity::class.java))
         }

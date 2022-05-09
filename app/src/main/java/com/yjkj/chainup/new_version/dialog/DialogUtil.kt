@@ -13,19 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coorchice.library.SuperTextView
 import com.tencent.mmkv.MMKV
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
-import com.timmy.tdialog.base.TBaseAdapter
-import com.timmy.tdialog.list.TListDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.common.Constants
@@ -45,14 +40,11 @@ import com.yjkj.chainup.new_version.activity.grid.NGridFragment
 import com.yjkj.chainup.new_version.activity.leverage.NLeverFragment
 import com.yjkj.chainup.new_version.activity.oldgrid.OldNGridFragment
 import com.yjkj.chainup.new_version.adapter.trade.NSearchCoinAdapter
-import com.yjkj.chainup.new_version.dialog.global.OnViewGlobalLayoutListener
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.new_version.home.AdvertModel
 import com.yjkj.chainup.new_version.home.dialogType
 import com.yjkj.chainup.new_version.view.depth.TradeView
-import com.yjkj.chainup.treaty.adapter.SelectLevelAdapter
 import com.yjkj.chainup.util.*
-import com.yjkj.chainup.wedegit.ViewUtil
 import com.zyyoona7.popup.EasyPopup
 import com.zyyoona7.popup.XGravity
 import com.zyyoona7.popup.YGravity
@@ -73,101 +65,6 @@ class DialogUtil {
     }
 
     companion object {
-        fun showDialogWithTitle(context: Context, title: String, content: String, listener: ConfirmListener) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_confirm_pay_otc)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.setText(R.id.tv_title, title)
-                        viewHolder?.setText(R.id.tv_content, content)
-                    }
-                    .addOnClickListener(R.id.btn_cancel, R.id.btn_confirm)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-
-                        when (view.id) {
-                            R.id.btn_cancel -> {
-                                tDialog.dismiss()
-                            }
-
-                            R.id.btn_confirm -> {
-                                tDialog.dismiss()
-                                listener.click()
-                            }
-
-                        }
-
-                    }
-                    .create()
-                    .show()
-        }
-
-        fun showDialog(context: Context, title: String, listener: ConfirmListener) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_remove_black_otc)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.setText(R.id.tv_title, title)
-                        viewHolder?.setText(R.id.btn_confirm, LanguageUtil.getString(context, "common_text_btnConfirm"))
-                        viewHolder?.setText(R.id.btn_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
-                    }
-                    .addOnClickListener(R.id.btn_cancel, R.id.btn_confirm)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-
-                        when (view.id) {
-                            R.id.btn_cancel -> {
-                                tDialog.dismiss()
-                            }
-
-                            R.id.btn_confirm -> {
-                                tDialog.dismiss()
-                                listener.click()
-                            }
-
-                        }
-
-                    }
-                    .create()
-                    .show()
-        }
-
-        @Deprecated("暂时不用")
-        fun showBottomDialog(context: Context, titles: List<String>, listener: ConfirmListener) {
-            TListDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_remove_black_otc)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelOutside(true)
-                    .setAdapter(object : TBaseAdapter<String>(R.layout.dialog_bottom_menu, titles) {
-                        override fun onBind(holder: BindViewHolder?, position: Int, t: String?) {
-                            holder?.setText(R.id.tv_title, t)
-                            holder?.setText(R.id.btn_confirm, LanguageUtil.getString(context, "common_text_btnConfirm"))
-                            holder?.setText(R.id.btn_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
-                        }
-
-                    }).setOnAdapterItemClickListener { holder, position, t, tDialog ->
-                        when (position) {
-                            titles.lastIndex -> {
-                                tDialog.dismiss()
-                            }
-
-                            else -> {
-                                listener.click(pos = position)
-                                tDialog.dismiss()
-                            }
-                        }
-
-                    }.setGravity(Gravity.BOTTOM)
-                    .create()
-                    .show()
-
-        }
 
         /**iv_cancel
          *  指纹识别 & 面部识别的Dialog
@@ -199,55 +96,11 @@ class DialogUtil {
                             }
                         }
 
-                    }.setOnKeyListener(object : DialogInterface.OnKeyListener {
-                        override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
-                            return true
-                        }
-                    })
-                    .create().show()
+                    }.setOnKeyListener { dialog, keyCode, event -> true }
+                .create().show()
 
         }
 
-        /**
-         * 选择杠杆
-         */
-        fun showSelectLevelDialog(context: Context, contractId: Int, curLever: String, listener: ConfirmListener): TDialog {
-            val levels = Contract2PublicInfoManager.getLevelsByContractId(contractId)
-            return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_select_level)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .addOnClickListener(R.id.tv_cancel_level)
-                    .setOnBindViewListener {
-                        it.setText(R.id.tv_cancel_level, "common_text_btnCancel")
-                        val rvSelectLevel = it.getView<RecyclerView>(R.id.rv_select_level)
-                        rvSelectLevel.layoutManager = GridLayoutManager(context, 3)
-                        val adapter = SelectLevelAdapter(levels, curLever)
-                        rvSelectLevel.adapter = adapter
-                        rvSelectLevel.setHasFixedSize(true)
-                        adapter.setOnItemClickListener { adapter, _, position ->
-                            val levelView = adapter?.getViewByPosition(position, R.id.tv_index_price)
-                            (levelView as SuperTextView).solid = ContextCompat.getColor(context, R.color.main_color)
-                            levelView.textColor = ContextCompat.getColor(context, R.color.white)
-                            listener.click(pos = position)
-                        }
-
-
-                    }
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel_level -> {
-                                tDialog.dismiss()
-                            }
-                        }
-
-                    }
-                    .setGravity(Gravity.BOTTOM)
-                    .create()
-
-        }
 
 
         /**
@@ -569,36 +422,6 @@ class DialogUtil {
         }
 
 
-        /**
-         * ETF规则
-         */
-        fun showETFRule(context: Context, url: String) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_etf_rule)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.getView<TextView>(R.id.tv_text)?.text = LanguageUtil.getString(context, "etf_text_etfPrompt")
-                    }
-                    .addOnClickListener(R.id.btn_know, R.id.tv_detail)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.btn_know -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_detail -> {
-                                ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, Bundle().apply {
-                                    putString(ParamConstant.head_title, context.getString(R.string.etf_text_faq))
-                                    putString(ParamConstant.web_url, url)
-                                    putInt(ParamConstant.web_type, WebTypeEnum.NORMAL_INDEX.value)
-                                })
-                            }
-                        }
-
-                    }.create().show()
-        }
 
         /**
          * ETF免责声明

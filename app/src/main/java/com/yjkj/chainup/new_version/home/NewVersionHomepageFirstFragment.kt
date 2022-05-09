@@ -37,7 +37,6 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.new_version.home.vm.NewVersionHomePageFirstViewModel
 import com.yjkj.chainup.util.*
-import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.RectangleIndicator
@@ -606,12 +605,10 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 vtc_advertising?.setText(12f, 0, ContextCompat.getColor(context!!, R.color.text_color),true)
                 vtc_advertising?.setTextStillTime(4000)//设置停留时长间隔
                 vtc_advertising?.setAnimTime(400)//设置进入和退出的时间间隔
-                vtc_advertising?.setOnItemClickListener(object : VerticalTextview4ChainUp.OnItemClickListener {
-                    override fun onItemClick(pos: Int) {
-                        var obj = newNoticeInfoList.optJSONObject(pos)
-                        forwardWeb(obj)
-                    }
-                })
+                vtc_advertising?.setOnItemClickListener { pos ->
+                    var obj = newNoticeInfoList.optJSONObject(pos)
+                    forwardWeb(obj)
+                }
             }
             vtc_advertising?.setTextList(getNoticeInfoList(noticeInfoList))
             vtc_advertising?.startAutoScroll()

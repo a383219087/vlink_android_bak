@@ -151,7 +151,6 @@
             android:name=".new_version.activity.login.TouchIDFaceIDActivity"
             android:launchMode="singleTask" />
         <activity android:name=".new_version.activity.login.GuideGesturePwdActivity" />
-        <activity android:name=".treaty.NewContractCoinActivity" />
         <activity
             android:name=".new_version.activity.login.GesturesPasswordActivity"
             android:launchMode="singleTask" />

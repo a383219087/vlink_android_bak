@@ -28,13 +28,7 @@ open class OTCBlackListAdapter(data: ArrayList<BlackListData.Relationship>) :
 
     }
 
-    private fun showDialog(userId: String?, position: Int) {
-        DialogUtil.showDialog(context,  LanguageUtil.getString(context, "otc_remove_rid_confirm"), object : DialogUtil.ConfirmListener {
-            override fun click(pos: Int) {
-                removeRelationFromBlack(userId!!, position)
-            }
-        })
-    }
+
 
 
     /**
