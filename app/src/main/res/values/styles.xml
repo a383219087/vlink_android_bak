@@ -132,14 +132,6 @@
     </style>
 
 
-    <style name="AccountLLFeatures">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">@drawable/bg_account_feature</item>
-    </style>
 
     <style name="AccountDividerVertical" parent="Divider">
         <item name="android:layout_width">0.5dp</item>
@@ -157,19 +149,6 @@
     </style>
 
 
-    <style name="LoginET">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <!--<item name="android:background">@null</item>-->
-        <item name="android:textColorHint">@color/colorTextLogin</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/font_size</item>
-        <item name="android:lines">1</item>
-        <!--<item name="android:padding">@dimen/view_margin_small</item>-->
-        <item name="android:paddingEnd">6dp</item>
-        <item name="android:paddingBottom">18dp</item>
-        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
-    </style>
 
     <style name="LoginLine">
         <item name="android:layout_width">match_parent</item>
@@ -345,10 +324,7 @@
         <!--<item name="android:windowContentOverlay">@null</item>-->
     </style>
 
-    <style name="dialogAnim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/login_dialog_enter</item>
-        <item name="android:windowExitAnimation">@anim/login_dialog_exit</item>
-    </style>
+
 
 
     <style name="TopTabTV">
@@ -506,13 +482,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="KLine_loading_style">
-        <item name="android:indeterminateDrawable">@drawable/bg_kline_loading</item>
-        <item name="android:minWidth">@dimen/dp_60</item>
-        <item name="android:maxWidth">@dimen/dp_60</item>
-        <item name="android:minHeight">@dimen/dp_60</item>
-        <item name="android:maxHeight">@dimen/dp_60</item>
-    </style>
+
 
     <style name="NoBackGroundDialog" parent="@android:style/Theme.Dialog">
 
