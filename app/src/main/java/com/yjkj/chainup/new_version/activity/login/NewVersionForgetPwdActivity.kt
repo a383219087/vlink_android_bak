@@ -80,21 +80,25 @@ class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
         cubtn_view?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 verificationType = PublicInfoDataService.getInstance().getVerifyType(null)
-                if (verificationType == 2) {
-                    Utils.gee3test(this@NewVersionForgetPwdActivity, this@NewVersionForgetPwdActivity)
-                } else if(verificationType == 1){
-                    tDialog = NewDialogUtils.webAliyunShare(mActivity, object : NewDialogUtils.Companion.DialogWebViewAliYunSlideListener {
-                        override fun webviewSlideListener(json: Map<String, String>) {
-                            tDialog?.apply {
-                                dismiss()
-                                onDestroy()
+                when (verificationType) {
+                    2 -> {
+                        Utils.gee3test(this@NewVersionForgetPwdActivity, this@NewVersionForgetPwdActivity)
+                    }
+                    1 -> {
+                        tDialog = NewDialogUtils.webAliyunShare(mActivity, object : NewDialogUtils.Companion.DialogWebViewAliYunSlideListener {
+                            override fun webviewSlideListener(json: Map<String, String>) {
+                                tDialog?.apply {
+                                    dismiss()
+                                    onDestroy()
+                                }
+                                findPwdStep1(accountText, "", "", "",json)
                             }
-                            findPwdStep1(accountText, "", "", "",json)
-                        }
 
-                    }, PublicInfoDataService.getInstance().aliYunNcUrl)
-                } else {
-                    findPwdStep1(accountText)
+                        }, PublicInfoDataService.getInstance().aliYunNcUrl)
+                    }
+                    else -> {
+                        findPwdStep1(accountText)
+                    }
                 }
             }
 
@@ -113,7 +117,7 @@ class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
     var gee3test = arrayListOf<String>()
 
 
-    var verificationType = 0
+    var verificationType = 2
 
     /**
      * 如果有极验 此处是极验成功返回的接口

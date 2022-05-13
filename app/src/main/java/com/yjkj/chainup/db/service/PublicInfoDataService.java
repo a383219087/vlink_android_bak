@@ -742,7 +742,7 @@ public class PublicInfoDataService {
             data = getData(data);
             return data.optInt("verificationType");
         }
-        return 0;
+        return 2;
     }
 
     /**

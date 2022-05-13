@@ -87,9 +87,9 @@ class NewVersionRegisterActivity : NBaseActivity(), Gt3GeeListener {
         setOnClick()
         mTitleList = ArrayList()
         if (!TextUtils.isEmpty(getMessage)) {
-            var json = JSONObject(getMessage)
+            val json = JSONObject(getMessage)
             if (json.length() > 0) {
-                var current = json.optJSONArray(JsonUtils.getLanguage())
+                val current = json.optJSONArray(JsonUtils.getLanguage())
                 if (current != null && current.length() > 0) {
                     userRegTypeSetView(current[0] == 2)
                     if (current.length()==2){

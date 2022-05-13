@@ -232,11 +232,7 @@ interface ContractApiService {
      */
     @POST("common/public_info")
     fun getPublicInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
-    /**
-     *  获取合约公共信息
-     */
-    @POST("common/public_info")
-    fun getPublicInfo1(@Body requestBody: RequestBody): Observable<HttpResult<PubilcBean>>
+
 
 
     /**

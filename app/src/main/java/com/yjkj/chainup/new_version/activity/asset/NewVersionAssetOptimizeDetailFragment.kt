@@ -571,7 +571,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
     fun setRefreshAdapter() {
         assetHeadView?.setRefreshAdapter()
-        assetHeadView?.setHeadData(buffJson)
+        buffJson?.let { assetHeadView?.setHeadData(it) }
         //此处点击隐藏/显示金额   下面的列表会不显示
         //assetHeadView?.setRefreshViewData()
         refreshViewData()
@@ -722,7 +722,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
     var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
     var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
-    lateinit var buffJson: JSONObject
+     var buffJson: JSONObject?=null
 
 
     /**

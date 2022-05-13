@@ -7,11 +7,15 @@ import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
+import com.yjkj.chainup.bean.EnableModuleInfo
+import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.util.LogUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -82,13 +86,15 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
      * 获取首页配置
      */
     fun getPublicInfo(context: Context) {
-        val map = TreeMap<String, String>()
-        startTask(contractApiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-            val futures = it.data.enable_module_info.futures
-            val trader = it.data.enable_module_info.trader
-            val increment = it.data.enable_module_info.increment
-            val game = it.data.enable_module_info.game
-            val share = it.data.enable_module_info.share
+
+    val data=    PublicInfoDataService.getInstance().getData(null).getString("enable_module_info")
+      val enableModuleInfo= JsonUtils.jsonToBean(data, EnableModuleInfo::class.java)
+
+            val futures = enableModuleInfo.futures
+            val trader = enableModuleInfo.trader
+            val increment = enableModuleInfo.increment
+            val game = enableModuleInfo.game
+            val share = enableModuleInfo.share
 
             items.clear()
             if (futures == 1) {
@@ -126,9 +132,6 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text5")
                 items.add(item)
             }
-        }, Consumer {
-            LogUtil.d("我是", it.message)
-        })
 
     }
 

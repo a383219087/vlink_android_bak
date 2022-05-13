@@ -46,8 +46,8 @@
 
             <TextView
                 android:id="@+id/tv_title_email"
-                style="@style/RegisterTitleNoSelect"
                 android:visibility="gone"
+                style="@style/RegisterTitleNoSelect"
                 android:layout_below="@+id/tv_cancel"
                 android:layout_marginLeft="20dp"
                 android:text="@string/register_action_mail" />

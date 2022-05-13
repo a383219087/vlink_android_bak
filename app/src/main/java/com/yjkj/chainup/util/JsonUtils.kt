@@ -112,26 +112,37 @@ object JsonUtils {
     }
 
     fun getLanguage(): String {
-        val language = if (SystemUtils.isZh()) {
-            "zh_CN"
-        } else if (SystemUtils.isMn()) {
-            "mn_MN"
-        } else if (SystemUtils.isRussia()) {
-            "ru_RU"
-        } else if (SystemUtils.isKorea()) {
-            "ko_KR"
-        } else if (SystemUtils.isJapanese()) {
-            "ja_JP"
-        } else if (SystemUtils.isTW()) {
-            "el_GR"
-        } else if (SystemUtils.isVietNam()) {
-            "vi_VN"
-        } else if (SystemUtils.isSpanish()) {
-            "es_ES"
-        } else if (SystemUtils.isID()) {
-            "id_ID"
-        } else {
-            "en_US"
+        val language = when {
+            SystemUtils.isZh() -> {
+                "zh_CN"
+            }
+            SystemUtils.isMn() -> {
+                "mn_MN"
+            }
+            SystemUtils.isRussia() -> {
+                "ru_RU"
+            }
+            SystemUtils.isKorea() -> {
+                "ko_KR"
+            }
+            SystemUtils.isJapanese() -> {
+                "ja_JP"
+            }
+            SystemUtils.isTW() -> {
+                "el_GR"
+            }
+            SystemUtils.isVietNam() -> {
+                "vi_VN"
+            }
+            SystemUtils.isSpanish() -> {
+                "es_ES"
+            }
+            SystemUtils.isID() -> {
+                "id_ID"
+            }
+            else -> {
+                "en_US"
+            }
         }
         return language
     }
