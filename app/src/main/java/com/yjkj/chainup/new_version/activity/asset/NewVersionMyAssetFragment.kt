@@ -518,17 +518,17 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                 var t = jsonObject.optJSONObject("data")
                 if (leverOpen && b2cOpen) {
                     if (assetlist.size > 3) {
-                        assetlist.get(3).put("totalBalance", t.optString("totalBalance") ?: "")
-                        assetlist.get(3).put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
+                        assetlist[3].put("totalBalance", t.optString("totalBalance") ?: "")
+                        assetlist[3].put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
                                 ?: "")
                     }
                 } else if (leverOpen || b2cOpen) {
-                    assetlist.get(2).put("totalBalance", t.optString("totalBalance") ?: "")
-                    assetlist.get(2).put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
+                    assetlist[2].put("totalBalance", t.optString("totalBalance") ?: "")
+                    assetlist[2].put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
                             ?: "")
                 } else {
-                    assetlist.get(1).put("totalBalance", t.optString("totalBalance") ?: "")
-                    assetlist.get(1).put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
+                    assetlist[1].put("totalBalance", t.optString("totalBalance") ?: "")
+                    assetlist[1].put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
                             ?: "")
                 }
 
@@ -541,6 +541,10 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                 var message = MessageEvent(MessageEvent.refresh_local_trans_type)
                 message.msg_content = t
                 NLiveDataUtil.postValue(message)
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
             }
         }))
 
@@ -577,14 +581,19 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                         getContractAccount()
                     }
                 } else {
-                    if (leverOpen) {
-                        getLeverData()
-                    } else if (b2cOpen) {
-                        getB2CAccount()
-                    } else if (otcOpen) {
-                        getAccountBalance4OTC()
-                    } else if (contractOpen) {
-                        getContractAccount()
+                    when {
+                        leverOpen -> {
+                            getLeverData()
+                        }
+                        b2cOpen -> {
+                            getB2CAccount()
+                        }
+                        otcOpen -> {
+                            getAccountBalance4OTC()
+                        }
+                        contractOpen -> {
+                            getContractAccount()
+                        }
                     }
                 }
                 getTotalAssets()
@@ -760,12 +769,16 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                         ?: "")
                 assetlist.get(1).put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: "")
-                if (b2cOpen) {
-                    getB2CAccount()
-                } else if (otcOpen) {
-                    getAccountBalance4OTC()
-                } else if (contractOpen) {
-                    getContractAccount()
+                when {
+                    b2cOpen -> {
+                        getB2CAccount()
+                    }
+                    otcOpen -> {
+                        getAccountBalance4OTC()
+                    }
+                    contractOpen -> {
+                        getContractAccount()
+                    }
                 }
                 refresh()
                 var message = MessageEvent(MessageEvent.refresh_local_lever_type)

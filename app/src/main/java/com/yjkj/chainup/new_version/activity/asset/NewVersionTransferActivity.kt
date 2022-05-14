@@ -263,10 +263,10 @@ class NewVersionTransferActivity : NBaseActivity() {
         }
         when (transferStatus) {
             ParamConstant.TRANSFER_BIBI -> {
-                if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
-                    selectTransferPosition = 1
+                selectTransferPosition = if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
+                    1
                 } else {
-                    selectTransferPosition = 0
+                    0
                 }
                 et_number?.filters = arrayOf(DecimalDigitsInputFilter(NCoinManager.getCoinShowPrecision(transferSymbol)))
                 var coinlist = DataManager.getCoinsFromDB(true)
@@ -301,10 +301,10 @@ class NewVersionTransferActivity : NBaseActivity() {
                 tv_number_coin?.text = NCoinManager.getShowMarket(transferSymbol)
             }
             ParamConstant.TRANSFER_OTC -> {
-                if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
-                    selectTransferPosition = 1
+                selectTransferPosition = if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
+                    1
                 } else {
-                    selectTransferPosition = 0
+                    0
                 }
                 et_number?.filters = arrayOf(DecimalDigitsInputFilter(NCoinManager.getCoinShowPrecision(transferSymbol)))
                 var coinlist = DataManager.getCoinsFromDB(true)
@@ -335,16 +335,16 @@ class NewVersionTransferActivity : NBaseActivity() {
                 tv_number_coin?.text = NCoinManager.getShowMarket(transferSymbol)
             }
             ParamConstant.TRANSFER_CONTRACT -> {
-                if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
+                selectTransferPosition = if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
                     if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                        selectTransferPosition = 2
+                        2
                     } else {
-                        selectTransferPosition = 1
+                        1
                     }
                 } else if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                    selectTransferPosition = 1
+                    1
                 } else {
-                    selectTransferPosition = 0
+                    0
                 }
 
                 val account = ContractUserDataAgent.getContractAccount(transferSymbol)
@@ -561,21 +561,21 @@ class NewVersionTransferActivity : NBaseActivity() {
 
             when (transferStatus) {
                 ParamConstant.TRANSFER_BIBI, ParamConstant.TRANSFER_OTC -> {
-                    if (transferSequence) {
-                        amount = bean?.optString("exNormal", "") ?: ""
+                    amount = if (transferSequence) {
+                        bean?.optString("exNormal", "") ?: ""
                     } else {
-                        amount = bean?.optString("otcNormal", "") ?: ""
+                        bean?.optString("otcNormal", "") ?: ""
                     }
                     et_number?.setText(BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(amount, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString()))
                 }
                 ParamConstant.TRANSFER_CONTRACT -> {
-                    if (transferSequence) {
-                        amount = bean?.optString("exNormal", "") ?: ""
+                    amount = if (transferSequence) {
+                        bean?.optString("exNormal", "") ?: ""
                     } else {
                         if (AppConstant.IS_NEW_CONTRACT) {
-                            amount = newContractBalance(mContracAmount)
+                            newContractBalance(mContracAmount)
                         } else {
-                            amount = mContracAmount
+                            mContracAmount
                         }
                     }
                     et_number?.setText(BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(amount, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString()))

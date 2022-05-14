@@ -77,7 +77,7 @@ interface MainApiService {
     /**
      * 交易账户
      */
-    @POST("/finance/v4/otc_account_list")
+    @POST("finance/v4/otc_account_list")
     fun otc_account_list(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 

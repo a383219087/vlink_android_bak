@@ -3,6 +3,7 @@ package com.yjkj.chainup.model.model
 import android.provider.Settings
 import android.text.TextUtils
 import com.yjkj.chainup.app.ChainUpApp
+import com.yjkj.chainup.model.api.MainApiService
 import com.yjkj.chainup.model.api.OTCApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
 import com.yjkj.chainup.util.StringUtil
@@ -93,6 +94,7 @@ class OTCModel : BaseDataManager() {
 
         return changeIOToMainThread(httpHelper.getOtcBaseUrlService(OTCApiService::class.java).mainSearch4OTC(getBaseReqBody(paramMaps)), consumer)
     }
+
 
     /**
      * 获取参考价

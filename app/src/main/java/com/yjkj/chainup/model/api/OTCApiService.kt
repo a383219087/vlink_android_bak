@@ -44,6 +44,8 @@ interface OTCApiService {
     @POST("v4/otc/order_detail")
     fun getOrderDetail4OTC(@Body requestBody: RequestBody): Observable<HttpResult<OTCOrderDetailBean>>
 
+
+
     /**
      * 取消申诉
      */

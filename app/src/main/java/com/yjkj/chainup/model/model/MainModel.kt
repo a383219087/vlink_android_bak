@@ -120,7 +120,7 @@ class MainModel : BaseDataManager() {
      * 我的资金
      */
     fun otc_account_list(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getOtcBaseUrlService(MainApiService::class.java).otc_account_list(getBaseReqBody()), consumer)
+        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).otc_account_list(getBaseReqBody()), consumer)
     }
 
     /**

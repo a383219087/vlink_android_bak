@@ -151,7 +151,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     var otcDialogList = arrayListOf<String>()
     var contractDialogList = arrayListOf<String>()
     var isScrollStatus = false
-    var messageEventFlag :Int =0
 
     companion object {
         var liveDataFilterForEditText: MutableLiveData<AssetScreenBean> = MutableLiveData()
@@ -182,7 +181,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
 
-    fun dataProcessing() {
+    private fun dataProcessing() {
 
         /**
          * 清除筛选
@@ -394,7 +393,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
 
-    fun intoRefreshTransferView() {
+    private fun intoRefreshTransferView() {
         assetHeadView?.listener = object : NewAssetTopView.selecetTransferListener {
 
             override fun selectWithdrawal(temp: String) {
@@ -562,6 +561,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         }
     }
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            LogUtil.d("我是fragmentVisibile",param_index.toString())
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -578,7 +583,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
     fun hideLittleAssets() {
-        LogUtil.e(TAG, "hideLittleAssets ${isLittleAssetsShow}  type ${param_index}  ")
+        LogUtil.e(TAG, "hideLittleAssets $isLittleAssetsShow  type $param_index  ")
         if (isLittleAssetsShow) {
             //币币账户清理数据
 
@@ -587,13 +592,13 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             if (param_index == ParamConstant.BIBI_INDEX) {
                 listFund.clear()
                 listFund.addAll(nolittleBalanceList)
-                adapter4Fund?.setList(listFund)
+                adapter4Fund.setList(listFund)
             } else {
                 if (param_index == ParamConstant.LEVER_INDEX||param_index == ParamConstant.FABI_INDEX) {
                     list4OTC.clear()
                     list4OTC.addAll(nolittleBalanceList4OTC)
 //                    adapter4Asset?.notifyDataSetChanged()
-                    adapter4Asset?.setList(list4OTC)
+                    adapter4Asset.setList(list4OTC)
                 }
             }
         } else {
@@ -648,7 +653,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
 
-    fun initViewData() {
+    private fun initViewData() {
         isLittleAssetsShow = UserDataService.getInstance().getAssetState()
         fragment_my_asset_order_hide?.isChecked = isLittleAssetsShow
         nolittleBalanceList4OTC.clear()
