@@ -138,8 +138,7 @@ class NewMainActivity : NBaseActivity() {
             override fun onNetConnChanged(connectStatus: NetUtil.Companion.ConnectStatus) {
                 WsAgentManager.instance.changeNotice(connectStatus)
                 Handler().postDelayed({
-                    var net_event_fragment = MessageEvent(MessageEvent.net_status_change)
-                    EventBusUtil.post(net_event_fragment)
+                    EventBusUtil.post( MessageEvent(MessageEvent.net_status_change))
                 }, 1500)
             }
         })
@@ -147,7 +146,7 @@ class NewMainActivity : NBaseActivity() {
 
     }
 
-    fun getIntentData() {
+    private fun getIntentData() {
         /**
          * 游戏弹窗
          */
@@ -245,12 +244,12 @@ class NewMainActivity : NBaseActivity() {
         initNetWorkRemind()
     }
 
-    fun initNetWorkRemind() {
+    private fun initNetWorkRemind() {
         val spanStrStart = SpannableString(getString(R.string.check_network_settings))
         val spanStrClick = SpannableString(getString(R.string.check_network))
         val index = spanStrStart.indexOf(spanStrClick.toString(), 0)
-        var spanStrStartSub = spanStrStart.subSequence(0, index)
-        var spanStrEnd = spanStrStart.subSequence(index + spanStrClick.length, spanStrStart.length)
+        val spanStrStartSub = spanStrStart.subSequence(0, index)
+        val spanStrEnd = spanStrStart.subSequence(index + spanStrClick.length, spanStrStart.length)
 
         spanStrClick.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -284,7 +283,7 @@ class NewMainActivity : NBaseActivity() {
 
     override fun onClick(view: View) {
         super.onClick(view)
-        var tag = view.tag
+        val tag = view.tag
         if (tag is Int) {
             if (assetsTab > 0 && tag == assetsTab) {
                 if (!LoginManager.checkLogin(mActivity, true)) {

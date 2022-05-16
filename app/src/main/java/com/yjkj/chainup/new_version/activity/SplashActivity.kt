@@ -3,18 +3,17 @@ package com.yjkj.chainup.new_version.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.ws.CpWsContractAgentManager
-import com.tencent.bugly.proguard.t
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
+import com.yjkj.chainup.databinding.ActivitySplashBinding
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
@@ -24,7 +23,7 @@ import com.yjkj.chainup.util.permissionIsGranted
 import com.yjkj.chainup.ws.WsAgentManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -43,21 +42,22 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
+    private var mBinding: ActivitySplashBinding? = null
     private var liksArray: ArrayList<String> = arrayListOf()
     private var currentCheckIndex = 0
     private var mRetrofit: Retrofit? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         initRetrofit()
         if (Utils.checkDeviceHasNavigationBar2(this)) {
-            iv_splash?.visibility = View.GONE
-            rl_splash?.setBackgroundResource(R.drawable.bg_splash)
+            mBinding?.ivSplash?.visibility = View.GONE
+            mBinding?.rlSplash?.setBackgroundResource(R.drawable.bg_splash)
         }
 
         if (!this.isTaskRoot) {
             if (intent?.action != null) {
-                if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.action)) {
+                if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN == intent.action) {
                     finish()
                     return
                 }
@@ -81,7 +81,7 @@ class SplashActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                LogUtil.d("我是SplashActivity",it.toString())
+                LogUtil.d("我是SplashActivity", it.toString())
                 ChainUpApp.url = it
                 if (it.baseUrl.contains("http://") || it.baseUrl.contains("https://")) {
                     HttpClient.instance.changeNetwork(it.baseUrl.split("//")[1])
@@ -90,22 +90,25 @@ class SplashActivity : AppCompatActivity() {
                 }
 
 //                PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
-                CpClLogicContractSetting.setApiWsUrl(this,it.contractUrl, it.contractSocketAddress)
+                CpClLogicContractSetting.setApiWsUrl(this, it.contractUrl, it.contractSocketAddress)
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
-                if ( SPUtils.getInstance().getBoolean("SplashActivityIsFirst",true)){
+                if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
                     val intent = Intent(this, DataInitService::class.java)
                     intent.putExtra("isFirst", true)
                     startService(intent)
                     SPUtils.getInstance().put("SplashActivityIsFirst", false)
                 }
-                Handler().postDelayed({
+                runBlocking {
+                    Thread.sleep(200)
                     if (hasPermission()) {
-                        Handler().postDelayed({ goHome() }, 200)
+                        goHome()
                     } else {
                         requestPermission()
                     }
-                }, 200)
+                }
+
+
 
             }, {
                 if (currentCheckIndex < liksArray.size - 1) {
@@ -138,7 +141,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
 
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (PERMISSION_REQUEST_CODE_STORAGE == requestCode) {
             if (permissions.isNotEmpty() && grantResults.permissionIsGranted()) {
@@ -158,18 +160,14 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun hasPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-                    && checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                    && checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
-                    && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        } else true
+        return checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(REQUEST_PERMISSIONS, PERMISSION_REQUEST_CODE_STORAGE)
-        }
+        requestPermissions(REQUEST_PERMISSIONS, PERMISSION_REQUEST_CODE_STORAGE)
     }
 
 

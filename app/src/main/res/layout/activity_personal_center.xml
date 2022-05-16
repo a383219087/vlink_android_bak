@@ -110,15 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
                     android:background="@color/bg_color" />
-                <com.yjkj.chainup.new_version.view.AccountItemView
-                    android:id="@+id/aiv_freeStaking"
-                    android:layout_width="match_parent"
-                    android:layout_height="46.5dp"
-                    android:background="@color/bg_card_color"
-                    app:icon="@drawable/personal_freestaking"
-                    app:showLine="true"
-                    android:visibility="gone"
-                    />
+
 
                 <!--安全中心-->
                 <com.yjkj.chainup.new_version.view.AccountItemView

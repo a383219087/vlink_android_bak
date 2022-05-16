@@ -225,12 +225,7 @@ class PersonalCenterActivity : NBaseActivity() {
             NewSettingActivity.enter2(this)
         }
 
-        /**
-         * 点击FreeStaking跳转
-         */
-        aiv_freeStaking.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.FreeStakingActivity, null)
-        }
+
 
         /**
          * 站内信

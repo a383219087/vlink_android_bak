@@ -338,15 +338,9 @@
 <!--        <service-->
 <!--            android:name=".extra_service.push.HandlePushIntentService"-->
 <!--            android:permission="android.permission.BIND_JOB_SERVICE" /> &lt;!&ndash; 用户自定义服务名 &ndash;&gt;-->
-        <service
-            android:name=".extra_service.push.DemoPushService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":pushservice" />
 
-        <activity
-            android:name=".extra_service.push.PushControll"
-            android:theme="@style/Theme.Style.Push" />
+
+
         <activity android:name=".new_version.activity.personalCenter.push.PushSettingsActivity" />
         <activity android:name=".new_version.activity.leverage.list.LeverActivity" />
         <activity android:name=".new_version.activity.leverage.TradeETFQuestionActivity" />

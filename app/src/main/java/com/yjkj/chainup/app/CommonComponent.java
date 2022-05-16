@@ -1,30 +1,20 @@
 package com.yjkj.chainup.app;
 
 import android.app.Application;
-import android.content.ContextWrapper;
-import android.util.Log;
 
-
-//import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mmkv.MMKV;
 import com.yjkj.chainup.BuildConfig;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.extra_service.analytics.UmenStatisticsUtil;
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
-import com.yjkj.chainup.extra_service.push.UmengPushUtil;
 import com.yjkj.chainup.util.ContextUtil;
 import com.yjkj.chainup.util.DateUtils;
 import com.yjkj.chainup.util.LogUtil;
-import com.yjkj.chainup.util.PackageUtil;
 
-import java.io.File;
-
-import cn.ljuns.logcollector.LogCollector;
 import cn.ljuns.logcollector.LogNetCollector;
-import cn.ljuns.logcollector.util.LevelUtils;
-import cn.ljuns.logcollector.util.TypeUtils;
+
+//import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * @Description: 项目公共组件服务的初始化操作

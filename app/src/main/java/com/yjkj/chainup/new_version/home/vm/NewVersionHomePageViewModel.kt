@@ -86,15 +86,13 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
      * 获取首页配置
      */
     fun getPublicInfo(context: Context) {
-
-    val data=    PublicInfoDataService.getInstance().getData(null).getString("enable_module_info")
-      val enableModuleInfo= JsonUtils.jsonToBean(data, EnableModuleInfo::class.java)
-
-            val futures = enableModuleInfo.futures
-            val trader = enableModuleInfo.trader
-            val increment = enableModuleInfo.increment
-            val game = enableModuleInfo.game
-            val share = enableModuleInfo.share
+        val map = TreeMap<String, String>()
+        startTask(contractApiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+            val futures = it.data.enable_module_info.futures
+            val trader = it.data.enable_module_info.trader
+            val increment = it.data.enable_module_info.increment
+            val game = it.data.enable_module_info.game
+            val share = it.data.enable_module_info.share
 
             items.clear()
             if (futures == 1) {
@@ -132,6 +130,9 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text5")
                 items.add(item)
             }
+        }, Consumer {
+            LogUtil.d("我是", it.message)
+        })
 
     }
 

@@ -23,7 +23,6 @@ public class AppConfig {
     public static String down_cl = "guanfang";
 
 
-    public static final boolean needUmengStatistics = false;//开发阶段为false,上线后改为true
     public static final boolean IS_DEBUG = true;//Log日志开关，true为打开日志,上线需要关闭改为false
     public static final boolean isOpenLeakCanary = false; //LeakCanary 内存泄漏检测工具，上线需改为false
     public static final boolean isBuglyOpen = true; //Bugly日志统计 工具，上线需改为true

@@ -1,17 +1,12 @@
 package com.yjkj.chainup.extra_service.push
 
 import android.app.Activity
-import android.app.PendingIntent
-import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.util.Log
-
-import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import io.karn.notify.Notify
 
 
 /**
@@ -259,20 +254,6 @@ class RouteApp private constructor() {
         }
     }
 
-    fun sendTestPush(pushUrl: String = "chainup://home/market?name=ETF") {
-        Notify.with(ChainUpApp.appContext).content {
-            title = "测试"
-            text = "描述信息"
-        }.meta {
-            val intent = Intent(ChainUpApp.appContext, PushControll::class.java).apply {
-                putExtra("pushPlayUrl", pushUrl)
-            }
-            clickIntent = PendingIntent.getActivity(ChainUpApp.appContext,
-                    0,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
-        }
-                .show()
-    }
+
 }
 
