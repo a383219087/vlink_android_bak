@@ -67,7 +67,7 @@ object ColorUtil {
      */
     fun getMainColorType(isRise: Boolean = true): Int {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
         val mainGreen = getColor(R.color.main_green)
         val mainRed = getColor(R.color.main_red)
 
@@ -91,7 +91,7 @@ object ColorUtil {
      */
     fun getMainColorBgType(isRise: Boolean = true): Pair<Int, Int> {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
         val mainGreen = getColor(R.color.main_green)
         val mainRed = getColor(R.color.main_red)
 
@@ -354,7 +354,7 @@ object ColorUtil {
      */
     fun getMainFocusColorType(isBuy: Boolean = true): Int {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
         val mainGreen = R.drawable.bg_trade_et_focused_green
         val mainRed = R.drawable.bg_trade_et_focused_red
 
@@ -378,7 +378,7 @@ object ColorUtil {
      */
     fun getMainTickColorType(isBuy: Boolean = true): Int {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
         val mainGreen = R.drawable.depth_sell_dot
         val mainRed = R.drawable.depth_buy_dot
 
@@ -402,7 +402,7 @@ object ColorUtil {
      */
     fun getMainSelectColorType(isBuy: Boolean = true, position: Int = 0): Int {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isBuy,colorSelect is $colorSelect")
         val mainGreen = R.drawable.bg_trade_et_focused_green
         val mainRed = R.drawable.bg_trade_et_focused_red
 
@@ -451,7 +451,7 @@ object ColorUtil {
 
     fun getMainBgType(isRise: Boolean = true): Int {
         var colorSelect = getColorType()
-        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
+//        LogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
         val mainGreen = R.drawable.bg_buy_btn
         val mainRed = R.drawable.bg_sell_btn
 

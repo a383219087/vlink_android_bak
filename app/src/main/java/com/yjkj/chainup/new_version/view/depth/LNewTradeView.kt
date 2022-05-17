@@ -72,7 +72,7 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
     var dialog: TDialog? = null
     var coinMapData: JSONObject? = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         set(value) {
-            Log.d(TAG, "=======调用SET=====value is $value")
+//            Log.d(TAG, "=======调用SET=====value is $value")
             field = value
             synchronized(this) {
                 priceScale = value?.optInt("price", 2) ?: 2
@@ -124,7 +124,7 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
         }
 
 
-        LogUtil.d(TAG, "TradeView==init==priceScale is $priceScale,volumeScale is $volumeScale")
+//        LogUtil.d(TAG, "TradeView==init==priceScale is $priceScale,volumeScale is $volumeScale")
         /**
          * 这里的必须为：True
          */
@@ -257,7 +257,7 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
     }
 
     fun initTick(tick: JSONArray, isBuy: Boolean = true, depthLevel: Int = 2) {
-        LogUtil.e(TAG,"initTick  isBuy ${isBuy}")
+//        LogUtil.e(TAG,"initTick  isBuy ${isBuy}")
         if (!isBuy) {
             if (isFirstSetValue(!isBuy)) {
                 trade_amount_view_buy?.initTick(tick, depthLevel)

@@ -264,7 +264,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 MessageEvent.symbol_switch_type -> {
                     var msg_content = it.msg_content
                     val isCurrent = WsAgentManager.instance.lastNew == this.javaClass.simpleName || WsAgentManager.instance.lastNew == "CoinSearchDialogFg"
-                    Log.e("jinlong", "symbol_switch_type==msg_content is ${msg_content}")
+//                    Log.e("jinlong", "symbol_switch_type==msg_content is ${msg_content}")
                     if (it.isBibi && null != msg_content && msg_content is String) {
                         val nSymbol = it.msg_content as String
 
@@ -279,7 +279,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 }
                 // 下单通知
                 MessageEvent.CREATE_ORDER_TYPE -> {
-                    Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
+//                    Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
                     isCreatedOrder = it.msg_content as Boolean
                     if (isCreatedOrder) {
                         if (it.dataIsNotNull()) {
@@ -295,8 +295,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 MessageEvent.DEPTH_LEVEL_TYPE -> {
                     if (null != it.msg_content) {
                         val level = it.msg_content as Int
-                        LogUtil.d(TAG, "tv_change_depth==level is $level,curDepthIndex is $curDepthIndex")
-                        Log.d(TAG, "tv_change_depth====之前深度:$curDepthIndex,当前深度：$it======")
+//                        LogUtil.d(TAG, "tv_change_depth==level is $level,curDepthIndex is $curDepthIndex")
+//                        Log.d(TAG, "tv_change_depth====之前深度:$curDepthIndex,当前深度：$it======")
                         sendAgentData(level.toString())
                         curDepthIndex = level
                         if (curDepthIndex != level) {
@@ -319,7 +319,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
     private fun showSymbolSwitchData(newSymbol: String?) {
-        LogUtil.d(TAG, "observeData==newSymbol is ${newSymbol}")
+//        LogUtil.d(TAG, "observeData==newSymbol is ${newSymbol}")
         if (null == newSymbol)
             return
         if (newSymbol != symbol) {
@@ -335,7 +335,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             getAvailableBalance()
             if (null != coinMapData) {
                 getETFValue()
-                Log.d(TAG, "========HERE=======")
+//                Log.d(TAG, "========HERE=======")
                 v_horizontal_depth?.coinMapData = coinMapData
                 v_vertical_depth?.coinMapData = coinMapData
             }
@@ -459,9 +459,9 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                             return
                         }
 
-                        LogUtil.d(TAG, "getTradeLimitInfo==content is $content")
+//                        LogUtil.d(TAG, "getTradeLimitInfo==content is $content")
                         if (isNeedCreated) {
-                            Log.d(TAG, "=====11=====tDialog.isVisible is ${tDialog?.isVisible},content is $content")
+//                            Log.d(TAG, "=====11=====tDialog.isVisible is ${tDialog?.isVisible},content is $content")
                             if (StringUtil.checkStr(content)) {
                                 tDialog = showDialog(content)
                             }
@@ -494,7 +494,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
                     val orderList = optJSONArray("orderList")
                     orderList?.run {
-                        Log.d(TAG, "======mList=()====" + orderList.length())
+//                        Log.d(TAG, "======mList=()====" + orderList.length())
                         currentOrderList.clear()
                         for (i in 0 until orderList.length()) {
                             currentOrderList.add(orderList.optJSONObject(i))
@@ -521,7 +521,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 处理 24H,KLine数据
      */
     fun handleData(data: String) {
-        Log.d(TAG, "==111==24H行情:$data")
+//        Log.d(TAG, "==111==24H行情:$data")
         try {
             val jsonObj = JSONObject(data)
             if (!jsonObj.isNull("tick")) {
@@ -569,7 +569,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                  * 深度
                  */
                 if (channel == WsLinkUtils.getDepthLink(PublicInfoDataService.getInstance().currentSymbol, isSub = true, step = curDepthIndex.toString()).channel) {
-                    LogUtil.d(TAG, "=======深度：$data")
+//                    LogUtil.d(TAG, "=======深度：$data")
                     val temp = System.currentTimeMillis() - klineTime
                     if (temp <= 3000) {
                         klineTime = temp
@@ -613,12 +613,12 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
     private fun getEntrustInterval5(status: Boolean = true) {
-        Log.d(TAG, "========getEntrustInterval5()${disposables?.isDisposed},::${disposables?.size()}=======")
+//        Log.d(TAG, "========getEntrustInterval5()${disposables?.isDisposed},::${disposables?.size()}=======")
         loopData(status)
     }
 
     private fun loopData(status: Boolean = true) {
-        LogUtil.e(TAG, "ETF value loopData  $mIsVisibleToUser $cvcFragment")
+//        LogUtil.e(TAG, "ETF value loopData  $mIsVisibleToUser $cvcFragment")
         if (!mIsVisibleToUser || !cvcFragment)
             return
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
@@ -647,7 +647,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     availableBalanceData = data
                     showBalanceData()
                     val jsonArray = data.getJSONArray("orderList")
-                    Log.d(TAG, "====length:${jsonArray.length()},is:$isCreatedOrder======")
+//                    Log.d(TAG, "====length:${jsonArray.length()},is:$isCreatedOrder======")
                     if (jsonArray.length() == 0) {
                         currentOrderList.clear()
                         curEntrustAdapter.notifyDataSetChanged()
@@ -661,7 +661,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 //                        isCreatedOrder = false
                         currentOrderList.clear()
                         jsonArray.run {
-                            Log.d(TAG, "======mList=()====" + jsonArray.length())
+//                            Log.d(TAG, "======mList=()====" + jsonArray.length())
                             currentOrderList.clear()
                             for (i in 0 until jsonArray.length()) {
                                 currentOrderList.add(jsonArray.optJSONObject(i))
@@ -829,13 +829,13 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         super.onMessageEvent(event)
         if (MessageEvent.coinTrade_topTab_type == event?.msg_type) {
             val msg_content = event.msg_content
-            LogUtil.d(TAG, "observeData==msg_content is ${event.msg_content}")
+//            LogUtil.d(TAG, "observeData==msg_content is ${event.msg_content}")
             if (null != msg_content && msg_content is Bundle) {
                 isFromOtherPage = true
                 var bundle = msg_content as Bundle
                 tradeOrientation = bundle.getInt(ParamConstant.transferType)
                 var symbol = bundle.getString(ParamConstant.symbol)
-                LogUtil.d(TAG, "observeData==symbol is ${symbol}")
+//                LogUtil.d(TAG, "observeData==symbol is ${symbol}")
                 et_price?.text?.clear()
                 showSymbolSwitchData(symbol ?: "")
                 setTagView(NCoinManager.getNameForSymbol(symbol))
@@ -856,7 +856,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
         } else if (MessageEvent.CREATE_ORDER_TYPE == event.msg_type) {
             // 下单通知
-            Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
+//            Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
             isCreatedOrder = event.msg_content as Boolean
             if (isCreatedOrder) {
                 if (event.dataIsNotNull()) {
@@ -874,7 +874,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 获取ETF声明所需字段
      */
     private fun getETFStateData() {
-        LogUtil.d(TAG, "=======获取ETF声明所需字段:$coinMapData========")
+//        LogUtil.d(TAG, "=======获取ETF声明所需字段:$coinMapData========")
         var url = ""
         if (coinMapData?.optInt("etfOpen", 0) == 1) {
             v_vertical_depth?.changeEtf(null)
@@ -917,7 +917,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 每5s调用一次接口
      */
     private fun loopPriceRiskPosition() {
-        Log.d(TAG, "base:loopPriceRiskPosition()====")
+//        Log.d(TAG, "base:loopPriceRiskPosition()====")
         subscribe?.dispose()
         subscribe = Observable.interval(0,CommonConstant.etfLoopTime, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -933,7 +933,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 val name = coinMapData?.optString("name")
                 val base = NCoinManager.getMarketCoinName(name)
                 val quote = NCoinManager.getMarketName(name)
-                LogUtil.d(TAG, "base:$base,quote:$quote")
+//                LogUtil.d(TAG, "base:$base,quote:$quote")
                 (netValueDisposable
                         ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base, quote = quote, consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(data: JSONObject) {
@@ -962,7 +962,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         subscribe?.dispose()
         subscribeCoin?.dispose()
         AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.APP_EVENT_SpotTransactionPage)
-        LogUtil.d(TAG, "onStop()")
+//        LogUtil.d(TAG, "onStop()")
 
     }
 
@@ -971,7 +971,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         if(step.isNotEmpty()){
             stepTemp = step
         }
-        LogUtil.d(TAG, "sendAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
+//        LogUtil.d(TAG, "sendAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
         if (symbol.isNotEmpty()) {
             klineTime = System.currentTimeMillis()
             wsNetworkChange()
@@ -988,7 +988,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
     fun unbindAgentData() {
-        LogUtil.d(TAG, "unbindAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
+//        LogUtil.d(TAG, "unbindAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
         if (symbol.isNotEmpty()) {
             WsAgentManager.instance.unbind(this, true)
         }
@@ -1036,11 +1036,11 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     private fun wsNetworkChange() {
         GlobalScope.launch {
-            LogUtil.e(TAG, "交易页面网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
+//            LogUtil.e(TAG, "交易页面网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
             delay(3000L)
             val isResult = v_horizontal_depth.isDepth()
             val statusType = v_horizontal_depth.depthBuyOrSell().getKlineByType(WsAgentManager.instance.pageSubWs(this@NCVCTradeFragment))
-            LogUtil.e(TAG, "交易页面网络统计 end ws状态 " + WsAgentManager.instance.isConnection() + " k线数据 ${isResult} " + " statusType " + statusType + " time ${klineTime}")
+//            LogUtil.e(TAG, "交易页面网络统计 end ws状态 " + WsAgentManager.instance.isConnection() + " k线数据 ${isResult} " + " statusType " + statusType + " time ${klineTime}")
             sendWsHomepage(mIsVisibleToUser, statusType, NetworkDataService.KEY_PAGE_TRANSACTION, NetworkDataService.KEY_SUB_TRAN_DEPTH, klineTime)
         }
     }

@@ -84,7 +84,7 @@ class CpWsContractAgentManager private constructor() {
         }
         if (callback != null) {
             val key = callback.javaClass.simpleName
-            Log.e(TAG, "sendMessage ${key} 是否存在数据 ${mapSubCallbacks.containsKey(key)}")
+//            Log.e(TAG, "sendMessage ${key} 是否存在数据 ${mapSubCallbacks.containsKey(key)}")
             if (mapSubCallbacks.containsKey(key)) {
                 lastNew = key
                 when (key) {
@@ -106,12 +106,12 @@ class CpWsContractAgentManager private constructor() {
                             }
 
                             val isReSend = temp.isEmpty() || reSend
-                            Log.e(TAG, "-----------------1")
-                            Log.e(TAG, "-----------------temp："+temp)
-                            Log.e(TAG, "-----------------reSend："+reSend)
-                            Log.e(TAG, "-----------------isReSend："+isReSend)
+//                            Log.e(TAG, "-----------------1")
+//                            Log.e(TAG, "-----------------temp："+temp)
+//                            Log.e(TAG, "-----------------reSend："+reSend)
+//                            Log.e(TAG, "-----------------isReSend："+isReSend)
                             if (isReSend) {
-                                Log.e(TAG, "bind ws set")
+//                                Log.e(TAG, "bind ws set")
                                 val ticker = WsLinkUtils.tickerFor24HLinkBean(symbol)
                                 val depthLink = WsLinkUtils.getDepthLink(symbol, true, if (step.isEmpty()) "0" else step)
                                 val map = hashMapOf("ticker24H" to ticker, "depthLink" to depthLink)
@@ -222,26 +222,26 @@ class CpWsContractAgentManager private constructor() {
     fun sendData(wsLinkBean: CpWsLinkBean) {
         if (isConnection()) {
             val send = mWebSocket?.send(wsLinkBean.json)
-            Log.e(TAG, "sendData ${send}  data =  ${wsLinkBean.json}  ")
+//            Log.e(TAG, "sendData ${send}  data =  ${wsLinkBean.json}  ")
         }
     }
 
     fun sendData(wsLinkBean: String) {
-        Log.e(TAG, "ws sendData wsLinkBean ${wsLinkBean}")
+//        Log.e(TAG, "ws sendData wsLinkBean ${wsLinkBean}")
         if (isConnection()) {
             val sendStatus = mWebSocket?.send(wsLinkBean)
-            Log.d(TAG, "ws sendData sendStatus ${sendStatus}")
+//            Log.d(TAG, "ws sendData sendStatus ${sendStatus}")
         } else {
-            Log.e(TAG, "ws sendData  处于断线状态 无法发送 ")
+//            Log.e(TAG, "ws sendData  处于断线状态 无法发送 ")
         }
     }
 
 
     fun unbind(callback: WsResultCallback?, isStop: Boolean = true, isSymbol: Boolean = false, step: Boolean = false, time: Boolean = false) {
-        Log.e(TAG, "unbind ws unset")
+//        Log.e(TAG, "unbind ws unset")
         if (callback != null) {
             val key = callback.javaClass.simpleName
-            Log.e(TAG, "unbind ws ${key} ")
+//            Log.e(TAG, "unbind ws ${key} ")
             if (mapSubCallbacks.containsKey(key)) {
                 when (key) {
                     "CpNCVCTradeFragment" -> {
@@ -312,18 +312,18 @@ class CpWsContractAgentManager private constructor() {
                     removeWsCallback(callback)
                 }
             } else {
-                Log.e(TAG, "unbind ws ${key} 找不到")
+//                Log.e(TAG, "unbind ws ${key} 找不到")
             }
         }
     }
 
     fun reConnection() {
-        Log.e(TAG, "WS 是否不重连2 ${isAppStopWs} mCount ${mCount}")
+//        Log.e(TAG, "WS 是否不重连2 ${isAppStopWs} mCount ${mCount}")
         mWebSocket = null
         isConnection = false
         if (!isAppStopWs) {
             if (mCount <= reCount) {
-                Log.e(TAG, "WS 是重连")
+//                Log.e(TAG, "WS 是重连")
                 Observable.timer(1, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe {
@@ -331,7 +331,7 @@ class CpWsContractAgentManager private constructor() {
                             mCount++
                         }
             } else {
-                Log.e(TAG, "WS 不重连")
+//                Log.e(TAG, "WS 不重连")
                 resetParams()
             }
         }
@@ -355,7 +355,7 @@ class CpWsContractAgentManager private constructor() {
     fun addWsCallback(callback: WsResultCallback) {
         val key = callback.javaClass.simpleName
         if (mapSubCallbacks.contains(key)) {
-            Log.e(TAG, "${callback.javaClass.name}  exist in callbacks, index is ${callbacks.indexOf(callback)} ")
+//            Log.e(TAG, "${callback.javaClass.name}  exist in callbacks, index is ${callbacks.indexOf(callback)} ")
 //            subCallbacks.remove(key)
 //            mapSubCallbacks.remove(key)
 //            subCallbacks.put(key, callback)
@@ -373,7 +373,7 @@ class CpWsContractAgentManager private constructor() {
     fun removeWsCallback(callback: WsResultCallback): Boolean {
         val key = callback.javaClass.simpleName
         if (mapSubCallbacks.size == 0) {
-            Log.e(TAG, "remove callback failed ,because callbacks size == 0, name is  ${callback.javaClass.name}")
+//            Log.e(TAG, "remove callback failed ,because callbacks size == 0, name is  ${callback.javaClass.name}")
             return false
         }
         mapSubCallbacks.set(key, hashMapOf())
@@ -382,7 +382,7 @@ class CpWsContractAgentManager private constructor() {
 
     private var isConnection = false
     private fun initWS() {
-        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
+//        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
         if (isConnection || serverUrl.isEmpty() || !serverUrl.startsWith("ws")) {
             return
         }
@@ -404,11 +404,11 @@ class CpWsContractAgentManager private constructor() {
     private var wsEventList = object : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
             super.onOpen(webSocket, response)
-            Log.e(TAG, "onOpen() data =  ${response.code}")
+//            Log.e(TAG, "onOpen() data =  ${response.code}")
             mWebSocket = webSocket
             isConnection = false
             resetParams()
-            Log.d(TAG, "重新发送 lastNew =  ${lastNew}")
+//            Log.d(TAG, "重新发送 lastNew =  ${lastNew}")
             if (!isBackgroud) {
                 wsBackgroupChange(lastNew)
             }
@@ -424,12 +424,12 @@ class CpWsContractAgentManager private constructor() {
                 return
             }
             if (data.contains("ping")) {
-                Log.v(TAG, "onMessage() data =  ${data}")
+//                Log.v(TAG, "onMessage() data =  ${data}")
                 val replace = data.replace("ping", "pong")
                 sendData(replace)
             } else {
                 try {
-                    Log.v(TAG, "onMessage() data =  ${data}")
+//                    Log.v(TAG, "onMessage() data =  ${data}")
                     val jsonObj = JSONObject(data)
                     if (!jsonObj.isNull("tick")) {
                         val channel = jsonObj.optString("channel")
@@ -476,19 +476,19 @@ class CpWsContractAgentManager private constructor() {
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             super.onFailure(webSocket, t, response)
             t.printStackTrace()
-            Log.e(TAG, "onFailure() data =  ${t.message} response ${response?.code}")
+//            Log.e(TAG, "onFailure() data =  ${t.message} response ${response?.code}")
             reConnection()
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             super.onClosed(webSocket, code, reason)
-            Log.e(TAG, "onClosed() data =  ${code}")
+//            Log.e(TAG, "onClosed() data =  ${code}")
             reConnection()
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             super.onClosing(webSocket, code, reason)
-            Log.e(TAG, "onClosing() data =  ${code}")
+//            Log.e(TAG, "onClosing() data =  ${code}")
             reConnection()
         }
     }
@@ -552,7 +552,7 @@ class CpWsContractAgentManager private constructor() {
     var lastNew = ""
     fun wsBackgroupChange(fragmentName: String, unBind: Boolean = false) {
         if (mapSubCallbacks.containsKey(fragmentName)) {
-            Log.e(TAG, "wsBackgroupChange() 切换 =  ${fragmentName} ${unBind}")
+//            Log.e(TAG, "wsBackgroupChange() 切换 =  ${fragmentName} ${unBind}")
             lastNew = fragmentName
             val arrays = mapSubCallbacks.get(fragmentName)
             if (arrays != null) {
@@ -565,10 +565,10 @@ class CpWsContractAgentManager private constructor() {
                     }
                 }
             } else {
-                Log.e(TAG, "wsBackgroupChange() 切换 = 没有找到 ${fragmentName} ${unBind}")
+//                Log.e(TAG, "wsBackgroupChange() 切换 = 没有找到 ${fragmentName} ${unBind}")
             }
         } else {
-            Log.e(TAG, "wsBackgroupChange() 切换 找不到 =  ${fragmentName} ${unBind} ")
+//            Log.e(TAG, "wsBackgroupChange() 切换 找不到 =  ${fragmentName} ${unBind} ")
         }
     }
 

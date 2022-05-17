@@ -364,7 +364,7 @@ class RateManager {
              */
             val rate = getRatesByCoinName(coinName)
 
-            Log.d(TAG, "precison is $precision,coinLogo is $coinLogo,rate is $rate,coinLang is $coinLang")
+//            Log.d(TAG, "precison is $precision,coinLogo is $coinLogo,rate is $rate,coinLang is $coinLang")
 
 
             if (TextUtils.isEmpty(close) || close == "--") {
@@ -380,7 +380,7 @@ class RateManager {
             } else {
                 val string = BigDecimalUtils.mul(close, rate).toPlainString()
                 val intercept = DecimalUtil.cutValueByPrecision(string, precision)
-                Log.d(TAG, "string is $string,intercept is $intercept")
+//                Log.d(TAG, "string is $string,intercept is $intercept")
 
 //                BigDecimalUtils.showSNormal(BigDecimalUtils.intercept(string, precision.toInt()).toString())
                 return if (isOnlyResult) {
@@ -437,7 +437,7 @@ class RateManager {
              */
             val rate = getRatesByCoinName(coinName)
 
-            Log.d(TAG, "precison is $precision,coinLogo is $coinLogo,rate is $rate,coinLang is $coinLang")
+//            Log.d(TAG, "precison is $precision,coinLogo is $coinLogo,rate is $rate,coinLang is $coinLang")
 
 
             if (TextUtils.isEmpty(close) || close == "--") {
@@ -453,7 +453,7 @@ class RateManager {
             } else {
                 val string = BigDecimalUtils.mul(close, rate).toPlainString()
                 val intercept = DecimalUtil.cutValueByPrecision(string, precision)
-                Log.d(TAG, "string is $string,intercept is $intercept")
+//                Log.d(TAG, "string is $string,intercept is $intercept")
 
 //                BigDecimalUtils.showSNormal(BigDecimalUtils.intercept(string, precision.toInt()).toString())
                 return if (isOnlyResult) {
