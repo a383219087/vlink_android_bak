@@ -43,6 +43,7 @@ public class SystemUtils {
     }
 
 
+
     public static boolean isZh() {
         if (getSystemLanguage().equals("zh")) {
             return true;

@@ -146,7 +146,7 @@ class LHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 override fun clickItem(data: ArrayList<String>, item: Int) {
                     dialog?.dismiss()
 
-                    Log.d(TAG, "=======curDepth:${NCVCTradeFragment.curDepthIndex},click:$item=====")
+//                    Log.d(TAG, "=======curDepth:${NCVCTradeFragment.curDepthIndex},click:$item=====")
                     if (NCVCTradeFragment.curDepthIndex != item) {
                         tv_change_depth?.text = context.getString(R.string.kline_action_depth) + data[item]
                         depth_level = data[item].toInt()
@@ -441,7 +441,7 @@ class LHorizontalDepthLayout @JvmOverloads constructor(context: Context,
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         if (visibility == View.VISIBLE) {
-            Log.d(TAG, "======curDepthIndex:${NCVCTradeFragment.curDepthIndex}=======")
+//            Log.d(TAG, "======curDepthIndex:${NCVCTradeFragment.curDepthIndex}=======")
             depth_level = depthLevels[NCVCTradeFragment.curDepthIndex].toInt()
             tv_change_depth?.text = context.getString(R.string.kline_action_depth) + depth_level
 

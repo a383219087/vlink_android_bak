@@ -199,7 +199,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     dialog?.dismiss()
 
                     val curDepthLevel = judgeDepthLevel()
-                    Log.d(TAG, "=======curDepth:${curDepthLevel},click:$item=====")
+//                    Log.d(TAG, "=======curDepth:${curDepthLevel},click:$item=====")
 
                     if (curDepthLevel != item) {
                         tv_change_depth?.text = LanguageUtil.getString(context, "kline_action_depth") + " " + data[item]
@@ -323,7 +323,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
         if (depthLevels.size > curDepthLevel) {
             depth_level = depthLevels[curDepthLevel].toInt()
         }
-        LogUtil.e(TAG, "bibi ${isLevel}  setDepth ${coinMapData?.optString("symbol")} ${curDepthLevel}  ${depth_level} ")
+//        LogUtil.e(TAG, "bibi ${isLevel}  setDepth ${coinMapData?.optString("symbol")} ${curDepthLevel}  ${depth_level} ")
         tv_change_depth?.text = LanguageUtil.getString(context, "kline_action_depth") + " " + depth_level
     }
 
@@ -492,7 +492,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val askMaxVol = askMaxVolJson?.optDouble(1) ?: 1.0
-            Log.d(TAG, "========askMAX:$askMaxVol=======")
+//            Log.d(TAG, "========askMAX:$askMaxVol=======")
 
             /**
              * 买盘交易量最大的
@@ -516,11 +516,11 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val buyMaxVol = buyMaxVolJson?.optDouble(1) ?: 1.0
-            Log.d(TAG, "========buyMAX:$buyMaxVol=======")
+//            Log.d(TAG, "========buyMAX:$buyMaxVol=======")
 
             val maxVol = Math.max(askMaxVol, buyMaxVol)
 
-            Log.d(TAG, "========maxVol:$maxVol=========")
+//            Log.d(TAG, "========maxVol:$maxVol=========")
 
             sellTape(askList, maxVol)
             buyTape(buyList, maxVol)
@@ -549,7 +549,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
-                    Log.d(TAG, "=======sell==curVolume is $curVolume,maxVolume is $maxVol,showBgwidth is $width，itemWidth is ${measuredWidth * 0.4}")
+//                    Log.d(TAG, "=======sell==curVolume is $curVolume,maxVolume is $maxVol,showBgwidth is $width，itemWidth is ${measuredWidth * 0.4}")
                     layoutParams.width = width.toInt()
                     sellViewList[i].fl_bg_item.layoutParams = layoutParams
                     /*****深度背景色END****/
@@ -563,7 +563,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     sellViewList[i].tv_quantity_item.text = BigDecimalUtils.showDepthVolumeNew(subList[i].optString(1))
                 }
             } else {
-                Log.d(TAG, "======VVV=======")
+//                Log.d(TAG, "======VVV=======")
                 val temp = sellViewList.size - list.size
                 sellViewList[i].tv_price_item.text = "--"
                 sellViewList[i].tv_quantity_item.text = "--"

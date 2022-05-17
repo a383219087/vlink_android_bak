@@ -189,7 +189,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                          * 日了动物园啦...
                          */
                         var isLever = TradeFragment.currentIndex == ParamConstant.LEVER_INDEX_TAB
-                        LogUtil.d(TAG, "tv_change_depth==isLever is $isLever,item is $item")
+//                        LogUtil.d(TAG, "tv_change_depth==isLever is $isLever,item is $item")
                         NLiveDataUtil.postValue(MessageEvent(MessageEvent.DEPTH_LEVEL_TYPE, item, isLever))
 
                     }
@@ -318,7 +318,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val askMaxVol = askMaxVolJson?.optDouble(1) ?: 1.0
-            Log.d(TAG, "========askMAX:$askMaxVol=======")
+//            Log.d(TAG, "========askMAX:$askMaxVol=======")
 
             /**
              * 买盘交易量最大的
@@ -337,11 +337,11 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val buyMaxVol = buyMaxVolJson?.optDouble(1) ?: 1.0
-            LogUtil.d(TAG, "========buyMAX:$buyMaxVol=======")
+//            LogUtil.d(TAG, "========buyMAX:$buyMaxVol=======")
 
             val maxVol = Math.max(askMaxVol, buyMaxVol)
 
-            LogUtil.d(TAG, "========maxVol:$maxVol=========")
+//            LogUtil.d(TAG, "========maxVol:$maxVol=========")
 
 
             for (i in 0 until sellViewList.size) {
@@ -360,7 +360,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                         val layoutParams = sellViewList[i].fl_bg_item_for_depth?.layoutParams
                         val width = (subList[i].optDouble(1) / maxVol) * measuredWidth / 2
                         layoutParams?.width = width.toInt()
-                        LogUtil.d(TAG, "====1111=width:${width.toInt()}=======")
+//                        LogUtil.d(TAG, "====1111=width:${width.toInt()}=======")
 
                         sellViewList[i].run {
                             fl_bg_item_for_depth?.layoutParams = layoutParams
@@ -372,7 +372,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                             tv_price_item_for_depth?.text = price
 
                             val order = orderList.filter { it.optString("side") == "SELL" && it.getPriceSplitZero() == price.getPriceSplitZero() }
-                            Log.d(TAG, "=======sell==im_sell is ${order.isNotEmpty()} ")
+//                            Log.d(TAG, "=======sell==im_sell is ${order.isNotEmpty()} ")
                             im_sell.visibility = order.isNotEmpty().visiable()
                             tv_quantity_item_for_depth?.text =
                                     BigDecimalUtils.showDepthVolumeNew(subList[i].optString(1).trim())
@@ -393,7 +393,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                         val layoutParams = sellViewList[i].fl_bg_item_for_depth?.layoutParams
                         val width = (askList.reversed()[i].optDouble(1) / maxVol) * measuredWidth / 2
                         layoutParams?.width = width.toInt()
-                        LogUtil.d(TAG, "====1111=width:${width.toInt()}=======")
+//                        LogUtil.d(TAG, "====1111=width:${width.toInt()}=======")
                         sellViewList[i].fl_bg_item_for_depth?.layoutParams = layoutParams
 
                         /*****深度背景色END****/
@@ -407,7 +407,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                             tv_price_item_for_depth?.text = price
 
                             val order = orderList.filter { it.optString("side") == "SELL" && it.getPriceSplitZero() == price.getPriceSplitZero() }
-                            Log.d(TAG, "=======sell==im_sell is ${order.isNotEmpty()} ")
+//                            Log.d(TAG, "=======sell==im_sell is ${order.isNotEmpty()} ")
                             im_sell.visibility = order.isNotEmpty().visiable()
                             tv_quantity_item_for_depth?.text =
                                     BigDecimalUtils.showDepthVolumeNew(askList.reversed()[i].optString(1).trim())
@@ -426,12 +426,12 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                     val layoutParams = buyViewList[i].fl_bg_item_for_depth.layoutParams
                     val width = (buyList[i].optDouble(1) / maxVol) * measuredWidth / 2
                     layoutParams.width = width.toInt()
-                    LogUtil.d(TAG, "==buy==1111=width:${width.toInt()}=======")
+//                    LogUtil.d(TAG, "==buy==1111=width:${width.toInt()}=======")
                     buyViewList[i].fl_bg_item_for_depth?.layoutParams = layoutParams
                     /*****深度背景色END****/
                     val price4DepthBuy = buyList[i].optString(0).trim()
 
-                    Log.d(TAG, "=======price4Depth:$price4DepthBuy===")
+//                    Log.d(TAG, "=======price4Depth:$price4DepthBuy===")
                     buyViewList[i].run {
                         val price = SymbolInterceptUtils.interceptData(
                                 price4DepthBuy,
@@ -439,7 +439,7 @@ class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                                 "price")
                         tv_price_item_for_depth?.text = price
                         val order = orderList.filter { it.optString("side") == "BUY" && BigDecimalUtils.showSNormal(it.optString("price")) == price }
-                        Log.d(TAG, "=======buy==im_sell is ${order.isNotEmpty()} ")
+//                        Log.d(TAG, "=======buy==im_sell is ${order.isNotEmpty()} ")
                         im_buy.visibility = order.isNotEmpty().visiable()
                         tv_quantity_item_for_depth?.text =
                                 BigDecimalUtils.showDepthVolumeNew(buyList[i].optString(1).trim())

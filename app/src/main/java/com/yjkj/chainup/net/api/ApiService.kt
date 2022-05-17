@@ -503,103 +503,103 @@ interface ApiService {
     /**
      * 我的邀请码
      */
-    @POST("/invite_code/myInviteCodes")
+    @POST("invite_code/myInviteCodes")
     fun myInviteCodes(): Observable<HttpResult<List<AgentCodeBean>>>
     /**
      * 创建邀请码
      */
     @FormUrlEncoded
-    @POST("/invite_code/createInviteCode")
+    @POST("invite_code/createInviteCode")
     fun createInviteCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<AgentCodeBean>>
     /**
      * 返佣比例查询
      */
-    @POST("/invite_code/agentRoles")
+    @POST("invite_code/agentRoles")
     fun agentRoles(): Observable<HttpResult<List<InviteRate>>>
     /**
      * 更新默认邀请码
      */
     @FormUrlEncoded
-    @POST("/invite_code/update")
+    @POST("invite_code/update")
     fun updateDefaultCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
     /**
      * 我的邀请统计
      */
-    @GET("/invite_code/myBonus")
+    @GET("invite_code/myBonus")
     fun myBonus(): Observable<HttpResult<InviteBean>>
     /**
      * 返佣前10
      */
-    @GET("/invite_code/top10")
+    @GET("invite_code/top10")
     fun top10(): Observable<HttpResult<List<InviteBean>>>
 
     /**
      * 我的下级
      */
     @FormUrlEncoded
-    @POST("/invite_code/myNextAgentUsers")
+    @POST("invite_code/myNextAgentUsers")
     fun myNextAgentUsers(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<InviteBean>>>>
     /**
      * 我的返佣
      */
-    @GET("/invite_code/bonusList")
+    @GET("invite_code/bonusList")
     fun bonusList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
     /**
      * 交易员列表
      */
     @FormUrlEncoded
-    @POST("/traderUser/list")
+    @POST("traderUser/list")
     fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
     /**
      * 我跟单的交易员列表
      */
-    @GET("/traderUser/myTraders")
+    @GET("traderUser/myTraders")
     fun myTraders(): Observable<HttpResult<List<CommissionBean>>>
     /**
      * 查看交易员申请状态
      */
-    @GET("/traderUser/currentStatus")
+    @GET("traderUser/currentStatus")
     fun currentStatus(): Observable<HttpResult<CurrentStatusBean>>
     /**
      * 申请成为交易员
      */
-    @POST("/traderUser/applyBecomeTrader")
+    @POST("traderUser/applyBecomeTrader")
     fun applyBecomeTrader(): Observable<HttpResult<String>>
     /**
      * 创建跟单
      */
     @FormUrlEncoded
-    @POST("/traderUser/create")
+    @POST("traderUser/create")
     fun createTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
     /**
      * 理财列表
      */
-    @POST("/increment/project_list")
+    @POST("increment/project_list")
     fun projectList(): Observable<HttpResult<List<ProjectBean>>>
     /**
      * 理财详情
      */
-    @POST("/increment/project_info")
+    @POST("increment/project_info")
     fun projectInfo(@Body requestBody: RequestBody): Observable<HttpResult<ProjectInfo>>
     /**
      * 申请理财
      */
-    @POST("/increment/project/apply")
+    @POST("increment/project/apply")
     fun apply(@Body requestBody: RequestBody): Observable<HttpResult<String>>
     /**
      * 退购接口
      */
-    @POST("/increment/project/redeem")
+    @POST("increment/project/redeem")
     fun redeem(@Body requestBody: RequestBody): Observable<HttpResult<String>>
     /**
      * 理财明细表
      */
-    @POST("/increment/my_pos")
+    @POST("increment/my_pos")
     fun myPos(@Body requestBody: RequestBody): Observable<HttpResult<MyPos>>
     /**
      * 计息明细、存取明细查询接口
      */
-    @POST("/increment/project/incrementActDetail")
+    @POST("increment/project/incrementActDetail")
     fun incrementActDetail(@Body requestBody: RequestBody): Observable<HttpResult<IncrementActList>>
 
 

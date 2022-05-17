@@ -777,7 +777,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        LogUtil.d(TAG, "fragmentVisibile==NCVCTradeFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
+//        LogUtil.d(TAG, "fragmentVisibile==NCVCTradeFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
         val mainActivity = activity
         if (mainActivity != null) {
             if (mainActivity is NewMainActivity) {
@@ -1007,7 +1007,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        LogUtil.e(TAG, "onVisibleChanged==NCVCTradeFragment ${isVisible} ")
+//        LogUtil.e(TAG, "onVisibleChanged==NCVCTradeFragment ${isVisible} ")
     }
 
     fun isInitSymbol(): Boolean {
@@ -1017,7 +1017,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     fun changeInitData() {
         coinMapData = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         showTopCoin()
-        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
+//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
         symbol = coinMapData?.optString("symbol") ?: ""//return
         setTagView(coinMapData?.optString("name", "").toString())
     }

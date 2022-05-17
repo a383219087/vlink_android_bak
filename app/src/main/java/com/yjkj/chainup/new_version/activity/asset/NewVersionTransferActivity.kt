@@ -593,10 +593,10 @@ class NewVersionTransferActivity : NBaseActivity() {
                             leverBalance = symbolJSONObject.optString("quoteCanTransfer", "")
                         }
                     }
-                    if (transferSequence) {
-                        amount = normalBalance
+                    amount = if (transferSequence) {
+                        normalBalance
                     } else {
-                        amount = leverBalance
+                        leverBalance
                     }
                     if (transferSequence) {
                         et_number?.setText(BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(amount, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString()))
@@ -666,7 +666,7 @@ class NewVersionTransferActivity : NBaseActivity() {
     /**
      * 选择划转类型
      */
-    fun showDialogChangeTransferType() {
+    private fun showDialogChangeTransferType() {
         tDialog = NewDialogUtils.showBottomListDialog(this, transferList, selectTransferPosition, object : NewDialogUtils.DialogOnclickListener {
             override fun clickItem(data: ArrayList<String>, item: Int) {
 
@@ -678,8 +678,9 @@ class NewVersionTransferActivity : NBaseActivity() {
                     transferStatus = ParamConstant.TRANSFER_OTC
                     iv_next?.visibility = View.VISIBLE
                     iv_next?.visibility = View.VISIBLE
-                    var list = DataManager.getCoinsFromDB(true)
+                    val list = DataManager.getCoinsFromDB(true)
                     list.sortBy { it.name }
+
                     if (list.isNotEmpty()) {
                         transferSymbol = list[0].name
                         if (!fromBorrow) {
@@ -711,7 +712,6 @@ class NewVersionTransferActivity : NBaseActivity() {
                     fromBorrow = false
                     if (AppConstant.IS_NEW_CONTRACT) {
                         val mContractMarginCoinListJsonStr = LogicContractSetting.getContractMarginCoinListStr(this@NewVersionTransferActivity)
-//                        transferSymbol = mContractMarginCoinListJsonStr.getCoinByContractFirst()
 
                         val coinJsonStr = PreferenceManager.getInstance(this@NewVersionTransferActivity).getSharedString("contract#bibi#coin", "")
                         if (mContractMarginCoinListJsonStr != null && mContractMarginCoinListJsonStr.isNotEmpty()) {
@@ -1061,27 +1061,6 @@ class NewVersionTransferActivity : NBaseActivity() {
      * 合约划转
      */
     fun accountCapitalTransfer(coinSymbol: String, transferType: String, amount: String) {
-//        if (transferType.equals(ContractCloudAgent.WALLET_TO_CONTRACT)) {
-//            if (openContract == 0) {
-//                NToastUtil.showTopToastNet(this@NewVersionTransferActivity,false, "未开通合约")
-//                return
-//            }
-//            addDisposable(getMainModel().futuresTransfer(UserDataService.getInstance().userInfo4UserId, coinSymbol, amount,transferType,
-//                    consumer = object : NDisposableObserver(mActivity, true) {
-//                        override fun onResponseSuccess(jsonObject: JSONObject) {
-//                            et_number?.setText("")
-//                            transferSuc()
-//                        }
-//                    }))
-//        } else {
-//            addDisposable(getMainModel().futuresTransfer(UserDataService.getInstance().userInfo4UserId, coinSymbol, amount,transferType,
-//                    consumer = object : NDisposableObserver(mActivity, true) {
-//                        override fun onResponseSuccess(jsonObject: JSONObject) {
-//                            et_number?.setText("")
-//                            transferSuc()
-//                        }
-//                    }))
-//        }
 
         if (openContract == 0) {
             NToastUtil.showTopToastNet(this@NewVersionTransferActivity, false, "未开通合约")
@@ -1106,62 +1085,6 @@ class NewVersionTransferActivity : NBaseActivity() {
                     }
                 })
 
-
-//        if (AppConstant.IS_NEW_CONTRACT) {
-//            if (transferType.equals(ContractCloudAgent.WALLET_TO_CONTRACT)) {
-//                if (openContract == 0) {
-//                    NToastUtil.showTopToastNet(this@NewVersionTransferActivity,false, "未开通合约")
-//                    return
-//                }
-//                addDisposable(getMainModel().futuresTransfer(UserDataService.getInstance().userInfo4UserId, coinSymbol, amount,transferType,
-//                        consumer = object : NDisposableObserver(mActivity, true) {
-//                            override fun onResponseSuccess(jsonObject: JSONObject) {
-//                                et_number?.setText("")
-//                                transferSuc()
-//                            }
-//                        }))
-//            } else {
-//                addDisposable(getMainModel().futuresTransfer(UserDataService.getInstance().userInfo4UserId, coinSymbol, amount,transferType,
-//                        consumer = object : NDisposableObserver(mActivity, true) {
-//                            override fun onResponseSuccess(jsonObject: JSONObject) {
-//                                et_number?.setText("")
-//                                transferSuc()
-//                            }
-//                        }))
-//            }
-//
-//        } else {
-//            if (ContractCloudAgent.isCloudOpen) {
-//                cbtn_confirm?.showLoading()
-//                ContractCloudAgent.contractCloudTransfer(coinSymbol, amount, transferType, {
-//                    et_number?.setText("")
-//                    transferSuc()
-//                    ContractUserDataAgent.getContractAccounts(true)
-//                }, {
-//                    cbtn_confirm?.hideLoading()
-//                })
-//            } else {
-//                cbtn_confirm?.showLoading()
-//                HttpClient.instance
-//                        .doAssetExchange(coinSymbol = coinSymbol, transferType = transferType, amount = amount)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(object : NetObserver<Any>() {
-//                            override fun onHandleSuccess(bean: Any?) {
-//                                cbtn_confirm?.hideLoading()
-//                                et_number?.setText("")
-//                                transferSuc()
-//                                ContractUserDataAgent.getContractAccounts(true)
-//                            }
-//
-//                            override fun onHandleError(code: Int, msg: String?) {
-//                                cbtn_confirm?.hideLoading()
-//                                super.onHandleError(code, msg)
-//                                NToastUtil.showToast(msg, false)
-//                            }
-//                        })
-//            }
-//        }
     }
 
     /**
@@ -1218,9 +1141,9 @@ class NewVersionTransferActivity : NBaseActivity() {
                 jsonObject.optJSONObject("data")?.run {
                     if (!isNull("accountList")) {
                         val mOrderListJson = optJSONArray("accountList")
-                        for (i in 0..(mOrderListJson.length() - 1)) {
+                        for (i in 0 until mOrderListJson.length()) {
                             val obj = mOrderListJson.getJSONObject(i)
-                            if (transferSymbol.equals(obj.optString("symbol"))) {
+                            if (transferSymbol == obj.optString("symbol")) {
                                 mContracAmount = mOrderListJson.getJSONObject(i).getString("canUseAmount")
                             }
                         }

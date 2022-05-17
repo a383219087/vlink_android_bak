@@ -205,7 +205,7 @@ class NGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
         getAccountBalanceByMarginCoin()
         showTopCoin()
-        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
+//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
         symbol = coinMapData?.optString("symbol") ?: ""
         setTagView(coinMapData?.optString("name", "").toString())
         sendAgentData()

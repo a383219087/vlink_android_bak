@@ -328,7 +328,7 @@ class OldNGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        Log.e("jinlong", "fragmentVisibile==NCVCTradeFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
+//        Log.e("jinlong", "fragmentVisibile==NCVCTradeFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
 
         val mainActivity = activity
         if (mainActivity != null) {

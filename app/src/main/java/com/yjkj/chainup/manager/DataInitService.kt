@@ -158,7 +158,7 @@ class DataInitService(name: String = "DataInitService") : IntentService(name) {
                 NLiveDataUtil.postValue(MessageEvent(MessageEvent.home_event_page_market_type).apply {
                     msg_content_data = data.optJSONArray("marketSort")
                 })
-                LogUtil.e("initMakert", "接口返回 market ${data.optJSONArray("marketSort")}")
+                LogUtil.e("initMakert", "接口返回 market $data")
             }
         }
 
