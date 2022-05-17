@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
-import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -17,7 +16,6 @@ import okhttp3.ResponseBody
  * @Description: 合约具体请求
  */
 class NewContractModel : BaseDataManager() {
-    var contractApiService: ContractApiService = HttpClient.instance.createContractApi()
 
     fun getPublicInfo(consumer: DisposableObserver<ResponseBody>): Disposable? {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPublicInfo(getBaseReqBody()), consumer)

@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class PubilcBean(
 
-    val enable_module_info: EnableModuleInfo
+    val enable_module_info: EnableModuleInfo?
 
 
 ) : Serializable

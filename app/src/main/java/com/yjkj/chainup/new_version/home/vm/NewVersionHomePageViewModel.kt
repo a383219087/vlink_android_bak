@@ -7,15 +7,11 @@ import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
-import com.yjkj.chainup.bean.EnableModuleInfo
-import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.util.LogUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -82,18 +78,21 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     }
 
 
+
     /**
      * 获取首页配置
      */
     fun getPublicInfo(context: Context) {
         val map = TreeMap<String, String>()
-        startTask(contractApiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-            val futures = it.data.enable_module_info.futures
-            val trader = it.data.enable_module_info.trader
-            val increment = it.data.enable_module_info.increment
-            val game = it.data.enable_module_info.game
-            val share = it.data.enable_module_info.share
-
+        startTask(apiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
+             if (it.data==null||it.data?.enable_module_info==null){
+                 return@Consumer
+             }
+            val futures = it.data?.enable_module_info?.futures
+            val trader = it.data?.enable_module_info?.trader
+            val increment = it.data?.enable_module_info?.increment
+            val game = it.data?.enable_module_info?.game
+            val share = it.data?.enable_module_info?.share
             items.clear()
             if (futures == 1) {
                 val item = Item()

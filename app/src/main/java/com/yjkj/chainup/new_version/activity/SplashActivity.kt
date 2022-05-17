@@ -65,6 +65,7 @@ class SplashActivity : AppCompatActivity() {
         }
         liksArray.add("http://8.219.64.81:8091")
         liksArray.add("http://8.219.72.62:8091")
+//        liksArray.add("http://gate.ylty1688.com")
 
         checkNetworkLine(liksArray[currentCheckIndex])
 //                        if (hasPermission()) {

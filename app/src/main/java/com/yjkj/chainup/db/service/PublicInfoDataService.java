@@ -76,10 +76,7 @@ public class PublicInfoDataService {
      */
     private static final String SHOW_THEME_MODE = "theme_mode";
     private static final String SHOW_KLINETHEME_MODE = "theme_kline_mode";
-    /**
-     * 保存 是否cet
-     */
-    private static final String SAVE_CET_DATA = "save_cet_data";
+
 
     /**
      * 保存 是否新合约
@@ -132,27 +129,6 @@ public class PublicInfoDataService {
         }
 
 
-    }
-
-
-    public void saveCetData(String data) {
-        if (null != data) {
-            mMMKVDb.saveData(SAVE_CET_DATA, data);
-        }
-    }
-
-    public JSONObject getCetData() {
-        JSONObject data = null;
-        String dataStr = mMMKVDb.getData(SAVE_CET_DATA);
-        if (StringUtil.checkStr(dataStr)) {
-            try {
-                data = new JSONObject(dataStr);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                data = new JSONObject();
-            }
-        }
-        return data;
     }
 
 

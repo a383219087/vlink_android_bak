@@ -23,6 +23,7 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
+import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
@@ -57,7 +58,6 @@ class ChainUpApp : CpMyApp() {
     override fun onCreate() {
         super.onCreate()
         app = this
-
         if (BuildConfig.APPLICATION_ID == getCurProcessName(this)) {
             appContext = this
             appStateChangeListener = getAppStateChangeListener()

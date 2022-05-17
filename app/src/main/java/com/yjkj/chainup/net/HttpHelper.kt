@@ -9,15 +9,12 @@ import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.app.GlobalAppComponent
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.util.HttpsUtils
 import com.yjkj.chainup.util.StringUtil
-import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.wedegit.DownLoadReceiver
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -41,9 +38,10 @@ class HttpHelper {
         mServiceMap?.clear()
     }
 
-    private fun initOkHttpClient() {
+     fun initOkHttpClient() {
         val buidler = OkHttpClient.Builder()
-
+        val logging = HttpLoggingInterceptor(HttpLoggingInterceptor { message -> })
+        logging.level = HttpLoggingInterceptor.Level.BODY
         val sslParams = HttpsUtils.getSslSocketFactory(null, null, null)
 
         buidler.protocols(Collections.singletonList(Protocol.HTTP_1_1))
@@ -53,22 +51,12 @@ class HttpHelper {
         buidler.readTimeout(AppConfig.read_time, TimeUnit.MILLISECONDS)
         buidler.writeTimeout(AppConfig.write_time, TimeUnit.MILLISECONDS)
         buidler.connectTimeout(AppConfig.connect_time, TimeUnit.MILLISECONDS)
+        buidler.addInterceptor(logging)
         buidler.addInterceptor(NetInterceptor())
         buidler.retryOnConnectionFailure(true)
         buidler.cache(cache)
-        if (AppConfig.IS_DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            buidler.addInterceptor(loggingInterceptor)
-        }
         mOkHttpClient = buidler.build()
-        Thread(Runnable {
-            try {
-                var jsonFile = Utils.getJSONLastNews()
-                PublicInfoDataService.getInstance().saveCetData(jsonFile)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }).start()
+
     }
 
     fun downPciture(mDownLoadPath: String) {
@@ -112,13 +100,6 @@ class HttpHelper {
         return createService(NetUrl.baseUrl(), serviceClass)
     }
 
-    /**
-     * 测速用的Service
-     */
-    fun <S> getspeedUrlService(url: String, serviceClass: Class<S>): S {
-        return createService(url, serviceClass)
-    }
-
 
     /*
      * return otcBaseUrl ApiService
@@ -150,14 +131,11 @@ class HttpHelper {
 
 
     private fun <S> createService(url: String, serviceClass: Class<S>): S {
-        if (mServiceMap.containsKey(serviceClass.name)) {
-            return mServiceMap.get(serviceClass.name) as S
+        return if (mServiceMap.containsKey(serviceClass.name)) {
+            mServiceMap.get(serviceClass.name) as S
         } else {
-            var obj = createRetrofit(url).create(serviceClass) //as S//createService(baseUrl,serviceClass);
-            if (serviceClass.name != "com.yjkj.chainup.model.api.SpeedApiService") {
-                mServiceMap.put(serviceClass.name, obj as Any)
-            }
-            return obj
+            val obj = createRetrofit(url).create(serviceClass) //as S//createService(baseUrl,serviceClass);
+            obj
         }
     }
 

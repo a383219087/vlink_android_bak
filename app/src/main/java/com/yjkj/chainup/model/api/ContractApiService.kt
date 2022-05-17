@@ -1,6 +1,5 @@
 package com.yjkj.chainup.model.api
 
-import com.yjkj.chainup.bean.PubilcBean
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -9,7 +8,6 @@ import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -233,11 +231,7 @@ interface ContractApiService {
     @POST("common/public_info")
     fun getPublicInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     *  获取合约公共信息
-     */
-    @POST("common/public_info")
-    fun getPublicInfo1(@Body requestBody: RequestBody): Observable<HttpResult<PubilcBean>>
+
 
 
     /**

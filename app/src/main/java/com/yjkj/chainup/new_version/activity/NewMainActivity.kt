@@ -10,7 +10,6 @@ import android.provider.Settings
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
-import androidx.fragment.app.FragmentManager
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -19,6 +18,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -31,13 +31,10 @@ import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.R
-import com.yjkj.chainup.app.AppConfig
-import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.contract.cloud.ContractCloudAgent
 import com.yjkj.chainup.contract.fragment.SlContractFragment
-import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.constant.HomeTabMap
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
@@ -67,7 +64,6 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_main.*
 import kotlinx.android.synthetic.main.check_visit_status.*
@@ -77,7 +73,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 // TODO 优化
 @Route(path = RoutePath.NewMainActivity)
@@ -292,9 +287,6 @@ class NewMainActivity : NBaseActivity() {
             }
             curPosition = tag
             if (lastPosition != curPosition) {
-                for (i in 0 until fragmentList.size) {
-//                    fragmentList[i].refreshOkhttp(lastPosition)
-                }
                 lastPosition = curPosition
             }
 
@@ -316,10 +308,9 @@ class NewMainActivity : NBaseActivity() {
         super.onMessageEvent(event)
         if (event.msg_type == MessageEvent.coin_payment) {
 
-            var msg_content = event.msg_content
+            val msg_content = event.msg_content
             if (null != msg_content && msg_content is JSONObject) {
-                var json = msg_content
-                var position = json.optInt("position")
+                val position = msg_content.optInt("position")
                 if (ParamConstant.TYPE_COIN == position) {
                     curPosition = HomeTabMap.maps[HomeTabMap.coinTradeTab] ?: 2
                     setCurrentItem()

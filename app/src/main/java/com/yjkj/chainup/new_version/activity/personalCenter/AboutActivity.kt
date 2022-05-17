@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.AboutUSBean
+import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
@@ -14,6 +17,7 @@ import com.yjkj.chainup.new_version.adapter.AbountAdapter
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.CheckUpdateUtil
 import com.yjkj.chainup.util.PackageInfoUtils
+import com.yjkj.chainup.util.isHttpUrl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_about.*
@@ -63,11 +67,21 @@ class AboutActivity : NBaseActivity() {
                     override fun onHandleSuccess(list: ArrayList<AboutUSBean>?) {
                         if (list == null) return
                         list.add(0, AboutUSBean(LanguageUtil.getString(this@AboutActivity, "common_text_versionCode"), PackageInfoUtils.packageNameOrCode(this@AboutActivity)))
-                        var adapter = AbountAdapter(list)
-                        var linearLayoutManager = LinearLayoutManager(this@AboutActivity)
+                        val adapter = AbountAdapter(list)
+                        val linearLayoutManager = LinearLayoutManager(this@AboutActivity)
                         rv_about.layoutManager = linearLayoutManager
                         rv_about.adapter = adapter
                         rv_about.isLayoutFrozen = true
+                        adapter.setOnItemClickListener { adapter, view, position ->
+                            val item: AboutUSBean?= adapter.data[position] as AboutUSBean?
+                            if (item?.content!!.isHttpUrl()){
+                                val bundle = Bundle()
+                                bundle.putString(ParamConstant.URL_4_SERVICE, item.content)
+                                ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+                            }
+
+
+                        }
                     }
                 })
     }

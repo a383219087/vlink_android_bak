@@ -374,18 +374,6 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).createContract(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 前台公共实时信息
-     * @param symbol 合约币对名称, 例如: BTC-USDT
-     * @param contractId 合约ID
-     */
-    fun getMarkertInfo(symbol: String, contractId: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["symbol"] = symbol
-            this["contractId"] = contractId
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getMarkertInfo(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 提交委托

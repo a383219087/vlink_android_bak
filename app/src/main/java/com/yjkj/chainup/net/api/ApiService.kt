@@ -203,7 +203,11 @@ interface ApiService {
      */
     @POST("common/user_info")
     fun getUserInfo(@Body requestBody: RequestBody): Observable<HttpResult<UserInfoData>>
-
+    /**
+     *  获取合约公共信息
+     */
+    @POST("common/public_info")
+    fun getPublicInfo1(@Body requestBody: RequestBody): Observable<HttpResult<PubilcBean?>>
 
     /**
      * 帮助中心

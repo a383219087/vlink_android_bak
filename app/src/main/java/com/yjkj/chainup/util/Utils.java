@@ -1084,27 +1084,6 @@ public class Utils {
     }
 
 
-    public static String getJSONLastNews() throws Exception {
-//        String path = "https://lishipeng.oss-cn-hangzhou.aliyuncs.com/testdomain.json";//测试
-        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
-        String path = "https://chainup.oss-accelerate.aliyuncs.com/updateV3.json";
-        HttpsURLConnection conn = (HttpsURLConnection) new URL(path).openConnection();
-        if (BuildConfig.DEBUG) {
-            conn.setSSLSocketFactory(sslParams.sSLSocketFactory);
-        }
-        conn.setConnectTimeout(5000);
-        conn.setRequestMethod("GET");
-        if (conn.getResponseCode() == 200) {
-            try {
-                InputStream json = conn.getInputStream();
-                String str = getStringFromInputStream(json);
-                return str;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
     private static String getStringFromInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();

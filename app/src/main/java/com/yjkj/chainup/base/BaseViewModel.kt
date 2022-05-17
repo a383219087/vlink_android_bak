@@ -3,9 +3,8 @@ package com.yjkj.chainup.base
 
 
 import androidx.lifecycle.*
-import com.yjkj.chainup.common.binding.command.BindingFunction
 import com.yjkj.chainup.model.api.ContractApiService
-import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.net.api.ApiService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,8 +22,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     var finish = MutableLiveData<Void?>()
     var refreshUI = MutableLiveData(false)
     private var mCompositeDisposable: CompositeDisposable? = null
-     var apiService: ApiService = HttpClient.instance.createApi()
-    var contractApiService: ContractApiService = HttpClient.instance.createContractApi()
+     var apiService: ApiService =HttpHelper.instance.getBaseUrlService(ApiService::class.java)
+    var contractApiService: ContractApiService = HttpHelper.instance.getContractUrlService(ContractApiService::class.java)
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

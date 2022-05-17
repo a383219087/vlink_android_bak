@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.AboutUSBean
-import java.util.ArrayList
+import com.yjkj.chainup.util.isHttpUrl
 
 
 /**
@@ -13,7 +13,12 @@ import java.util.ArrayList
 
 class AbountAdapter(data: ArrayList<AboutUSBean>) : BaseQuickAdapter<AboutUSBean, BaseViewHolder>(R.layout.item_about_us, data) {
     override fun convert(helper: BaseViewHolder, item: AboutUSBean) {
-        helper?.setText(R.id.tv_title, item?.title ?: "")
-        helper?.setText(R.id.tv_content, item?.content ?: "")
+        helper.setText(R.id.tv_title, item.title)
+        if (!item.content.isHttpUrl()){
+            helper.setText(R.id.tv_content, item.content)
+        }else{
+            helper.setText(R.id.tv_content,"")
+
+        }
     }
 }
