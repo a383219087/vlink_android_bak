@@ -87,6 +87,10 @@ public class NetInterceptor implements Interceptor {
                     if (code.equals("10055")) {
                         new MainModel().savePublicInfo();
                     }
+                    if (!code.equals("0")) {
+                        throw new AppException(code, result.getMsg());
+
+                    }
                 }
             }
         } else if (response.code() != 200) {

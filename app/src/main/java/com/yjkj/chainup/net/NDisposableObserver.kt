@@ -96,8 +96,9 @@ abstract class NDisposableObserver : DisposableObserver<ResponseBody> {
 
     override fun onError(e: Throwable) {
         closeLoadingDialog()
-
-        if (e is HttpException) {
+        if (e is AppException) {
+            onResponseFailure(e.code.toInt(), e.message)
+        } else  if (e is HttpException) {
             val code = e.code()
             val message = e.message
             onResponseFailure(code, message)

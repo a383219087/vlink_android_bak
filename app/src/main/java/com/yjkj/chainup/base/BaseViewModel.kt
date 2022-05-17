@@ -5,6 +5,7 @@ package com.yjkj.chainup.base
 import androidx.lifecycle.*
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.net.HttpHelper
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.ApiService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
