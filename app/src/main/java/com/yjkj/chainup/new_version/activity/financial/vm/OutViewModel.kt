@@ -4,8 +4,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.Pos
-import com.yjkj.chainup.bean.ProjectBean
-import com.yjkj.chainup.bean.ProjectInfo
 import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
@@ -39,7 +37,7 @@ class OutViewModel : BaseViewModel() {
 
 
         }, Consumer {
-            ToastUtils.showToast("申请失败")
+            ToastUtils.showToast(it.message)
         })
 
     }

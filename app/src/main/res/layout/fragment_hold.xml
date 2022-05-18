@@ -157,20 +157,20 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
              <TextView
-                 app:ResColor="@{_all.queryType==0?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                 app:ResColor="@{_all.queryType==1?R.color.warn_yellow:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
                  android:text="持仓中"
-                 android:onClick="@{()->_all.setQuery(0)}"
+                 android:onClick="@{()->_all.setQuery(1)}"
                  android:padding="5dp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>
 
              <TextView
                  android:layout_marginLeft="10dp"
-                 app:ResColor="@{_all.queryType==1?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                 app:ResColor="@{_all.queryType==0?R.color.warn_yellow:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
                  android:text="历史持仓"
-                 android:onClick="@{()->_all.setQuery(1)}"
+                 android:onClick="@{()->_all.setQuery(0)}"
                  android:padding="5dp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"/>

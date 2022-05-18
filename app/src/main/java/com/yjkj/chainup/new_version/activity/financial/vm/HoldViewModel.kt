@@ -56,7 +56,7 @@ class HoldViewModel : BaseViewModel() {
     var isLoadMore = MutableLiveData(false)
 
     //0持仓中1历史持仓
-    var queryType = MutableLiveData(0)
+    var queryType = MutableLiveData(1)
 
     fun setQuery(type:Int){
         queryType.value=type

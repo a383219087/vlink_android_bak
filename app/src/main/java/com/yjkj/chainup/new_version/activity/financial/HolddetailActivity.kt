@@ -6,7 +6,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.bean.Pos
-import com.yjkj.chainup.bean.ProjectBean
 import com.yjkj.chainup.databinding.ActivityHolddetailBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.financial.vm.HolddetailViewModel

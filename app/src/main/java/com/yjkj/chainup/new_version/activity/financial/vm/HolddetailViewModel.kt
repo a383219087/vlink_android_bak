@@ -29,7 +29,7 @@ class HolddetailViewModel:BaseViewModel() {
 
     }
      fun onOut() {
-         ARouter.getInstance().build(RoutePath.SaveActivity)
+         ARouter.getInstance().build(RoutePath.OutActivity)
              .withSerializable("bean",bean.value)
              .navigation()
 
