@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.activity.invite.vm
 
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ObservableArrayList
@@ -16,7 +15,6 @@ import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.new_version.activity.invite.InvitationPostersDialog
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -44,8 +42,6 @@ class ContractAgentViewModel : BaseViewModel() {
             bean.value!!.rateInt = bean.value!!.rate.toDouble().toInt()
             rate.value = bean.value!!.rate.toDouble().toInt()
             code.value = bean.value!!.inviteCode
-        }, Consumer {
-
         })
 
     }
@@ -53,8 +49,6 @@ class ContractAgentViewModel : BaseViewModel() {
     fun myBonus() {
         startTask(apiService.myBonus(), Consumer {
             myBonusBean.value = it.data
-        }, Consumer {
-
         })
 
     }
@@ -67,8 +61,6 @@ class ContractAgentViewModel : BaseViewModel() {
                 bean.index = i
                 items.add(bean)
             }
-
-        }, Consumer {
 
         })
 

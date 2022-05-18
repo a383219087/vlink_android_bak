@@ -12,7 +12,6 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.util.LogUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import java.util.*
@@ -129,8 +128,6 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text5")
                 items.add(item)
             }
-        }, Consumer {
-            LogUtil.d("我是", it.message)
         })
 
     }

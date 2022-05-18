@@ -99,9 +99,7 @@ class HolddetailViewModel:BaseViewModel() {
             }
 
 
-        }, Consumer {
-
-        });
+        })
     }
 
 }

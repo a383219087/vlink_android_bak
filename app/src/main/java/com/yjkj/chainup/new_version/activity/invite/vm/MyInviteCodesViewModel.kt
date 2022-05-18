@@ -57,8 +57,6 @@ class MyInviteCodesViewModel : BaseViewModel() {
             map["isDefault"] = "1"
             startTask(apiService.updateDefaultCode(map), Consumer {
                 myInviteCodes()
-            }, Consumer {
-
             })
         }
 
@@ -80,9 +78,7 @@ class MyInviteCodesViewModel : BaseViewModel() {
             }
 
 
-        }, Consumer {
-
-        });
+        })
 
     }
 

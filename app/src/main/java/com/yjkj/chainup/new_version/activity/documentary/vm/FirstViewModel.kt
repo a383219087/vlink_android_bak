@@ -91,9 +91,7 @@ class FirstViewModel : BaseViewModel() {
             }
             items.addAll(it.data)
 
-        }, Consumer {
-
-        });
+        })
 
     }
 

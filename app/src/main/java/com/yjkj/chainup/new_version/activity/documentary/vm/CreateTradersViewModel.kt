@@ -82,8 +82,6 @@ class CreateTradersViewModel : BaseViewModel() {
         startTask(apiService.createTrader(map), Consumer {
           finish()
 
-        }, Consumer {
-            finish()
         })
     }
 

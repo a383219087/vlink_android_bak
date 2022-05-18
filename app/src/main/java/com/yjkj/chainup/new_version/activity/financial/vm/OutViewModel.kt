@@ -36,8 +36,6 @@ class OutViewModel : BaseViewModel() {
           ToastUtils.showToast("申请成功")
 
 
-        }, Consumer {
-            ToastUtils.showToast(it.message)
         })
 
     }

@@ -26,7 +26,6 @@ class UsdtViewModel: BaseViewModel() {
             bean.value=it.data
 
 
-        }, Consumer {
         })
     }
 

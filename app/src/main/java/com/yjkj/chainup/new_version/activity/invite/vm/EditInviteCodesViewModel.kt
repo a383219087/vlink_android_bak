@@ -72,8 +72,6 @@ class EditInviteCodesViewModel : BaseViewModel() {
             }
 
 
-        }, Consumer {
-
         })
     }
 
@@ -93,8 +91,6 @@ class EditInviteCodesViewModel : BaseViewModel() {
             map["isDefault"] = if (isCheck.value == true) "1" else "0"
             startTask(apiService.createInviteCode(map), Consumer {
                 finish()
-            }, Consumer {
-
             })
 
         } else {
@@ -105,8 +101,6 @@ class EditInviteCodesViewModel : BaseViewModel() {
             map["isDefault"] = if (isCheck.value == true) "1" else "0"
             startTask(apiService.updateDefaultCode(map), Consumer {
                 finish()
-            }, Consumer {
-
             })
         }
 

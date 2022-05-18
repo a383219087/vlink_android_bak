@@ -82,9 +82,7 @@ class AllViewModel : BaseViewModel() {
             }
 
 
-        }, Consumer {
-
-        });
+        })
     }
 
 

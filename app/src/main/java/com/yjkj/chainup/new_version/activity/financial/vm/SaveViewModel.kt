@@ -31,7 +31,6 @@ class SaveViewModel : BaseViewModel() {
             bean.value=it.data
 
 
-        }, Consumer {
         })
     }
 
@@ -47,8 +46,6 @@ class SaveViewModel : BaseViewModel() {
           ToastUtils.showToast("申请成功")
 
 
-        }, Consumer {
-            ToastUtils.showToast(it.message)
         })
 
     }

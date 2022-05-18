@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.bean.MyNextInvite
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
@@ -50,9 +49,7 @@ class CommissionViewModel : BaseViewModel() {
             }
             items.addAll(it.data.data)
 
-        }, Consumer {
-
-        });
+        })
 
     }
 

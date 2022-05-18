@@ -26,9 +26,7 @@ class ApplyTradersViewModel : BaseViewModel() {
                 else->"您未申请成为交易员"
             }
 
-        }, Consumer {
-
-        });
+        })
 
     }
 
@@ -40,9 +38,7 @@ class ApplyTradersViewModel : BaseViewModel() {
             currentStatus()
 
 
-        }, Consumer {
-
-        });
+        })
 
     }
 

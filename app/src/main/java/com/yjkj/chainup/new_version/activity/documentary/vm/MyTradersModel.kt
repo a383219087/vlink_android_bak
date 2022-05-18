@@ -35,9 +35,7 @@ class MyTradersModel : BaseViewModel() {
             }
             items.addAll(it.data)
 
-        }, Consumer {
-
-        });
+        })
 
     }
 
