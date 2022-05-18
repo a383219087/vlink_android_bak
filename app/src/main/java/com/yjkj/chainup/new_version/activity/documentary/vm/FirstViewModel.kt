@@ -12,13 +12,20 @@ import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
 class FirstViewModel : BaseViewModel() {
 
+
     var index = MutableLiveData(0)
+
+    //    申请进度 -1: 未申请; 0: 申请中，1 : 已是交易员, 2: 拒绝
+
+    var status = MutableLiveData<Int>()
 
     interface OnItemListener {
         fun onClick(item: CommissionBean)
@@ -56,7 +63,16 @@ class FirstViewModel : BaseViewModel() {
         ARouter.getInstance().build(RoutePath.ApplyTradersActivity).navigation()
     }
 
+    //发起带单
+    fun toLaunchSingle(){
 
+        EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_close))
+    }
+    //我的跟随者
+    fun toMyFollow(){
+
+        EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_index))
+    }
 
     fun setIndex(i :Int){
         index.value=i

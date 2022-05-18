@@ -31,9 +31,8 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
         mViewModel?.item?.value=item
         mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
-        mFragments?.add(ARouter.getInstance().build(RoutePath.NowDocumentaryFragment).navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.HistoryDocumentaryFragment).navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
+        mFragments?.add(MySingleFragment.newInstance(1))
+
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
 
     }

@@ -117,6 +117,8 @@ public class MessageEvent {
     public static final int refresh_ws_open_change = 90;//ws 建立链接
     public static final int grid_changeHide_coin = 91;// 隐藏其他币对
     public static final int net_status_change = 92;//网络状态监听
+    public static final int DocumentaryActivity_close = 93;//关闭跟单要
+    public static final int DocumentaryActivity_index = 94;//关闭跟单要
     private MessageEvent() {
     }
 

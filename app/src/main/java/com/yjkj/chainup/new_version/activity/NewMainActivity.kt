@@ -268,7 +268,7 @@ class NewMainActivity : NBaseActivity() {
     private fun showTabs() {
         bottomtab_group?.setData(mImageViewList, mTextviewList, this, contractIndex, false)
         for (i in 0 until fragmentList.size) {
-            var fg = fragmentList[i]
+            val fg = fragmentList[i]
             val transaction = fragmentManager?.beginTransaction()
             transaction?.add(R.id.fragment_container, fg, fg.javaClass.name)?.commitAllowingStateLoss()
         }
@@ -466,7 +466,7 @@ class NewMainActivity : NBaseActivity() {
     override fun loadData() {
         super.loadData()
 
-        var catchObj = PublicInfoDataService.getInstance().getData(null)
+        val catchObj = PublicInfoDataService.getInstance().getData(null)
         if (null != catchObj && catchObj.length() > 0) {
             LogUtil.e(TAG, "走缓存渲染底部tab菜单")
             initTabsData(catchObj)

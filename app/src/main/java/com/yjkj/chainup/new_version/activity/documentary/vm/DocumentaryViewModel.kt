@@ -10,16 +10,12 @@ class DocumentaryViewModel : BaseViewModel() {
 
     //    申请进度 -1: 未申请; 0: 申请中，1 : 已是交易员, 2: 拒绝
 
-    var status = MutableLiveData(-1)
+    var status = MutableLiveData<Int>()
 
 
 
     fun currentStatus() {
-        startTask(apiService.currentStatus(), Consumer {
-            status.value=it.data.status
 
-
-        })
 
     }
 
