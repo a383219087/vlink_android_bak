@@ -7,6 +7,7 @@ import com.chainup.contract.adapter.CpNVPagerAdapter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentMineBinding
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.new_version.activity.documentary.vm.MineViewModel
 import com.yjkj.chainup.util.FmPagerAdapter
@@ -20,8 +21,8 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
         mFragments = ArrayList()
-        mFragments?.add(ARouter.getInstance().build(RoutePath.NowDocumentaryFragment).navigation() as Fragment)
-        mFragments?.add(ARouter.getInstance().build(RoutePath.HistoryDocumentaryFragment).navigation() as Fragment)
+        mFragments?.add(NowDocumentaryFragment.newInstance(1,1,""))
+        mFragments?.add(NowDocumentaryFragment.newInstance(0,1,""))
         mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 

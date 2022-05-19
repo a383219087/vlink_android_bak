@@ -551,6 +551,11 @@ interface ApiService {
     @POST("traderUser/list")
     fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
     /**
+     * 带单列表
+     */
+    @GET("position/trader_position_list")
+    fun traderPositionList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<TraderPositionInfo>>
+    /**
      * 我跟单的交易员列表
      */
     @GET("traderUser/myTraders")

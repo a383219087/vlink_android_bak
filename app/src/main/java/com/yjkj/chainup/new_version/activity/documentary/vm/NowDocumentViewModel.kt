@@ -6,15 +6,26 @@ import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
+import com.chainup.contract.utils.CpClLogicContractSetting
+import com.contract.sdk.ContractPublicDataAgent
+import com.contract.sdk.data.Contract
+import com.contract.sdk.data.ContractOrder
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.bean.TraderPositionBean
+import com.yjkj.chainup.contract.extension.showBaseName
+import com.yjkj.chainup.contract.extension.showMarginName
+import com.yjkj.chainup.contract.extension.showPriceName
+import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.new_version.activity.documentary.AddMoneyDialog
 import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import com.yjkj.chainup.new_version.activity.documentary.WinAndStopDialog
 import io.reactivex.functions.Consumer
+import kotlinx.android.synthetic.main.sl_fragment_cotract_introduce.*
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -84,6 +95,14 @@ class NowDocumentViewModel : BaseViewModel() {
 
          var status = MutableLiveData<Int>()
 
+         var bean = MutableLiveData<TraderPositionBean>()
+
+         var contract = MutableLiveData<Contract>()
+
+         var side = MutableLiveData<String>()
+
+
+
      }
 
     val itemBinding =
@@ -92,19 +111,22 @@ class NowDocumentViewModel : BaseViewModel() {
 
 
 
-    fun getList() {
+    fun getList(mActivity: FragmentActivity) {
         val map = HashMap<String, Any>()
         map["status"] = status.value.toString()
         map["traderUid"] =uid.value.toString()
 
-        startTask(apiService.traderUserList(map), Consumer {
+        startTask(apiService.traderPositionList(map), Consumer {
 
-            if (it.data.isNullOrEmpty()) {
+            if (it.data.records.isNullOrEmpty()) {
                 return@Consumer
             }
-            for (i in it.data.indices) {
+            for (i in it.data.records.indices) {
                 val item = Item()
                 item.status.value=status.value
+                item.type.value=type.value
+                item.bean.value=it.data.records[i]
+                item.contract.value=ContractPublicDataAgent.getContract(it.data.records[i].contractId)
                 items.add(item)
             }
 

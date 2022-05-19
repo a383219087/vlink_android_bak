@@ -63,13 +63,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:text="--"
-            tools:text="USDT"
             android:textColor="@color/text_color"
             android:textSize="14sp"
-            />
+            tools:text="USDT" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -93,13 +92,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:text="--"
-            tools:text="正向合约"
             android:textColor="@color/text_color"
             android:textSize="14sp"
-            />
+            tools:text="正向合约" />
 
     </RelativeLayout>
 

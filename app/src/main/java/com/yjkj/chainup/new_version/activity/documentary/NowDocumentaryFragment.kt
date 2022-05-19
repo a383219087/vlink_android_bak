@@ -31,7 +31,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.type?.value=arguments?.getInt(ParamConstant.COIN_TYPE)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
-        mViewModel?.getList()
+        mViewModel?.getList(mActivity!!)
 
     }
 
