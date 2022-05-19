@@ -1,10 +1,8 @@
 package com.yjkj.chainup.new_version.activity.documentary
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.tencent.bugly.proguard.t
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityDocumentaryBinding
@@ -26,7 +24,7 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
         mViewModel?.startTask( mViewModel?.apiService!!.currentStatus(), Consumer {
             if (it.data.status == 1) {
                 mFragments?.add(FirstFragment.newInstance(it.data.status))
-                mFragments?.add(MySingleFragment.newInstance(2))
+                mFragments?.add(MySingleFragment.newInstance(2,""))
                 mFragments?.add(MySingleMoneyFragment.newInstance())
                 mBinding?.subTabLayout?.setViewPager(mBinding?.vpOrder, arrayOf("首页", "我的带单", "带单收益"), this, mFragments)
             } else {

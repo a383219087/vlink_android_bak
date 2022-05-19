@@ -33,7 +33,7 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
         mViewModel?.status?.value=status
         mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
-        mFragments?.add(MySingleFragment.newInstance(1))
+        mFragments?.add(MySingleFragment.newInstance(1,item?.uid.toString()))
 
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
 

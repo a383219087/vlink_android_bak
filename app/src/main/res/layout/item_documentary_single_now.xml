@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -150,6 +150,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
 
