@@ -48,6 +48,7 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.manager.NetworkLineService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.NetUrl
@@ -111,8 +112,8 @@ class NewMainActivity : NBaseActivity() {
     override fun onInit(savedInstanceState: Bundle?) {
         super.onInit(savedInstanceState)
         fragmentManager = supportFragmentManager
-//        val intent = Intent(this, NetworkLineService::class.java)
-//        startService(intent)
+        val intent = Intent(this, NetworkLineService::class.java)
+        startService(intent)
         loadData()
         getIntentData()
         RouteApp.getInstance().execApp(pushUrl, this)

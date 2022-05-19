@@ -245,7 +245,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@{_all.item.followerCount+`%`}"
+                            android:text="@{_all.item.followerCount+``}"
                             android:textColor="@color/text_color"
                             android:textSize="12sp" />
 

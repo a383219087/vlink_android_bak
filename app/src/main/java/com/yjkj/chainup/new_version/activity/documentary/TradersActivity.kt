@@ -3,7 +3,6 @@ package com.yjkj.chainup.new_version.activity.documentary
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.chainup.contract.adapter.CpNVPagerAdapter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
@@ -21,7 +20,9 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
     @JvmField
     var item : CommissionBean?=null
 
-
+    @Autowired(name = "status")
+    @JvmField
+    var status : Int?=0
 
 
     private var mFragments: ArrayList<Fragment>? = null
@@ -29,6 +30,7 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
     override fun setContentView() = R.layout.activity_traders
     override fun initData() {
         mViewModel?.item?.value=item
+        mViewModel?.status?.value=status
         mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
         mFragments?.add(MySingleFragment.newInstance(1))
@@ -37,11 +39,6 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
 
     }
 
-
-
-    override fun onResume() {
-        super.onResume()
-    }
 
 
 }

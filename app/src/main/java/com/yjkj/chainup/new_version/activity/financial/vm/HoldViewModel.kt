@@ -37,6 +37,7 @@ class HoldViewModel : BaseViewModel() {
         override fun onClick(item:Item) {
             ARouter.getInstance().build(RoutePath.Holddetail)
                 .withSerializable("bean",item.item.value)
+                .withInt("queryType",item.queryType.value!!)
                 .navigation()
         }
 
@@ -46,6 +47,7 @@ class HoldViewModel : BaseViewModel() {
     //列表item
     class Item{
         var item = MutableLiveData<Pos>()
+        var queryType = MutableLiveData(1)
     }
 
     val itemBinding =
@@ -55,7 +57,7 @@ class HoldViewModel : BaseViewModel() {
     var isRefreshing = MutableLiveData(false)
     var isLoadMore = MutableLiveData(false)
 
-    //0持仓中1历史持仓
+    //1持仓中0历史持仓
     var queryType = MutableLiveData(1)
 
     fun setQuery(type:Int){
@@ -93,6 +95,7 @@ class HoldViewModel : BaseViewModel() {
                 for (i in it.data.posList.indices) {
                    val item= Item()
                     item.item.value=it.data.posList[i]
+                    item.queryType.value=queryType.value
                     items.add(item)
 
                 }

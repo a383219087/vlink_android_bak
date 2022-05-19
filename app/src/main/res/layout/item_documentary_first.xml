@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.bean.CommissionBean" />
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.FirstViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -57,7 +57,7 @@
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/text_color"
                         android:textSize="15sp"
-                        android:text="@{item.uid+``}" />
+                        android:text="@{item.bean.uid+``}" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
+                android:visibility="@{item.status==1?View.GONE:View.VISIBLE}"
                 android:text="跟单"
                 app:radius="@{3}"
                 app:ResColor="@{R.color.color_nonetwork_btn_blue}"
@@ -153,7 +154,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.profitRatio+`%`}"
+                android:text="@{item.bean.profitRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -161,7 +162,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.winRatio+`%`}"
+                android:text="@{item.bean.winRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -169,7 +170,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.profitUSDT+``}"
+                android:text="@{item.bean.profitUSDT+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 
@@ -218,7 +219,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.totalRatio+`%`}"
+                android:text="@{item.bean.totalRatio+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -226,7 +227,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.orderCount+``}"
+                android:text="@{item.bean.orderCount+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -234,7 +235,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.followerCount+`%`}"
+                android:text="@{item.bean.followerCount+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 

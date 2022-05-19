@@ -17,6 +17,11 @@ class TradersViewModel : BaseViewModel() {
     var activity = MutableLiveData<FragmentActivity>()
 
     var index = MutableLiveData(0)
+
+    //    申请进度 -1: 未申请; 0: 申请中，1 : 已是交易员, 2: 拒绝
+
+    var status = MutableLiveData<Int>()
+
     fun setIndex(i: Int) {
         index.value = i
     }

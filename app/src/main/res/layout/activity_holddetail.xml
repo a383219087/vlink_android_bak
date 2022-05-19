@@ -276,7 +276,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
-                android:visibility="@{_all.bean.projectType&lt;2?View.VISIBLE:View.GONE}"
+                android:visibility="@{_all.bean.projectType&lt;2&amp;&amp;_all.queryType==1?View.VISIBLE:View.GONE}"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:layout_height="wrap_content">

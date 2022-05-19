@@ -28,22 +28,31 @@ class FirstViewModel : BaseViewModel() {
     var status = MutableLiveData<Int>()
 
     interface OnItemListener {
-        fun onClick(item: CommissionBean)
+        fun onClick(item: Item)
 
     }
 
     var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick(item: CommissionBean) {
+        override fun onClick(item: Item) {
+
             ARouter.getInstance().build(RoutePath.TradersActivity)
-                .withSerializable("bean",item)
+                .withSerializable("bean",item.bean.value)
+                .withInt("status", item.status.value!!)
                 .navigation()
 
         }
     }
 
+    class Item{
+        var status = MutableLiveData(-1)
+        var bean = MutableLiveData<CommissionBean>()
+
+
+    }
+
     val itemBinding =
-        ItemBinding.of<CommissionBean>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
-    val items: ObservableList<CommissionBean> = ObservableArrayList()
+        ItemBinding.of<Item>(BR.item, R.layout.item_documentary_first).bindExtra(BR.onItemListener, onItemListener)
+    val items: ObservableList<Item> = ObservableArrayList()
 
     var isRefreshing = MutableLiveData(false)
     var isLoadMore = MutableLiveData(false)
@@ -105,7 +114,12 @@ class FirstViewModel : BaseViewModel() {
             if (it.data.isNullOrEmpty()) {
                 return@Consumer
             }
-            items.addAll(it.data)
+            for (i in it.data.indices) {
+                val item =Item()
+                item.bean.value=it.data[i]
+                item.status.value=status.value
+                items.add(item)
+            }
 
         })
 

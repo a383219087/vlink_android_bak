@@ -16,10 +16,14 @@ class HolddetailActivity : BaseMVActivity<HolddetailViewModel?, ActivityHolddeta
     @Autowired(name = "bean")
     @JvmField
     var bean: Pos? = null
+    @Autowired(name = "queryType")
+    @JvmField
+    var queryType: Int? = 1
 
     override fun setContentView() = R.layout.activity_holddetail
     override fun initData() {
         mViewModel?.bean?.value=bean
+        mViewModel?.queryType?.value=queryType
         mViewModel?.isRefreshing?.observe(this, Observer {
             mBinding?.twinklingRefreshLayout?.finishRefresh()
         })

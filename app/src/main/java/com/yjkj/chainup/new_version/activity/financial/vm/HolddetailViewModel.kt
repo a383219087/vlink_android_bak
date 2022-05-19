@@ -22,6 +22,9 @@ class HolddetailViewModel:BaseViewModel() {
     var activity = MutableLiveData<FragmentActivity>()
     var bean = MutableLiveData<Pos>()
 
+    //1持仓中0历史持仓
+    var queryType = MutableLiveData(1)
+
      fun onSave() {
          ARouter.getInstance().build(RoutePath.SaveActivity)
              .withString("id",bean.value?.projectId.toString())
