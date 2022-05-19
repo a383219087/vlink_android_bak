@@ -99,7 +99,7 @@ class NowDocumentViewModel : BaseViewModel() {
 
          var contract = MutableLiveData<Contract>()
 
-         var side = MutableLiveData<String>()
+         var  contractType= MutableLiveData<String>()
 
 
 
@@ -127,6 +127,15 @@ class NowDocumentViewModel : BaseViewModel() {
                 item.type.value=type.value
                 item.bean.value=it.data.records[i]
                 item.contract.value=ContractPublicDataAgent.getContract(it.data.records[i].contractId)
+
+                if (it.data.records[i].positionType==1){
+                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_full_position")+"-"+it.data.records[i].leverageLevel+"X"
+
+                }else{
+                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_gradually_position")+"-"+it.data.records[i].leverageLevel+"X"
+                }
+
+
                 items.add(item)
             }
 
