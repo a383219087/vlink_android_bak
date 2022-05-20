@@ -5,8 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import android.text.TextUtils;
+
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.google.gson.Gson;
 import com.yjkj.chainup.app.ChainUpApp;

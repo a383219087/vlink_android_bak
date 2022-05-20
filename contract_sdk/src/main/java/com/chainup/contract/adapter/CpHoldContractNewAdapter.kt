@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.adapter
+package com.chainup.contract.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

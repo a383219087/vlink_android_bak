@@ -3,10 +3,8 @@ package com.chainup.contract.ui.fragment
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseFragment
-import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClickUtil
-import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpEmptyOrderForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.chainup.talkingdata.AppAnalyticsExt
@@ -14,13 +12,9 @@ import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity
-import com.yjkj.chainup.new_contract.adapter.CpContractCurrentEntrustNewAdapter
 import com.yjkj.chainup.new_contract.adapter.CpContractEntrustNewAdapter
-import com.yjkj.chainup.new_contract.adapter.CpHoldContractNewAdapter
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -10,15 +10,14 @@ import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.utils.CpPreferenceManager
+import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.cp_activity_contract_setting.*
 import org.json.JSONObject
-import com.chainup.contract.view.CpDialogUtil
 /**
  * 合约设置
  */

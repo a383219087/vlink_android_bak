@@ -11,6 +11,7 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -43,7 +44,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:text="@{item.item.amount+``}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.item.amount+``,2)}"
                     android:textColor="@color/base_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

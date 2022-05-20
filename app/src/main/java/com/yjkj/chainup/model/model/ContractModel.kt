@@ -541,17 +541,6 @@ class ContractModel : BaseDataManager() {
     }
 
 
-    /**
-     * 获取持仓列表以及资产列表
-     * @param marginCoin 保证金币种, 不传查询全部币种
-     * @param onlyAccount 1 只返回资产信息, 0 返回仓位和资产
-     */
-    fun getPositionAssetsList(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["onlyAccount"] = "0"
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPositionAssetsList(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 获取持仓列表以及资产列表
@@ -582,16 +571,7 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getTransactionList(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 获取资产详情
-     * @param marginCoin   保证金币种
-     */
-    fun getAccountBalanceByMarginCoin(marginCoin: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["marginCoin"] = marginCoin
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPositionAssetsList(getBaseReqBody(map)), consumer)
-    }
+
 
     /**
      * 获取止盈止损列表

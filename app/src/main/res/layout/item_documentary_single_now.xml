@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:onClick="@{()->onItemListener.onClick()}"
+        android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
@@ -65,7 +65,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
-                android:onClick="@{()->onItemListener.onShareClick()}"
+                android:onClick="@{()->onItemListener.onShareClick(item)}"
                 android:textColor="@color/red"
                 android:textSize="15sp"
                 android:text="分享" />
@@ -116,7 +116,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@{DecimalUtil.Companion.cutValueByPrecision(item.bean.openPrice+``,2)}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.openPrice+``,2)}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -124,7 +124,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{DecimalUtil.Companion.cutValueByPrecision(item.bean.closePrice+``,2)}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.closePrice+``,2)}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -132,7 +132,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{(item.bean.keepRate>0?`+`:`-`)+DecimalUtil.Companion.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
+                android:text="@{(item.bean.keepRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@{item.bean.keepRate>0?@color/green:@color/red}" />
 
@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_marginTop="10dp"
-            android:text="04/12 15：13：38->04/12 15：17：14"
+            android:text="@{item.time}"
             android:textSize="12sp"
             android:textColor="@color/text_color_99" />
         <LinearLayout
@@ -161,7 +161,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_marginRight="7dp"
-                app:onClick="@{()->onItemListener.onShareClick1()}"
+                app:onClick="@{()->onItemListener.onShareClick1(item)}"
                 app:radius="@{5}"
                 app:ResColor="@{R.color.text_color_99}"
                 android:paddingTop="3dp"
@@ -175,7 +175,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_marginRight="7dp"
-                app:onClick="@{()->onItemListener.onShareClick2()}"
+                app:onClick="@{()->onItemListener.onShareClick2(item)}"
                 app:radius="@{5}"
                 app:ResColor="@{R.color.text_color_99}"
                 android:paddingTop="3dp"
@@ -189,7 +189,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_marginRight="7dp"
-                app:onClick="@{()->onItemListener.onShareClick3()}"
+                app:onClick="@{()->onItemListener.onShareClick3(item)}"
                 app:radius="@{5}"
                 app:ResColor="@{R.color.text_color_99}"
                 android:paddingTop="3dp"

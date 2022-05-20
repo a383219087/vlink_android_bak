@@ -2,7 +2,6 @@ package com.chainup.contract.api
 
 
 import com.chainup.contract.bean.CpCashFlowBean
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -130,11 +129,6 @@ interface CpContractApiService {
     fun getPositionAssetsList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
-    /**
-     *  获取持仓列表以及资产列表
-     */
-    @POST("position/get_assets_list")
-    fun getPositionAssetsListv2(@Body requestBody: RequestBody): Observable<CpHttpResult<ArrayList<CpContractPositionBean>>>
 
 
     /**

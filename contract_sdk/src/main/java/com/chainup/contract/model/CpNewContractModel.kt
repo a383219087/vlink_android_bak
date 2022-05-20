@@ -2,17 +2,12 @@ package com.chainup.contract.model
 
 import android.text.TextUtils
 import com.chainup.contract.api.CpContractApiService
-import com.chainup.contract.api.CpHttpResult
 import com.chainup.contract.bean.CpTpslOrderBean
 import com.google.gson.Gson
-import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
 import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.ResponseBody
-import java.util.ArrayList
 
 /**
  * @Author: Bertking
@@ -465,12 +460,6 @@ class CpNewContractModel : CpBaseDataManager() {
         )
     }
 
-    fun getPositionAssetsListv2(): Observable<CpHttpResult<ArrayList<CpContractPositionBean>>> {
-        val map = getBaseMaps().apply {
-            this["onlyAccount"] = "0"
-        }
-        return httpHelper.getContractNewUrlService(CpContractApiService::class.java).getPositionAssetsListv2(getBaseReqBody(map))
-    }
 
     /**
      * 获取持仓列表以及资产列表

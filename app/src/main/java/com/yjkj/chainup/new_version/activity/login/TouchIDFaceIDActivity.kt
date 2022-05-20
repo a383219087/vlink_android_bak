@@ -7,22 +7,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.text.TextUtils
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
-import android.text.TextUtils
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.gson.JsonObject
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.util.CryptoObjectHelper
 import com.yjkj.chainup.util.DisplayUtil
@@ -418,11 +417,11 @@ class TouchIDFaceIDActivity : NBaseActivity() {
                     override fun onHandleError(code: Int, msg: String?) {
                         super.onHandleError(code, msg)
                         NToastUtil.showTopToastNet(this@TouchIDFaceIDActivity,false, msg)
-                        if (code == ParamConstant.QUICK_LOGIN_FAILURE) {
+//                        if (code == ParamConstant.QUICK_LOGIN_FAILURE) {
                             UserDataService.getInstance().saveQuickToken("")
                             ArouterUtil.navigation("/login/NewVersionLoginActivity", null)
                             finish()
-                        }
+//                        }
                         closeLoadingDialog()
 
                     }

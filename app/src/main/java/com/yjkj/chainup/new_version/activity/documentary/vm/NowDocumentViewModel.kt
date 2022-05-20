@@ -1,23 +1,18 @@
 package com.yjkj.chainup.new_version.activity.documentary.vm
 
 
+import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
-import com.chainup.contract.utils.CpClLogicContractSetting
 import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.Contract
-import com.contract.sdk.data.ContractOrder
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.TraderPositionBean
-import com.yjkj.chainup.contract.extension.showBaseName
-import com.yjkj.chainup.contract.extension.showMarginName
-import com.yjkj.chainup.contract.extension.showPriceName
-import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.new_version.activity.documentary.AddMoneyDialog
@@ -25,7 +20,6 @@ import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
 import com.yjkj.chainup.new_version.activity.documentary.WinAndStopDialog
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.sl_fragment_cotract_introduce.*
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -50,37 +44,42 @@ class NowDocumentViewModel : BaseViewModel() {
 
 
     interface OnItemListener {
-        fun onClick()
-        fun onShareClick()
-        fun onShareClick1()
-        fun onShareClick2()
-        fun onShareClick3()
+        fun onClick(item:Item)
+        fun onShareClick(item:Item)
+        fun onShareClick1(item:Item)
+        fun onShareClick2(item:Item)
+        fun onShareClick3(item:Item)
 
     }
 
     var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick() {
+        override fun onClick(item:Item) {
             ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity).navigation()
         }
        //分享
-        override fun onShareClick() {
+        override fun onShareClick(item:Item) {
             ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
         //追加本金
-        override fun onShareClick1() {
+        override fun onShareClick1(item:Item) {
 
             AddMoneyDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
 
 
         //止盈止亏
-        override fun onShareClick2() {
+        override fun onShareClick2(item:Item) {
             WinAndStopDialog(). showDialog(activity.value?.supportFragmentManager,"")
         }
 
         //平仓
-        override fun onShareClick3() {
-            ClosePositionDialog(). showDialog(activity.value?.supportFragmentManager,"")
+        override fun onShareClick3(item:Item) {
+            ClosePositionDialog().apply {
+                val bundle = Bundle()
+                bundle.putSerializable("bean", item.bean.value)
+                this.arguments = bundle
+
+            }. showDialog(activity.value?.supportFragmentManager,"")
         }
     }
 
@@ -102,6 +101,7 @@ class NowDocumentViewModel : BaseViewModel() {
          var  contractType= MutableLiveData<String>()
 
 
+         var  time= MutableLiveData<String>()
 
      }
 
@@ -134,7 +134,7 @@ class NowDocumentViewModel : BaseViewModel() {
                 }else{
                     item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_gradually_position")+"-"+it.data.records[i].leverageLevel+"X"
                 }
-
+                item.time.value="${it.data.records[i].ctime}->${it.data.records[i].mtime}"
 
                 items.add(item)
             }

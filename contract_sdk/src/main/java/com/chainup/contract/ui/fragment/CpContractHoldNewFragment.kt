@@ -2,14 +2,12 @@ package com.chainup.contract.ui.fragment
 
 import android.Manifest
 import android.graphics.Bitmap
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
+import com.chainup.contract.adapter.CpHoldContractNewAdapter
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpEventBusUtil
@@ -24,23 +22,15 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpAdjustMarginActivity
 import com.yjkj.chainup.new_contract.activity.CpContractStopRateLossActivity
-import com.yjkj.chainup.new_contract.adapter.CpHoldContractNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.cp_activity_adjust_margin.*
-import kotlinx.android.synthetic.main.cp_activity_coin_detail.*
-import kotlinx.android.synthetic.main.cp_activity_stop_rate_loss.*
-import kotlinx.android.synthetic.main.cp_depth_horizontal_layout.view.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
-import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
-import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 

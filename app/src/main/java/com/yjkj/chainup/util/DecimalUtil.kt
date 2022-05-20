@@ -4,7 +4,6 @@ import android.text.TextUtils
 import com.yjkj.chainup.util.BigDecimalUtils.showSNormal
 import org.json.JSONObject
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * @Author: Bertking
@@ -108,6 +107,7 @@ class DecimalUtil {
          * @param v1    参数
          * @param scale 表示表示需要精确到小数点以后几位。
          */
+        @JvmStatic
         fun cutValueByPrecision(v1: String, scale: Int): String {
             var result: String = "0"
             try {
