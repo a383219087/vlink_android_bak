@@ -25,10 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_5"
-                tools:text="空头"
+                android:textColor="@color/main_red"
                 android:textSize="@dimen/sp_16"
-                android:textColor="@color/main_red" />
+                tools:text="空头" />
 
             <TextView
                 android:id="@+id/tv_contract_name"

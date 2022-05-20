@@ -18,9 +18,8 @@ import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpContractPositionBean
 import kotlinx.android.synthetic.main.cp_activity_stop_rate_loss.*
-import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.json.JSONArray
 import org.json.JSONObject
 

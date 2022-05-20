@@ -23,7 +23,7 @@ import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractStopRateLossActivity
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpContractPositionBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -105,7 +105,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             llPrice?.setBackgroundResource(if (hasFocus) R.drawable.cp_bg_trade_et_focused else R.drawable.cp_bg_trade_et_unfocused)
                         }
 
-                        for (buff in 0..rg_order_type?.childCount?.toInt()!! - 1) {
+                        for (buff in 0 until rg_order_type?.childCount!!) {
                             rg_order_type.getChildAt(buff).setOnClickListener {
                                 when (it.id) {
                                     R.id.rb_1 -> {
@@ -250,20 +250,25 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 volStr = CpBigDecimalUtils.getOrderNum(false, volStr, multiplier, 1)
                                 var type = 1
                                 var priceType = ""
-                                if (rb_1.isChecked) {
-                                    type = 2
-                                    priceStr = ""
-                                    showPrice = getString(R.string.cp_overview_text53)
-                                } else if (rb_2.isChecked) {
-                                    priceType = "1"
-                                    priceStr = "0"
-                                    showPrice = getString(R.string.cp_order_text44)
-                                } else if (rb_3.isChecked) {
-                                    priceType = "0"
-                                    priceStr = "0"
-                                    showPrice = getString(R.string.cp_order_text45)
-                                } else {
-                                    showPrice = priceStr + " " + CpClLogicContractSetting.getContractQuoteById(activity, clickData.contractId)
+                                when {
+                                    rb_1.isChecked -> {
+                                        type = 2
+                                        priceStr = ""
+                                        showPrice = getString(R.string.cp_overview_text53)
+                                    }
+                                    rb_2.isChecked -> {
+                                        priceType = "1"
+                                        priceStr = "0"
+                                        showPrice = getString(R.string.cp_order_text44)
+                                    }
+                                    rb_3.isChecked -> {
+                                        priceType = "0"
+                                        priceStr = "0"
+                                        showPrice = getString(R.string.cp_order_text45)
+                                    }
+                                    else -> {
+                                        showPrice = priceStr + " " + CpClLogicContractSetting.getContractQuoteById(activity, clickData.contractId)
+                                    }
                                 }
                                 if (rb_1st.isChecked) {
                                     volStr = CpBigDecimalUtils.mulStrRoundUp(clickData.canCloseVolume, "0.10", 0)

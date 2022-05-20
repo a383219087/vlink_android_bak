@@ -19,8 +19,7 @@ import com.chainup.contract.utils.*
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
 import com.yjkj.chainup.manager.CpLanguageUtil
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
-import kotlinx.android.synthetic.main.cp_activity_contract_entrust_detail.*
+import com.chainup.contract.bean.CpContractPositionBean
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String

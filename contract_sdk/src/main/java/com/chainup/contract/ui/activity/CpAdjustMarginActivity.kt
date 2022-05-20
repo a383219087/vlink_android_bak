@@ -13,7 +13,7 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.CpCommonlyUsedButton
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpContractPositionBean
 import kotlinx.android.synthetic.main.cp_activity_adjust_margin.*
 import org.json.JSONObject
 

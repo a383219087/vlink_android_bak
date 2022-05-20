@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.lifecycle.*
+import com.chainup.contract.api.CpContractApiService
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
@@ -43,7 +44,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     private var mCompositeDisposable: CompositeDisposable? = null
      var apiService: ApiService =HttpHelper.instance.getBaseUrlService(ApiService::class.java)
     var contractApiService: ContractApiService = HttpHelper.instance.getContractUrlService(ContractApiService::class.java)
-
+    var cpContractApiService: CpContractApiService = HttpHelper.instance.getContractNewUrlService(CpContractApiService::class.java)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     protected open fun onCreate() {
@@ -125,7 +126,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-     fun toRequestBody(params: Map<String, String>): RequestBody {
+     fun toRequestBody(params: Map<String, Any>): RequestBody {
         return JSONObject(params).toString().toRequestBody("application/json;charset=utf-8".toMediaTypeOrNull())
     }
 

@@ -7,7 +7,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpMathHelper
 import com.chainup.contract.utils.CpNumberUtil
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpContractPositionBean
 
 class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_position, data) {
@@ -23,7 +23,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
         val mMultiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, item.contractId)
 
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
-        helper?.run {
+        helper.run {
 
             when (item.orderSide) {
                 "BUY" -> {
@@ -78,7 +78,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             } else {
                 setText(R.id.tv_forced_close_price_value, "--")
             }
-          val  prefix=if (CpBigDecimalUtils.compareTo(item.returnRate,"0")==-1) "" else "+"
+            val  prefix=if (CpBigDecimalUtils.compareTo(item.returnRate,"0")==-1) "" else "+"
             //回报率
             setText(R.id.tv_floating_gains_value, prefix+CpNumberUtil().getDecimal(2).format(
                 CpMathHelper.round(CpMathHelper.mul(item.returnRate, "100"), 2)).toString() + "%")
@@ -101,16 +101,16 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             //标记价格
             setText(R.id.tv_holdings_value, CpBigDecimalUtils.showSNormal(item.indexPrice, mPricePrecision))
             //杠杆
-//            setText(R.id.tv_amount_can_be_liquidated_value, item.leverageLevel.toString() + "X")
+    //            setText(R.id.tv_amount_can_be_liquidated_value, item.leverageLevel.toString() + "X")
             //已结算盈亏
             setText(R.id.tv_settled_profit_loss_value, CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision))
 
-//            if (CpBigDecimalUtils.compareTo(
-//                    CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision),"0")==1){
-//                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_green))
-//            }else{
-//                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_red))
-//            }
+    //            if (CpBigDecimalUtils.compareTo(
+    //                    CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision),"0")==1){
+    //                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_green))
+    //            }else{
+    //                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_red))
+    //            }
         }
     }
 }

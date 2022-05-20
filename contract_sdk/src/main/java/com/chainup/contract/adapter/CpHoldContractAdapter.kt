@@ -7,7 +7,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpMathHelper
 import com.chainup.contract.utils.CpNumberUtil
-import com.yjkj.chainup.new_contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpContractPositionBean
 
 class CpHoldContractAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_hold_contract, data) {

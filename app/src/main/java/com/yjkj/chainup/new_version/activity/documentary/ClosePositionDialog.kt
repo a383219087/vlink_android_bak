@@ -1,6 +1,9 @@
 package com.yjkj.chainup.new_version.activity.documentary
 
 import android.view.Gravity
+import com.chainup.contract.listener.CpDoListener
+import com.chainup.contract.utils.CpClLogicContractSetting
+import com.chainup.contract.utils.numberFilter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseDialogMVFragment
 import com.yjkj.chainup.bean.TraderPositionBean
@@ -15,7 +18,8 @@ class ClosePositionDialog : BaseDialogMVFragment<ClosePositionViewModel?, Dialog
     override fun setContentView() = R.layout.dialog_close_position
     override fun initView() {
         mViewModel?.bean?.value= arguments?.getSerializable("bean") as TraderPositionBean?
-         mViewModel?.getData()
+         mViewModel?.getData(context!!)
+
     }
 
 
