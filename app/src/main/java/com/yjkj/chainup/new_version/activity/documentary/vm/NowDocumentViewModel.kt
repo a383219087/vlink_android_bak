@@ -7,22 +7,24 @@ import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
+import com.alibaba.fastjson.JSONObject
+import com.blankj.utilcode.util.JsonUtils
+import com.chainup.contract.bean.CpContractPositionBean
+import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.Contract
+import com.didichuxing.doraemonkit.util.JsonUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.bean.TraderPositionBean
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.new_version.activity.documentary.AddMoneyDialog
 import com.yjkj.chainup.new_version.activity.documentary.ClosePositionDialog
 import com.yjkj.chainup.new_version.activity.documentary.ShareDialog
-import com.yjkj.chainup.new_version.activity.documentary.WinAndStopDialog
+import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
-
-
 
 
 class NowDocumentViewModel : BaseViewModel() {
@@ -62,19 +64,32 @@ class NowDocumentViewModel : BaseViewModel() {
         }
         //追加本金
         override fun onShareClick1(item:Item) {
+            NewDialogUtils.adjustDepositDialog(activity.value!!, JSONObject.toJSON(item.bean.value) as org.json.JSONObject,
+                object : NewDialogUtils.DialogBottomAloneListener {
+                    override fun returnContent(content: String) {
+                        val map = HashMap<String, Any>()
+                        map["amount"] =content
+                        map["contractId"] =item.bean.value?.contractId!!
+                        map["positionId"] =item.bean.value?.id!!
+                        startTask(contractApiService.transferMargin4Contract1(toRequestBody(map)), Consumer {
+                            NToastUtil.showTopToastNet(activity.value!!,true, LanguageUtil.getString(activity.value!!, "contract_modify_the_success"))
 
-            AddMoneyDialog().apply {
-                val bundle = Bundle()
-                bundle.putSerializable("bean", item.bean.value)
-                this.arguments = bundle
+                        })
+                    }
+                })
 
-            }. showDialog(activity.value?.supportFragmentManager,"")
+//            AddMoneyDialog().apply {
+//                val bundle = Bundle()
+//                bundle.putSerializable("bean", item.bean.value)
+//                this.arguments = bundle
+//
+//            }. showDialog(activity.value?.supportFragmentManager,"")
         }
 
 
         //止盈止亏
         override fun onShareClick2(item:Item) {
-            WinAndStopDialog(). showDialog(activity.value?.supportFragmentManager,"")
+            CpContractStopRateLossActivity.show(activity.value!!, item.bean.value!!)
         }
 
         //平仓
@@ -99,7 +114,7 @@ class NowDocumentViewModel : BaseViewModel() {
 
          var status = MutableLiveData<Int>()
 
-         var bean = MutableLiveData<TraderPositionBean>()
+         var bean = MutableLiveData<CpContractPositionBean>()
 
          var contract = MutableLiveData<Contract>()
 

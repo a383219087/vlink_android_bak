@@ -39,12 +39,18 @@ class MySingleMoneyFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentSing
 
     override fun setContentView() = R.layout.fragment_single_money
 
-
+    private var mFragments: ArrayList<Fragment>? = null
+    var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
-
+        mFragments = ArrayList()
+        mFragments?.add(NowDocumentaryFragment.newInstance(1,1,""))
+        mFragments?.add(NowDocumentaryFragment.newInstance(0,1,""))
+        mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
+        mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
 
 
     }
+
 
 }

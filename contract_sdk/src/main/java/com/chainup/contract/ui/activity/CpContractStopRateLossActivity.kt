@@ -1,5 +1,6 @@
 package com.chainup.contract.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -58,6 +59,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun loadData() {
         super.loadData()
         CpWsContractAgentManager.instance.addWsCallback(this)
@@ -118,10 +120,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
             CpBigDecimalUtils.mulStr(mContractPositionBean?.canCloseVolume, multiplier, multiplierPrecision)
         }
 
-        tv_can_close_volume.setText(mCanCloseVolumeStr + " " + base)
+        tv_can_close_volume.text = "$mCanCloseVolumeStr $base"
         et_stop_profit_position.setText(mCanCloseVolumeStr)
-        tv_position_num.setText(mPositionVolumeStr + "/" + mCanCloseVolumeStr)
-        tv_mark_price.setText(CpBigDecimalUtils.showSNormal(mContractPositionBean?.indexPrice, mPricePrecision))
+        tv_position_num.text = "$mPositionVolumeStr/$mCanCloseVolumeStr"
+        tv_mark_price.text = CpBigDecimalUtils.showSNormal(mContractPositionBean?.indexPrice.toString(), mPricePrecision)
 
         var reducePriceStr = CpBigDecimalUtils.showSNormal(mContractPositionBean?.reducePrice, mPricePrecision)
         if (CpBigDecimalUtils.compareTo(reducePriceStr, "0") != 1) {

@@ -289,7 +289,7 @@ class CpNewDialogUtils {
         ) {
             var profitRate = CpNumberUtil().getDecimal(2).format(
                 CpMathHelper.round(
-                    CpMathHelper.mul(mContractPositionBean?.returnRate, "100"),
+                    CpMathHelper.mul(mContractPositionBean?.returnRate.toString(), "100"),
                     2
                 )
             ).toString()

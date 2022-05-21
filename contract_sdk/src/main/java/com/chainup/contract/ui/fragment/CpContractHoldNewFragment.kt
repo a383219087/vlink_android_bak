@@ -77,7 +77,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                     CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, clickData.contractId)
                             ))
                         }
-                        var showPrice = CpBigDecimalUtils.showSNormal(clickData.indexPrice, CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, clickData.contractId))
+                        var showPrice = CpBigDecimalUtils.showSNormal(clickData.indexPrice.toString(), CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, clickData.contractId))
                         it.setText(R.id.et_price, showPrice)
                         var checkedIdBuff = 0
                         val rg_order_type = it.getView<RadioGroup>(R.id.rg_order_type)

@@ -80,7 +80,7 @@ class CpHoldContractAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuick
             }
             //回报率
             setText(R.id.tv_floating_gains_value, CpNumberUtil().getDecimal(2).format(
-                CpMathHelper.round(CpMathHelper.mul(item.returnRate, "100"), 2)).toString() + "%")
+                CpMathHelper.round(CpMathHelper.mul(item.returnRate.toString(), "100"), 2)).toString() + "%")
             //总持仓
             setText(R.id.tv_total_position_value, if (CpClLogicContractSetting.getContractUint(context) == 0) item.positionVolume else CpBigDecimalUtils.mulStr(item.positionVolume,mMultiplier, mMultiplierPrecision))
             //总持仓Key

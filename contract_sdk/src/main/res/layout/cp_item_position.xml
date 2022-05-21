@@ -427,18 +427,19 @@
                 android:textAllCaps="false"
                 android:textSize="12sp"
                 android:background="@drawable/cp_btn_linear_blue_bg"/>
+
             <Button
                 android:id="@+id/tv_profit_loss"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_32"
-                android:layout_weight="1"
-                android:text="@string/cp_order_text29"
-                android:textSize="12sp"
-                android:textAllCaps="false"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_linear_blue_bg"
+                android:text="@string/cp_order_text29"
+                android:textAllCaps="false"
                 android:textColor="@color/main_blue"
-                android:background="@drawable/cp_btn_linear_blue_bg"/>
+                android:textSize="12sp" />
             <Button
                 android:id="@+id/tv_close_position"
                 android:layout_width="0dp"

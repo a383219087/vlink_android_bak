@@ -32,8 +32,8 @@ data class CurrentStatusBean(
 
 ):Serializable
 data class TraderPositionInfo(
-    val records: List<TraderPositionBean>?
-//    val records: List<CpContractPositionBean>?
+//    val records: List<TraderPositionBean>?
+    val records: List<CpContractPositionBean>?
 
 
 

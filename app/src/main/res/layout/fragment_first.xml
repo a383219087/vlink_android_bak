@@ -149,8 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="@{_all.status==0?View.GONE:View.VISIBLE}"
-             >
+                android:visibility="@{_all.status==1?View.VISIBLE:View.GONE}">
 
                 <TextView
                     android:layout_width="0dp"

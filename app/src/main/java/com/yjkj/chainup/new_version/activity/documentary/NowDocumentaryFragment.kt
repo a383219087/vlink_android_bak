@@ -5,6 +5,8 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentNowDocumentaryBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.new_version.activity.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel
 
 
@@ -31,8 +33,15 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.type?.value=arguments?.getInt(ParamConstant.COIN_TYPE)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
-        mViewModel?.getList(mActivity!!)
 
+
+    }
+
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            mViewModel?.getList(mActivity!!)
+        }
     }
 
 

@@ -399,26 +399,7 @@ class CpDialogUtil {
             }
         }
 
-        fun createSelectPositionPop(context: Context?, index: Int = 0, targetView: View) {
-            val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_select_position)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
-            var isShowPositionInfo = false
-            cvcEasyPopup?.run {
-                val ll_show_position_info = findViewById<LinearLayout>(R.id.ll_show_position_info)
-                val tvPositionInfo = findViewById<TextView>(R.id.tv_position_info)
-                tvPositionInfo.visibility = View.VISIBLE
-                ll_show_position_info.setOnClickListener {
-                    isShowPositionInfo = !isShowPositionInfo
-                    tvPositionInfo.visibility = if (isShowPositionInfo) View.VISIBLE else View.GONE
-                }
-            }
-            cvcEasyPopup?.showAtAnchorView(targetView, YGravity.BELOW, XGravity.CENTER, 0, 0)
-        }
+
 
 
         /**
