@@ -13,6 +13,8 @@
 
         <import type="com.yjkj.chainup.R" />
 
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
+
     </data>
 
     <LinearLayout
@@ -70,7 +72,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
                     android:textSize="15sp"
-                    android:text="BCH永续/USDT" />
+                    android:text="@{_all.bean.contractName}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,9 +80,9 @@
                     android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:textStyle="bold"
-                    android:textColor="@color/red"
+                    android:textColor="@{_all.bean.orderSide.equals(`BUY`)?@color/green:@color/red}"
                     android:textSize="15sp"
-                    android:text="空-20X" />
+                    android:text="@{_all.contractType}" />
 
 
                 <View
@@ -145,7 +147,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="301.81"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.avgPrice+``,2)}"
                     android:textSize="12sp"
                     android:textColor="@color/text_color" />
                 <TextView
@@ -153,7 +155,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="301.81"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.closePrice+``,2)}"
                     android:textSize="12sp"
                     android:textColor="@color/text_color" />
                 <TextView
@@ -161,9 +163,9 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="+4.23%"
-                    android:textSize="12sp"
-                    android:textColor="@color/green" />
+                    android:text="@{(_all.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
+                    android:textColor="@{_all.bean.returnRate>0?@color/green:@color/red}"
+                    android:textSize="12sp" />
 
 
             </LinearLayout>
@@ -180,13 +182,14 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:visibility="@{_all.bean.positionType==2?View.VISIBLE:View.GONE}"
                     android:layout_marginRight="7dp"
                     app:onClick="@{()->_all.onShareClick1()}"
                     app:radius="@{5}"
                     app:ResColor="@{R.color.text_color_99}"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:text="追加本金"
+                    android:text="追加保证金"
                     android:textColor="@color/text_color"
                     android:textSize="13sp" />
                 <TextView

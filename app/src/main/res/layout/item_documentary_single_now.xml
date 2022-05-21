@@ -185,7 +185,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
                 android:textSize="15sp"
-                android:text="@{item.contract.symbol}" />
+                android:text="@{item.bean.contractName}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,7 +193,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
-                android:textColor="@color/red"
+                android:textColor="@{item.bean.orderSide.equals(`BUY`)?@color/green:@color/red}"
                 android:textSize="15sp"
                 android:text="@{item.contractType}" />
 
@@ -385,7 +385,7 @@
                 app:ResColor="@{R.color.text_color_99}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="追加本金"
+                android:text="追加保证金"
                 android:textColor="@color/text_color"
                 android:textSize="13sp" />
             <TextView

@@ -56,7 +56,9 @@ class NowDocumentViewModel : BaseViewModel() {
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item:Item) {
-            ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity).navigation()
+            ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
+                .withSerializable("bean",item.bean.value)
+                .navigation()
         }
        //分享
         override fun onShareClick(item:Item) {
@@ -148,11 +150,10 @@ class NowDocumentViewModel : BaseViewModel() {
                 item.bean.value=it.data.records!![i]
                 item.contract.value=ContractPublicDataAgent.getContract(it.data.records!![i].contractId)
 
-                if (it.data.records!![i].positionType==1){
-                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_full_position")+"-"+it.data.records!![i].leverageLevel+"X"
-
+                if (it.data.records!![i].orderSide=="BUY"){
+                    item.contractType.value="多仓-"+it.data.records!![i].leverageLevel+"X"
                 }else{
-                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_gradually_position")+"-"+it.data.records!![i].leverageLevel+"X"
+                    item.contractType.value="空仓-"+it.data.records!![i].leverageLevel+"X"
                 }
                 item.time.value="${it.data.records!![i].ctime}->${it.data.records!![i].mtime}"
 
