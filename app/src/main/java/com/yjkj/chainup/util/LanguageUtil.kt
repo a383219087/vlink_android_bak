@@ -168,11 +168,7 @@ object LanguageUtil {
         return try {
             var id = context?.resources?.getIdentifier(key, "string", ChainUpApp.appContext.packageName)
                     ?: 0
-            if (context == null) {
-                ChainUpApp.appContext.getString(id)
-            } else {
-                context.getString(id)
-            }
+            context?.getString(id) ?: ChainUpApp.appContext.getString(id)
         } catch (e: Resources.NotFoundException) {
             e.printStackTrace()
             /**

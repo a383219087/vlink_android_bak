@@ -96,19 +96,25 @@ abstract class NDisposableObserver : DisposableObserver<ResponseBody> {
 
     override fun onError(e: Throwable) {
         closeLoadingDialog()
-        if (e is AppException) {
-            onResponseFailure(e.code.toInt(), e.message)
-        } else  if (e is HttpException) {
-            val code = e.code()
-            val message = e.message
-            onResponseFailure(code, message)
-        } else if (e is SocketTimeoutException) {
-            onResponseFailure(net_errorCode, LanguageUtil.getString(null,"network_connection_is_out_of_time"))
-        } else if (e is IOException) {
-            onResponseFailure(net_errorCode, LanguageUtil.getString(null,"network_is_exception"))
-        } else {
-            //server Error
-            onResponseFailure(net_errorCode, LanguageUtil.getString(null,"Server_error_please_try_again_later"))
+        when (e) {
+            is AppException -> {
+                onResponseFailure(e.code.toInt(), e.message)
+            }
+            is HttpException -> {
+                val code = e.code()
+                val message = e.message
+                onResponseFailure(code, message)
+            }
+            is SocketTimeoutException -> {
+                onResponseFailure(net_errorCode, LanguageUtil.getString(null,"network_connection_is_out_of_time"))
+            }
+            is IOException -> {
+                onResponseFailure(net_errorCode, LanguageUtil.getString(null,"network_is_exception"))
+            }
+            else -> {
+                //server Error
+                onResponseFailure(net_errorCode, LanguageUtil.getString(null,"Server_error_please_try_again_later"))
+            }
         }
     }
 

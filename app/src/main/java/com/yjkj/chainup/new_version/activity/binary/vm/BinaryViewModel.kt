@@ -42,11 +42,7 @@ class BinaryViewModel : BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
+
     }
 
 }

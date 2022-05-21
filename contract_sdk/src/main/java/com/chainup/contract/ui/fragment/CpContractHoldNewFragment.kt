@@ -22,7 +22,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpContractStopRateLossActivity
+import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.chainup.contract.bean.CpContractPositionBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -551,15 +551,15 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 实际杠杆（反向合约） = 仓位数量 / 标记价格 / 调整后仓位保证金 / 保证金汇率
                                  */
                                 var adjustingLever = "0X"
-                                if (contractSide.equals("1")) {
+                                adjustingLever = if (contractSide.equals("1")) {
                                     //正向
                                     val buff1 = CpBigDecimalUtils.mul(positionVolume, indexPrice)//仓位数量 * 标记价格
                                     val buff2 = CpBigDecimalUtils.div(amount, marginRate)//调整后仓位保证金 / 保证金汇率
-                                    adjustingLever = CpBigDecimalUtils.div(buff1, buff2, 1)
+                                    CpBigDecimalUtils.div(buff1, buff2, 1)
                                 } else {
                                     val buff1 = CpBigDecimalUtils.div(positionVolume, indexPrice)//仓位数量 / 标记价格
                                     val buff2 = CpBigDecimalUtils.div(amount, marginRate)//调整后仓位保证金 / 保证金汇率
-                                    adjustingLever = CpBigDecimalUtils.div(buff1, buff2, 1)
+                                    CpBigDecimalUtils.div(buff1, buff2, 1)
                                 }
                                 if (CpBigDecimalUtils.compareTo(adjustingLever, "0") != 1) {
                                     adjustingLever = "--"

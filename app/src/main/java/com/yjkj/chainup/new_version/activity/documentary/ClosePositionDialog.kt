@@ -1,9 +1,6 @@
 package com.yjkj.chainup.new_version.activity.documentary
 
 import android.view.Gravity
-import com.chainup.contract.listener.CpDoListener
-import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.utils.numberFilter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseDialogMVFragment
 import com.yjkj.chainup.bean.TraderPositionBean

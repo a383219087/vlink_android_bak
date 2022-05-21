@@ -38,7 +38,7 @@ class HttpHelper {
         mServiceMap?.clear()
     }
 
-     fun initOkHttpClient() {
+     private fun initOkHttpClient() {
         val buidler = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor(HttpLoggingInterceptor { message -> })
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -59,36 +59,6 @@ class HttpHelper {
 
     }
 
-    fun downPciture(mDownLoadPath: String) {
-        // 创建下载任务
-        var request = DownloadManager.Request(Uri.parse(mDownLoadPath))
-        // 漫游网络是否可以下载
-        request.setAllowedOverRoaming(false)
-
-        // 设置文件类型，可以在下载结束后自动打开该文件
-        var mimeTypeMap = MimeTypeMap.getSingleton()
-        var mimeString = mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(mDownLoadPath))
-        request.setMimeType(mimeString)
-
-        // 在通知栏中显示，默认就是显示的
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setVisibleInDownloadsUi(true);
-
-        // sdcard的目录下的download文件夹，必须设置
-        request.setDestinationInExternalPublicDir(ChainUpApp.appContext.getPackageName()
-                + File.separator + "cer" + File.separator, ParamConstant.MFILENAME)
-        //  request.setDestinationInExternalFilesDir(),也可以自己制定下载路径
-
-        // 将下载请求加入下载队列
-        val downloadManager = ChainUpApp.appContext.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
-        // 加入下载队列后会给该任务返回一个long型的id，
-        // 通过该id可以取消任务，重启任务等等
-        val taskId = downloadManager.enqueue(request)
-
-        //注册广播接收者，监听下载状态
-        val downLoadReceiver = DownLoadReceiver(ChainUpApp.appContext, downloadManager, taskId, ParamConstant.MFILENAME)
-        ChainUpApp.appContext.registerReceiver(downLoadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-    }
 
 
 

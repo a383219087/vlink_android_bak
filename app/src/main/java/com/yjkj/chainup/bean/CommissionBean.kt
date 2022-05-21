@@ -1,5 +1,6 @@
 package com.yjkj.chainup.bean
 
+import com.chainup.contract.bean.CpContractPositionBean
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -31,7 +32,8 @@ data class CurrentStatusBean(
 
 ):Serializable
 data class TraderPositionInfo(
-    val records: List<TraderPositionBean>
+    val records: List<TraderPositionBean>?
+//    val records: List<CpContractPositionBean>?
 
 
 

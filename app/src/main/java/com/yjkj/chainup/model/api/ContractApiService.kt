@@ -1,5 +1,6 @@
 package com.yjkj.chainup.model.api
 
+import com.yjkj.chainup.bean.TraderPositionInfo
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -7,8 +8,7 @@ import com.yjkj.chainup.treaty.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * @Author: Bertking
@@ -24,6 +24,12 @@ interface ContractApiService {
     fun getPublicInfo4Contract(@Body requestBody: RequestBody): Observable<HttpResult<ContractPublicInfoBean>>
 
 
+    /**
+     * 带单列表
+     */
+    @POST("position/trader_position_list")
+    @FormUrlEncoded
+    fun traderPositionList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<TraderPositionInfo>>
     /**
      * 2. 获取创建订单初始化信息
      */

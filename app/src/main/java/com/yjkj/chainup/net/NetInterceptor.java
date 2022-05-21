@@ -71,6 +71,7 @@ public class NetInterceptor implements Interceptor {
                 AppAnalyticsExt.Companion.getInstance().network(AppAnalyticsExt.Companion.getAPP_HTTP_httpTrackLow(), map);
             }
             String json = readResponseStr(response);
+            LogUtil.e(TAG, "NetInterceptor==json is " + json);
             if (json != null) {
                 HttpResult result = JsonUtils.INSTANCE.jsonToBean(json, HttpResult.class);
                 if (result != null) {

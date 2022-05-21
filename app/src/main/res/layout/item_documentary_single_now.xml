@@ -16,12 +16,15 @@
             type="com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel.OnItemListener" />
         <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
         android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
@@ -76,7 +79,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -85,15 +88,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="开仓均价"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textColor="@color/text_color_99" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="平仓价"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textColor="@color/text_color_99" />
             <TextView
                 android:layout_width="0dp"
@@ -101,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="收益率"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -109,6 +113,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
             android:orientation="horizontal">
 
             <TextView
@@ -116,25 +121,28 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.openPrice+``,2)}"
-                android:textSize="12sp"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.avgPrice+``,2)}"
+                android:textSize="15sp"
                 android:textColor="@color/text_color" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.closePrice+``,2)}"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{(item.bean.keepRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
-                android:textSize="12sp"
-                android:textColor="@{item.bean.keepRate>0?@color/green:@color/red}" />
+                android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
+                android:text="@{(item.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
+                android:textSize="15sp"
+                android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
 
 
         </LinearLayout>
@@ -148,10 +156,220 @@
             android:text="@{item.time}"
             android:textSize="12sp"
             android:textColor="@color/text_color_99" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
+        android:onClick="@{()->onItemListener.onClick(item)}"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:ResColor="@{R.color.white}"
+        app:radius="@{15}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:text="@{item.contract.symbol}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:text="@{item.contractType}" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:onClick="@{()->onItemListener.onShareClick(item)}"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:text="分享" />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="收益(USDT)"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="收益率"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.realizedAmount+``,2)}"
+                android:textSize="15sp"
+                android:textColor="@color/text_color" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
+                android:text="@{(item.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
+                android:textSize="15sp"
+                android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="开仓均价"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="本金(USDT)"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="持仓数量(BTC)"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.avgPrice+``,2)}"
+                android:textSize="15sp"
+                android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.openPrice+``,2)}"
+                android:textSize="15sp"
+                android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.volume+``,2)}"
+                android:textSize="15sp"
+                android:textColor="@color/text_color" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="强平价"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_99" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.positionBalance+``,2)}"
+                android:textSize="12sp"
+                android:textColor="@color/text_color" />
+
+        </LinearLayout>
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
 
@@ -160,6 +378,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:visibility="@{item.bean.positionType==2?View.VISIBLE:View.GONE}"
                 android:layout_marginRight="7dp"
                 app:onClick="@{()->onItemListener.onShareClick1(item)}"
                 app:radius="@{5}"
@@ -203,6 +422,9 @@
 
 
     </LinearLayout>
+
+</FrameLayout>
+
 
 
 </layout>

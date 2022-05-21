@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.app.Activity
 import android.content.Intent

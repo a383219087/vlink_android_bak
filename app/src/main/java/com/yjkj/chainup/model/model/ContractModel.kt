@@ -452,21 +452,6 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).orderCancel(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 调节逐仓仓位保证金
-     * @param type 调整类型; 1 增加保证金, 2 减少保证金
-     * @param contractId 合约ID
-     * @param amount 调整金额
-     */
-    fun modifyPositionMargin(contractId: String, positionId: String, type: String, amount: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["type"] = type
-            this["amount"] = amount
-            this["positionId"] = positionId
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).modifyPositionMargin(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 持仓列表

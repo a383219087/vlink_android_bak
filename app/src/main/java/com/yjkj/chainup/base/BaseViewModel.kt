@@ -94,6 +94,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, Consumer {
                     when (it) {
                         is AppException -> {
+                            ToastUtils.showToast(it.message)
                             onResponseFailure(it.code.toInt(), it.message)
                         }
                         is HttpException -> {
@@ -134,7 +135,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
  * 公共错误请求码，可在此处理
  */
     open fun onResponseFailure(code: Int, msg: String?) {
-          ToastUtils.showToast(msg)
+
         if (code == 10021 || code == 10002 || code == 3 || code == ParamConstant.QUICK_LOGIN_FAILURE) {
             UserDataService.getInstance().clearToken()
             val userinfo = UserDataService.getInstance().userData

@@ -63,7 +63,12 @@ class NowDocumentViewModel : BaseViewModel() {
         //追加本金
         override fun onShareClick1(item:Item) {
 
-            AddMoneyDialog(). showDialog(activity.value?.supportFragmentManager,"")
+            AddMoneyDialog().apply {
+                val bundle = Bundle()
+                bundle.putSerializable("bean", item.bean.value)
+                this.arguments = bundle
+
+            }. showDialog(activity.value?.supportFragmentManager,"")
         }
 
 
@@ -116,25 +121,25 @@ class NowDocumentViewModel : BaseViewModel() {
         map["status"] = status.value.toString()
         map["traderUid"] =uid.value.toString()
 
-        startTask(apiService.traderPositionList(map), Consumer {
+        startTask(contractApiService.traderPositionList(map), Consumer {
 
-            if (it.data.records.isNullOrEmpty()) {
+            if (it.data?.records.isNullOrEmpty()) {
                 return@Consumer
             }
-            for (i in it.data.records.indices) {
+            for (i in it.data.records!!.indices) {
                 val item = Item()
                 item.status.value=status.value
                 item.type.value=type.value
-                item.bean.value=it.data.records[i]
-                item.contract.value=ContractPublicDataAgent.getContract(it.data.records[i].contractId)
+                item.bean.value=it.data.records!![i]
+                item.contract.value=ContractPublicDataAgent.getContract(it.data.records!![i].contractId)
 
-                if (it.data.records[i].positionType==1){
-                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_full_position")+"-"+it.data.records[i].leverageLevel+"X"
+                if (it.data.records!![i].positionType==1){
+                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_full_position")+"-"+it.data.records!![i].leverageLevel+"X"
 
                 }else{
-                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_gradually_position")+"-"+it.data.records[i].leverageLevel+"X"
+                    item.contractType.value=LanguageUtil.getString(mActivity, "sl_str_gradually_position")+"-"+it.data.records!![i].leverageLevel+"X"
                 }
-                item.time.value="${it.data.records[i].ctime}->${it.data.records[i].mtime}"
+                item.time.value="${it.data.records!![i].ctime}->${it.data.records!![i].mtime}"
 
                 items.add(item)
             }
