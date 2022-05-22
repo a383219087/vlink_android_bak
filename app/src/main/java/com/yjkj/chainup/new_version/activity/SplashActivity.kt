@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -64,9 +63,9 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-//        liksArray.add("http://8.219.64.81:8091")
-//        liksArray.add("http://8.219.72.62:8091")
-        liksArray.add("http://gate.ylty1688.com")
+        liksArray.add("http://8.219.64.81:8091")
+        liksArray.add("http://8.219.72.62:8091")
+//        liksArray.add("http://gate.ylty1688.com")
 
         checkNetworkLine(liksArray[currentCheckIndex])
 //                        if (hasPermission()) {

@@ -5,8 +5,6 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentNowDocumentaryBinding
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.new_version.activity.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel
 
 

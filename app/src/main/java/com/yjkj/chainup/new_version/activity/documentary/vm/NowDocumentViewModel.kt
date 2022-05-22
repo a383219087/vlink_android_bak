@@ -8,12 +8,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
-import com.blankj.utilcode.util.JsonUtils
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.Contract
-import com.didichuxing.doraemonkit.util.JsonUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
