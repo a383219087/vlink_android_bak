@@ -23,7 +23,7 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
         mFragments = ArrayList()
         mFragments?.add(NowDocumentaryFragment.newInstance(1,1,""))
         mFragments?.add(NowDocumentaryFragment.newInstance(0,1,""))
-        mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
+        mFragments?.add(MyTradersFragment.newInstance(1,""))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
 

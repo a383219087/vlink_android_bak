@@ -18,7 +18,8 @@ data class CommissionBean(
     val totalUSDT: Double,
     val uid: Int,
     val userCreateTime: Long,
-    val winRatio: Double
+    val winRatio: Double,
+    val nickName: String
 
 
 

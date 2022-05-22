@@ -106,6 +106,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48">
+
                     <ImageView
                         android:id="@+id/iv_hide_asset"
                         android:layout_width="@dimen/dp_48"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,9 +17,10 @@
             type="com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel.OnItemListener" />
         <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
-<FrameLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
         android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
+        tools:background="@color/white"
         android:padding="15dp"
         app:ResColor="@{R.color.white}"
         app:radius="@{15}">
@@ -43,8 +46,8 @@
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
-                android:text="@{item.contract.symbol}" />
+                android:textSize="13sp"
+                android:text="@{item.bean.contractName}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,8 +55,8 @@
                 android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
-                android:textColor="@color/red"
-                android:textSize="15sp"
+                android:textColor="@{item.bean.orderSide.equals(`BUY`)?@color/green:@color/red}"
+                android:textSize="13sp"
                 android:text="@{item.contractType}" />
 
 
@@ -71,7 +74,7 @@
                 android:onClick="@{()->onItemListener.onShareClick(item)}"
                 android:textColor="@color/red"
                 android:textSize="15sp"
-                android:text="分享" />
+                android:drawableRight="@drawable/cp_contract_share" />
 
 
 
@@ -79,7 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -88,8 +91,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="开仓均价"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6"  />
 
             <TextView
                 android:layout_width="0dp"
@@ -97,23 +100,23 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="平仓价"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6"  />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="收益率"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6"  />
 
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_6"
             android:orientation="horizontal">
 
             <TextView
@@ -122,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.avgPrice+``,2)}"
-                android:textSize="15sp"
-                android:textColor="@color/text_color" />
+                android:textSize="11sp"
+                android:textColor="@color/text_color"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -132,7 +135,7 @@
                 android:gravity="center"
                 android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.closePrice+``,2)}"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="0dp"
@@ -141,7 +144,7 @@
                 android:gravity="right"
                 android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
                 android:text="@{(item.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
 
 
@@ -154,7 +157,7 @@
             android:gravity="left"
             android:layout_marginTop="10dp"
             android:text="@{item.time}"
-            android:textSize="12sp"
+            android:textSize="9sp"
             android:textColor="@color/text_color_99" />
 
 
@@ -165,9 +168,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        tools:background="@color/white"
         android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
         android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
+        android:elevation="@dimen/dp_3"
         android:orientation="vertical"
         android:padding="15dp"
         app:ResColor="@{R.color.white}"
@@ -176,6 +181,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -184,7 +190,7 @@
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="@{item.bean.contractName}" />
 
             <TextView
@@ -194,7 +200,7 @@
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:textColor="@{item.bean.orderSide.equals(`BUY`)?@color/green:@color/red}"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="@{item.contractType}" />
 
 
@@ -205,22 +211,48 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:textStyle="bold"
+                android:drawableRight="@drawable/cp_contract_share"
+                android:gravity="center"
                 android:onClick="@{()->onItemListener.onShareClick(item)}"
                 android:textColor="@color/red"
                 android:textSize="15sp"
-                android:text="分享" />
+                android:textStyle="bold" />
 
 
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
+            android:layout_gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="跟随："
+                android:textSize="11sp"
+                android:textColor="@color/text_color_99" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="大力水手"
+                android:textSize="11sp"
+                android:textColor="@color/text_color" />
+
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -229,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="收益(USDT)"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -239,7 +271,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="收益率"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -247,7 +279,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
             android:orientation="horizontal">
 
             <TextView
@@ -255,8 +287,9 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:textStyle="bold"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.realizedAmount+``,2)}"
-                android:textSize="15sp"
+                android:textSize="19sp"
                 android:textColor="@color/text_color" />
 
 
@@ -265,17 +298,25 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textStyle="bold"
                 android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
                 android:text="@{(item.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.keepRate+``,2)+`%`}"
-                android:textSize="15sp"
+                android:textSize="19sp"
                 android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
 
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:background="#EDEDED"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -284,30 +325,30 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="开仓均价"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="本金(USDT)"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="持仓数量(BTC)"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
             android:orientation="horizontal">
 
             <TextView
@@ -316,7 +357,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.avgPrice+``,2)}"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="0dp"
@@ -325,7 +366,7 @@
                 android:gravity="center"
                 android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.openPrice+``,2)}"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="0dp"
@@ -334,25 +375,50 @@
                 android:gravity="center"
                 android:visibility="@{item.status==1?View.VISIBLE:View.GONE}"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.volume+``,2)}"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
 
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/dp_15"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="强平价"
-                android:textSize="15sp"
-                android:textColor="@color/text_color_99" />
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:text="止损价"
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:text="止盈价"
+                android:textSize="11sp"
+                android:textColor="#d3d4d6" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_5"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -360,8 +426,25 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@{DecimalUtil.cutValueByPrecision(item.bean.positionBalance+``,2)}"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:textSize="11sp"
+                android:textColor="@color/text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:textSize="11sp"
+                android:textColor="@color/text_color" />
+
 
         </LinearLayout>
 
@@ -369,7 +452,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="27dp"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
 
@@ -379,10 +462,11 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:visibility="@{item.bean.positionType==2?View.VISIBLE:View.GONE}"
-                android:layout_marginRight="7dp"
                 app:onClick="@{()->onItemListener.onShareClick1(item)}"
                 app:radius="@{5}"
-                app:ResColor="@{R.color.text_color_99}"
+                app:ResColor="@{R.color.white}"
+                app:StrokeResColor="@{R.color.text_color_99}"
+                app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="追加保证金"
@@ -393,10 +477,12 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
                 app:onClick="@{()->onItemListener.onShareClick2(item)}"
                 app:radius="@{5}"
-                app:ResColor="@{R.color.text_color_99}"
+                app:ResColor="@{R.color.white}"
+                app:StrokeResColor="@{R.color.text_color_ee}"
+                app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="止盈止亏"
@@ -407,14 +493,14 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginRight="7dp"
+                android:layout_marginLeft="@dimen/dp_40"
                 app:onClick="@{()->onItemListener.onShareClick3(item)}"
                 app:radius="@{5}"
-                app:ResColor="@{R.color.text_color_99}"
+                app:ResColor="@{R.color.main_blue_15}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="平仓"
-                android:textColor="@color/text_color"
+                android:textColor="@color/main_blue"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -423,7 +509,7 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
 
 
 

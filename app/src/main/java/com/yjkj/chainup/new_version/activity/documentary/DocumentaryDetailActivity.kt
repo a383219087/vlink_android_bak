@@ -18,11 +18,19 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
     @Autowired(name = "bean")
     @JvmField
     var item : CpContractPositionBean?=null
+    @Autowired(name = "type")
+    @JvmField
+    var type : Int?=null
+    @Autowired(name = "status")
+    @JvmField
+    var status : Int?=null
 
     override fun setContentView() = R.layout.activity_documentary_detail
     override fun initData() {
         mViewModel?.activity?.value=mActivity
         mViewModel?.bean?.value=item
+        mViewModel?.type?.value=type
+        mViewModel?.status?.value=status
         mViewModel?.getData()
 
     }

@@ -85,7 +85,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     /**
      * 启动网络任务
      */
-    fun <D> startTask(single: Observable<D>, onNext: Consumer<in D> ) {
+    fun <D> startTask(single: Observable<D>, onNext: Consumer<in D>? ) {
         if (mCompositeDisposable == null) {
             mCompositeDisposable = CompositeDisposable()
         }

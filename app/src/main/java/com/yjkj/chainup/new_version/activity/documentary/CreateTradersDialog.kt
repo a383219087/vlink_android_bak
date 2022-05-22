@@ -4,6 +4,7 @@ import android.view.Gravity
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseDialogMVFragment
 import com.yjkj.chainup.bean.AgentCodeBean
+import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.databinding.DialogDocumentCreateTraderBinding
 import com.yjkj.chainup.databinding.DialogDocumentShareBinding
 import com.yjkj.chainup.new_version.activity.documentary.vm.CreateTradersViewModel
@@ -17,6 +18,10 @@ class CreateTradersDialog : BaseDialogMVFragment<CreateTradersViewModel?, Dialog
     override fun setContentView() = R.layout.dialog_document_create_trader
     override fun initView() {
         mViewModel?.uid?.value= arguments?.getString("uid")
+        mViewModel?.type?.value= arguments?.getInt("type")
+           arguments?.getSerializable("bean")?.let {
+               mViewModel?.bean?.value= it as CommissionBean
+           }
 
     }
 

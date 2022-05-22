@@ -82,6 +82,9 @@
     <color name="bg_top_bottom">#091941</color>
     <color name="bg_com">#081432</color>
 
+    <color name="card_blue">#3b8dFF</color>
+    <color name="card_blue1">#4f9fff</color>
+
     <color name="main_color">#2885ff</color>
     <color name="half_main_color">#802885ff</color>
     <color name="gray">@color/normal_text_color</color>

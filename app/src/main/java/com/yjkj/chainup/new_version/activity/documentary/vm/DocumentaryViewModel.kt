@@ -14,10 +14,16 @@ class DocumentaryViewModel : BaseViewModel() {
 
 
 
-    fun currentStatus() {
+    var index = MutableLiveData<Int>()
 
 
+
+
+
+    fun setIndex(int: Int) {
+        index.value=int
     }
+
 
 
 

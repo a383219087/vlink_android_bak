@@ -11,6 +11,7 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -20,6 +21,15 @@ class MineViewModel : BaseViewModel() {
         index.value=i
     }
     var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
+
+    // 显示资产
+    var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
+
+
+    fun setShowMoney() {
+        showMoney.value=!showMoney.value!!
+        UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
+    }
 
     interface OnItemListener {
         fun onClick()

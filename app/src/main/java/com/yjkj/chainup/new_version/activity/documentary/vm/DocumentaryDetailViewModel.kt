@@ -31,6 +31,14 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     var bean = MutableLiveData<CpContractPositionBean>()
 
+    //  1是跟单2是带单
+
+    var type = MutableLiveData<Int>()
+
+    //  1当前0是历史
+
+    var status = MutableLiveData<Int>()
+
 
     var  contractType= MutableLiveData<String>()
 
@@ -76,11 +84,11 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     fun getData(){
 
-        if (bean.value!!.orderSide=="BUY"){
-            contractType.value="多仓-"+bean.value!!.leverageLevel+"X"
+        if (bean.value?.orderSide=="BUY"){
+            contractType.value="多仓-"+bean.value?.leverageLevel+"X"
 
         }else{
-            contractType.value="空仓-"+bean.value!!.leverageLevel+"X"
+            contractType.value="空仓-"+bean.value?.leverageLevel+"X"
         }
 
 

@@ -12,6 +12,7 @@ import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import io.reactivex.functions.Consumer
@@ -27,6 +28,28 @@ class FirstViewModel : BaseViewModel() {
 
     var status = MutableLiveData<Int>()
 
+    // 显示更多
+    var showMore = MutableLiveData(false)
+
+    // 显示资产
+    var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
+
+
+    fun setShowMoney() {
+        showMoney.value=!showMoney.value!!
+        UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
+    }
+
+    fun setShow(clear: Boolean) {
+        if (clear) {
+            showMore.value = false
+        } else {
+            showMore.value = !showMore.value!!
+        }
+
+    }
+
+
     interface OnItemListener {
         fun onClick(item: Item)
 
@@ -36,14 +59,14 @@ class FirstViewModel : BaseViewModel() {
         override fun onClick(item: Item) {
 
             ARouter.getInstance().build(RoutePath.TradersActivity)
-                .withSerializable("bean",item.bean.value)
+                .withSerializable("bean", item.bean.value)
                 .withInt("status", item.status.value!!)
                 .navigation()
 
         }
     }
 
-    class Item{
+    class Item {
         var status = MutableLiveData(-1)
         var bean = MutableLiveData<CommissionBean>()
 
@@ -68,40 +91,41 @@ class FirstViewModel : BaseViewModel() {
     })
 
     //成为交易员
-    fun appTraders(){
+    fun appTraders() {
         ARouter.getInstance().build(RoutePath.ApplyTradersActivity).navigation()
     }
 
     //发起带单
-    fun toLaunchSingle(){
+    fun toLaunchSingle() {
 
         EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_close))
     }
+
     //我的跟随者
-    fun toMyFollow(){
+    fun toMyFollow() {
 
         EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_index))
     }
 
-    fun setIndex(i :Int){
-        index.value=i
+    fun setIndex(i: Int) {
+        index.value = i
         page = 1
         getList(1)
     }
 
-    fun getList(page :Int) {
+    fun getList(page: Int) {
         val map = HashMap<String, Any>()
         map["page"] = page.toString()
-        map["pageSize"] ="20"
-        map["orderBy"] =when(index.value){
-            1->"profitUSDT"
-            2->"totalUSDT"
-            3->"orderCount"
-            4->"followerCount"
-            5->"profitRatio"
-            6->"totalRatio"
-            7->"winRatio"
-            else->"all"
+        map["pageSize"] = "20"
+        map["orderBy"] = when (index.value) {
+            1 -> "profitUSDT"
+            2 -> "totalUSDT"
+            3 -> "orderCount"
+            4 -> "followerCount"
+            5 -> "profitRatio"
+            6 -> "totalRatio"
+            7 -> "winRatio"
+            else -> "all"
 
         }
         startTask(apiService.traderUserList(map), Consumer {
@@ -115,18 +139,15 @@ class FirstViewModel : BaseViewModel() {
                 return@Consumer
             }
             for (i in it.data.indices) {
-                val item =Item()
-                item.bean.value=it.data[i]
-                item.status.value=status.value
+                val item = Item()
+                item.bean.value = it.data[i]
+                item.status.value = status.value
                 items.add(item)
             }
 
         })
 
     }
-
-
-
 
 
 }

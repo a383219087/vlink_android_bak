@@ -58,6 +58,8 @@ class NowDocumentViewModel : BaseViewModel() {
         override fun onClick(item:Item) {
             ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                 .withSerializable("bean",item.bean.value)
+                .withInt("type",item.type.value!!)
+                .withInt("status",item.status.value!!)
                 .navigation()
         }
        //分享

@@ -37,6 +37,8 @@ class TradersViewModel : BaseViewModel() {
         CreateTradersDialog().apply {
             val bundle = Bundle()
             bundle.putString("uid", item.value?.uid.toString())
+            bundle.putSerializable("bean", item.value)
+            bundle.putInt("type", 1)
             this.arguments = bundle
         }
             .showDialog(activity.value?.supportFragmentManager, "")

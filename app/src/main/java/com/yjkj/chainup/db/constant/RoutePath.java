@@ -48,7 +48,6 @@ public class RoutePath {
     public static final String TradersActivity = "/documentary/TradersActivity";
     public static final String ApplyTradersActivity = "/documentary/ApplyTradersActivity";
     public static final String MineFragment = "/documentary/MineFragment";
-    public static final String MyTradersFragment = "/documentary/MyTradersFragment";
 
     public static final String BinaryActivity = "/binary/BinaryActivity";
     public static final String OptionsActivity = "/binary/OptionsActivity";

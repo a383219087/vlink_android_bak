@@ -40,7 +40,7 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
         mFragments = ArrayList()
         mFragments?.add(NowDocumentaryFragment.newInstance(1,mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mFragments?.add(NowDocumentaryFragment.newInstance(0,mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
-        mFragments?.add(ARouter.getInstance().build(RoutePath.MyTradersFragment).navigation() as Fragment)
+        mFragments?.add(MyTradersFragment.newInstance(mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
 

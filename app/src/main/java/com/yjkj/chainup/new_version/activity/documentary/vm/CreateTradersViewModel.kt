@@ -1,14 +1,23 @@
 package com.yjkj.chainup.new_version.activity.documentary.vm
 
 
+import android.app.Dialog
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 
 
 class CreateTradersViewModel : BaseViewModel() {
     var uid = MutableLiveData("")
+
+
+    //1是新建2是编辑
+    var type = MutableLiveData(1)
 
     var checkIndex = MutableLiveData(0)
 
@@ -29,6 +38,9 @@ class CreateTradersViewModel : BaseViewModel() {
     var stopRate = MutableLiveData("")
 
 
+    var bean = MutableLiveData<CommissionBean>()
+
+
     fun setCheckIndex(type: Int) {
         checkIndex.value = type
 
@@ -44,6 +56,7 @@ class CreateTradersViewModel : BaseViewModel() {
         stopRate.value=rate.toString()
 
     }
+
 
 
     fun create() {
@@ -80,9 +93,28 @@ class CreateTradersViewModel : BaseViewModel() {
         map["profitRatio"] =winRate.value.toString()
         map["lossRatio"] =stopRate.value.toString()
         startTask(apiService.createTrader(map), Consumer {
+            ToastUtils.showToast(it.msg)
           finish()
 
         })
+    }
+
+    fun cancel(view:View) {
+
+        NewDialogUtils.showNormalDialog(view.context!!, "取消跟单后，已跟随未平仓的合约仍然会参与收益", object : NewDialogUtils.DialogBottomListener {
+            override fun sendConfirm() {
+                val map = HashMap<String, Any>()
+                map["traderUid"] = uid.value.orEmpty()
+                startTask(apiService.cancelTrader(map), Consumer {
+                    ToastUtils.showToast(it.msg)
+                    finish()
+
+                })
+            }
+
+        }, "", "关闭", "确认取消")
+
+
     }
 
 

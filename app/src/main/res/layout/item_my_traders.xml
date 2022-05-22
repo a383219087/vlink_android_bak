@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.bean.CommissionBean"  />
+            type="com.yjkj.chainup.new_version.activity.documentary.vm.MyTradersModel.Item"  />
 
         <import type="com.yjkj.chainup.R" />
 
@@ -14,6 +14,7 @@
         <variable
             name="onItemListener"
             type="com.yjkj.chainup.new_version.activity.documentary.vm.MyTradersModel.OnItemListener" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:onClick="@{()->onItemListener.onClick()}"
+        android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
@@ -37,10 +38,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="交易员"
                 android:textSize="12sp"
-                android:textColor="@color/text_color_66" />
+                android:textColor="@color/text_color_99" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -48,29 +49,30 @@
                 android:gravity="center"
                 android:text="跟随金额(USDT)"
                 android:textSize="12sp"
-                android:textColor="@color/text_color_66" />
+                android:textColor="@color/text_color_99" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
                 android:text="跟随（USDT）"
                 android:textSize="12sp"
-                android:textColor="@color/text_color_66" />
+                android:textColor="@color/text_color_99" />
 
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{item.uid+``}"
+                android:gravity="left"
+                android:text="@{item.bean.nickName+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -78,20 +80,36 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.profitUSDT+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.totalUSDT+``,2)}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{item.totalUSDT+``}"
+                android:gravity="right"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profitUSDT+``,2)}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 
 
         </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_gravity="right"
+            android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
+            android:layout_marginTop="@dimen/dp_15"
+            android:gravity="center"
+            android:onClick="@{()->onItemListener.onClick(item)}"
+            android:text="编辑"
+            app:StrokeWidth="@{1}"
+            app:StrokeResColor="@{R.color.text_color_ee}"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"/>
+
 
 
 
