@@ -44,7 +44,7 @@ import com.yjkj.chainup.R;
 import com.yjkj.chainup.base.NBaseActivity;
 import com.yjkj.chainup.util.QRCodeUtils;
 import com.yjkj.chainup.wedegit.ViewfinderViewV2;
-import com.yjkj.chainup.zxing.camera.CameraManager;
+import com.yjkj.chainup.wedegit.zxing.camera.CameraManager;
 
 import org.jetbrains.annotations.Nullable;
 

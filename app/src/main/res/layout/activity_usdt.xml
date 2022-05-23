@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.UsdtViewModel" />
+            type="com.yjkj.chainup.ui.financial.vm.UsdtViewModel" />
 
         <import type="com.yjkj.chainup.R" />
 

@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.invite.vm.CommissionViewModel" />
+            type="com.yjkj.chainup.ui.invite.vm.CommissionViewModel" />
 
         <import type="android.view.View" />
 

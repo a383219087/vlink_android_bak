@@ -33,7 +33,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.zxing.camera.CameraManager;
+import com.yjkj.chainup.wedegit.zxing.camera.CameraManager;
 
 import java.util.Collection;
 import java.util.Map;

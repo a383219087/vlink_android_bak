@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.AutomaticDepositViewModel" />
+            type="com.yjkj.chainup.ui.financial.vm.AutomaticDepositViewModel" />
 
         <import type="android.view.View" />
 

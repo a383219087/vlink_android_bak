@@ -20,9 +20,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.zxing.ResultPoint;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.app.CommonComponent;
 import com.yjkj.chainup.util.ColorUtil;
-import com.yjkj.chainup.zxing.camera.CameraManager;
+import com.yjkj.chainup.wedegit.zxing.camera.CameraManager;
 
 import java.util.Collection;
 import java.util.HashSet;

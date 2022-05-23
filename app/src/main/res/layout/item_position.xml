@@ -6,14 +6,14 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.HoldViewModel.Item" />
+            type="com.yjkj.chainup.ui.financial.vm.HoldViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
         <variable
             name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.HoldViewModel.OnItemListener" />
+            type="com.yjkj.chainup.ui.financial.vm.HoldViewModel.OnItemListener" />
     </data>
 
 

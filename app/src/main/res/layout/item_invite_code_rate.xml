@@ -6,8 +6,7 @@
 
         <variable
             name="item"
-         type="com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel.Item" />
-<!--            type="com.yjkj.chainup.bean.InviteRate" />-->
+         type="com.yjkj.chainup.ui.invite.vm.EditInviteCodesViewModel.Item" />
 
 
         <import type="com.yjkj.chainup.R" />
@@ -15,7 +14,7 @@
         <import type="android.view.View" />
         <variable
             name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.invite.vm.EditInviteCodesViewModel.OnItemListener" />
+            type="com.yjkj.chainup.ui.invite.vm.EditInviteCodesViewModel.OnItemListener" />
     </data>
 
     <FrameLayout

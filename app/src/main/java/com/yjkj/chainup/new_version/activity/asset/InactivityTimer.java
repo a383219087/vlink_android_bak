@@ -25,8 +25,8 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
 
-import com.yjkj.chainup.zxing.common.executor.AsyncTaskExecInterface;
-import com.yjkj.chainup.zxing.common.executor.AsyncTaskExecManager;
+import com.yjkj.chainup.wedegit.zxing.common.executor.AsyncTaskExecInterface;
+import com.yjkj.chainup.wedegit.zxing.common.executor.AsyncTaskExecManager;
 
 
 /**

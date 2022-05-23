@@ -7,14 +7,14 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.new_version.activity.documentary.vm.FirstViewModel.Item" />
+            type="com.yjkj.chainup.ui.documentary.vm.FirstViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
         <variable
             name="onItemListener"
-            type="com.yjkj.chainup.new_version.activity.documentary.vm.FirstViewModel.OnItemListener" />
+            type="com.yjkj.chainup.ui.documentary.vm.FirstViewModel.OnItemListener" />
     </data>
 
     <LinearLayout

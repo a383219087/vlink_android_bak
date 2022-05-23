@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.HolddetailViewModel.Item" />
+            type="com.yjkj.chainup.ui.financial.vm.HolddetailViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 

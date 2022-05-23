@@ -8,7 +8,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.invite.vm.InvitationPostersViewModel" />
+            type="com.yjkj.chainup.ui.invite.vm.InvitationPostersViewModel" />
 
         <import type="com.yjkj.chainup.util.SystemUtils" />
 

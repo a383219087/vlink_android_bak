@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.invite.vm.ContractAgentViewModel" />
+            type="com.yjkj.chainup.ui.invite.vm.ContractAgentViewModel" />
 
         <import type="android.view.View" />
 

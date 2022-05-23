@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.documentary.vm.SingleMoneyViewModel" />
+            type="com.yjkj.chainup.ui.documentary.vm.SingleMoneyViewModel" />
 
         <import type="android.view.View" />
 

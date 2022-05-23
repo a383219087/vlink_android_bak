@@ -12,6 +12,7 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import java.util.*
@@ -36,7 +37,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 /**
                  * 期权
                  */
-                0 -> ArouterUtil.navigation(RoutePath.BinaryActivity, null)
+                0 -> ToastUtils.showToast("正在开发")
                 /**
                  * 跟单
                  */
@@ -48,7 +49,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 /**
                  * 游戏
                  */
-                3 -> ArouterUtil.navigation(RoutePath.BinaryActivity, null)
+                3 -> ToastUtils.showToast("正在开发")
                 /**
                  * 分享有礼
                  */

@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.documentary.vm.NowDocumentViewModel" />
+            type="com.yjkj.chainup.ui.documentary.vm.NowDocumentViewModel" />
 
         <import type="android.view.View" />
 

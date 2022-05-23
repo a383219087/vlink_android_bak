@@ -8,7 +8,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.financial.vm.SaveViewModel" />
+            type="com.yjkj.chainup.ui.financial.vm.SaveViewModel" />
 
         <import type="com.yjkj.chainup.R" />
 

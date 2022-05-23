@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.activity.documentary.vm.CreateTradersViewModel" />
+            type="com.yjkj.chainup.ui.documentary.vm.CreateTradersViewModel" />
 
         <import type="android.view.View" />
 
