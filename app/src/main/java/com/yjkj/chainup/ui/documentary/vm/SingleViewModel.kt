@@ -29,7 +29,7 @@ class SingleViewModel : BaseViewModel() {
     var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
 
 
-    var item = MutableLiveData<CommissionBean>()
+    var bean = MutableLiveData<CommissionBean>()
 
     //发起带单
     fun onClickDocumentary(view: View) {
