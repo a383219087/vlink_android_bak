@@ -39,7 +39,12 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     var  contractType= MutableLiveData<String>()
 
      fun onShareClick() {
-        ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
+        ShareDialog().apply {
+            val bundle = Bundle()
+            bundle.putSerializable("bean", bean.value)
+            this.arguments = bundle
+
+        }. showDialog(activity.value?.supportFragmentManager,"")
     }
 
      fun onShareClick1() {

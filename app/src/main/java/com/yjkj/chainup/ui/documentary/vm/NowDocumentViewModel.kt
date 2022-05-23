@@ -62,7 +62,12 @@ class NowDocumentViewModel : BaseViewModel() {
         }
        //分享
         override fun onShareClick(item:Item) {
-            ShareDialog(). showDialog(activity.value?.supportFragmentManager,"")
+            ShareDialog().apply {
+                val bundle = Bundle()
+                bundle.putSerializable("bean", item.bean.value)
+                this.arguments = bundle
+
+            }. showDialog(activity.value?.supportFragmentManager,"")
         }
         //追加本金
         override fun onShareClick1(item:Item) {

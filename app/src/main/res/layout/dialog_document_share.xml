@@ -18,25 +18,35 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@color/otc_recharge"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_document_share">
 
-            <View
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_marginLeft="20dp"
+                android:text="U本位合约"
+                android:gravity="center"
+                android:textSize="19sp"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_30"
-                app:ResColor="@{R.color.red}"
-                app:radius="@{48}"/>
+                android:layout_marginTop="47dp"
+                android:src="@drawable/personal_headportrait"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -45,19 +55,18 @@
                 android:text="叫我静静"
                 android:gravity="center"
                 android:textSize="18sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textColor="@color/white" />
 
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:text="收益率"
                 android:gravity="center"
                 android:textSize="14sp"
-                android:textColor="#EEEEEE" />
+                android:textColor="#80ffffff" />
 
 
 
@@ -207,6 +216,15 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/dp_23"
+            android:layout_height="23dp"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_marginTop="@dimen/dp_23"
+            android:layout_gravity="right"
+            android:src="@mipmap/ic_document_share_close"
+            android:onClick="@{()->_all.finish()}"/>
 
 
 
