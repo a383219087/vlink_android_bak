@@ -43,7 +43,13 @@ class SingleViewModel : BaseViewModel() {
         val map = HashMap<String, Any>()
         map["uid"] = uid.toString()
         startTask(apiService.queryTrader(map), Consumer {
-            bean.value=it.data
+            if (uid.isNullOrEmpty()){
+                bean.value=it.data.my
+            } else{
+                bean.value=it.data.traderUser
+            }
+
+
         })
 
     }

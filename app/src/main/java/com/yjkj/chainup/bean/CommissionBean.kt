@@ -2,8 +2,16 @@ package com.yjkj.chainup.bean
 
 import com.chainup.contract.bean.CpContractPositionBean
 import java.io.Serializable
-import java.time.LocalDateTime
 
+
+data class QueryTraderBean(
+    val traderUser: CommissionBean,
+    val my: CommissionBean
+
+
+
+
+):Serializable
 
 data class CommissionBean(
     val ctime: Long,
