@@ -23,7 +23,7 @@ class ApplyTradersViewModel : BaseViewModel() {
                 0->"资料正在审核中"
                 1->"您已是交易员"
                 2->"已拒绝了你的申请"
-                else->"您未申请成为交易员"
+                else->"申请成为交易员，联系在线客服?"
             }
 
         })
@@ -33,12 +33,15 @@ class ApplyTradersViewModel : BaseViewModel() {
 
 
     fun applyCurrentStatus() {
-        startTask(apiService.applyBecomeTrader(), Consumer {
-            ToastUtils.showToast("申请成功")
-            currentStatus()
+        if (status.value==-1){
+            startTask(apiService.applyBecomeTrader(), Consumer {
+                ToastUtils.showToast("申请成功")
+                finish()
+            })
+        }else{
+            finish()
+        }
 
-
-        })
 
     }
 

@@ -9,6 +9,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
+import com.yjkj.chainup.db.service.UserDataService
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
@@ -19,6 +20,18 @@ class SingleMoneyViewModel : BaseViewModel() {
     fun setIndex(i :Int){
         index.value=i
     }
+
+
+
+    // 显示资产
+    var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
+
+
+    fun setShowMoney() {
+        showMoney.value=!showMoney.value!!
+        UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
+    }
+
     var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
 
     interface OnItemListener {
@@ -44,5 +57,14 @@ class SingleMoneyViewModel : BaseViewModel() {
     val items: ObservableList<Item> = ObservableArrayList()
 
 
+    fun getList(){
+        var item=Item()
+        item.index.value=0
+        items.add(item)
+        var item1=Item()
+        item1.index.value=1
+        items.add(item1)
+
+    }
 
 }

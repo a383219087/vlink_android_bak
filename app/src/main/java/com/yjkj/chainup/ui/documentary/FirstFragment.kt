@@ -25,6 +25,7 @@ class FirstFragment : BaseMVFragment<FirstViewModel?, FragmentFirstBinding>() {
     }
     override fun setContentView(): Int = R.layout.fragment_first
     override fun initView() {
+        mViewModel?.context?.value=mActivity
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.getList(1)
         mViewModel?.isRefreshing?.observe(this, Observer {

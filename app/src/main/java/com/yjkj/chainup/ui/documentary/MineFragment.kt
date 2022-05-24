@@ -18,6 +18,7 @@ class MineFragment : BaseMVFragment<MineViewModel?, FragmentMineBinding>() {
     private var mFragments: ArrayList<Fragment>? = null
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
+        mViewModel?.context?.value=mActivity
         mFragments = ArrayList()
         mFragments?.add(NowDocumentaryFragment.newInstance(1,1,""))
         mFragments?.add(NowDocumentaryFragment.newInstance(0,1,""))

@@ -29,92 +29,132 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll"
-                android:layout_margin="15dp">
+                android:layout_margin="15dp"
+                app:layout_scrollFlags="scroll">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp"
-                    app:ResColor="@{R.color.text_color_orange}"
-                    app:radius="@{10}">
+                    app:ResColor="@{R.color.card_blue}"
+                    app:radius="@{10}"
+                    tool:background="@color/main_blue">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="持仓估值"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="0.0CNY"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="=0USDT"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
-
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:layout_height="@dimen/dp_78">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="17dp"
+                            android:drawableRight="@{_all.showMoney?@drawable/assets_visible:@drawable/assets_invisible}"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:onClick="@{()->_all.setShowMoney()}"
+                            android:text="累计收益"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="37dp"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="今日预计收益（USDT）"
+                                android:text="@{_all.showMoney?`0.0`:`***`}"
                                 android:textColor="@color/white"
-                                android:textSize="10sp" />
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="0.0"
+                                android:layout_marginLeft="5dp"
+                                android:text="CNY"
                                 android:textColor="@color/white"
                                 android:textSize="10sp" />
 
 
                         </LinearLayout>
 
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_60"
+                            android:text="@{`≈`+(_all.showMoney?`0.0`:`***`)+`USDT`}"
+                            android:textColor="#80FFFFFF"
+                            android:textSize="11sp" />
+
+
+                    </FrameLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_64"
+                        android:orientation="horizontal"
+                        app:ResColor="@{R.color.card_blue1}"
+                        app:bottomLeftRadius="@{10}"
+                        app:bottomRightRadius="@{10}">
+
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="right|center_vertical"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="收益率"
-                                android:textColor="@color/white"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:text="今日预计收益（USDT）"
+                                android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
-                                android:text="0.0%"
+                                android:text="@{_all.showMoney?`0.0`:`***`}"
                                 android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:text="昨日收益（USDT）"
+                                android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:text="@{(_all.showMoney?`0.0`:`***`)+``}"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
 
                         </LinearLayout>
@@ -126,37 +166,66 @@
                 </LinearLayout>
 
 
-
-
             </FrameLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_45"
-                app:layout_scrollFlags="noScroll"
+                android:layout_marginLeft="15dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_scrollFlags="noScroll">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:onClick="@{()->_all.setIndex(0)}"
-                    android:text="收益明细"
-                    android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
-                    android:textSize="15sp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{()->_all.setIndex(0)}"
+                        android:text="收益明细"
+                        android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
+                        android:textSize="15sp" />
+
+
+                    <View
+                        android:layout_width="@dimen/dp_19"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@{_all.index==0?@color/main_color:@color/new_home_page_tab_color}" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_15"
                     android:gravity="center"
-                    android:onClick="@{()->_all.setIndex(1)}"
-                    android:text="收益统计"
-                    android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
-                    android:textSize="15sp" />
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{()->_all.setIndex(1)}"
+                        android:text="收益统计"
+                        android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
+                        android:textSize="15sp" />
+
+
+                    <View
+                        android:layout_width="@dimen/dp_19"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@{_all.index==1?@color/main_color:@color/new_home_page_tab_color}" />
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -165,8 +234,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_half"
-                app:layout_scrollFlags="noScroll"
-                android:background="@color/line_color" />
+                android:background="@color/line_color"
+                app:layout_scrollFlags="noScroll" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -174,8 +243,8 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:addOnPageChangeListener="@{_all.onPageChangeListener}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:select="@{_all.index}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

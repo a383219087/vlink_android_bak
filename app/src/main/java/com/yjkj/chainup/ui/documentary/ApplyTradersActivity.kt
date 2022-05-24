@@ -1,18 +1,18 @@
 package com.yjkj.chainup.ui.documentary
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import android.view.Gravity
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.BaseMVActivity
+import com.yjkj.chainup.base.BaseDialogMVFragment
 import com.yjkj.chainup.databinding.ActivityTradersApplyBinding
-import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.ui.documentary.vm.ApplyTradersViewModel
 
 
-@Route(path = RoutePath.ApplyTradersActivity)
-class ApplyTradersActivity : BaseMVActivity<ApplyTradersViewModel?, ActivityTradersApplyBinding?>(){
+class ApplyTradersDialog : BaseDialogMVFragment<ApplyTradersViewModel?, ActivityTradersApplyBinding?>(){
 
+
+    override fun setGravity(gravity: Int): Int = Gravity.CENTER
     override fun setContentView() = R.layout.activity_traders_apply
-    override fun initData() {
+    override fun initView() {
     mViewModel?.currentStatus()
 
     }

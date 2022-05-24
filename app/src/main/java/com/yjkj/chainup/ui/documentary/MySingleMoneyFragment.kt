@@ -32,9 +32,8 @@ class MySingleMoneyFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentSing
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
         mFragments = ArrayList()
-        mFragments?.add(NowDocumentaryFragment.newInstance(1,1,""))
-        mFragments?.add(NowDocumentaryFragment.newInstance(0,1,""))
-        mFragments?.add(MyTradersFragment.newInstance(1,""))
+        mFragments?.add(SingleMoneyChildFragment.newInstance(0))
+        mFragments?.add(SingleMoneyChildFragment.newInstance(1))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
 

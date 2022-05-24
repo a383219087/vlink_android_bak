@@ -3,6 +3,7 @@ package com.yjkj.chainup.ui.documentary.vm
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.BR
@@ -15,12 +16,14 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
+import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
 class FirstViewModel : BaseViewModel() {
 
+    var context = MutableLiveData<FragmentActivity>()
 
     var index = MutableLiveData(0)
 
@@ -92,7 +95,7 @@ class FirstViewModel : BaseViewModel() {
 
     //成为交易员
     fun appTraders() {
-        ARouter.getInstance().build(RoutePath.ApplyTradersActivity).navigation()
+        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager,"")
     }
 
     //发起带单

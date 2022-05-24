@@ -22,11 +22,15 @@
       <androidx.recyclerview.widget.RecyclerView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:visibility="@{_all.items.size()==0?View.GONE:View.VISIBLE}"
           app:itemBinding="@{_all.itemBinding}"
           app:items="@{_all.items}"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
+      <include
+          layout="@layout/em_view"
+          app:visibility="@{_all.items.size()==0}"/>
 
   </FrameLayout>
 

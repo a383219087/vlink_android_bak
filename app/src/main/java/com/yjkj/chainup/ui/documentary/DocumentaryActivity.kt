@@ -12,6 +12,7 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.vm.DocumentaryViewModel
 import com.yjkj.chainup.util.FmPagerAdapter
+import io.reactivex.functions.Consumer
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -22,16 +23,16 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
     private var mFragments: ArrayList<Fragment>? = ArrayList()
     override fun setContentView() = R.layout.activity_documentary
     override fun initData() {
-//        mViewModel?.startTask( mViewModel?.apiService!!.currentStatus(), Consumer {
-//            currentStatus(it.data.status)
-//        })
-        currentStatus(-1)
+        mViewModel?.startTask( mViewModel?.apiService!!.currentStatus(), Consumer {
+            currentStatus(it.data.status)
+        })
         mViewModel?.index?.observe(this , Observer {
             mBinding?.vpOrder?.setCurrentItem(it,true)
         })
 
 
     }
+
 
 
     private fun  currentStatus(status:Int){

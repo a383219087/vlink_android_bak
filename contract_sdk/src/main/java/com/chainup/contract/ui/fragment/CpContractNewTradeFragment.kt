@@ -29,12 +29,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
-import kotlinx.android.synthetic.main.cp_trade_header_tools.ib_kline
-import kotlinx.android.synthetic.main.cp_trade_header_tools.iv_more
-import kotlinx.android.synthetic.main.cp_trade_header_tools.tv_contract
+import kotlinx.android.synthetic.main.cp_trade_header_tools.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -391,28 +388,33 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             var marginCoinList = optJSONArray("marginCoinList")
             CpClLogicContractSetting.setContractJsonListStr(context, contractList.toString())
             CpClLogicContractSetting.setContractMarginCoinListStr(context, marginCoinList.toString())
-            var obj: JSONObject = contractList.get(0) as JSONObject
-            mContractId = obj.optInt("id")
-            mSymbol = obj.optString("symbol")
-            symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, mContractId)
-            var isExitId = false;
-            val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
-            if (id == -1 && contractList.length() != 0) {
-                isExitId = true
-                showTabInfo(contractList[0] as JSONObject)
-            } else {
-                for (i in 0..(contractList.length() - 1)) {
-                    var obj = contractList.get(i) as JSONObject
-                    if (id == obj.optInt("id")) {
-                        isExitId = true
-                        showTabInfo(obj)
+            try {
+                var obj: JSONObject = contractList.get(0) as JSONObject
+                mContractId = obj.optInt("id")
+                mSymbol = obj.optString("symbol")
+                symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, mContractId)
+                var isExitId = false;
+                val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
+                if (id == -1 && contractList.length() != 0) {
+                    isExitId = true
+                    showTabInfo(contractList[0] as JSONObject)
+                } else {
+                    for (i in 0..(contractList.length() - 1)) {
+                        var obj = contractList.get(i) as JSONObject
+                        if (id == obj.optInt("id")) {
+                            isExitId = true
+                            showTabInfo(obj)
+                        }
                     }
                 }
+                if (!isExitId && contractList.length() != 0) {
+                    showTabInfo(contractList[0] as JSONObject)
+                }
+                getContractUserConfig()
+            }finally {
+
             }
-            if (!isExitId && contractList.length() != 0) {
-                showTabInfo(contractList[0] as JSONObject)
-            }
-            getContractUserConfig()
+
         }
     }
 

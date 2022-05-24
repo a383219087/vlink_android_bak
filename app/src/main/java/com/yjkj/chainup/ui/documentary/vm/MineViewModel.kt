@@ -3,19 +3,23 @@ package com.yjkj.chainup.ui.documentary.vm
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
-import com.alibaba.android.arouter.launcher.ARouter
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
-import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
 class MineViewModel : BaseViewModel() {
+
+
+
+    var context = MutableLiveData<FragmentActivity>()
     var index = MutableLiveData(0)
     fun setIndex(i :Int){
         index.value=i
@@ -46,7 +50,7 @@ class MineViewModel : BaseViewModel() {
 
     //成为交易员
     fun appTraders(){
-        ARouter.getInstance().build(RoutePath.ApplyTradersActivity).navigation()
+        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager,"")
     }
 
     val itemBinding =

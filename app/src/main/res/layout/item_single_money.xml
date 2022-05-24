@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:elevation="8dp"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
@@ -37,19 +38,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginLeft="5dp"
                 android:textStyle="bold"
+                android:text="BTC永续/USDT"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:text="多·30X"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
                 android:textColor="@color/red"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
 
             <View
@@ -61,9 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/text_color_99"
                 android:layout_marginLeft="5dp"
-                android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:text="04-15-14" />
 
 
@@ -73,7 +75,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:layout_marginTop="15dp"
             android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
             android:orientation="horizontal">
 
@@ -83,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="跟随者"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -93,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="带单金额(USDT)"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
             <TextView
@@ -102,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="带单收益(USDT)"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -110,7 +112,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:layout_marginTop="6dp"
             android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
             android:orientation="horizontal">
 
@@ -119,7 +121,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color" />
 
 
@@ -128,14 +130,16 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textSize="15sp"
+                android:textSize="11sp"
+                android:textColor="@color/text_color"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textSize="15sp"
+                android:textSize="11sp"
+                android:textColor="@color/text_color"
                 />
 
 
@@ -143,7 +147,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:visibility="@{item.index==1?View.VISIBLE:View.GONE}"
             android:orientation="horizontal">
 
@@ -153,26 +156,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="日期"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="带单金额(USDT)"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="带单收益(USDT)"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
                 android:layout_width="0dp"
@@ -180,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="跟随人数"
-                android:textSize="15sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
 
@@ -188,7 +191,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_6"
             android:visibility="@{item.index==1?View.VISIBLE:View.GONE}"
             android:orientation="horizontal">
 
@@ -197,30 +200,33 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textSize="15sp"
-                android:textColor="@color/text_color" />
+                android:textSize="11sp"
+                android:textColor="@color/text_color"/>
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textSize="15sp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="@color/text_color"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textSize="15sp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="@color/text_color"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textSize="15sp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="@color/text_color"
                 />
 
 
