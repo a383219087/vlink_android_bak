@@ -40,13 +40,13 @@ interface MainApiService {
     /**
      * 1. 合约的公共接口
      */
-    @POST("/contract_public_info_v2")
+    @POST("contract_public_info_v2")
     fun contract_public_info_v2(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 13. 账户余额信息 ：
      */
-    @POST("/account_balance")
+    @POST("account_balance")
     fun account_balance(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -205,7 +205,7 @@ interface MainApiService {
     /**
      * 指纹或者人脸识别 - 验证本地密码
      */
-    @POST("/user/open_handPwd_V2")
+    @POST("user/open_handPwd_V2")
     fun newOpenHandPwd(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -260,31 +260,31 @@ interface MainApiService {
     /**
      * 法币资产列表
      */
-    @POST("/fiat/balance")
+    @POST("fiat/balance")
     fun fiatBalance(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 充值
      */
-    @POST("/fiat/deposit")
+    @POST("fiat/deposit")
     fun fiatDeposit(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 充值记录
      */
-    @POST("/fiat/deposit/list")
+    @POST("fiat/deposit/list")
     fun fiatDepositList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 充值撤销
      */
-    @POST("/fiat/cancel_deposit")
+    @POST("fiat/cancel_deposit")
     fun fiatCancelDeposit(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 提现
      */
-    @POST("/fiat/withdraw")
+    @POST("fiat/withdraw")
     fun fiatWithdraw(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -296,50 +296,50 @@ interface MainApiService {
     /**
      * 提现撤销
      */
-    @POST("/fiat/cancel_withdraw")
+    @POST("fiat/cancel_withdraw")
     fun fiatCancelWithdraw(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 用户提现银行列表
      */
-    @POST("/user/bank/user_bank_list")
+    @POST("user/bank/user_bank_list")
     fun fiatBankList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 查询用户提现银行
      */
-    @POST("/user/bank/get")
+    @POST("user/bank/get")
     fun fiatGetBank(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 新增用户提现银行
      * NOTE：...
      */
-    @POST("/user/bank/add")
+    @POST("user/bank/add")
     fun fiatAddBank(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 修改用户提现银行
      */
-    @POST("/user/bank/edit")
+    @POST("user/bank/edit")
     fun fiatEditBank(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 删除用户提现银行
      */
-    @POST("/user/bank/delete")
+    @POST("user/bank/delete")
     fun fiatDeleteBank(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 查询平台充值银行信息
      */
-    @POST("/company/bank/info")
+    @POST("company/bank/info")
     fun fiatBankInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 查询平台支持提现银行列表
      */
-    @POST("/bank/all")
+    @POST("bank/all")
     fun fiatAllBank(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
@@ -394,7 +394,7 @@ interface MainApiService {
     /**
      * 获取历史委托(币币)
      */
-    @POST("/role/index")
+    @POST("role/index")
     fun getRoleIndex(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -440,14 +440,14 @@ interface MainApiService {
     /**
      * 当前申请(未归还记录)
      */
-    @POST("/lever/borrow/new")
+    @POST("lever/borrow/new")
     fun borrowNew(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
      * 历史申请(已归还记录)
      */
-    @POST("/lever/borrow/history")
+    @POST("lever/borrow/history")
     fun borrowHistory(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
@@ -492,7 +492,7 @@ interface MainApiService {
     /**
      * 资金划转
      */
-    @POST("/capital_transfer")
+    @POST("capital_transfer")
     fun capitalTransfer4Contract(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -518,13 +518,13 @@ interface MainApiService {
     /**
      *  首页总接口
      */
-    @POST("/finance/v5/total_account_balance")
+    @POST("finance/v5/total_account_balance")
     fun getTotalAsset(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 根据币种查询手续费和提现地址
      */
-    @POST("/cost/Getcost")
+    @POST("cost/Getcost")
     fun getCost(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -537,13 +537,13 @@ interface MainApiService {
     /**
      * 获取币对etf净值
      */
-    @POST("/etfAct/netValue")
+    @POST("etfAct/netValue")
     fun getETFValue(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * ETF免责信息url和域名
      */
-    @POST("/etfAct/faqInfo")
+    @POST("etfAct/faqInfo")
     fun getETFInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
@@ -778,14 +778,14 @@ interface MainApiService {
     /**
      * 获取币对etf净值
      */
-    @POST("/etfAct/positionRecordList")
+    @POST("etfAct/positionRecordList")
     fun getETFPositionRecordList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
      * 申请邀请名额
      */
-    @POST("/user/apply_invite_quota")
+    @POST("user/apply_invite_quota")
     fun applyInviteQuota(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 

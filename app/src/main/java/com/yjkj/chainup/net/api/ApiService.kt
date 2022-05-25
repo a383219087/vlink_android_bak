@@ -423,7 +423,7 @@ interface ApiService {
     /**
      * 获取接口是否通
      */
-    @GET("/health_check")
+    @GET("health_check")
     fun getHealth(@QueryMap map: Map<String, String>): Observable<HttpResult<Any>>
 
     /**
