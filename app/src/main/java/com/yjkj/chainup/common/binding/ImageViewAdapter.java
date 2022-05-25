@@ -5,6 +5,8 @@ import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.yjkj.chainup.util.BitmapUtils;
+
 
 public class ImageViewAdapter {
 
@@ -24,5 +26,15 @@ public class ImageViewAdapter {
     public static void setSrc(ImageView view, int Res) {
         view.setImageResource(Res);
     }
+
+    /**
+     * 生成二维码
+     */
+    @BindingAdapter("content")
+    public static void generateBitmap(ImageView view, String content) {
+        view.setImageBitmap(BitmapUtils.generateBitmap(content,400,400));
+    }
+
+
 
 }

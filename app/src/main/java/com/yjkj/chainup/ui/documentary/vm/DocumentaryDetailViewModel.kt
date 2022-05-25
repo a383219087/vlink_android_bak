@@ -12,10 +12,10 @@ import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.documentary.ClosePositionDialog
 import com.yjkj.chainup.ui.documentary.ShareDialog
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -42,6 +42,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
         ShareDialog().apply {
             val bundle = Bundle()
             bundle.putSerializable("bean", bean.value)
+            bundle.putInt("status", status.value!!)
             this.arguments = bundle
 
         }. showDialog(activity.value?.supportFragmentManager,"")

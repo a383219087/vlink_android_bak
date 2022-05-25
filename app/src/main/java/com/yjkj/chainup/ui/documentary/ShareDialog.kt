@@ -14,6 +14,9 @@ class ShareDialog : BaseDialogMVFragment<ShareViewModel?, DialogDocumentShareBin
     override fun setContentView() = R.layout.dialog_document_share
     override fun initView() {
         mViewModel?.bean?.value= arguments?.getSerializable("bean") as CpContractPositionBean?
+        mViewModel?.status?.value= arguments?.getInt("status")
+        mViewModel?.getData()
+        mViewModel?.userDefaultInviteCode()
 
     }
 

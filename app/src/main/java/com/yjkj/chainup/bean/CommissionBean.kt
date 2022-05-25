@@ -33,6 +33,17 @@ data class CommissionBean(
 
 ):Serializable
 
+data class InviteCodeBean(
+    val ctime: Long,
+    val id: Int,
+    val inviteCode: String,
+    val inviteLevel: Int,
+    val isDefault: Int,
+    val mtime: Long,
+    val rate: Int,
+    val remark: String,
+    val uid: Int
+)
 data class CurrentStatusBean(
     val uid: Long,
     val id: Int,

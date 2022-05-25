@@ -9,7 +9,13 @@
         <!--页面切换时间间隔-->
         <attr name="interval" format="integer" />
     </declare-styleable>
-
+    <declare-styleable name="Custom_Round_Image_View">
+        <attr name="my_radius" format="dimension"/>
+        <attr name="left_top_radius" format="dimension"/>
+        <attr name="right_top_radius" format="dimension"/>
+        <attr name="right_bottom_radius" format="dimension"/>
+        <attr name="left_bottom_radius" format="dimension"/>
+    </declare-styleable>
     <!--登录注册相关的View-->
     <declare-styleable name="ComItemView">
         <attr name="leftIcon" format="reference" />

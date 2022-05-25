@@ -109,6 +109,8 @@
 
     <color name="white">@android:color/white</color>
 
+    <color name="black_1a">#1a000000</color>
+
     <!--App内的主要字体颜色-->
     <color name="main_font_color">#CBD3E4</color>
 

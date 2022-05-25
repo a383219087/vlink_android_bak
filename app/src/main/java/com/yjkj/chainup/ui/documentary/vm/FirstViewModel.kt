@@ -66,6 +66,7 @@ class FirstViewModel : BaseViewModel() {
                 .withInt("status", item.status.value!!)
                 .navigation()
 
+
         }
     }
 

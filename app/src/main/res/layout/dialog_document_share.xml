@@ -13,225 +13,223 @@
 
         <import type="com.yjkj.chainup.R" />
 
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
+
     </data>
 
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="@mipmap/bg_document_share">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="27dp"
-                android:layout_marginLeft="20dp"
-                android:text="U本位合约"
-                android:gravity="center"
-                android:textSize="19sp"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_100"
-                android:layout_gravity="center"
-                android:layout_marginTop="47dp"
-                android:src="@drawable/personal_headportrait"/>
-
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="叫我静静"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:textColor="@color/white" />
+                android:layout_height="wrap_content">
 
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="收益率"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textColor="#80ffffff" />
-
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="-10%"
-                android:gravity="center"
-                android:textSize="32sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-
-
-
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                app:ResColor="@{R.color.white}"
-                app:radius="@{15}"
-                android:gravity="center"
-                android:orientation="vertical">
-
-
+                <com.yjkj.chainup.wedegit.CustomRoundAngleImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/bg_document_share"
+                    app:left_top_radius="@dimen/dp_15"
+                    app:right_top_radius="@dimen/dp_15" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp"
-                        android:text="BCH永续/USDT" />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="27dp"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/red"
-                        android:textSize="15sp"
-                        android:text="空-20X" />
+                        android:text="@{_all.bean.contractName}"
+                        android:textColor="@color/white"
+                        android:textSize="19sp" />
 
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"/>
-
-
-
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="@dimen/dp_100"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="47dp"
+                        android:src="@drawable/personal_headportrait" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="开仓均价"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_color_99" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="平仓价"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_color_99" />
+                        android:text="叫我静静"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:layout_marginTop="25dp"
+                        android:gravity="center"
                         android:text="收益率"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_color_99" />
+                        android:textColor="#80ffffff"
+                        android:textSize="14sp" />
 
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="301.81"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_color" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="301.81"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_color" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="+4.23%"
-                        android:textSize="12sp"
-                        android:textColor="@color/green" />
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.returnRate+``,2)+`%`}"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
 
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        app:ResColor="@{R.color.black_1a}"
+                        app:radius="@{7}"
+                        tool:background="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="开仓均价"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="平仓价"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="收益率"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.avgPrice+``,2)}"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.closePrice+``,2)}"
+                                android:textColor="@color/white"
+                                android:textSize="11sp"
+                                android:visibility="@{_all.status==0?View.VISIBLE:View.GONE}" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@{(_all.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(_all.bean.keepRate+``,2)+`%`}"
+                                android:textColor="@{_all.bean.returnRate>0?@color/green:@color/red}"
+                                android:textSize="11sp"
+                                android:visibility="@{_all.status==0?View.VISIBLE:View.GONE}" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                app:ResColor="@{R.color.white}"
+                app:radius="@{15}">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="156dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="@dimen/dp_20"
                     android:gravity="left"
-                    android:layout_marginTop="10dp"
-                    android:text="04/12 15：13：38->04/12 15：17：14"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99" />
+                    android:text="@{`注册邀请码:`+_all.inviteCodeBean.inviteCode}"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
 
+                <ImageView
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="@dimen/dp_20"
+                    app:content="@{_all.inviteCodeBean.inviteCode}" />
 
 
+            </FrameLayout>
 
-
-
-            </LinearLayout>
 
         </LinearLayout>
 
         <ImageView
             android:layout_width="@dimen/dp_23"
             android:layout_height="23dp"
-            android:layout_marginRight="@dimen/dp_13"
-            android:layout_marginTop="@dimen/dp_23"
             android:layout_gravity="right"
-            android:src="@mipmap/ic_document_share_close"
-            android:onClick="@{()->_all.finish()}"/>
-
+            android:layout_marginTop="@dimen/dp_23"
+            android:layout_marginRight="@dimen/dp_13"
+            android:onClick="@{()->_all.finish()}"
+            android:src="@mipmap/ic_document_share_close" />
 
 
     </FrameLayout>
-
-
-
 
 
 </layout>

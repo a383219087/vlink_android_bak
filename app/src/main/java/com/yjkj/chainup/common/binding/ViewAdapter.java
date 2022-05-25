@@ -97,13 +97,13 @@ public class ViewAdapter {
     @BindingAdapter(value = {"radius", "ResColor", "ResColor1", "StrokeWidth", "StrokeResColor",
             "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius", "angle",
             "ResRadius", "ResTopLeftRadius", "ResTopRightRadius", "ResBottomLeftRadius", "ResBottomRightRadius"
-            , "StrColor", "StrColor1"},
+            , "StrColor", "StrColor1", "elevation"},
             requireAll = false)
     public static void setBackground(final View view, int radius, int ResColor, int ResColor1, int StrokeWidth,
                                      int StrokeResColor, int topLeftRadius, int topRightRadius,
                                      int bottomLeftRadius, int bottomRightRadius, int angle, int ResRadius,
                                      int ResTopLeftRadius, int ResTopRightRadius, int ResBottomLeftRadius,
-                                     int ResBottomRightRadius, String StrColor, String StrColor1) {
+                                     int ResBottomRightRadius, String StrColor, String StrColor1, int elevation) {
         int start = view.getResources().getColor(R.color.white, null);
         if (ResColor != 0) {
             start = view.getResources().getColor(ResColor, null);
@@ -170,9 +170,13 @@ public class ViewAdapter {
         }
 
         drawable.setColors(colors);
+        if (elevation != 0) {
 
+            view.setElevation( dip2px(view.getContext(), elevation));
+        }
         view.setBackground(drawable);
     }
+
     /**
      * dip转换到px
      *
