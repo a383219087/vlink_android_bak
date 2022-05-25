@@ -13,13 +13,12 @@ import com.google.gson.JsonObject
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
-import com.yjkj.chainup.bean.UserInfoData
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
@@ -232,7 +231,8 @@ class SafetySettingActivity : NewBaseActivity() {
 
             val isFirstSet = UserDataService.getInstance().isCapitalPwordSet == 0
             if (PublicInfoDataService.getInstance().getSafeWithdraw(null)?.optString("is_open", "") == "1" && !isFirstSet) {
-                NewDialogUtils.showNormalDialog(this@SafetySettingActivity, String.format(LanguageUtil.getString(this, "login_tip_safeSettingChange"),
+                NewDialogUtils.showNormalDialog(this@SafetySettingActivity, String.format(
+                    LanguageUtil.getString(this, "login_tip_safeSettingChange"),
                         PublicInfoDataService.getInstance().getSafeWithdraw(PublicInfoDataService.getInstance().getData(null))?.optString("hour")), object : NewDialogUtils.DialogBottomListener {
                     override fun sendConfirm() {
                         if (UserDataService.getInstance().isOpenMobileCheck == 0 && UserDataService.getInstance().googleStatus == 0) {

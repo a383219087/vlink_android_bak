@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.item_select_coin_header.view.*
 
 /**

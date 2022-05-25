@@ -2,19 +2,16 @@ package com.yjkj.chainup.new_version.activity.asset
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.KeyEvent
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.bean.address.AddressBean
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity

@@ -11,7 +11,7 @@ import com.contract.sdk.data.ContractTicker
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil

@@ -7,9 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.fengniao.news.util.DateUtil;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.bean.Message;
 import com.yjkj.chainup.bean.dev.MessageBean;
-import com.yjkj.chainup.manager.LanguageUtil;
 
 import java.util.List;
 

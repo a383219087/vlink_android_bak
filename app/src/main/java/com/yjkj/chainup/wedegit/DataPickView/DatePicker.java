@@ -4,8 +4,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.manager.LanguageUtil;
-import com.yjkj.chainup.util.StringUtils;
+import com.yjkj.chainup.util.LanguageUtil;
 import com.yjkj.chainup.util.Utils;
 import com.yjkj.chainup.wedegit.DataPickView.bean.DateType;
 import com.yjkj.chainup.wedegit.DataPickView.genview.WheelGeneralAdapter;

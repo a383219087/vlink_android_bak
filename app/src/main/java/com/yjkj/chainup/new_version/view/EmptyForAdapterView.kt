@@ -3,11 +3,10 @@ package com.yjkj.chainup.new_version.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.item_new_empty.view.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColor

@@ -2,10 +2,8 @@ package com.yjkj.chainup.new_version.activity.grid.adapter
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
@@ -17,7 +15,7 @@ import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.grid.GridStopStrategyListener
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils

@@ -1,22 +1,14 @@
 package com.yjkj.chainup.new_version.adapter.trade
 
-import android.text.TextUtils
-import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.new_version.view.CustomTagView
 import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.DecimalUtil
-import com.yjkj.chainup.util.setGoneV3
-import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.textColor
 import org.json.JSONObject
-import org.w3c.dom.Text
 
 /**
  * @Author: Bertking

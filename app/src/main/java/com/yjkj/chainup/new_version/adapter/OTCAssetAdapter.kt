@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.adapter
 
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Filter
 import android.widget.Filterable
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -9,7 +8,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
@@ -141,9 +140,9 @@ open class OTCAssetAdapter(var datas: ArrayList<JSONObject>) :
         var secondNormal = ""
         var secondmlock = ""
         var secondresult = ""
-        helper?.setText(R.id.tv_coin_title,LanguageUtil.getString(context,"assets_text_available"))
-        helper?.setText(R.id.tv_canUse_title,LanguageUtil.getString(context,"assets_text_freeze"))
-        helper?.setText(R.id.tv_equivalent,LanguageUtil.getString(context,"assets_text_equivalence"))
+        helper?.setText(R.id.tv_coin_title, LanguageUtil.getString(context,"assets_text_available"))
+        helper?.setText(R.id.tv_canUse_title, LanguageUtil.getString(context,"assets_text_freeze"))
+        helper?.setText(R.id.tv_equivalent, LanguageUtil.getString(context,"assets_text_equivalence"))
         when (assetState) {
             ParamConstant.FABI_INDEX -> {
                 helper?.setText(R.id.tv_coin_name, NCoinManager.getShowMarket(item?.optString("coinSymbol")))

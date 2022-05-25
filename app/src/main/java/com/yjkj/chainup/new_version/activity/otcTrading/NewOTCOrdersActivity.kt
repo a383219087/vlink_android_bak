@@ -1,7 +1,5 @@
 package com.yjkj.chainup.new_version.activity.otcTrading
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +10,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.OTCOrderBean
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver

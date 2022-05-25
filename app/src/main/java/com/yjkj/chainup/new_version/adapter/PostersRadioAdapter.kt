@@ -7,10 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.GlideUtils
-import org.json.JSONObject
 
 /**
  * @Author lianshangljl

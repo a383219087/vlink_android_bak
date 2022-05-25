@@ -16,7 +16,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.CountryInfo
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.adapter.AreaAdapter
 import com.yjkj.chainup.wedegit.SectionDecoration
 import kotlinx.android.synthetic.main.activity_select_area.*

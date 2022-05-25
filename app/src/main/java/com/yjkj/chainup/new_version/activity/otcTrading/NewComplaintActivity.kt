@@ -14,10 +14,9 @@ import com.google.gson.JsonObject
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
-import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver

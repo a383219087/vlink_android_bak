@@ -3,10 +3,9 @@ package com.yjkj.chainup.new_version.adapter
 
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.coorchice.library.SuperTextView
-import com.fengniao.news.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.view.PositionITemView
 import com.yjkj.chainup.util.*
 import org.jetbrains.anko.textColor

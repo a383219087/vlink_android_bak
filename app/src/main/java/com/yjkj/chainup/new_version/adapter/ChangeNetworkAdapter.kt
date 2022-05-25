@@ -6,11 +6,10 @@ import android.widget.RadioButton
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
-import com.yjkj.chainup.util.setGoneV3
 import org.json.JSONObject
 import java.util.ArrayList
 

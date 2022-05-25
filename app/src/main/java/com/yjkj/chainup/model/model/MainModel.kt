@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.api.MainApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager

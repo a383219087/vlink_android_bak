@@ -13,7 +13,7 @@ import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.manager.DataManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
@@ -221,7 +221,8 @@ class NCreateRedPackageActivity : NBaseActivity() {
                      */
                     val maxAmount = BigDecimalUtils.mul(selectedSymbol?.singleAmountMax.toString(), et_mount?.textContent).toPlainString()
                     if (BigDecimalUtils.compareTo(et_money?.text.toString(), maxAmount) > 0) {
-                        showSnackBar(LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notExceed").format(BigDecimal(maxAmount.toString()).toPlainString() + coinName),
+                        showSnackBar(
+                            LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notExceed").format(BigDecimal(maxAmount.toString()).toPlainString() + coinName),
                                 isSuc = false)
                         return
                     }
@@ -231,12 +232,14 @@ class NCreateRedPackageActivity : NBaseActivity() {
                      */
                     val perRedPackageAmount = BigDecimalUtils.div(et_money?.text.toString(), et_mount?.text.toString()).toPlainString()
                     if (BigDecimalUtils.compareTo(perRedPackageAmount, selectedSymbol?.singleAmountMin.toString()) < 0) {
-                        showSnackBar(LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notLess").format(BigDecimal(selectedSymbol?.singleAmountMin?.toString()).toPlainString() + coinName)
+                        showSnackBar(
+                            LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notLess").format(BigDecimal(selectedSymbol?.singleAmountMin?.toString()).toPlainString() + coinName)
                                 , isSuc = false)
                         return
                     }
                     if (BigDecimalUtils.compareTo(perRedPackageAmount, selectedSymbol?.singleAmountMax.toString()) > 0) {
-                        showSnackBar(LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_singleNotExceed").format(BigDecimal(selectedSymbol?.singleAmountMax?.toString()).toPlainString() + coinName)
+                        showSnackBar(
+                            LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_singleNotExceed").format(BigDecimal(selectedSymbol?.singleAmountMax?.toString()).toPlainString() + coinName)
                                 , isSuc = false)
                         return
                     }
@@ -252,12 +255,14 @@ class NCreateRedPackageActivity : NBaseActivity() {
                      */
                     if (BigDecimalUtils.compareTo(et_money?.text.toString(), selectedSymbol?.singleAmountMin.toString()) < 0) {
 
-                        showSnackBar(LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notLess").format(BigDecimal(selectedSymbol?.singleAmountMin?.toString()).toPlainString() + coinName)
+                        showSnackBar(
+                            LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_notLess").format(BigDecimal(selectedSymbol?.singleAmountMin?.toString()).toPlainString() + coinName)
                                 , isSuc = false)
                         return
                     }
                     if (BigDecimalUtils.compareTo(et_money?.text.toString(), selectedSymbol?.singleAmountMax.toString()) > 0) {
-                        showSnackBar(LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_singleNotExceed").format(BigDecimal(selectedSymbol?.singleAmountMax?.toString()).toPlainString() + coinName)
+                        showSnackBar(
+                            LanguageUtil.getString(this@NCreateRedPackageActivity,"redpacket_send_singleNotExceed").format(BigDecimal(selectedSymbol?.singleAmountMax?.toString()).toPlainString() + coinName)
                                 , isSuc = false)
                         return
                     }

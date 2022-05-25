@@ -3,10 +3,9 @@ package com.yjkj.chainup.new_version.adapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.view.PositionITemView
 import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.DateUtils
 import com.yjkj.chainup.util.TimeUtil
 import org.json.JSONObject
 

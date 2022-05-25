@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.google.gson.JsonObject
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.HelpCenterBean
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
@@ -15,7 +15,6 @@ import com.yjkj.chainup.new_version.bean.FirstNode
 import com.yjkj.chainup.new_version.bean.SecondNode
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.StringUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_notice.*

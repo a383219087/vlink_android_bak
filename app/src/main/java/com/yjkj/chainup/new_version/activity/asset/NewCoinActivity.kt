@@ -20,7 +20,7 @@ import com.yjkj.chainup.bean.coin.CoinBean
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.manager.DataManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.activity.SelectCoinAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.iterator

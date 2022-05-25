@@ -1,6 +1,5 @@
 package com.yjkj.chainup.new_version.adapter
 
-import android.provider.Telephony
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.OTCPublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
@@ -35,8 +34,8 @@ class AdvertisingManagementAdapter(data: ArrayList<JSONObject>) : BaseQuickAdapt
         helper?.setText(R.id.tv_advertising_coin, NCoinManager.getShowMarket(item?.optString("coin")
                 ?: ""))
 
-        helper?.setText(R.id.tv_pricing,LanguageUtil.getString(context,"otc_setPrice_method"))
-        helper?.setText(R.id.cub_confirm,LanguageUtil.getString(context,"otc_text_adLook"))
+        helper?.setText(R.id.tv_pricing, LanguageUtil.getString(context,"otc_setPrice_method"))
+        helper?.setText(R.id.cub_confirm, LanguageUtil.getString(context,"otc_text_adLook"))
 
 
 

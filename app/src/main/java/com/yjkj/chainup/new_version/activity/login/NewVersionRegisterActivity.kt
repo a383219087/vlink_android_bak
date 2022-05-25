@@ -28,7 +28,7 @@ import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.ActivityManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.SelectAreaActivity
 import com.yjkj.chainup.new_version.dialog.DialogUtil

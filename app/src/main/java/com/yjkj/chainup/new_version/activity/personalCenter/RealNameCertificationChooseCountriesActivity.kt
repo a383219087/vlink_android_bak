@@ -7,7 +7,7 @@ import android.view.View
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.activity.TitleShowListener
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
@@ -144,7 +144,8 @@ class RealNameCertificationChooseCountriesActivity : NewBaseActivity() {
             }
 
             override fun onclickImage() {
-                certificateDialog = NewDialogUtils.showBottomListDialog(this@RealNameCertificationChooseCountriesActivity, arrayListOf(LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_passport"), LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_drivingLicense"), LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_otherLegal")), certificateItem, object : NewDialogUtils.DialogOnclickListener {
+                certificateDialog = NewDialogUtils.showBottomListDialog(this@RealNameCertificationChooseCountriesActivity, arrayListOf(
+                    LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_passport"), LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_drivingLicense"), LanguageUtil.getString(this@RealNameCertificationChooseCountriesActivity,"kyc_text_otherLegal")), certificateItem, object : NewDialogUtils.DialogOnclickListener {
                     override fun clickItem(data: ArrayList<String>, item: Int) {
                         certificateItem = item
                         when (item) {

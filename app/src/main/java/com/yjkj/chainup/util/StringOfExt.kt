@@ -30,8 +30,7 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.constant.WebTypeEnum
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.LanguageUtil.getString
+import com.yjkj.chainup.util.LanguageUtil.getString
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.fragment.MarketSLTrendFragment

@@ -22,7 +22,7 @@ import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.bean.TransactionData
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.NDisposableObserver

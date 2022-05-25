@@ -17,7 +17,7 @@ import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
@@ -270,7 +270,8 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
     var payCoin = "CNY"
 
     var tradeType = ""
-    var otcByStatusContent = arrayListOf(LanguageUtil.getString(context, "common_action_sendall"), LanguageUtil.getString(context, "filter_otc_waitPay"), LanguageUtil.getString(context, "filter_otc_didPay"), LanguageUtil.getString(context, "filter_otc_complete"), LanguageUtil.getString(context, "filter_otc_cancel"),
+    var otcByStatusContent = arrayListOf(
+        LanguageUtil.getString(context, "common_action_sendall"), LanguageUtil.getString(context, "filter_otc_waitPay"), LanguageUtil.getString(context, "filter_otc_didPay"), LanguageUtil.getString(context, "filter_otc_complete"), LanguageUtil.getString(context, "filter_otc_cancel"),
             LanguageUtil.getString(context, "otc_text_orderAppeal"), LanguageUtil.getString(context, "filter_otc_appealDone"), LanguageUtil.getString(context, "filter_otc_appealCancel"))
     var otcByStatusNum = arrayListOf("", "1", "2", "3", "4", "5", "8", "9")
     var otcByStatus = ""

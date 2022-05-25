@@ -7,10 +7,9 @@ import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
 import org.json.JSONObject
 import java.util.ArrayList

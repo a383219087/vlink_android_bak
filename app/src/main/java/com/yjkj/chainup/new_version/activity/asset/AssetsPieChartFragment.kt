@@ -22,7 +22,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.timmy.tdialog.base.BaseDialogFragment
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil

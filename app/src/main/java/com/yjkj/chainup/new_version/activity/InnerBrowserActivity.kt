@@ -12,7 +12,7 @@ import android.view.View
 import android.webkit.*
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.activity_inner_browser.*
 
 class InnerBrowserActivity : NBaseActivity() {

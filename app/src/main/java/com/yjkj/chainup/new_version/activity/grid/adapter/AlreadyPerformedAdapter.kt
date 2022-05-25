@@ -1,6 +1,5 @@
 package com.yjkj.chainup.new_version.activity.grid.adapter
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -8,11 +7,9 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.new_version.adapter.NBaseAdapter
 import com.yjkj.chainup.util.*
 import org.json.JSONObject
 import java.util.ArrayList

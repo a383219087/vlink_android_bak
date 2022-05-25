@@ -15,7 +15,7 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.ImageTools
 import com.yjkj.chainup.util.ToastUtils

@@ -13,7 +13,7 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.TextViewAddEditTextView
@@ -157,9 +157,11 @@ class IdentityAuthenticationActivity : NBaseActivity() {
         addDisposable(getMainModel().getIdentityAuthInfo(object : NDisposableObserver(this) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var data = jsonObject.optJSONObject("data") ?: return
-                tet_name_authentication?.setTitle(LanguageUtil.getString(this@IdentityAuthenticationActivity,"common_text_realnameVerifyTitle").format(data.optString("userName", "")
+                tet_name_authentication?.setTitle(
+                    LanguageUtil.getString(this@IdentityAuthenticationActivity,"common_text_realnameVerifyTitle").format(data.optString("userName", "")
                         ?: ""))
-                tet_id_number_authentication?.setTitle(LanguageUtil.getString(this@IdentityAuthenticationActivity,"common_text_realidVerifyTitle").format(data?.optString("idNumber", "")
+                tet_id_number_authentication?.setTitle(
+                    LanguageUtil.getString(this@IdentityAuthenticationActivity,"common_text_realidVerifyTitle").format(data?.optString("idNumber", "")
                         ?: ""))
 
             }

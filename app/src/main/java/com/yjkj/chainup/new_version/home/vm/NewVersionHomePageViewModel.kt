@@ -9,7 +9,7 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.util.ToastUtils

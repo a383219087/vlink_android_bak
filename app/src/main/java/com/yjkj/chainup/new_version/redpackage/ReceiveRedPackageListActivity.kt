@@ -12,7 +12,7 @@ import android.view.MenuItem
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
@@ -22,7 +22,6 @@ import com.yjkj.chainup.new_version.redpackage.bean.ReceiveRedPackageBean
 import com.yjkj.chainup.new_version.redpackage.bean.ReceiveRedPackageInfoBean
 import com.yjkj.chainup.new_version.redpackage.bean.ReceiveRedPackageListBean
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
-import com.yjkj.chainup.treaty.bean.ContractSceneList
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.android.schedulers.AndroidSchedulers

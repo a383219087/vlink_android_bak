@@ -16,7 +16,7 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
@@ -189,7 +189,8 @@ class RealNameCertificaionDownloadImgActivity : NewBaseActivity() {
     var imageMenuDialog: TDialog? = null
     fun showBottomMenu(index: Int) {
         curIndex = index
-        imageMenuDialog = NewDialogUtils.showBottomListDialog(this@RealNameCertificaionDownloadImgActivity, arrayListOf(LanguageUtil.getString(this, "noun_camera_takeAlbum"), LanguageUtil.getString(this, "noun_camera_takephoto")), 0
+        imageMenuDialog = NewDialogUtils.showBottomListDialog(this@RealNameCertificaionDownloadImgActivity, arrayListOf(
+            LanguageUtil.getString(this, "noun_camera_takeAlbum"), LanguageUtil.getString(this, "noun_camera_takephoto")), 0
                 , object : NewDialogUtils.DialogOnclickListener {
             override fun clickItem(data: ArrayList<String>, item: Int) {
                 when (item) {

@@ -3,7 +3,7 @@ package com.yjkj.chainup.new_version.adapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.fengniao.news.util.DateUtil
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.util.*
 import org.json.JSONObject
@@ -98,7 +98,7 @@ class NHistoryEntrustAdapter(datas: ArrayList<JSONObject>) : NBaseAdapter(datas,
                  * 成交总额
                  */
 
-                setText(R.id.tv_deal_amount,LanguageUtil.getString(context,"noun_order_GMV") + "(" +NCoinManager.getShowMarket(countCoin) + ")")
+                setText(R.id.tv_deal_amount, LanguageUtil.getString(context,"noun_order_GMV") + "(" +NCoinManager.getShowMarket(countCoin) + ")")
                 setText(R.id.tv_amount, item.optString("deal_money", "").getTradeCoinPriceNumber8())
 
 

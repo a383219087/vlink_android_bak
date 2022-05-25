@@ -1,20 +1,14 @@
 package com.yjkj.chainup.new_version.adapter
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
-import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
-import com.yjkj.chainup.app.ChainUpApp
-import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.new_version.activity.like.MarketEditAdapter
-import com.yjkj.chainup.new_version.home.callback.EmployeeDiffCallback
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.new_version.view.CustomTagView
 import com.yjkj.chainup.util.BigDecimalUtils
@@ -22,10 +16,8 @@ import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.setGoneV3
 import com.yjkj.chainup.util.*
-import com.yjkj.chainup.wedegit.DisplayUtils
 import org.json.JSONObject
 import java.util.ArrayList
-import java.util.*
 
 /**
  * @Author: Bertking

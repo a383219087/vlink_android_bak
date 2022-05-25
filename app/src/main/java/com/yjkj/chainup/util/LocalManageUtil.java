@@ -8,8 +8,6 @@ import android.os.LocaleList;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.yjkj.chainup.manager.LanguageUtil;
-
 import java.util.Locale;
 
 /**

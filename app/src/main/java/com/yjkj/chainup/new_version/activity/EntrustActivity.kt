@@ -3,7 +3,6 @@ package com.yjkj.chainup.new_version.activity
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,17 +14,12 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.HistoryScreeningControl
-import com.yjkj.chainup.util.LogUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.ViewUtils
 import kotlinx.android.synthetic.main.activity_entrust.*
-import kotlinx.android.synthetic.main.trade_amount_view_new.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @Author lianshangljl

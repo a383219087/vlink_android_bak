@@ -3,14 +3,13 @@ package com.yjkj.chainup.new_version.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
@@ -19,14 +18,11 @@ import com.yjkj.chainup.new_version.bean.CashFlowSceneBean
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.new_version.view.ScreeningPopupWindowView
-import com.yjkj.chainup.util.LogUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_cash_flow4.*
-import kotlinx.android.synthetic.main.activity_cash_flow4.swipe_refresh
-import kotlinx.android.synthetic.main.fragment_new_otc_trading_detail.*
-import org.json.JSONObject
 
 
 /**

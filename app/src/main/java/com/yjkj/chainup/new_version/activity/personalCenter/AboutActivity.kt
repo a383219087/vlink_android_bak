@@ -9,7 +9,7 @@ import com.yjkj.chainup.bean.AboutUSBean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.retrofit.NetObserver

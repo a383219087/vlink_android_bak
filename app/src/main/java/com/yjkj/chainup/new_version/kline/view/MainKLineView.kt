@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.kline.base.IChartViewDraw
 import com.yjkj.chainup.new_version.kline.base.IValueFormatter

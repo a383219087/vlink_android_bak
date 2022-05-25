@@ -22,7 +22,7 @@ import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.*
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.DisplayUtil

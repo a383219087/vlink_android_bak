@@ -1,19 +1,13 @@
 package com.yjkj.chainup.new_version.home.guide;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.binioter.guideview.Component;
 import com.yjkj.chainup.R;
-import com.yjkj.chainup.app.ChainUpApp;
-import com.yjkj.chainup.manager.LanguageUtil;
 import com.yjkj.chainup.new_version.home.GuideListener;
-import com.yjkj.chainup.util.DisplayUtil;
-import com.yjkj.chainup.util.LogUtil;
 
 /**
  * Created by binIoter on 16/6/17.

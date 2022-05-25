@@ -1,7 +1,7 @@
 package com.yjkj.chainup.bean;
 
 import com.yjkj.chainup.db.service.PublicInfoDataService;
-import com.yjkj.chainup.manager.LanguageUtil;
+import com.yjkj.chainup.util.LanguageUtil;
 
 import org.json.JSONObject;
 

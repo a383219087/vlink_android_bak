@@ -18,11 +18,10 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.base.NBaseDialogFragment;
-import com.yjkj.chainup.contract.fragment.SlCoinSearchItemFragment;
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil;
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
-import com.yjkj.chainup.manager.LanguageUtil;
+import com.yjkj.chainup.util.LanguageUtil;
 import com.yjkj.chainup.new_version.adapter.PageAdapter;
 import com.yjkj.chainup.util.JsonUtils;
 import com.yjkj.chainup.util.LogUtil;
@@ -37,7 +36,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 合约币种搜索对话框

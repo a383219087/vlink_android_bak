@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.dev.MessageBean
-import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity

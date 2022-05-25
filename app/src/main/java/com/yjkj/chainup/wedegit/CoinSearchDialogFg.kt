@@ -4,14 +4,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.flyco.tablayout.SlidingTabLayout
 import com.yjkj.chainup.R
-import com.yjkj.chainup.base.NBaseDialogFragment
 import com.yjkj.chainup.base.NBaseLeftDialogFragment
 import com.yjkj.chainup.databinding.DialogfgCoinSearchBinding
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -20,7 +18,7 @@ import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.LanguageUtil.getString
+import com.yjkj.chainup.util.LanguageUtil.getString
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.adapter.PageAdapter
 import com.yjkj.chainup.new_version.fragment.NSearchLikeFragment

@@ -2,12 +2,7 @@ package com.yjkj.chainup.new_version.view.depth
 
 import androidx.lifecycle.Observer
 import android.content.Context
-import android.graphics.Typeface
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -20,21 +15,17 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.new_version.activity.NewMainActivity
-import com.yjkj.chainup.new_version.activity.leverage.NLeverFragment
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.trade_amount_view_new.view.*
 import kotlinx.android.synthetic.main.trade_amount_view_new_l.view.*
 import kotlinx.android.synthetic.main.trade_amount_view_new_l.view.tv_order_type
 import org.jetbrains.anko.view

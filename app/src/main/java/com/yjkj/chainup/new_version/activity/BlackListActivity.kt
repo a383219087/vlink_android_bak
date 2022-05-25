@@ -3,14 +3,12 @@ package com.yjkj.chainup.new_version.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.util.DisplayUtil
 import com.yjkj.chainup.new_version.adapter.OTCBlackListAdapter
 import com.yjkj.chainup.new_version.bean.BlackListData
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView

@@ -1,17 +1,13 @@
-package com.yjkj.chainup.manager
+package com.yjkj.chainup.util
 
 import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
-import android.util.Log
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.bean.NetworkLanguage
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.NetworkUtils
-import org.json.JSONObject
 import java.util.*
 
 /**

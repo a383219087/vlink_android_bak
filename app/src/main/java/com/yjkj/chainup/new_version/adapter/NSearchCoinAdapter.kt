@@ -1,16 +1,11 @@
 package com.yjkj.chainup.new_version.adapter
 
 import android.text.TextUtils
-import android.view.View
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.databinding.ItemSearchCoinBinding
-import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.new_version.view.CustomTagView

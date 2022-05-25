@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import kotlinx.android.synthetic.main.activity_grid_execution_details.*

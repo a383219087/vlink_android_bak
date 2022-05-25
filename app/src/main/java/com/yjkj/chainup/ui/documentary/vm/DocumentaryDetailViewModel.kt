@@ -12,7 +12,7 @@ import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.documentary.ClosePositionDialog
 import com.yjkj.chainup.ui.documentary.ShareDialog

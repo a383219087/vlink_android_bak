@@ -24,7 +24,7 @@ import com.yjkj.chainup.contract.fragment.SlCoinSearchItemFragment;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
-import com.yjkj.chainup.manager.LanguageUtil;
+import com.yjkj.chainup.util.LanguageUtil;
 import com.yjkj.chainup.new_version.adapter.PageAdapter;
 import com.yjkj.chainup.util.LogUtil;
 import com.yjkj.chainup.util.SystemUtils;

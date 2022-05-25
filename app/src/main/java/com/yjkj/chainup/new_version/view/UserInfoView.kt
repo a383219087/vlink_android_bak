@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.GlideUtils
 import kotlinx.android.synthetic.main.item_user_info_view.view.*

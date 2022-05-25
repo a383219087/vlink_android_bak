@@ -20,7 +20,6 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.yjkj.chainup.app.ChainUpApp;
-import com.yjkj.chainup.manager.LanguageUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

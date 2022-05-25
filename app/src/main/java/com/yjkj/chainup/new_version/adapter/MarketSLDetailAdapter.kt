@@ -1,9 +1,5 @@
 package com.yjkj.chainup.new_version.adapter
 
-import android.text.TextUtils
-import android.util.Log
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -12,20 +8,8 @@ import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.ContractTicker
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
-import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
-import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.home.callback.ContractDiffCallback
-import com.yjkj.chainup.new_version.home.callback.EmployeeDiffCallback
-import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
-import com.yjkj.chainup.new_version.view.CustomTagView
 import com.yjkj.chainup.util.*
-import org.jetbrains.anko.textColor
-import org.json.JSONObject
 import java.util.ArrayList
 
 /**

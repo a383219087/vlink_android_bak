@@ -18,7 +18,7 @@ import android.widget.ImageView
 import com.jaeger.library.StatusBarUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.LocalManageUtil
 import com.yjkj.chainup.util.NToastUtil
 import com.yjkj.chainup.util.ToastUtils

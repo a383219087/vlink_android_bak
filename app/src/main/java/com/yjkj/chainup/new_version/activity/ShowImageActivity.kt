@@ -14,7 +14,7 @@ import android.util.Log
 import android.view.View
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.GlideUtils
 import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_show_imagectivity.*

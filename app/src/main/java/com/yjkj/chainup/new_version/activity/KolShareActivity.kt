@@ -14,12 +14,11 @@ import com.common.sdk.utlis.NumberUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.BitmapUtils

@@ -1,16 +1,13 @@
 package com.yjkj.chainup.manager
 
 import android.text.TextUtils
-import android.util.Log
 import android.widget.TextView
-import com.common.sdk.utlis.NumberUtil.getDecimal
 import com.yjkj.chainup.bean.coin.CoinMapBean
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.RateDataService
 import com.yjkj.chainup.util.*
 import org.json.JSONObject
 import java.math.BigDecimal
-import java.text.NumberFormat
 
 /**
  * @Author: Bertking

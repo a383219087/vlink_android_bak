@@ -5,26 +5,18 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import android.view.View
 import androidx.lifecycle.Observer
-import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
-import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.PageAdapter
 import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.ws.WsAgentManager
 import kotlinx.android.synthetic.main.fragment_new_version_market.*
 import org.json.JSONObject
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**

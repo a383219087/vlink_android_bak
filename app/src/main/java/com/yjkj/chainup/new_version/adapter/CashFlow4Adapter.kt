@@ -3,11 +3,9 @@ package com.yjkj.chainup.new_version.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.fund.CashFlowBean
-import com.yjkj.chainup.manager.DataManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.DateUtils

@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.timmy.tdialog.TDialog
-import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.ColorDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.ChainUpManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
@@ -29,7 +27,6 @@ import com.yjkj.chainup.util.visiableOrGone
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_setting.*
-import android.net.Uri
 import com.yjkj.chainup.R
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.util.LocalManageUtil
@@ -38,7 +35,6 @@ import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.util.LogUtil
 import org.json.JSONObject
-import java.io.File
 
 
 /**

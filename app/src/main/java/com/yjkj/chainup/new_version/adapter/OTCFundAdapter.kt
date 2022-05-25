@@ -6,12 +6,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import com.alibaba.fastjson.JSON
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
@@ -123,11 +122,11 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
 
         var bean = NCoinManager.getCoinObj(item?.optString("coinName"))
 
-        helper?.setText(R.id.tv_1st_title,LanguageUtil.getString(context,"assets_text_available"))
-        helper?.setText(R.id.tv_2nd_title,LanguageUtil.getString(context,"assets_text_freeze"))
-        helper?.setText(R.id.tv_3rd_title,LanguageUtil.getString(context,"assets_text_lockup"))
-        helper?.setText(R.id.tv_4th_title,LanguageUtil.getString(context,"assets_text_equivalence"))
-        helper?.setText(R.id.tv_5th_title,LanguageUtil.getString(context,"assets_text_equivalence"))
+        helper?.setText(R.id.tv_1st_title, LanguageUtil.getString(context,"assets_text_available"))
+        helper?.setText(R.id.tv_2nd_title, LanguageUtil.getString(context,"assets_text_freeze"))
+        helper?.setText(R.id.tv_3rd_title, LanguageUtil.getString(context,"assets_text_lockup"))
+        helper?.setText(R.id.tv_4th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
+        helper?.setText(R.id.tv_5th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
 
 
         /**

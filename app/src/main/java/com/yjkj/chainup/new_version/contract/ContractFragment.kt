@@ -3,8 +3,6 @@ package com.yjkj.chainup.new_version.contract
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
 import android.widget.RadioButton
 import com.yjkj.chainup.R
@@ -12,12 +10,10 @@ import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.treaty.bean.ContractBean
 import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.NLanguageUtil
 import com.yjkj.chainup.wedegit.CoinContractDialogFg
 import kotlinx.android.synthetic.main.fragment_contract.*
 import org.jetbrains.anko.textColor

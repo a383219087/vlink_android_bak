@@ -13,7 +13,7 @@ import com.yjkj.chainup.databinding.FragmentCoinMapEtfBinding
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.wedegit.WrapContentViewPager
 import org.json.JSONObject

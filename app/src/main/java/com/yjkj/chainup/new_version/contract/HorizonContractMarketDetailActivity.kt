@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.adapter.HKLineScaleAdapter

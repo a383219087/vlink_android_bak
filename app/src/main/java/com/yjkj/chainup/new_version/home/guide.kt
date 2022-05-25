@@ -2,8 +2,6 @@ package com.yjkj.chainup.new_version.home
 
 import android.app.Activity
 import android.os.Handler
-import android.os.UserManager
-import android.util.Log
 import android.view.View
 import com.binioter.guideview.GuideBuilder
 import com.bumptech.glide.Glide
@@ -12,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.MMKVDb
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.home.guide.SimpleComponent
 import com.yjkj.chainup.new_version.home.guide.ToastAssetComponent
@@ -203,7 +201,8 @@ fun homeToast(context: Activity?, view: View, message: String, isLeft: Boolean) 
             .setHighTargetPadding(padding)
             .setOutsideTouchable(false)
     builder.setOnVisibilityChangedListener(getGuideChangeToast(view))
-    val component = if (isLeft) ToastComponent(LanguageUtil.getString(context, message), message) else ToastAssetComponent(LanguageUtil.getString(context, message), isLeft)
+    val component = if (isLeft) ToastComponent(LanguageUtil.getString(context, message), message) else ToastAssetComponent(
+        LanguageUtil.getString(context, message), isLeft)
     builder.addComponent(component)
     val guide = builder.createGuide()
     if (component is ToastComponent) {

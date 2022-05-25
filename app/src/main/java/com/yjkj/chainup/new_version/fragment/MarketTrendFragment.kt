@@ -11,7 +11,7 @@ import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.adapter.MarketDetailAdapter
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
@@ -21,11 +21,8 @@ import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.getSymbolChannel
 import com.yjkj.chainup.ws.WsAgentManager
-import kotlinx.android.synthetic.main.fragment_likes.*
-import kotlinx.android.synthetic.main.fragment_market_detail.*
 import kotlinx.android.synthetic.main.fragment_market_detail.rv_market_detail
 import kotlinx.android.synthetic.main.fragment_market_detail.swipe_refresh
-import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
 import kotlinx.android.synthetic.main.include_market_sort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.imageResource

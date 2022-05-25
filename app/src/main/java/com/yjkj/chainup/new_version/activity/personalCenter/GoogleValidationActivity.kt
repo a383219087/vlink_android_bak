@@ -8,7 +8,7 @@ import android.util.Log
 import com.google.gson.JsonObject
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
@@ -17,7 +17,6 @@ import com.yjkj.chainup.new_version.view.ComVerifyView
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.SystemUtils
 import com.yjkj.chainup.util.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

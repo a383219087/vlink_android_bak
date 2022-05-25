@@ -6,13 +6,12 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSetView
 import com.yjkj.chainup.util.NToastUtil
-import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_findpwd2verify.*

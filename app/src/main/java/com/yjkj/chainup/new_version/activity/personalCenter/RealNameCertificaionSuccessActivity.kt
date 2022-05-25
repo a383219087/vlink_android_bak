@@ -1,15 +1,11 @@
 package com.yjkj.chainup.new_version.activity.personalCenter
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.new_version.activity.NewBaseActivity
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.activity_real_name_success.*
 
 /**

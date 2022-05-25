@@ -1,8 +1,6 @@
 package com.yjkj.chainup.net.retrofit;
 
 
-import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +12,7 @@ import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.service.UserDataService;
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
-import com.yjkj.chainup.manager.LanguageUtil;
+import com.yjkj.chainup.util.LanguageUtil;
 import com.yjkj.chainup.manager.LoginManager;
 import com.yjkj.chainup.net.api.HttpResult;
 import com.yjkj.chainup.util.NetworkUtils;

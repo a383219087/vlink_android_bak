@@ -10,7 +10,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import org.json.JSONObject
@@ -42,10 +42,10 @@ class HistoryLoan4LeverAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data,
                 setText(R.id.tv_symbol, NCoinManager.getShowMarketName(symbol))
                 setText(R.id.tv_coin, NCoinManager.getShowMarket(optString("coin")))
 
-                setText(R.id.tv_coin_title,LanguageUtil.getString(context,"common_text_coinsymbol"))
-                setText(R.id.tv_amount_title,LanguageUtil.getString(context,"charge_text_volume"))
-                setText(R.id.tv_rate_title,LanguageUtil.getString(context,"leverage_rate"))
-                setText(R.id.tv_interest_title,LanguageUtil.getString(context,"leverage_interest"))
+                setText(R.id.tv_coin_title, LanguageUtil.getString(context,"common_text_coinsymbol"))
+                setText(R.id.tv_amount_title, LanguageUtil.getString(context,"charge_text_volume"))
+                setText(R.id.tv_rate_title, LanguageUtil.getString(context,"leverage_rate"))
+                setText(R.id.tv_interest_title, LanguageUtil.getString(context,"leverage_interest"))
 
                 /**
                  * 日期yyyy-MM-dd HH:mm:ss

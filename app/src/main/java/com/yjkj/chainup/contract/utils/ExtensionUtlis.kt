@@ -3,7 +3,6 @@ package com.yjkj.chainup.contract.utils
 import android.content.Context
 import androidx.fragment.app.Fragment
 import android.text.*
-import android.text.InputFilter.LengthFilter
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -12,11 +11,10 @@ import android.widget.TextView
 import com.contract.sdk.ContractSDKAgent
 import com.contract.sdk.data.Contract
 import com.yjkj.chainup.R
-import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.listener.SLDoListener
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.widget.ContractInputTextWatcher
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 
 
 /**

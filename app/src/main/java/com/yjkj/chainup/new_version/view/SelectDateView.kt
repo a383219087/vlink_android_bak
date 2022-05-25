@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.wedegit.DataPickView.DatePickDialog
 import com.yjkj.chainup.wedegit.DataPickView.bean.DateType

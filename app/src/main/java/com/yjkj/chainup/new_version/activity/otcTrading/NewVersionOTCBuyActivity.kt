@@ -11,7 +11,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.HttpClient
@@ -122,7 +122,7 @@ class NewVersionOTCBuyActivity : NBaseActivity() {
                 R.id.rb_amount_buy -> {
                     rb_amount_buy?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, ColorUtil.getOTCBuyOrSellDrawable())
                     rb_price_buy?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-                    tv_total_money?.text =LanguageUtil.getString(this,"charge_text_volume")  + "(${NCoinManager.getShowMarket(addetailBean?.optString("coin"))})"
+                    tv_total_money?.text = LanguageUtil.getString(this,"charge_text_volume")  + "(${NCoinManager.getShowMarket(addetailBean?.optString("coin"))})"
                     cet_total_money?.hint = LanguageUtil.getString(this,"otc_tip_inputWishVolume")
                     v_line?.setBackgroundResource(R.color.main_blue)
                     cet_total_money?.setText("")

@@ -2,7 +2,6 @@ package com.yjkj.chainup.new_version.activity.leverage
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -17,11 +16,9 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.grid.NGridFragment
-import com.yjkj.chainup.new_version.activity.oldgrid.OldNGridFragment
-import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.util.ColorUtil

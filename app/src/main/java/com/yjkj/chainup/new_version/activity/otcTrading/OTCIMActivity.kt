@@ -15,8 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.retrofit.NetObserver

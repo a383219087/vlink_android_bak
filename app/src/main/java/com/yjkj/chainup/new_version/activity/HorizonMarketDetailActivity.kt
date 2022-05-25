@@ -11,7 +11,6 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -24,13 +23,12 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.databinding.ActivityHorizonMarketDetailBinding
-import com.yjkj.chainup.databinding.ActivityMarketDetail4Binding
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.adapter.HKLineScaleAdapterV2
@@ -52,10 +50,8 @@ import kotlinx.android.synthetic.main.activity_horizon_market_detail.tv_high_pri
 import kotlinx.android.synthetic.main.activity_horizon_market_detail.tv_low_price
 import kotlinx.android.synthetic.main.activity_horizon_market_detail.tv_rose
 import kotlinx.android.synthetic.main.activity_horizon_market_detail.v_kline
-import kotlinx.android.synthetic.main.activity_market_detail4.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.textColor
-import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.uiThread
 import org.json.JSONObject
 import java.math.BigDecimal

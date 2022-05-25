@@ -13,7 +13,7 @@ import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.contract.extension.showBaseName
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager.Companion.getRatesByCoinName
 
 object ContractUtils {

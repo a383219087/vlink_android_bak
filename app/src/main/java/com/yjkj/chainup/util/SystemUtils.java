@@ -20,7 +20,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.contract.utils.UtilSystem;
 import com.yjkj.chainup.db.service.UserDataService;
-import com.yjkj.chainup.manager.LanguageUtil;
 import com.yjkj.chainup.net.api.ApiConstants;
 
 import java.util.HashMap;

@@ -8,7 +8,7 @@ import android.util.Log
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.PushBean
 import com.yjkj.chainup.bean.PushItem
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity

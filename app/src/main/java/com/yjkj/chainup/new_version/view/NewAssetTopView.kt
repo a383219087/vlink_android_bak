@@ -9,14 +9,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
-import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
-import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.contract.utils.onLineText
-import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
@@ -25,19 +21,16 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.manager.LanguageUtil
-import com.yjkj.chainup.manager.NCoinManager
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.activity.CashFlow4Activity
 import com.yjkj.chainup.new_version.activity.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.new_version.activity.asset.NewVersionContractBillActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NToastUtil
 import com.yjkj.chainup.util.Utils
 import kotlinx.android.synthetic.main.accet_header_view.view.*
-import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import org.json.JSONArray
 import org.json.JSONObject
 

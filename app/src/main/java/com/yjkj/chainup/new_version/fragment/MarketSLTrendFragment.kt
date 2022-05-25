@@ -10,7 +10,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.activity.SlContractKlineActivity
 import com.yjkj.chainup.db.constant.ParamConstant
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.adapter.MarketSLDetailAdapter
 import com.yjkj.chainup.new_version.home.callback.ContractDiffCallback
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView

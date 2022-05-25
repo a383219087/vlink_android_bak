@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
 import com.yjkj.chainup.new_version.dialog.DialogUtil
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.view.PositionITemView
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil

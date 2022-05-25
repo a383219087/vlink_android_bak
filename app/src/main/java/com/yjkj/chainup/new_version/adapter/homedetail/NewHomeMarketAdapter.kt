@@ -7,19 +7,15 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.new_version.home.callback.EmployeeDiffCallback
 import com.yjkj.chainup.new_version.home.callback.MarketDiffCallback
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.LogUtil
 import org.json.JSONObject
 import java.util.ArrayList
 

@@ -6,7 +6,6 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tencent.mmkv.MMKV
-import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.ContractMode
 import com.yjkj.chainup.bean.coin.CoinBean
 import com.yjkj.chainup.net.HttpClient
@@ -14,10 +13,7 @@ import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.treaty.bean.ContractBean
 import com.yjkj.chainup.treaty.bean.ContractPublicInfoBean
 import com.yjkj.chainup.treaty.bean.ContractSceneList
-import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.StringUtil
-import com.yjkj.chainup.util.StringUtils
+import com.yjkj.chainup.util.*
 import io.reactivex.schedulers.Schedulers
 
 /**

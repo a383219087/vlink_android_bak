@@ -4,26 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.util.Log
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.ContractBean
-import com.yjkj.chainup.bean.PushBean
-import com.yjkj.chainup.bean.PushItem
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
-import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.SplashActivity
-import com.yjkj.chainup.new_version.activity.TitleShowListener
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.SystemUtils
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_push_settings.*
 
 /**

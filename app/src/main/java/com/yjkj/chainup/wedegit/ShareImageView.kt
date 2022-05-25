@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.manager.LanguageUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.SystemUtils
 import kotlinx.android.synthetic.main.new_share_view.view.*

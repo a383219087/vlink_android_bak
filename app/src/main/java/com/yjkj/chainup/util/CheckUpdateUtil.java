@@ -16,7 +16,6 @@ import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.service.CheckUpdateDataService;
-import com.yjkj.chainup.manager.LanguageUtil;
 import com.yjkj.chainup.model.model.MainModel;
 import com.yjkj.chainup.net.NetUrl;
 import com.yjkj.chainup.net.NDisposableObserver;
