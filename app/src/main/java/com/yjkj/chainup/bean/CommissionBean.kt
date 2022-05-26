@@ -25,7 +25,8 @@ data class CommissionBean(
     val uid: Int,
     val userCreateTime: Long,
     val winRatio: Double,
-    val nickName: String
+    val nickName: String,
+    val entryDay: String
 
 
 ) : Serializable
