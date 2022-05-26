@@ -3,12 +3,11 @@ package com.yjkj.chainup.new_version.adapter
 import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.OTCOrderBean
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.util.BigDecimalUtil
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.GlideUtils
 import com.yjkj.chainup.util.setGoneV3

@@ -1,7 +1,7 @@
 package com.yjkj.chainup.new_version.adapter
 
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BigDecimalUtils

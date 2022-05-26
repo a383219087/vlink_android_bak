@@ -3,7 +3,7 @@ package com.yjkj.chainup.new_version.adapter
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.trade.Order
 import com.yjkj.chainup.util.LanguageUtil

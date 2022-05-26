@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.RoutePath

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.fengniao.news.util.DateUtil;
+import com.yjkj.chainup.util.DateUtil;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.service.UserDataService;
 import com.yjkj.chainup.new_version.bean.OTCIMMessageBean;

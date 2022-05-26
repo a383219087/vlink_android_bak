@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.fengniao.news.util.DateUtil;
+import com.yjkj.chainup.util.DateUtil;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.app.AppConstant;
 import com.yjkj.chainup.bean.fund.CashFlowBean;

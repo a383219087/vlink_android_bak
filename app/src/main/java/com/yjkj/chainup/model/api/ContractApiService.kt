@@ -1,6 +1,8 @@
 package com.yjkj.chainup.model.api
 
 import com.yjkj.chainup.bean.TraderPositionInfo
+import com.yjkj.chainup.bean.TraderTransactionBean
+import com.yjkj.chainup.bean.TraderTransactionInfo
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -8,10 +10,7 @@ import com.yjkj.chainup.treaty.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * @Author: Bertking
@@ -33,6 +32,17 @@ interface ContractApiService {
     @POST("position/trader_position_list")
     @FormUrlEncoded
     fun traderPositionList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<TraderPositionInfo>>
+
+    /**
+     * 带单收益明细
+     */
+    @GET("assets/traderTransaction")
+    fun traderTransaction(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<TraderTransactionInfo>>
+    /**
+     * 带单收益统计
+     */
+    @GET("assets/traderTransactionDay")
+    fun traderTransactionDay(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<List<TraderTransactionBean>>>
     /**
      * 2. 获取创建订单初始化信息
      */

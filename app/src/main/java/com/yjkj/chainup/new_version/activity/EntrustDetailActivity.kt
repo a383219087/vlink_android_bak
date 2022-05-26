@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity

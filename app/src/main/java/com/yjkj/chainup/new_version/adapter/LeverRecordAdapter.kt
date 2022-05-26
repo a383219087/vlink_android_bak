@@ -2,7 +2,7 @@ package com.yjkj.chainup.new_version.adapter
 
 import android.text.TextUtils
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.fengniao.news.util.DateUtil
+import com.yjkj.chainup.util.DateUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.util.LanguageUtil

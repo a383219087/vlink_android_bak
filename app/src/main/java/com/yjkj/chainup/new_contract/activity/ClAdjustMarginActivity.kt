@@ -28,7 +28,6 @@ import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.cl_activity_adjust_margin.*
-import kotlinx.android.synthetic.main.cl_activity_adjust_margin.tv_lever
 import org.json.JSONObject
 import kotlin.math.min
 
@@ -272,15 +271,15 @@ class ClAdjustMarginActivity : NBaseActivity() {
          */
 
         var adjustingLever = "0X"
-        if (contractSide.equals("1")) {
+        adjustingLever = if (contractSide.equals("1")) {
             //正向
             val buff1 = BigDecimalUtils.mul(positionVolume, indexPrice)//仓位数量 * 标记价格
             val buff2 = BigDecimalUtils.div(amount, marginRate)//调整后仓位保证金 / 保证金汇率
-            adjustingLever = BigDecimalUtils.div(buff1, buff2, 1)
+            BigDecimalUtils.div(buff1, buff2, 1)
         } else {
             val buff1 = BigDecimalUtils.div(positionVolume, indexPrice)//仓位数量 / 标记价格
             val buff2 = BigDecimalUtils.div(amount, marginRate)//调整后仓位保证金 / 保证金汇率
-            adjustingLever = BigDecimalUtils.div(buff1, buff2, 1)
+            BigDecimalUtils.div(buff1, buff2, 1)
         }
         if (BigDecimalUtils.compareTo(adjustingLever, "0") != 1) {
             adjustingLever = "--"

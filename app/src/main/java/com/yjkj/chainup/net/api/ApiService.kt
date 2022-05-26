@@ -550,11 +550,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("traderUser/list")
     fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
-    /**
-     * 带单列表
-     */
-    @GET("position/trader_position_list")
-    fun traderPositionList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<TraderPositionInfo>>
+
     /**
      * 我跟单的交易员列表
      */
@@ -577,6 +573,7 @@ interface ApiService {
     @POST("traderUser/query")
     @FormUrlEncoded
     fun queryTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<QueryTraderBean>>
+
     /**
      * 查看交易员申请状态
      */

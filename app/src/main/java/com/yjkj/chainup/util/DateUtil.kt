@@ -1,4 +1,4 @@
-package com.fengniao.news.util
+package com.yjkj.chainup.util
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,6 +18,7 @@ object DateUtil {
         return mFormat.format(date)
     }
 
+    @JvmStatic
     fun longToString(format: String, date: Long): String {
         return dateToString(format, Date(date))
     }
