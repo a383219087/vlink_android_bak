@@ -21,9 +21,12 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
-        android:padding="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
         app:ResColor="@{R.color.white}"
-        app:radius="@{15}">
+        app:radius="@{5}">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +38,8 @@
 
                 <TextView
                     android:text="@{item.typeString}"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -45,13 +50,14 @@
 
                 <TextView
                     android:text="@{DecimalUtil.cutValueByPrecision(item.item.amount+``,2)}"
-                    android:textColor="@color/base_green"
+                    android:textColor="@{item.isAdd?@color/red:@color/green}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <TextView
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:text="@{item.item.time+``}"
+                android:textColor="#d3d4d6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 

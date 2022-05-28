@@ -14,6 +14,7 @@ import com.yjkj.chainup.bean.Pos
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.net.DataHandler
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -25,6 +26,20 @@ class HoldViewModel : BaseViewModel() {
     //整页数据
     var bean = MutableLiveData<MyPos>()
 
+
+    // 显示资产
+    var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
+
+
+    fun setShowMoney() {
+        showMoney.value=!showMoney.value!!
+        UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
+    }
+
+    //资产分析
+    fun appTraders() {
+
+    }
 
 
 

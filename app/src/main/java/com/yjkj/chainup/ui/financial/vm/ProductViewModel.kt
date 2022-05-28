@@ -1,52 +1,37 @@
 package com.yjkj.chainup.ui.financial.vm
 
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
+
 import androidx.lifecycle.MutableLiveData
-import com.yjkj.chainup.BR
-import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
-import me.tatarka.bindingcollectionadapter2.ItemBinding
+import io.reactivex.functions.Consumer
 
 
-class ProductViewModel : BaseViewModel() {
+open class ProductViewModel : BaseViewModel() {
 
     var index = MutableLiveData(0)
     fun setIndex(i :Int){
         index.value=i
     }
     var onPageChangeListener = BindingCommand(BindingConsumer<Int> { setIndex(it) })
-    interface OnItemListener {
-        fun onClick()
+
+    val notice= MutableLiveData<String>("活期存款次日16点(UTC+8)发放利息，定期存款到期归还本金并发放利息")
+
+
+
+    fun getData() {
+        startTask(apiService.projectIndex(), Consumer {
+            notice.value=it.data.detail
+        })
+
+
 
     }
 
-    var onItemListener: OnItemListener = object : OnItemListener {
-        override fun onClick() {
-
-        }
 
 
-
-    }
-
-
-    val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_documentary_mine).bindExtra(BR.onItemListener, onItemListener)
-    val items: ObservableList<String> = ObservableArrayList()
-
-
-    override fun onCreate() {
-        super.onCreate()
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-        items.add("")
-    }
 
 
 }

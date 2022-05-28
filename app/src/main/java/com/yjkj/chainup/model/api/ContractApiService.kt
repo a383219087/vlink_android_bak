@@ -10,7 +10,10 @@ import com.yjkj.chainup.treaty.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 /**
  * @Author: Bertking
@@ -36,13 +39,15 @@ interface ContractApiService {
     /**
      * 带单收益明细
      */
-    @GET("assets/traderTransaction")
-    fun traderTransaction(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<TraderTransactionInfo>>
+    @POST("assets/traderTransaction")
+    @FormUrlEncoded
+    fun traderTransaction(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<TraderTransactionInfo>>
     /**
      * 带单收益统计
      */
-    @GET("assets/traderTransactionDay")
-    fun traderTransactionDay(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<List<TraderTransactionBean>>>
+    @POST("assets/traderTransactionDaySum")
+    @FormUrlEncoded
+    fun traderTransactionDay(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<TraderTransactionBean>>>
     /**
      * 2. 获取创建订单初始化信息
      */

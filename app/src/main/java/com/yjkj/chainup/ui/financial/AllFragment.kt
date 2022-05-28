@@ -1,6 +1,7 @@
 package com.yjkj.chainup.ui.financial
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.AllFragmentBinding
@@ -9,7 +10,6 @@ import com.yjkj.chainup.ui.financial.vm.AllViewModel
 
 
 class AllFragment : BaseMVFragment<AllViewModel?, AllFragmentBinding>() {
-
 
 
     companion object {
@@ -25,11 +25,13 @@ class AllFragment : BaseMVFragment<AllViewModel?, AllFragmentBinding>() {
     }
 
 
-
-        override fun setContentView(): Int = R.layout.all_fragment
+    override fun setContentView(): Int = R.layout.all_fragment
     override fun initView() {
-        mViewModel?.page?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
-        mViewModel?.getList()
+        mViewModel?.page?.value = arguments?.getInt(ParamConstant.CUR_INDEX)
+        mViewModel?.getData()
+        mViewModel?.isRefreshing?.observe(this, Observer {
+            mBinding?.twinklingRefreshLayout?.finishRefresh()
+        })
 
     }
 }

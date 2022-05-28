@@ -17,69 +17,96 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                style="@style/left_back_img_style"
+                android:layout_gravity="center|left"
+                android:onClick="@{()->_all.finish()}"
+                android:src="@drawable/ic_return" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_15"
+                android:text="存入"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            app:ResColor="@{R.color.white}"
-            app:radius="@{10}"
-            android:padding="10dp"
             android:layout_width="match_parent"
+            android:padding="@dimen/dp_15"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                app:ResColor="@{R.color.dif}"
-                app:radius="@{10}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/dp_70"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                app:ResColor="@{R.color.white}"
+                app:radius="@{7}">
 
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
-                    app:ResColor="@{R.color.warn_yellow}"
-                    app:radius="@{10}"/>
+                    android:src="@mipmap/ic_usdt" />
 
-                    <TextView
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="@{_all.bean.name}"
-                        android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/text_color"
+                    android:text="@{_all.bean.name}"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="10dp"
                         android:text="@{_all.bean.gainRate+ `%`}"
-                        android:textColor="@color/barcode_viewfinder_laser"
-                        android:textSize="13sp"/>
+                        android:textColor="@{_all.bean.gainRate>0?@color/red:@color/green}"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:text=" 固定年化"
-                        android:textColor="@color/barcode_possible_result_points"
-                        android:textSize="12sp"/>
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:textColor="@color/text_color_99"
+                        android:textSize="11sp" />
                 </LinearLayout>
 
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -92,6 +119,8 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:text="存入金额"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <View
@@ -101,6 +130,8 @@
                     <TextView
                         android:text="@{`可用：`+_all.bean.userNormalAmount+_all.bean.baseCoin}"
                         android:layout_width="wrap_content"
+                        android:textColor="#4d4d4d"
+                        android:textSize="13sp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
@@ -109,20 +140,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:textSize="15sp"
                         android:hint="请输入存入金额"
                         android:layout_width="0dp"
+                        android:inputType="numberDecimal"
+                        android:background="@null"
+                        android:textColor="@color/text_color"
                         android:text="@={_all.text}"
+                        android:textSize="13sp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:text="@{_all.bean.baseCoin}"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginLeft="10dp"
                         android:text="全部"
+                        android:textColor="@color/main_blue"
+                        android:textSize="13sp"
                         android:onClick="@{()->_all.allOnClick()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -130,9 +168,9 @@
 
                 <LinearLayout
                     android:padding="10dp"
-                    app:ResColor="@{R.color.main_font_color}"
-                    app:radius="@{10}"
-                    android:layout_marginTop="5dp"
+                    app:ResColor="@{R.color.main_blue_15}"
+                    app:radius="@{5}"
+                    android:layout_marginTop="15dp"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -142,7 +180,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="存款总额"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -152,7 +191,8 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent" />
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="@{`0`+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -164,7 +204,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="单笔限额"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -174,7 +215,8 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent" />
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="@{_all.bean.buyAmountMin+`-`+_all.bean.buyAmountMax+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -186,7 +228,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="预计每日收益"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -196,7 +239,8 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent" />
                         <TextView
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_color_99"
                             android:text="@{`0`+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -210,9 +254,9 @@
 
         </LinearLayout>
         <Button
-            app:ResColor="@{R.color.otc_recharge}"
-            app:radius="@{10}"
-            android:layout_marginTop="15dp"
+            app:ResColor="@{R.color.main_blue}"
+            app:radius="@{7}"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:text="确定存入"
             android:onClick="@{()->_all.save()}"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
 
@@ -16,134 +16,176 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
-            app:ResColor="@{R.color.white}"
-            app:radius="@{10}"
-            android:padding="10dp"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp">
 
-            <LinearLayout
-                app:ResColor="@{R.color.dif}"
-                app:radius="@{10}"
+            <ImageView
+                style="@style/left_back_img_style"
+                android:layout_gravity="center|left"
+                android:onClick="@{()->_all.finish()}"
+                android:src="@drawable/ic_return" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_15"
+                android:text="取出"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
 
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_70"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                app:ResColor="@{R.color.white}"
+                app:radius="@{7}">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
-                    app:ResColor="@{R.color.warn_yellow}"
-                    app:radius="@{10}"/>
+                    android:src="@mipmap/ic_usdt" />
 
-                    <TextView
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="@{_all.bean.projectName}"
-                        android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/text_color"
+                    android:text="@{_all.bean.projectName}"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="10dp"
                         android:text="@{_all.bean.gainRate+ `%`}"
-                        android:textColor="@color/barcode_viewfinder_laser"
+                        android:textColor="@{_all.bean.gainRate>0?@color/red:@color/green}"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 固定年化"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:textColor="@color/text_color_99"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp"
+                        android:text="取出金额" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#4d4d4d"
+                        android:textSize="13sp"
+                        android:text="@{`可用：`+_all.bean.userCurrentAmount+_all.bean.baseCoin}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:background="@null"
+                        android:textColor="@color/text_color"
+                        android:hint="请输入取出金额"
+                        android:text="@={_all.text}"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@{_all.bean.baseCoin}"
+                        android:textColor="@color/text_color"
                         android:textSize="13sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text=" 固定年化"
-                        android:textColor="@color/barcode_possible_result_points"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:text="取出金额"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <View
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <TextView
-                        android:text="@{`当前存款：`+_all.bean.userCurrentAmount+_all.bean.baseCoin}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:textSize="15sp"
-                        android:hint="请输入取出金额"
-                        android:layout_width="0dp"
-                        android:text="@={_all.text}"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginLeft="20dp"
-                        android:text="@{_all.bean.baseCoin}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:text="全部"
+                        android:textColor="@color/main_blue"
+                        android:textSize="13sp"
                         android:onClick="@{()->_all.allOnClick()}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="全部" />
                 </LinearLayout>
 
 
             </LinearLayout>
-
 
 
         </LinearLayout>
-        <Button
-            app:ResColor="@{R.color.otc_recharge}"
-            app:radius="@{10}"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:text="确定取出"
-            android:onClick="@{()->_all.save()}"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:onClick="@{()->_all.save()}"
+            android:text="确定取出"
+            android:textColor="@color/white"
+            app:ResColor="@{R.color.main_blue}"
+            app:radius="@{7}" />
 
 
     </LinearLayout>

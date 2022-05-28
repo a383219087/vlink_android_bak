@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,71 +21,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        tool:background="@color/main_blue"
         android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
+        app:elevation="@{7}"
         app:ResColor="@{R.color.white}"
-        app:radius="@{15}">
+        app:radius="@{10}">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:gravity="left|center"
             android:layout_height="wrap_content">
-            <View
+            <ImageView
                 android:layout_gravity="center"
-                app:ResColor="@{R.color.warn_yellow}"
-                app:radius="@{10}"
-                android:layout_width="40dp"
-                android:layout_height="40dp">
-            </View>
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/ic_usdt"
+                />
             <TextView
-                android:textSize="16sp"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:text="@{item.item.projectName}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
+                android:layout_height="wrap_content"
+                tool:text="USDT 活期"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:text="@{item.item.projectName}"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                android:gravity="left"
+                />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
-            <View
-                android:layout_gravity="center"
-                app:ResColor="@{R.color.warn_yellow}"
-                app:radius="@{10}"
-                android:layout_width="20dp"
-                android:layout_height="20dp">
-            </View>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="11sp"
+                android:gravity="left"
                 android:text="@{`昨日收益（`+item.item.gainCoin+`)`}"
+                tool:text="昨日收益(USDT)"
+                android:textColor="#d3d4d6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
                 android:gravity="center"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_width="0dp"
                 android:text="@{`累计收益（`+item.item.gainCoin+`)`}"
+                tool:text="累计收益(USDT)"
+                android:textColor="#d3d4d6"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
                 android:gravity="right"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_width="0dp"
+                tool:text="预计年收益(USDT)"
+                android:textColor="#d3d4d6"
                 android:text="@{`预计年收益（`+item.item.gainCoin+`)`}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -92,19 +91,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:orientation="horizontal">
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_11"
                 android:text="@{item.item.yesterdayUserGainAmount+``}"
+                tool:text="0.0"
                 android:layout_width="0dp"
+                android:gravity="left"
+                android:textColor="@color/text_color"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
                 android:gravity="center"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_11"
                 android:layout_width="0dp"
+                tool:text="0.0"
+                android:textColor="@color/text_color"
                 android:text="@{item.item.userGainAmount+``}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -112,8 +118,10 @@
             <TextView
                 android:gravity="right"
                 android:layout_marginRight="10dp"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_11"
                 android:layout_width="0dp"
+                tool:text="0.0"
+                android:textColor="@color/text_color"
                 android:text="@{item.item.almostUserGainAmount+``}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -122,13 +130,17 @@
         <TextView
             android:layout_marginTop="10dp"
             android:text="@{`数量（`+item.item.gainCoin+`)`}"
-            android:textSize="12sp"
+            tool:text="数量(USDT)"
+            android:textSize="11sp"
+            android:textColor="#d3d4d6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:textSize="12sp"
             android:layout_width="wrap_content"
+            tool:text="0.0"
+            android:textColor="@color/text_color"
             android:text="@{item.item.userCurrentAmount+``}"
             android:layout_height="wrap_content" />
 

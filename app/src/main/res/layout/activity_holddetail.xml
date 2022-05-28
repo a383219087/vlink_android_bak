@@ -2,6 +2,7 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     >
     <data>
 
@@ -26,197 +27,232 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    style="@style/left_back_img_style"
+                    android:layout_gravity="center|left"
+                    android:onClick="@{()->_all.finish()}"
+                    android:src="@drawable/ic_return" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="持有详情"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                tool:background="@color/main_blue"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:padding="15dp"
+                app:elevation="@{7}"
                 app:ResColor="@{R.color.white}"
-                app:radius="@{15}">
-
+                app:radius="@{10}">
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    android:gravity="left|center"
+                    android:layout_height="wrap_content">
+                    <ImageView
                         android:layout_gravity="center"
-                        app:ResColor="@{R.color.warn_yellow}"
-                        app:radius="@{10}"/>
-
-                    <LinearLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@mipmap/ic_usdt"
+                        />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        tool:text="USDT 活期"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="@{_all.bean.projectName}"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp"
+                        android:gravity="left"
+                        />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="@{_all.bean.projectName}"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text=" 产品详情"
-                            android:textColor="@color/barcode_possible_result_points"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="10dp"
-                            android:text="@{_all.bean.gainRate+`%`}"
-                            android:textColor="@color/barcode_viewfinder_laser"
-                            android:textSize="13sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text=" 固定年化"
-                            android:textColor="@color/barcode_possible_result_points"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{`昨日收益（`+_all.bean.gainCoin+`)`}"
-                        android:textSize="12sp"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@{`累计收益（`+_all.bean.gainCoin+`)`}"
-                        android:textSize="12sp"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="@{`预计年收益（`+_all.bean.gainCoin+`)`}"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textSize="11sp"
+                        android:gravity="left"
+                        android:text="@{`昨日收益（`+_all.bean.gainCoin+`)`}"
+                        tool:text="昨日收益(USDT)"
+                        android:textColor="#d3d4d6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.yesterdayUserGainAmount+``,2)}"
-                        android:textSize="12sp"/>
+                        android:layout_weight="1" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.userGainAmount+``,2)}"
-                        android:textSize="12sp"/>
+                        android:textSize="11sp"
+                        android:layout_width="0dp"
+                        android:text="@{`累计收益（`+_all.bean.gainCoin+`)`}"
+                        tool:text="累计收益(USDT)"
+                        android:textColor="#d3d4d6"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
                         android:gravity="right"
-                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.almostUserGainAmount+``,2)}"
-                        android:textSize="12sp"/>
+                        android:textSize="11sp"
+                        android:layout_width="0dp"
+                        tool:text="预计年收益(USDT)"
+                        android:textColor="#d3d4d6"
+                        android:text="@{`预计年收益（`+_all.bean.gainCoin+`)`}"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textSize="@dimen/sp_11"
+                        android:text="@{_all.bean.yesterdayUserGainAmount+``}"
+                        tool:text="0.0"
+                        android:layout_width="0dp"
+                        android:gravity="left"
+                        android:textColor="@color/text_color"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:textSize="@dimen/sp_11"
+                        android:layout_width="0dp"
+                        tool:text="0.0"
+                        android:textColor="@color/text_color"
+                        android:text="@{_all.bean.userGainAmount+``}"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:layout_marginRight="10dp"
+                        android:textSize="@dimen/sp_11"
+                        android:layout_width="0dp"
+                        tool:text="0.0"
+                        android:textColor="@color/text_color"
+                        android:text="@{_all.bean.almostUserGainAmount+``}"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@{`存入金额（`+_all.bean.gainCoin+`)`}"
-                    android:textSize="12sp"/>
+                    android:text="@{`数量（`+_all.bean.gainCoin+`)`}"
+                    tool:text="数量(USDT)"
+                    android:textSize="11sp"
+                    android:textColor="#d3d4d6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textSize="12sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.userCurrentAmount+``,2)}"
-                    android:textSize="12sp"/>
+                    tool:text="0.0"
+                    android:textColor="@color/text_color"
+                    android:text="@{_all.bean.userCurrentAmount+``}"
+                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    app:ResColor="@{_all.detailType==4?R.color.white:R.color.tabbar_divide_color}"
+                    app:StrokeResColor="@{_all.detailType==4?R.color.main_blue:R.color.tabbar_divide_color}"
+                    app:radius="@{5}"
                     android:text="全部"
-                    android:textSize="15sp"
-                    app:ResColor="@{_all.detailType==4?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:textColor="@{_all.detailType==4?@color/main_blue:@color/text_color_99}"
+                    android:textSize="11sp"
+                    android:gravity="center"
                     android:onClick="@{()->_all.setDetailType(4)}"
-                    app:radius="@{20}"/>
-
-                <Button
+                    android:paddingLeft="15dp"
+                    android:paddingRight="@dimen/dp_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/dp_22"/>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    app:ResColor="@{_all.detailType==1?R.color.white:R.color.tabbar_divide_color}"
+                    app:StrokeResColor="@{_all.detailType==1?R.color.main_blue:R.color.tabbar_divide_color}"
+                    app:radius="@{5}"
+                    android:gravity="center"
                     android:text="存入记录"
-                    android:textSize="15sp"
-                    app:ResColor="@{_all.detailType==1?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:textColor="@{_all.detailType==1?@color/main_blue:@color/text_color_99}"
+                    android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(1)}"
-                    app:radius="@{20}"/>
-
-                <Button
+                    android:paddingLeft="15dp"
+                    android:paddingRight="@dimen/dp_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/dp_22"/>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    app:ResColor="@{_all.detailType==3?R.color.white:R.color.tabbar_divide_color}"
+                    app:StrokeResColor="@{_all.detailType==3?R.color.main_blue:R.color.tabbar_divide_color}"
+                    app:radius="@{5}"
+                    android:gravity="center"
                     android:text="收益明细"
-                    android:textSize="15sp"
-                    app:ResColor="@{_all.detailType==3?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:textColor="@{_all.queryType==3?@color/main_blue:@color/text_color_99}"
+                    android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(3)}"
-                    app:radius="@{20}"/>
-
-                <Button
+                    android:paddingLeft="15dp"
+                    android:paddingRight="@dimen/dp_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/dp_22"/>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    app:ResColor="@{_all.detailType==2?R.color.white:R.color.tabbar_divide_color}"
+                    app:StrokeResColor="@{_all.detailType==2?R.color.main_blue:R.color.tabbar_divide_color}"
+                    app:radius="@{5}"
+                    android:gravity="center"
                     android:text="取出记录"
-                    android:textSize="15sp"
-                    app:ResColor="@{_all.detailType==2?R.color.warn_yellow:R.color.tabbar_divide_color}"
+                    android:textColor="@{_all.detailType==2?@color/main_blue:@color/text_color_99}"
+                    android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(2)}"
-                    app:radius="@{20}"/>
+                    android:paddingLeft="15dp"
+                    android:paddingRight="@dimen/dp_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"/>
+
             </LinearLayout>
+
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/twinklingRefreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:onLoadMoreCommand="@{_all.onLoadMoreCommand}"
                 app:onRefreshCommand="@{_all.onRefreshCommand}">
 
@@ -225,7 +261,7 @@
                     app:itemBinding="@{_all.itemBinding}"
                     app:items="@{_all.items}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
         </LinearLayout>
@@ -238,8 +274,8 @@
 
             <LinearLayout
                 android:onClick="@{()->_all.onSave()}"
-                app:ResColor="@{R.color.otc_recharge}"
-                app:radius="@{10}"
+                app:ResColor="@{R.color.main_blue}"
+                app:radius="@{5}"
                 android:visibility="@{_all.bean.isShowBuy()==1?View.VISIBLE:View.GONE}"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
@@ -251,15 +287,17 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
-                <View
+                <ImageView
                     android:layout_gravity="center"
-                    app:ResColor="@{R.color.warn_yellow}"
-                    app:radius="@{10}"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/ic_jixucunru"
+                    />
                 <TextView
-                    android:textSize="18sp"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
                     android:text="继续存入"
+                    android:layout_marginLeft="@dimen/dp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -273,8 +311,8 @@
 
             <LinearLayout
                 android:onClick="@{()->_all.onOut()}"
-                app:ResColor="@{R.color.otc_recharge}"
-                app:radius="@{10}"
+                app:ResColor="@{R.color.main_blue}"
+                app:radius="@{5}"
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
@@ -286,15 +324,16 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
-                <View
+                <ImageView
                     android:layout_gravity="center"
-                    app:ResColor="@{R.color.warn_yellow}"
-                    app:radius="@{10}"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/ic_quchu"/>
                 <TextView
-                    android:textSize="18sp"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
                     android:text="取出"
+                    android:layout_marginLeft="@dimen/dp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>

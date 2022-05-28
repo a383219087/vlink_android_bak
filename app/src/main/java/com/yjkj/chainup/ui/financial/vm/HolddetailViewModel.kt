@@ -54,24 +54,25 @@ class HolddetailViewModel:BaseViewModel() {
     fun setDetailType(type:Int){
         detailType.value=type
         page = 1
-        getList(1)
+        getList()
     }
     private var page = 1
     var onRefreshCommand = BindingCommand<Any>(BindingAction {
         page = 1
-        getList(1)
+        getList()
     })
     var onLoadMoreCommand = BindingCommand<Any>(BindingAction {
         page++
-        getList(page)
+        getList()
     })
     //列表item
     class Item{
         var item = MutableLiveData<IncrementActDetail>()
         var typeString = MutableLiveData<String>()
+        var isAdd = MutableLiveData(true)
     }
 
-    fun getList(page:Int) {
+    fun getList() {
         val map = TreeMap<String, String>()
         map["page"] = page.toString()
         map["pageSize"] = "20"
@@ -88,6 +89,7 @@ class HolddetailViewModel:BaseViewModel() {
                 for (i in it.data.detailList.indices) {
                     val item= Item()
                     item.item.value=it.data.detailList[i]
+                    item.isAdd.value= it.data.detailList[i].amount.toDouble()>0
                     item.typeString.value=when(it.data.detailList[i].type){
                         "gain"->"计息"
                         "apply_0"->"存入"

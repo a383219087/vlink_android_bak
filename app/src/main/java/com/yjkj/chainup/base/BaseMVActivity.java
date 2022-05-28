@@ -1,13 +1,14 @@
 package com.yjkj.chainup.base;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
-import com.yjkj.chainup.BR;
 
+import com.yjkj.chainup.BR;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -28,6 +29,8 @@ public abstract class BaseMVActivity<VM extends BaseViewModel, VDB extends ViewD
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         initView();
     }
 

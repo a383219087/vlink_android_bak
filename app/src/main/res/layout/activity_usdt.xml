@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-   >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
@@ -14,657 +14,740 @@
         <import type="android.view.View" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        tools:ignore="MissingConstraints"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                style="@style/left_back_img_style"
+                android:layout_gravity="center|left"
+                android:onClick="@{()->_all.finish()}"
+                android:src="@drawable/ic_return" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_15"
+                android:text="@{_all.bean.name}"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_marginTop="15dp"
-    app:ResColor="@{R.color.white}"
-    app:radius="@{10}"
-    android:padding="15dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/usdt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="随时可存"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:ResColor="@{R.color.new_green}"
-            app:radius="@{10}"/>
-
-        <LinearLayout
-            android:id="@+id/usdt_le1"
-            android:orientation="horizontal"
-            android:layout_below="@+id/usdt"
-            android:layout_width="match_parent"
+            android:layout_marginTop="78dp"
             android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
-            <TextView
-                android:text="8%"
-                android:textColor="@color/barcode_viewfinder_laser"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:text="年化利率"
-                    app:ResColor="@{R.color.white}"
-                    android:textSize="15sp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        <LinearLayout
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="@color/assets_center_text_color_day"
-                android:text="90天"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:text="锁定期"
+                android:padding="15dp"
                 app:ResColor="@{R.color.white}"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
+                app:radius="@{10}">
 
-        <LinearLayout
-            android:id="@+id/usdt_le2"
-            android:orientation="horizontal"
-            android:layout_below="@+id/usdt"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/usdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="随时可存"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        app:ResColor="@{R.color.new_green}"
+                        app:radius="@{10}" />
+
+                    <LinearLayout
+                        android:id="@+id/usdt_le1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/usdt"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="8%"
+                                android:textColor="@color/barcode_viewfinder_laser"
+                                android:textSize="25sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="年化利率"
+                                android:textSize="15sp"
+                                app:ResColor="@{R.color.white}" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_30"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="90天"
+                                android:textColor="@color/assets_center_text_color_day"
+                                android:textSize="25sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="锁定期"
+                                android:textSize="15sp"
+                                app:ResColor="@{R.color.white}" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/usdt_le2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/usdt"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="2%"
+                                android:textColor="@color/barcode_viewfinder_laser"
+                                android:textSize="25sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="当前年化利率"
+                                android:textSize="15sp"
+                                app:ResColor="@{R.color.white}" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/usdt_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/usdt_le1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:padding="5dp"
+                        android:text="高收益，无风险，到期自动回款"
+                        android:textColor="@color/base_text_grey_0"
+                        android:textSize="16sp"
+                        app:ResColor="@{R.color.col_d9e1ff}"
+                        app:radius="@{10}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/usdt_le1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:padding="5dp"
+                        android:text="当日存入，次日起息，滚动复利，灵活存取"
+                        android:textColor="@color/base_text_grey_0"
+                        android:textSize="16sp"
+                        app:ResColor="@{R.color.col_d9e1ff}"
+                        app:radius="@{10}" />
+
+                    <View
+                        android:id="@+id/usdt_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@id/usdt_text1"
+                        android:layout_marginTop="20dp"
+                        app:ResColor="@{R.color.col_d9e1ff}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/usdt_view"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="30dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="存入" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="04-22 15：56" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="开始计息" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:text="04-23 00：00" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="产品到期" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="3dp"
+                                android:text="07-22 00：00" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
-                    android:layout_height="wrap_content">
+                    android:padding="15dp"
+                    app:ResColor="@{R.color.mine_label_txt}"
+                    app:radius="@{10}">
+
                     <TextView
-                        android:text="2%"
-                        android:textColor="@color/barcode_viewfinder_laser"
-                        android:textSize="25sp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="定期存款"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="当前年化利率"
-                        app:ResColor="@{R.color.white}"
-                        android:textSize="15sp"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="定期存款是为用户提供的数字货币和法币的资产增值理财计划，用户存入后，即科享受理财期限固定、到期自动回款的理财便利服务。"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+
                 </LinearLayout>
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:ResColor="@{R.color.white}"
+                    app:radius="@{10}">
 
-        <TextView
-            android:id="@+id/usdt_text1"
-            android:layout_marginTop="@dimen/dp_10"
-            android:padding="5dp"
-            android:text="高收益，无风险，到期自动回款"
-            android:textColor="@color/base_text_grey_0"
-            android:textSize="16sp"
-            android:layout_below="@+id/usdt_le1"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            app:ResColor="@{R.color.col_d9e1ff}"
-            app:radius="@{10}"
-            android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="@dimen/dp_10"
-            android:padding="5dp"
-            android:text="当日存入，次日起息，滚动复利，灵活存取"
-            android:textColor="@color/base_text_grey_0"
-            android:textSize="16sp"
-            android:layout_below="@+id/usdt_le1"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            app:ResColor="@{R.color.col_d9e1ff}"
-            app:radius="@{10}"
-            android:layout_height="wrap_content"/>
-        <View
-            android:id="@+id/usdt_view"
-            android:layout_marginTop="20dp"
-            app:ResColor="@{R.color.col_d9e1ff}"
-            android:layout_below="@id/usdt_text1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"/>
-        <LinearLayout
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/usdt_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="存入"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_marginTop="3dp"
-                    android:text="04-22 15：56"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            app:ResColor="@{R.color.new_red}"
+                            app:radius="@{10}" />
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="多样"
+                            android:textColor="@color/assets_center_text_color_day"
+                            android:textSize="20sp" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_gravity="center"
-                    android:text="开始计息"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:text="支持多币种多样理财产品"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_gravity="center"
-                    android:layout_marginTop="3dp"
-                    android:text="04-23 00：00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            </LinearLayout>
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            app:ResColor="@{R.color.new_red}"
+                            app:radius="@{10}" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_gravity="right"
-                    android:text="产品到期"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="专业"
+                            android:textColor="@color/assets_center_text_color_day"
+                            android:textSize="20sp" />
 
-                <TextView
-                    android:layout_gravity="right"
-                    android:layout_marginTop="3dp"
-                    android:text="07-22 00：00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:text="采用全球领先资产风控体系"
+                            android:textSize="15sp" />
 
-            </LinearLayout>
+                    </LinearLayout>
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-    </RelativeLayout>
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            app:ResColor="@{R.color.new_red}"
+                            app:radius="@{10}" />
 
-    <LinearLayout
-        app:ResColor="@{R.color.mine_label_txt}"
-        app:radius="@{10}"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:padding="15dp"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:text="定期存款"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="安全"
+                            android:textColor="@color/assets_center_text_color_day"
+                            android:textSize="20sp" />
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:text="定期存款是为用户提供的数字货币和法币的资产增值理财计划，用户存入后，即科享受理财期限固定、到期自动回款的理财便利服务。"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:text="离线存储多重授签安全透明"
+                            android:textSize="15sp" />
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        app:ResColor="@{R.color.white}"
-        app:radius="@{10}"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1">
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center"
-                app:ResColor="@{R.color.new_red}"
-                app:radius="@{10}"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="多样"
-                android:textColor="@color/assets_center_text_color_day"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:text="支持多币种多样理财产品"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1">
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center"
-                app:ResColor="@{R.color.new_red}"
-                app:radius="@{10}"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="专业"
-                android:textColor="@color/assets_center_text_color_day"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:text="采用全球领先资产风控体系"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1">
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_gravity="center"
-                app:ResColor="@{R.color.new_red}"
-                app:radius="@{10}"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="安全"
-                android:textColor="@color/assets_center_text_color_day"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:text="离线存储多重授签安全透明"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
 
-        </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:ResColor="@{R.color.white}"
+                    app:radius="@{10}">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="存入规则"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:ResColor="@{R.color.new_bg}"
+                        app:radius="@{10}" />
 
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-    <LinearLayout
-        app:ResColor="@{R.color.white}"
-        app:radius="@{10}"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:ResColor="@{R.color.new_bg}"
-            android:padding="10dp"
-            android:text="存入规则"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:radius="@{10}"/>
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
 
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
-        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:ResColor="@{R.color.new_bg}"
-            android:padding="10dp"
-            android:text="存入规则"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:radius="@{10}"/>
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
 
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
-        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:text="存入规则"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:ResColor="@{R.color.new_bg}"
+                        app:radius="@{10}" />
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
 
-        </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
 
-        <LinearLayout
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                app:ResColor="@{R.color.new_red}"
+                                app:radius="@{60}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="单笔限额"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1000-100000 USDT" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:ResColor="@{R.color.white}"
+                    app:radius="@{10}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="存入规则"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:ResColor="@{R.color.new_bg}"
+                        app:radius="@{10}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="50dp"
+                        app:ResColor="@{R.color.white}"
+                        app:radius="@{10}" />
+
+                </LinearLayout>
 
             </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="20dp"
-            android:padding="5dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_gravity="center"
-                    app:ResColor="@{R.color.new_red}"
-                    app:radius="@{60}"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"/>
-                <TextView
-                    android:text="单笔限额"
-                    android:padding="10dp"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:text="1000-100000 USDT"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        app:ResColor="@{R.color.white}"
-        app:radius="@{10}"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:ResColor="@{R.color.new_bg}"
-            android:padding="10dp"
-            android:text="存入规则"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:radius="@{10}"/>
-
-        <LinearLayout
-            app:ResColor="@{R.color.white}"
-            app:radius="@{10}"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="50dp"/>
-
-    </LinearLayout>
-
-</LinearLayout>
         </ScrollView>
 
         <Button
-            android:layout_margin="15dp"
-            android:text="立即存入"
-            app:ResColor="@{R.color.chart_tab_indicator}"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:radius="@{10}"
-            android:onClick="@{()->_all.toSaveActivity()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:onClick="@{()->_all.toSaveActivity()}"
+            android:text="立即存入"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:ResColor="@{R.color.chart_tab_indicator}"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="-16dp"/>
+            app:radius="@{10}"
+            tools:layout_editor_absoluteX="-16dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

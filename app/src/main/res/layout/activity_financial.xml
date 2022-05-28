@@ -20,7 +20,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#F5F5F5">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp">
 
+            <ImageView
+                style="@style/left_back_img_style"
+                android:layout_gravity="center|left"
+                android:onClick="@{()->_all.finish()}"
+                android:src="@drawable/ic_return" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_15"
+                android:text="金融理财"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
+
+        </FrameLayout>
         <com.chainup.contract.view.CpNoScrollViewPager
             android:id="@+id/vp_order"
             android:layout_width="match_parent"
@@ -28,13 +52,79 @@
             android:layout_height="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/sub_tab_layout"
-            style="@style/ToolbarType_bar_home_tab"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:background="@color/bg_card_color"
-            app:tl_indicator_color="@color/main_color" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:gravity="center"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:onClick="@{()->_all.setIndex(0)}"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:src="@{_all.index==0?R.mipmap.ic_financial_first_blue:R.mipmap.ic_financial_first_gray}"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="产品"
+                        android:layout_gravity="center"
+                        android:textColor="@{_all.index==0?@color/main_blue:@color/normal_text_color}"
+                        android:textSize="11sp"
+                        android:gravity="right"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:onClick="@{()->_all.setIndex(1)}"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:src="@{_all.index==1?R.mipmap.ic_financial_have_blue:R.mipmap.ic_financial_have_gray}"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="持有"
+                        android:layout_gravity="center"
+                        android:textColor="@{_all.index==1?@color/main_blue:@color/normal_text_color}"
+                        android:textSize="11sp"
+                        android:gravity="right"
+                        />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

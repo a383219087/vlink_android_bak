@@ -2,6 +2,15 @@ package com.yjkj.chainup.bean
 
 import java.io.Serializable
 
+data class IncrementInfo(
+
+    val list: List<ProjectBean>,
+    val notice: String?=null,
+    val detail: String?=null
+
+
+) : Serializable
+
 
 data class ProjectBean(
     val activeStatus: Int,

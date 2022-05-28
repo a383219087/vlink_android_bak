@@ -171,8 +171,7 @@ public class ViewAdapter {
 
         drawable.setColors(colors);
         if (elevation != 0) {
-
-            view.setElevation( dip2px(view.getContext(), elevation));
+//            view.setElevation( dip2px(view.getContext(), elevation));
         }
         view.setBackground(drawable);
     }

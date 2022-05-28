@@ -15,16 +15,17 @@ import com.yjkj.chainup.util.FmPagerAdapter
 class ProductFragment : BaseMVFragment<ProductViewModel?, FragmentProductBinding>() {
 
 
-
-
     override fun setContentView(): Int = R.layout.fragment_product
     private val mFragments = mutableListOf<Fragment>()
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
+
+
         mFragments.add(AllFragment.newInstance(0))
         mFragments.add(AllFragment.newInstance(1))
         mFragments.add(AllFragment.newInstance(2))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
+       mViewModel?.getData()
 
     }
 }

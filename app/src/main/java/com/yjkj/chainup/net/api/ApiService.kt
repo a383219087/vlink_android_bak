@@ -596,11 +596,19 @@ interface ApiService {
     @FormUrlEncoded
     @POST("traderUser/cancel")
     fun cancelTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
+
     /**
      * 理财列表
      */
     @POST("increment/project_list")
     fun projectList(): Observable<HttpResult<List<ProjectBean>>>
+
+    /**
+     * 理财首页
+     */
+    @POST("increment/index")
+    fun projectIndex(): Observable<HttpResult<IncrementInfo>>
+
     /**
      * 理财详情
      */

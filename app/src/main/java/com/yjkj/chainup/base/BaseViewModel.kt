@@ -11,7 +11,6 @@ import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.TAG
 import com.yjkj.chainup.model.api.ContractApiService
@@ -19,6 +18,7 @@ import com.yjkj.chainup.net.AppException
 import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.new_version.activity.login.TouchIDFaceIDActivity
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.NetworkUtils
 import com.yjkj.chainup.util.ToastUtils
@@ -91,6 +91,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         mCompositeDisposable!!.add(
             single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, Consumer {
+                    LogUtil.d("我的报错",it.message)
                     when (it) {
                         is AppException -> {
                             ToastUtils.showToast(it.message)

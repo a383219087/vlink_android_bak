@@ -20,41 +20,47 @@
         app:ResColor="@{R.color.white}"
         app:radius="@{15}"
         android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
         android:onClick="@{()->onItemListener.onClick(item)}"
-        android:layout_marginRight="15dp"
-        android:padding="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="73dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <View
+        <ImageView
             android:layout_gravity="center"
-            android:layout_width="@dimen/dp_20"
-            app:ResColor="@{R.color.entrust_buy_color}"
-            app:radius="@{10}"
-            android:layout_height="@dimen/dp_20" />
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:src="@mipmap/ic_item_all_have"
+            />
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="7dp"
             android:layout_gravity="center"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:text="@{item.bean.name}"
-            android:textColor="@color/assets_center_text_color_day"
+            android:textColor="@color/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
 
-        <View
-            android:layout_marginLeft="10dp"
-            app:ResColor="@{R.color.entrust_buy_color}"
-            app:radius="@{10}"
+        <TextView
+            android:layout_marginStart="10dp"
+            app:ResColor="@{R.color.main_blue}"
+            app:radius="@{8}"
+            android:text="随时可存"
+            android:textSize="9sp"
+            android:visibility="@{item.bean.projectType==0||item.bean.projectType==1?View.VISIBLE:View.GONE}"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_13"
+            android:paddingRight="@dimen/dp_13"
+            android:textColor="@color/white"
             android:layout_gravity="center"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_20" />
+            android:layout_width="wrap_content"
+            android:layout_height="17dp" />
 
         <View
             android:layout_width="0dp"
@@ -64,6 +70,7 @@
             android:layout_gravity="center"
             android:textColor="@color/barcode_viewfinder_laser"
             android:text="@{item.bean.gainRate+ `%`}"
+            android:textSize="@dimen/sp_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -71,11 +78,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:gravity="center"
             android:layout_weight="1">
 
             <TextView
                 android:layout_gravity="center"
-                android:textColor="@color/color_gray"
+                android:textColor="@color/text_color_99"
+                android:textSize="@dimen/sp_11"
                 android:text="@{item.money}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -87,7 +96,8 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:textColor="@color/color_gray"
+                android:textColor="@color/text_color_99"
+                android:textSize="@dimen/sp_11"
                 android:text="固定年化"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -95,9 +105,8 @@
         </LinearLayout>
 
         <View
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:background="@color/chart_ma5"
+            android:background="@color/text_color_ee"
             android:layout_height="1dp" />
     </LinearLayout>
 

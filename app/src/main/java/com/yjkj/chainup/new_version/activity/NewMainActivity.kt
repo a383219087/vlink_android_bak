@@ -120,7 +120,8 @@ class NewMainActivity : NBaseActivity() {
         DoraemonKit.disableUpload()
         DoraemonKit.install(application, "cb190f56cf")
         DoraemonKit.setAwaysShowMainIcon(false)
-        DoraemonKit.setDebug(BuildConfig.DEBUG)
+//        DoraemonKit.setDebug(BuildConfig.DEBUG)
+        DoraemonKit.setDebug(true)
         DoraemonKit.show()
         netChangeStatus()
     }

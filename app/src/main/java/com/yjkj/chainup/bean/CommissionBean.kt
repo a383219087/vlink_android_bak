@@ -76,7 +76,8 @@ data class TraderTransactionBean(
     val date: String,
     val amount: Double,
     val followerAmount: Int,
-    val profit: Double
+    val profit: Double,
+    val followerCount: Int
 
 ): Serializable
 

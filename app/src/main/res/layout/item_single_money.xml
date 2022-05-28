@@ -169,7 +169,7 @@
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="带单金额(USDT)"
+                android:text="@{`带单金额(`+item.bean.coinSymbol+`)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -178,7 +178,7 @@
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="带单收益(USDT)"
+                android:text="@{`带单收益(`+item.bean.coinSymbol+`)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -214,7 +214,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.date}"
+                android:text="@{item.bean.amount+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.date}"
+                android:text="@{item.bean.followerAmount+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
@@ -232,7 +232,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.date}"
+                android:text="@{item.bean.followerCount+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
