@@ -9,7 +9,7 @@ data class QueryTraderBean(
     val my: CommissionBean
 
 
-    ) : Serializable
+) : Serializable
 
 data class CommissionBean(
     val ctime: Long,
@@ -79,7 +79,43 @@ data class TraderTransactionBean(
     val profit: Double,
     val followerCount: Int
 
-): Serializable
+) : Serializable
+
+data class GetAssetsTotalBean(
+    val canUseAmount: Int,
+    val allAmount: Double,
+    val isolateMargin: Int,
+    val lockAmount: Int,
+    val realizedAmount: Int,
+    val symbol: String,
+    val totalAmount: Int,
+    val totalMargin: Int,
+    val totalMarginRate: Int,
+    val unRealizedAmount: Int
+
+) : Serializable
+data class FollowerStatisticsBean(
+    val allAmount: Double,
+    val allReturnRate: Double,
+    val allTradeVolume: Int,
+    val ctime: String,
+    val highFrequentIndex: Double,
+    val lossNum: Int,
+    val mtime: String,
+    val perAmount: Double,
+    val perAmountPoints: Double,
+    val perAverageLoss: Int,
+    val perAverageProfit: Double,
+    val perLossPoints: Int,
+    val perWinPoints: Double,
+    val positionTime: Int,
+    val profitNum: Int,
+    val profitRate: Int,
+    val totalAmount: Int,
+    val tradeFrequency: Int,
+    val tradeNum: Int,
+    val uid: Int
+) : Serializable
 
 data class ContractConfig(
     val base: Any,
@@ -130,7 +166,7 @@ data class ContractConfig(
     val status: Int,
     val statusDesc: Any,
     val symbol: String
-): Serializable
+) : Serializable
 
 
 

@@ -10,13 +10,16 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.bean.GetAssetsTotalBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
+import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
+import com.yjkj.chainup.util.BigDecimalUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -24,6 +27,12 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 class FirstViewModel : BaseViewModel() {
 
     var context = MutableLiveData<FragmentActivity>()
+
+    // 顶部信息
+    var bean = MutableLiveData<GetAssetsTotalBean>()
+
+    var cnyString = MutableLiveData<String>()
+
 
     var index = MutableLiveData(0)
 
@@ -39,7 +48,7 @@ class FirstViewModel : BaseViewModel() {
 
 
     fun setShowMoney() {
-        showMoney.value=!showMoney.value!!
+        showMoney.value = !showMoney.value!!
         UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
     }
 
@@ -96,7 +105,7 @@ class FirstViewModel : BaseViewModel() {
 
     //成为交易员
     fun appTraders() {
-        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager,"")
+        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
     }
 
     //发起带单
@@ -117,6 +126,18 @@ class FirstViewModel : BaseViewModel() {
         getList(1)
     }
 
+    fun getData() {
+        if (status.value == 1) {
+            return
+        }
+        startTask(contractApiService.getAssetsTotal(), Consumer {
+            bean.value = it.data
+            cnyString.value= BigDecimalUtils.divForDown( it.data.allAmount.toString(), RateManager.getRatesByPayCoin("CNY")).toPlainString()
+        })
+
+    }
+
+
     fun getList(page: Int) {
         val map = HashMap<String, Any>()
         map["page"] = page.toString()
@@ -133,6 +154,7 @@ class FirstViewModel : BaseViewModel() {
 
         }
         startTask(apiService.traderUserList(map), Consumer {
+
             if (page == 1) {
                 items.clear()
                 isRefreshing.value = !isRefreshing.value!!

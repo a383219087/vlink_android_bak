@@ -28,12 +28,19 @@ class FirstFragment : BaseMVFragment<FirstViewModel?, FragmentFirstBinding>() {
         mViewModel?.context?.value=mActivity
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.getList(1)
+        mViewModel?.getData()
+
         mViewModel?.isRefreshing?.observe(this, Observer {
             mBinding?.twinklingRefreshLayout?.finishRefresh()
         })
         mViewModel?.isLoadMore?.observe(this, Observer {
             mBinding?.twinklingRefreshLayout?.finishLoadMore(true)
         })
+
+
+
+
+
     }
 
 

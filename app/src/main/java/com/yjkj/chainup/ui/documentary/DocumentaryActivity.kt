@@ -37,12 +37,12 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
 
     private fun  currentStatus(status:Int){
         mViewModel?.status?.value=status
+        mFragments?.clear()
         if (status == 1) {
             mFragments?.add(FirstFragment.newInstance(status))
             mFragments?.add(MySingleFragment.newInstance(2,""))
             mFragments?.add(MySingleMoneyFragment.newInstance())
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
-
         } else {
             mFragments?.add(FirstFragment.newInstance(status))
             mFragments?.add(ARouter.getInstance().build(RoutePath.MineFragment).navigation() as Fragment)

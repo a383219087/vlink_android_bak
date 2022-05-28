@@ -65,8 +65,8 @@ class SingleMoneyViewModel : BaseViewModel() {
     fun getList(){
         items.clear()
         val map = HashMap<String, Any>()
-//            map["uid"] = UserDataService.getInstance().userInfo4UserId
-            map["uid"] = "10035"
+            map["uid"] = UserDataService.getInstance().userInfo4UserId
+//            map["uid"] = "10035"
           if (index.value==0){
               startTask(contractApiService.traderTransaction(map), Consumer {
                      if (it.data.records.isNullOrEmpty()){

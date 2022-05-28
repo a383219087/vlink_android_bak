@@ -3,7 +3,6 @@ package com.yjkj.chainup.net.api
 import com.google.gson.JsonObject
 import com.yjkj.chainup.bean.*
 import com.yjkj.chainup.bean.address.AddressBean
-import com.yjkj.chainup.bean.coin.RateBean
 import com.yjkj.chainup.bean.dev.MessageBean
 import com.yjkj.chainup.bean.dev.NoticeBean
 import com.yjkj.chainup.bean.fund.CashFlowBean
@@ -44,11 +43,6 @@ interface ApiService {
     fun sendEmailVerifyCode(@Body requestBody: RequestBody): Observable<HttpResult<String>>
 
 
-    /**
-     * 查询汇率
-     */
-    @POST("common/rate")
-    fun getRate(@Body requestBody: RequestBody): Observable<HttpResult<RateBean>>
 
 
     /**
