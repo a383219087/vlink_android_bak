@@ -55,7 +55,6 @@ class AllViewModel : BaseViewModel() {
 
 
     fun getData() {
-
        startTask(apiService.projectList(), Consumer {
             if (it.data.isEmpty()) {
                 return@Consumer
