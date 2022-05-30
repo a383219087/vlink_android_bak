@@ -13,6 +13,8 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -92,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="@{_all.bean.gainRate+ `%`}"
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.gainRate+``,2)+ `%`}"
                         android:textColor="@{_all.bean.gainRate>0?@color/red:@color/green}"
                         android:textSize="13sp" />
 
@@ -134,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#4d4d4d"
                         android:textSize="13sp"
-                        android:text="@{`可用：`+_all.bean.userCurrentAmount+_all.bean.baseCoin}" />
+                        android:text="@{`可用：`+DecimalUtil.cutValueByPrecision(_all.bean.userCurrentAmount+``,2)+_all.bean.baseCoin}" />
                 </LinearLayout>
 
                 <LinearLayout

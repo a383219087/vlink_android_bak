@@ -460,6 +460,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:visibility="@{_all.bean.isShowBuy()==1?View.VISIBLE:View.GONE}"
                     android:onClick="@{()->_all.toSaveActivity()}"
                     android:text="立即存入"
                     android:textColor="@color/white"
