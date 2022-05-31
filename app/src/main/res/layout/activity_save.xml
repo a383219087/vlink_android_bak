@@ -13,6 +13,7 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -91,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="@{_all.bean.gainRate+ `%`}"
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.gainRate+``,2)+ `%`}"
                         android:textColor="@{_all.bean.gainRate>0?@color/red:@color/green}"
                         android:textSize="13sp" />
 
@@ -128,7 +129,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"/>
                     <TextView
-                        android:text="@{`可用：`+_all.bean.userNormalAmount+_all.bean.baseCoin}"
+                        android:text="@{`可用：`+DecimalUtil.cutValueByPrecision(_all.bean.userNormalAmount+``,2)+_all.bean.baseCoin}"
                         android:layout_width="wrap_content"
                         android:textColor="#4d4d4d"
                         android:textSize="13sp"
@@ -217,7 +218,7 @@
                         <TextView
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99"
-                            android:text="@{_all.bean.buyAmountMin+`-`+_all.bean.buyAmountMax+_all.bean.baseCoin}"
+                            android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.buyAmountMin+``,2)+`-`+DecimalUtil.cutValueByPrecision(_all.bean.buyAmountMax+``,2)+_all.bean.baseCoin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>

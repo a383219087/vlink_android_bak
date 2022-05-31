@@ -17,7 +17,11 @@ data class EnableModuleInfo(
     val increment :Int?,
     val game :Int?,
     val futures :Int?,
-    val share :Int?
+    val share :Int?,
+    val withdraw :Int?,
+    val recharge :Int?,
+    val options :Int?,
+    val chat :Int?
 
 
     ) : Serializable

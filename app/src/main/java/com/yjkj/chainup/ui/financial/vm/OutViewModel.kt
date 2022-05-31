@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.Pos
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import java.util.*
@@ -19,7 +20,7 @@ class OutViewModel : BaseViewModel() {
 
 
     fun allOnClick() {
-        text.value = bean.value?.userCurrentAmount.toString()
+        text.value = DecimalUtil.cutValueByPrecision(bean.value?.userCurrentAmount.toString(),2)
 
     }
 

@@ -2,16 +2,21 @@ package com.yjkj.chainup.new_version.home.vm
 
 
 import android.content.Context
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.LanguageUtil
+import com.yjkj.chainup.util.NLanguageUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -23,7 +28,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     /**
      * 顶部广告图列表
      */
-    var bannerImgUrls : ObservableList<String> = ObservableArrayList()
+    var bannerImgUrls: ObservableList<String> = ObservableArrayList()
 
     /**
      * 列表
@@ -35,25 +40,59 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
             }
             when (item.index.value) {
                 /**
-                 * 期权
+                 * 充值收款
                  */
                 0 -> ToastUtils.showToast("正在开发")
                 /**
+                 * 提现转账
+                 */
+                1 -> ToastUtils.showToast("正在开发")
+                /**
+                 * 合约
+                 */
+                2 -> ToastUtils.showToast("正在开发")
+                /**
+                 * 期权
+                 */
+                3 -> {
+                    val token = UserDataService.getInstance().token
+                    val lang = NLanguageUtil.getLanguage()
+                    val style = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val bundle = Bundle()
+                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+
+                }
+                /**
                  * 跟单
                  */
-                1 -> ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
+                4 -> ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
                 /**
                  * 理财
                  */
-                2 -> ArouterUtil.navigation(RoutePath.FinancialActivity, null)
+                5 -> ArouterUtil.navigation(RoutePath.FinancialActivity, null)
                 /**
                  * 游戏
                  */
-                3 -> ToastUtils.showToast("正在开发")
+                6 -> {
+                    val token = UserDataService.getInstance().token
+                    val lang = NLanguageUtil.getLanguage()
+                    val style = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val bundle = Bundle()
+                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+
+                }
+                /**
+                 * 密聊
+                 */
+                7 -> ToastUtils.showToast("正在开发")
                 /**
                  * 分享有礼
                  */
-                4 -> ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+                8 -> ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
 
 
             }
@@ -78,63 +117,126 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     }
 
 
-
     /**
      * 获取首页配置
      */
+
+//    "withdraw":1,
+//    "futures":1,
+//    "options":1,
+//    "trader":1,
+//    "increment":1,
+//    "game":1,
+//    "share":1
     fun getPublicInfo(context: Context) {
         val map = TreeMap<String, String>()
         startTask(apiService.getPublicInfo1(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-             if (it.data==null||it.data?.enable_module_info==null){
-                 return@Consumer
-             }
-            val futures = it.data?.enable_module_info?.futures
+            if (it.data == null || it.data?.enable_module_info == null) {
+                return@Consumer
+            }
+            val contract = it.data?.enable_module_info?.futures
             val trader = it.data?.enable_module_info?.trader
             val increment = it.data?.enable_module_info?.increment
             val game = it.data?.enable_module_info?.game
             val share = it.data?.enable_module_info?.share
+            val withdraw = it.data?.enable_module_info?.withdraw
+            val futures = it.data?.enable_module_info?.options
+            val recharge = it.data?.enable_module_info?.recharge
+            val chat = it.data?.enable_module_info?.chat
             items.clear()
-            if (futures == 1) {
+            /**
+             * 充值收款
+             */
+            if (recharge == 1) {
                 val item = Item()
                 item.index.value = 0
-                item.resImg.value = R.mipmap.qiquan
+                item.resImg.value = R.mipmap.chongzhi
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text1")
                 items.add(item)
             }
-            if (trader == 1) {
+            /**
+             * 提现转账
+             */
+            if (withdraw == 1) {
                 val item = Item()
                 item.index.value = 1
-                item.resImg.value = R.mipmap.gendan
+                item.resImg.value = R.mipmap.tixian_zhuanzhang
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text2")
                 items.add(item)
             }
-            if (increment == 1) {
+            /**
+             * 合约
+             */
+            if (contract == 1) {
                 val item = Item()
                 item.index.value = 2
-                item.resImg.value = R.mipmap.licai
+                item.resImg.value = R.mipmap.heyue
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text3")
                 items.add(item)
             }
-            if (game == 1) {
+            /**
+             * 期权
+             */
+            if (futures == 1) {
                 val item = Item()
                 item.index.value = 3
-                item.resImg.value = R.mipmap.youxi
+                item.resImg.value = R.mipmap.qiquan
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text4")
                 items.add(item)
             }
-            if (share == 1) {
+            /**
+             * 跟单
+             */
+            if (trader == 1) {
                 val item = Item()
                 item.index.value = 4
-                item.resImg.value = R.mipmap.fenxiangyouli
+                item.resImg.value = R.mipmap.gendan
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text5")
+                items.add(item)
+            }
+            /**
+             * 理财
+             */
+            if (increment == 1) {
+                val item = Item()
+                item.index.value = 5
+                item.resImg.value = R.mipmap.licai
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text6")
+                items.add(item)
+            }
+            /**
+             * 游戏
+             */
+            if (game == 1) {
+                val item = Item()
+                item.index.value = 6
+                item.resImg.value = R.mipmap.youxi
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text7")
+                items.add(item)
+            }
+            /**
+             * 密聊
+             */
+            if (chat == 1) {
+                val item = Item()
+                item.index.value = 7
+                item.resImg.value = R.mipmap.miliao
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text8")
+                items.add(item)
+            }
+            /**
+             * 分享有礼
+             */
+            if (share == 1) {
+                val item = Item()
+                item.index.value = 8
+                item.resImg.value = R.mipmap.miliao
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text9")
                 items.add(item)
             }
         })
 
     }
-
-
-
 
 
 }

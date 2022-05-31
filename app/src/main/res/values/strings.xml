@@ -3387,11 +3387,15 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
 
     <!--  奔跑的狗子新加-->
 
-    <string name="NewVersionHomePageViewModel_text1">futures</string>
-    <string name="NewVersionHomePageViewModel_text2">trader</string>
-    <string name="NewVersionHomePageViewModel_text3">increment</string>
-    <string name="NewVersionHomePageViewModel_text4">game</string>
-    <string name="NewVersionHomePageViewModel_text5">share</string>
+    <string name="NewVersionHomePageViewModel_text1">充值收款</string>
+    <string name="NewVersionHomePageViewModel_text2">提现转账</string>
+    <string name="NewVersionHomePageViewModel_text3">合约</string>
+    <string name="NewVersionHomePageViewModel_text4">期权</string>
+    <string name="NewVersionHomePageViewModel_text5">跟单</string>
+    <string name="NewVersionHomePageViewModel_text6">理财</string>
+    <string name="NewVersionHomePageViewModel_text7">游戏</string>
+    <string name="NewVersionHomePageViewModel_text8">密聊</string>
+    <string name="NewVersionHomePageViewModel_text9">分享有礼</string>
 
 
 
