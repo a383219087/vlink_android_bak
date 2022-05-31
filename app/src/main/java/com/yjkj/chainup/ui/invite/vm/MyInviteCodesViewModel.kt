@@ -11,6 +11,7 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
+import com.yjkj.chainup.ui.invite.EditInviteCodesDialog
 import com.yjkj.chainup.ui.invite.InvitationPostersDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -62,7 +63,15 @@ class MyInviteCodesViewModel : BaseViewModel() {
 
 
     }
+    fun onclickRightIcon() {
+        EditInviteCodesDialog().apply {
+            val bundle = Bundle()
+            bundle.putInt("type", 1)
+            this.arguments = bundle
 
+        }.showDialog(context.value!!.supportFragmentManager,"")
+
+    }
 
     val itemBinding =
         ItemBinding.of<AgentCodeBean>(BR.item, R.layout.item_invite_code).bindExtra(BR.onItemListener, onItemListener)

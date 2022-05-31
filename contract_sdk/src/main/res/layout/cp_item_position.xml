@@ -413,13 +413,13 @@
             android:layout_marginBottom="12dp"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/tv_adjust_margins"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/cp_order_text16"
                 android:layout_marginRight="5dp"
@@ -443,7 +443,7 @@
             <Button
                 android:id="@+id/tv_close_position"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:textAllCaps="false"
@@ -455,7 +455,7 @@
             <Button
                 android:id="@+id/tv_quick_close_position"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="match_parent"
                 android:textColor="@color/main_blue"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"

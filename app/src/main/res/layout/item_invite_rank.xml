@@ -20,7 +20,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="vertical"
-        android:padding="15dp">
+    >
 
         <LinearLayout
             android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
@@ -34,37 +34,44 @@
                 android:layout_height="wrap_content"
                 android:text="排行"
                 android:gravity="center"
-                android:textColor="@color/text_color_level_4"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_99"
+                android:textSize="10sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:text="用户昵称"
                 android:gravity="center"
-                android:textColor="@color/text_color_level_4"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_99"
+                android:textSize="10sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:text="邀请人数"
                 android:gravity="center"
-                android:textColor="@color/text_color_level_4"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_99"
+                android:textSize="10sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:text="返利金额"
                 android:gravity="center"
-                android:textColor="@color/text_color_level_4"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_99"
+                android:textSize="10sp" />
 
 
 
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
+            android:background="@color/text_color_ee"
+            android:layout_marginTop="10dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,11 +81,34 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:visibility="@{item.index&lt;3?View.GONE:View.VISIBLE}"
                 android:layout_height="wrap_content"
                 android:text="@{(item.index+1)+``}"
                 android:gravity="center"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="10sp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="@{item.index==0?View.VISIBLE:View.GONE}"
+                android:layout_height="@dimen/dp_22"
+                android:src="@mipmap/ic_rank1"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="@{item.index==1?View.VISIBLE:View.GONE}"
+                android:layout_height="@dimen/dp_22"
+                android:src="@mipmap/ic_rank2"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="@{item.index==2?View.VISIBLE:View.GONE}"
+                android:layout_height="@dimen/dp_22"
+                android:src="@mipmap/ic_rank3"/>
+
+
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
@@ -86,7 +116,7 @@
                 android:text="@{item.uid+``}"
                 android:gravity="center"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="10sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
@@ -94,15 +124,15 @@
                 android:text="@{item.userCount+``}"
                 android:gravity="center"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="10sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:text="@{item.amount+``}"
                 android:gravity="center"
-                android:textColor="@color/text_color_red"
-                android:textSize="15sp" />
+                android:textColor="#d26e4a"
+                android:textSize="10sp" />
 
 
 

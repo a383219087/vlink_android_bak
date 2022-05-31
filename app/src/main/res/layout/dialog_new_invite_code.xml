@@ -16,12 +16,15 @@
     </data>
 
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            app:radius="@{15}"
+            app:radius="@{10}"
             app:ResColor="@{R.color.bg_card_color}"
             android:gravity="center"
             android:layout_gravity="center"
@@ -30,124 +33,35 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:text="@{_all.type==1?`生成新邀请码`:`修改邀请码`}"
                 android:textColor="@color/text_color"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:text="好友返利比例"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_about"
                 android:layout_width="match_parent"
-                android:layout_margin="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_height="wrap_content"
                 app:itemBinding="@{_all.itemBinding}"
                 app:items="@{_all.items}"
                 app:spanCount="5"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 />
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="left"-->
-<!--                android:layout_marginLeft="15dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:gravity="left"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingLeft="7dp"-->
-<!--                    app:onClick="@{()->_all.checkNum(1)}"-->
-<!--                    app:radius="@{5}"-->
-<!--                    app:ResColor="@{_all.checkNum!=1?R.color.gray:R.color.main_color}"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="7dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="0%"-->
-<!--                    android:textColor="@{_all.checkNum==1?@color/white:@color/text_color}"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    app:onClick="@{()->_all.checkNum(2)}"-->
-<!--                    app:radius="@{5}"-->
-<!--                    app:ResColor="@{_all.checkNum!=2?R.color.gray:R.color.main_color}"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingLeft="7dp"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="7dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="30%"-->
-<!--                    android:textColor="@{_all.checkNum==2?@color/white:@color/text_color}"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    app:onClick="@{()->_all.checkNum(3)}"-->
-<!--                    app:radius="@{5}"-->
-<!--                    app:ResColor="@{_all.checkNum!=3?R.color.gray:R.color.main_color}"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingLeft="7dp"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="7dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="50%"-->
-<!--                    android:textColor="@{_all.checkNum==3?@color/white:@color/text_color}"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    app:onClick="@{()->_all.checkNum(4)}"-->
-<!--                    app:radius="@{5}"-->
-<!--                    app:ResColor="@{_all.checkNum!=4?R.color.gray:R.color.main_color}"-->
-<!--                    android:textColor="@{_all.checkNum==4?@color/white:@color/text_color}"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingLeft="7dp"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="7dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="70%"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    app:onClick="@{()->_all.checkNum(5)}"-->
-<!--                    app:radius="@{5}"-->
-<!--                    app:ResColor="@{_all.checkNum!=5?R.color.gray:R.color.main_color}"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingLeft="7dp"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingRight="7dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="90%"-->
-<!--                    android:textColor="@{_all.checkNum==5?@color/white:@color/text_color}"-->
-<!--                    android:textSize="15sp" />-->
-
-
-<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="我的返利比例"
                     android:textColor="@color/text_color"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -170,7 +84,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="@{(100-_all.rate)+`%`}"
                     android:textColor="@color/text_color"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -182,17 +96,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_gravity="left"
                 android:textColor="@color/text_color"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="36dp"
                 android:background="@drawable/otc_bg_cancel_btn"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:text="@={_all.remark}"
                 android:layout_marginRight="15dp"
                 android:hint="备注信息"/>
@@ -201,7 +115,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:paddingLeft="@dimen/dp_5"
+                android:button="@drawable/cp_trade_check_selector"
                 android:layout_marginTop="10dp"
+                android:textSize="13sp"
                 android:layout_gravity="left"
                 android:checked="@={_all.isCheck()}"
                 android:text="设为默认邀请码"/>
@@ -209,10 +126,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_20"
+                android:layout_height="@dimen/dp_36"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="@dimen/dp_30"
                 android:orientation="horizontal">
 
@@ -250,6 +167,9 @@
 
 
         </LinearLayout>
+
+    </FrameLayout>
+
 
 
 </layout>

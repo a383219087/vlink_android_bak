@@ -1,23 +1,16 @@
 package com.yjkj.chainup.ui.invite.vm
 
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
-import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.common.binding.command.BindingCommand
-import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.ImageTools
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.ToastUtils
 
 
@@ -32,18 +25,20 @@ class InvitationPostersViewModel : BaseViewModel() {
 
     var navigationContent = MutableLiveData("")
 
-
+    var activity = MutableLiveData<Context>()
     var bitmap = MutableLiveData<Bitmap>()
 
 
+
+
     @SuppressLint("CheckResult")
-    var listener = BindingCommand(BindingConsumer<View> {
-        val view: ImageView = it as ImageView
-        val bitmap = (view.drawable as BitmapDrawable).bitmap
-        val rxPermissions = RxPermissions(view.context as Activity)
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .subscribe { granted ->
-                if (granted) {
+    fun saveBitmap(view: View){
+//        val view: ImageView = view as ImageView
+        val bitmap = bitmap.value
+//        val rxPermissions = RxPermissions(view.context)
+//        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//            .subscribe { granted ->
+//                if (granted) {
                     if (bitmap != null) {
                         val saveImageToGallery = ImageTools.saveImageToGallery4ContractAgent(view.context, bitmap)
                         if (saveImageToGallery) {
@@ -54,12 +49,12 @@ class InvitationPostersViewModel : BaseViewModel() {
                     } else {
                         ToastUtils.showToast("保存失败")
                     }
-                } else {
-                    ToastUtils.showToast("保存失败")
-                }
-            }
+//                } else {
+//                    ToastUtils.showToast("保存失败")
+//                }
+//            }
+    }
 
-    })
 
 
     fun setShare(type: Int) {

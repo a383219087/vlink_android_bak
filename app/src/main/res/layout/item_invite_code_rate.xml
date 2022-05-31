@@ -28,12 +28,12 @@
             android:layout_marginRight="15dp"
             app:onClick="@{()->onItemListener.onClick(item.bean)}"
             app:radius="@{5}"
-            app:ResColor="@{item.checkRate!=item.bean.rate?R.color.text_color_99:R.color.main_color}"
+            app:ResColor="@{item.checkRate!=item.bean.rate?R.color.main_blue_15:R.color.main_color}"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:text="@{item.bean.rate+`%`}"
             android:textColor="@{item.checkRate==item.bean.rate?@color/white:@color/text_color}"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
 
     </FrameLayout>
