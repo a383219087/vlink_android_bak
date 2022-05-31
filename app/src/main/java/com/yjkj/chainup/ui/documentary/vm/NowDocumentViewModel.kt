@@ -156,25 +156,27 @@ class NowDocumentViewModel : BaseViewModel() {
 
         startTask(contractApiService.traderPositionList(map), Consumer {
 
-            if (it.data?.records.isNullOrEmpty()) {
-                return@Consumer
-            }
-            for (i in it.data.records!!.indices) {
-                val item = Item()
-                item.status.value = status.value
-                item.type.value = type.value
-                item.bean.value = it.data.records!![i]
-                item.contract.value = ContractPublicDataAgent.getContract(it.data.records!![i].contractId)
-
-                if (it.data.records!![i].orderSide == "BUY") {
-                    item.contractType.value = "多仓-" + it.data.records!![i].leverageLevel + "X"
-                } else {
-                    item.contractType.value = "空仓-" + it.data.records!![i].leverageLevel + "X"
+                if (it.data?.positionList.isNullOrEmpty()) {
+                    return@Consumer
                 }
-                item.time.value = "${it.data.records!![i].ctime}->${it.data.records!![i].mtime}"
+                for (i in it.data.positionList!!.indices) {
+                    val item = Item()
+                    item.status.value = status.value
+                    item.type.value = type.value
+                    item.bean.value = it.data.positionList!![i]
+                    item.contract.value = ContractPublicDataAgent.getContract(it.data.positionList!![i].contractId)
 
-                items.add(item)
-            }
+                    if (it.data.positionList!![i].orderSide == "BUY") {
+                        item.contractType.value = "多仓-" + it.data.positionList!![i].leverageLevel + "X"
+                    } else {
+                        item.contractType.value = "空仓-" + it.data.positionList!![i].leverageLevel + "X"
+                    }
+                    item.time.value = "${it.data.positionList!![i].ctime}->${it.data.positionList!![i].mtime}"
+
+                    items.add(item)
+                }
+
+
 
         })
 

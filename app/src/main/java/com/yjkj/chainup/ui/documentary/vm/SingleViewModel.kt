@@ -44,9 +44,9 @@ class SingleViewModel : BaseViewModel() {
         map["uid"] = uid.toString()
         startTask(apiService.queryTrader(map), Consumer {
             if (uid.isNullOrEmpty()){
-                bean.value=it.data.my
+                bean.value=it.data
             } else{
-                bean.value=it.data.traderUser
+                bean.value=it.data
             }
 
 

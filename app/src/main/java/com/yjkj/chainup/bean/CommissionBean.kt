@@ -53,7 +53,7 @@ data class CurrentStatusBean(
 
 data class TraderPositionInfo(
 
-    val records: List<CpContractPositionBean>?
+    val positionList: List<CpContractPositionBean>?
 
 
 ) : Serializable

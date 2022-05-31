@@ -32,6 +32,9 @@ public class ImageViewAdapter {
      */
     @BindingAdapter("content")
     public static void generateBitmap(ImageView view, String content) {
+        if (content.isEmpty()){
+            return;
+        }
         view.setImageBitmap(BitmapUtils.generateBitmap(content,400,400));
     }
 

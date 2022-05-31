@@ -566,7 +566,7 @@ interface ApiService {
      */
     @POST("traderUser/query")
     @FormUrlEncoded
-    fun queryTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<QueryTraderBean>>
+    fun queryTrader(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<CommissionBean>>
 
     /**
      * 查看交易员申请状态
