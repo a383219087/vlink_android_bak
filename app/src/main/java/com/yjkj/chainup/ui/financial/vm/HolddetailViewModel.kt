@@ -5,6 +5,7 @@ import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
+import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -91,12 +92,12 @@ class HolddetailViewModel:BaseViewModel() {
                     item.item.value=it.data.detailList[i]
                     item.isAdd.value= it.data.detailList[i].amount.toDouble()>0
                     item.typeString.value=when(it.data.detailList[i].type){
-                        "gain"->"计息"
-                        "apply_0"->"存入"
-                        "apply_1"->"赎回"
-                        "apply_2"->"赎回中"
-                        "apply_3"->"自动存入"
-                        else->"计息"
+                        "gain"->context.getString(R.string.financial_text18)
+                        "apply_0"->context.getString(R.string.financial_text19)
+                        "apply_1"->context.getString(R.string.financial_text20)
+                        "apply_2"->context.getString(R.string.financial_text21)
+                        "apply_3"->context.getString(R.string.financial_text22)
+                        else->context.getString(R.string.financial_text18)
                     }
                     items.add(item)
 

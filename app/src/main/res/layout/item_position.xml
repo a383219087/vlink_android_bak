@@ -61,7 +61,7 @@
             <TextView
                 android:textSize="11sp"
                 android:gravity="left"
-                android:text="@{`昨日收益（`+item.item.gainCoin+`)`}"
+                android:text="@{@string/financial_text9+`（`+item.item.gainCoin+`)`}"
                 tool:text="昨日收益(USDT)"
                 android:textColor="#d3d4d6"
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:textSize="11sp"
                 android:layout_width="0dp"
-                android:text="@{`累计收益（`+item.item.gainCoin+`)`}"
+                android:text="@{@string/financial_text10+`（`+item.item.gainCoin+`)`}"
                 tool:text="累计收益(USDT)"
                 android:textColor="#d3d4d6"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_width="0dp"
                 tool:text="预计年收益(USDT)"
                 android:textColor="#d3d4d6"
-                android:text="@{`预计年收益（`+item.item.gainCoin+`)`}"
+                android:text="@{@string/financial_text11+`（`+item.item.gainCoin+`)`}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -129,7 +129,7 @@
 
         <TextView
             android:layout_marginTop="10dp"
-            android:text="@{`数量（`+item.item.gainCoin+`)`}"
+            android:text="@{@string/dialog_close_text4+`（`+item.item.gainCoin+`)`}"
             tool:text="数量(USDT)"
             android:textSize="11sp"
             android:textColor="#d3d4d6"

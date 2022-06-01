@@ -61,10 +61,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:textColor="@color/text_color"
                             android:textSize="13sp"
-                            android:text="@{_all.bean.nickName}" />
+                            android:text="@{_all.bean.nickname}" />
 
                         <LinearLayout
                             android:layout_height="14dp"
@@ -89,7 +90,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:textSize="9sp"
                                 android:layout_marginRight="3dp"
-                                android:text="@{_all.bean.followerCount+`/50`}"
+                                android:text="@{_all.bean.currentFollowCount+`/50`}"
                                 android:textColor="@color/color_nonetwork_btn_blue" />
 
 
@@ -130,7 +131,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center|left"
-                            android:text="近2周收益率"
+                            android:text="@string/decumentary_detail_text20"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
                         <TextView
@@ -138,7 +139,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="近2周胜率"
+                            android:text="@string/decumentary_detail_text22"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
                         <TextView
@@ -146,7 +147,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center|right"
-                            android:text="近2周收益(USDT)"
+                            android:text="@{@string/decumentary_detail_text16+`(USDT)`}"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
 
@@ -199,7 +200,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center|left"
-                            android:text="累计收益率"
+                            android:text="@string/decumentary_detail_text17"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
                         <TextView
@@ -207,7 +208,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="累计交易笔数"
+                            android:text="@string/decumentary_detail_text18"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
                         <TextView
@@ -215,7 +216,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center|right"
-                            android:text="累计跟随人数"
+                            android:text="@string/decumentary_detail_text24"
                             android:textSize="11sp"
                             android:textColor="@color/text_color_99" />
 
@@ -280,7 +281,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:onClick="@{()->_all.setIndex(0)}"
-                            android:text="@{_all.status==1?`当前跟单`:`当前带单`}"
+                            android:text="@{_all.status==1?@string/decumentary_mine_text2:@string/decumentary_mine_text5}"
                             android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
                             android:textSize="15sp" />
 
@@ -305,7 +306,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:onClick="@{()->_all.setIndex(1)}"
-                            android:text="@{_all.status==1?`历史跟单`:`近期带单`}"
+                            android:text="@{_all.status==1?@string/decumentary_mine_text3:@string/decumentary_mine_text6}"
                             android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
                             android:textSize="15sp" />
 
@@ -330,7 +331,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:onClick="@{()->_all.setIndex(2)}"
-                            android:text="跟随者"
+                            android:text="@string/decumentary_mine_text7"
                             android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
                             android:textSize="15sp" />
 

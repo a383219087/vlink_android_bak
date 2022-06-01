@@ -51,7 +51,7 @@
             android:layout_marginStart="10dp"
             app:ResColor="@{R.color.main_blue}"
             app:radius="@{8}"
-            android:text="随时可存"
+            android:text="@string/financial_text1"
             android:textSize="9sp"
             android:visibility="@{item.bean.projectType==0||item.bean.projectType==1?View.VISIBLE:View.GONE}"
             android:gravity="center"
@@ -98,7 +98,7 @@
                 android:layout_gravity="center"
                 android:textColor="@color/text_color_99"
                 android:textSize="@dimen/sp_11"
-                android:text="固定年化"
+                android:text="@string/financial_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

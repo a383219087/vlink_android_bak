@@ -47,7 +47,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/dp_15"
-                    android:text="持有详情"
+                    android:text="@string/financial_text8"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/sp_18"
                     android:textStyle="bold" />
@@ -98,7 +98,7 @@
                     <TextView
                         android:textSize="11sp"
                         android:gravity="left"
-                        android:text="@{`昨日收益（`+_all.bean.gainCoin+`)`}"
+                        android:text="@{@string/financial_text9+`（`+_all.bean.gainCoin+`)`}"
                         tool:text="昨日收益(USDT)"
                         android:textColor="#d3d4d6"
                         android:layout_width="0dp"
@@ -109,7 +109,7 @@
                         android:gravity="center"
                         android:textSize="11sp"
                         android:layout_width="0dp"
-                        android:text="@{`累计收益（`+_all.bean.gainCoin+`)`}"
+                        android:text="@{@string/financial_text10+`（`+_all.bean.gainCoin+`)`}"
                         tool:text="累计收益(USDT)"
                         android:textColor="#d3d4d6"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                         android:layout_width="0dp"
                         tool:text="预计年收益(USDT)"
                         android:textColor="#d3d4d6"
-                        android:text="@{`预计年收益（`+_all.bean.gainCoin+`)`}"
+                        android:text="@{@string/financial_text11+`（`+_all.bean.gainCoin+`)`}"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
@@ -166,7 +166,7 @@
 
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:text="@{`数量（`+_all.bean.gainCoin+`)`}"
+                    android:text="@{@string/dialog_close_text4+`（`+_all.bean.gainCoin+`)`}"
                     tool:text="数量(USDT)"
                     android:textSize="11sp"
                     android:textColor="#d3d4d6"
@@ -194,7 +194,7 @@
                     app:ResColor="@{_all.detailType==4?R.color.white:R.color.tabbar_divide_color}"
                     app:StrokeResColor="@{_all.detailType==4?R.color.main_blue:R.color.tabbar_divide_color}"
                     app:radius="@{5}"
-                    android:text="全部"
+                    android:text="@string/financial_text12"
                     android:textColor="@{_all.detailType==4?@color/main_blue:@color/text_color_99}"
                     android:textSize="11sp"
                     android:gravity="center"
@@ -210,7 +210,7 @@
                     app:StrokeResColor="@{_all.detailType==1?R.color.main_blue:R.color.tabbar_divide_color}"
                     app:radius="@{5}"
                     android:gravity="center"
-                    android:text="存入记录"
+                    android:text="@string/financial_text13"
                     android:textColor="@{_all.detailType==1?@color/main_blue:@color/text_color_99}"
                     android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(1)}"
@@ -224,7 +224,7 @@
                     app:StrokeResColor="@{_all.detailType==3?R.color.main_blue:R.color.tabbar_divide_color}"
                     app:radius="@{5}"
                     android:gravity="center"
-                    android:text="收益明细"
+                    android:text="@string/financial_text14"
                     android:textColor="@{_all.queryType==3?@color/main_blue:@color/text_color_99}"
                     android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(3)}"
@@ -238,7 +238,7 @@
                     app:StrokeResColor="@{_all.detailType==2?R.color.main_blue:R.color.tabbar_divide_color}"
                     app:radius="@{5}"
                     android:gravity="center"
-                    android:text="取出记录"
+                    android:text="@string/financial_text15"
                     android:textColor="@{_all.detailType==2?@color/main_blue:@color/text_color_99}"
                     android:textSize="11sp"
                     android:onClick="@{()->_all.setDetailType(2)}"
@@ -296,7 +296,7 @@
                 <TextView
                     android:textColor="#ffffff"
                     android:textSize="13sp"
-                    android:text="继续存入"
+                    android:text="@string/financial_text16"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -332,7 +332,7 @@
                 <TextView
                     android:textColor="#ffffff"
                     android:textSize="13sp"
-                    android:text="取出"
+                    android:text="@string/financial_text17"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

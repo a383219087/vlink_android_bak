@@ -43,7 +43,7 @@
                      android:drawableRight="@{_all.showMoney?@drawable/assets_visible:@drawable/assets_invisible}"
                      android:drawablePadding="@dimen/dp_5"
                      android:onClick="@{()->_all.setShowMoney()}"
-                     android:text="总存款"
+                     android:text="@string/financial_text23"
                      android:textColor="@color/white"
                      android:textSize="13sp" />
 
@@ -111,7 +111,7 @@
                      android:layout_height="wrap_content">
                      <TextView
                          android:textSize="10sp"
-                         android:text="@{`昨日收益（`+_all.bean.comCoin+`)`}"
+                         android:text="@{@string/financial_text9+`（`+_all.bean.comCoin+`)`}"
                          android:layout_width="0dp"
                          android:textColor="#80FFFFFF"
                          android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                          android:textSize="10sp"
                          android:layout_width="0dp"
                          android:textColor="#80FFFFFF"
-                         android:text="@{`总收益（`+_all.bean.comCoin+`)`}"
+                         android:text="@{@string/financial_text24+`（`+_all.bean.comCoin+`)`}"
                          android:layout_height="wrap_content"
                          android:layout_weight="1"/>
                  </LinearLayout>
@@ -171,7 +171,7 @@
                  app:ResColor="@{_all.queryType==1?R.color.white:R.color.tabbar_divide_color}"
                  app:StrokeResColor="@{_all.queryType==1?R.color.main_blue:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
-                 android:text="持仓中"
+                 android:text="@string/financial_text25"
                  android:textColor="@{_all.queryType==1?@color/main_blue:@color/text_color_99}"
                  android:textSize="11sp"
                  android:gravity="center"
@@ -187,7 +187,7 @@
                  app:StrokeResColor="@{_all.queryType==0?R.color.main_blue:R.color.tabbar_divide_color}"
                  app:radius="@{5}"
                  android:gravity="center"
-                 android:text="历史持仓"
+                 android:text="@string/financial_text26"
                  android:textColor="@{_all.queryType==0?@color/main_blue:@color/text_color_99}"
                  android:textSize="11sp"
                  android:onClick="@{()->_all.setQuery(0)}"

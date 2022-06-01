@@ -85,7 +85,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="跟随者"
+                android:text="@string/decumentary_mine_text7"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -95,7 +95,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="带单金额(USDT)"
+                android:text="@{@string/decumentary_mine_text10+`(USDT)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -104,7 +104,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="带单收益(USDT)"
+                android:text="@{@string/activity_documentary_text6+`(USDT)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -159,7 +159,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="日期"
+                android:text="@string/decumentary_mine_text11"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -169,7 +169,7 @@
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{`带单金额(`+item.bean.coinSymbol+`)`}"
+                android:text="@{@string/decumentary_mine_text10+`(`+item.bean.coinSymbol+`)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -178,7 +178,7 @@
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{`带单收益(`+item.bean.coinSymbol+`)`}"
+                android:text="@{@string/activity_documentary_text6+`(`+item.bean.coinSymbol+`)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -186,7 +186,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="跟随人数"
+                android:text="@string/decumentary_mine_text12"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 

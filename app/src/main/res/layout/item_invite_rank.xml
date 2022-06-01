@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="排行"
+                android:text="@string/share_text26"
                 android:gravity="center"
                 android:textColor="@color/text_color_99"
                 android:textSize="10sp" />
@@ -40,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:text="用户昵称"
+                android:text="@string/share_text27"
                 android:gravity="center"
                 android:textColor="@color/text_color_99"
                 android:textSize="10sp" />
@@ -48,7 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:text="邀请人数"
+                android:text="@string/share_text28"
                 android:gravity="center"
                 android:textColor="@color/text_color_99"
                 android:textSize="10sp" />
@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:text="返利金额"
+                android:text="@string/share_text29"
                 android:gravity="center"
                 android:textColor="@color/text_color_99"
                 android:textSize="10sp" />

@@ -37,7 +37,7 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:onClick="@{()->_all.setIndex(0)}"
-                 android:text="全部"
+                 android:text="@string/pos_string_all"
                  android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
                  android:textSize="15sp" />
 
@@ -61,7 +61,7 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:onClick="@{()->_all.setIndex(1)}"
-                 android:text="活期"
+                 android:text="@string/financial_text33"
                  android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
                  android:textSize="15sp" />
 
@@ -86,7 +86,7 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:onClick="@{()->_all.setIndex(2)}"
-                 android:text="定期"
+                 android:text="@string/financial_text34"
                  android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
                  android:textSize="15sp" />
 

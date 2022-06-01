@@ -43,7 +43,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="历史总跟单本金"
+                            android:text="@string/decumentary_mine_text1"
                             android:onClick="@{()->_all.setShowMoney()}"
                             android:drawablePadding="@dimen/dp_5"
                             android:layout_marginStart="24dp"
@@ -91,7 +91,7 @@
                             android:layout_width="94dp"
                             android:layout_height="@dimen/dp_28"
                             android:layout_gravity="center|right"
-                            android:text="成为交易员"
+                            android:text="@string/decumentary_detail_text9"
                             android:gravity="center"
                             android:textSize="@dimen/sp_12"
                             android:background="@mipmap/ic_apply_traders"
@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="15dp"
                                 android:layout_gravity="center"
-                                android:text="累计收益(USDT)"
+                                android:text="@{@string/decumentary_detail_text17+`(USDT)`}"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
 
@@ -149,7 +149,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="15dp"
                                 android:layout_gravity="center"
-                                android:text="累计收益率"
+                                android:text="@string/decumentary_detail_text21"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
 
@@ -194,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:onClick="@{()->_all.setIndex(0)}"
-                        android:text="当前跟单"
+                        android:text="@string/decumentary_mine_text2"
                         android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
                         android:textSize="15sp" />
 
@@ -219,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:onClick="@{()->_all.setIndex(1)}"
-                        android:text="历史跟单"
+                        android:text="@string/decumentary_mine_text3"
                         android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
                         android:textSize="15sp" />
 
@@ -244,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:onClick="@{()->_all.setIndex(2)}"
-                        android:text="我的交易员"
+                        android:text="@string/decumentary_mine_text4"
                         android:textColor="@{_all.index==2?@color/main_color:@color/text_color}"
                         android:textSize="15sp" />
 

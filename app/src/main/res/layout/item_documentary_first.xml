@@ -45,10 +45,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/text_color"
                 android:textSize="13sp"
-                android:text="@{item.bean.nickName}" />
+                android:text="@{item.bean.nickname}" />
 
                 <LinearLayout
                     android:layout_height="14dp"
@@ -73,7 +74,7 @@
                         android:layout_marginLeft="5dp"
                         android:textSize="9sp"
                         android:layout_marginRight="3dp"
-                        android:text="@{item.bean.followerCount+`/50`}"
+                        android:text="@{item.bean.currentFollowCount+`/50`}"
                         android:textColor="@color/color_nonetwork_btn_blue" />
 
 
@@ -91,11 +92,26 @@
                 android:gravity="right|center"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="@dimen/dp_18"
-                android:visibility="@{item.status==1?View.GONE:View.VISIBLE}"
-                android:text="+跟单"
+                android:visibility="@{(item.status==1||item.bean.follow==1)?View.GONE:View.VISIBLE}"
+                android:text="@{`+`+@string/NewVersionHomePageViewModel_text5}"
                 app:radius="@{3}"
                 tools:background="@color/main_blue"
                 app:ResColor="@{R.color.main_blue}"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:gravity="right|center"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="@dimen/dp_18"
+                android:visibility="@{(item.status==1||item.bean.follow!=1)?View.GONE:View.VISIBLE}"
+                android:text="@string/decumentary_detail_text25"
+                app:radius="@{3}"
+                tools:background="@color/warn_yellow"
+                app:ResColor="@{R.color.warn_yellow}"
                 android:textSize="11sp"
                 android:textColor="@color/white"
                 android:paddingLeft="13dp"
@@ -118,7 +134,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="近2周收益率"
+                android:text="@string/decumentary_detail_text20"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -126,7 +142,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="近2周胜率"
+                android:text="@string/decumentary_detail_text22"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -134,7 +150,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
-                android:text="近2周收益(USDT)"
+                android:text="@{@string/decumentary_detail_text16+`(USDT)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -187,7 +203,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="累计收益率"
+                android:text="@string/decumentary_detail_text21"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -195,7 +211,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="累计交易笔数"
+                android:text="@string/decumentary_detail_text18"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
             <TextView
@@ -203,7 +219,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
-                android:text="累计跟随人数"
+                android:text="@string/decumentary_detail_text24"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 

@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="被邀请人ID"
+                android:text="@string/share_text1"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="邀请码"
+                android:text="@string/share_text2"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="注册时间"
+                android:text="@string/share_text3"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -106,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="团队人数"
+                android:text="@string/share_text4"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -129,7 +129,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="已交易人数"
+                android:text="@string/share_text5"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -153,7 +153,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="获得返利收入"
+                android:text="@string/share_text6"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 

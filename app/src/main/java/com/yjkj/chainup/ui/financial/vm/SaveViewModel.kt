@@ -2,6 +2,8 @@ package com.yjkj.chainup.ui.financial.vm
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
+import com.common.sdk.LibCore
+import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.ProjectInfo
 import com.yjkj.chainup.net.DataHandler
@@ -36,14 +38,14 @@ class SaveViewModel : BaseViewModel() {
 
     fun save() {
         if (text.value.isNullOrEmpty()) {
-            ToastUtils.showToast("请输入金额")
+            ToastUtils.showToast(LibCore.context.getString(R.string.financial_text31))
             return
         }
         val map = TreeMap<String, String>()
         map["amount"] = text.value.toString()
         map["projectId"] = id.value.toString()
         startTask(apiService.apply(toRequestBody(DataHandler.encryptParams(map))), Consumer {
-          ToastUtils.showToast("申请成功")
+            ToastUtils.showToast(LibCore.context.getString(R.string.financial_text32))
 
 
         })

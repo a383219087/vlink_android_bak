@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
+import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -87,10 +88,10 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     fun getData(){
 
         if (bean.value?.orderSide=="BUY"){
-            contractType.value="多仓-"+bean.value?.leverageLevel+"X"
+            contractType.value=context.getString(R.string.cl_calculator_text17)+"-"+bean.value?.leverageLevel+"X"
 
         }else{
-            contractType.value="空仓-"+bean.value?.leverageLevel+"X"
+            contractType.value=context.getString(R.string.cl_calculator_text18)+"-"+bean.value?.leverageLevel+"X"
         }
 
 

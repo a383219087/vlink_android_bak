@@ -3,6 +3,8 @@ package com.yjkj.chainup.ui.documentary.vm
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.common.sdk.LibCore.context
+import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -59,23 +61,23 @@ class CreateTradersViewModel : BaseViewModel() {
 
     fun create() {
         if (checkIndex.value==0&&documentaryRate.value.isNullOrBlank()){
-            ToastUtils.showToast("请输入跟单比例")
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text19))
             return
         }
         if (checkIndex.value==1&&documentaryMoney.value.isNullOrBlank()){
-            ToastUtils.showToast("请输入跟单金额")
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text20))
             return
         }
         if (maxEarnestMoney.value.isNullOrBlank()){
-            ToastUtils.showToast("请输入保证金")
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text21))
             return
         }
         if (winRate.value.isNullOrBlank()){
-            ToastUtils.showToast("止盈比例不能为空")
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text22))
             return
         }
         if (stopRate.value.isNullOrBlank()){
-            ToastUtils.showToast("止损比例不能为空")
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text23))
             return
         }
 
@@ -99,7 +101,7 @@ class CreateTradersViewModel : BaseViewModel() {
 
     fun cancel(view:View) {
 
-        NewDialogUtils.showNormalDialog(view.context!!, "取消跟单后，已跟随未平仓的合约仍然会参与收益", object : NewDialogUtils.DialogBottomListener {
+        NewDialogUtils.showNormalDialog(view.context!!, context.getString(R.string.dialog_create_trader_text24), object : NewDialogUtils.DialogBottomListener {
             override fun sendConfirm() {
                 val map = HashMap<String, Any>()
                 map["traderUid"] = uid.value.orEmpty()
@@ -110,7 +112,7 @@ class CreateTradersViewModel : BaseViewModel() {
                 })
             }
 
-        }, "", "关闭", "确认取消")
+        }, "", context.getString(R.string.dialog_create_trader_text26), context.getString(R.string.dialog_create_trader_text25))
 
 
     }

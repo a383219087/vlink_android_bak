@@ -4,6 +4,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
+import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -65,9 +66,9 @@ class AllViewModel : BaseViewModel() {
                val bean = it.data[i]
                item.bean.value = bean
                item.money.value = if (bean.projectType == 0 || bean.projectType == 1) {
-                   "${bean.buyAmountMin}起存"
+                   "${bean.buyAmountMin}"+ context.getString(R.string.financial_text4)
                } else {
-                   "不限综合"
+                   context.getString(R.string.financial_text3)
                }
                when (page.value) {
                    0 -> {

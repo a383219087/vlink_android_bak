@@ -38,6 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_30"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="开仓均价"
+                android:text="@string/position_avg_price"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6"  />
 
@@ -99,7 +100,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="平仓价"
+                android:text="@string/dialog_close_text2"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6"  />
             <TextView
@@ -107,7 +108,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="收益率"
+                android:text="@string/dialog_close_text3"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6"  />
 
@@ -181,6 +182,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_30"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
@@ -234,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="跟随："
+                android:text="@string/decumentary_detail_text2"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -260,7 +262,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="收益(USDT)"
+                android:text="@{@string/decumentary_detail_text3+`(USDT)`}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -270,7 +272,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="收益率"
+                android:text="@string/dialog_close_text3"
                 android:textSize="11sp"
                 android:textColor="@color/text_color_99" />
 
@@ -324,7 +326,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="开仓均价"
+                android:text="@string/position_avg_price"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6" />
             <TextView
@@ -332,7 +334,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="本金(USDT)"
+                android:text="@{@string/pos_string_principal+`(USDT)`}"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6" />
             <TextView
@@ -340,7 +342,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="持仓数量(BTC)"
+                android:text="@{@string/decumentary_detail_text5+`(BTC)`}"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6" />
 
@@ -391,7 +393,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="强平价"
+                android:text="@string/decumentary_mine_text16"
                 android:textSize="11sp"
                 android:textColor="#d3d4d6" />
             <TextView
@@ -469,7 +471,7 @@
                 app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="追加保证金"
+                android:text="@string/decumentary_detail_text6"
                 android:textColor="@color/text_color"
                 android:textSize="13sp" />
             <TextView
@@ -485,7 +487,7 @@
                 app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="止盈止亏"
+                android:text="@string/quant_stop_hign_and_low"
                 android:textColor="@color/text_color"
                 android:textSize="13sp" />
             <TextView
@@ -499,7 +501,7 @@
                 app:ResColor="@{R.color.main_blue_15}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="平仓"
+                android:text="@string/contract_action_closeContract"
                 android:textColor="@color/main_blue"
                 android:textSize="13sp" />
 

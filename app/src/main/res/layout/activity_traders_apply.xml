@@ -55,12 +55,12 @@
                     android:layout_height="36dp"
                     android:gravity="center"
                     app:onClick="@{()->_all.finish()}"
-                    android:text="取消"
+                    android:text="@string/traders_apply_text1"
                     app:radius="@{3}"
                     app:ResColor="@{R.color.white}"
                     app:StrokeResColor="@{R.color.text_color_ee}"
                     android:textSize="13sp"
-                    android:layout_marginRight="@dimen/dp_9"
+                    android:layout_marginEnd="@dimen/dp_9"
                     android:textColor="@color/text_color" />
 
                 <TextView
@@ -69,9 +69,9 @@
                     android:layout_height="36dp"
                     android:gravity="center"
                     app:onClick="@{()->_all.applyCurrentStatus()}"
-                    android:text="确定"
+                    android:text="@string/traders_apply_text2"
                     android:textSize="13sp"
-                    android:layout_marginLeft="9dp"
+                    android:layout_marginStart="9dp"
                     app:radius="@{3}"
                     app:ResColor="@{R.color.main_blue}"
                     android:textColor="@color/white" />

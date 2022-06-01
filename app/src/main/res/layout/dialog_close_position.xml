@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="开仓均价"
+                    android:text="@string/dialog_close_text1"
                     android:textColor="@color/text_color_99"
                     android:textSize="12sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="平仓价"
+                    android:text="@string/dialog_close_text2"
                     android:textColor="@color/text_color_99"
                     android:textSize="12sp" />
 
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="收益率"
+                    android:text="@string/dialog_close_text3"
                     android:textColor="@color/text_color_99"
                     android:textSize="12sp" />
 
@@ -135,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="数量"
+                android:text="@string/dialog_close_text4"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -144,6 +144,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:ResColor="@{R.color.main_blue_10}"
@@ -180,7 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="持仓价格"
+                    android:text="@string/dialog_close_text5"
                     android:textColor="@color/text_color_99"
                     android:textSize="12sp" />
 
@@ -207,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="预计盈亏"
+                    android:text="@string/dialog_close_text6"
                     android:textColor="@color/text_color_99"
                     android:textSize="12sp" />
 
@@ -228,9 +230,10 @@
                 android:layout_height="@dimen/dp_45"
                 android:layout_margin="15dp"
                 android:onClick="@{()->_all.onClick()}"
-                android:background="@color/main_blue"
+                app:ResColor="@{R.color.main_blue}"
+                app:radius="@{10}"
                 android:gravity="center"
-                android:text="确定平仓"
+                android:text="@string/dialog_close_text7"
                 android:textColor="@color/white" />
 
 

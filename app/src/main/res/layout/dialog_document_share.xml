@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:gravity="center"
-                        android:text="收益率"
+                        android:text="@string/dialog_close_text3"
                         android:textColor="#80ffffff"
                         android:textSize="14sp" />
 
@@ -117,7 +117,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="left"
-                                android:text="开仓均价"
+                                android:text="@string/dialog_close_text1"
                                 android:textColor="@color/white"
                                 android:textSize="11sp" />
 
@@ -126,7 +126,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="平仓价"
+                                android:text="@string/dialog_close_text2"
                                 android:textColor="@color/white"
                                 android:textSize="11sp" />
 
@@ -135,7 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="right"
-                                android:text="收益率"
+                                android:text="@string/dialog_close_text3"
                                 android:textColor="@color/white"
                                 android:textSize="11sp" />
 

@@ -41,7 +41,7 @@
             android:textColor="#9da0a5"
             android:textSize="11sp"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="暂无数据"/>
+            android:text="@string/decumentary_detail_text23"/>
 
 
 

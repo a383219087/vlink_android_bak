@@ -15,6 +15,7 @@ data class CommissionBean(
     val ctime: Long,
     val follow: Int,
     val followerCount: Int,
+    val currentFollowCount: Int,
     val mtime: Long,
     val orderCount: Int,
     val profitRatio: Double,
@@ -25,7 +26,7 @@ data class CommissionBean(
     val uid: Int,
     val userCreateTime: Long,
     val winRatio: Double,
-    val nickName: String,
+    val nickname: String,
     val entryDay: String
 
 

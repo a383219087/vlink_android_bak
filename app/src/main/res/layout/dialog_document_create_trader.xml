@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="@{_all.bean.nickName}"
+                    android:text="@{_all.bean.nickname}"
                     android:textColor="@color/text_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="利润分成比例"
+                        android:text="@string/dialog_create_trader_text1"
                         android:textColor="@color/text_color"
                         android:textSize="11sp" />
 
@@ -96,7 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="跟单设置"
+                    android:text="@string/dialog_create_trader_text2"
                     android:textColor="@color/text_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -104,7 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户协议"
+                    android:text="@string/dialog_create_trader_text3"
                     android:textColor="@color/text_color_99"
                     android:textSize="11sp" />
 
@@ -125,7 +125,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="@{()->_all.setCheckIndex(0)}"
-                    android:text="按固定比例"
+                    android:text="@string/dialog_create_trader_text4"
                     android:textColor="@{_all.checkIndex==0?@color/white:@color/text_color}"
                     android:textSize="13sp"
                     app:ResColor="@{_all.checkIndex==0?R.color.main_blue:R.color.transparent}"
@@ -137,7 +137,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="@{()->_all.setCheckIndex(1)}"
-                    android:text="按固定金额"
+                    android:text="@string/dialog_create_trader_text5"
                     android:textColor="@{_all.checkIndex==1?@color/white:@color/text_color}"
                     android:textSize="13sp"
                     app:ResColor="@{_all.checkIndex==1?R.color.main_blue:R.color.transparent}"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_15"
                 android:padding="@dimen/dp_10"
-                android:text="说明：系统会按照您都资产余额和交易员都资产余额都比例，进行下单，例如交易员开仓本金为100USDT，您设置3倍，那么您下单100*3=300USDT。"
+                android:text="@string/dialog_create_trader_text6"
                 android:textColor="@color/text_color_99"
                 android:textSize="@dimen/sp_11"
                 android:visibility="@{_all.checkIndex==0?View.VISIBLE:View.GONE}"
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_15"
                 android:padding="@dimen/dp_10"
-                android:text="说明：无论交易员下单多少金额，您的下单保证金均为固定跟单金额。"
+                android:text="@string/dialog_create_trader_text7"
                 android:textColor="@color/text_color_99"
                 android:textSize="@dimen/sp_11"
                 android:visibility="@{_all.checkIndex==1?View.VISIBLE:View.GONE}"
@@ -183,7 +183,7 @@
                     android:layout_marginRight="@dimen/dp_15"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="跟单比例（0-5）"
+                    android:hint="@string/dialog_create_trader_text8"
                     android:inputType="numberDecimal"
                     android:paddingLeft="10dp"
                     android:text="@={_all.documentaryRate}"
@@ -201,7 +201,7 @@
                     android:layout_marginRight="@dimen/dp_15"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="跟单金额"
+                    android:hint="@string/dialog_create_trader_text9"
                     android:inputType="numberDecimal"
                     android:paddingLeft="10dp"
                     android:text="@={_all.documentaryMoney}"
@@ -219,7 +219,7 @@
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="保证金使用上限"
+                    android:hint="@string/dialog_create_trader_text10"
                     android:inputType="numberDecimal"
                     android:paddingLeft="10dp"
                     android:text="@={_all.maxEarnestMoney}"
@@ -237,7 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_15"
-                android:text="风险控制"
+                android:text="@string/dialog_create_trader_text11"
                 android:textColor="@color/text_color"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -246,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="止盈%"
+                android:text="@string/dialog_create_trader_text12"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -265,7 +265,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="止盈百分百"
+                    android:hint="@string/dialog_create_trader_text12"
                     android:inputType="numberDecimal"
                     android:paddingLeft="10dp"
                     android:text="@={_all.winRate}"
@@ -288,7 +288,7 @@
                     android:onClick="@{()->_all.setWinRate(0)}"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:text="清除"
+                    android:text="@string/dialog_create_trader_text15"
                     android:textColor="@color/main_blue"
                     android:textSize="13sp" />
 
@@ -381,7 +381,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="止损%"
+                android:text="@string/dialog_create_trader_text16"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 
@@ -400,7 +400,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="止损百分比"
+                    android:hint="@string/dialog_create_trader_text16"
                     android:inputType="numberDecimal"
                     android:paddingLeft="10dp"
                     android:text="@={_all.stopRate}"
@@ -423,7 +423,7 @@
                     android:onClick="@{()->_all.setStopRate(0)}"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"
-                    android:text="清除"
+                    android:text="@string/dialog_create_trader_text15"
                     android:textColor="@color/main_blue"
                     android:textSize="13sp" />
 
@@ -526,7 +526,7 @@
                     android:gravity="center"
                     android:visibility="@{_all.type==1?View.GONE:View.VISIBLE}"
                     android:onClick="@{(v)->_all.cancel(v)}"
-                    android:text="取消跟单"
+                    android:text="@string/dialog_create_trader_text17"
                     android:layout_marginRight="@dimen/dp_10"
                     android:textColor="@color/text_color"
                     app:StrokeResColor="@{R.color.text_color_ee}"
@@ -539,7 +539,7 @@
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center"
                     android:onClick="@{()->_all.create()}"
-                    android:text="确定跟单"
+                    android:text="@string/dialog_create_trader_text18"
                     android:textColor="@color/white"
                     app:ResColor="@{R.color.main_blue}"
                     app:radius="@{10}"
