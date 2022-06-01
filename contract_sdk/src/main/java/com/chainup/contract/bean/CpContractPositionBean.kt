@@ -4,42 +4,7 @@ import java.io.Serializable
 
 
 
-//{
-//    "id":23,
-//    "uid":501,
-//    "contractId":1,
-//    "positionType":2,
-//    "side":"SELL",
-//    "volume":1718,
-//    "openPrice":29312.807195,
-//    "avgPrice":29329.7,
-//    "closePrice":0,
-//    "leverageLevel":125,
-//    "openAmount":0,
-//    "holdAmount":0,
-//    "closeVolume":0,
-//    "pendingCloseVolume":0,
-//    "realizedAmount":0,
-//    "historyRealizedAmount":-0.75340549390237,
-//    "tradeFee":0,
-//    "capitalFee":2.14877840509763,
-//    "closeProfit":0,
-//    "shareAmount":0,
-//    "freezeLock":0,
-//    "status":1,
-//    "ctime":"2022-05-19T14:10:07",
-//    "mtime":"2022-05-21T17:21:54",
-//    "brokerId":1,
-//    "lockTime":"2022-05-19T14:10:07",
-//    "reducePrice":29191.042547897486937,
-//    "returnRate":0,
-//    "unRealizedAmount":-2.5622920584136131056,
-//    "openRealizedAmount":-2.5622920584136131056,
-//    "positionBalance":5038.84246,
-//    "indexPrice":29327.721584164223592,
-//    "keepRate":0.004,
-//    "maxFeeRate":0.00075
-//}
+
 data class CpContractPositionBean(
     /**
      * 可平数量
@@ -230,5 +195,9 @@ data class CpContractPositionBean(
     /**
      * 持仓数量
      */
-    val volume: Double
-) : Serializable
+    val volume: Double,
+
+    val coPosition: CpContractPositionBean?=null
+
+
+    ) : Serializable

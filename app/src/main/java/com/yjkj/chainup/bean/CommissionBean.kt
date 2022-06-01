@@ -53,6 +53,70 @@ data class CurrentStatusBean(
 
 data class TraderPositionInfo(
 
+
+//    "positionList":[
+//{
+//    "id":1,
+//    "contractId":1,
+//    "contractName":"E-BTC-USDT",
+//    "symbol":"BTC-USDT",
+//    "positionVolume":10,
+//    "canCloseVolume":10,
+//    "openAvgPrice":0,
+//    "indexPrice":0,
+//    "reducePrice":null,
+//    "holdAmount":10000083.45,
+//    "marginRate":null,
+//    "realizedAmount":100,
+//    "returnRate":0,
+//    "orderSide":"BUY",
+//    "positionType":1,
+//    "canUseAmount":9999983.45,
+//    "canSubMarginAmount":0,
+//    "openRealizedAmount":0,
+//    "keepRate":0,
+//    "maxFeeRate":0.05,
+//    "unRealizedAmount":0,
+//    "leverageLevel":1,
+//    "positionBalance":0,
+//    "tradeFee":"0",
+//    "capitalFee":"0",
+//    "closeProfit":"0",
+//    "settleProfit":"0",
+//    "shareAmount":"0",
+//    "historyRealizedAmount":"0",
+//    "profitRealizedAmount":"100",
+//    "openAmount":0,
+//    "coPosition":{
+//    "id":1,
+//    "uid":10027,
+//    "contractId":1,
+//    "positionType":1,
+//    "side":"BUY",
+//    "volume":10,
+//    "openPrice":0,
+//    "avgPrice":0,
+//    "closePrice":0,
+//    "leverageLevel":1,
+//    "openAmount":0,
+//    "holdAmount":0,
+//    "closeVolume":10,
+//    "pendingCloseVolume":0,
+//    "realizedAmount":100,
+//    "historyRealizedAmount":0,
+//    "tradeFee":0,
+//    "capitalFee":0,
+//    "closeProfit":0,
+//    "shareAmount":0,
+//    "freezeLock":0,
+//    "status":0,
+//    "ctime":"2022-04-24T21:02:23",
+//    "mtime":"2022-05-21T17:32:29",
+//    "brokerId":1,
+//    "lockTime":"2022-04-24T21:02:23"
+//}
+//}
+
     val positionList: List<CpContractPositionBean>?
 
 

@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseActivity
+import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.bean.CpTpslOrderBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -19,7 +20,6 @@ import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.chainup.contract.bean.CpContractPositionBean
 import kotlinx.android.synthetic.main.cp_activity_stop_rate_loss.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -491,7 +491,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
             }
         })
 
-        for (buff in 0 ..rg_trade?.childCount?.toInt()!!-1){
+        for (buff in 0 until rg_trade?.childCount?.toInt()!!){
             rg_trade.getChildAt(buff).setOnClickListener {
                 rg_trade.check(it.id)
                 et_stop_profit_position.clearFocus()
@@ -623,7 +623,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
     }
 
     override fun onWsMessage(json: String) {
-        ChainUpLogUtil.e(TAG, "止赢止损界面返回数据：" + json)
+        ChainUpLogUtil.e(TAG, "止赢止损界面返回数据：$json")
         val jsonObj = JSONObject(json)
         val channel = jsonObj.optString("channel")
         if (!jsonObj.isNull("tick")) {

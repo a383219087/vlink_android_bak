@@ -171,7 +171,7 @@ class NowDocumentViewModel : BaseViewModel() {
                     } else {
                         item.contractType.value = "空仓-" + it.data.positionList!![i].leverageLevel + "X"
                     }
-                    item.time.value = "${it.data.positionList!![i].ctime}->${it.data.positionList!![i].mtime}"
+                    item.time.value = "${it.data.positionList!![i].coPosition!!.ctime}->${it.data.positionList!![i].coPosition!!.mtime}"
 
                     items.add(item)
                 }

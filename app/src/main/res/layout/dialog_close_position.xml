@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.openPrice+``,2)}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.openAvgPrice+``,2)}"
                     android:textColor="@color/text_color"
                     android:textSize="12sp" />
 
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.closePrice+``,2)}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.coPosition.closePrice+``,2)}"
                     android:textColor="@color/text_color"
                     android:textSize="12sp" />
 
@@ -188,7 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.avgPrice+``,2)+`BTC`}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.openAvgPrice+``,2)+`BTC`}"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
