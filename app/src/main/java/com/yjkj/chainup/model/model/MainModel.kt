@@ -4,7 +4,6 @@ import android.text.TextUtils
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.api.MainApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
@@ -13,6 +12,7 @@ import com.yjkj.chainup.net.HttpClient.Companion.LOGIN_PWORD
 import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.StringUtil
 import com.yjkj.chainup.util.StringUtils
 import com.yjkj.chainup.util.verfitionTypeCheck
@@ -468,17 +468,6 @@ class MainModel : BaseDataManager() {
         changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).user_info(getBaseReqBody()), consumer)
     }
 
-    /**
-     * 指纹或者人脸识别
-     */
-    fun checkLocalPwd(uid: String, loginPword: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["uid"] = uid
-            this["nativePwd"] = loginPword
-
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).checkLocalPwd(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 找回密码 Step 4
@@ -529,30 +518,9 @@ class MainModel : BaseDataManager() {
     }
 
 
-    /**
-     * 设置手势密码
-     * @param token 开启手势密码第一步成功时返回的字符串（必填）
-     */
-    fun setHandPwdOne(token: String, handPwd: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["handPwd"] = handPwd
-            this["token"] = token
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).setHandPwdOne(getBaseReqBody(map)), consumer)
-    }
 
 
-    /**
-     * 指纹或者人脸识别
-     */
-    fun newOpenHandPwd(token: String, loginPword: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["handPwd"] = loginPword
-            this["token"] = token
-        }
 
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).newOpenHandPwd(getBaseReqBody(map)), consumer)
-    }
 
 
     /**

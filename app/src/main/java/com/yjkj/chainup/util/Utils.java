@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -33,10 +32,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.geetest.sdk.GT3ConfigBean;
-import com.geetest.sdk.GT3ErrorBean;
-import com.geetest.sdk.GT3GeetestUtils;
-import com.geetest.sdk.GT3Listener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -44,12 +39,7 @@ import com.yjkj.chainup.BuildConfig;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
-import com.yjkj.chainup.net.NetUrl;
-import com.yjkj.chainup.new_version.view.Gt3GeeListener;
 import com.yjkj.chainup.new_version.view.OnSaveSuccessListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -590,219 +580,9 @@ public class Utils {
         return flag;
     }
 
-    public static GT3GeetestUtils gt3GeetestUtils;
-    public static GT3ConfigBean gt3ConfigBean;
-
-    /**
-     * 极验
-     *
-     * @param context
-     * @return
-     */
-    public static ArrayList<String> gee3test(Context context, Gt3GeeListener listener) {
-        ArrayList<String> validateParams = new ArrayList<>(3);
-
-        gt3GeetestUtils = new GT3GeetestUtils(context);
-        gt3ConfigBean = new GT3ConfigBean();
-        gt3ConfigBean.setDebug(BuildConfig.DEBUG);
-        // 设置验证模式，1：bind，2：unbind
-        gt3ConfigBean.setPattern(1);
-        // 设置点击灰色区域是否消失，默认不消失
-        gt3ConfigBean.setCanceledOnTouchOutside(false);
-        // 设置语言，如果为null则使用系统默认语言
-        gt3ConfigBean.setLang(null);
-        // 设置加载webview超时时间，单位毫秒，默认10000，仅且webview加载静态文件超时，不包括之前的http请求
-        gt3ConfigBean.setTimeout(10000);
-        // 设置webview请求超时(用户点选或滑动完成，前端请求后端接口)，单位毫秒，默认10000
-        gt3ConfigBean.setWebviewTimeout(10000);
-        // 设置回调监听
-        gt3ConfigBean.setListener(new GT3Listener() {
-            String validateResult = "";
-
-            /**
-             * api1结果回调
-             * @param result
-             */
-            @Override
-            public void onApi1Result(String result) {
-                Log.e("gee3test", "GT3BaseListener-->onApi1Result-->" + result);
-            }
-
-            /**
-             * 验证码加载完成
-             * @param duration 加载时间和版本等信息，为json格式
-             */
-            @Override
-            public void onDialogReady(String duration) {
-                Log.e("gee3test", "GT3BaseListener-->onDialogReady-->" + duration);
-            }
-
-            /**
-             * 验证结果
-             * @param result
-             */
-            @Override
-            public void onDialogResult(String result) {
-                validateResult = result;
-                Log.e("gee3test", "GT3BaseListener-->onDialogResult-->" + result);
-                // 开启api2逻辑
-                new RequestAPI2().execute(result);
-            }
-
-            /**
-             * api2回调
-             * @param result
-             */
-            @Override
-            public void onApi2Result(String result) {
-                Log.e("gee3test", "GT3BaseListener-->onApi2Result-->" + result);
-            }
-
-            /**
-             * 统计信息，参考接入文档
-             * @param result
-             */
-            @Override
-            public void onStatistics(String result) {
-                Log.e("gee3test", "GT3BaseListener-->onStatistics-->" + result);
-            }
-
-            /**
-             * 验证码被关闭
-             * @param num 1 点击验证码的关闭按钮来关闭验证码, 2 点击屏幕关闭验证码, 3 点击返回键关闭验证码
-             */
-            @Override
-            public void onClosed(int num) {
-                Log.e("gee3test", "GT3BaseListener-->onClosed-->" + num);
-            }
-
-            /**
-             * 验证成功回调
-             * @param result
-             */
-            @Override
-            public void onSuccess(String result) {
-                Log.e("gee3test", "GT3BaseListener-->onSuccess-->" + result + ",validateResult is " + validateResult);
-
-                if (!StringUtil.checkStr(validateResult))
-                    return;
-
-                if (!validateParams.isEmpty()) {
-                    validateParams.clear();
-                }
-
-                try {
-                    // 1.取出该接口返回的三个参数用于自定义二次验证
-                    JSONObject jsonObject = new JSONObject(validateResult);
-                    validateParams.add(jsonObject.optString("geetest_challenge"));
-                    validateParams.add(jsonObject.optString("geetest_validate"));
-                    validateParams.add(jsonObject.optString("geetest_seccode"));
-
-                    if (listener != null) {
-                        listener.onSuccess(validateParams);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            /**
-             * 验证失败回调
-             * @param errorBean 版本号，错误码，错误描述等信息
-             */
-            @Override
-            public void onFailed(GT3ErrorBean errorBean) {
-                Log.e("gee3test", "GT3BaseListener-->onFailed-->" + errorBean.toString());
-                NToastUtil.showTopToastNet((Activity) context, false, errorBean.toString());
-            }
-
-            /**
-             * api1回调
-             */
-            @Override
-            public void onButtonClick() {
-                new RequestAPI1().execute();
-            }
-        });
-        gt3GeetestUtils.init(gt3ConfigBean);
-        // 开启验证
-        gt3GeetestUtils.startCustomFlow();
 
 
-        return validateParams;
-    }
 
-    public static void setGeetestDeatroy() {
-        gt3GeetestUtils.destory();
-    }
-
-    /**
-     * 请求api1
-     */
-    static class RequestAPI1 extends AsyncTask<Void, Void, JSONObject> {
-
-        @Override
-        protected JSONObject doInBackground(Void... params) {
-            String string = HttpUtils.requsetUrl(NetUrl.baseUrl() + "common/tartCaptcha");
-//            HttpClient.Companion.getInstance().getTartCaptcha()
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new NetObserver<String>() {
-//
-//                        @Override
-//                        protected void onHandleSuccess(String s) {
-//
-//                        }
-//
-//
-//                    });
-
-            JSONObject jsonObject = null;
-            JSONObject jsonObject2;
-            JSONObject jsonObject3 = null;
-
-            try {
-                jsonObject = new JSONObject(string);
-                jsonObject2 = jsonObject.getJSONObject("data");
-                jsonObject3 = jsonObject2.getJSONObject("captcha");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return jsonObject3;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject parmas) {
-            // 继续验证
-
-            Log.e("gee3test", "RequestAPI1-->onPostExecute: " + parmas);
-            // SDK可识别格式为
-            // {"success":1,"challenge":"06fbb267def3c3c9530d62aa2d56d018","gt":"019924a82c70bb123aae90d483087f94","new_captcha":true}
-            // TODO 设置返回api1数据，即使为null也要设置，SDK内部已处理
-            gt3ConfigBean.setApi1Json(parmas);
-            // 继续api验证
-            gt3GeetestUtils.getGeetest();
-        }
-    }
-
-
-    /**
-     * 请求api2
-     */
-    static class RequestAPI2 extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Log.i("gee3test", "RequestAPI2-->onPostExecute: " + result);
-
-            gt3GeetestUtils.showSuccessDialog();
-        }
-    }
 
 
     //获取小时

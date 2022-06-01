@@ -16,12 +16,10 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.ActivityManager
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.new_version.view.Gt3GeeListener
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.activity_new_version_login.*
@@ -34,7 +32,7 @@ import org.json.JSONObject
  * @description 登录
  */
 @Route(path = RoutePath.NewVersionLoginActivity)
-class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
+class NewVersionLoginActivity : NBaseActivity() {
     override fun setContentView() = R.layout.activity_new_version_login
 
     override fun onInit(savedInstanceState: Bundle?) {
@@ -213,38 +211,13 @@ class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
          */
         cbtn_view?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
-                verificationType = PublicInfoDataService.getInstance().getVerifyType(null)
-                LogUtil.d(TAG, "点击登录==verificationType is $verificationType")
-                if (2 == verificationType) {
-                    Utils.gee3test(this@NewVersionLoginActivity, this@NewVersionLoginActivity)
-                } else if (1 == verificationType) {
-                    tDialog = NewDialogUtils.webAliyunShare(this@NewVersionLoginActivity, object : NewDialogUtils.Companion.DialogWebViewAliYunSlideListener {
-                        override fun webviewSlideListener(json: Map<String, String>) {
-                            tDialog?.apply {
-                                dismiss()
-                                onDestroy()
-                            }
-                            login(accountContent, pwdTextContent, "", "", "", json)
-                        }
-
-                    }, PublicInfoDataService.getInstance().aliYunNcUrl)
-                } else {
-                    login(accountContent, pwdTextContent)
-                }
+                login(accountContent, pwdTextContent)
             }
         }
     }
 
-    var verificationType = 0
 
-    /**
-     * 如果有极验 此处是极验成功返回的接口
-     */
-    override fun onSuccess(result: ArrayList<String>) {
-        gee3test = result
-        Utils.setGeetestDeatroy()
-        login(accountContent, pwdTextContent, gee3test[0], gee3test[1], gee3test[2])
-    }
+
 
     var token: String = ""
 
@@ -254,7 +227,7 @@ class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
     private fun login(mobile: String, password: String, geetest_challenge: String = "",
                       geetest_validate: String = "", geetest_seccode: String = "", mAliyun: Map<String, String>? = null) {
 
-        addDisposable(getMainModel().getLoginByMobile(mobile, password, verificationType, geetest_challenge = geetest_challenge, geetest_validate = geetest_validate,
+        addDisposable(getMainModel().getLoginByMobile(mobile, password, 0, geetest_challenge = geetest_challenge, geetest_validate = geetest_validate,
                 geetest_seccode = geetest_seccode, json = mAliyun, consumer = object : NDisposableObserver(mActivity, true) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
 
@@ -280,7 +253,7 @@ class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
 
                 Log.d(TAG, "=====是否登录：======" + UserDataService.getInstance().isLogined)
                 // {"code":"0","msg":"成功","data":{"type":"2","token":"39257f8399139a329ca6637f6c9f6474"}}
-                Log.d("=== mobile login====", "登录成功" + data.toString())
+                Log.d("=== mobile login====", "登录成功$data")
 
 
 //                val typeList = data.optString("typeList") ?: ""
@@ -297,12 +270,16 @@ class NewVersionLoginActivity : NBaseActivity(), Gt3GeeListener {
                  * 跳到验证码页面
                  */
                 val googleAuth = data.optString("googleAuth") ?: "0"
-                if (googleAuth == "1") {
-                    nextPage(ParamConstant.LOGIN_GOOOGLE)
-                } else if (StringUtils.isNumeric(accountContent)) {
-                    nextPage(ParamConstant.LOGIN_PHONE)
-                } else if (StringUtils.checkEmail(accountContent)) {
-                    nextPage(ParamConstant.LOGIN_EMAIL)
+                when {
+                    googleAuth == "1" -> {
+                        nextPage(ParamConstant.LOGIN_GOOOGLE)
+                    }
+                    StringUtils.isNumeric(accountContent) -> {
+                        nextPage(ParamConstant.LOGIN_PHONE)
+                    }
+                    StringUtils.checkEmail(accountContent) -> {
+                        nextPage(ParamConstant.LOGIN_EMAIL)
+                    }
                 }
 //                }
 //                finish()

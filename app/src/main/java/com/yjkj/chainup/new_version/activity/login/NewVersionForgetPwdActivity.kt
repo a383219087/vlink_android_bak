@@ -9,18 +9,17 @@ import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.FindPwd2verifyActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.new_version.view.Gt3GeeListener
-import com.yjkj.chainup.util.*
+import com.yjkj.chainup.util.ColorUtil
+import com.yjkj.chainup.util.DisplayUtil
+import com.yjkj.chainup.util.LanguageUtil
+import com.yjkj.chainup.util.StringUtils
 import kotlinx.android.synthetic.main.activity_new_version_forget_pwd.*
 import org.json.JSONObject
-import java.util.*
 
 /**
  * @Author lianshangljl
@@ -29,7 +28,7 @@ import java.util.*
  * @description 忘记密码
  */
 @Route(path = "/login/newversionforgetpwdactivity")
-class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
+class NewVersionForgetPwdActivity : NBaseActivity() {
     override fun setContentView(): Int {
         return R.layout.activity_new_version_forget_pwd
     }
@@ -79,27 +78,8 @@ class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
 
         cubtn_view?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
-                verificationType = PublicInfoDataService.getInstance().getVerifyType(null)
-                when (verificationType) {
-                    2 -> {
-                        Utils.gee3test(this@NewVersionForgetPwdActivity, this@NewVersionForgetPwdActivity)
-                    }
-                    1 -> {
-                        tDialog = NewDialogUtils.webAliyunShare(mActivity, object : NewDialogUtils.Companion.DialogWebViewAliYunSlideListener {
-                            override fun webviewSlideListener(json: Map<String, String>) {
-                                tDialog?.apply {
-                                    dismiss()
-                                    onDestroy()
-                                }
-                                findPwdStep1(accountText, "", "", "",json)
-                            }
+                findPwdStep1(accountText)
 
-                        }, PublicInfoDataService.getInstance().aliYunNcUrl)
-                    }
-                    else -> {
-                        findPwdStep1(accountText)
-                    }
-                }
             }
 
         }
@@ -111,22 +91,10 @@ class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
         initView()
     }
 
-    /**
-     * 极验
-     */
-    var gee3test = arrayListOf<String>()
 
 
-    var verificationType = 2
 
-    /**
-     * 如果有极验 此处是极验成功返回的接口
-     */
-    override fun onSuccess(result: ArrayList<String>) {
-        gee3test = result
-        Utils.setGeetestDeatroy()
-        findPwdStep1(accountText, gee3test[0], gee3test[1], gee3test[2])
-    }
+
 
     var token = ""
 
@@ -156,7 +124,7 @@ class NewVersionForgetPwdActivity : NBaseActivity(), Gt3GeeListener {
         addDisposable(getMainModel().findPwdStep1(
                 mobileNumber,
                 email,
-                verificationType = verificationType,
+                verificationType = 0,
                 geetest_challenge = geetest_challenge,
                 geetest_validate = geetest_validate,
                 geetest_seccode = geetest_seccode,

@@ -34,7 +34,6 @@ import com.yjkj.chainup.new_version.activity.SelectAreaActivity
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.new_version.view.Gt3GeeListener
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.activity_new_version_register.*
 import org.greenrobot.eventbus.Subscribe
@@ -51,17 +50,11 @@ import java.util.*
  * @description  注册页面
  */
 @Route(path = "/login/newversionregisteractivity")
-class NewVersionRegisterActivity : NBaseActivity(), Gt3GeeListener {
+class NewVersionRegisterActivity : NBaseActivity() {
     override fun setContentView(): Int {
         return R.layout.activity_new_version_register
     }
 
-    override fun onSuccess(result: ArrayList<String>) {
-        gee3test = result
-        if (verificationType == 2) {
-            reg4Step1(country, accountContent, gee3test[0], gee3test[1], gee3test[2])
-        }
-    }
 
     var isEmailRegister = false
     var accountContent = ""
@@ -246,23 +239,7 @@ class NewVersionRegisterActivity : NBaseActivity(), Gt3GeeListener {
                     }
                 }
 
-                verificationType = PublicInfoDataService.getInstance().getVerifyType(null)
-                if (verificationType == 2) {
-                    Utils.gee3test(this@NewVersionRegisterActivity, this@NewVersionRegisterActivity)
-                } else if (verificationType == 1) {
-                    tDialog = NewDialogUtils.webAliyunShare(mActivity, object : NewDialogUtils.Companion.DialogWebViewAliYunSlideListener {
-                        override fun webviewSlideListener(json: Map<String, String>) {
-                            tDialog?.apply {
-                                dismiss()
-                                onDestroy()
-                            }
-                            reg4Step1(country, accountContent, "", "", "", json)
-                        }
-
-                    }, PublicInfoDataService.getInstance().aliYunNcUrl)
-                } else {
-                    reg4Step1(country, accountContent)
-                }
+                reg4Step1(country, accountContent)
 
             }
         }
