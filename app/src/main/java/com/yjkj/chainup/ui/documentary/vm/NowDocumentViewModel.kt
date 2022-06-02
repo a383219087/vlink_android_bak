@@ -147,6 +147,7 @@ class NowDocumentViewModel : BaseViewModel() {
 
 
     fun getList(mActivity: FragmentActivity) {
+        items.clear()
         val map = HashMap<String, Any>()
         map["status"] = status.value.toString()
 
