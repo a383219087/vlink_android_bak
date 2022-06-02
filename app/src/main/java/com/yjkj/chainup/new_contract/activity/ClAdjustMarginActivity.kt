@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import com.chainup.contract.bean.CpContractPositionBean
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.contract.sdk.data.Contract
@@ -23,7 +24,6 @@ import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LogUtil
@@ -54,12 +54,12 @@ class ClAdjustMarginActivity : NBaseActivity() {
     private var currentPositionMargin = "0"
     private var dfValue = NumberUtil.getDecimal(-1)
 
-    private var mContractPositionBean: ClContractPositionBean? = null
+    private var mContractPositionBean: CpContractPositionBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as ClContractPositionBean?
+        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as CpContractPositionBean?
 
 //        mPosition = intent.getParcelableExtra("position")
 //        contract = ContractPublicDataAgent.getContract(mPosition.instrument_id)
@@ -433,7 +433,7 @@ class ClAdjustMarginActivity : NBaseActivity() {
     }
 
     companion object {
-        fun show(activity: Activity, mContractPositionBean: ClContractPositionBean) {
+        fun show(activity: Activity, mContractPositionBean: CpContractPositionBean) {
             val intent = Intent(activity, ClAdjustMarginActivity::class.java)
             intent.putExtra("ContractPositionBean", mContractPositionBean)
             activity.startActivity(intent)

@@ -6,8 +6,9 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chainup.contract.bean.CpContractPositionBean
 import com.contract.sdk.ContractUserDataAgent
-import com.contract.sdk.data.*
+import com.contract.sdk.data.Contract
 import com.google.gson.Gson
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
@@ -15,7 +16,9 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.listener.SLDoListener
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.contract.utils.*
+import com.yjkj.chainup.contract.utils.getLineText
+import com.yjkj.chainup.contract.utils.numberFilter
+import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.MyLinearLayoutManager
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.contract.widget.bubble.BubbleSeekBar
@@ -28,7 +31,6 @@ import com.yjkj.chainup.new_contract.activity.ClAdjustMarginActivity
 import com.yjkj.chainup.new_contract.activity.ClContractStopRateLossActivity
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_contract.adapter.ClHoldContractAdapter
-import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils.DialogBottomListener
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
@@ -54,7 +56,7 @@ import kotlin.math.min
 class ClContractHoldFragment : NBaseFragment() {
     private val sTAG = "SlContractHoldFragment"
     private var adapter: ClHoldContractAdapter? = null
-    private var mList = ArrayList<ClContractPositionBean>()
+    private var mList = ArrayList<CpContractPositionBean>()
     private var marginTDialog: TDialog? = null
     private var closePositionTDialog: TDialog? = null
     private var contract: Contract? = null
@@ -138,13 +140,13 @@ class ClContractHoldFragment : NBaseFragment() {
         addDisposable(getContractModel().getPositionAssetsList(
                 consumer = object : NDisposableObserver(true) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
-                        val mListBuffer = ArrayList<ClContractPositionBean>()
+                        val mListBuffer = ArrayList<CpContractPositionBean>()
                         jsonObject.optJSONObject("data")?.run {
                             if (!isNull("positionList")) {
                                 val mOrderListJson = optJSONArray("positionList")
-                                for (i in 0..(mOrderListJson.length() - 1)) {
+                                for (i in 0 until mOrderListJson.length()) {
                                     var obj = mOrderListJson.getString(i)
-                                    mListBuffer.add(Gson().fromJson<ClContractPositionBean>(obj, ClContractPositionBean::class.java))
+                                    mListBuffer.add(Gson().fromJson<CpContractPositionBean>(obj, CpContractPositionBean::class.java))
                                 }
                                 val msgEvent = MessageEvent(MessageEvent.sl_contract_position_num_event)
                                 msgEvent.msg_content = mOrderListJson.length()
@@ -191,7 +193,7 @@ class ClContractHoldFragment : NBaseFragment() {
     /**
      * 弹出平仓对话框
      */
-    private fun showClosePositionDialog(info: ClContractPositionBean) {
+    private fun showClosePositionDialog(info: CpContractPositionBean) {
         coUnit = LogicContractSetting.getContractUint(context)
         var mContractJson = LogicContractSetting.getContractJsonStrById(mActivity!!, info.contractId)
         closePositionTDialog = SlDialogHelper.showClosePositionDialog(mActivity!!, OnBindViewListener {
@@ -424,11 +426,11 @@ class ClContractHoldFragment : NBaseFragment() {
                 getPositionList()
             }
             MessageEvent.sl_contract_change_position_list_event -> {
-                val mListBuffer = ArrayList<ClContractPositionBean>()
+                val mListBuffer = ArrayList<CpContractPositionBean>()
                 val mOrderListJson = event.msg_content as JSONArray
-                for (i in 0..(mOrderListJson.length() - 1)) {
+                for (i in 0 until mOrderListJson.length()) {
                     var obj = mOrderListJson.getString(i)
-                    mListBuffer.add(Gson().fromJson<ClContractPositionBean>(obj, ClContractPositionBean::class.java))
+                    mListBuffer.add(Gson().fromJson<CpContractPositionBean>(obj, CpContractPositionBean::class.java))
                 }
                 LogUtil.e(TAG,"更新持仓列表")
                 adapter?.setList(mListBuffer)

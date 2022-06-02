@@ -2,18 +2,18 @@ package com.yjkj.chainup.new_contract.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chainup.contract.bean.CpContractPositionBean
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
-import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.util.BigDecimalUtils
 
-class ClHoldContractAdapter(data: ArrayList<ClContractPositionBean>) : BaseQuickAdapter<ClContractPositionBean, BaseViewHolder>(R.layout.cl_item_hold_contract, data) {
+class ClHoldContractAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(R.layout.cl_item_hold_contract, data) {
 
 
-    override fun convert(helper: BaseViewHolder, item: ClContractPositionBean) {
+    override fun convert(helper: BaseViewHolder, item: CpContractPositionBean) {
         val mPricePrecision = LogicContractSetting.getContractSymbolPricePrecisionById(context, item.contractId)
 
         val mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(context, item.contractId)
@@ -78,7 +78,7 @@ class ClHoldContractAdapter(data: ArrayList<ClContractPositionBean>) : BaseQuick
                 setText(R.id.tv_forced_close_price_value, "--")
             }
             //回报率
-            setText(R.id.tv_floating_gains_value, NumberUtil.getDecimal(2).format(MathHelper.round(MathHelper.mul(item.returnRate, "100"), 2)).toString() + "%")
+            setText(R.id.tv_floating_gains_value, NumberUtil.getDecimal(2).format(MathHelper.round(MathHelper.mul(item.returnRate.toString(), "100"), 2)).toString() + "%")
             //总持仓
             setText(R.id.tv_total_position_value, if (LogicContractSetting.getContractUint(context) == 0) item.positionVolume else BigDecimalUtils.mulStr(item.positionVolume,mMultiplier, mMultiplierPrecision))
             //总持仓Key

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import com.chainup.contract.bean.CpContractPositionBean
 import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
@@ -14,7 +15,6 @@ import com.yjkj.chainup.contract.utils.numberFilter
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.*
@@ -31,7 +31,7 @@ class ClContractStopRateLossActivity : NBaseActivity(), WsContractAgentManager.W
         return R.layout.cl_activity_stop_rate_loss
     }
 
-    private var mContractPositionBean: ClContractPositionBean? = null
+    private var mContractPositionBean: CpContractPositionBean? = null
     private var isStopProfitMarket = true
     private var isStopLossMarket = true
     private var multiplier = "0"
@@ -54,7 +54,7 @@ class ClContractStopRateLossActivity : NBaseActivity(), WsContractAgentManager.W
     override fun loadData() {
         super.loadData()
         WsContractAgentManager.instance.addWsCallback(this)
-        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as ClContractPositionBean?
+        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as CpContractPositionBean?
 
         var mContractJsonStr = LogicContractSetting.getContractJsonStrById(mActivity, mContractPositionBean?.contractId!!)
         multiplier = mContractJsonStr?.optString("multiplier").toString()
@@ -75,15 +75,15 @@ class ClContractStopRateLossActivity : NBaseActivity(), WsContractAgentManager.W
         et_stop_loss_price.numberFilter(mPricePrecision)
         et_stop_profit_price.numberFilter(mPricePrecision)
 
-        tv_stop_profit_trigger_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_loss_trigger_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_profit_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_loss_coin_name.setText(mContractJsonStr?.optString("quote"))
+        tv_stop_profit_trigger_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_loss_trigger_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_profit_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_loss_coin_name.text = mContractJsonStr?.optString("quote")
 
         val base = if (LogicContractSetting.getContractUint(ContractSDKAgent.context) == 0) getString(R.string.sl_str_contracts_unit) else mContractJsonStr?.optString("multiplierCoin")
-        tv_position_key.setText(getString(R.string.cl_positionlis_columns2) + "(" + base + ")")
-        tv_stop_profit_volume_unit.setText(base)
-        tv_stop_loss_volume_unit.setText(base)
+        tv_position_key.text = getString(R.string.cl_positionlis_columns2) + "(" + base + ")"
+        tv_stop_profit_volume_unit.text = base
+        tv_stop_loss_volume_unit.text = base
 
         if (mContractPositionBean?.orderSide.equals("BUY")) {
 
@@ -395,7 +395,7 @@ class ClContractStopRateLossActivity : NBaseActivity(), WsContractAgentManager.W
     }
 
     companion object {
-        fun show(activity: Activity, mContractPositionBean: ClContractPositionBean) {
+        fun show(activity: Activity, mContractPositionBean: CpContractPositionBean) {
             val intent = Intent(activity, ClContractStopRateLossActivity::class.java)
             intent.putExtra("ContractPositionBean", mContractPositionBean)
             activity.startActivity(intent)

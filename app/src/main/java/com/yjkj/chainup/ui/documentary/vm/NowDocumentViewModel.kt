@@ -11,6 +11,8 @@ import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.common.sdk.LibCore.context
+import com.common.sdk.utlis.MathHelper
+import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -128,8 +130,8 @@ class NowDocumentViewModel : BaseViewModel() {
         //收益
         var revenue = MutableLiveData<String>()
 
-
-
+        //收益lv
+        var returnRate = MutableLiveData<String>()
 
 
         var contractType = MutableLiveData<String>()
@@ -166,22 +168,26 @@ class NowDocumentViewModel : BaseViewModel() {
                 item.bean.value = it.data.positionList!![i]
                 item.isMySelf.value = uid.value.isNullOrEmpty()
                 val orderSide = if (it.data.positionList!![i].orderSide == "BUY") {
-                     context.getString(R.string.cl_HistoricalPosition_1) + "-"
+                    context.getString(R.string.cl_HistoricalPosition_1) + "-"
                 } else {
-                     context.getString(R.string.cl_HistoricalPosition_2) + "-"
+                    context.getString(R.string.cl_HistoricalPosition_2) + "-"
                 }
-                val positionType = if (it.data.positionList!![i].positionType== 1) {
-                   context.getString(R.string.cl_currentsymbol_marginmodel1) + "-"
+                val positionType = if (it.data.positionList!![i].positionType == 1) {
+                    context.getString(R.string.cl_currentsymbol_marginmodel1) + "-"
                 } else {
-                   context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
+                    context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
                 }
-                item.contractType.value ="${orderSide}${positionType}${it.data.positionList!![i].leverageLevel}X"
+                item.contractType.value = "${orderSide}${positionType}${it.data.positionList!![i].leverageLevel}X"
 
                 item.time.value = "${it.data.positionList!![i].coPosition!!.ctime}->${it.data.positionList!![i].coPosition!!.mtime}"
 
-                val mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(mActivity,  it.data.positionList!![i].contractId)
+                val mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(mActivity, it.data.positionList!![i].contractId)
 
-                item.revenue.value= BigDecimalUtils.showSNormal( it.data.positionList!![i].profitRealizedAmount, mMarginCoinPrecision)
+                item.revenue.value = BigDecimalUtils.showSNormal(it.data.positionList!![i].profitRealizedAmount, mMarginCoinPrecision)
+                //回报率
+                item.returnRate.value = NumberUtil.getDecimal(2).format(
+                    MathHelper.round(MathHelper.mul(it.data.positionList!![i].returnRate.toString(), "100"), 2)
+                ).toString() + "%"
 
                 items.add(item)
             }

@@ -322,7 +322,7 @@
                         android:gravity="right"
                         android:textStyle="bold"
                         android:visibility="@{_all.status==0?View.VISIBLE:View.GONE}"
-                        android:text="@{(_all.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(_all.bean.keepRate+``,2)+`%`}"
+                        android:text="@{_all.returnRate}"
                         android:textSize="19sp"
                         android:textColor="@{_all.bean.returnRate>0?@color/green:@color/red}" />
 

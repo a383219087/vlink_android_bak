@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.common.sdk.LibCore.context
+import com.common.sdk.utlis.MathHelper
+import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -38,6 +40,10 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
 
     var  contractType= MutableLiveData<String>()
+
+
+    //收益lv
+    var returnRate = MutableLiveData<String>()
 
      fun onShareClick() {
          ClHoldShareActivity.show(activity.value!!, bean.value!!)
@@ -92,7 +98,10 @@ class DocumentaryDetailViewModel : BaseViewModel() {
             context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
         }
         contractType.value ="${orderSide}${positionType}${bean.value?.leverageLevel}X"
-
+        //回报率
+        returnRate.value = NumberUtil.getDecimal(2).format(
+            MathHelper.round(MathHelper.mul(bean.value?.returnRate.toString(), "100"), 2)
+        ).toString() + "%"
 
     }
 
