@@ -16,7 +16,7 @@ import io.reactivex.functions.Consumer
 class SingleViewModel : BaseViewModel() {
 
 
-    //  1是跟单2是带单
+    //  1是跟单是别人,2是带单是自己
 
     var status = MutableLiveData<Int>()
 

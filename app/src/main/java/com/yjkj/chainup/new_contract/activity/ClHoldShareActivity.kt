@@ -9,20 +9,22 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.chainup.contract.bean.CpContractPositionBean
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.contract.utils.*
+import com.yjkj.chainup.contract.utils.ShareToolUtil
+import com.yjkj.chainup.contract.utils.getLineText
+import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.new_contract.bean.ClContractPositionBean
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.BitmapUtils
 import com.yjkj.chainup.util.DisplayUtil
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.cl_activity_hold_share.*
 
 /**
@@ -34,12 +36,12 @@ class ClHoldShareActivity : NBaseActivity() {
     }
 
     var mPricePrecision = 0
-    private var mContractPositionBean: ClContractPositionBean? = null
+    private var mContractPositionBean: CpContractPositionBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isLandscape = true
         super.onCreate(savedInstanceState)
-        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as ClContractPositionBean?
+        mContractPositionBean = intent.getSerializableExtra("ContractPositionBean") as CpContractPositionBean?
         mPricePrecision = LogicContractSetting.getContractSymbolPricePrecisionById(this, mContractPositionBean?.contractId!!)
         loadData()
         val itemView = findViewById<View>(R.id.ll_share_layout)
@@ -123,13 +125,13 @@ class ClHoldShareActivity : NBaseActivity() {
         } else {
             mContractPositionBean?.isolatedMargin
         }
-        var profitRate = NumberUtil.getDecimal(2).format(MathHelper.round(MathHelper.mul(mContractPositionBean?.returnRate, "100"), 2)).toString()
+        var profitRate = NumberUtil.getDecimal(2).format(MathHelper.round(MathHelper.mul(mContractPositionBean?.returnRate.toString(), "100"), 2)).toString()
         val symbol = if (BigDecimalUtils.compareTo(profitRate, "0") != -1) "+" else ""
         if (BigDecimalUtils.compareTo(profitRate, "0") != -1) {
 
         }
         val profitRateBuff = symbol + profitRate
-        tvEarned.text = profitRateBuff + "%"
+        tvEarned.text = "$profitRateBuff%"
         if (mContractPositionBean?.orderSide.equals("BUY")) { //多仓
             tvType.onLineText("cl_calculator_text19")
             tvType.setBackgroundResource(R.drawable.sl_border_green_fill2)
@@ -187,7 +189,7 @@ class ClHoldShareActivity : NBaseActivity() {
 
 
     companion object {
-        fun show(activity: Activity, mContractPositionBean: ClContractPositionBean) {
+        fun show(activity: Activity, mContractPositionBean: CpContractPositionBean) {
             val intent = Intent(activity, ClHoldShareActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable("ContractPositionBean", mContractPositionBean)

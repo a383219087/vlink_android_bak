@@ -10,16 +10,17 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
-import com.contract.sdk.ContractPublicDataAgent
-import com.contract.sdk.data.Contract
+import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.documentary.ClosePositionDialog
-import com.yjkj.chainup.ui.documentary.ShareDialog
+import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
@@ -64,13 +65,8 @@ class NowDocumentViewModel : BaseViewModel() {
 
         //分享
         override fun onShareClick(item: Item) {
-            ShareDialog().apply {
-                val bundle = Bundle()
-                bundle.putSerializable("bean", item.bean.value)
-                bundle.putInt("status", item.status.value!!)
-                this.arguments = bundle
+            ClHoldShareActivity.show(activity.value!!, item.bean.value!!)
 
-            }.showDialog(activity.value?.supportFragmentManager, "")
         }
 
         //追加本金
@@ -92,13 +88,6 @@ class NowDocumentViewModel : BaseViewModel() {
                         })
                     }
                 })
-
-//            AddMoneyDialog().apply {
-//                val bundle = Bundle()
-//                bundle.putSerializable("bean", item.bean.value)
-//                this.arguments = bundle
-//
-//            }. showDialog(activity.value?.supportFragmentManager,"")
         }
 
 
@@ -129,9 +118,19 @@ class NowDocumentViewModel : BaseViewModel() {
 
         var status = MutableLiveData<Int>()
 
+
+        //  true是我的,false是别人的
+
+        var isMySelf = MutableLiveData(true)
+
         var bean = MutableLiveData<CpContractPositionBean>()
 
-        var contract = MutableLiveData<Contract>()
+        //收益
+        var revenue = MutableLiveData<String>()
+
+
+
+
 
         var contractType = MutableLiveData<String>()
 
@@ -148,6 +147,7 @@ class NowDocumentViewModel : BaseViewModel() {
     fun getList(mActivity: FragmentActivity) {
         val map = HashMap<String, Any>()
         map["status"] = status.value.toString()
+
         if (uid.value.isNullOrEmpty()) {
             map["traderUid"] = UserDataService.getInstance().userInfo4UserId
         } else {
@@ -156,26 +156,35 @@ class NowDocumentViewModel : BaseViewModel() {
 
         startTask(contractApiService.traderPositionList(map), Consumer {
 
-                if (it.data?.positionList.isNullOrEmpty()) {
-                    return@Consumer
+            if (it.data?.positionList.isNullOrEmpty()) {
+                return@Consumer
+            }
+            for (i in it.data.positionList!!.indices) {
+                val item = Item()
+                item.status.value = status.value
+                item.type.value = type.value
+                item.bean.value = it.data.positionList!![i]
+                item.isMySelf.value = uid.value.isNullOrEmpty()
+                val orderSide = if (it.data.positionList!![i].orderSide == "BUY") {
+                     context.getString(R.string.cl_HistoricalPosition_1) + "-"
+                } else {
+                     context.getString(R.string.cl_HistoricalPosition_2) + "-"
                 }
-                for (i in it.data.positionList!!.indices) {
-                    val item = Item()
-                    item.status.value = status.value
-                    item.type.value = type.value
-                    item.bean.value = it.data.positionList!![i]
-                    item.contract.value = ContractPublicDataAgent.getContract(it.data.positionList!![i].contractId)
-
-                    if (it.data.positionList!![i].orderSide == "BUY") {
-                        item.contractType.value = "多仓-" + it.data.positionList!![i].leverageLevel + "X"
-                    } else {
-                        item.contractType.value = "空仓-" + it.data.positionList!![i].leverageLevel + "X"
-                    }
-                    item.time.value = "${it.data.positionList!![i].coPosition!!.ctime}->${it.data.positionList!![i].coPosition!!.mtime}"
-
-                    items.add(item)
+                val positionType = if (it.data.positionList!![i].positionType== 1) {
+                   context.getString(R.string.cl_currentsymbol_marginmodel1) + "-"
+                } else {
+                   context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
                 }
+                item.contractType.value ="${orderSide}${positionType}${it.data.positionList!![i].leverageLevel}X"
 
+                item.time.value = "${it.data.positionList!![i].coPosition!!.ctime}->${it.data.positionList!![i].coPosition!!.mtime}"
+
+                val mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(mActivity,  it.data.positionList!![i].contractId)
+
+                item.revenue.value= BigDecimalUtils.showSNormal( it.data.positionList!![i].profitRealizedAmount, mMarginCoinPrecision)
+
+                items.add(item)
+            }
 
 
         })

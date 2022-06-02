@@ -5,11 +5,8 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.contract.sdk.ContractSDKAgent
 import com.timmy.tdialog.TDialog
@@ -135,14 +132,15 @@ class ClContractHistoricalPositionActivity : NBaseActivity() {
         ll_layout.adapter = assetAdapter
         assetAdapter?.setEmptyView(EmptyForAdapterView(this))
         assetAdapter?.addChildClickViewIds(R.id.tv_key1)
-        assetAdapter?.setOnItemChildClickListener(object :OnItemChildClickListener{
-            override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                val obj: JSONObject=   assetAdapter?.getItem(position) as JSONObject
-                obj.put("marginCoin", LogicContractSetting.getContractMarginCoinById(this@ClContractHistoricalPositionActivity,mContractId))
-                obj.put("marginCoinPrecision",LogicContractSetting.getContractMarginCoinPrecisionById(this@ClContractHistoricalPositionActivity,mContractId))
-                obj?.let { SlDialogHelper.showProfitLossDetailsDialog(this@ClContractHistoricalPositionActivity, it) }
-            }
-        })
+        assetAdapter?.setOnItemChildClickListener { adapter, view, position ->
+            val obj: JSONObject = assetAdapter?.getItem(position) as JSONObject
+            obj.put("marginCoin", LogicContractSetting.getContractMarginCoinById(this@ClContractHistoricalPositionActivity, mContractId))
+            obj.put(
+                "marginCoinPrecision",
+                LogicContractSetting.getContractMarginCoinPrecisionById(this@ClContractHistoricalPositionActivity, mContractId)
+            )
+            obj?.let { SlDialogHelper.showProfitLossDetailsDialog(this@ClContractHistoricalPositionActivity, it) }
+        }
         updateContractUI()
         updateTypeUI()
 

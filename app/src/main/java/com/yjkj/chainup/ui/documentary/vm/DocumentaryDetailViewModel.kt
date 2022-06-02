@@ -13,9 +13,9 @@ import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.documentary.ClosePositionDialog
-import com.yjkj.chainup.ui.documentary.ShareDialog
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
@@ -40,13 +40,8 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     var  contractType= MutableLiveData<String>()
 
      fun onShareClick() {
-        ShareDialog().apply {
-            val bundle = Bundle()
-            bundle.putSerializable("bean", bean.value)
-            bundle.putInt("status", status.value!!)
-            this.arguments = bundle
+         ClHoldShareActivity.show(activity.value!!, bean.value!!)
 
-        }. showDialog(activity.value?.supportFragmentManager,"")
     }
 
      fun onShareClick1() {
@@ -86,13 +81,17 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
 
     fun getData(){
-
-        if (bean.value?.orderSide=="BUY"){
-            contractType.value=context.getString(R.string.cl_calculator_text17)+"-"+bean.value?.leverageLevel+"X"
-
-        }else{
-            contractType.value=context.getString(R.string.cl_calculator_text18)+"-"+bean.value?.leverageLevel+"X"
+        val orderSide = if (bean.value?.orderSide == "BUY") {
+            context.getString(R.string.cl_HistoricalPosition_1) + "-"
+        } else {
+            context.getString(R.string.cl_HistoricalPosition_2) + "-"
         }
+        val positionType = if (bean.value?.positionType== 1) {
+            context.getString(R.string.cl_currentsymbol_marginmodel1) + "-"
+        } else {
+            context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
+        }
+        contractType.value ="${orderSide}${positionType}${bean.value?.leverageLevel}X"
 
 
     }

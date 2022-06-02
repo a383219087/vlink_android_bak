@@ -21,6 +21,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <!--    历史带单,跟单-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -164,6 +166,8 @@
 
 
     </LinearLayout>
+
+    <!--    当前带单,跟单-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -244,7 +248,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="大力水手"
                 android:textSize="11sp"
                 android:textColor="@color/text_color" />
 
@@ -290,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textStyle="bold"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.coPosition.realizedAmount+``,2)}"
+                android:text="@{item.revenue}"
                 android:textSize="19sp"
                 android:textColor="@color/text_color" />
 
@@ -455,6 +458,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="27dp"
+            android:visibility="@{item.isMySelf()?View.VISIBLE:View.GONE}"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
 
@@ -467,7 +471,7 @@
                 app:onClick="@{()->onItemListener.onShareClick1(item)}"
                 app:radius="@{5}"
                 app:ResColor="@{R.color.white}"
-                app:StrokeResColor="@{R.color.text_color_99}"
+                app:StrokeResColor="@{R.color.text_color_ee}"
                 app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"

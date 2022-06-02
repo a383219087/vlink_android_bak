@@ -109,7 +109,7 @@
                             android:layout_marginLeft="5dp"
                             android:textSize="9sp"
                             android:layout_marginRight="3dp"
-                            android:text="@{`已入驻平台:`+_all.bean.entryDay+`天`}"
+                            android:text="@{@string/decumentary_mine_text17+`:`+_all.bean.entryDay+@string/decumentary_mine_text18}"
                             android:textColor="@color/text_color" />
 
 
@@ -383,7 +383,7 @@
             app:ResColor="@{R.color.main_blue}"
             app:radius="@{10}"
             android:gravity="center"
-            android:text="发起带单"
+            android:text="@string/decumentary_detail_text11"
             android:textColor="@color/white" />
 
     </FrameLayout>

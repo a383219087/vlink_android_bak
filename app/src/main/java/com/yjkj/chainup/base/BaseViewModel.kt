@@ -91,7 +91,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         mCompositeDisposable!!.add(
             single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, Consumer {
-                    LogUtil.d("我的报错",it.message)
+                    LogUtil.d("我的报错",it.message.toString())
                     when (it) {
                         is AppException -> {
                             ToastUtils.showToast(it.message)

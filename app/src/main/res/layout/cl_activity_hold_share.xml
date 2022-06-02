@@ -8,14 +8,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:id="@+id/ll_share_layout"
-        android:layout_marginTop="60dp"
         layout="@layout/cl_hold_share_card"
         android:layout_width="match_parent"
         android:layout_height="520dp"
-         />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="30dp" />
 
 <!--    <include-->
 <!--        layout="@layout/sl_share_dialog"-->

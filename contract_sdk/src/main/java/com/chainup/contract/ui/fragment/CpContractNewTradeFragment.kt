@@ -71,19 +71,17 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             showLeftCoinWindow()
         }
 
-        appbarlayout?.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                if (verticalOffset >= 0) {
-                    swipeLayout.setEnabled(true);
-                } else {
-                    swipeLayout.setEnabled(false);
-                }
-                LogUtils.e("verticalOffset:" + verticalOffset)
-                if (verticalOffset <= -100) {
-                    img_top.visibility = View.VISIBLE
-                } else if (verticalOffset >= 0) {
-                    img_top.visibility = View.GONE
-                }
+        appbarlayout?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset >= 0) {
+                swipeLayout.setEnabled(true);
+            } else {
+                swipeLayout.setEnabled(false);
+            }
+            LogUtils.e("verticalOffset:" + verticalOffset)
+            if (verticalOffset <= -100) {
+                img_top.visibility = View.VISIBLE
+            } else if (verticalOffset >= 0) {
+                img_top.visibility = View.GONE
             }
         })
         img_top.setOnClickListener {
