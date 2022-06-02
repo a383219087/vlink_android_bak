@@ -40,10 +40,16 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
         mFragments?.add(NowDocumentaryFragment.newInstance(0,mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mFragments?.add(MyTradersFragment.newInstance(mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
-        mViewModel?.getDetail(arguments?.getString(ParamConstant.MARKET_NAME)!!)
+
 
 
 
     }
 
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            mViewModel?.getDetail(arguments?.getString(ParamConstant.MARKET_NAME)!!)
+        }
+    }
 }

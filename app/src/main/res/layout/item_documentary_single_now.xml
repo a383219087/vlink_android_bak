@@ -234,7 +234,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
+            android:visibility="gone"
             android:layout_gravity="right">
             <TextView
                 android:layout_width="wrap_content"
@@ -304,8 +304,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textStyle="bold"
-                android:visibility="@{item.status==0?View.VISIBLE:View.GONE}"
-                android:text="@{item.returnRate}"
+                android:text="@{(item.bean.returnRate>0?`+`:`-`)+DecimalUtil.cutValueByPrecision(item.bean.returnRate+``,2)}"
                 android:textSize="19sp"
                 android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
 

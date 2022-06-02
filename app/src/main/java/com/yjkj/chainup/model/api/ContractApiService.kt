@@ -56,6 +56,11 @@ interface ContractApiService {
     @GET("user/follower_statistics")
     fun followerStatistics(): Observable<HttpResult<FollowerStatisticsBean>>
     /**
+     * 易员历史总收益
+     */
+    @POST("trader/trader_total_profit ")
+    fun traderTotalProfit(): Observable<HttpResult<FollowerStatisticsBean>>
+    /**
      * 2. 获取创建订单初始化信息
      */
     @POST("init_take_order")

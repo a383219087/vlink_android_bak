@@ -18,13 +18,12 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 class SingleMoneyViewModel : BaseViewModel() {
 
 
-
     //0是收益明细1是收益统计
     var index = MutableLiveData(0)
-    fun setIndex(i :Int){
-        index.value=i
+    fun setIndex(i: Int) {
+        index.value = i
+        getList()
     }
-
 
 
     // 显示资产
@@ -32,7 +31,7 @@ class SingleMoneyViewModel : BaseViewModel() {
 
 
     fun setShowMoney() {
-        showMoney.value=!showMoney.value!!
+        showMoney.value = !showMoney.value!!
         UserDataService.getInstance().setShowAssetStatus(showMoney.value!!)
     }
 
@@ -48,10 +47,9 @@ class SingleMoneyViewModel : BaseViewModel() {
         }
 
 
-
     }
 
-    class Item{
+    class Item {
         var index = MutableLiveData(0)
         var bean = MutableLiveData<TraderTransactionBean>()
     }
@@ -62,40 +60,46 @@ class SingleMoneyViewModel : BaseViewModel() {
     val items: ObservableList<Item> = ObservableArrayList()
 
 
-    fun getList(){
+    fun getList() {
         items.clear()
         val map = HashMap<String, Any>()
-            map["uid"] = UserDataService.getInstance().userInfo4UserId
+        map["uid"] = UserDataService.getInstance().userInfo4UserId
 //            map["uid"] = "10035"
-          if (index.value==0){
-              startTask(contractApiService.traderTransaction(map), Consumer {
-                     if (it.data.records.isNullOrEmpty()){
-                         return@Consumer
-                     }
-                  for (i in 0 until it.data.records!!.size) {
-                      val item=Item()
-                      item.bean.value = it.data.records!![i]
-                      item.index.value=index.value
-                      items.add(item)
-                  }
+        if (index.value == 0) {
+            startTask(contractApiService.traderTransaction(map), Consumer {
+                if (it.data.records.isNullOrEmpty()) {
+                    return@Consumer
+                }
+                for (i in 0 until it.data.records!!.size) {
+                    val item = Item()
+                    item.bean.value = it.data.records!![i]
+                    item.index.value = index.value
+                    items.add(item)
+                }
 
-              })
-          }else{
-              startTask(contractApiService.traderTransactionDay(map), Consumer {
-                  if (it.data.isNullOrEmpty()){
-                      return@Consumer
-                  }
-                  for (i in 0 until it.data!!.size) {
-                      val item=Item()
-                      item.bean.value = it.data!![i]
-                      item.index.value=index.value
-                      items.add(item)
-                  }
+            })
+        } else {
+            startTask(contractApiService.traderTransactionDay(map), Consumer {
+                if (it.data.isNullOrEmpty()) {
+                    return@Consumer
+                }
+                for (i in 0 until it.data!!.size) {
+                    val item = Item()
+                    item.bean.value = it.data!![i]
+                    item.index.value = index.value
+                    items.add(item)
+                }
 
-              })
+            })
 
-          }
+        }
 
     }
 
+
+    fun getData1() {
+        startTask(contractApiService.traderTotalProfit(), Consumer {
+        })
+
+    }
 }

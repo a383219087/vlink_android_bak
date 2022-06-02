@@ -50,7 +50,7 @@ public class NetInterceptor implements Interceptor {
 
         String neworiUrl = originReq.url().toString();
         LogUtil.d("我是LogUtil", "NetInterceptor==neworiUrl is " + neworiUrl);
-
+        LogUtil.d("我是Token", UserDataService.getInstance().getToken());
 
         Response response = chain.proceed(originReq);
         StringBuffer string = new StringBuffer("code [%s] url %s  (%sms)  [%s - %s] ");

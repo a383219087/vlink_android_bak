@@ -36,9 +36,12 @@ class MySingleMoneyFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentSing
         mFragments?.add(SingleMoneyChildFragment.newInstance(1))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
 
-
-
     }
-
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            mViewModel?.getData1()
+        }
+    }
 
 }

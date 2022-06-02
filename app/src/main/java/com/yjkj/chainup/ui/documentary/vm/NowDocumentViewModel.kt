@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
+import com.chainup.contract.utils.CpClLogicContractSetting
 import com.common.sdk.LibCore.context
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
@@ -20,6 +21,7 @@ import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
+import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.documentary.ClosePositionDialog
 import com.yjkj.chainup.util.BigDecimalUtils
@@ -67,7 +69,12 @@ class NowDocumentViewModel : BaseViewModel() {
 
         //分享
         override fun onShareClick(item: Item) {
-            ClHoldShareActivity.show(activity.value!!, item.bean.value!!)
+
+            val bean :CpContractPositionBean=item.bean.value!!
+            if (bean.contractName.isNullOrEmpty()){
+                bean.contractName=CpClLogicContractSetting.getContractShowNameById(activity.value, mContractId)
+            }
+            ClHoldShareActivity.show(activity.value!!,bean )
 
         }
 
@@ -180,11 +187,19 @@ class NowDocumentViewModel : BaseViewModel() {
                 }
                 item.contractType.value = "${orderSide}${positionType}${it.data.positionList!![i].leverageLevel}X"
 
-                item.time.value = "${it.data.positionList!![i].coPosition!!.ctime}->${it.data.positionList!![i].coPosition!!.mtime}"
 
-                val mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(mActivity, it.data.positionList!![i].contractId)
+                if (it.data.positionList!![i].coPosition == null) {
+                    item.time.value = ""
+                } else {
+                    item.time.value =
+                        "${it.data.positionList!![i].coPosition?.ctime}->${it.data.positionList!![i].coPosition?.mtime}"
+                }
 
-                item.revenue.value = BigDecimalUtils.showSNormal(it.data.positionList!![i].profitRealizedAmount, mMarginCoinPrecision)
+                val mMarginCoinPrecision =
+                    LogicContractSetting.getContractMarginCoinPrecisionById(mActivity, it.data.positionList!![i].contractId)
+
+                item.revenue.value =
+                    BigDecimalUtils.showSNormal(it.data.positionList!![i].profitRealizedAmount, mMarginCoinPrecision)
                 //回报率
                 item.returnRate.value = NumberUtil.getDecimal(2).format(
                     MathHelper.round(MathHelper.mul(it.data.positionList!![i].returnRate.toString(), "100"), 2)

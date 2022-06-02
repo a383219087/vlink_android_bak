@@ -150,7 +150,7 @@ class ClHoldShareActivity : NBaseActivity() {
         tvLatestPriceValue.text = BigDecimalUtils.showSNormal(mContractPositionBean?.indexPrice, mPricePrecision)
         tvContractValue.text = LogicContractSetting.getContractShowNameById(mActivity, mContractPositionBean?.contractId!!)
 
-        var contractType = mContractPositionBean?.contractName?.split("-")!![0]
+        val contractType = mContractPositionBean?.contractName?.split("-")!![0]
         tvContractNameLabel.text = when (contractType) {
             "E" -> getString(R.string.cl_market_text4)
             "S" -> getString(R.string.cl_market_text7)

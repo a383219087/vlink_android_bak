@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{@string/decumentary_mine_text12+`（USDT）`}"
+                android:text="@{@string/decumentary_mine_text12}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color_99" />
 
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.totalUSDT+``,2)}"
+                android:text="@{item.bean.currentFollowCount+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView

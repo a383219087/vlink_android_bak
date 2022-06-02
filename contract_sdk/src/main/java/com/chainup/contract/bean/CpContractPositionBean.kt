@@ -21,7 +21,7 @@ data class CpContractPositionBean(
     /**
      * 合约名称
      */
-    val contractName: String,
+    var contractName: String,
     /**
      * 标记价格
      */
