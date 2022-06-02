@@ -55,6 +55,7 @@ class MyTradersModel : BaseViewModel() {
     val items: ObservableList<Item> = ObservableArrayList()
 
     fun getList() {
+        items.clear()
         if (uid.value.isNullOrEmpty()) {
             startTask(apiService.myTraders(), Consumer {
                 if (it.data.isNullOrEmpty()) {
