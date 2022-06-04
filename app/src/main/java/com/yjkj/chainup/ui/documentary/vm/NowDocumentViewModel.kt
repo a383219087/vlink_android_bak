@@ -1,7 +1,6 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
-import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
@@ -20,10 +19,11 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.ui.documentary.ClosePositionDialog
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
@@ -34,6 +34,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 class NowDocumentViewModel : BaseViewModel() {
 
     var activity = MutableLiveData<FragmentActivity>()
+
 
 
     //  1是跟单2是带单
@@ -60,11 +61,13 @@ class NowDocumentViewModel : BaseViewModel() {
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item: Item) {
-            ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
-                .withSerializable("bean", item.bean.value)
-                .withInt("type", item.type.value!!)
-                .withInt("status", item.status.value!!)
-                .navigation()
+            if (item.isMySelf.value!!){
+                ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
+                    .withSerializable("bean", item.bean.value)
+                    .withInt("type", item.type.value!!)
+                    .withInt("status", item.status.value!!)
+                    .navigation()
+            }
         }
 
         //分享
@@ -107,12 +110,14 @@ class NowDocumentViewModel : BaseViewModel() {
 
         //平仓
         override fun onShareClick3(item: Item) {
-            ClosePositionDialog().apply {
-                val bundle = Bundle()
-                bundle.putSerializable("bean", item.bean.value)
-                this.arguments = bundle
+            EventBusUtil.post(MessageEvent(MessageEvent.NowDocumentViewModel_close,item.bean.value))
 
-            }.showDialog(activity.value?.supportFragmentManager, "")
+//            ClosePositionDialog().apply {
+//                val bundle = Bundle()
+//                bundle.putSerializable("bean", item.bean.value)
+//                this.arguments = bundle
+//
+//            }.showDialog(activity.value?.supportFragmentManager, "")
         }
     }
 

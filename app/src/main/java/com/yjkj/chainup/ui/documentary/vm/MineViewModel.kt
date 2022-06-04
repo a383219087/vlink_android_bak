@@ -8,6 +8,8 @@ import com.yjkj.chainup.bean.FollowerStatisticsBean
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
 import io.reactivex.functions.Consumer
 
@@ -36,7 +38,16 @@ class MineViewModel : BaseViewModel() {
 
     //成为交易员
     fun appTraders(){
-        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager,"")
+        val map = HashMap<String, Any>()
+        map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+        startTask(contractApiService.checkFuturesUser(map), Consumer {
+            if (it.data.result==1){
+                ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
+            }else{
+                EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_close))
+            }
+
+        })
     }
 
     fun getData1() {

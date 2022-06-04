@@ -168,7 +168,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="@{item.bean.profitRatio+`%`}"
+                android:text="@{(item.bean.profitRatio*100)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -176,7 +176,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.winRatio+`%`}"
+                android:text="@{(item.bean.winRatio*100)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -238,7 +238,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="@{item.bean.totalRatio+`%`}"
+                android:text="@{(item.bean.totalRatio*100)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -254,7 +254,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
-                android:text="@{item.bean.followerCount+`%`}"
+                android:text="@{item.bean.followerCount+``}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 

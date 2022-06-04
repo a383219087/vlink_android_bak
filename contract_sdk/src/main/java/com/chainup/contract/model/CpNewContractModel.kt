@@ -213,6 +213,10 @@ class CpNewContractModel : CpBaseDataManager() {
                 .createOrder(getBaseReqBodyV1(map)), consumer
         )
     }
+
+
+
+
     fun createOrder(
         data: CpCreateOrderBean,
         consumer: DisposableObserver<ResponseBody>

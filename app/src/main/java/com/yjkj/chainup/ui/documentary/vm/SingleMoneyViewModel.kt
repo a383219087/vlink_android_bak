@@ -11,6 +11,9 @@ import com.yjkj.chainup.bean.TraderTransactionBean
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.manager.RateManager
+import com.yjkj.chainup.util.BigDecimalUtils
+import com.yjkj.chainup.util.DateUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -25,6 +28,13 @@ class SingleMoneyViewModel : BaseViewModel() {
         getList()
     }
 
+
+    var cnyString = MutableLiveData<String>()
+
+    var usdtString = MutableLiveData<String>()
+
+    var todayString = MutableLiveData<String>("0.0")
+    var yesterdayString = MutableLiveData<String>("0.0")
 
     // 显示资产
     var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
@@ -64,7 +74,6 @@ class SingleMoneyViewModel : BaseViewModel() {
         items.clear()
         val map = HashMap<String, Any>()
         map["uid"] = UserDataService.getInstance().userInfo4UserId
-//            map["uid"] = "10035"
         if (index.value == 0) {
             startTask(contractApiService.traderTransaction(map), Consumer {
                 if (it.data.records.isNullOrEmpty()) {
@@ -99,6 +108,26 @@ class SingleMoneyViewModel : BaseViewModel() {
 
     fun getData1() {
         startTask(contractApiService.traderTotalProfit(), Consumer {
+           usdtString.value=it.data
+            cnyString.value= BigDecimalUtils.divForDown( it.data, RateManager.getRatesByPayCoin("CNY")).toPlainString()
+
+        })
+        val map = HashMap<String, Any>()
+        map["uid"] = UserDataService.getInstance().userInfo4UserId
+        startTask(contractApiService.traderTransactionDay(map), Consumer {
+            if (it.data.isNullOrEmpty()) {
+                return@Consumer
+            }
+            for (i in 0 until it.data!!.size) {
+
+                if (it.data[i].date==DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis())){
+                    todayString.value=it.data[i].followerAmount.toString()
+                }
+                if (it.data[i].date==DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis()-24*3600*1000)){
+                    yesterdayString.value=it.data[i].followerAmount.toString()
+                }
+            }
+
         })
 
     }

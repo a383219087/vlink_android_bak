@@ -156,7 +156,8 @@ data class GetAssetsTotalBean(
     val totalAmount: Int,
     val totalMargin: Int,
     val totalMarginRate: Int,
-    val unRealizedAmount: Int
+    val unRealizedAmount: Int,
+    val result: Int
 
 ) : Serializable
 data class FollowerStatisticsBean(

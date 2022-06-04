@@ -568,7 +568,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        ChainUpLogUtil.e(TAG, "合约展示 onHiddenChanged " + hidden)
+        ChainUpLogUtil.e(TAG, "合约展示 onHiddenChanged $hidden")
         isContractHidden=hidden
         if (hidden){
             loopStop()

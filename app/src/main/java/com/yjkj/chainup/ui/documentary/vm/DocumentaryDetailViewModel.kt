@@ -1,7 +1,6 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
-import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
@@ -15,9 +14,10 @@ import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.ui.documentary.ClosePositionDialog
+import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
@@ -45,7 +45,13 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     //收益lv
     var returnRate = MutableLiveData<String>()
 
-     fun onShareClick() {
+    //收益
+    var revenue = MutableLiveData<String>()
+
+
+
+
+    fun onShareClick() {
          ClHoldShareActivity.show(activity.value!!, bean.value!!)
 
     }
@@ -70,15 +76,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
          CpContractStopRateLossActivity.show(activity.value!!,bean.value!!)
     }
 
-     fun onShareClick3() {
-         ClosePositionDialog().apply {
-             val bundle = Bundle()
-             bundle.putSerializable("bean", bean.value)
-             this.arguments = bundle
 
-         }. showDialog(activity.value?.supportFragmentManager,"")
-
-    }
 
     val itemBinding =
         ItemBinding.of<String>(BR.item, R.layout.item_documentary_detail_record)
@@ -102,7 +100,10 @@ class DocumentaryDetailViewModel : BaseViewModel() {
         returnRate.value = NumberUtil.getDecimal(2).format(
             MathHelper.round(MathHelper.mul(bean.value?.returnRate.toString(), "100"), 2)
         ).toString() + "%"
-
+        val mMarginCoinPrecision =
+            LogicContractSetting.getContractMarginCoinPrecisionById(context, bean.value!!.contractId)
+        revenue.value =
+            BigDecimalUtils.showSNormal(bean.value!!.profitRealizedAmount, mMarginCoinPrecision)
     }
 
 }

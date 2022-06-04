@@ -139,6 +139,66 @@ class NewContractModel : BaseDataManager() {
     }
 
     /**
+     * 提交委托
+     * @param symbol 合约币对名称, 例如: BTC-USDT
+     * @param contractId 合约ID
+     * @param positionType  持仓类型(1 全仓，2 仓逐)
+     * @param open  开平仓方向(OPEN 开仓，CLOSE 平仓)
+     * @param side  买卖方向（BUY 买入，SELL 卖出）
+     * @param type  订单类型(1 limit， 2 market，3 IOC，4 FOK，5 POST_ONLY)
+     * @param leverageLevel  杠杆倍数
+     * @param price  下单价格(市价单传0)
+     * @param volume 下单数量(开仓市价单：金额)
+     * @param isConditionOrder 是否是条件单
+     * @param triggerPrice 触发价格
+     * @param priceType 对手方最优   0      本方最优  1 为空就是正常下单
+     */
+    fun createOrder1(
+        contractId: Int,
+        positionType: String,
+        open: String,
+        side: String,
+        type: Int,
+        leverageLevel: Int,
+        price: String,
+        volume: String,
+        isConditionOrder: Boolean,
+        triggerPrice: String,
+        expireTime: Int,
+        isOto: Boolean,
+        takerProfitTrigger: String,
+        stopLossTrigger: String,
+        priceType: String,
+        consumer: DisposableObserver<ResponseBody>
+    ): Disposable? {
+        val map = getBaseMapsV2().apply {
+            this["contractId"] = contractId
+            this["positionType"] = positionType
+            this["open"] = open
+            this["side"] = side
+            this["type"] = type
+            this["leverageLevel"] = leverageLevel
+            this["price"] = price
+            this["volume"] = volume
+            this["isConditionOrder"] = isConditionOrder
+            this["triggerPrice"] = triggerPrice
+            this["expireTime"] = expireTime
+            this["isOto"] = isOto //是否OTO订单
+            this["takerProfitTrigger"] = takerProfitTrigger //止盈触发价格
+            this["takerProfitPrice"] = "0" //止盈委托价格
+            this["takerProfitType"] = "2" //止盈类型
+            this["stopLossTrigger"] = stopLossTrigger //止损触发价格
+            this["stopLossPrice"] = "0" //止损委托价格
+            this["stopLossType"] = "2" //止损类型
+            this["priceType"] = priceType
+        }
+        return changeIOToMainThread(
+            httpHelper.getContractNewUrlService(ContractApiService::class.java)
+                .createOrder(getBaseReqBodyV1(map)), consumer
+        )
+    }
+
+    /**
      * 提交委托(止盈/止损)
      * @param contractId 合约ID
      * @param positionType  持仓类型(1 全仓，2 仓逐)

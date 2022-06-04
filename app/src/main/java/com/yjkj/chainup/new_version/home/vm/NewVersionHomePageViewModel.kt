@@ -79,7 +79,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
-                    val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)

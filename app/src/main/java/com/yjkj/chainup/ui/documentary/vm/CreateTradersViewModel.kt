@@ -90,8 +90,8 @@ class CreateTradersViewModel : BaseViewModel() {
             map["amount"] =documentaryMoney.value.toString()
         }
         map["deposit"] =maxEarnestMoney.value.toString()
-        map["profitRatio"] =winRate.value.toString()
-        map["lossRatio"] =stopRate.value.toString()
+        map["profitRatio"] =(winRate.value.toString().toDouble()/100).toString()
+        map["lossRatio"] =(stopRate.value.toString().toDouble()/100).toString()
         startTask(apiService.createTrader(map), Consumer {
             ToastUtils.showToast(it.msg)
           finish()

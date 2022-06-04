@@ -172,7 +172,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{(_all.showMoney?(_all.bean.totalMarginRate+``):`***`)+`%`}"
+                                    android:text="@{(_all.showMoney?((_all.bean.totalMarginRate*100)+``):`***`)+`%`}"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
 

@@ -105,7 +105,17 @@ class FirstViewModel : BaseViewModel() {
 
     //成为交易员
     fun appTraders() {
-        ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
+        val map = HashMap<String, Any>()
+        map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+        startTask(contractApiService.checkFuturesUser(map), Consumer {
+            if (it.data.result==1){
+                ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
+            }else{
+                toLaunchSingle()
+            }
+
+        })
+
     }
 
     //发起带单

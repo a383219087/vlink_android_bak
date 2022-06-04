@@ -82,7 +82,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         mMarginCoin = CpClLogicContractSetting.getContractMarginCoinById(mContext, mContractPositionBean?.contractId!!)
 
-        ChainUpLogUtil.e(TAG, "multiplierPrecision:" + multiplierPrecision)
+        ChainUpLogUtil.e(TAG, "multiplierPrecision:$multiplierPrecision")
         et_stop_profit_position.numberFilter(multiplierPrecision)
         et_stop_loss_position.numberFilter(multiplierPrecision)
         et_stop_profit_trigger_price.numberFilter(mPricePrecision)
@@ -90,10 +90,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
         et_stop_loss_price.numberFilter(mPricePrecision)
         et_stop_profit_price.numberFilter(mPricePrecision)
 
-        tv_stop_profit_trigger_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_loss_trigger_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_profit_coin_name.setText(mContractJsonStr?.optString("quote"))
-        tv_stop_loss_coin_name.setText(mContractJsonStr?.optString("quote"))
+        tv_stop_profit_trigger_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_loss_trigger_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_profit_coin_name.text = mContractJsonStr?.optString("quote")
+        tv_stop_loss_coin_name.text = mContractJsonStr?.optString("quote")
 
         base = if (CpClLogicContractSetting.getContractUint(CpMyApp.instance()) == 0) getString(R.string.cp_overview_text9) else mContractJsonStr?.optString("multiplierCoin")
         tv_position_key.setText(getString(R.string.cp_extra_text90) + "(" + base + ")")

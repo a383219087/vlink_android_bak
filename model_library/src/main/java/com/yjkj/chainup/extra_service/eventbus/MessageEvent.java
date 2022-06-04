@@ -119,6 +119,7 @@ public class MessageEvent {
     public static final int net_status_change = 92;//网络状态监听
     public static final int DocumentaryActivity_close = 93;//关闭跟单要
     public static final int DocumentaryActivity_index = 94;//关闭跟单要
+    public static final int NowDocumentViewModel_close = 95;//平仓
     private MessageEvent() {
     }
 

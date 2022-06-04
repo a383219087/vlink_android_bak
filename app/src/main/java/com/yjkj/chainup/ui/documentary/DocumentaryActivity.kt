@@ -4,17 +4,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.chainup.contract.utils.CpClLogicContractSetting
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityDocumentaryBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.ui.documentary.vm.DocumentaryViewModel
 import com.yjkj.chainup.util.FmPagerAdapter
 import io.reactivex.functions.Consumer
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONObject
 
 
 @Route(path = RoutePath.DocumentaryActivity)
@@ -23,6 +26,7 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
     private var mFragments: ArrayList<Fragment>? = ArrayList()
     override fun setContentView() = R.layout.activity_documentary
     override fun initData() {
+        getContractPublicInfo()
         mViewModel?.startTask( mViewModel?.apiService!!.currentStatus(), Consumer {
             currentStatus(it.data.status)
         })
@@ -67,6 +71,27 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
 
 
             }
+
+        }
+    }
+
+
+    private fun getContractPublicInfo() {
+        addDisposable(getContractModel().getPublicInfo(
+            consumer = object : CpNDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    saveContractPublicInfo(jsonObject)
+                }
+            })
+        )
+    }
+    private fun saveContractPublicInfo(jsonObject: JSONObject) {
+        jsonObject.optJSONObject("data").run {
+            val contractList = optJSONArray("contractList")
+            val marginCoinList = optJSONArray("marginCoinList")
+            CpClLogicContractSetting.setContractJsonListStr(mActivity, contractList.toString())
+            CpClLogicContractSetting.setContractMarginCoinListStr(mActivity, marginCoinList.toString())
+
         }
     }
 }

@@ -51,6 +51,12 @@ interface ContractApiService {
     @POST("position/get_assets_total")
     fun getAssetsTotal(): Observable<HttpResult<GetAssetsTotalBean>>
     /**
+     * 校验是否开通了合约账户
+     */
+    @POST("trader/check_futures_user")
+    @FormUrlEncoded
+    fun checkFuturesUser(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<GetAssetsTotalBean>>
+    /**
      * 跟单统计
      */
     @GET("user/follower_statistics")
@@ -59,7 +65,7 @@ interface ContractApiService {
      * 易员历史总收益
      */
     @POST("trader/trader_total_profit ")
-    fun traderTotalProfit(): Observable<HttpResult<FollowerStatisticsBean>>
+    fun traderTotalProfit(): Observable<HttpResult<String>>
     /**
      * 2. 获取创建订单初始化信息
      */
