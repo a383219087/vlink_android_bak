@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.home.vm
+package com.yjkj.chainup.ui.home.vm
 
 
 import android.content.Intent

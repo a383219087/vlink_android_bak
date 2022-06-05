@@ -8,7 +8,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel" />
+            type="com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel" />
 
         <import type="android.view.View" />
 

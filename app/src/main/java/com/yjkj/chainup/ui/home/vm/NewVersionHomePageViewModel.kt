@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.home.vm
+package com.yjkj.chainup.ui.home.vm
 
 
 import android.content.Context
@@ -13,6 +13,8 @@ import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
 import com.yjkj.chainup.util.LanguageUtil
@@ -25,6 +27,7 @@ import java.util.*
 
 class NewVersionHomePageViewModel : HomePageViewModel() {
 
+
     /**
      * 顶部广告图列表
      */
@@ -35,29 +38,41 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
      */
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item: Item) {
-            if (!LoginManager.checkLogin(mActivity.value, true)) {
-                return
-            }
+
             when (item.index.value) {
                 /**
                  * 充值收款
                  */
-                0 -> ToastUtils.showToast("正在开发")
+                0 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ToastUtils.showToast("正在开发")
+                }
                 /**
                  * 提现转账
                  */
-                1 -> ToastUtils.showToast("正在开发")
+                1 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ToastUtils.showToast("正在开发")
+                }
                 /**
                  * 合约
                  */
-                2 -> ToastUtils.showToast("正在开发")
+                2 -> EventBusUtil.post(MessageEvent(MessageEvent.contract_switch_type))
                 /**
                  * 期权
                  */
                 3 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
-                    val style = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val style =
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
                     val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
@@ -67,18 +82,32 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 /**
                  * 跟单
                  */
-                4 -> ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
+                4 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ArouterUtil.navigation(RoutePath.DocumentaryActivity, null)
+                }
                 /**
                  * 理财
                  */
-                5 -> ArouterUtil.navigation(RoutePath.FinancialActivity, null)
+                5 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ArouterUtil.navigation(RoutePath.FinancialActivity, null)
+                }
                 /**
                  * 游戏
                  */
                 6 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
-                    val style = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val style =
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
                     val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
@@ -88,11 +117,21 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 /**
                  * 密聊
                  */
-                7 -> ToastUtils.showToast("正在开发")
+                7 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ToastUtils.showToast("正在开发")
+                }
                 /**
                  * 分享有礼
                  */
-                8 -> ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+                8 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+                }
 
 
             }

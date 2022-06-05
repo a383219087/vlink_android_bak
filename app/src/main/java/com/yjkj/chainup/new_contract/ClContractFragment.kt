@@ -48,9 +48,7 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.fragment_cl_contract.*
-import kotlinx.android.synthetic.main.fragment_new_version_inter_homepage.vtc_advertising
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundResource

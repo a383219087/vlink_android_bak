@@ -1,21 +1,34 @@
-package com.yjkj.chainup.new_version.home
+package com.yjkj.chainup.ui.home
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.request.RequestOptions
+import com.contract.sdk.ContractPublicDataAgent
+import com.contract.sdk.data.ContractTicker
+import com.contract.sdk.impl.ContractTickerListener
+import com.gcssloop.widget.PagerGridLayoutManager
+import com.gcssloop.widget.PagerGridSnapHelper
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
-import com.yjkj.chainup.databinding.FragmentNewVersionInterHomepageBinding
+import com.yjkj.chainup.contract.activity.SlContractKlineActivity
+import com.yjkj.chainup.databinding.FragmentNewVersionHomepageBinding
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -24,7 +37,9 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.*
+import com.yjkj.chainup.util.LanguageUtil
+import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.ApiConstants
@@ -32,19 +47,25 @@ import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageContractAdapter
+import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
-import com.yjkj.chainup.new_version.home.vm.NewVersionHomePageFirstViewModel
+import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
+import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_new_version_inter_homepage.*
-import kotlinx.android.synthetic.main.view_top_service_layout.*
+import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
+import kotlinx.android.synthetic.main.no_network_remind.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
@@ -58,11 +79,10 @@ import java.util.concurrent.TimeUnit
  * @Email buptjinlong@163.com
  * @description 首页
  */
-class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstViewModel?, FragmentNewVersionInterHomepageBinding>(), WsAgentManager.WsResultCallback {
+class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?, FragmentNewVersionHomepageBinding>(), WsAgentManager.WsResultCallback {
 
     val getTopDataReqType = 1 // 首页顶部行情数据请求
     val homepageReqType = 2 // 首页数据请求
-    val accountBalanceReqType = 5 //总账户资产请求
     val homeData = 11 //总账户资产请求
 
     /**
@@ -77,12 +97,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
      */
     private var contractOpen = false
 
+    /**
+     * 功能服务
+     */
+    private var serviceAdapter: NewHomePageServiceAdapter? = null
 
-    var contractTotal: Double = 0.0
-    var contractReturn = false
-    var totalBalance: String = "0"
-
-
+    var defaultBanner = 0
+    var defaultHome = 0
 
 
     /*
@@ -90,8 +111,9 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
      */
     var isLogined = false
     var subscribeCoin: Disposable? = null//保存订阅者
+    var isScrollStatus = false
 
-    override fun setContentView() = R.layout.fragment_new_version_inter_homepage
+    override fun setContentView() = R.layout.fragment_new_version_homepage
 
     override fun initView() {
         mViewModel?.mActivity?.value=mActivity
@@ -100,14 +122,65 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
         WsAgentManager.instance.addWsCallback(this)
         observeData()
+        //设置轮播时间
+        banner_looper_custom?.setLoopTime(3000)
+        //设置指示器位置（当banner模式中有指示器时）
+        banner_looper_custom?.setIndicatorGravity(IndicatorConfig.Direction.CENTER)
 
         if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             initTop24HourView()
         }
+
         initRedPacketView()
         setOnClick()
+        initNetWorkRemind()
+        mViewModel?.getPublicInfo(context!!)
+        LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
+
+        when (ApiConstants.HOME_PAGE_STYLE) {
+            ParamConstant.DEFAULT_HOME_PAGE -> {
+                defaultBanner = R.drawable.banner_king
+
+            }
+            ParamConstant.INTERNATIONAL_HOME_PAGE -> {
+                defaultBanner = R.drawable.banner_king
+                defaultHome = R.drawable.home_king
+            }
+
+        }
         val data = CommonService.instance.getHomeData()
         showHomepageData(data, true)
+
+        swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
+
+
+    }
+
+
+
+    private fun initNetWorkRemind() {
+        val spanStrStart = SpannableString(getString(R.string.check_network_settings))
+        val spanStrClick = SpannableString(getString(R.string.check_network))
+        val index = spanStrStart.indexOf(spanStrClick.toString(), 0)
+        var spanStrStartSub = spanStrStart.subSequence(0, index)
+        var spanStrEnd = spanStrStart.subSequence(index + spanStrClick.length, spanStrStart.length)
+
+        spanStrClick.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = context?.resources!!.getColor(R.color.color_nonetwork_btn_blue) //设置颜色
+                //去掉下划线，默认是带下划线的
+                ds.isUnderlineText = false
+            }
+        }, 0, spanStrClick.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        no_network_check.append(spanStrStartSub)
+        no_network_check.append(spanStrClick)
+        no_network_check.append(spanStrEnd)
+        no_network_check.setMovementMethod(LinkMovementMethod.getInstance())
 
     }
 
@@ -151,6 +224,18 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
 
     }
 
+    private fun initTop24Hour4Contract() {
+        recycler_top_24?.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
+        topSymbol4ContractAdapter = NewHomePageContractAdapter(selectTopSymbol4Contract)
+        recycler_top_24?.adapter = topSymbol4ContractAdapter
+        topSymbol4ContractAdapter?.setOnItemClickListener { adapter, view, position ->
+            val ticker = adapter.data[position] as ContractTicker
+            if (!Utils.isFastClick()) {
+                SlContractKlineActivity.show(mActivity!!, ticker?.instrument_id)
+            }
+        }
+    }
+
     private fun observeData() {
         NLiveDataUtil.observeData(this, Observer {
             if (null != it) {
@@ -159,13 +244,17 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 }
             }
         })
+        GlobalScope.launch {
+            LogUtil.e(TAG, "首页网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
+            delay(3000L)
+            LogUtil.e(TAG, "首页网络统计 end ws状态 " + WsAgentManager.instance.isConnection())
+        }
     }
 
     inner class MyNDisposableObserver(type: Int) : NDisposableObserver() {
 
         var req_type = type
         override fun onResponseSuccess(jsonObject: JSONObject) {
-            closeLoadingDialog()
             if (getTopDataReqType == req_type) {
                 recycler_top_24?.visibility = View.VISIBLE
                 v_top_line?.visibility = View.VISIBLE
@@ -173,7 +262,9 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             } else if (homepageReqType == req_type) {
                 showHomepageData(jsonObject.optJSONObject("data"))
             } else if (homeData == req_type) {
+                closeLoadingDialog()
                 showHomepageData(jsonObject.optJSONObject("data"))
+                advertTime()
             }
         }
 
@@ -185,6 +276,7 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             }
             if (req_type == homeData) {
                 initSocket()
+                advertTime(true)
             }
             closeLoadingDialog()
         }
@@ -206,7 +298,11 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         if (!isCache) {
             homepageData = data
             val jsonObjects = JSONObject(data.toString())
-            CommonService.instance.saveHomeData(jsonObjects)
+            if (jsonObjects != null) {
+                CommonService.instance.saveHomeData(jsonObjects)
+            }
+            val arrayGuide = arrayOf(mBinding?.homeHeader!!.layoutSearch, iv_nation_more, layout_top_24, recycler_center_service_layout)
+            showGuideHomepage(mActivity, arrayGuide, data)
         }
         var noticeInfoList = data.optJSONArray("noticeInfoList")
         var cmsAppAdvertList = data.optJSONArray("cmsAppAdvertList")
@@ -214,8 +310,72 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         var cmsAppNoteDataList = data.optJSONArray("cmsAppDataListOther")
         var cmsSymbolList = data.optJSONArray("header_symbol")
         var homeRecommendList = data.optJSONArray("home_recommend_list") ?: JSONArray()
-        showTopSymbolsData(cmsSymbolList)
-        showBottomVp(homeRecommendList)
+
+        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
+            /**
+             * 合约首页推荐位币对
+             */
+            var coHeaderSymbols = data.optJSONObject("co_header_symbols")
+
+            /**
+             * {
+            "id":1,
+            "contract_id":1,
+            "contract_name":"BTCUSDT",
+            "company_id":1438,
+            "rank":1,
+            "created_at":"2020-09-09T15:09:01Z"
+            }
+             */
+            if (coHeaderSymbols != null && coHeaderSymbols?.length() > 0 && !isCache) {
+                var headerSymols = coHeaderSymbols?.optJSONArray("list")
+                if (headerSymols != null && headerSymols.length() > 0) {
+                    recycler_top_24?.visibility = View.VISIBLE
+                    var topSymbolList = ArrayList<ContractTicker>()
+                    selectTopSymbol4Contract?.clear()
+                    for (i in 0 until headerSymols.length()) {
+                        var contract = ContractPublicDataAgent.getContract(headerSymols.optJSONObject(i).optInt("contract_id"))
+                        var ticker = ContractTicker()
+                        ticker.symbol = contract?.symbol
+                        ticker.instrument_id = contract?.instrument_id ?: 0
+                        topSymbolList?.add(ticker)
+                    }
+                    selectTopSymbol4Contract = topSymbolList
+                    loadContractData()
+                    initTop24Hour4Contract()
+                }
+            }
+            /**
+             * 合约首页币对列表
+             */
+            var coHomeSymbolList = data.optJSONArray("co_home_symbol_list")
+            if (coHomeSymbolList != null && coHomeSymbolList.length() > 0 && !isCache) {
+                contractHomeRecommendNameList.clear()
+                contractHomeRecommendList.clear()
+                for (num in 0 until coHomeSymbolList.length()) {
+                    var json = coHomeSymbolList.optJSONObject(num)
+                    var contracts = json.optJSONArray("contracts")
+                    var language = json?.optJSONObject("language")
+                    if (contracts != null && contracts.length() > 0) {
+                        var languageStr = language?.optString(SystemUtils.getSystemLanguage())
+                            ?: ""
+                        if (TextUtils.isEmpty(languageStr)) {
+                            languageStr = language?.optString("en_US") ?: ""
+                        }
+                        Log.e("shengong", "langu:$languageStr")
+                        contractHomeRecommendNameList.add(languageStr)
+                        contractHomeRecommendList.add(contracts)
+                    }
+                }
+                showBottom4Contract()
+            }
+        } else {
+            showTopSymbolsData(cmsSymbolList)
+            /*
+             *涨幅榜等数据 显示
+             */
+            showBottomVp(homeRecommendList)
+        }
 
         LogUtil.d("NewVersionHomepageFragment", "showHomepageData==cmsAppAdvertList is $cmsAppAdvertList")
         newNoticeInfoList = noticeInfoList
@@ -241,11 +401,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             return
 
         bannerImgUrls.clear()
+        mViewModel?.bannerImgUrls?.clear()
         for (i in 0 until cmsAppAdvertList.length()) {
             var obj = cmsAppAdvertList.optJSONObject(i)
             var imageUrl = obj.optString("imageUrl")
             if (StringUtil.isHttpUrl(imageUrl)) {
                 bannerImgUrls.add(imageUrl)
+                mViewModel?.bannerImgUrls?.add(imageUrl)
             }
         }
         banner_looper?.apply {
@@ -272,10 +434,29 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 forwardWeb(obj)
             }
         }
-        //banner设置方法全部调用完毕时最后调用
+       // banner设置方法全部调用完毕时最后调用
         banner_looper?.start()
 
     }
+
+
+    private fun loadContractData() {
+        ContractPublicDataAgent.registerTickerWsListener(this, object : ContractTickerListener() {
+            override fun onWsContractTicker(ticker: ContractTicker) {
+                if (isHidden || !isVisible || !isResumed) {
+                    return
+                }
+                for (i in selectTopSymbol4Contract?.indices!!) {
+                    if (selectTopSymbol4Contract?.get(i)?.instrument_id == ticker.instrument_id) {
+                        selectTopSymbol4Contract[i] = ticker
+                        break
+                    }
+                }
+                topSymbol4ContractAdapter?.setNewData(selectTopSymbol4Contract)
+            }
+        })
+    }
+
 
     private fun showAdvertising(isShow: Boolean) {
         if (null != vtc_advertising?.textList && vtc_advertising?.textList!!.size > 0) {
@@ -295,10 +476,20 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 banner_looper?.stop()
             }
         }
+
+        if (bannerNoteUrls.size > 0) {
+            if (isShow) {
+                banner_looper_custom?.start()
+            } else {
+                banner_looper_custom?.stop()
+            }
+        }
     }
 
 
     private fun getAllAccounts() {
+        isLogined = UserDataService.getInstance().isLogined
+
         if (null == homepageData) {
             getHomeData()
         }
@@ -323,10 +514,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
     /*
      * 首页底部tab跳转的处理
      */
-    private fun homeTabSwitch(tabType: Int?) {
+    private fun homeTabSwitch(tabType: Int?, symbol: String? = "") {
         var msgEvent = MessageEvent(MessageEvent.hometab_switch_type)
         var bundle = Bundle()
         bundle.putInt(ParamConstant.homeTabType, tabType ?: 0)
+        if (symbol != null) {
+            bundle.putString(ParamConstant.symbol, symbol)
+        }
         msgEvent.msg_content = bundle
         EventBusUtil.post(msgEvent)
     }
@@ -342,13 +536,8 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
 
 
     fun setOnClick() {
-
-
-
         iv_nation_more?.setOnClickListener {
-//            if (LoginManager.checkLogin(mActivity, true)) {
-                startActivity(Intent(mActivity, NoticeActivity::class.java))
-//            }
+            startActivity(Intent(mActivity, NoticeActivity::class.java))
         }
 
         if (SystemUtils.isZh()) {
@@ -391,6 +580,31 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         iv_close_red_envelope?.setOnClickListener {
             showRedPacket(false)
         }
+
+        /**
+         * 此处刷新
+         */
+        swipe_refresh?.setOnRefreshListener {
+            isScrollStatus = true
+            /**
+             * 刷新数据操作
+             */
+            if (homepageData == null || fragments.size == 0 || selectTopSymbol == null) {
+                getHomeData()
+            } else {
+                getVPTab()
+            }
+            swipe_refresh?.isRefreshing = false
+        }
+        net_wrong?.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
+        no_network_check?.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
+        no_network_retry_btn?.setOnClickListener {
+            getHomeData()
+        }
     }
 
 
@@ -406,11 +620,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
      * 首页顶部symbol 24小时行情展示
      */
     var selectTopSymbol: ArrayList<JSONObject>? = null
+    var selectTopSymbol4Contract: ArrayList<ContractTicker> = arrayListOf()
+
+
+
 
     private fun showTopSymbolsData(topSymbol: JSONArray?) {
-
         selectTopSymbol = NCoinManager.getSymbols(topSymbol)
-
         if (null == selectTopSymbol || selectTopSymbol?.size!! <= 0) {
             setTopViewVisible(false)
             return
@@ -429,10 +645,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             arrays.add(item.getString("symbol"))
         }
         var json = ""
+        homeCoins.clear()
         if (bottomCoins.isNotEmpty()) {
             val temp = bottomCoins union arrays
+            homeCoins.addAll(temp)
             json = JsonUtils.gson.toJson(temp)
         } else {
+            homeCoins.addAll(arrays)
             json = JsonUtils.gson.toJson(arrays)
         }
         WsAgentManager.instance.sendMessage(hashMapOf("bind" to true, "symbols" to json), this)
@@ -464,7 +683,7 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
     fun setTopViewVisible(isShow: Boolean) {
         if (isShow) {
             recycler_top_24?.visibility = View.VISIBLE
-            if (selectTopSymbol != null && selectTopSymbol!!.size >= 3) {
+            if (selectTopSymbol != null && selectTopSymbol!!.size > 3) {
                 layout_item?.visibility = View.VISIBLE
             } else {
                 layout_item?.visibility = View.GONE
@@ -482,8 +701,14 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
      */
     fun getHomeData() {
         showLoadingDialog()
-        val disposable = getMainModel().getHomeData("1", MyNDisposableObserver(homeData))
+        var type = "1"
+        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
+            type = "2"
+        }
+        klineTime = System.currentTimeMillis()
+        var disposable = getMainModel().getHomeData(type, MyNDisposableObserver(homeData))
         addDisposable(disposable)
+
     }
 
     override fun refreshOkhttp(position: Int) {
@@ -507,7 +732,13 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             return
         }
         for (i in contractHomeRecommendNameList.indices) {
-            fragments.add(NewSlCoinSearchItemFragment.newInstance(i, fragment_market, contractHomeRecommendList.get(i).toString()))
+            fragments.add(
+                NewSlCoinSearchItemFragment.newInstance(
+                    i,
+                    fragment_market,
+                    contractHomeRecommendList.get(i).toString()
+                )
+            )
         }
         var marketPageAdapter = NVPagerAdapter(childFragmentManager, contractHomeRecommendNameList, fragments)
         fragment_market?.adapter = marketPageAdapter
@@ -537,11 +768,16 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
 
     fun showBottomVp(data: JSONArray) {
         var titles = arrayListOf<String>()
-
         var serviceDatas = JSONUtil.arrayToList(data)
         if (serviceDatas == null) {
+            if (!NetUtil.isNetConnected(mActivity!!)) {
+                no_network_bottom_vp?.visibility = View.VISIBLE
+                bottom_vp_linearlayout?.visibility = View.GONE
+            }
             return
         }
+        no_network_bottom_vp?.visibility = View.GONE
+        bottom_vp_linearlayout?.visibility = View.VISIBLE
         for (item in serviceDatas) {
             titles.add(item.getString("title"))
             chooseType.add(item.getString("key"))
@@ -551,10 +787,18 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             return
 
         for (i in titles.indices) {
-            fragments.add(NewHomeDetailFragmentItem.newInstance(titles[i], i, chooseType[i], fragment_market, serviceDatas.get(i).getJSONArray("list").toString()))
+            fragments.add(
+                NewHomeDetailFragmentItem.newInstance(
+                    titles[i],
+                    i,
+                    chooseType[i],
+                    fragment_market,
+                    serviceDatas.get(i).getJSONArray("list").toString()
+                )
+            )
         }
 
-        val marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
+        var marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
         fragment_market?.adapter = marketPageAdapter
         fragment_market?.offscreenPageLimit = fragments.size
         fragment_market?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -566,7 +810,7 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
 
             override fun onPageSelected(position: Int) {
                 selectPostion = position
-                WsAgentManager.instance.unbind(this@NewVersionHomepageFirstFragment)
+                WsAgentManager.instance.unbind(this@NewVersionHomepageFragment)
                 loopData()
                 fragment_market?.resetHeight(selectPostion)
             }
@@ -602,13 +846,15 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         if (null != noticeInfoList && noticeInfoList.length() > 0) {
             ll_advertising_layout?.visibility = View.VISIBLE
             if (null == vtc_advertising?.textList || vtc_advertising?.textList!!.size == 0) {
-                vtc_advertising?.setText(12f, 0, ContextCompat.getColor(context!!, R.color.text_color),true)
+                vtc_advertising?.setText(12f, 0, ContextCompat.getColor(context!!, R.color.text_color), true)
                 vtc_advertising?.setTextStillTime(4000)//设置停留时长间隔
                 vtc_advertising?.setAnimTime(400)//设置进入和退出的时间间隔
-                vtc_advertising?.setOnItemClickListener { pos ->
-                    var obj = newNoticeInfoList.optJSONObject(pos)
-                    forwardWeb(obj)
-                }
+                vtc_advertising?.setOnItemClickListener(object : VerticalTextview4ChainUp.OnItemClickListener {
+                    override fun onItemClick(pos: Int) {
+                        var obj = newNoticeInfoList.optJSONObject(pos)
+                        forwardWeb(obj)
+                    }
+                })
             }
             vtc_advertising?.setTextList(getNoticeInfoList(noticeInfoList))
             vtc_advertising?.startAutoScroll()
@@ -641,129 +887,106 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
     }
 
     /**
-     * 获取 首页数据
+     * 如果服务器没有返回服务数据
+     * 服务功能这里整体GONE
      */
-    private fun getHomepageData() {
-        showLoadingDialog()
-        var disposable = getMainModel().common_index(MyNDisposableObserver(homepageReqType))
-        addDisposable(disposable!!)
+    private fun setServiceView() {
+        recycler_center_service_layout?.visibility = View.GONE
     }
 
+    private fun setServiceShowView() {
+        recycler_center_service_layout?.visibility = View.VISIBLE
+    }
+
+    private var servicePageSize = 0
 
     /**
      *
      *  从服务器获取功能服务数据后填充
      */
 
-    private fun setServiceData(cmsAppDataList: JSONArray?, viewType: Int = 0) {
-        var serviceDataList = JSONUtil.arrayToList(cmsAppDataList)
-        if (serviceDataList.size > 0) {
-            if (serviceDataList.size == 1) {
-                ll_rigth_top_layout?.visibility = View.GONE
-                tv_top_title.text = serviceDataList[0].optString("title", "") ?: ""
-                val requestOptions = RequestOptions()
-                requestOptions.error(R.drawable.home_top_image).placeholder(R.drawable.home_top_image)
-                GlideUtils.load(context as Activity?, serviceDataList[0].optString("imageUrl"), im_top, requestOptions)
-            } else if (serviceDataList.size == 2) {
-                tv_top_title.text = serviceDataList[0].optString("title", "") ?: ""
-                tv_second_title.text = serviceDataList[1].optString("title", "") ?: ""
-                val requestOptions = RequestOptions()
-                requestOptions.error(R.drawable.home_top_image).placeholder(R.drawable.home_top_image)
-                GlideUtils.load(context as Activity?, serviceDataList[0].optString("imageUrl"), im_top, requestOptions)
-                val requestOptions2 = RequestOptions()
-                requestOptions2.error(R.drawable.home_contract).placeholder(R.drawable.home_contract)
-                GlideUtils.load(context as Activity?, serviceDataList[1].optString("imageUrl"), iv_second_title, requestOptions2)
-                ll_help_center?.visibility = View.GONE
-            } else if (serviceDataList.size >= 3) {
-                tv_top_title.text = serviceDataList[0].optString("title", "") ?: ""
-                tv_second_title.text = serviceDataList[1].optString("title", "") ?: ""
-                tv_three_title.text = serviceDataList[2].optString("title", "") ?: ""
-                val requestOptions = RequestOptions()
-                requestOptions.error(R.drawable.home_top_image).placeholder(R.drawable.home_top_image)
-                GlideUtils.load(context as Activity?, serviceDataList[0].optString("imageUrl"), im_top, requestOptions)
-                val requestOptions2 = RequestOptions()
-                requestOptions2.error(R.drawable.home_contract).placeholder(R.drawable.home_contract)
-                GlideUtils.load(context as Activity?, serviceDataList[1].optString("imageUrl"), iv_second_title, requestOptions2)
-                val requestOptions3 = RequestOptions()
-                requestOptions3.error(R.drawable.home_center).placeholder(R.drawable.home_center)
-                GlideUtils.load(context as Activity?, serviceDataList[2].optString("imageUrl"), iv_three_title, requestOptions3)
+    private fun setServiceData(appData: JSONArray?, viewType: Int = 0) {
+        if (null == appData || appData.length() <= 0) {
+            setServiceView()
+            return
+        }
+        setServiceShowView()
+        val serviceDatas = JSONUtil.arrayToList(appData)
+        val mardBottom = if (bannerNoteUrls.size != 0) DisplayUtil.dip2px(2) else DisplayUtil.dip2px(12)
+        val linearParams = recycler_center_service_layout?.layoutParams as LinearLayout.LayoutParams
+        linearParams.setMargins(0, 0, 0, mardBottom)
+        recycler_center_service_layout?.layoutParams = linearParams
+        val linearParams2 = recycler_center_service?.layoutParams
+        linearParams2?.width = ViewGroup.LayoutParams.MATCH_PARENT
+        linearParams2?.height = SizeUtils.dp2px(if (serviceDatas.size > 4) 128f else 64f)
+        recycler_center_service?.layoutParams = linearParams2
+
+        val mLayoutManager = PagerGridLayoutManager(if (serviceDatas.size > 4) 2 else 1, 4, PagerGridLayoutManager.HORIZONTAL)
+        mLayoutManager.setPageListener(object : PagerGridLayoutManager.PageListener {
+            override fun onPageSelect(pageIndex: Int) {
+                //todo  这里是第几页 +1
+                if (servicePageSize <= 1) {
+                    return
+                }
+                when (pageIndex) {
+                    0 -> {
+                        iv_frist?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
+                        iv_second?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
+
+                    }
+                    1 -> {
+                        iv_frist?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
+                        iv_second?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
+                    }
+                }
             }
+
+            override fun onPageSizeChanged(pageSize: Int) {
+                servicePageSize = pageSize
+
+            }
+        })
+        if (serviceDatas.size > 8) {
+            rl_controller?.visibility = View.VISIBLE
         } else {
-            ic_new_service_layout?.visibility = View.GONE
+            rl_controller?.visibility = View.INVISIBLE
         }
+        val snapHelper = PagerGridSnapHelper()
+        if (recycler_center_service?.onFlingListener == null) {
+            snapHelper.attachToRecyclerView(recycler_center_service ?: return)
+        }
+        recycler_center_service?.layoutManager = mLayoutManager
 
 
-        rl_fait_layout?.setOnClickListener {
-            if (activity != null && !activity?.isFinishing!! && !activity?.isDestroyed!!) {
+        serviceAdapter = NewHomePageServiceAdapter(serviceDatas)
+        serviceAdapter?.setOnItemClickListener { adapter, view, position ->
 
-                var obj = cmsAppDataList?.optJSONObject(0)
-                var httpUrl = obj?.optString("httpUrl") ?: ""
-                var nativeUrl = obj?.optString("nativeUrl") ?: ""
+            var obj = serviceDatas.get(position)
+            var httpUrl = obj.optString("httpUrl")
+            var nativeUrl = obj.optString("nativeUrl")
 
-                //TODO 需要一个标题
-                if (TextUtils.isEmpty(httpUrl)) {
-                    if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                        enter2Activity(nativeUrl.split("?"))
-                    }
-                } else {
-                    if (httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
-                        forUdeskWebView()
-                    } else {
-                        forwardWeb(obj)
-                    }
+            LogUtil.d(TAG, "httpUrl is $httpUrl , nativeUrl is $nativeUrl")
+            if (TextUtils.isEmpty(httpUrl)) {
+                if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
+                    enter2Activity(nativeUrl?.split("?"))
                 }
-
-            }
-        }
-
-        ll_contract_deal?.setOnClickListener {
-            if (activity != null && !activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                var obj = cmsAppDataList?.optJSONObject(1)
-                var httpUrl = obj?.optString("httpUrl") ?: ""
-                var nativeUrl = obj?.optString("nativeUrl") ?: ""
-
-                //TODO 需要一个标题
-                if (TextUtils.isEmpty(httpUrl)) {
-                    if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                        enter2Activity(nativeUrl.split("?"))
-                    }
+            } else {
+                if (httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
+                    forUdeskWebView()
                 } else {
-                    if (httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
-                        forUdeskWebView()
-                    } else {
-                        forwardWeb(obj)
-                    }
+                    forwardWeb(obj)
                 }
             }
         }
 
-        ll_help_center?.setOnClickListener {
-            if (activity != null && !activity?.isFinishing!! && !activity?.isDestroyed!!) {
-                var obj = cmsAppDataList?.optJSONObject(2)
-                var httpUrl = obj?.optString("httpUrl") ?: ""
-                var nativeUrl = obj?.optString("nativeUrl") ?: ""
-
-                //TODO 需要一个标题
-                if (TextUtils.isEmpty(httpUrl)) {
-                    if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                        enter2Activity(nativeUrl.split("?"))
-                    }
-                } else {
-                    if (httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
-                        forUdeskWebView()
-                    } else {
-                        forwardWeb(obj)
-                    }
-                }
-            }
-        }
+        recycler_center_service?.adapter = serviceAdapter
     }
 
 
     /**
      * 对应的服务
      */
-    fun enter2Activity(temp: List<String>?) {
+    private fun enter2Activity(temp: List<String>?) {
 
         if (null == temp || temp.size <= 0)
             return
@@ -780,9 +1003,8 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 /**
                  * 币对交易页
                  */
-                SymbolManager.instance.saveTradeSymbol(temp[1])
                 var tabType = HomeTabMap.maps[HomeTabMap.coinTradeTab]
-                homeTabSwitch(tabType)
+                homeTabSwitch(tabType, temp[1])
             }
             "coinmap_details" -> {
                 /**
@@ -802,7 +1024,9 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 /*if (LoginManager.checkLogin(activity, true)) {
                 }*/
                 if (otcOpen) {
-                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
+                    var bundle = Bundle()
+                    bundle.putInt("tag", 0)
+                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
                 } else {
                     NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
                 }
@@ -812,7 +1036,9 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                  * 场外交易-出售
                  */
                 if (otcOpen) {
-                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
+                    var bundle = Bundle()
+                    bundle.putInt("tag", 1)
+                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
                 } else {
                     NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
                 }
@@ -827,7 +1053,11 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                     if (otcOpen) {
                         ArouterUtil.greenChannel(RoutePath.NewOTCOrdersActivity, null)
                     } else {
-                        NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
+                        NToastUtil.showTopToastNet(
+                            this.mActivity,
+                            false,
+                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+                        )
                     }
                 }
             }
@@ -857,7 +1087,11 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                         }
 
                     } else {
-                        NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
+                        NToastUtil.showTopToastNet(
+                            this.mActivity,
+                            false,
+                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+                        )
                     }
                 }
             }
@@ -942,8 +1176,15 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                  */
                 if (LoginManager.checkLogin(activity, true)) {
                     when (UserDataService.getInstance().authLevel) {
-                        0, 1 -> {
-                            NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "noun_login_pending"))
+                        0 -> {
+                            NToastUtil.showTopToastNet(
+                                this.mActivity,
+                                false,
+                                LanguageUtil.getString(context, "noun_login_pending")
+                            )
+                        }
+                        1 -> {
+                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
                         }
                         /**
                          * 审核未通过
@@ -983,6 +1224,16 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
                 ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
             }
 
+            "account_freeStaking" -> {
+                if (!LoginManager.checkLogin(context, true)) {
+                    return
+                }
+                /**
+                 * FreeStaking首页
+                 */
+                ArouterUtil.greenChannel(RoutePath.FreeStakingActivity, null)
+            }
+
 
         }
     }
@@ -1002,12 +1253,7 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
      * 获取账户信息
      */
     var accountBalance = ""
-    var accountFlat = ""
-    private fun getAccountBalance() {
-        var disposable = getMainModel().getTotalAsset(MyNDisposableObserver(accountBalanceReqType))
-        addDisposable(disposable!!)
 
-    }
 
     override fun onWsMessage(json: String) {
         handleData(json)
@@ -1018,33 +1264,42 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             val json = JSONObject(data)
             if (!json.isNull("tick")) {
                 doAsync {
-                    val quotesData = json
-                    showWsData(quotesData)
-                    if (fragments.size == 0) {
-                        return@doAsync
+                    val channel = json.optString("channel")
+                    val temp = homeCoins.filter {
+                        channel.contains(it)
                     }
-                    val fragment = fragments[selectPostion]
-                    if (fragment is NewHomeDetailFragmentItem) {
-                        val tick = json.optJSONObject("tick")
-                        val channel = json.optString("channel")
-                        val temp = bottomCoins.filter {
-                            channel.contains(it)
-                        }
-                        if (temp.isEmpty()) {
-                            return@doAsync
-                        }
-                        val roseStr = tick.getString("rose")
-                        val rose = RateManager.getNumRose(roseStr)
-                        if (chooseType[selectPostion] == "rasing") {
-                            if (!rose) {
+                    if (temp.isNotEmpty()) {
+                        val dataDiff = callDataDiff(json)
+                        if (dataDiff != null) {
+                            val items = dataDiff.second
+                            if (bottomCoins.size != homeCoins.size) {
+                                showWsData(items)
+                            }
+                            if (fragments.size == 0) {
                                 return@doAsync
                             }
-                        } else if (chooseType[selectPostion] == "falling") {
-                            if (rose) {
-                                return@doAsync
+                            val fragment = fragments[selectPostion]
+                            if (fragment is NewHomeDetailFragmentItem) {
+                                val tempMap = HashMap<String, JSONObject>()
+                                LogUtil.e(TAG, "showWsData bottom ${items.size}")
+                                for (item in items) {
+                                    val channelNew = item.value.optString("channel").split("_")[1]
+                                    val tempBottom = bottomCoins.filter {
+                                        channelNew.contains(it)
+                                    }
+                                    if (tempBottom.isNotEmpty()) {
+                                        tempMap.put(item.key, item.value)
+                                    }
+                                }
+                                LogUtil.e(TAG, "showWsData bottom 过滤 ${tempMap.size}")
+                                if (tempMap.isEmpty()) {
+                                    return@doAsync
+                                }
+                                fragment.dropListsAdapter(tempMap)
                             }
+                            wsArrayTempList.clear()
+                            wsArrayMap.clear()
                         }
-                        fragment.showWsData(json)
                     }
                 }
             }
@@ -1053,19 +1308,36 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         }
     }
 
-    private fun showWsData(jsonObject: JSONObject) {
-        if (0 == topSymbolAdapter?.data?.size)
+    private fun showWsData(items: HashMap<String, JSONObject>) {
+        if (0 == selectTopSymbol?.size)
             return
-        val datas = topSymbolAdapter?.data
-        val obj = SymbolWsData().getNewSymbolObj(datas as java.util.ArrayList<JSONObject>, jsonObject)
-        if (null != obj && obj.length() > 0) {
-            val pos = datas.indexOf(obj)
-            if (pos >= 0) {
-                activity?.runOnUiThread {
-                    topSymbolAdapter?.notifyItemChanged(pos, null)
+        val dates = selectTopSymbol
+        var isLoad = 0
+        for (item in items) {
+            val channel = item.value.optString("channel").split("_")[1]
+            val temp = dates?.filter {
+                channel.contains(it.optString("symbol"))
+            }
+            if (temp != null && temp.isNotEmpty()) {
+                val jsonObject = temp[0]
+                val data = item.value
+                val tick = data.optJSONObject("tick")
+                tick?.apply {
+                    jsonObject.put("rose", this.optString("rose"))
+                    jsonObject.put("close", this.optString("close"))
+                    jsonObject.put("vol", this.optString("vol"))
+                    val index = dates.indexOf(jsonObject)
+                    dates.set(index, jsonObject)
+                    isLoad++
                 }
             }
         }
+        if (isLoad != 0) {
+            activity?.runOnUiThread {
+                topSymbolAdapter?.setList(dates)
+            }
+        }
+
     }
 
     override fun onVisibleChanged(isVisible: Boolean) {
@@ -1091,7 +1363,8 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         }
     }
 
-    var bottomCoins = arrayListOf<String>()
+    private var bottomCoins = arrayListOf<String>()
+    private var homeCoins = arrayListOf<String>()
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: MessageEvent) {
@@ -1115,6 +1388,16 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             }
             initSocket()
         }
+        /*
+         *检测网络状态
+         */
+        if (MessageEvent.net_status_change == event.msg_type) {
+            if (mActivity?.let { NetUtil.isNetConnected(it) } == true) {
+                net_wrong?.visibility = View.GONE
+            } else {
+                net_wrong?.visibility = View.VISIBLE
+            }
+        }
     }
 
     private var isRose = true
@@ -1125,10 +1408,10 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
         clearToolHttp()
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
             subscribeCoin = Observable.interval(10L, CommonConstant.homeLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                    .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                    .subscribe {
-                        getVPTab()
-                    }
+                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+                .subscribe {
+                    getVPTab()
+                }
         }
     }
 
@@ -1191,12 +1474,37 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
     }
 
     private fun initNoteBanner(cmsAppDataList: JSONArray?) {
+        if (cmsAppDataList != null && cmsAppDataList.length() != 0) {
+            rl_custom_config?.visibility = View.VISIBLE
+            val serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
+            val arrayBanner = arrayListOf<String>()
+            serviceDatas.forEach {
+                val imageUrl = it.optString("imageUrl")
+                if (StringUtil.isHttpUrl(imageUrl)) {
+                    arrayBanner.add(imageUrl)
+                }
+            }
+            bannerNoteUrls.clear()
+            bannerNoteUrls.addAll(arrayBanner)
+            banner_looper_custom?.let {
 
+                val mAdapter = ImageNetAdapter(bannerNoteUrls)
+                it.adapter = mAdapter
+            }
+            banner_looper_custom?.start()
+            banner_looper_custom?.setOnBannerListener { data, position ->
+                val obj = cmsAppDataList.optJSONObject(position)
+                routeApp(obj)
+            }
+        } else {
+            rl_custom_config?.visibility = View.GONE
+            bannerNoteUrls.clear()
+        }
     }
 
     private fun routeApp(obj: JSONObject?) {
-        var httpUrl = obj?.optString("httpUrl") ?: ""
-        var nativeUrl = obj?.optString("nativeUrl") ?: ""
+        val httpUrl = obj?.optString("httpUrl") ?: ""
+        val nativeUrl = obj?.optString("nativeUrl") ?: ""
         if (TextUtils.isEmpty(httpUrl)) {
             if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
                 enter2Activity(nativeUrl.split("?"))
@@ -1215,4 +1523,51 @@ class NewVersionHomepageFirstFragment : BaseMVFragment<NewVersionHomePageFirstVi
             addDisposable(disposable)
         }
     }
+
+    var klineTime = 0L
+    private fun advertTime(isError: Boolean = false) {
+        klineTime = System.currentTimeMillis() - klineTime
+        val temp = if (isError) {
+            4
+        } else {
+            val market = PublicInfoDataService.getInstance().getMarket(null)
+            if (market == null) {
+                5
+            } else {
+                if (fragments.isNotEmpty()) {
+                    0
+                } else {
+                    3
+                }
+
+            }
+
+        }
+        sendWsHomepage(mIsVisibleToUser, temp, NetworkDataService.KEY_PAGE_HOME, NetworkDataService.KEY_HTTP_HOME, klineTime)
+    }
+
+
+    private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()
+    private val wsArrayMap = hashMapOf<String, JSONObject>()
+    private var wsTimeFirst: Long = 0L
+
+    @Synchronized
+    private fun callDataDiff(jsonObject: JSONObject): Pair<ArrayList<JSONObject>, HashMap<String, JSONObject>>? {
+        if (System.currentTimeMillis() - wsTimeFirst >= 1000L && wsTimeFirst != 0L) {
+            // 大于一秒
+            wsTimeFirst = 0L
+            if (wsArrayMap.size != 0) {
+                return Pair(wsArrayTempList, wsArrayMap)
+            }
+        } else {
+            if (wsTimeFirst == 0L) {
+                wsTimeFirst = System.currentTimeMillis()
+            }
+            wsArrayTempList.add(jsonObject)
+            wsArrayMap.put(jsonObject.optString("channel", ""), jsonObject)
+        }
+        return null
+    }
+
+
 }

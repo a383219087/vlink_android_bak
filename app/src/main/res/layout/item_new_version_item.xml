@@ -6,14 +6,14 @@
 
         <variable
             name="item"
-            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel.Item" />
+            type="com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel.Item" />
 
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
         <variable
             name="onItemListener"
-            type="com.yjkj.chainup.new_version.home.vm.NewVersionHomePageViewModel.OnItemListener" />
+            type="com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel.OnItemListener" />
     </data>
 
     <FrameLayout

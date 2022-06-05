@@ -5,15 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-import com.yjkj.chainup.db.constant.ParamConstant;
-import com.yjkj.chainup.net.api.ApiConstants;
 import com.yjkj.chainup.new_contract.ClContractFragment;
 import com.yjkj.chainup.new_version.activity.NewMainActivity;
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment;
@@ -23,8 +19,7 @@ import com.yjkj.chainup.new_version.fragment.MarketTrendFragment;
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment;
 import com.yjkj.chainup.new_version.fragment.NewVersionMarketFragment;
 import com.yjkj.chainup.new_version.home.NewHomeDetailFragment;
-import com.yjkj.chainup.new_version.home.NewVersionHomepageFirstFragment;
-import com.yjkj.chainup.new_version.home.NewVersionHomepageFragment;
+import com.yjkj.chainup.ui.home.NewVersionHomepageFragment;
 import com.yjkj.chainup.ws.WsAgentManager;
 import com.yjkj.chainup.ws.WsContractAgentManager;
 
@@ -47,7 +42,6 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
     private Runnable check;
 
     private final static String ACTIVITY_HOME = NewVersionHomepageFragment.class.getSimpleName();
-    private final static String ACTIVITY_HOME_FIRST = NewVersionHomepageFirstFragment.class.getSimpleName();
     public final static String ACTIVITY_MARKET = NewVersionMarketFragment.class.getSimpleName();
     private final static String ACTIVITY_TRADE_DEFAULT = TradeFragment.class.getSimpleName();
     private final static String ACTIVITY_NCVC_DEFAULT = NCVCTradeFragment.class.getSimpleName();
@@ -61,11 +55,8 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
 
     public static ForegroundCallbacks init(Application application) {
         if (instance == null) {
-            if (ApiConstants.HOME_VIEW_STATUS.equals(ParamConstant.DEFAULT_HOME_PAGE)) {
                 wsLastWindow = ACTIVITY_HOME;
-            } else {
-                wsLastWindow = ACTIVITY_HOME_FIRST;
-            }
+
             instance = new ForegroundCallbacks();
             application.registerActivityLifecycleCallbacks(instance);
         }
@@ -209,11 +200,8 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
             tempName = ACTIVITY_MARKET_HOME_TAB;
         }
         if (wsLastWindow.equals(ACTIVITY_HOME_TAB)) {
-            if (ApiConstants.HOME_VIEW_STATUS.equals(ParamConstant.DEFAULT_HOME_PAGE)) {
                 tempName = ACTIVITY_HOME;
-            } else {
-                tempName = ACTIVITY_HOME_FIRST;
-            }
+
         }
         if (wsLastWindow.equals(ACTIVITY_TRADE_DEFAULT)) {
             tempName = ACTIVITY_NCVC_DEFAULT;

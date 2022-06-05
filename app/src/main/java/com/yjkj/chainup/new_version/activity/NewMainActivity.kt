@@ -46,7 +46,6 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NetworkLineService
 import com.yjkj.chainup.net.HttpClient
@@ -60,6 +59,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
 import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.ui.SplashActivity
+import com.yjkj.chainup.ui.home.NewVersionHomepageFragment
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
 import com.yjkj.chainup.ws.WsContractAgentManager
@@ -73,7 +73,6 @@ import kotlinx.android.synthetic.main.no_network_remind.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 // TODO 优化
@@ -174,20 +173,7 @@ class NewMainActivity : NBaseActivity() {
         contractOpen = PublicInfoDataService.getInstance().contractOpen(data)
         val cid = PublicInfoDataService.getInstance().getCompanyId(data)
         WsAgentManager.instance.saveCID(cid)
-        when (ApiConstants.HOME_VIEW_STATUS) {
-            ParamConstant.DEFAULT_HOME_PAGE, ParamConstant.CONTRACT_HOME_PAGE -> {
-                val homePageFragment = NewVersionHomepageFragment()
-                fragmentList.add(homePageFragment)
-            }
-            ParamConstant.JAPAN_HOME_PAGE -> {
-                val japanHomepageFragment = NewVersionJapanHomepageFragment()
-                fragmentList.add(japanHomepageFragment)
-            }
-            ParamConstant.INTERNATIONAL_HOME_PAGE -> {
-                val homefristPageFragment = NewVersionHomepageFirstFragment()
-                fragmentList.add(homefristPageFragment)
-            }
-        }
+        fragmentList.add(NewVersionHomepageFragment())
         mImageViewList.add(R.drawable.bg_homepage_tab)
         mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_home"))
 
@@ -540,19 +526,7 @@ class NewMainActivity : NBaseActivity() {
 
 
 
-    var hasCommmitBikiUserInfo = false
-    fun loginToken() {
-        if (hasCommmitBikiUserInfo)
-            return
-        val token = UserDataService.getInstance().token
-        if (getString(R.string.applicationId) == "com.chainup.exchange.bikicoin" && !TextUtils.isEmpty(token)) {
-            hasCommmitBikiUserInfo = true
-            addDisposable(getOTCModel().loginInformation(token, object : NDisposableObserver(null, false) {
-                override fun onResponseSuccess(jsonObject: JSONObject) {
-                }
-            }))
-        }
-    }
+
 
     override fun onStart() {
         super.onStart()
