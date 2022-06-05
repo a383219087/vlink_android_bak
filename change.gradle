@@ -1,6 +1,6 @@
 ext {
     change = [
-            applicationId :"com.chainup.exchange.test212",
+            applicationId :"com.zww.exchange",
 
 
             baseUrl:"http://8.219.64.81/base/appapi/",
