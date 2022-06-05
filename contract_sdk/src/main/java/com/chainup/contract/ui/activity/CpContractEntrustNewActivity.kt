@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -268,7 +268,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         mRightAdapter.setOnItemClickListener { adapter, view, position ->
             mCurrContractInfo = CpTabInfo(sideListBuff[position].name, position)
             mContractId = sideListBuff[position].index
-            LogUtils.e("--------------------"+CpContractEntrustNewActivity.mContractId)
+            LogUtils.e("--------------------"+ mContractId)
             tv_coins_name.setText(CpClLogicContractSetting.getContractShowNameById(this@CpContractEntrustNewActivity, mContractId))
             val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_contract_event)
             event.msg_content = mContractId
@@ -346,7 +346,8 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
     fun getCurrentCommonOrderList() {
         tv_cancel_orders.visibility = View.GONE
         addDisposable(
-                getContractModel().getCurrentOrderList(mContractId.toString(),
+                getContractModel().getCurrentOrderList(
+                    mContractId.toString(),
                         0,
                         1,
                         consumer = object : CpNDisposableObserver(true) {
@@ -370,7 +371,8 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
 
     fun getCurrentPlanOrderList() {
         addDisposable(
-                getContractModel().getCurrentPlanOrderList(mContractId.toString(),
+                getContractModel().getCurrentPlanOrderList(
+                    mContractId.toString(),
                         0,
                         1,
                         consumer = object : CpNDisposableObserver(true) {
@@ -402,7 +404,8 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
                 object : CpNewDialogUtils.DialogBottomListener {
                     override fun sendConfirm() {
                         addDisposable(
-                                getContractModel().orderCancel(mContractId.toString(),
+                                getContractModel().orderCancel(
+                                    mContractId.toString(),
                                         orderId,
                                         mCurrEntrustInfo?.index == 1,
                                         consumer = object : CpNDisposableObserver(mActivity, true) {

@@ -22,7 +22,7 @@ import com.chainup.talkingdata.AppAnalyticsExt
 import com.coorchice.library.utils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity
 import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
 import io.reactivex.Observable

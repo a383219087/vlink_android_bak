@@ -11,7 +11,7 @@ import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.chainup.contract.view.CpSlDialogHelper
 import com.chainup.talkingdata.AppAnalyticsExt
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractHistoricalPositionAdapter
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
@@ -56,7 +56,7 @@ class CpContractPLRecordFragment : CpNBaseFragment() {
 
     override fun initView() {
         mContractId = CpContractEntrustNewActivity.mContractId
-        LogUtils.e("--------------------++++"+CpContractEntrustNewActivity.mContractId)
+        LogUtils.e("--------------------++++"+ CpContractEntrustNewActivity.mContractId)
         adapter = CpContractHistoricalPositionAdapter(this.activity!!, mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter

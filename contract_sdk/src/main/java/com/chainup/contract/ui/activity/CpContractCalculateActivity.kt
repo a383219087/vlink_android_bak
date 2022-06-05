@@ -13,6 +13,7 @@ import com.chainup.contract.base.CpNBaseActivity
 import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.yjkj.chainup.new_contract.fragment.CpLiquidationPriceFragment
 import com.yjkj.chainup.new_contract.fragment.CpPlCalculatorFragment

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Contract</string>
+    <string name="app_name">ZWW</string>
 
     <string-array name="array_loss">
         <item>Market</item>

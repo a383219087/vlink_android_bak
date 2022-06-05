@@ -15,6 +15,7 @@ import com.chainup.contract.base.CpNBaseActivity
 import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.chainup.contract.ui.fragment.CpCapitalRateFragment
 import com.chainup.contract.ui.fragment.CpContractParaFragment
 import com.chainup.contract.ui.fragment.CpInsuranceFundFragment

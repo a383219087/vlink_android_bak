@@ -22,7 +22,7 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
-import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity.Companion.mContractId
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LanguageUtil

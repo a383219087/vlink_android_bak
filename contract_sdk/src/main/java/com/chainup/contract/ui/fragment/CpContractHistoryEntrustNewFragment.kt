@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.chainup.contract.utils.CpClickUtil
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
@@ -13,7 +14,6 @@ import com.chainup.talkingdata.AppAnalyticsExt
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
-import com.yjkj.chainup.new_contract.activity.CpContractEntrustNewActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
