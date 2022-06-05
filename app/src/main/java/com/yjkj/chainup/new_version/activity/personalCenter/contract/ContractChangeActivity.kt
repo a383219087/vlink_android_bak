@@ -10,7 +10,7 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.activity.SplashActivity
+import com.yjkj.chainup.ui.SplashActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import kotlinx.android.synthetic.main.activity_push_settings.*
 

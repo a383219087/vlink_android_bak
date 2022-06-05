@@ -71,7 +71,7 @@
         <activity android:name=".freestaking.PositionRecordActivity" />
         <activity android:name=".freestaking.ProjectDescriptionActivity" />
         <activity
-            android:name=".new_version.activity.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

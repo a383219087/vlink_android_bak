@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.activity
+package com.yjkj.chainup.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,6 +17,7 @@ import com.yjkj.chainup.databinding.ActivitySplashBinding
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.permissionIsGranted

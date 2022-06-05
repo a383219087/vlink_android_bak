@@ -59,6 +59,7 @@ import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
 import com.yjkj.chainup.new_version.home.*
+import com.yjkj.chainup.ui.SplashActivity
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
 import com.yjkj.chainup.ws.WsContractAgentManager
