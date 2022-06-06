@@ -5,15 +5,14 @@ import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
-import androidx.core.content.ContextCompat
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.service.ColorDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import java.math.BigDecimal
-import com.yjkj.chainup.net.api.ApiConstants
 
 /**
  * @Author: Bertking
@@ -313,7 +312,7 @@ object ColorUtil {
         if (PublicInfoDataService.getInstance().getThemeModeNew().equals("day")) {
             resName = resName.replace("night", "day")
             if (iskline) {
-                if (PublicInfoDataService.getInstance().klineThemeMode != ApiConstants.themeDay()) {
+                if (PublicInfoDataService.getInstance().klineThemeMode != 0) {
                     resName = resName.replace("day", "night")
                 }
             }

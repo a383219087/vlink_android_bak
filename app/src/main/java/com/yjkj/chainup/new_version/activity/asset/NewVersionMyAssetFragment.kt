@@ -1,45 +1,43 @@
 package com.yjkj.chainup.new_version.activity.asset
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.ViewOutlineProvider
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
+import androidx.viewpager.widget.ViewPager
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.contract.sdk.impl.ContractAccountListener
+import com.google.android.material.appbar.AppBarLayout
+import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.contract.fragment.asset.SlContractAssetFragment
 import com.yjkj.chainup.contract.utils.ContractUtils
 import com.yjkj.chainup.contract.utils.PreferenceManager
+import com.yjkj.chainup.contract.utils.onLineText
+import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.new_contract.fragment.ClContractAssetFragment
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.OTCMyAssetHeatAdapter
-import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
-import org.json.JSONObject
-import android.graphics.Color
-import android.os.Build
-import android.view.ViewOutlineProvider
-import android.widget.TextView
-import androidx.lifecycle.Observer
-import com.google.android.material.appbar.AppBarLayout
-import com.timmy.tdialog.listener.OnBindViewListener
-import com.yjkj.chainup.app.AppConstant
-import com.yjkj.chainup.contract.fragment.asset.SlContractAssetFragment
-import com.yjkj.chainup.contract.utils.onLineText
-import com.yjkj.chainup.contract.widget.SlDialogHelper
-import com.yjkj.chainup.new_contract.fragment.ClContractAssetFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
+import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
+import org.json.JSONObject
 
 private const val ARG_PARAM1 = "param1"
 /**
@@ -274,7 +272,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
             LanguageUtil.getString(context, "assets_text_otc")
         }
 
-        if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             if (leverOpen) {
                 var jsonObject = JSONObject()
                 jsonObject.put("title", LanguageUtil.getString(context, "leverage_asset"))
@@ -293,7 +290,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
 
                 assetlist.add(jsonObject)
             }
-        }
 
         if (otcOpen) {
             var jsonObject = JSONObject()
@@ -317,24 +313,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
             rl_title_layout?.visibility = View.GONE
         }
 
-
-        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-            tabTitles.add(LanguageUtil.getString(context, "contract_asset_account"))
-            indexList.add(ParamConstant.BIBI_INDEX)
-            showTitles.add(LanguageUtil.getString(context, "mainTab_text_assets"))
-
-            if (contractOpen) {
-                tabTitles.add(LanguageUtil.getString(context, "assets_text_contract"))
-                indexList.add(ParamConstant.CONTRACT_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "mainTab_text_contract"))
-            }
-
-            if (otcOpen) {
-                tabTitles.add(otcText)
-                indexList.add(ParamConstant.FABI_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "mainTab_text_otc"))
-            }
-        } else {
 
             tabTitles.add(LanguageUtil.getString(context, "assets_text_exchange"))
             indexList.add(ParamConstant.BIBI_INDEX)
@@ -364,7 +342,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                 showTitles.add(LanguageUtil.getString(context, "mainTab_text_otc"))
             }
 
-        }
 
 
         tv_title?.text = tabTitles[0]
@@ -574,13 +551,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                         ?: "")
                 vp_otc_asset?.currentItem = viewpagePosotion
                 activity_my_asset_rv?.smoothScrollToPosition(viewpagePosotion)
-                if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-                    if (otcOpen) {
-                        getAccountBalance4OTC()
-                    } else if (contractOpen) {
-                        getContractAccount()
-                    }
-                } else {
                     when {
                         leverOpen -> {
                             getLeverData()
@@ -595,7 +565,6 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                             getContractAccount()
                         }
                     }
-                }
                 getTotalAssets()
 
                 refresh()
@@ -632,33 +601,23 @@ class NewVersionMyAssetFragment : NBaseFragment() {
         val totalBalanceSymbol = "BTC"
         val totalBalance = ContractUtils.calculateTotalBalance(totalBalanceSymbol)
 
-        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-            if (otcOpen) {
-                assetlist.get(2).put("totalBalance", totalBalance)
-                assetlist.get(2).put("totalBalanceSymbol", totalBalanceSymbol)
-            } else {
-                assetlist.get(1).put("totalBalance", totalBalance)
-                assetlist.get(1).put("totalBalanceSymbol", totalBalanceSymbol)
-            }
-        } else {
             if (leverOpen && b2cOpen && otcOpen) {
                 if (assetlist.size > 4) {
-                    assetlist.get(4).put("totalBalance", totalBalance)
-                    assetlist.get(4).put("totalBalanceSymbol", totalBalanceSymbol)
+                    assetlist[4].put("totalBalance", totalBalance)
+                    assetlist[4].put("totalBalanceSymbol", totalBalanceSymbol)
                 }
             } else if ((b2cOpen && otcOpen) || (leverOpen && otcOpen) || (leverOpen && b2cOpen)) {
                 if (assetlist.size > 3) {
-                    assetlist.get(3).put("totalBalance", totalBalance)
-                    assetlist.get(3).put("totalBalanceSymbol", totalBalanceSymbol)
+                    assetlist[3].put("totalBalance", totalBalance)
+                    assetlist[3].put("totalBalanceSymbol", totalBalanceSymbol)
                 }
             } else if ((!leverOpen && !b2cOpen && otcOpen) || (!leverOpen && b2cOpen && !otcOpen) || (leverOpen && !b2cOpen && !b2cOpen)) {
-                assetlist.get(2).put("totalBalance", totalBalance)
-                assetlist.get(2).put("totalBalanceSymbol", totalBalanceSymbol)
+                assetlist[2].put("totalBalance", totalBalance)
+                assetlist[2].put("totalBalanceSymbol", totalBalanceSymbol)
             } else {
-                assetlist.get(1).put("totalBalance", totalBalance)
-                assetlist.get(1).put("totalBalanceSymbol", totalBalanceSymbol)
+                assetlist[1].put("totalBalance", totalBalance)
+                assetlist[1].put("totalBalanceSymbol", totalBalanceSymbol)
             }
-        }
 
 
         //刷新header

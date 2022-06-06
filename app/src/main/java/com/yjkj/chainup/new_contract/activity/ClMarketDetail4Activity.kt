@@ -22,14 +22,15 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.QuotesData
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.db.constant.*
+import com.yjkj.chainup.db.constant.CommonConstant
+import com.yjkj.chainup.db.constant.HomeTabMap
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
@@ -65,32 +66,21 @@ import kotlinx.android.synthetic.main.activity_cl_market_detail4.ib_back
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.ib_collect
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.ib_share
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.iv_logo
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.ll_clean_tag
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.ll_coin_map
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.ly_kline_panel
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.rv_kline_scale
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.stl_depth_dealt
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_24h_vol
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_capital_rate
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_clean_title
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_clean_value
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_close_price
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_coin_map
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_common_text_dayVolume
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_contract_text_upsdowns
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_converted_close_price
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_fund_rate
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_high
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_high_price
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_indicator
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_landscape
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_rose
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_scale
-import kotlinx.android.synthetic.main.activity_cl_market_detail4.tv_time
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.v_kline
 import kotlinx.android.synthetic.main.activity_cl_market_detail4.vp_depth_dealt
 import kotlinx.android.synthetic.main.activity_market_detail4.*
-import kotlinx.android.synthetic.main.fragment_cl_contract.*
 import kotlinx.android.synthetic.main.market_info_kline_panel.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -456,14 +446,7 @@ class ClMarketDetail4Activity : NBaseActivity(), WsContractAgentManager.WsResult
         initKLineScale()
 
         action4KLineIndex()
-        if (getString(R.string.applicationId) == "com.chainup.exchange.DAKINGS") {
-            iv_logo?.setImageResource(R.drawable.king_logo)
-        } else {
-            GlideUtils.load(this, kLineLogo, iv_logo, RequestOptions())
-        }
-
-
-
+        GlideUtils.load(this, kLineLogo, iv_logo, RequestOptions())
         setTagView(NCoinManager.getNameForSymbol(symbol))
 
     }

@@ -172,11 +172,9 @@ class NewVersionTransferActivity : NBaseActivity() {
         tv_number_title?.text = LanguageUtil.getString(this, "charge_text_volume")
         et_number?.hint = LanguageUtil.getString(this, "transfer_tip_emptyVolume")
         cbtn_confirm?.setContent(LanguageUtil.getString(this, "common_text_btnConfirm"))
-        if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
                 transferList.add(LanguageUtil.getString(this, "leverage_asset"))
             }
-        }
         if (PublicInfoDataService.getInstance().otcOpen(null)) {
             transferList.add(otcTitle)
         }

@@ -48,16 +48,6 @@
 
 
 
-                <!--邀请好友-->
-                <com.yjkj.chainup.new_version.view.AccountItemView
-                    android:id="@+id/aiv_invite_friends_enter"
-                    android:layout_width="match_parent"
-                    android:layout_height="46.5dp"
-                    android:visibility="gone"
-                    android:background="@color/bg_card_color"
-                    app:icon="@drawable/personal_invitegoodfriends"
-                    app:itemTitle="@string/common_action_inviteFriend"
-                    app:showLine="false" />
 
                 <View
                     android:layout_width="match_parent"
@@ -150,14 +140,6 @@
                     app:itemTitle="@string/personal_text_aboutus"
                     app:showLine="true" />
 
-                <com.yjkj.chainup.new_version.view.AccountItemView
-                    android:id="@+id/aiv_change_newwork"
-                    android:layout_width="match_parent"
-                    android:layout_height="46.5dp"
-                    android:background="@color/bg_card_color"
-                    app:icon="@mipmap/personal_multilink"
-                    app:itemTitle="@string/customSetting_action_changeHost"
-                    app:showLine="true" />
 
             </LinearLayout>
         </ScrollView>

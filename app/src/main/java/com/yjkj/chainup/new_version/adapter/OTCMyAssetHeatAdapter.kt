@@ -33,13 +33,9 @@ open class OTCMyAssetHeatAdapter(data: ArrayList<JSONObject>) : BaseQuickAdapter
             ParamConstant.BIBI_INDEX -> {
                 helper?.setText(R.id.activity_my_asset_total_asset_content, LanguageUtil.getString(context, "assets_text_exchange") + LanguageUtil.getString(context, "assets_text_total") + "(${NCoinManager.getShowMarket("BTC")})".replace("${NCoinManager.getShowMarket("BTC")}", item?.optString("totalBalanceSymbol")
                         ?: ""))
-                if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-                    helper?.setText(R.id.activity_my_asset_total_asset_content, LanguageUtil.getString(context, "contract_asset_account") + LanguageUtil.getString(context, "assets_text_total") + "(${NCoinManager.getShowMarket("BTC")})".replace("${NCoinManager.getShowMarket("BTC")}", item?.optString("totalBalanceSymbol")
-                            ?: ""))
-                } else {
+
                     helper?.setText(R.id.activity_my_asset_total_asset_content, LanguageUtil.getString(context, "assets_text_exchange") + LanguageUtil.getString(context, "assets_text_total") + "(${NCoinManager.getShowMarket("BTC")})".replace("${NCoinManager.getShowMarket("BTC")}", item?.optString("totalBalanceSymbol")
                             ?: ""))
-                }
 
                 car?.setBackgroundResource(R.drawable.assets_exchange)
             }

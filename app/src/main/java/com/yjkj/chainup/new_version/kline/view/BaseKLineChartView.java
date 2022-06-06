@@ -1868,7 +1868,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         float halfTextHeight = textHeight / 2;
         float top = y - halfTextHeight;
         int bg_card_color = R.color.bg_card_color;
-        if (PublicInfoDataService.getInstance().getKlineThemeMode() != ApiConstants.themeDay()) {
+        if (PublicInfoDataService.getInstance().getKlineThemeMode() != 0) {
             bg_card_color = R.color.bg_card_color_kline_night;
         }
         rightPriceBoxPaint.setColor(ColorUtil.INSTANCE.getColor(getContext(), bg_card_color));

@@ -6,34 +6,28 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.timmy.tdialog.TDialog
+import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.ColorDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.ChainUpManager
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
+import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.TitleShowListener
+import com.yjkj.chainup.new_version.activity.personalCenter.contract.ContractChangeActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.push.PushSettingsActivity
+import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.visiableOrGone
+import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_setting.*
-import com.yjkj.chainup.R
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.util.LocalManageUtil
-import com.yjkj.chainup.new_version.activity.personalCenter.contract.ContractChangeActivity
-import com.yjkj.chainup.new_version.dialog.DialogUtil
-import com.yjkj.chainup.new_version.activity.NewMainActivity
-import com.yjkj.chainup.util.LogUtil
 import org.json.JSONObject
 
 
@@ -174,7 +168,7 @@ class NewSettingActivity : NewBaseActivity() {
          */
         aiv_skin_is_set?.setOnClickListener {
             var selecttheme = PublicInfoDataService.getInstance().themeMode
-            if (selecttheme == ApiConstants.themeDay() && PublicInfoDataService.getInstance().klineThemeMode != ApiConstants.themeDay()){
+            if (selecttheme == 0 && PublicInfoDataService.getInstance().klineThemeMode != 0){
                 selecttheme = 2
             }
             setSkinTDialog = NewDialogUtils.showBottomListDialog(this, arrayListOf(themeDay, themeNight,themedayKlineNight), selecttheme, object : NewDialogUtils.DialogOnclickListener {

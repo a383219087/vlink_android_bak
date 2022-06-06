@@ -25,9 +25,7 @@ class NetworkLineService(name: String = "NetworkLineService") : IntentService(na
 
     override fun onHandleIntent(p0: Intent?) {
         LogUtil.v(TAG, "onHandleIntent()")
-        if (!ApiConstants.isSaasNetwork()) {
-            return
-        }
+
 //        Thread(Runnable {
 //            try {
 //                val jsonFile = Utils.getJSONLink(null)

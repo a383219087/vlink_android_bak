@@ -120,8 +120,7 @@ class NewMainActivity : NBaseActivity() {
         DoraemonKit.disableUpload()
         DoraemonKit.install(application, "cb190f56cf")
         DoraemonKit.setAwaysShowMainIcon(false)
-//        DoraemonKit.setDebug(BuildConfig.DEBUG)
-        DoraemonKit.setDebug(true)
+        DoraemonKit.setDebug(BuildConfig.DEBUG)
         DoraemonKit.show()
         netChangeStatus()
     }
@@ -178,7 +177,6 @@ class NewMainActivity : NBaseActivity() {
         mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_home"))
 
 
-        if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             fragmentList.add(marketFragment)
             fragmentList.add(tradeFragment)
             mImageViewList.add(R.drawable.bg_market_tab)
@@ -195,17 +193,7 @@ class NewMainActivity : NBaseActivity() {
             mImageViewList.add(R.drawable.bg_asset_tab)
             mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_assets"))
             assetsTab = fragmentList.size - 1
-        } else {
 
-            if (contractOpen) {
-                initContract()
-            }
-
-            fragmentList.add(assetFragment)
-            mImageViewList.add(R.drawable.bg_asset_tab)
-            mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_assets"))
-            assetsTab = fragmentList.size - 1
-        }
 
         getAdvert()
         HomeTabMap.initMaps(data)
@@ -465,9 +453,7 @@ class NewMainActivity : NBaseActivity() {
         }
         contractOpen = PublicInfoDataService.getInstance().contractOpen(catchObj)
 
-        if (ApiConstants.isGooglePlay()) {
             CheckUpdateUtil.update(mActivity, true)
-        }
 
         WsContractAgentManager.instance.connectionSocket()
 

@@ -10,7 +10,6 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -37,7 +36,6 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.JSONUtil
@@ -127,30 +125,16 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         //设置指示器位置（当banner模式中有指示器时）
         banner_looper_custom?.setIndicatorGravity(IndicatorConfig.Direction.CENTER)
 
-        if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             initTop24HourView()
-        }
 
         initRedPacketView()
         setOnClick()
         initNetWorkRemind()
         mViewModel?.getPublicInfo(context!!)
         LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
-
-        when (ApiConstants.HOME_PAGE_STYLE) {
-            ParamConstant.DEFAULT_HOME_PAGE -> {
-                defaultBanner = R.drawable.banner_king
-
-            }
-            ParamConstant.INTERNATIONAL_HOME_PAGE -> {
-                defaultBanner = R.drawable.banner_king
-                defaultHome = R.drawable.home_king
-            }
-
-        }
+        defaultBanner = R.drawable.banner_king
         val data = CommonService.instance.getHomeData()
         showHomepageData(data, true)
-
         swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
 
 
@@ -311,71 +295,11 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         var cmsSymbolList = data.optJSONArray("header_symbol")
         var homeRecommendList = data.optJSONArray("home_recommend_list") ?: JSONArray()
 
-        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-            /**
-             * 合约首页推荐位币对
-             */
-            var coHeaderSymbols = data.optJSONObject("co_header_symbols")
-
-            /**
-             * {
-            "id":1,
-            "contract_id":1,
-            "contract_name":"BTCUSDT",
-            "company_id":1438,
-            "rank":1,
-            "created_at":"2020-09-09T15:09:01Z"
-            }
-             */
-            if (coHeaderSymbols != null && coHeaderSymbols?.length() > 0 && !isCache) {
-                var headerSymols = coHeaderSymbols?.optJSONArray("list")
-                if (headerSymols != null && headerSymols.length() > 0) {
-                    recycler_top_24?.visibility = View.VISIBLE
-                    var topSymbolList = ArrayList<ContractTicker>()
-                    selectTopSymbol4Contract?.clear()
-                    for (i in 0 until headerSymols.length()) {
-                        var contract = ContractPublicDataAgent.getContract(headerSymols.optJSONObject(i).optInt("contract_id"))
-                        var ticker = ContractTicker()
-                        ticker.symbol = contract?.symbol
-                        ticker.instrument_id = contract?.instrument_id ?: 0
-                        topSymbolList?.add(ticker)
-                    }
-                    selectTopSymbol4Contract = topSymbolList
-                    loadContractData()
-                    initTop24Hour4Contract()
-                }
-            }
-            /**
-             * 合约首页币对列表
-             */
-            var coHomeSymbolList = data.optJSONArray("co_home_symbol_list")
-            if (coHomeSymbolList != null && coHomeSymbolList.length() > 0 && !isCache) {
-                contractHomeRecommendNameList.clear()
-                contractHomeRecommendList.clear()
-                for (num in 0 until coHomeSymbolList.length()) {
-                    var json = coHomeSymbolList.optJSONObject(num)
-                    var contracts = json.optJSONArray("contracts")
-                    var language = json?.optJSONObject("language")
-                    if (contracts != null && contracts.length() > 0) {
-                        var languageStr = language?.optString(SystemUtils.getSystemLanguage())
-                            ?: ""
-                        if (TextUtils.isEmpty(languageStr)) {
-                            languageStr = language?.optString("en_US") ?: ""
-                        }
-                        Log.e("shengong", "langu:$languageStr")
-                        contractHomeRecommendNameList.add(languageStr)
-                        contractHomeRecommendList.add(contracts)
-                    }
-                }
-                showBottom4Contract()
-            }
-        } else {
             showTopSymbolsData(cmsSymbolList)
             /*
              *涨幅榜等数据 显示
              */
             showBottomVp(homeRecommendList)
-        }
 
         LogUtil.d("NewVersionHomepageFragment", "showHomepageData==cmsAppAdvertList is $cmsAppAdvertList")
         newNoticeInfoList = noticeInfoList
@@ -702,9 +626,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     fun getHomeData() {
         showLoadingDialog()
         var type = "1"
-        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-            type = "2"
-        }
         klineTime = System.currentTimeMillis()
         var disposable = getMainModel().getHomeData(type, MyNDisposableObserver(homeData))
         addDisposable(disposable)
@@ -1076,15 +997,11 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                 if (LoginManager.checkLogin(activity, true)) {
 
                     if (otcOpen) {
-                        if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-                            homeAssetstab_switch(1)
-                        } else {
                             if (contractOpen) {
                                 forwardAssetsActivity(1)
                             } else {
                                 homeAssetstab_switch(1)
                             }
-                        }
 
                     } else {
                         NToastUtil.showTopToastNet(
@@ -1107,15 +1024,11 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                  * 资产-币币账户
                  */
                 if (LoginManager.checkLogin(activity, true)) {
-                    if (ApiConstants.HOME_VIEW_STATUS == ParamConstant.CONTRACT_HOME_PAGE) {
-                        homeAssetstab_switch(0)
-                    } else {
                         if (contractOpen && otcOpen) {
                             forwardAssetsActivity(0)
                         } else {
                             homeAssetstab_switch(0)
                         }
-                    }
 
                 }
 
@@ -1518,10 +1431,8 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
      * 获取顶部symbol 24小时行情
      */
     fun getTopData() {
-        if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
             var disposable = getMainModel().header_symbol(MyNDisposableObserver(getTopDataReqType))
             addDisposable(disposable)
-        }
     }
 
     var klineTime = 0L

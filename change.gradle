@@ -47,14 +47,11 @@ ext {
 
             keyAlias:"bikicoin",
             storePassword:"123456",
-            homeViewStatus:"1",
-            homePageStyle:"1",
             splashBg:"#0e1a43",
             appswitchsaas:"0",
             keyPassword:"123456",
 
             buglyId:"a72519d9ba",
-            exChainupBundleVersion:"4550",
             homepageService:"0",
             umAppKey:"5bc7f280b465f50f72000134",
             versionCode:100025,
@@ -63,9 +60,6 @@ ext {
             pushAppId:"DMoLWodaPy95voRaXpFNj6",
             pushAppKey:"0uZGX5jmEq77ZoNz44CjV",
             pushAppSecret:"J9OniNjuR99qTVU6ITPLf6",
-            appoverseas:"1",
-            googlePlayOpen:"0",
-            appDarkTheme:"0",
             appCompanyID:""
     ]
 

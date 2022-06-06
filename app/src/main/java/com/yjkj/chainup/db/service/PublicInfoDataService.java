@@ -1019,9 +1019,6 @@ public class PublicInfoDataService {
 
     public int getThemeMode() {
         int theme = mMMKVDb.getIntData(SHOW_THEME_MODE, -1);
-        if (theme == -1) {
-            return ApiConstants.themeDay();
-        }
         return theme;
     }
 
@@ -1034,9 +1031,7 @@ public class PublicInfoDataService {
 
     public int getKlineThemeMode() {
         int theme = mMMKVDb.getIntData(SHOW_KLINETHEME_MODE, -1);
-        if (theme == -1) {
-            return ApiConstants.themeDay();
-        }
+
         return theme;
     }
 

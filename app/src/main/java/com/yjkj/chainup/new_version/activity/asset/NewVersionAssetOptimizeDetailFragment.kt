@@ -1039,14 +1039,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     bibiDialogList.add(LanguageUtil.getString(context, "assets_action_internalTransfer"))
                 }
             }
-            if (ApiConstants.HOME_VIEW_STATUS != ParamConstant.CONTRACT_HOME_PAGE) {
                 if (coin?.optInt("otcOpen") == 1) {
                     bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transfer"))
                 }
                 if (null != existMarket && existMarket?.isNotEmpty()!!) {
                     bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
                 }
-            }
             if (listFund[position]?.optInt("depositOpen") == 1) {
                 bibiDialogList.add(LanguageUtil.getString(context, "assets_action_chargeCoin"))
             }

@@ -7,11 +7,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.DimenRes
-import androidx.databinding.BindingAdapter
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.kline.view.vice.KDJView
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.kline.view.BaseKLineChartView
 import com.yjkj.chainup.new_version.kline.view.IFallRiseColor
 import com.yjkj.chainup.new_version.kline.view.MainKlineViewStatus
@@ -61,7 +59,7 @@ class KLineChartView @JvmOverloads constructor(
     }
 
     private fun initView() {
-        if (PublicInfoDataService.getInstance().klineThemeMode != ApiConstants.themeDay()) {
+        if (PublicInfoDataService.getInstance().klineThemeMode !=0) {
             isblack = true
         }
         /**

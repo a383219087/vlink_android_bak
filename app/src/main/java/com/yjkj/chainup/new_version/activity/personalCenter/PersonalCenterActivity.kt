@@ -13,21 +13,18 @@ import com.yjkj.chainup.db.constant.WebTypeEnum
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.api.ApiConstants
-import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.BlackListActivity
 import com.yjkj.chainup.new_version.bean.ReadMessageCountBean
 import com.yjkj.chainup.new_version.view.PersonalCenterView
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.StringUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_personal_center.*
-import kotlinx.android.synthetic.main.activity_personal_center.aiv_change_newwork
-import kotlinx.android.synthetic.main.activity_personal_center.title_layout
 import kotlinx.android.synthetic.main.item_personal_center_title.*
 import org.json.JSONObject
 
@@ -57,11 +54,6 @@ class PersonalCenterActivity : NBaseActivity() {
         } else {
             aiv_mine_black_list?.visibility = View.GONE
         }
-        if (ApiConstants.isSaasNetwork()) {
-            aiv_change_newwork?.visibility = View.VISIBLE
-        } else {
-            aiv_change_newwork?.visibility = View.GONE
-        }
 
     }
 
@@ -69,7 +61,6 @@ class PersonalCenterActivity : NBaseActivity() {
         super.onInit(savedInstanceState)
         initView()
         aiv_level_rate?.setTitle(LanguageUtil.getString(this, "transfer_text_gradeRate"))
-        aiv_invite_friends_enter?.setTitle(LanguageUtil.getString(this, "common_action_inviteFriend"))
         aiv_mail?.setTitle(LanguageUtil.getString(this, "personal_text_message"))
         aiv_announcement?.setTitle(LanguageUtil.getString(this, "personal_text_notice"))
         aiv_service?.setTitle(LanguageUtil.getString(this, "personal_text_onlineservice"))
@@ -207,16 +198,7 @@ class PersonalCenterActivity : NBaseActivity() {
             startActivity(Intent(this, SafetySettingActivity::class.java))
         }
 
-        /**
-         *  邀请好友
-         */
-        aiv_invite_friends_enter?.setOnClickListener {
-            if (!LoginManager.checkLogin(this, true)) {
-                return@setOnClickListener
-            }
-            ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
-//            ArouterUtil.navigation(RoutePath.InvitFirendsActivity, null)
-        }
+
 
         /**
          * 设置

@@ -42,9 +42,6 @@ class AboutActivity : NBaseActivity() {
 
 
     override fun initView() {
-        if (!ApiConstants.isGooglePlay()) {
-            cub_submit?.visibility = View.GONE
-        }
         cub_submit.isEnable(true)
         cub_submit.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
