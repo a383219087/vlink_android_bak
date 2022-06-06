@@ -7,6 +7,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.ProjectInfo
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import java.util.*
@@ -22,7 +23,9 @@ class SaveViewModel : BaseViewModel() {
 
 
     fun allOnClick() {
-        text.value = bean.value?.userNormalAmount.toString()
+        text.value = DecimalUtil.cutValueByPrecision(bean.value?.userNormalAmount.toString(),2)
+
+
 
     }
 
@@ -46,7 +49,7 @@ class SaveViewModel : BaseViewModel() {
         map["projectId"] = id.value.toString()
         startTask(apiService.apply(toRequestBody(DataHandler.encryptParams(map))), Consumer {
             ToastUtils.showToast(LibCore.context.getString(R.string.financial_text32))
-
+            finish()
 
         })
 

@@ -13,6 +13,7 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.ui.invite.InvitationPostersDialog
 import io.reactivex.functions.Consumer
@@ -25,6 +26,7 @@ class ContractAgentViewModel : BaseViewModel() {
     val codeList: ObservableList<AgentCodeBean> = ObservableArrayList()
     var rate = MutableLiveData(0)
     var code = MutableLiveData("")
+    var url = MutableLiveData( UserDataService.getInstance()?.inviteUrl)
     var bean = MutableLiveData<AgentCodeBean>()
     var myBonusBean = MutableLiveData<InviteBean>()
     var isShowDialog = MutableLiveData(0)

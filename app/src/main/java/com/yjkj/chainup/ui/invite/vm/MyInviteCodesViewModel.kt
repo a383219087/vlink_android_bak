@@ -11,6 +11,9 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
+import com.yjkj.chainup.common.binding.command.BindingAction
+import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.ui.invite.EditInviteCodesDialog
 import com.yjkj.chainup.ui.invite.InvitationPostersDialog
 import io.reactivex.functions.Consumer
@@ -22,6 +25,8 @@ class MyInviteCodesViewModel : BaseViewModel() {
     var context = MutableLiveData<FragmentActivity>()
 
     var isShowDialog = MutableLiveData<AgentCodeBean>(null)
+
+    var isRefreshing = MutableLiveData(false)
 
 
     interface OnItemListener {
@@ -77,13 +82,21 @@ class MyInviteCodesViewModel : BaseViewModel() {
         ItemBinding.of<AgentCodeBean>(BR.item, R.layout.item_invite_code).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<AgentCodeBean> = ObservableArrayList()
 
+    var onRefreshCommand = BindingCommand<Any>(BindingAction {
+        myInviteCodes()
+    })
+
+
     fun myInviteCodes() {
+        isRefreshing.value = !isRefreshing.value!!
         startTask(apiService.myInviteCodes(), Consumer {
             items.clear()
             for (i in 0 until it.data.size) {
                 val bean = it.data[i]
                 bean.rateInt = it.data[i].rate.toDouble().toInt()
-                items.add(bean)
+                bean.inviteUrl=
+                    UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)?.get(0) ?:""
+                items.add(bean )
             }
 
 

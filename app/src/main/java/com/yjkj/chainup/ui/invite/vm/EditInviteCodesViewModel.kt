@@ -9,6 +9,8 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.bean.InviteRate
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -90,6 +92,7 @@ class EditInviteCodesViewModel : BaseViewModel() {
             map["remark"] = remark.value.toString()
             map["isDefault"] = if (isCheck.value == true) "1" else "0"
             startTask(apiService.createInviteCode(map), Consumer {
+                EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
                 finish()
             })
 
@@ -100,6 +103,7 @@ class EditInviteCodesViewModel : BaseViewModel() {
             map["inviteCode"] = inviteCode.value.toString()
             map["isDefault"] = if (isCheck.value == true) "1" else "0"
             startTask(apiService.updateDefaultCode(map), Consumer {
+                EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
                 finish()
             })
         }

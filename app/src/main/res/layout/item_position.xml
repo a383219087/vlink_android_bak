@@ -15,6 +15,7 @@
         <variable
             name="onItemListener"
             type="com.yjkj.chainup.ui.financial.vm.HoldViewModel.OnItemListener" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
 
@@ -97,7 +98,7 @@
 
             <TextView
                 android:textSize="@dimen/sp_11"
-                android:text="@{item.item.yesterdayUserGainAmount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.item.yesterdayUserGainAmount+``,2)}"
                 tool:text="0.0"
                 android:layout_width="0dp"
                 android:gravity="left"
@@ -111,7 +112,7 @@
                 android:layout_width="0dp"
                 tool:text="0.0"
                 android:textColor="@color/text_color"
-                android:text="@{item.item.userGainAmount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.item.userGainAmount+``,2)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -122,7 +123,7 @@
                 android:layout_width="0dp"
                 tool:text="0.0"
                 android:textColor="@color/text_color"
-                android:text="@{item.item.almostUserGainAmount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.item.almostUserGainAmount+``,2)}"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -141,7 +142,7 @@
             android:layout_width="wrap_content"
             tool:text="0.0"
             android:textColor="@color/text_color"
-            android:text="@{item.item.userCurrentAmount+``}"
+            android:text="@{DecimalUtil.cutValueByPrecision(item.item.userCurrentAmount+``,2)}"
             android:layout_height="wrap_content" />
 
 

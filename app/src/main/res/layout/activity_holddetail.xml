@@ -134,7 +134,7 @@
 
                     <TextView
                         android:textSize="@dimen/sp_11"
-                        android:text="@{_all.bean.yesterdayUserGainAmount+``}"
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.yesterdayUserGainAmount+``,2)}"
                         tool:text="0.0"
                         android:layout_width="0dp"
                         android:gravity="left"
@@ -148,7 +148,7 @@
                         android:layout_width="0dp"
                         tool:text="0.0"
                         android:textColor="@color/text_color"
-                        android:text="@{_all.bean.userGainAmount+``}"
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.userGainAmount+``,2)}"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
@@ -159,7 +159,7 @@
                         android:layout_width="0dp"
                         tool:text="0.0"
                         android:textColor="@color/text_color"
-                        android:text="@{_all.bean.almostUserGainAmount+``}"
+                        android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.almostUserGainAmount+``,2)}"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     tool:text="0.0"
                     android:textColor="@color/text_color"
-                    android:text="@{_all.bean.userCurrentAmount+``}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.userCurrentAmount+``,2)}"
                     android:layout_height="wrap_content" />
 
 

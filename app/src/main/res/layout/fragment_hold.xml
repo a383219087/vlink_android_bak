@@ -13,6 +13,8 @@
 
         <import type="com.yjkj.chainup.R" />
 
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
+
     </data>
  <LinearLayout
      android:layout_width="match_parent"
@@ -58,7 +60,7 @@
                      <TextView
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="@{_all.showMoney?(_all.bean.totalUserCurrentAmount+``):`***`}"
+                         android:text="@{_all.showMoney?( DecimalUtil.cutValueByPrecision(_all.bean.totalUserCurrentAmount+``,2)):`***`}"
                          android:textColor="@color/white"
                          android:textSize="19sp"
                          android:textStyle="bold" />
@@ -80,7 +82,7 @@
                      android:layout_height="match_parent"
                      android:layout_marginLeft="@dimen/dp_24"
                      android:layout_marginTop="@dimen/dp_60"
-                     android:text="@{`≈`+(_all.showMoney?(_all.bean.totalUserCurrentAmountCom+``):`***`)+_all.bean.comCoin}"
+                     android:text="@{`≈`+(_all.showMoney? DecimalUtil.cutValueByPrecision(_all.bean.totalUserCurrentAmountCom+``,2):`***`)+_all.bean.comCoin}"
                      android:textColor="#80FFFFFF"
                      android:textSize="11sp" />
 
@@ -134,7 +136,7 @@
                      <TextView
                          android:textSize="14sp"
                          android:textColor="@color/white"
-                         android:text="@{_all.bean.totalYesterdayUserGainAmount+``}"
+                         android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.totalYesterdayUserGainAmount+``,2)}"
                          android:layout_width="0dp"
                          android:layout_height="wrap_content"
                          android:layout_weight="1"/>
@@ -145,7 +147,7 @@
                          android:textSize="14sp"
                          android:textColor="@color/white"
                          android:layout_width="0dp"
-                         android:text="@{_all.bean.totalUserGainAmount+``}"
+                         android:text="@{DecimalUtil.cutValueByPrecision(_all.bean.totalUserGainAmount+``,2)}"
                          android:layout_height="wrap_content"
                          android:layout_weight="1"/>
                  </LinearLayout>

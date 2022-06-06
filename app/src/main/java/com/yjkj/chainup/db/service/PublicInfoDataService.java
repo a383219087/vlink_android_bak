@@ -18,7 +18,6 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 import com.yjkj.chainup.manager.DataManager;
 import com.yjkj.chainup.manager.NCoinManager;
-import com.yjkj.chainup.net.api.ApiConstants;
 import com.yjkj.chainup.net.JSONUtil;
 import com.yjkj.chainup.util.DecimalUtil;
 import com.yjkj.chainup.util.LogUtil;
@@ -1018,7 +1017,7 @@ public class PublicInfoDataService {
     }
 
     public int getThemeMode() {
-        int theme = mMMKVDb.getIntData(SHOW_THEME_MODE, -1);
+        int theme = mMMKVDb.getIntData(SHOW_THEME_MODE, 0);
         return theme;
     }
 

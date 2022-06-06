@@ -31,6 +31,12 @@ class HolddetailActivity : BaseMVActivity<HolddetailViewModel?, ActivityHolddeta
             mBinding?.twinklingRefreshLayout?.finishLoadMore(true)
         })
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel?.getList()
     }
 
 

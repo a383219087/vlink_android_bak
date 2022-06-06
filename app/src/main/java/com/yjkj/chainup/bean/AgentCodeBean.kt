@@ -8,6 +8,7 @@ data class AgentCodeBean(
     val remark: String,
     val id: String,
     val inviteCode: String,
+    var inviteUrl: String,
     val mtime: String,
     val rate: String,
     var rateInt: Int,

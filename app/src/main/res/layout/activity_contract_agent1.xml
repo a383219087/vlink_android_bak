@@ -271,26 +271,31 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_37"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
                             android:gravity="center"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:text="@string/share_text17"
                                 android:textColor="@color/text_color"
                                 android:textSize="13sp" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="right"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:text="@{_all.code}"
+                                android:layout_marginLeft="10dp"
+                                android:maxLines="2"
+                                android:text="@{_all.url}"
                                 android:textColor="@color/main_blue"
                                 android:textSize="@dimen/sp_13"
-                                app:copyText="@{_all.code}" />
+                                app:copyText="@{_all.url}" />
 
                             <ImageView
                                 android:layout_width="10dp"

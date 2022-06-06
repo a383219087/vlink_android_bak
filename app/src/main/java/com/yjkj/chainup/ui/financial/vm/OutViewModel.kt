@@ -37,6 +37,7 @@ class OutViewModel : BaseViewModel() {
         map["projectId"] = bean.value?.projectId.toString()
         startTask(apiService.redeem(toRequestBody(DataHandler.encryptParams(map))), Consumer {
           ToastUtils.showToast(context.getString(R.string.financial_text32))
+            finish()
 
 
         })
