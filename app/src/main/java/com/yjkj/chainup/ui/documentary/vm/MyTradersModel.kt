@@ -10,6 +10,8 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.common.binding.command.BindingAction
+import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.ui.documentary.CreateTradersDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -53,6 +55,7 @@ class MyTradersModel : BaseViewModel() {
         var type = MutableLiveData(1)
         var bean = MutableLiveData<CommissionBean>()
     }
+
 
     val itemBinding =
         ItemBinding.of<Item>(BR.item, R.layout.item_my_traders).bindExtra(BR.onItemListener, onItemListener)

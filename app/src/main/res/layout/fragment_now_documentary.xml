@@ -27,7 +27,6 @@
           app:items="@{_all.items}"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
       <include
           layout="@layout/em_view"
           app:visibility="@{_all.items.size()==0}"/>

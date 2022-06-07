@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.common.sdk.LibCore.context
+import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.util.BitmapUtils
@@ -42,12 +44,12 @@ class InvitationPostersViewModel : BaseViewModel() {
                     if (bitmap != null) {
                         val saveImageToGallery = ImageTools.saveImageToGallery4ContractAgent(view.context, bitmap)
                         if (saveImageToGallery) {
-                            ToastUtils.showToast("保存成功")
+                            ToastUtils.showToast(context.getString(R.string.share_text43))
                         } else {
-                            ToastUtils.showToast("保存失败")
+                            ToastUtils.showToast(context.getString(R.string.share_text44))
                         }
                     } else {
-                        ToastUtils.showToast("保存失败")
+                        ToastUtils.showToast(context.getString(R.string.share_text43))
                     }
 //                } else {
 //                    ToastUtils.showToast("保存失败")

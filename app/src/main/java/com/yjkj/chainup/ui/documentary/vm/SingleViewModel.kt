@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
@@ -20,6 +21,8 @@ class SingleViewModel : BaseViewModel() {
 
     var status = MutableLiveData<Int>()
 
+    var uid = MutableLiveData<String>()
+
     var activity = MutableLiveData<FragmentActivity>()
 
     var index = MutableLiveData(0)
@@ -32,6 +35,11 @@ class SingleViewModel : BaseViewModel() {
 
     var bean = MutableLiveData<CommissionBean>()
 
+    var onRefreshCommand = BindingCommand<Any>(BindingAction {
+        getDetail()
+        EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
+    })
+
     //发起带单
     fun onClickDocumentary(view: View) {
         EventBusUtil.post(MessageEvent(MessageEvent.DocumentaryActivity_close))
@@ -39,11 +47,11 @@ class SingleViewModel : BaseViewModel() {
     }
 
     //查看交易员详情
-    fun getDetail( uid:String?) {
+    fun getDetail() {
         val map = HashMap<String, Any>()
-        map["uid"] = uid.toString()
+        map["uid"] = uid.value.toString()
         startTask(apiService.queryTrader(map), Consumer {
-            if (uid.isNullOrEmpty()){
+            if (uid.value.isNullOrEmpty()){
                 bean.value=it.data
             } else{
                 bean.value=it.data

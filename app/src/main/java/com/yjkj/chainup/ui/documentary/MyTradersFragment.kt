@@ -5,7 +5,10 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentMyTradersBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.vm.MyTradersModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBinding>() {
@@ -32,7 +35,16 @@ class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBindi
         mViewModel?.getList()
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        when (event.msg_type) {
 
+            MessageEvent.refresh_MyInviteCodesActivity -> {
+                mViewModel?.getList()
+            }
+        }
+    }
 
 }
 

@@ -40,7 +40,6 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
@@ -101,7 +100,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     private var serviceAdapter: NewHomePageServiceAdapter? = null
 
     var defaultBanner = 0
-    var defaultHome = 0
 
 
     /*

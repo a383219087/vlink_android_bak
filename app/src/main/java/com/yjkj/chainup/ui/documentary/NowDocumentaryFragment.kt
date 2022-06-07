@@ -79,8 +79,12 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val cp: CpContractPositionBean = event.msg_content as CpContractPositionBean
                 showClosePositionDialog(cp)
             }
+            MessageEvent.refresh_MyInviteCodesActivity -> {
+                mViewModel?.getList(mActivity!!)
+            }
         }
     }
+
 
 
     /**

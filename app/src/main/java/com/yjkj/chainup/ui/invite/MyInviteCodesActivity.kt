@@ -20,9 +20,6 @@ class MyInviteCodesActivity : BaseMVActivity<MyInviteCodesViewModel?, ActivityIn
     override fun setContentView() = R.layout.activity_invites_code
     override fun initData() {
         mViewModel?.context?.value = mActivity
-        mViewModel?.isRefreshing?.observe(this, Observer {
-            mBinding?.twinklingRefreshLayout?.finishRefresh()
-        })
         mViewModel?.isShowDialog?.observe(this, Observer {
             if (it==null){
                 return@Observer

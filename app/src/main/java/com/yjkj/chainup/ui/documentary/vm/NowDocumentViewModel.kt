@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
 import com.chainup.contract.bean.CpContractPositionBean
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.common.sdk.LibCore.context
@@ -22,7 +23,6 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
-import com.chainup.contract.ui.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.LanguageUtil
@@ -96,6 +96,7 @@ class NowDocumentViewModel : BaseViewModel() {
                                 true,
                                 LanguageUtil.getString(activity.value!!, "contract_modify_the_success")
                             )
+                            getList(activity.value!!)
 
                         })
                     }
@@ -156,6 +157,9 @@ class NowDocumentViewModel : BaseViewModel() {
     val itemBinding =
         ItemBinding.of<Item>(BR.item, R.layout.item_documentary_single_now).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<Item> = ObservableArrayList()
+
+
+
 
 
     fun getList(mActivity: FragmentActivity) {

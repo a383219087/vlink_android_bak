@@ -22,6 +22,12 @@
         android:orientation="vertical">
 
 
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/twinklingRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRefreshCommand="@{_all.onRefreshCommand}"
+            >
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -38,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
                     android:elevation="2dp"
@@ -366,11 +373,15 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dp_100"
                 app:addOnPageChangeListener="@{_all.onPageChangeListener}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:select="@{_all.index}" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
         <TextView
             android:layout_width="match_parent"

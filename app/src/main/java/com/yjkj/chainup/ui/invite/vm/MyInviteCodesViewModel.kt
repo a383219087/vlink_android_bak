@@ -26,7 +26,6 @@ class MyInviteCodesViewModel : BaseViewModel() {
 
     var isShowDialog = MutableLiveData<AgentCodeBean>(null)
 
-    var isRefreshing = MutableLiveData(false)
 
 
     interface OnItemListener {
@@ -88,7 +87,6 @@ class MyInviteCodesViewModel : BaseViewModel() {
 
 
     fun myInviteCodes() {
-        isRefreshing.value = !isRefreshing.value!!
         startTask(apiService.myInviteCodes(), Consumer {
             items.clear()
             for (i in 0 until it.data.size) {

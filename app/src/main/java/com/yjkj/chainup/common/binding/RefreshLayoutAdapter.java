@@ -14,6 +14,7 @@ public class RefreshLayoutAdapter {
     public static void onRefreshAndLoadMoreCommand(SmartRefreshLayout layout, final BindingCommand onRefreshCommand, final BindingCommand onLoadMoreCommand) {
         layout.setRefreshHeader(new MaterialHeader(layout.getContext()).setShowBezierWave(false));
         layout.setOnRefreshListener(refreshLayout -> {
+         layout.finishRefresh();
             if (onRefreshCommand != null) {
                 onRefreshCommand.execute();
             }

@@ -35,6 +35,8 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
     var pageAdapter: CpNVPagerAdapter? = null
     override fun initView() {
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
+        mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
+
         mFragments = ArrayList()
         mFragments?.add(NowDocumentaryFragment.newInstance(1,mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mFragments?.add(NowDocumentaryFragment.newInstance(0,mViewModel?.status?.value!!,arguments?.getString(ParamConstant.MARKET_NAME)!!))
@@ -49,7 +51,7 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
-            mViewModel?.getDetail(arguments?.getString(ParamConstant.MARKET_NAME)!!)
+            mViewModel?.getDetail()
         }
     }
 }
