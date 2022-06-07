@@ -259,6 +259,96 @@
                         app:spanCount="4"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="52dp"
+               android:orientation="horizontal"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:layout_marginBottom="10dp">
+
+               <FrameLayout
+                   android:layout_width="0dp"
+                   android:layout_marginRight="7dp"
+                   app:ResColor="@{R.color.white}"
+                   app:radius="@{10}"
+                   android:onClick="@{()->_all.quickBuy()}"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1">
+
+
+                   <ImageView
+                       android:layout_width="@dimen/dp_36"
+                       android:layout_height="@dimen/dp_36"
+                       android:layout_gravity="center|left"
+                       android:layout_marginLeft="21dp"
+                       android:src="@mipmap/kuaijiemaibi"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/NewVersionHomePageViewModel_text10"
+                       android:layout_marginTop="13dp"
+                       android:layout_marginLeft="69dp"
+                       android:layout_gravity="top|left"
+                       android:textColor="@color/text_color"
+                       android:textSize="11sp"
+                       />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/NewVersionHomePageViewModel_text11"
+                       android:layout_marginTop="31dp"
+                       android:layout_marginLeft="69dp"
+                       android:layout_gravity="top|left"
+                       android:textColor="@color/text_color_99"
+                       android:textSize="8sp" />
+
+               </FrameLayout>
+               <FrameLayout
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="7dp"
+                   app:ResColor="@{R.color.white}"
+                   app:radius="@{10}"
+                   android:onClick="@{()->_all.p2pBuy()}"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1">
+
+
+                   <ImageView
+                       android:layout_width="@dimen/dp_36"
+                       android:layout_height="@dimen/dp_36"
+                       android:layout_gravity="center|left"
+                       android:layout_marginLeft="21dp"
+                       android:src="@mipmap/ic_c2c_bug"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/NewVersionHomePageViewModel_text12"
+                       android:layout_marginTop="13dp"
+                       android:layout_marginLeft="69dp"
+                       android:layout_gravity="top|left"
+                       android:textColor="@color/text_color"
+                       android:textSize="11sp"
+                       />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/NewVersionHomePageViewModel_text13"
+                       android:layout_marginTop="31dp"
+                       android:layout_marginLeft="69dp"
+                       android:layout_gravity="top|left"
+                       android:textColor="@color/text_color_99"
+                       android:textSize="8sp" />
+
+               </FrameLayout>
+
+
+
+
+
+           </LinearLayout>
 
 
 

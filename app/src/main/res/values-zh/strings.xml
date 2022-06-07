@@ -3477,7 +3477,10 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="coAgent_text9">前日佣金折合(USDT)</string>
 
 
-
+    <string name="NewVersionHomePageViewModel_text10">快捷买币</string>
+    <string name="NewVersionHomePageViewModel_text11">VISA，万事达等</string>
+    <string name="NewVersionHomePageViewModel_text12">C2C买币</string>
+    <string name="NewVersionHomePageViewModel_text13">灵活选择,价格更优</string>
 
 
 

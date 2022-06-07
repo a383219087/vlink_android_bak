@@ -60,6 +60,9 @@ public class RoutePath {
     public static final String AutomaticDepositFragment = "/financial/AutomaticDepositFragment";
     public static final String HoldFragment = "/financial/HoldFragment";
 
+    public static final String QuickBuyActivity = "/home/QuickBuyActivity";
+    public static final String QuickBuySureActivity = "/home/QuickBuySureActivity";
+
     /*
      * 登录注册模块
      */

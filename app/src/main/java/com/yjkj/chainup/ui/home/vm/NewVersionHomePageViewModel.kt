@@ -28,6 +28,11 @@ import java.util.*
 class NewVersionHomePageViewModel : HomePageViewModel() {
 
 
+
+
+
+
+
     /**
      * 顶部广告图列表
      */
@@ -277,5 +282,18 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
 
     }
 
+    /**
+     * 快捷买币
+     */
+    fun quickBuy(){
+        ArouterUtil.navigation(RoutePath.QuickBuyActivity, null)
+    }
+
+    /**
+     * p2p买币
+     */
+    fun p2pBuy(){
+        ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
+    }
 
 }

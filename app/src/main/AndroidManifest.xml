@@ -308,6 +308,8 @@
         <activity android:name="com.yjkj.chainup.ui.documentary.TradersActivity" />
         <activity android:name="com.yjkj.chainup.ui.documentary.DocumentaryDetailActivity" />
         <activity android:name="com.yjkj.chainup.ui.financial.OutActivity" />
+        <activity android:name=".ui.buy.QuickBuyActivity" />
+        <activity android:name=".ui.buy.QuickBuySureActivity" />
 
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"

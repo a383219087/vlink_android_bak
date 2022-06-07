@@ -3382,7 +3382,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
 
 
 
-
+    <string name="NewVersionHomePageViewModel_text10">Buy crypot</string>
+    <string name="NewVersionHomePageViewModel_text11">VISA，Mastercard and others</string>
+    <string name="NewVersionHomePageViewModel_text12">P2P Trade</string>
+    <string name="NewVersionHomePageViewModel_text13">Buy/Sell at your own rate</string>
 
 
     <!--  奔跑的狗子新加-->
