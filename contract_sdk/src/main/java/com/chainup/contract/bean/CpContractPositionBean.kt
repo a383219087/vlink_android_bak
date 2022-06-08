@@ -74,7 +74,7 @@ data class CpContractPositionBean(
     /**
      * 回报率
      */
-    val returnRate: Double,
+    val returnRate: Double?=0.0,
     /**
      * 合约币对
      */
