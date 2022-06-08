@@ -142,7 +142,6 @@ class RateManager {
             var rate: JSONObject = jsonObject?.optJSONObject("rate") ?: return default_precision
 
             var it: Iterator<String> = rate.keys()
-            var precision = default_precision
             while (it.hasNext()) {
                 var key = it.next()
                 var value = rate.optJSONObject(key)

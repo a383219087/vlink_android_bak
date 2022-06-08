@@ -9,7 +9,7 @@ class QuickBuySureViewModel : BaseViewModel() {
 
 
 
-    var index = MutableLiveData(0)
+    var index = MutableLiveData(2)
 
 
     fun setIndex(i:Int){

@@ -630,6 +630,10 @@ interface ApiService {
     fun incrementActDetail(@Body requestBody: RequestBody): Observable<HttpResult<IncrementActList>>
 
 
-
+    /**
+     * 获取币种
+     */
+    @POST("creditPay/coinList")
+    fun coinList(): Observable<HttpResult<List<BuyInfo>>>
 }
 

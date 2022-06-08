@@ -145,7 +145,7 @@ class DataInitService(name: String = "DataInitService") : IntentService(name) {
                     if (currentModel == -1) {
                         val serverDefault = PublicInfoDataService.getInstance().getContractDefault(null)
                         if (serverDefault.isNotEmpty()) {
-                            PublicInfoDataService.getInstance().setContractMode(serverDefault.toInt())
+                            PublicInfoDataService.getInstance().contractMode = serverDefault.toInt()
                         }
                     }
                 }

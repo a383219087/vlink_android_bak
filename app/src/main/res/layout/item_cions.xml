@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+         type="com.yjkj.chainup.bean.BuyInfo" />
+
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.ui.buy.vm.CoinsViewModel.OnItemListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:onClick="@{()->onItemListener.onClick(item.fiat)}"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="@dimen/dp_22"
+                app:url="@{item.logo}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.fiat}"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:gravity="center" />
+
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</layout>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="_all"
+            type="com.yjkj.chainup.ui.buy.vm.PayViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.R" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            app:topLeftRadius="@{21}"
+            app:topRightRadius="@{21}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_52"
+                android:gravity="left|center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="前往Xanpool"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="@dimen/dp_52"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/dk_close_icon" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@color/text_color_ee" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_22"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_marginLeft="15dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_9"
+                    android:gravity="left"
+                    android:text="从Xanpool购买USDT"
+                    android:textColor="#000000"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="46dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                app:StrColor="@{`#F7F7F7`}"
+                app:radius="@{5}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="单价"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="12,545.45 VND"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="您将支付"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="12,545.45 VND"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="您将收到"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="≈41.77 USDT"
+                        android:textColor="@color/main_blue"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="支付方式"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/viettelpay"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:gravity="right"
+                        android:text="ViettelPay"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="@dimen/dp_35"
+                android:drawableLeft="@mipmap/xiaoshizhong"
+                android:drawablePadding="@dimen/dp_2"
+                android:gravity="left"
+                android:text="预计到账时间0~2分钟"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_invitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="27dp"
+                android:background="@null"
+                android:button="@drawable/bg_complaint"
+                android:checked="@{_all.check}"
+                android:clickable="false"
+                android:paddingLeft="5dp"
+                android:text="我已知晓Xanpool为第三方独立运营的交易平台"
+                android:textColor="@color/text_color_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left"
+                android:text="ZWW将不为因使用该服务造成的任何损失或损害承担任何责任。"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_margin="18dp"
+                android:text="前往Xanpool支付"
+                android:textColor="#ffffff"
+                app:radius="@{5}"
+                app:StrColor="@{_all.check?`#0755dd`:`#a0a6b2`}"
+                android:textSize="13sp"
+                android:gravity="center" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</layout>

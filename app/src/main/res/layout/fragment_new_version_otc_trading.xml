@@ -44,7 +44,6 @@
             android:id="@+id/tv_screening"
             android:layout_width="@dimen/page_head_height"
             android:layout_height="@dimen/page_head_height"
-            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/iv_search"
             android:paddingLeft="@dimen/dp_15"
             android:paddingTop="@dimen/dp_15"

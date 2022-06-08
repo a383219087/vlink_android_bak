@@ -73,6 +73,7 @@
                 android:paddingRight="10dp"
                 android:layout_marginRight="18dp"
                 app:radius="@{10}"
+                android:onClick="@{()->_all.sell()}"
                 app:StrColor="@{`#E6E6E6`}"
                 android:layout_gravity="center|right"
                 android:text="去卖币"
@@ -330,8 +331,6 @@
 
 
         </LinearLayout>
-
-
 
 
 
