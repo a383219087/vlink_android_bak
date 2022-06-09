@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@mipmap/dk_close_icon" />
+                      />
 
                 </FrameLayout>
 
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_9"
                     android:gravity="left"
-                    android:text="从Xanpool购买USDT"
+                    android:text="@{`从Xanpool购买`+_all.checkTwoInfo.fiat}"
                     android:textColor="#000000"
                     android:textSize="13sp" />
 
@@ -122,7 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="12,545.45 VND"
+                        android:text="@{_all.price+_all.checkInfo.fiat}"
                         android:textColor="#000000"
                         android:textSize="13sp" />
 
@@ -150,7 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="12,545.45 VND"
+                        android:text="@{_all.money+_all.checkInfo.fiat}"
                         android:textColor="#000000"
                         android:textSize="13sp" />
 
@@ -178,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="≈41.77 USDT"
+                        android:text="@{_all.rate}"
                         android:textColor="@color/main_blue"
                         android:textSize="13sp" />
 
@@ -228,7 +228,7 @@
                 android:drawableLeft="@mipmap/xiaoshizhong"
                 android:drawablePadding="@dimen/dp_2"
                 android:gravity="left"
-                android:text="预计到账时间0~2分钟"
+                android:text="预计到账时间0~20分钟"
                 android:textColor="#999999"
                 android:textSize="10sp" />
 
@@ -239,6 +239,7 @@
                 android:layout_gravity="left|top"
                 android:layout_marginLeft="27dp"
                 android:background="@null"
+                android:onClick="@{()->_all.setCheckk()}"
                 android:button="@drawable/bg_complaint"
                 android:checked="@{_all.check}"
                 android:clickable="false"
@@ -265,6 +266,7 @@
                 android:text="前往Xanpool支付"
                 android:textColor="#ffffff"
                 app:radius="@{5}"
+                android:onClick="@{()->_all.crateOrder()}"
                 app:StrColor="@{_all.check?`#0755dd`:`#a0a6b2`}"
                 android:textSize="13sp"
                 android:gravity="center" />

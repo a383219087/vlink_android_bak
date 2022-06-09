@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:onClick="@{()->onItemListener.onClick(item.fiat)}"
+            android:onClick="@{()->onItemListener.onClick(item)}"
             android:gravity="center"
             android:orientation="horizontal">
 

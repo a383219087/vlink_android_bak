@@ -13,6 +13,7 @@ class QuickBuyActivity : BaseMVActivity<QuickBuyViewModel?, ActivityQuickBuyBind
 
     override fun setContentView() = R.layout.activity_quick_buy
     override fun initData() {
+        mViewModel?.activity?.value=mActivity
     mViewModel?.getData()
 
 

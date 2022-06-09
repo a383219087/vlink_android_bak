@@ -4,7 +4,6 @@ package com.yjkj.chainup.net
 import android.text.TextUtils
 import android.util.Log
 import com.contract.sdk.ContractSDKAgent
-import com.yjkj.chainup.util.DateUtil
 import com.google.gson.JsonObject
 import com.yjkj.chainup.app.AppConfig
 import com.yjkj.chainup.app.ChainUpApp
@@ -418,14 +417,7 @@ class HttpClient private constructor() {
     }
 
 
-    /**
-     * 获取充值地址
-     */
-    fun getChargeAddress(symbol: String): Observable<HttpResult<JsonObject>> {
-        val map = getBaseMap()
-        map["symbol"] = symbol
-        return apiService.getChargeAddress(toRequestBody(DataHandler.encryptParams(map)))
-    }
+
 
     /**
      * 提现操作

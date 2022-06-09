@@ -126,7 +126,9 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
-                    ToastUtils.showToast("正在开发")
+                    val bundle = Bundle()
+                    bundle.putString(ParamConstant.URL_4_SERVICE, "http://47.254.214.243:8011")
+                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
                 }
                 /**
                  * 分享有礼
@@ -286,6 +288,9 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
      * 快捷买币
      */
     fun quickBuy(){
+        if (!LoginManager.checkLogin(mActivity.value, true)) {
+            return
+        }
         ArouterUtil.navigation(RoutePath.QuickBuyActivity, null)
     }
 

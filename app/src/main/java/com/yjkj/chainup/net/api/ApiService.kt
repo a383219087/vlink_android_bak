@@ -635,5 +635,17 @@ interface ApiService {
      */
     @POST("creditPay/coinList")
     fun coinList(): Observable<HttpResult<List<BuyInfo>>>
+
+    /**
+     * 获取币种
+     */
+    @POST("creditPay/getPlatformAndPayTypes")
+    fun getPlatformAndPayTypes(@Body requestBody: RequestBody): Observable<HttpResult<List<PayTypes>>>
+
+    /**
+     * 创建订单
+     */
+    @POST("creditPay/createOrder")
+    fun createOrder(@Body requestBody: RequestBody): Observable<HttpResult<CreateOrderInfo>>
 }
 
