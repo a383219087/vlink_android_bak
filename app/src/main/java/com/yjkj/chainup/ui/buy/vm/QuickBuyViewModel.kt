@@ -26,6 +26,27 @@ class QuickBuyViewModel : BaseViewModel() {
     var twoIndex = MutableLiveData(0)
 
 
+
+    /**
+     * 法币选择
+     */
+    fun setOneCheck(){
+
+
+
+    }
+
+    /**
+     * 币币选择
+     */
+    fun setTwoCheck(){
+
+
+
+
+    }
+
+
     /**
      * g购买记录
      */
