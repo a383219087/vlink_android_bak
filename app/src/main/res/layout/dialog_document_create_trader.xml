@@ -68,8 +68,8 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="@{_all.bean.profitRatio+`%`}"
-                        android:textColor="@color/red"
+                        android:text="@{_all.rate+`%`}"
+                        android:textColor="@{_all.isRed()?@color/red:@color/green}"
                         android:textSize="11sp" />
 
 

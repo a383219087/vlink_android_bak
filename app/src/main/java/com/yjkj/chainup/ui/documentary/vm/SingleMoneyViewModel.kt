@@ -32,6 +32,7 @@ class SingleMoneyViewModel : BaseViewModel() {
 
     var cnyString = MutableLiveData<String>()
 
+
     var usdtString = MutableLiveData<String>()
 
     var todayString = MutableLiveData<String>("0.0")
@@ -113,7 +114,7 @@ class SingleMoneyViewModel : BaseViewModel() {
     fun getData1() {
         startTask(contractApiService.traderTotalProfit(), Consumer {
             usdtString.value = it.data
-            cnyString.value = BigDecimalUtils.divForDown(it.data, RateManager.getRatesByPayCoin("CNY")).toPlainString()
+            cnyString.value = BigDecimalUtils.divForDown(it.data, RateManager.getRatesByPayCoin(otcDefaultPaycoin.value)).toPlainString()
 
         })
         val map = HashMap<String, Any>()

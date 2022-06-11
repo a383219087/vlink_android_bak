@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.chainup.contract.api.CpContractApiService
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LoginManager
@@ -44,6 +45,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
      var apiService: ApiService =HttpHelper.instance.getBaseUrlService(ApiService::class.java)
     var contractApiService: ContractApiService = HttpHelper.instance.getContractUrlService(ContractApiService::class.java)
     var cpContractApiService: CpContractApiService = HttpHelper.instance.getContractNewUrlService(CpContractApiService::class.java)
+
+
+    var otcDefaultPaycoin = MutableLiveData(OTCPublicInfoDataService.getInstance().getotcDefaultPaycoin())
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     protected open fun onCreate() {

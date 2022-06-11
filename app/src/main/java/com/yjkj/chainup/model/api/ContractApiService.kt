@@ -1,6 +1,9 @@
 package com.yjkj.chainup.model.api
 
-import com.yjkj.chainup.bean.*
+import com.yjkj.chainup.bean.GetAssetsTotalBean
+import com.yjkj.chainup.bean.TraderPositionInfo
+import com.yjkj.chainup.bean.TraderTransactionBean
+import com.yjkj.chainup.bean.TraderTransactionInfo
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -8,7 +11,10 @@ import com.yjkj.chainup.treaty.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 /**
  * @Author: Bertking
@@ -57,14 +63,14 @@ interface ContractApiService {
     @FormUrlEncoded
     fun checkFuturesUser(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<GetAssetsTotalBean>>
     /**
-     * 跟单统计
+     * 利润分成
      */
-    @GET("user/follower_statistics")
-    fun followerStatistics(): Observable<HttpResult<FollowerStatisticsBean>>
+    @POST("trader/traderBonusRate")
+    fun traderBonusRate(): Observable<HttpResult<String>>
     /**
      * 易员历史总收益
      */
-    @POST("trader/trader_total_profit ")
+    @POST("trader/trader_total_profit")
     fun traderTotalProfit(): Observable<HttpResult<String>>
     /**
      * 2. 获取创建订单初始化信息

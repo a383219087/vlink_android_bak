@@ -8,6 +8,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 
@@ -39,6 +40,10 @@ class CreateTradersViewModel : BaseViewModel() {
 
 
     var bean = MutableLiveData<CommissionBean>()
+
+    var rate = MutableLiveData("")
+    var isRed = MutableLiveData(true)
+
 
 
     fun setCheckIndex(type: Int) {
@@ -115,6 +120,14 @@ class CreateTradersViewModel : BaseViewModel() {
         }, "", context.getString(R.string.dialog_create_trader_text26), context.getString(R.string.dialog_create_trader_text25))
 
 
+    }
+
+    //获取分成比例
+    fun getViewRate(){
+        startTask(contractApiService.traderBonusRate(), Consumer {
+          rate.value= DecimalUtil.cutValueByPrecision(it.data,2)
+         isRed.value=  rate.value?.toDouble()!! >0
+        })
     }
 
 

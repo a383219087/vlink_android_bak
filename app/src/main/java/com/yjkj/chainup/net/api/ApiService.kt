@@ -573,6 +573,12 @@ interface ApiService {
      */
     @GET("traderUser/currentStatus")
     fun currentStatus(): Observable<HttpResult<CurrentStatusBean>>
+
+    /**
+     * 历史跟单本金
+     */
+    @GET("traderUser/myStatistics")
+    fun myStatistics(): Observable<HttpResult<StatisticsBean>>
     /**
      * 申请成为交易员
      */

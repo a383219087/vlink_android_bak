@@ -77,6 +77,7 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
+
     @SuppressLint("CheckResult")
     fun checkNetworkLine(baseUrl: String) {
         mRetrofit!!.create(SpeedApiService::class.java).getHealth("$baseUrl/api/query/address")

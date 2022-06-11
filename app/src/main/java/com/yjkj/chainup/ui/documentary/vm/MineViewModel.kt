@@ -4,19 +4,22 @@ package com.yjkj.chainup.ui.documentary.vm
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.bean.FollowerStatisticsBean
+import com.yjkj.chainup.bean.StatisticsBean
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
+import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
+import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
+import com.yjkj.chainup.util.BigDecimalUtils
 import io.reactivex.functions.Consumer
 
 
 class MineViewModel : BaseViewModel() {
 
-    var bean = MutableLiveData<FollowerStatisticsBean>()
+    var bean = MutableLiveData<StatisticsBean>()
 
     var context = MutableLiveData<FragmentActivity>()
     var index = MutableLiveData(0)
@@ -27,6 +30,9 @@ class MineViewModel : BaseViewModel() {
 
     // 显示资产
     var showMoney = MutableLiveData(UserDataService.getInstance().isShowAssets)
+
+    // 显示法币转换
+    var cnyString = MutableLiveData("")
 
 
     fun setShowMoney() {
@@ -51,8 +57,10 @@ class MineViewModel : BaseViewModel() {
     }
 
     fun getData1() {
-        startTask(contractApiService.followerStatistics(), Consumer {
+        startTask(apiService.myStatistics(), Consumer {
             bean.value=it.data
+            cnyString.value = BigDecimalUtils.divForDown(it.data.followTotalAmount, RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
+
         })
 
     }

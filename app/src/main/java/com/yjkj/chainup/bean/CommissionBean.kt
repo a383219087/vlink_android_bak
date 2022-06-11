@@ -52,6 +52,15 @@ data class CurrentStatusBean(
 
 ) : Serializable
 
+
+data class StatisticsBean(
+    val followTotalAmount: String,
+    val rate: Double,
+    val profit: String
+
+
+) : Serializable
+
 data class TraderPositionInfo(
 
 
