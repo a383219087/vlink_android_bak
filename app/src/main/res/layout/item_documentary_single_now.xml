@@ -34,7 +34,7 @@
         android:orientation="vertical"
         tools:background="@color/white"
         android:padding="15dp"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{15}">
 
         <LinearLayout
@@ -180,7 +180,7 @@
         app:elevation="@{8}"
         android:orientation="vertical"
         android:padding="15dp"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{15}">
 
         <LinearLayout
@@ -469,7 +469,7 @@
                 android:visibility="@{item.bean.positionType==2?View.VISIBLE:View.GONE}"
                 app:onClick="@{()->onItemListener.onShareClick1(item)}"
                 app:radius="@{5}"
-                app:ResColor="@{R.color.white}"
+                app:ResColor="@{R.color.bg_card_color}"
                 app:StrokeResColor="@{R.color.text_color_ee}"
                 app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"
@@ -485,7 +485,7 @@
                 android:layout_marginLeft="7dp"
                 app:onClick="@{()->onItemListener.onShareClick2(item)}"
                 app:radius="@{5}"
-                app:ResColor="@{R.color.white}"
+                app:ResColor="@{R.color.bg_card_color}"
                 app:StrokeResColor="@{R.color.text_color_ee}"
                 app:StrokeWidth="@{1}"
                 android:paddingTop="3dp"

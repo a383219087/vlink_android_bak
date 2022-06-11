@@ -61,7 +61,7 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
-                app:ResColor="@{R.color.white}"
+                app:ResColor="@{R.color.bg_card_color}"
                 app:radius="@{7}">
 
                 <ImageView

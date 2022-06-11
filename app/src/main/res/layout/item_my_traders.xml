@@ -26,7 +26,7 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{15}">
 
         <LinearLayout

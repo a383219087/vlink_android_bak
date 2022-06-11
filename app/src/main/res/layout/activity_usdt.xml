@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/dp_15"
-                    app:ResColor="@{R.color.white}"
+                    app:ResColor="@{R.color.bg_card_color}"
                     app:radius="@{5}"
                     android:orientation="vertical">
 
@@ -182,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:ResColor="@{R.color.white}"
+                    app:ResColor="@{R.color.bg_card_color}"
                     app:bottomLeftRadius="@{5}"
                     app:bottomRightRadius="@{5}">
 
@@ -301,7 +301,7 @@
                     android:paddingBottom="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:orientation="vertical"
-                    app:ResColor="@{R.color.white}"
+                    app:ResColor="@{R.color.bg_card_color}"
                     app:radius="@{5}">
 
                     <TextView

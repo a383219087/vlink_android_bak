@@ -25,7 +25,7 @@
         android:paddingRight="15dp"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{5}">
         <LinearLayout
             android:layout_width="match_parent"

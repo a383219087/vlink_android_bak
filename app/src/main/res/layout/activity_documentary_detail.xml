@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#F5F5F5">
+        android:background="@color/bg_color">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -63,9 +63,9 @@
                 android:visibility="@{_all.status==0?View.VISIBLE:View.GONE}"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
-                tools:background="@color/white"
+                tools:background="@color/bg_card_color"
                 android:padding="15dp"
-                app:ResColor="@{R.color.white}"
+                app:ResColor="@{R.color.bg_card_color}"
                 app:radius="@{15}">
 
                 <LinearLayout
@@ -202,7 +202,7 @@
                 app:elevation="@{8}"
                 android:orientation="vertical"
                 android:padding="15dp"
-                app:ResColor="@{R.color.white}"
+                app:ResColor="@{R.color.bg_card_color}"
                 app:radius="@{15}">
 
                 <LinearLayout
@@ -490,7 +490,7 @@
                         android:visibility="@{_all.bean.positionType==2?View.VISIBLE:View.GONE}"
                         app:onClick="@{()->_all.onShareClick1()}"
                         app:radius="@{5}"
-                        app:ResColor="@{R.color.white}"
+                        app:ResColor="@{R.color.bg_card_color}"
                         app:StrokeResColor="@{R.color.text_color_ee}"
                         app:StrokeWidth="@{1}"
                         android:paddingTop="3dp"
@@ -506,7 +506,7 @@
                         android:layout_marginLeft="7dp"
                         app:onClick="@{()->_all.onShareClick2()}"
                         app:radius="@{5}"
-                        app:ResColor="@{R.color.white}"
+                        app:ResColor="@{R.color.bg_card_color}"
                         app:StrokeResColor="@{R.color.text_color_ee}"
                         app:StrokeWidth="@{1}"
                         android:paddingTop="3dp"

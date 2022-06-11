@@ -49,7 +49,7 @@
                     android:layout_marginTop="10dp"
                     android:elevation="2dp"
                     android:orientation="vertical"
-                    app:ResColor="@{R.color.white}"
+                    app:ResColor="@{R.color.bg_card_color}"
                     app:radius="@{15}">
 
                     <LinearLayout

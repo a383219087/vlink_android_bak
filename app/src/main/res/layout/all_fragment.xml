@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_15"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{8}"
         app:elevation="@{7}"
         android:orientation="vertical">

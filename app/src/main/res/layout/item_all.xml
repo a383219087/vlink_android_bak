@@ -17,7 +17,7 @@
     </data>
 
     <LinearLayout
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{15}"
         android:orientation="vertical"
         android:paddingTop="15dp"

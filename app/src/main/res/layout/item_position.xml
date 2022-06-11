@@ -28,7 +28,7 @@
         android:orientation="vertical"
         android:padding="15dp"
         app:elevation="@{7}"
-        app:ResColor="@{R.color.white}"
+        app:ResColor="@{R.color.bg_card_color}"
         app:radius="@{10}">
         <LinearLayout
             android:orientation="horizontal"

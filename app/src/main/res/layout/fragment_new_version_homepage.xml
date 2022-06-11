@@ -73,9 +73,9 @@
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/ns_layout"
-                app:setOnScrollChangeListener="@{_all.toTopBar}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:setOnScrollChangeListener="@{_all.toTopBar}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -249,107 +249,104 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="@{_all.items.size()==0?View.GONE:View.VISIBLE}"
-                        app:ResColor="@{R.color.white}"
-                        android:paddingTop="10dp"
-                        app:radius="@{10}"
                         android:layout_margin="@dimen/dp_10"
+                        android:paddingTop="10dp"
+                        android:visibility="@{_all.items.size()==0?View.GONE:View.VISIBLE}"
+                        app:ResColor="@{R.color.bg_card_color}"
                         app:itemBinding="@{_all.itemBinding}"
                         app:items="@{_all.items}"
-                        app:spanCount="4"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:radius="@{10}"
+                        app:spanCount="4" />
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="52dp"
-               android:orientation="horizontal"
-               android:layout_marginLeft="10dp"
-               android:layout_marginRight="10dp"
-               android:layout_marginBottom="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
 
-               <FrameLayout
-                   android:layout_width="0dp"
-                   android:layout_marginRight="7dp"
-                   app:ResColor="@{R.color.white}"
-                   app:radius="@{10}"
-                   android:onClick="@{()->_all.quickBuy()}"
-                   android:layout_height="match_parent"
-                   android:layout_weight="1">
-
-
-                   <ImageView
-                       android:layout_width="@dimen/dp_36"
-                       android:layout_height="@dimen/dp_36"
-                       android:layout_gravity="center|left"
-                       android:layout_marginLeft="21dp"
-                       android:src="@mipmap/kuaijiemaibi"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/NewVersionHomePageViewModel_text10"
-                       android:layout_marginTop="13dp"
-                       android:layout_marginLeft="69dp"
-                       android:layout_gravity="top|left"
-                       android:textColor="@color/text_color"
-                       android:textSize="11sp"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/NewVersionHomePageViewModel_text11"
-                       android:layout_marginTop="31dp"
-                       android:layout_marginLeft="69dp"
-                       android:layout_gravity="top|left"
-                       android:textColor="@color/text_color_99"
-                       android:textSize="8sp" />
-
-               </FrameLayout>
-               <FrameLayout
-                   android:layout_width="0dp"
-                   android:layout_marginLeft="7dp"
-                   app:ResColor="@{R.color.white}"
-                   app:radius="@{10}"
-                   android:onClick="@{()->_all.p2pBuy()}"
-                   android:layout_height="match_parent"
-                   android:layout_weight="1">
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="7dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()->_all.quickBuy()}"
+                            app:ResColor="@{R.color.bg_card_color}"
+                            app:radius="@{10}">
 
 
-                   <ImageView
-                       android:layout_width="@dimen/dp_36"
-                       android:layout_height="@dimen/dp_36"
-                       android:layout_gravity="center|left"
-                       android:layout_marginLeft="21dp"
-                       android:src="@mipmap/ic_c2c_bug"/>
+                            <ImageView
+                                android:layout_width="@dimen/dp_36"
+                                android:layout_height="@dimen/dp_36"
+                                android:layout_gravity="center|left"
+                                android:layout_marginLeft="21dp"
+                                android:src="@mipmap/kuaijiemaibi" />
 
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/NewVersionHomePageViewModel_text12"
-                       android:layout_marginTop="13dp"
-                       android:layout_marginLeft="69dp"
-                       android:layout_gravity="top|left"
-                       android:textColor="@color/text_color"
-                       android:textSize="11sp"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/NewVersionHomePageViewModel_text13"
-                       android:layout_marginTop="31dp"
-                       android:layout_marginLeft="69dp"
-                       android:layout_gravity="top|left"
-                       android:textColor="@color/text_color_99"
-                       android:textSize="8sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|left"
+                                android:layout_marginLeft="69dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/NewVersionHomePageViewModel_text10"
+                                android:textColor="@color/text_color"
+                                android:textSize="11sp" />
 
-               </FrameLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|left"
+                                android:layout_marginLeft="69dp"
+                                android:layout_marginTop="31dp"
+                                android:text="@string/NewVersionHomePageViewModel_text11"
+                                android:textColor="@color/text_color_99"
+                                android:textSize="8sp" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
+                            android:layout_weight="1"
+                            android:onClick="@{()->_all.p2pBuy()}"
+                            app:ResColor="@{R.color.bg_card_color}"
+                            app:radius="@{10}">
 
 
+                            <ImageView
+                                android:layout_width="@dimen/dp_36"
+                                android:layout_height="@dimen/dp_36"
+                                android:layout_gravity="center|left"
+                                android:layout_marginLeft="21dp"
+                                android:src="@mipmap/ic_c2c_bug" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|left"
+                                android:layout_marginLeft="69dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/NewVersionHomePageViewModel_text12"
+                                android:textColor="@color/text_color"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|left"
+                                android:layout_marginLeft="69dp"
+                                android:layout_marginTop="31dp"
+                                android:text="@string/NewVersionHomePageViewModel_text13"
+                                android:textColor="@color/text_color_99"
+                                android:textSize="8sp" />
+
+                        </FrameLayout>
 
 
-
-           </LinearLayout>
-
+                    </LinearLayout>
 
 
                     <LinearLayout
