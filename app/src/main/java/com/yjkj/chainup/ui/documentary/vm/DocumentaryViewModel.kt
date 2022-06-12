@@ -3,6 +3,7 @@ package com.yjkj.chainup.ui.documentary.vm
 
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.base.BaseViewModel
+import io.reactivex.functions.Consumer
 
 
 class DocumentaryViewModel : BaseViewModel() {

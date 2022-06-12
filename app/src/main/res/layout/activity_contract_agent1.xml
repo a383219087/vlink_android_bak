@@ -199,6 +199,7 @@
                             android:textColor="@color/text_color"
                             android:textSize="13sp"
                             app:StrokeResColor="@{R.color.text_color_ee}"
+                            app:ResColor="@{R.color.bg_color}"
                             app:onClick="@{(v)->_all.onEditClick(v)}"
                             app:radius="@{5}" />
 

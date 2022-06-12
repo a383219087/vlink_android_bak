@@ -14,6 +14,7 @@ import com.common.sdk.utlis.NumberUtil
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.bean.FollowerStatisticsBean
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.new_contract.activity.ClHoldShareActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -76,15 +77,21 @@ class DocumentaryDetailViewModel : BaseViewModel() {
          CpContractStopRateLossActivity.show(activity.value!!,bean.value!!)
     }
 
+    class Item{
+        var bean = MutableLiveData<FollowerStatisticsBean>()
+
+    }
+
 
 
     val itemBinding =
-        ItemBinding.of<String>(BR.item, R.layout.item_documentary_detail_record)
-    val items: ObservableList<String> = ObservableArrayList()
+        ItemBinding.of<Item>(BR.item, R.layout.item_documentary_detail_record)
+    val items: ObservableList<Item> = ObservableArrayList()
 
 
 
     fun getData(){
+        record()
         val orderSide = if (bean.value?.orderSide == "BUY") {
             context.getString(R.string.cl_HistoricalPosition_1) + "-"
         } else {
@@ -104,6 +111,27 @@ class DocumentaryDetailViewModel : BaseViewModel() {
             LogicContractSetting.getContractMarginCoinPrecisionById(context, bean.value!!.contractId)
         revenue.value =
             BigDecimalUtils.showSNormal(bean.value!!.profitRealizedAmount, mMarginCoinPrecision)
+    }
+
+
+    //操作记录
+    fun record() {
+        val map = HashMap<String, Any>()
+        map["positionId"] = bean.value?.id.toString()
+        startTask(contractApiService.positionLog(map), Consumer {
+            if (it.data.isEmpty()){
+                return@Consumer
+            }
+            for (i in 0 until it.data.size) {
+                val item=Item()
+                item.bean.value=it.data[i]
+                items.add(item)
+
+            }
+
+
+        })
+
     }
 
 }

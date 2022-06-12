@@ -185,7 +185,7 @@
 
     <!--高亮图标色-->
     <color name="highlight_icon_color">#B8CAE9</color>
-
+    <color name="text_color_ee">#1E2A40</color>
     <!--TabBar ICON-->
     <color name="tabbar_icon_color">#334662</color>
     <!--TabBar-->

@@ -29,8 +29,7 @@ import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.util.ContextUtil
 import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.accet_header_view.view.*
-import kotlinx.android.synthetic.main.sl_fragment_contract_asset.rc_contract
-import kotlinx.android.synthetic.main.sl_fragment_contract_asset.swipe_refresh
+import kotlinx.android.synthetic.main.sl_fragment_contract_asset.*
 import org.json.JSONObject
 
 /**
@@ -148,8 +147,15 @@ class ClContractAssetFragment : NBaseFragment() {
                             if (!isNull("accountList")) {
                                 val mAccountListJson = optJSONArray("accountList")
                                 mList.clear()
-                                for (i in 0..(mAccountListJson.length() - 1)) {
-                                    mList.add(mAccountListJson.get(i) as JSONObject)
+                                for (i in 0 until mAccountListJson.length()) {
+                                   val data: JSONObject=mAccountListJson.get(i) as JSONObject
+                                     if (data.optString("totalAmount").toDouble()>0){
+                                         mList.add(0,data)
+                                     }else{
+                                         mList.add(data)
+                                     }
+
+
                                     LogUtil.e(TAG, "------------------------------------")
                                 }
                             }
@@ -270,7 +276,6 @@ class ClContractAssetFragment : NBaseFragment() {
 
         rc_contract?.layoutManager = LinearLayoutManager(context)
         rc_contract.adapter = adapterHoldContract
-//        adapterHoldContract?.bindToRecyclerView(rc_contract ?: return)
         adapterHoldContract?.setEmptyView(R.layout.item_new_empty_assets)
         adapterHoldContract?.headerWithEmptyEnable = true
         rc_contract?.adapter = adapterHoldContract

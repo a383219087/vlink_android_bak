@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@color/bg_color"
             app:topLeftRadius="@{10}"
             app:topRightRadius="@{10}"
             app:itemBinding="@{_all.itemBinding}"

@@ -1,9 +1,6 @@
 package com.yjkj.chainup.model.api
 
-import com.yjkj.chainup.bean.GetAssetsTotalBean
-import com.yjkj.chainup.bean.TraderPositionInfo
-import com.yjkj.chainup.bean.TraderTransactionBean
-import com.yjkj.chainup.bean.TraderTransactionInfo
+import com.yjkj.chainup.bean.*
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.bean.kline.DepthItem
 import com.yjkj.chainup.net.api.HttpResult
@@ -67,6 +64,12 @@ interface ContractApiService {
      */
     @POST("trader/traderBonusRate")
     fun traderBonusRate(): Observable<HttpResult<String>>
+    /**
+     * 仓位交易记录
+     */
+    @POST("position/position_op_log")
+    @FormUrlEncoded
+    fun positionLog(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<FollowerStatisticsBean>>>
     /**
      * 易员历史总收益
      */

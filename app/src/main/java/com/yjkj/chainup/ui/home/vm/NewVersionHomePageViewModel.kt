@@ -276,7 +276,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
             if (share == 1) {
                 val item = Item()
                 item.index.value = 8
-                item.resImg.value = R.mipmap.miliao
+                item.resImg.value = R.mipmap.fenxiangyouli
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text9")
                 items.add(item)
             }

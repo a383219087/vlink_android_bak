@@ -295,7 +295,7 @@
                 android:textStyle="bold"
                 android:text="@{item.revenue}"
                 android:textSize="19sp"
-                android:textColor="@color/text_color" />
+                android:textColor="@{item.bean.returnRate>0?@color/green:@color/red}" />
 
 
             <TextView

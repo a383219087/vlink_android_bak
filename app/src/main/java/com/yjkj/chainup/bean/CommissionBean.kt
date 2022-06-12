@@ -170,26 +170,17 @@ data class GetAssetsTotalBean(
 
 ) : Serializable
 data class FollowerStatisticsBean(
-    val allAmount: Double,
-    val allReturnRate: Double,
-    val allTradeVolume: Int,
-    val ctime: String,
-    val highFrequentIndex: Double,
-    val lossNum: Int,
-    val mtime: String,
-    val perAmount: Double,
-    val perAmountPoints: Double,
-    val perAverageLoss: Int,
-    val perAverageProfit: Double,
-    val perLossPoints: Int,
-    val perWinPoints: Double,
-    val positionTime: Int,
-    val profitNum: Int,
-    val profitRate: Int,
-    val totalAmount: Int,
-    val tradeFrequency: Int,
-    val tradeNum: Int,
-    val uid: Int
+    val amount: Double,
+    val fee: String,
+    val id: String,
+    val name: String,
+    val orderId: String,
+    val price: String,
+    val scene: String,
+    val side: String,
+    val tradeTime: String,
+    val type: String,
+    val volume: String
 ) : Serializable
 
 data class ContractConfig(

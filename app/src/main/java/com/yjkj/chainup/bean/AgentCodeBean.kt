@@ -19,10 +19,13 @@ data class AgentCodeBean(
 
 data class InviteBean(
     val amount: Double,
-    val uid: Int,
+    val uid: String,
     val userCount: Int,
     val txCount: Int,
     var index: Int
+
+ 
+
 
 ):Serializable
 
