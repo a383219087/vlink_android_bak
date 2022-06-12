@@ -162,7 +162,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         no_network_check.append(spanStrStartSub)
         no_network_check.append(spanStrClick)
         no_network_check.append(spanStrEnd)
-        no_network_check.setMovementMethod(LinkMovementMethod.getInstance())
+        no_network_check.movementMethod = LinkMovementMethod.getInstance()
 
     }
 

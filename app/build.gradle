@@ -93,7 +93,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField  "boolean","isRelease","true"
             resValue "string", "buglyId", "$change.buglyId"
-            resValue "string", "applicationId", "$change.applicationId"
             resValue "string", "baseUrl", "$change.baseUrl"
             resValue "string", "otcBaseUrl", "$change.otcBaseUrl"
             resValue "string", "socketAddress", "$change.socketAddress"
@@ -103,12 +102,6 @@ android {
             resValue "string", "httpHostUrlContractV2", "$change.httpHostUrlContractV2"
             resValue "string", "wssHostContractV2", "$change.wssHostContractV2"
             resValue "string", "redPackageUrl", "$change.redPackageUrl"
-            resValue "string", "splashBg", "$change.splashBg"
-            resValue "string", "appswitchsaas", "$change.appswitchsaas"
-            resValue "string", "homepageService", "$change.homepageService"
-            resValue "string", "sobotAppKey", "$change.sobotAppKey"
-            resValue "string", "pathForKyc", "Android/data/$change.applicationId/files/Pictures/"
-            resValue "string", "appCompanyID", "$change.appCompanyID"
 //            manifestPlaceholders = [
 //                    GETUI_APP_ID : "$change.pushAppId",
 //                    GETUI_APP_KEY : "$change.pushAppKey",
@@ -125,7 +118,6 @@ android {
             signingConfig signingConfigs.debug
             buildConfigField  "boolean","isRelease","false"
             resValue "string", "buglyId", "$change.buglyId"
-            resValue "string", "applicationId", "$change.applicationId"
             resValue "string", "baseUrl", "$change.baseUrl"
             resValue "string", "otcBaseUrl", "$change.otcBaseUrl"
             resValue "string", "socketAddress", "$change.socketAddress"
@@ -134,13 +126,7 @@ android {
             resValue "string", "httpHostUrlContractV2", "$change.httpHostUrlContractV2"
             resValue "string", "wssHostContractV2", "$change.wssHostContractV2"
             resValue "string", "redPackageUrl", "$change.redPackageUrl"
-            resValue "string", "splashBg", "$change.splashBg"
-            resValue "string", "appswitchsaas", "$change.appswitchsaas"
-            resValue "string", "homepageService", "$change.homepageService"
             resValue "string", "contractUrl", "$change.contractUrl"
-            resValue "string", "sobotAppKey", "$change.sobotAppKey"
-            resValue "string", "pathForKyc", "Android/data/$change.applicationId/files/Pictures/"
-            resValue "string", "appCompanyID", "$change.appCompanyID"
 //            manifestPlaceholders = [
 //                    GETUI_APP_ID : "$change.pushAppId",
 //                    GETUI_APP_KEY : "$change.pushAppKey",
