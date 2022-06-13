@@ -93,7 +93,7 @@
                 app:ResColor="@{R.color.bg_card_color}"
                 android:onClick="@{()->_all.sell()}"
                 android:layout_gravity="center|right"
-                android:text="去卖币"
+                android:text="@string/buy_text9"
                 android:textColor="#616161"
                 android:textSize="11sp"
                 android:gravity="center" />
@@ -363,7 +363,7 @@
             android:layout_marginRight="18dp"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="40dp"
-            android:text="购买USDT"
+            android:text="@{@string/buy_text10+_all.checkTwoInfo.fiat}"
             android:onClick="@{()->_all.buy()}"
             android:textColor="#ffffff"
             android:textSize="13sp"

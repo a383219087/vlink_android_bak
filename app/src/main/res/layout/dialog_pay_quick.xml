@@ -40,7 +40,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:gravity="center|left"
-                    android:text="前往Xanpool"
+                    android:text="@string/buy_text1"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_9"
                     android:gravity="left"
-                    android:text="@{`从Xanpool购买`+_all.checkTwoInfo.fiat}"
+                    android:text="@{`Buy with Xanpool`+_all.checkTwoInfo.fiat}"
                     android:textColor="#000000"
                     android:textSize="13sp" />
 
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="单价"
+                        android:text="@string/buy_text2"
                         android:textColor="#999999"
                         android:textSize="13sp" />
 
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="您将支付"
+                        android:text="@string/buy_text3"
                         android:textColor="#999999"
                         android:textSize="13sp" />
 
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="您将收到"
+                        android:text="@string/buy_text4"
                         android:textColor="#999999"
                         android:textSize="13sp" />
 
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="支付方式"
+                        android:text="@string/buy_text5"
                         android:textColor="#999999"
                         android:textSize="13sp" />
 
@@ -228,7 +228,7 @@
                 android:drawableLeft="@mipmap/xiaoshizhong"
                 android:drawablePadding="@dimen/dp_2"
                 android:gravity="left"
-                android:text="预计到账时间0~20分钟"
+                android:text="@string/buy_text6"
                 android:textColor="#999999"
                 android:textSize="10sp" />
 
@@ -244,7 +244,7 @@
                 android:checked="@{_all.check}"
                 android:clickable="false"
                 android:paddingLeft="5dp"
-                android:text="我已知晓Xanpool为第三方独立运营的交易平台"
+                android:text="@string/buy_text7"
                 android:textColor="@color/text_color_99"
                 android:textSize="10sp" />
 
@@ -254,7 +254,7 @@
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="5dp"
                 android:gravity="left"
-                android:text="ZWW将不为因使用该服务造成的任何损失或损害承担任何责任。"
+                android:text="@string/buy_text8"
                 android:textColor="#999999"
                 android:textSize="10sp" />
 

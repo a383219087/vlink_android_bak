@@ -42,11 +42,11 @@ class QuickBuySureActivity : BaseMVActivity<QuickBuySureViewModel?, ActivityQuic
         mViewModel?.bean?.value = bean
 
         if (bean?.price == null) {
-            mViewModel?.rate?.value = "暂未获取到汇率"
+            mViewModel?.rate?.value = getString(R.string.buy_text11)
 
         } else {
             mViewModel?.rate?.value =
-                "您将获取约${
+                "${getString(R.string.buy_text12)}${
                     DecimalUtil.cutValueByPrecision(
                         (money.toDouble() / bean?.price!!.toDouble()).toString(),
                         2
