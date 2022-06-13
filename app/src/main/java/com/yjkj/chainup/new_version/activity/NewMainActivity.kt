@@ -51,7 +51,6 @@ import com.yjkj.chainup.manager.NetworkLineService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.NetUrl
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
@@ -428,7 +427,7 @@ class NewMainActivity : NBaseActivity() {
             val transaction = fragmentManager?.beginTransaction()
             var fg = fragmentList[i]
             if (i == curPosition) {
-                mActivity?.runOnUiThread {
+                mActivity.runOnUiThread {
                     transaction?.show(fg)?.commitAllowingStateLoss()
                 }
             } else {
