@@ -3,10 +3,11 @@ package com.yjkj.chainup.ui.home.vm
 
 import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
+import com.chainup.contract.utils.CpClLogicContractSetting.getThemeMode
+import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -76,8 +77,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
-                    val style =
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val style = if (getThemeMode(context) == 0) "white" else "black"
                     val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
@@ -103,7 +103,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     ArouterUtil.navigation(RoutePath.FinancialActivity, null)
                 }
                 /**
-                 * 游戏
+                 * 猜区块
                  */
                 6 -> {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
@@ -111,8 +111,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
-                    val style =
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) "white" else "black"
+                    val style = if (getThemeMode(context) == 0) "white" else "black"
                     val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
@@ -138,6 +137,21 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                         return
                     }
                     ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+                }
+                /**
+                 * 疯狂竞猜
+                 */
+                9 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    val token = UserDataService.getInstance().token
+                    val lang = NLanguageUtil.getLanguage()
+                    val style = if (getThemeMode(context) == 0) "white" else "black"
+                    val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val bundle = Bundle()
+                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
                 }
 
 
@@ -183,7 +197,8 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
             val contract = it.data?.enable_module_info?.futures
             val trader = it.data?.enable_module_info?.trader
             val increment = it.data?.enable_module_info?.increment
-            val game = it.data?.enable_module_info?.game
+            val blocks = it.data?.enable_module_info?.blocks
+            val crazy = it.data?.enable_module_info?.crazy
             val share = it.data?.enable_module_info?.share
             val withdraw = it.data?.enable_module_info?.withdraw
             val futures = it.data?.enable_module_info?.options
@@ -251,9 +266,9 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 items.add(item)
             }
             /**
-             * 游戏
+             * 猜区块
              */
-            if (game == 1) {
+            if (blocks == 1) {
                 val item = Item()
                 item.index.value = 6
                 item.resImg.value = R.mipmap.youxi
@@ -278,6 +293,16 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.index.value = 8
                 item.resImg.value = R.mipmap.fenxiangyouli
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text9")
+                items.add(item)
+            }
+            /**
+             * 疯狂
+             */
+            if (crazy == 1) {
+                val item = Item()
+                item.index.value = 9
+                item.resImg.value = R.mipmap.youxi
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text14")
                 items.add(item)
             }
         })

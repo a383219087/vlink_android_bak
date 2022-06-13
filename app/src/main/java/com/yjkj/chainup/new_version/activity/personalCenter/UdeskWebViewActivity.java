@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.activity.personalCenter;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,9 +17,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.jaeger.library.StatusBarUtil;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.constant.RoutePath;
+import com.yjkj.chainup.db.service.PublicInfoDataService;
 import com.yjkj.chainup.new_version.view.ICloseWindow;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 
@@ -36,6 +37,7 @@ public class UdeskWebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.udesk_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
+        setBarColor(PublicInfoDataService.getInstance().getThemeMode());
         initViews();
     }
 
@@ -175,6 +177,22 @@ public class UdeskWebViewActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 设置状态栏的颜色
+     *
+     * @param 0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
+     */
+    private void setBarColor(int index) {
+        if (index == 0) {
+            StatusBarUtil.setLightMode(this);
+        } else {
+            StatusBarUtil.setDarkMode(this);
+        }
+
+
     }
 
 }

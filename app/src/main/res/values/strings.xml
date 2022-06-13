@@ -1792,7 +1792,7 @@ Mark Price: This is the current mark price.</string>
     <string name="more_way">Long</string>
     <string name="empty_way">Short</string>
     <string name="contract_text_openAverage">Open</string>
-    <string name="contract_max_volume">Qty. of position less than %s%s</string>
+    <string name="contract_max_volume">Qty of position less than %s</string>
     <!--红包END-->
     <string name="common_text_contactTitle">Contact Information</string>
     <string name="common_text_realNameTitle">Real name Information</string>
@@ -3322,7 +3322,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="pos_state_locked">您已锁仓</string>
     <string name="pos_string_inputLockNumber">请输入锁仓数量</string>
     <string name="pos_string_available">可用余额</string>
-    <string name="pos_string_all">全部</string>
+    <string name="pos_string_all">all</string>
     <string name="pos_string_twoDaysEarn">日预计收益</string>
     <string name="pos_string_allEarn">平台累计发放</string>
     <string name="pos_string_myEarn">您已经获得</string>
@@ -3335,7 +3335,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="pos_state_release">本金释放</string>
     <string name="pos_string_timeEarn">收益时间</string>
     <string name="pos_string_earnNumber">收益数量</string>
-    <string name="pos_string_earnDetail">收益明细</string>
+    <string name="pos_string_earnDetail">earn detail</string>
     <string name="pos_string_lockNotAvailable">锁仓数量不得超过您账户中的数量</string>
     <string name="pos_string_maxlockNumber">累计锁仓不超过</string>
     <string name="pos_string_coinName">币种</string>
@@ -3396,9 +3396,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="NewVersionHomePageViewModel_text4">options</string>
     <string name="NewVersionHomePageViewModel_text5">documentary</string>
     <string name="NewVersionHomePageViewModel_text6">financial</string>
-    <string name="NewVersionHomePageViewModel_text7">game</string>
+    <string name="NewVersionHomePageViewModel_text7">blocks</string>
     <string name="NewVersionHomePageViewModel_text8">chat</string>
     <string name="NewVersionHomePageViewModel_text9">share</string>
+    <string name="NewVersionHomePageViewModel_text14">crazy</string>
     <string name="traders_apply_text1">cancel</string>
     <string name="traders_apply_text2">confirm</string>
     <string name="traders_apply_text3">not apply</string>
@@ -3419,7 +3420,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="dialog_create_trader_text3">user agreement</string>
     <string name="dialog_create_trader_text4">fixed proportion</string>
     <string name="dialog_create_trader_text5">fixed amount</string>
-    <string name="dialog_create_trader_text6">Note: The system will place an order according to the ratio of your balance of assets and the balance of traders' assets. For example, if the trader opens a position with a principal of 100 USDT and you set it to 3 times, you will place an order of 1003=300 USDT.</string>
+    <string name="dialog_create_trader_text6">Note: The system will place an order according to the ratio of your balance of assets and the balance of traders\' assets. For example, if the trader opens a position with a principal of 100 USDT and you set it to 3 times, you will place an order of 1003=300 USDT.</string>
     <string name="dialog_create_trader_text7">Note: No matter how much the trader orders, your order margin is a fixed documentary amount.</string>
     <string name="dialog_create_trader_text8">proportion（0–5）</string>
     <string name="dialog_create_trader_text9">amount</string>
@@ -3443,7 +3444,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="activity_documentary_text3">home</string>
     <string name="activity_documentary_text4">documentary</string>
     <string name="activity_documentary_text5">single</string>
-    <string name="activity_documentary_text6">single</string>
+    <string name="activity_documentary_text6">single income</string>
     <string name="decumentary_detail_text1">detail</string>
     <string name="decumentary_detail_text2">follow:</string>
     <string name="decumentary_detail_text3">earnings</string>
@@ -3458,12 +3459,12 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text12">My follower</string>
     <string name="decumentary_detail_text13">List of traders</string>
     <string name="decumentary_detail_text14">The data is updated hourly</string>
-    <string name="decumentary_detail_text15">comprehensive</string>
-    <string name="decumentary_detail_text16">earnings 2 weeks</string>
-    <string name="decumentary_detail_text17">accumulated earnings</string>
-    <string name="decumentary_detail_text18">number transactions</string>
-    <string name="decumentary_detail_text19">number followers</string>
-    <string name="decumentary_detail_text20">2 weeks yield</string>
+    <string name="decumentary_detail_text15">Ranking</string>
+    <string name="decumentary_detail_text16">Total P/L 2W</string>
+    <string name="decumentary_detail_text17">Income</string>
+    <string name="decumentary_detail_text18">Transactions</string>
+    <string name="decumentary_detail_text19">Followers</string>
+    <string name="decumentary_detail_text20">P/L Ratio 2W</string>
     <string name="decumentary_detail_text21">comprehensive</string>
     <string name="decumentary_detail_text22">Winning last 2 weeks</string>
     <string name="decumentary_detail_text23">no data</string>

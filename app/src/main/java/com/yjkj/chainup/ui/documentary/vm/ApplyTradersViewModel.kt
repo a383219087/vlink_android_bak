@@ -1,11 +1,15 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
+import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
-import com.yjkj.chainup.util.ToastUtils
+import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import io.reactivex.functions.Consumer
 
 
@@ -37,8 +41,16 @@ class ApplyTradersViewModel : BaseViewModel() {
     fun applyCurrentStatus() {
         if (status.value==-1){
             startTask(apiService.applyBecomeTrader(), Consumer {
-                ToastUtils.showToast(context.getString(R.string.traders_apply_text8))
                 finish()
+                val bundle = Bundle()
+              val  visiter_id= UserDataService.getInstance().userInfo4UserId
+              val  visiter_name= UserDataService.getInstance().nickName
+
+                val url="http://kefuadmin.zwwbit.com/index/index/home?theme=7571f9&visiter_id=${visiter_id}&visiter_name${visiter_name}=&avatar=&business_id=1&groupid=0"
+
+                bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+
             })
         }else{
             finish()

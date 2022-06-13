@@ -21,7 +21,9 @@ data class EnableModuleInfo(
     val withdraw :Int?,
     val recharge :Int?,
     val options :Int?,
-    val chat :Int?
+    val chat :Int?,
+    val blocks :Int?,
+    val crazy :Int?
 
 
     ) : Serializable
