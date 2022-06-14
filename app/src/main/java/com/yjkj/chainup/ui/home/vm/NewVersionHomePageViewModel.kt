@@ -10,6 +10,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting.getThemeMode
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
@@ -78,7 +79,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "http://kx.releme.cn/wallet/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.optionUrl}?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
@@ -112,7 +113,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
@@ -126,7 +127,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                         return
                     }
                     val bundle = Bundle()
-                    bundle.putString(ParamConstant.URL_4_SERVICE, "http://47.254.214.243:8011")
+                    bundle.putString(ParamConstant.URL_4_SERVICE,ChainUpApp.url?.chatUrl)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
                 }
                 /**
@@ -148,7 +149,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "http://block.releme.cn/block/#/pages/index/index?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&style=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)

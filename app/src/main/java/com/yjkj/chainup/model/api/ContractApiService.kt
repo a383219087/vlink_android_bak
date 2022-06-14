@@ -26,13 +26,21 @@ interface ContractApiService {
     @POST("contract_public_info_v2")
     fun getPublicInfo4Contract(@Body requestBody: RequestBody): Observable<HttpResult<ContractPublicInfoBean>>
 
-
+    /**
+     *  闪电平仓
+     */
+    @POST("order/light_close")
+    fun lightClose(@Body requestBody: RequestBody): Observable<ResponseBody>
     /**
      * 带单列表
      */
     @POST("position/trader_position_list")
     @FormUrlEncoded
     fun traderPositionList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<TraderPositionInfo>>
+
+    @POST("position/trader_position_list")
+    @FormUrlEncoded
+    fun traderPositionList1(@FieldMap map: HashMap<String, Any>): Observable<ResponseBody>
 
     /**
      * 带单收益明细

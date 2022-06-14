@@ -46,6 +46,28 @@ class NewContractModel : BaseDataManager() {
     }
 
     /**
+     * 闪电平仓
+     */
+    fun lightClose(
+        contractId: String,
+        open: String,
+        side: String,
+        positionType: String,
+        consumer: DisposableObserver<ResponseBody>
+    ): Disposable? {
+        val map = getBaseMaps().apply {
+            this["contractId"] = contractId
+            this["open"] = open
+            this["side"] = side
+            this["positionType"] = positionType
+        }
+        return changeIOToMainThread(
+            httpHelper.getContractNewUrlService(ContractApiService::class.java)
+                .lightClose(getBaseReqBody(map)), consumer
+        )
+    }
+
+    /**
      * 修改杠杆
      * @param contractId 合约ID
      * @param nowLevel 当前杠杆倍数

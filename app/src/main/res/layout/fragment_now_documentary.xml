@@ -20,16 +20,14 @@
       >
 
       <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_hold_contract"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:visibility="@{_all.items.size()==0?View.GONE:View.VISIBLE}"
-          app:itemBinding="@{_all.itemBinding}"
-          app:items="@{_all.items}"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
       <include
-          layout="@layout/em_view"
-          app:visibility="@{_all.items.size()==0}"/>
+          android:id="@+id/tv_em"
+          layout="@layout/em_view" />
 
 
   </FrameLayout>

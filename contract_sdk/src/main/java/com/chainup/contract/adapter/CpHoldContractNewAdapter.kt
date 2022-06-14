@@ -1,19 +1,32 @@
 package com.chainup.contract.adapter
 
+import android.annotation.SuppressLint
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
+import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpMathHelper
 import com.chainup.contract.utils.CpNumberUtil
-import com.chainup.contract.bean.CpContractPositionBean
 
 class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_position, data) {
 
+    private var isMySelf=true
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setMySelf(boolean: Boolean){
+        this.isMySelf=boolean
+        notifyDataSetChanged()
+    }
+
+
 
     override fun convert(helper: BaseViewHolder, item: CpContractPositionBean) {
+
+
+
         val mPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, item.contractId)
 
         val mMarginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, item.contractId)
@@ -24,6 +37,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
 
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
         helper.run {
+            setGone(R.id.ll_button, !isMySelf)
 
             when (item.orderSide) {
                 "BUY" -> {

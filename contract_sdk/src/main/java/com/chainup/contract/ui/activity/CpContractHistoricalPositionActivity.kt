@@ -20,7 +20,7 @@ import com.chainup.contract.view.CpNewDialogUtils
 import com.chainup.contract.view.CpSlDialogHelper
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.adapter.CpContractHistoricalPositionAdapter
+import com.chainup.contract.adapter.CpContractHistoricalPositionAdapter
 import kotlinx.android.synthetic.main.cp_activity_asset_record.*
 import org.json.JSONArray
 import org.json.JSONObject

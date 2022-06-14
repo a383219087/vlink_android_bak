@@ -1,6 +1,5 @@
 package com.yjkj.chainup.model.api
 
-import com.yjkj.chainup.net.api.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -28,5 +27,9 @@ data class HttpResultUrlData(
     val otcSocketAddress: String,
     val redPackageUrl: String,
     val socketAddress: String,
-    val wssHostContractV2: String
+    val wssHostContractV2: String,
+    val optionUrl: String,
+    val blocksUrl: String,
+    val crazyUrl: String,
+    val chatUrl: String
 )
