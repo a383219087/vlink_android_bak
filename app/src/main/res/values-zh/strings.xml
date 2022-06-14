@@ -3494,9 +3494,10 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="NewVersionHomePageViewModel_text4">期权</string>
     <string name="NewVersionHomePageViewModel_text5">跟单</string>
     <string name="NewVersionHomePageViewModel_text6">理财</string>
-    <string name="NewVersionHomePageViewModel_text7">游戏</string>
+    <string name="NewVersionHomePageViewModel_text7">猜区块</string>
     <string name="NewVersionHomePageViewModel_text8">密聊</string>
     <string name="NewVersionHomePageViewModel_text9">分享有礼</string>
+    <string name="NewVersionHomePageViewModel_text14">疯狂竞猜</string>
     <string name="traders_apply_text1">取消</string>
     <string name="traders_apply_text2">确定</string>
     <string name="traders_apply_text3">未申请</string>
