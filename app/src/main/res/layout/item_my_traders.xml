@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.currentFollowCount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profitUSDT+``,2)}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
@@ -88,7 +88,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profitUSDT+``,2)}"
+                android:text="@{item.bean.currentFollowCount+``}"
+
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
 
