@@ -107,6 +107,7 @@
             android:onClick="@{()->onItemListener.onClick(item)}"
             android:text="@string/decumentary_mine_text15"
             app:StrokeWidth="@{1}"
+            app:ResColor="@{R.color.bg_card_color}"
             app:StrokeResColor="@{R.color.text_color_ee}"
             android:paddingLeft="@dimen/dp_15"
             android:paddingRight="@dimen/dp_15"/>

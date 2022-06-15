@@ -1,13 +1,13 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
+import android.app.Activity
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
@@ -15,6 +15,7 @@ import io.reactivex.functions.Consumer
 
 class CreateTradersViewModel : BaseViewModel() {
     var uid = MutableLiveData("")
+    var mAcitiviy = MutableLiveData<Activity>()
 
 
     //1是新建2是编辑
@@ -105,20 +106,13 @@ class CreateTradersViewModel : BaseViewModel() {
     }
 
     fun cancel(view:View) {
+        val map = HashMap<String, Any>()
+        map["traderUid"] = uid.value.orEmpty()
+        startTask(apiService.cancelTrader(map), Consumer {
+            ToastUtils.showToast(it.msg)
+            finish()
 
-        NewDialogUtils.showNormalDialog(view.context!!, context.getString(R.string.dialog_create_trader_text24), object : NewDialogUtils.DialogBottomListener {
-            override fun sendConfirm() {
-                val map = HashMap<String, Any>()
-                map["traderUid"] = uid.value.orEmpty()
-                startTask(apiService.cancelTrader(map), Consumer {
-                    ToastUtils.showToast(it.msg)
-                    finish()
-
-                })
-            }
-
-        }, "", context.getString(R.string.dialog_create_trader_text26), context.getString(R.string.dialog_create_trader_text25))
-
+        })
 
     }
 

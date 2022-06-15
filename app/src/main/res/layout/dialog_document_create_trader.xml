@@ -531,6 +531,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:textColor="@color/text_color"
                     app:StrokeResColor="@{R.color.text_color_ee}"
+                    app:ResColor="@{R.color.bg_card_color}"
                     app:radius="@{10}"
                     tool:background="@color/text_color_ee" />
 
