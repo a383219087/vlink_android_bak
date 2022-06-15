@@ -31,6 +31,25 @@ data class CommissionBean(
 
 
 ) : Serializable
+data class CommissionBean1(
+    val amount: Double,
+    val ctime: Long,
+    val currentFollowCount: Int,
+    val deposit: Double,
+    val followAmount: Any,
+    val followerUid: Int,
+    val lossRatio: Double,
+    val mtime: Long,
+    val nickname: String,
+    val profitRatio: Double,
+    val profitUSDT: Double,
+    val rate: Double,
+    val status: Int,
+    val type: Int,
+    val uid: Int
+
+
+) : Serializable
 
 data class InviteCodeBean(
     val ctime: Long,

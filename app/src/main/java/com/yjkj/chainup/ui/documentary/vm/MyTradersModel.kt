@@ -10,8 +10,8 @@ import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
-import com.yjkj.chainup.common.binding.command.BindingAction
-import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.bean.CommissionBean1
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.ui.documentary.CreateTradersDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -22,6 +22,11 @@ class MyTradersModel : BaseViewModel() {
     //  1是我的交易员2是别人的交易员
 //  1是跟单2是带单
     var type = MutableLiveData(1)
+
+
+
+    var isMe = MutableLiveData(true)
+
 
     var uid = MutableLiveData("")
 
@@ -53,7 +58,9 @@ class MyTradersModel : BaseViewModel() {
 
     class Item {
         var type = MutableLiveData(1)
+        var isMe = MutableLiveData(true)
         var bean = MutableLiveData<CommissionBean>()
+        var bean1 = MutableLiveData<CommissionBean1>()
     }
 
 
@@ -63,15 +70,22 @@ class MyTradersModel : BaseViewModel() {
 
     fun getList() {
         items.clear()
-        if (uid.value.isNullOrEmpty()) {
-            startTask(apiService.myTraders(), Consumer {
+        if (!isMe.value!!) {
+            val map = HashMap<String, Any>()
+            if ( uid.value.isNullOrEmpty()) {
+                map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+            } else {
+                map["traderUid"] = uid.value.toString()
+            }
+            startTask(apiService.follower(map), Consumer {
                 if (it.data.isNullOrEmpty()) {
                     return@Consumer
                 }
                 for (i in it.data.indices) {
                     val item = Item()
-                    item.bean.value = it.data[i]
+                    item.bean1.value = it.data[i]
                     item.type.value = type.value
+                    item.isMe.value = isMe.value
                     items.add(item)
                 }
 
@@ -79,7 +93,11 @@ class MyTradersModel : BaseViewModel() {
             })
         } else {
             val map = HashMap<String, Any>()
-            map["traderUid"] = uid.value.toString()
+            if ( uid.value.isNullOrEmpty()) {
+                map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+            } else {
+                map["traderUid"] = uid.value.toString()
+            }
             startTask(apiService.myTrader(map), Consumer {
                 if (it.data.isNullOrEmpty()) {
                     return@Consumer
@@ -88,6 +106,7 @@ class MyTradersModel : BaseViewModel() {
                     val item = Item()
                     item.bean.value = it.data[i]
                     item.type.value = type.value
+                    item.isMe.value = isMe.value
                     items.add(item)
                 }
 

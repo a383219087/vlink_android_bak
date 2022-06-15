@@ -20,103 +20,201 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:onClick="@{()->onItemListener.onClick(item)}"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical"
-        android:padding="15dp"
-        app:ResColor="@{R.color.bg_card_color}"
-        app:radius="@{15}">
+        android:orientation="vertical">
 
+<!--        我的交易员-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@string/decumentary_mine_text13"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{@string/decumentary_mine_text14+`(USDT)`}"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="@{@string/decumentary_mine_text12}"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_6"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@{item.bean.nickname+``}"
-                android:textSize="12sp"
-                android:textColor="@color/text_color" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profitUSDT+``,2)}"
-                android:textSize="12sp"
-                android:textColor="@color/text_color" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="@{item.bean.currentFollowCount+``}"
-
-                android:textSize="12sp"
-                android:textColor="@color/text_color" />
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
-            android:layout_gravity="right"
-            android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
-            android:layout_marginTop="@dimen/dp_15"
-            android:gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="@{item.isMe()?View.VISIBLE:View.GONE}"
             android:onClick="@{()->onItemListener.onClick(item)}"
-            android:text="@string/decumentary_mine_text15"
-            app:StrokeWidth="@{1}"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:padding="15dp"
             app:ResColor="@{R.color.bg_card_color}"
-            app:StrokeResColor="@{R.color.text_color_ee}"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingRight="@dimen/dp_15"/>
+            app:radius="@{15}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/decumentary_mine_text13"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{@string/decumentary_mine_text14+`(USDT)`}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{@string/decumentary_mine_text12}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@{item.bean.nickname+``}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profitUSDT+``,2)}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{item.bean.currentFollowCount+``}"
+
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_gravity="right"
+                android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
+                android:layout_marginTop="@dimen/dp_15"
+                android:gravity="center"
+                android:onClick="@{()->onItemListener.onClick(item)}"
+                android:text="@string/decumentary_mine_text15"
+                app:StrokeWidth="@{1}"
+                app:ResColor="@{R.color.bg_card_color}"
+                app:StrokeResColor="@{R.color.text_color_ee}"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"/>
 
 
 
 
+
+        </LinearLayout>
+        <!--        跟随者-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="@{item.isMe()?View.GONE:View.VISIBLE}"
+            android:onClick="@{()->onItemListener.onClick(item)}"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:padding="15dp"
+            app:ResColor="@{R.color.bg_card_color}"
+            app:radius="@{15}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/decumentary_mine_text13"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{@string/decumentary_mine_text14+`(USDT)`}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{@string/decumentary_mine_text12}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color_99" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@{item.bean1.nickname+``}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.profitUSDT+``,2)}"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{item.bean1.currentFollowCount+``}"
+
+                    android:textSize="12sp"
+                    android:textColor="@color/text_color" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
 
 </layout>
