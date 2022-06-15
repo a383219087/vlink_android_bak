@@ -94,6 +94,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         var obj: JSONObject = mPositionList.get(i) as JSONObject
                         mList.add(obj)
                     }
+                    adapter?.notifyDataSetChanged()
                 }else{
                     tv_em.visibility=View.VISIBLE
                 }
