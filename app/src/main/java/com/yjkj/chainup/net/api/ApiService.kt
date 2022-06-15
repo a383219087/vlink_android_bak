@@ -545,21 +545,11 @@ interface ApiService {
     @POST("traderUser/list")
     fun traderUserList(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
 
+
     /**
      * 我跟单的交易员列表
      */
     @GET("traderUser/myTraders")
-    fun myTraders(): Observable<HttpResult<List<CommissionBean>>>
-    /**
-     * 我跟单的交易员列表
-     */
-    @POST("invite_code/userDefaultInviteCode")
-    @FormUrlEncoded
-    fun userDefaultInviteCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<InviteCodeBean>>
-    /**
-     * 我跟单的交易员列表
-     */
-    @GET("traderUser/myTrader")
     fun myTrader(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<List<CommissionBean>>>
     /**
      * 我的跟随者

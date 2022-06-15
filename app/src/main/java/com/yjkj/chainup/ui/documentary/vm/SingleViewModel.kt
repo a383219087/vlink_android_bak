@@ -9,6 +9,7 @@ import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import io.reactivex.functions.Consumer
@@ -49,7 +50,11 @@ class SingleViewModel : BaseViewModel() {
     //查看交易员详情
     fun getDetail() {
         val map = HashMap<String, Any>()
-        map["uid"] = uid.value.toString()
+        if ( uid.value.isNullOrEmpty()) {
+            map["uid"] = UserDataService.getInstance().userInfo4UserId
+        } else {
+            map["uid"] = uid.value.toString()
+        }
         startTask(apiService.queryTrader(map), Consumer {
             if (uid.value.isNullOrEmpty()){
                 bean.value=it.data

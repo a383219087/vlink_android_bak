@@ -189,7 +189,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.profitUSDT+``,2)}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.followAmount+``,2)}"
                     android:textSize="12sp"
                     android:textColor="@color/text_color" />
                 <TextView

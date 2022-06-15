@@ -7,8 +7,11 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentSingleBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.vm.SingleViewModel
 import com.yjkj.chainup.util.FmPagerAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?>(){
@@ -52,6 +55,16 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
             mViewModel?.getDetail()
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        when (event.msg_type) {
+
+            MessageEvent.refresh_MyInviteCodesActivity -> {
+                mViewModel?.getDetail()
+            }
         }
     }
 }

@@ -8,6 +8,9 @@ import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
@@ -88,7 +91,11 @@ class CreateTradersViewModel : BaseViewModel() {
         }
 
         val map = HashMap<String, Any>()
-        map["traderUid"] = uid.value.orEmpty()
+        if ( uid.value.isNullOrEmpty()) {
+            map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+        } else {
+            map["traderUid"] = uid.value.toString()
+        }
         map["type"] =checkIndex.value.toString()
         if (checkIndex.value==0){
             map["rate"] =documentaryRate.value.toString()
@@ -100,6 +107,7 @@ class CreateTradersViewModel : BaseViewModel() {
         map["lossRatio"] =(stopRate.value.toString().toDouble()/100).toString()
         startTask(apiService.createTrader(map), Consumer {
             ToastUtils.showToast(it.msg)
+            EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
           finish()
 
         })
@@ -107,9 +115,14 @@ class CreateTradersViewModel : BaseViewModel() {
 
     fun cancel(view:View) {
         val map = HashMap<String, Any>()
-        map["traderUid"] = uid.value.orEmpty()
+        if ( uid.value.isNullOrEmpty()) {
+            map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+        } else {
+            map["traderUid"] = uid.value.toString()
+        }
         startTask(apiService.cancelTrader(map), Consumer {
             ToastUtils.showToast(it.msg)
+            EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
             finish()
 
         })

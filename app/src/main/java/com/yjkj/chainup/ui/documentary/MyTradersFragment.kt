@@ -34,9 +34,19 @@ class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBindi
         mViewModel?.type?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
         mViewModel?.isMe?.value=arguments?.getBoolean(ParamConstant.AREA_CODE)
-        mViewModel?.getList()
+
 
     }
+
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            mViewModel?.getList()
+        }
+    }
+
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onMessageEvent(event: MessageEvent) {
         super.onMessageEvent(event)
