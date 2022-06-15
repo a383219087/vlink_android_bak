@@ -206,18 +206,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     }
 
-    private fun initTop24Hour4Contract() {
-        recycler_top_24?.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
-        topSymbol4ContractAdapter = NewHomePageContractAdapter(selectTopSymbol4Contract)
-        recycler_top_24?.adapter = topSymbol4ContractAdapter
-        topSymbol4ContractAdapter?.setOnItemClickListener { adapter, view, position ->
-            val ticker = adapter.data[position] as ContractTicker
-            if (!Utils.isFastClick()) {
-                SlContractKlineActivity.show(mActivity!!, ticker?.instrument_id)
-            }
-        }
-    }
-
     private fun observeData() {
         NLiveDataUtil.observeData(this, Observer {
             if (null != it) {
