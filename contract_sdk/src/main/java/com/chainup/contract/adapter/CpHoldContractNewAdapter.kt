@@ -15,9 +15,16 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
 
     private var isMySelf=true
 
+    private var isTrader=false
+
     @SuppressLint("NotifyDataSetChanged")
     fun setMySelf(boolean: Boolean){
         this.isMySelf=boolean
+        notifyDataSetChanged()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun setMyTrader(boolean: Boolean){
+        this.isTrader=boolean
         notifyDataSetChanged()
     }
 
@@ -38,7 +45,13 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
         helper.run {
             setGone(R.id.ll_button, !isMySelf)
+            setGone(R.id.tv_tradle_name, !isTrader)
+            if (isTrader&&!item.traderName.isNullOrEmpty()){
+                setText(R.id.tv_tradle_name, "traders：${item.traderName}")
+            }else{
 
+                setGone(R.id.tv_tradle_name, true)
+            }
             when (item.orderSide) {
                 "BUY" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text6))

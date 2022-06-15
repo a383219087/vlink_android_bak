@@ -444,11 +444,11 @@
                     android:gravity="center"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:text="10%"
+                    android:text="1%"
                     android:textColor="@color/text_color"
                     android:textSize="13sp"
                     app:ResColor="@{R.color.main_blue_15}"
-                    app:onClick="@{()->_all.setStopRate(10)}"
+                    app:onClick="@{()->_all.setStopRate(1)}"
                     app:radius="@{5}" />
 
                 <TextView
@@ -489,11 +489,11 @@
                     android:gravity="center"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:text="100%"
+                    android:text="75%"
                     android:textColor="@color/text_color"
                     android:textSize="13sp"
                     app:ResColor="@{R.color.main_blue_15}"
-                    app:onClick="@{()->_all.setStopRate(100)}"
+                    app:onClick="@{()->_all.setStopRate(75)}"
                     app:radius="@{5}" />
 
                 <TextView
@@ -504,11 +504,11 @@
                     android:gravity="center"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:text="200%"
+                    android:text="90%"
                     android:textColor="@color/text_color"
                     android:textSize="13sp"
                     app:ResColor="@{R.color.main_blue_15}"
-                    app:onClick="@{()->_all.setStopRate(200)}"
+                    app:onClick="@{()->_all.setStopRate(90)}"
                     app:radius="@{5}" />
             </LinearLayout>
 

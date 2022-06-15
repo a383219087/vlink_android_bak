@@ -11,6 +11,10 @@ data class CpContractPositionBean(
      */
     val canCloseVolume: String,
     /**
+     * 交易员
+     */
+    val traderName: String,
+    /**
      * 可减少保证金
      */
     val canSubMarginAmount: String,

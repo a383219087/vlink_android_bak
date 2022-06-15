@@ -112,6 +112,18 @@ class CreateTradersViewModel : BaseViewModel() {
 
         })
     }
+    fun getData(){
+        setCheckIndex(bean.value!!.type)
+        if (bean.value!!.type==0){
+           documentaryRate.value=bean.value!!.rate
+        }else{
+            documentaryRate.value=bean.value!!.amount
+        }
+        maxEarnestMoney.value=bean.value!!.deposit
+        winRate.value=bean.value!!.profitRatio.toString()
+        stopRate.value=bean.value!!.lossRatio.toString()
+
+    }
 
     fun cancel(view:View) {
         val map = HashMap<String, Any>()
@@ -128,6 +140,7 @@ class CreateTradersViewModel : BaseViewModel() {
         })
 
     }
+
 
     //获取分成比例
     fun getViewRate(){

@@ -18,6 +18,8 @@ class CreateTradersDialog : BaseDialogMVFragment<CreateTradersViewModel?, Dialog
         mViewModel?.type?.value= arguments?.getInt("type")
            arguments?.getSerializable("bean")?.let {
                mViewModel?.bean?.value= it as CommissionBean
+               mViewModel?.getData()
+
            }
         mViewModel?.getViewRate()
 

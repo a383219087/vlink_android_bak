@@ -4,12 +4,7 @@ import com.chainup.contract.bean.CpContractPositionBean
 import java.io.Serializable
 
 
-data class QueryTraderBean(
-    val traderUser: CommissionBean,
-    val my: CommissionBean
 
-
-) : Serializable
 
 data class CommissionBean(
     val ctime: Long,
@@ -27,7 +22,15 @@ data class CommissionBean(
     val userCreateTime: Long,
     val winRatio: Double,
     val nickname: String,
-    val entryDay: String
+    val entryDay: String,
+    val followerUid: String,
+    val type: Int,
+    val amount: String,
+    val rate: String,
+    val deposit: String,
+    val lossRatio: String,
+    val status: String,
+    val followAmount: String
 
 
 ) : Serializable

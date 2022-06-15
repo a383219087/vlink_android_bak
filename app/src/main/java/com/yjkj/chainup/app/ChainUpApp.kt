@@ -41,13 +41,10 @@ import java.util.concurrent.TimeUnit
  */
 class ChainUpApp : CpMyApp() {
 
-//    val TAG = ChainUpApp::class.java.simpleName
-//    var appCount = 0
+
     private var appStateChangeListener: AppStateChangeListener? = null
     private var currentState: Int = 0
 
-//    val STATE_FOREGROUND = 0
-//    val STATE_BACKGROUND = 1
 
     companion object {
         lateinit var appContext: Context
@@ -79,35 +76,15 @@ class ChainUpApp : CpMyApp() {
             val mContractMode = PublicInfoDataService.getInstance().getContractMode()
             isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
 
-//            val isNewOldContract = PublicInfoDataService.getInstance().isNewOldContract
-//            if (!isNewOldContract) {
-//                openContract()
-//            }
             AppConstant.IS_NEW_CONTRACT = isNewOldContract
             Debug.stopMethodTracing()
             BoxingMediaLoader.getInstance().init(BoxingGlideLoader()) // 需要实现IBoxingMediaLoader
             BoxingCrop.getInstance().init(BoxingUcrop())
         }
         webViewSetPath(this)
-        //  com.getui.demo.ChainUpPushService 为第三方自定义推送服务
-//        PushManager.getInstance().initialize(this, DemoPushService::class.java)
-        // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
-//        PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
+
     }
 
-    private fun getProcessName(context: Context): String? {
-        val am: ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val runningApps: List<ActivityManager.RunningAppProcessInfo> = am.runningAppProcesses
-                ?: return null
-        for (proInfo in runningApps) {
-            if (proInfo.pid == Process.myPid()) {
-                if (proInfo.processName != null) {
-                    return proInfo.processName
-                }
-            }
-        }
-        return null
-    }
 
     private fun initAppStatusListener() {
 
@@ -228,11 +205,7 @@ class ChainUpApp : CpMyApp() {
         }
     }
 
-    private var timeCount = 0
-    private fun initStrictMode() {
-        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build())
-    }
+
 
     private fun getCurProcessName(context: Context): String? {
         val pid = Process.myPid()
@@ -244,35 +217,6 @@ class ChainUpApp : CpMyApp() {
         }
         return null
     }
-//
-//    private fun openContract() {
-//        //合约SDK初始化  主进程才实例化
-//        val contractHttpConfig = ContractHttpConfig()
-//        contractHttpConfig.prefixHeader = "ex"
-//        contractHttpConfig.contractUrl = NetUrl.getcontractUrl() + "fe-cov2-api/swap/"
-//        contractHttpConfig.contractWsUrl = NetUrl.getContractSocketUrl()
-//        contractHttpConfig.headerParams = SystemUtils.getHeaderParams()
-//        contractHttpConfig.wsSignLength = 128
-//        if (ContractCloudAgent.isCloudOpen) {
-//            //是否是合约云SDK
-//            ContractSDKAgent.isContractCloudSDK = true
-//        } else {
-//            contractHttpConfig.aesSecret = "lMYQry09AeIt6PNO"
-//            //是否是合约云SDK
-//            ContractSDKAgent.isContractCloudSDK = false
-//        }
-//        //合约SDK Http配置初始化
-//        ContractSDKAgent.httpConfig = contractHttpConfig
-//        //是否打开合约API异常日志收集
-//        ContractSDKAgent.openErrorLogCollect = true
-//        //通知合约SDK语言环境
-//        ContractSDKAgent.isZhEnv = SystemUtils.isZh()
-//        //合约SDK 必须设置 在最后调用
-//        ContractSDKAgent.init(this)
-//        UserDataService.getInstance().token
-//        //延迟2秒初始化合约token
-//        UserDataService.getInstance().notifyContractLoginStatusListener()
-//    }
 
     override fun onActivityPaused(p0: Activity) {
         Log.d(TAG, "========onActivityPaused===")

@@ -32,6 +32,11 @@ interface ContractApiService {
     @POST("order/light_close")
     fun lightClose(@Body requestBody: RequestBody): Observable<ResponseBody>
     /**
+     * 跟单
+     */
+    @POST("position/find_current_single_list")
+    fun findCurrentSingleList(): Observable<HttpResult<TraderPositionInfo>>
+    /**
      * 带单列表
      */
     @POST("position/trader_position_list")

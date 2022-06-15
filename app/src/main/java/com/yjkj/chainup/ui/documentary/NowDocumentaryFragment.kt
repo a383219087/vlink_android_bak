@@ -75,6 +75,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
         adapter = CpHoldContractNewAdapter(mList)
         adapter!!.setMySelf(mViewModel?.uid?.value.isNullOrEmpty())
+        adapter!!.setMyTrader(true)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
         adapter?.addChildClickViewIds(com.chainup.contract.R.id.tv_quick_close_position, com.chainup.contract.R.id.tv_close_position, com.chainup.contract.R.id.tv_forced_close_price_key, com.chainup.contract.R.id.tv_adjust_margins, com.chainup.contract.R.id.tv_profit_loss, com.chainup.contract.R.id.iv_share, com.chainup.contract.R.id.tv_tag_price, com.chainup.contract.R.id.tv_settled_profit_loss_key)
@@ -673,25 +674,40 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     @SuppressLint("NotifyDataSetChanged")
     private  fun getList() {
         mList.clear()
-        val map = HashMap<String, Any>()
-        map["status"] =  mViewModel?.status?.value.toString()
 
-        if ( mViewModel?.uid?.value.isNullOrEmpty()) {
-            map["traderUid"] = UserDataService.getInstance().userInfo4UserId
-        } else {
-            map["traderUid"] =  mViewModel?.uid?.value.toString()
-        }
+       if(mViewModel?.status?.value==1){
+           mViewModel?.startTask(mViewModel?.contractApiService!!.findCurrentSingleList(), Consumer {
+               it.data?.positionList?.let { it1 -> mList.addAll(it1) }
+               adapter?.notifyDataSetChanged()
+               if (it.data?.positionList.isNullOrEmpty()){
+                   tv_em.visibility=View.VISIBLE
+               }else{
+                   tv_em.visibility=View.GONE
+               }
 
-        mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList(map), Consumer {
-            it.data?.positionList?.let { it1 -> mList.addAll(it1) }
-            adapter?.notifyDataSetChanged()
-            if (it.data?.positionList.isNullOrEmpty()){
-                tv_em.visibility=View.VISIBLE
-            }else{
-                tv_em.visibility=View.GONE
-            }
+           })
+       }else{
+           val map = HashMap<String, Any>()
+           map["status"] =  "1"
 
-        })
+           if ( mViewModel?.uid?.value.isNullOrEmpty()) {
+               map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+           } else {
+               map["traderUid"] =  mViewModel?.uid?.value.toString()
+           }
+           mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList(map), Consumer {
+               it.data?.positionList?.let { it1 -> mList.addAll(it1) }
+               adapter?.notifyDataSetChanged()
+               if (it.data?.positionList.isNullOrEmpty()){
+                   tv_em.visibility=View.VISIBLE
+               }else{
+                   tv_em.visibility=View.GONE
+               }
+
+           })
+
+       }
+
 
     }
 
