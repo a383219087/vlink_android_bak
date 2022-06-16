@@ -120,8 +120,8 @@ class CreateTradersViewModel : BaseViewModel() {
             documentaryRate.value=bean.value!!.amount
         }
         maxEarnestMoney.value=bean.value!!.deposit
-        winRate.value=bean.value!!.profitRatio.toString()
-        stopRate.value=bean.value!!.lossRatio.toString()
+        winRate.value=(bean.value!!.profitRatio*100).toInt().toString()
+        stopRate.value= (bean.value!!.lossRatio*100).toInt().toString()
 
     }
 

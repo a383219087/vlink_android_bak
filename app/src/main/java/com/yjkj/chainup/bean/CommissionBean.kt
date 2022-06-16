@@ -28,7 +28,7 @@ data class CommissionBean(
     val amount: String,
     val rate: String,
     val deposit: String,
-    val lossRatio: String,
+    val lossRatio: Double,
     val status: String,
     val followAmount: String
 

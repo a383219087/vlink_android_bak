@@ -38,7 +38,7 @@ class TradersViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putString("uid", item.value?.uid.toString())
             bundle.putSerializable("bean", item.value)
-            bundle.putInt("type", 1)
+            bundle.putInt("type", if(item.value?.follow==1)2 else 1)
             this.arguments = bundle
         }
             .showDialog(activity.value?.supportFragmentManager, "")
