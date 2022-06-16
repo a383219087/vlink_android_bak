@@ -72,7 +72,7 @@
                 app:ResColor="@{R.color.main_blue}"
                 app:radius="@{10}"
                 android:gravity="center"
-                android:text="@string/activity_documentary_text2"
+                android:text="@{_all.item.follow==1?@string/b2c_text_edit:@string/activity_documentary_text2}"
                 android:textColor="@color/white" />
 
         </FrameLayout>

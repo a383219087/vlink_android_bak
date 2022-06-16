@@ -12,6 +12,7 @@
         <import type="android.view.View" />
 
         <import type="com.yjkj.chainup.R" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
 
     </data>
 
@@ -98,7 +99,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="@dimen/dp_24"
                                 android:layout_marginTop="@dimen/dp_60"
-                                android:text="@{`≈`+(_all.showMoney?(_all.bean.totalAmount+``):`***`)+_all.bean.symbol}"
+                                android:text="@{`≈`+(_all.showMoney?DecimalUtil.cutValueByPrecision(_all.bean.positionBalance+``,2):`***`)+`USDT`}"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
 
@@ -136,7 +137,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="15dp"
-                                    android:text="@{@string/decumentary_detail_text10+`(`+_all.bean.symbol+`)`}"
+                                    android:text="@{@string/decumentary_detail_text10+`(USDT)`}"
                                     android:textColor="#80FFFFFF"
                                     android:textSize="10sp" />
 
@@ -145,7 +146,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{_all.showMoney?(_all.bean.totalMargin+``):`***`}"
+                                    android:text="@{_all.showMoney?(DecimalUtil.cutValueByPrecision(_all.bean.allAmount+``,2)+``):`***`}"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
 
@@ -172,7 +173,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{(_all.showMoney?((_all.bean.totalMarginRate*100)+``):`***`)+`%`}"
+                                    android:text="@{(_all.showMoney?(DecimalUtil.cutValueByPrecision((_all.bean.allReturnRate*100)+``,2)+``):`***`)+`%`}"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
 

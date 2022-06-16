@@ -14,7 +14,6 @@ import com.yjkj.chainup.bean.GetAssetsTotalBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
@@ -139,13 +138,19 @@ class FirstViewModel : BaseViewModel() {
 
     fun getData() {
         if (status.value == 1) {
-            return
-        }
-        startTask(contractApiService.getAssetsTotal(), Consumer {
-            bean.value = it.data
-            cnyString.value = BigDecimalUtils.divForDown(it.data.allAmount.toString(), RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
+//            startTask(contractApiService.getAssetsTotal(), Consumer {
+//                bean.value = it.data
+//                cnyString.value = BigDecimalUtils.divForDown(it.data.allAmount.toString(), RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
+//
+//            })
+        }else{
+            startTask(contractApiService.statistics(), Consumer {
+                bean.value = it.data
+                cnyString.value = BigDecimalUtils.divForDown(it.data.positionBalance.toString(), RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
 
-        })
+            })
+        }
+
 
     }
 

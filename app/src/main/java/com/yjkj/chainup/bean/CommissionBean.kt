@@ -180,6 +180,8 @@ data class TraderTransactionBean(
 data class GetAssetsTotalBean(
     val canUseAmount: Int,
     val allAmount: Double,
+    val allReturnRate: Double,
+    val positionBalance: Double,
     val isolateMargin: Int,
     val lockAmount: Int,
     val realizedAmount: Int,

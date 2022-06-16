@@ -128,7 +128,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE,ChainUpApp.url?.chatUrl)
-                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+                    ArouterUtil.greenChannel(RoutePath.ChatWebViewActivity, bundle)
                 }
                 /**
                  * 分享有礼
