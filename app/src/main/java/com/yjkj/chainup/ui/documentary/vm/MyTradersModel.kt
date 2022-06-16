@@ -46,7 +46,7 @@ class MyTradersModel : BaseViewModel() {
 
             CreateTradersDialog().apply {
                 val bundle = Bundle()
-                bundle.putString("uid", uid.value)
+                bundle.putString("uid", item.bean.value?.uid.toString())
                 bundle.putSerializable("bean", item.bean.value)
                 bundle.putInt("type", 2)
                 this.arguments = bundle

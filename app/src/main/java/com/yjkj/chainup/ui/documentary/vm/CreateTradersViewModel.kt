@@ -103,8 +103,8 @@ class CreateTradersViewModel : BaseViewModel() {
             map["amount"] =documentaryMoney.value.toString()
         }
         map["deposit"] =maxEarnestMoney.value.toString()
-        map["profitRatio"] =(winRate.value.toString().toDouble()/100).toString()
-        map["lossRatio"] =(stopRate.value.toString().toDouble()/100).toString()
+        map["profitRatio"] =winRate.value.toString()
+        map["lossRatio"] =stopRate.value.toString()
         startTask(apiService.createTrader(map), Consumer {
             ToastUtils.showToast(it.msg)
             EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
@@ -120,8 +120,8 @@ class CreateTradersViewModel : BaseViewModel() {
             documentaryRate.value=bean.value!!.amount
         }
         maxEarnestMoney.value=bean.value!!.deposit
-        winRate.value=(bean.value!!.profitRatio*100).toInt().toString()
-        stopRate.value= (bean.value!!.lossRatio*100).toInt().toString()
+        winRate.value=bean.value!!.profitRatio.toInt().toString()
+        stopRate.value= bean.value!!.lossRatio.toInt().toString()
 
     }
 

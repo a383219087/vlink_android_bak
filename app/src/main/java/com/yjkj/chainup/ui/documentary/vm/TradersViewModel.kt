@@ -10,6 +10,7 @@ import com.yjkj.chainup.bean.CommissionBean
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.ui.documentary.CreateTradersDialog
+import io.reactivex.functions.Consumer
 
 
 class TradersViewModel : BaseViewModel() {
@@ -34,14 +35,24 @@ class TradersViewModel : BaseViewModel() {
 
     //跟单
     fun onClickDocumentary(view: View) {
-        CreateTradersDialog().apply {
-            val bundle = Bundle()
-            bundle.putString("uid", item.value?.uid.toString())
-            bundle.putSerializable("bean", item.value)
-            bundle.putInt("type", if(item.value?.follow==1)2 else 1)
-            this.arguments = bundle
-        }
-            .showDialog(activity.value?.supportFragmentManager, "")
+        val map = HashMap<String, Any>()
+            map["traderUid"] = item.value?.uid.toString()
+        startTask(apiService.myTraderQuery(map), Consumer {
+            CreateTradersDialog().apply {
+                val bundle = Bundle()
+                bundle.putString("uid", item.value?.uid.toString())
+                bundle.putSerializable("bean", it.data)
+                bundle.putInt("type", if(item.value?.follow==1)2 else 1)
+                this.arguments = bundle
+            }
+                .showDialog(activity.value?.supportFragmentManager, "")
+
+
+        })
+
+
+
+
 
     }
 
