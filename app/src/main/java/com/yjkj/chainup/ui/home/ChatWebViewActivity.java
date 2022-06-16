@@ -222,7 +222,7 @@ public class ChatWebViewActivity extends Activity {
                 MediaType JSON = MediaType.parse("application/json; charset=utf-8");
                 RequestBody body = RequestBody.create(JSON, data.toJSONString());
                 Request request = new Request.Builder()
-                        .url(ChainUpApp.Companion.getUrl().getBaseUrl() + "/api/lottery/PostRegistIMUserId")
+                        .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostRegistIMUserId")
                         .post(body)
                         .build();
 
@@ -267,7 +267,7 @@ public class ChatWebViewActivity extends Activity {
                     MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
                     RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
                     request = new Request.Builder()
-                            .url(ChainUpApp.Companion.getUrl().getBaseUrl()+ "/api/lottery/PostIMLoginCode")//访问连接
+                            .url(ChainUpApp.Companion.getUrl().getChatApiUrl()+ "/api/lottery/PostIMLoginCode")//访问连接
                             .post(body1).build();
 
 

@@ -31,5 +31,6 @@ data class HttpResultUrlData(
     val optionUrl: String,
     val blocksUrl: String,
     val crazyUrl: String,
-    val chatUrl: String
+    val chatUrl: String,
+    val chatApiUrl: String
 )

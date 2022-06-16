@@ -117,7 +117,7 @@ class CreateTradersViewModel : BaseViewModel() {
         if (bean.value!!.type==0){
            documentaryRate.value=bean.value!!.rate
         }else{
-            documentaryRate.value=bean.value!!.amount
+            documentaryMoney.value=bean.value!!.amount
         }
         maxEarnestMoney.value=bean.value!!.deposit
         winRate.value=bean.value!!.profitRatio.toInt().toString()
