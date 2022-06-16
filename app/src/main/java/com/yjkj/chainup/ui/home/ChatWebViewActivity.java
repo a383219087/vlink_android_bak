@@ -29,6 +29,7 @@ import com.yjkj.chainup.db.service.UserDataService;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 import com.yjkj.chainup.util.MD5Util;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class ChatWebViewActivity extends Activity {
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
         setBarColor(PublicInfoDataService.getInstance().getThemeMode());
         initViews();
-        loginById( UserDataService.getInstance().getUserInfo4UserId(),"");
+        loginById(UserDataService.getInstance().getUserInfo4UserId(), "");
     }
 
     private void initViews() {
@@ -193,8 +194,8 @@ public class ChatWebViewActivity extends Activity {
 
     /**
      * 设置状态栏的颜色
-     *
-     *  0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
+     * <p>
+     * 0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
      */
     private void setBarColor(int index) {
         if (index == 0) {
@@ -207,7 +208,6 @@ public class ChatWebViewActivity extends Activity {
     }
 
 
-
     public void loginById(String id, String vip) {
         int randomnum = 0;
         randomnum = Integer.parseInt(id);
@@ -217,7 +217,7 @@ public class ChatWebViewActivity extends Activity {
         JSONObject data = new JSONObject();
         data.put("Data", object);
         new Thread(() -> {
-            try {
+//            try {
                 OkHttpClient client = new OkHttpClient();
                 MediaType JSON = MediaType.parse("application/json; charset=utf-8");
                 RequestBody body = RequestBody.create(JSON, data.toJSONString());
@@ -227,21 +227,31 @@ public class ChatWebViewActivity extends Activity {
                         .build();
 
                 Call call = client.newCall(request);
-                Response response = call.execute();
-                if (response.isSuccessful()) {
+            Response response = null;
+            try {
+                response = call.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                    String jsonString = response.body().string();
-// android.util.Log.e("-------------------------",jsonString.toString());
-//System.out.println(jsonString);
+            if (response.isSuccessful()) {
+
+                String jsonString = null;
+                try {
+                    jsonString = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                android.util.Log.e("-------------------------", jsonString);
+                    System.out.println(jsonString);
                     JSONObject jsonObject = JSONObject.parseObject(jsonString);
                     String user_id = jsonObject.getJSONObject("Data").getString("user_id");
                     String key = jsonObject.getJSONObject("Data").getString("key");
                     Timestamp d = new Timestamp(System.currentTimeMillis());
                     String timestamp = String.valueOf(d.getTime());
-// android.util.Log.e("-------------------------",timestamp.toString());
-// System.out.println(timestamp);
+                    android.util.Log.e("-------------------------", timestamp.toString());
+                    System.out.println(timestamp);
 
-//生层code code = md5(sort(user_id+key+timestamp))
 
                     String code = user_id + key + timestamp;
                     byte bytes[] = code.getBytes();
@@ -267,15 +277,24 @@ public class ChatWebViewActivity extends Activity {
                     MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
                     RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
                     request = new Request.Builder()
-                            .url(ChainUpApp.Companion.getUrl().getChatApiUrl()+ "/api/lottery/PostIMLoginCode")//访问连接
+                            .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostIMLoginCode")//访问连接
                             .post(body1).build();
 
 
                     call = client.newCall(request);
 
-                    response = call.execute();
+                    try {
+                        response = call.execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                    JSONObject mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
+                    JSONObject mine = null;
+                    try {
+                        mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
 
                     String js = "window.localStorage.setItem('USERS_KEY','" + mine.toJSONString() + "');";
@@ -283,12 +302,12 @@ public class ChatWebViewActivity extends Activity {
                     this.runOnUiThread(() -> mwebView.evaluateJavascript(js, s -> mwebView.reload()));
 
 
-                }else {
-                    Log.e("-------------------------","shib");
+                } else {
+                    Log.e("-------------------------", "shib");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
         }).start();
     }
