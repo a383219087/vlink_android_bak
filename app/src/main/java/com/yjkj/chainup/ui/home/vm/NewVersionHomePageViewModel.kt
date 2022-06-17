@@ -79,7 +79,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "${ChainUpApp.url?.optionUrl}?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.optionUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
@@ -113,7 +113,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
@@ -149,7 +149,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&style=${style}"
+                    val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
