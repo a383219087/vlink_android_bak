@@ -1,7 +1,6 @@
 package com.yjkj.chainup.ui.home;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +15,8 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.fastjson.JSONObject;
@@ -41,7 +42,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @Route(path = RoutePath.ChatWebViewActivity)
-public class ChatWebViewActivity extends Activity {
+public class ChatWebViewActivity extends AppCompatActivity {
     private WebView mwebView;
     UdeskWebChromeClient udeskWebChromeClient;
     String url = "";

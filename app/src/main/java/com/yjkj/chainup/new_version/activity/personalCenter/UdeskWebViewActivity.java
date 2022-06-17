@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.activity.personalCenter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,12 +8,13 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jaeger.library.StatusBarUtil;
@@ -26,14 +26,14 @@ import com.yjkj.chainup.new_version.view.ICloseWindow;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 
 @Route(path = RoutePath.UdeskWebViewActivity)
-public class UdeskWebViewActivity extends Activity {
+public class UdeskWebViewActivity extends AppCompatActivity {
     private WebView mwebView;
     UdeskWebChromeClient udeskWebChromeClient;
     String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.udesk_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
