@@ -1037,7 +1037,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         GlobalScope.launch {
 //            LogUtil.e(TAG, "交易页面网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
             delay(3000L)
-            val isResult = v_horizontal_depth.isDepth()
             val statusType = v_horizontal_depth.depthBuyOrSell().getKlineByType(WsAgentManager.instance.pageSubWs(this@NCVCTradeFragment))
 //            LogUtil.e(TAG, "交易页面网络统计 end ws状态 " + WsAgentManager.instance.isConnection() + " k线数据 ${isResult} " + " statusType " + statusType + " time ${klineTime}")
             sendWsHomepage(mIsVisibleToUser, statusType, NetworkDataService.KEY_PAGE_TRANSACTION, NetworkDataService.KEY_SUB_TRAN_DEPTH, klineTime)
