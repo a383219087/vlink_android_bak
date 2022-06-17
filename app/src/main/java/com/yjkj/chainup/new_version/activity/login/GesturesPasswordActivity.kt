@@ -8,17 +8,12 @@ import com.jaeger.library.StatusBarUtil
 import com.wangnan.library.listener.OnGestureLockListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
-import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.view.GesturesPasswordTool
-import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.DisplayUtil
-import com.yjkj.chainup.util.NToastUtil
+import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.activity_gestures_password.*
 import org.json.JSONObject
 
@@ -126,7 +121,11 @@ class GesturesPasswordActivity : NBaseActivity() {
              */
             override fun onComplete(result: String?) {
                 if (result?.length ?: 0 < 5) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "common_tip_gestureLimitPoint"), false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "common_tip_gestureLimitPoint"),
+                        false
+                    )
                     geetest_view?.showErrorStatus(400)
                     return
                 }
@@ -146,54 +145,73 @@ class GesturesPasswordActivity : NBaseActivity() {
                     if (setGesturesFrist) {
                         setGesturesFrist = false
                         pwdForGestures = pwdResult.trim { it <= ' ' }
-                        DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "safety_action_confrimGesturePassword"), true)
+                        DisplayUtil.showSnackBar(
+                            window?.decorView,
+                            LanguageUtil.getString(mActivity, "safety_action_confrimGesturePassword"),
+                            true
+                        )
                         tv_gestures_title_second?.text = LanguageUtil.getString(mActivity, "safety_action_confrimGesturePassword")
                         geetest_view?.clearView()
                     } else {
                         if (pwdForGestures == pwdResult.trim { it <= ' ' }) {
                             if (loginAndSet) {
-                                addDisposable(getMainModel().newOpenHand(UserDataService.getInstance().quickToken, pwdResult.trim { it <= ' ' }, object : NDisposableObserver(mActivity, true) {
-                                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                                        UserDataService.getInstance().saveGesturePass(pwdResult.trim(predicate = { it <= ' ' }))
+                                addDisposable(
+                                    getMainModel().newOpenHand(
+                                        UserDataService.getInstance().quickToken,
+                                        pwdResult.trim { it <= ' ' },
+                                        object : NDisposableObserver(mActivity, true) {
+                                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                                UserDataService.getInstance()
+                                                    .saveGesturePass(pwdResult.trim(predicate = { it <= ' ' }))
 
-                                        var json = UserDataService.getInstance().userData
-                                        json.put("gesturePwd", pwdResult.trim { it <= ' ' })
-                                        UserDataService.getInstance().saveData(json)
-                                        this@GesturesPasswordActivity.finish()
+                                                var json = UserDataService.getInstance().userData
+                                                json.put("gesturePwd", pwdResult.trim { it <= ' ' })
+                                                UserDataService.getInstance().saveData(json)
+                                                this@GesturesPasswordActivity.finish()
 
-                                    }
+                                            }
 
-                                    override fun onResponseFailure(code: Int, msg: String?) {
-                                        super.onResponseFailure(code, msg)
-                                        DisplayUtil.showSnackBar(window?.decorView, msg, isSuc = false)
-                                        geetest_view?.showErrorStatus(400)
-                                    }
-                                }))
+                                            override fun onResponseFailure(code: Int, msg: String?) {
+                                                super.onResponseFailure(code, msg)
+                                                DisplayUtil.showSnackBar(window?.decorView, msg, isSuc = false)
+                                                geetest_view?.showErrorStatus(400)
+                                            }
+                                        })
+                                )
                             } else {
-                                addDisposable(getMainModel().setHandPwd(token, pwdResult.trim { it <= ' ' }, object : NDisposableObserver() {
-                                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                                        UserDataService.getInstance().saveGesturePass(pwdResult.trim { it <= ' ' })
+                                addDisposable(
+                                    getMainModel().setHandPwd(
+                                        token,
+                                        pwdResult.trim { it <= ' ' },
+                                        object : NDisposableObserver() {
+                                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                                UserDataService.getInstance().saveGesturePass(pwdResult.trim { it <= ' ' })
 
-                                        var json = UserDataService.getInstance().userData
-                                        json.put("gesturePwd", pwdResult.trim { it <= ' ' })
-                                        UserDataService.getInstance().saveData(json)
+                                                var json = UserDataService.getInstance().userData
+                                                json.put("gesturePwd", pwdResult.trim { it <= ' ' })
+                                                UserDataService.getInstance().saveData(json)
 
-                                        this@GesturesPasswordActivity.finish()
-                                    }
+                                                this@GesturesPasswordActivity.finish()
+                                            }
 
-                                    override fun onResponseFailure(code: Int, msg: String?) {
-                                        super.onResponseFailure(code, msg)
-                                        DisplayUtil.showSnackBar(window?.decorView, msg, isSuc = false)
-                                        geetest_view?.showErrorStatus(400)
-                                    }
-                                }))
+                                            override fun onResponseFailure(code: Int, msg: String?) {
+                                                super.onResponseFailure(code, msg)
+                                                DisplayUtil.showSnackBar(window?.decorView, msg, isSuc = false)
+                                                geetest_view?.showErrorStatus(400)
+                                            }
+                                        })
+                                )
                             }
 
 
                         } else {
                             setGesturesFrist = true
                             pwdForGestures = ""
-                            DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "login_tip_gestureNotMatch"), isSuc = false)
+                            DisplayUtil.showSnackBar(
+                                window?.decorView,
+                                LanguageUtil.getString(mActivity, "login_tip_gestureNotMatch"),
+                                isSuc = false
+                            )
                             tv_gestures_title_second?.text = LanguageUtil.getString(mActivity, "safety_action_setGesturePassword")
                             geetest_view?.showErrorStatus(400)
                         }
@@ -244,12 +262,10 @@ class GesturesPasswordActivity : NBaseActivity() {
             override fun onResponseFailure(code: Int, msg: String?) {
                 super.onResponseFailure(code, msg)
                 NToastUtil.showTopToastNet(mActivity, false, msg)
-                if (code == ParamConstant.QUICK_LOGIN_FAILURE) {
-                    UserDataService.getInstance().saveQuickToken("")
-                    ArouterUtil.navigation("/login/NewVersionLoginActivity", null)
-                    finish()
-                }
+                UserDataService.getInstance().saveQuickToken("")
+                ArouterUtil.navigation("/login/NewVersionLoginActivity", null)
                 finish()
+
                 geetest_view?.showErrorStatus(400)
             }
 

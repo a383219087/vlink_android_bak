@@ -54,10 +54,6 @@ class NewVersionLoginActivity : NBaseActivity() {
      */
     var accountContent = "314062259@qq.com"
 
-    /**
-     * 极验
-     */
-    var gee3test = arrayListOf<String>()
 
 
     /**
@@ -255,12 +251,6 @@ class NewVersionLoginActivity : NBaseActivity() {
                 // {"code":"0","msg":"成功","data":{"type":"2","token":"39257f8399139a329ca6637f6c9f6474"}}
                 Log.d("=== mobile login====", "登录成功$data")
 
-
-//                val typeList = data.optString("typeList") ?: ""
-//                if (typeList.isNotEmpty() && StringUtil.checkStr(typeList) && typeList.split(",").size <= 2) {
-//                    val googleAuth = data.optString("googleAuth") ?: "0"
-//                    nextPageLoginType(ParamConstant.LOGIN_GOOOGLE,typeList,googleAuth)
-//                } else {
                 /**
                  * 登录新逻辑
                  * 跳到验证码页面
@@ -299,15 +289,4 @@ class NewVersionLoginActivity : NBaseActivity() {
         ArouterUtil.greenChannel("/login/newphoneverificationactivity", bundle)
     }
 
-    private fun nextPageLoginType(type: Int, typeList: String? = "", googleAuth: String? = "") {
-        val bundle = Bundle()
-        bundle.putString("send_account", accountContent)
-        bundle.putString("send_token", token)
-        bundle.putString("send_countryCode", "")
-        bundle.putInt("send_position", type)
-        bundle.putInt("send_islogin", 0)
-        bundle.putString("send_verifitionType", typeList)
-        bundle.putString("send_googleAuth", googleAuth)
-        ArouterUtil.greenChannel(RoutePath.NewVersionCodeActivity, bundle)
-    }
 }
