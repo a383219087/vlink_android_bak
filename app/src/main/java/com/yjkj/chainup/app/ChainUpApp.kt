@@ -6,7 +6,10 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Debug
+import android.os.Process
 import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
@@ -20,10 +23,8 @@ import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
-import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
