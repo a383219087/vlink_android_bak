@@ -26,11 +26,10 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
     companion object {
         @JvmStatic
-        fun newInstance(status: Int,type: Int,uid:String): HisDocumentaryFragment {
+        fun newInstance(status: Int,uid:String): HisDocumentaryFragment {
             val fg = HisDocumentaryFragment()
             val bundle = Bundle()
             bundle.putInt(ParamConstant.CUR_INDEX, status)
-            bundle.putInt(ParamConstant.COIN_TYPE, type)
             bundle.putString(ParamConstant.MARKET_NAME, uid)
             fg.arguments = bundle
             return fg
@@ -46,7 +45,6 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     override fun initView() {
         mViewModel?.activity?.value=mActivity
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
-        mViewModel?.type?.value=arguments?.getInt(ParamConstant.COIN_TYPE)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
 
         adapter = ClContractHistoricalPositionAdapter(mContext!!,mList)
@@ -57,7 +55,6 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val item = adapter.data[position] as JSONObject
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("json", item.toString())
-                    .withInt("type",  mViewModel?.type?.value!!)
                     .withInt("status",  mViewModel?.status?.value!!)
                     .navigation()
             }

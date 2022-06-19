@@ -31,9 +31,6 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     var bean = MutableLiveData<CpContractPositionBean>()
 
-    //  1是跟单2是带单
-
-    var type = MutableLiveData<Int>()
 
     //  1当前0是历史
 

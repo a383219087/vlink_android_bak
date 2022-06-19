@@ -244,14 +244,13 @@ public class ChatWebViewActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                android.util.Log.e("-------------------------", jsonString);
                     System.out.println(jsonString);
                     JSONObject jsonObject = JSONObject.parseObject(jsonString);
                     String user_id = jsonObject.getJSONObject("Data").getString("user_id");
                     String key = jsonObject.getJSONObject("Data").getString("key");
                     Timestamp d = new Timestamp(System.currentTimeMillis());
                     String timestamp = String.valueOf(d.getTime());
-                    android.util.Log.e("-------------------------", timestamp.toString());
+
                     System.out.println(timestamp);
 
 
