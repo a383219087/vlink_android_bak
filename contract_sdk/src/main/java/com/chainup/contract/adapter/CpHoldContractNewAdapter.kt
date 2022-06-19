@@ -132,12 +132,6 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             //已结算盈亏
             setText(R.id.tv_settled_profit_loss_value, CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision))
 
-    //            if (CpBigDecimalUtils.compareTo(
-    //                    CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision),"0")==1){
-    //                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_green))
-    //            }else{
-    //                setTextColor(R.id.tv_settled_profit_loss_value, context.resources.getColor(R.color.main_red))
-    //            }
         }
     }
 }

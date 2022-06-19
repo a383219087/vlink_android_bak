@@ -178,6 +178,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -255,7 +256,6 @@ public class ChatWebViewActivity extends AppCompatActivity {
 
 
                     String code = user_id + key + timestamp;
-                    byte bytes[] = code.getBytes();
                     ArrayList<Character> list = new ArrayList<Character>(code.length());
                     for (int i = 0; i < code.length(); i++) {
                         list.add(code.charAt(i));
