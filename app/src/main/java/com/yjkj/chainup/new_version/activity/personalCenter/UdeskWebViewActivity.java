@@ -22,7 +22,6 @@ import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.constant.RoutePath;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
-import com.yjkj.chainup.new_version.view.ICloseWindow;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 
 @Route(path = RoutePath.UdeskWebViewActivity)
@@ -43,12 +42,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 
     private void initViews() {
         try {
-            udeskWebChromeClient = new UdeskWebChromeClient(this, new ICloseWindow() {
-                @Override
-                public void closeActivty() {
-                    finish();
-                }
-            });
+            udeskWebChromeClient = new UdeskWebChromeClient(this, () -> finish());
             mwebView = (WebView) findViewById(R.id.webview);
             settingWebView(url);
         } catch (Exception e) {
@@ -71,6 +65,8 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         //  设置自适应屏幕，两者合用
         settings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         //若setSupportZoom是false，则该WebView不可缩放，这个不管设置什么都不能缩放。
         settings.setSupportZoom(true);  //支持缩放，默认为true。是setBuiltInZoomControls的前提。
@@ -167,6 +163,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
     }
 
