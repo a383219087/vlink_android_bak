@@ -88,7 +88,6 @@ public class ChatWebViewActivity extends AppCompatActivity {
         settings.setBuiltInZoomControls(true); //设置内置的缩放控件。
         settings.supportMultipleWindows();  //多窗口
 
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setAllowFileAccess(true);  //设置可以访问文件
         settings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
 

@@ -66,7 +66,6 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         settings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         //若setSupportZoom是false，则该WebView不可缩放，这个不管设置什么都不能缩放。
         settings.setSupportZoom(true);  //支持缩放，默认为true。是setBuiltInZoomControls的前提。
