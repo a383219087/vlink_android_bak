@@ -26,7 +26,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
     companion object {
         @JvmStatic
-        fun newInstance(status: Int,uid:String): HisDocumentaryFragment {
+        fun newInstance(status: Int, uid: String): HisDocumentaryFragment {
             val fg = HisDocumentaryFragment()
             val bundle = Bundle()
             bundle.putInt(ParamConstant.CUR_INDEX, status)
@@ -36,26 +36,26 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         }
 
     }
+
     private var adapter: ClContractHistoricalPositionAdapter? = null
     private var mList = ArrayList<JSONObject>()
 
 
-
     override fun setContentView(): Int = R.layout.fragment_now_documentary
     override fun initView() {
-        mViewModel?.activity?.value=mActivity
-        mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
-        mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
+        mViewModel?.activity?.value = mActivity
+        mViewModel?.status?.value = arguments?.getInt(ParamConstant.CUR_INDEX)
+        mViewModel?.uid?.value = arguments?.getString(ParamConstant.MARKET_NAME)
 
-        adapter = ClContractHistoricalPositionAdapter(mContext!!,mList)
+        adapter = ClContractHistoricalPositionAdapter(mContext!!, mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
-        adapter?.setOnItemClickListener{adapter, view, position ->
-            if (mViewModel?.uid?.value.isNullOrEmpty()){
+        adapter?.setOnItemClickListener { adapter, view, position ->
+            if (mViewModel?.uid?.value.isNullOrEmpty()) {
                 val item = adapter.data[position] as JSONObject
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("json", item.toString())
-                    .withInt("status",  mViewModel?.status?.value!!)
+                    .withInt("status", mViewModel?.status?.value!!)
                     .navigation()
             }
         }
@@ -70,41 +70,60 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private  fun getList() {
+    private fun getList() {
         mList.clear()
-        val map = HashMap<String, Any>()
-        map["status"] =  mViewModel?.status?.value.toString()
-
-        if ( mViewModel?.uid?.value.isNullOrEmpty()) {
-            map["traderUid"] = UserDataService.getInstance().userInfo4UserId
-        } else {
-            map["traderUid"] =  mViewModel?.uid?.value.toString()
-        }
-
-        mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList1(map), Consumer {
-           val jsonObject = JSONUtil.parse(it, true)
-            jsonObject.optJSONObject("data").run {
-                var mPositionList = optJSONArray("positionList")
-                if (mPositionList.length() != 0) {
-                    tv_em.visibility=View.GONE
-                    for (i in 0 until mPositionList.length()) {
-                        var obj: JSONObject = mPositionList.get(i) as JSONObject
-                        mList.add(obj)
+        if (mViewModel?.status?.value == 1) {
+            mViewModel?.startTask(mViewModel?.contractApiService!!.findHisSingleList(), Consumer {
+                val jsonObject = JSONUtil.parse(it, true)
+                jsonObject.optJSONObject("data").run {
+                    val mPositionList = optJSONArray("positionList")
+                    if (mPositionList.length() != 0) {
+                        tv_em.visibility = View.GONE
+                        for (i in 0 until mPositionList.length()) {
+                            var obj: JSONObject = mPositionList.get(i) as JSONObject
+                            mList.add(obj)
+                        }
+                        adapter?.notifyDataSetChanged()
+                    } else {
+                        tv_em.visibility = View.VISIBLE
                     }
-                    adapter?.notifyDataSetChanged()
-                }else{
-                    tv_em.visibility=View.VISIBLE
+
+
                 }
 
+            })
+        } else {
+            val map = HashMap<String, Any>()
+            map["status"] = mViewModel?.status?.value.toString()
 
-
+            if (mViewModel?.uid?.value.isNullOrEmpty()) {
+                map["traderUid"] = UserDataService.getInstance().userInfo4UserId
+            } else {
+                map["traderUid"] = mViewModel?.uid?.value.toString()
             }
 
-        })
+            mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList1(map), Consumer {
+                val jsonObject = JSONUtil.parse(it, true)
+                jsonObject.optJSONObject("data").run {
+                    var mPositionList = optJSONArray("positionList")
+                    if (mPositionList.length() != 0) {
+                        tv_em.visibility = View.GONE
+                        for (i in 0 until mPositionList.length()) {
+                            var obj: JSONObject = mPositionList.get(i) as JSONObject
+                            mList.add(obj)
+                        }
+                        adapter?.notifyDataSetChanged()
+                    } else {
+                        tv_em.visibility = View.VISIBLE
+                    }
+
+
+                }
+
+            })
+        }
 
     }
-
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -113,7 +132,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         when (event.msg_type) {
 
             MessageEvent.refresh_MyInviteCodesActivity -> {
-               getList()
+                getList()
             }
         }
     }

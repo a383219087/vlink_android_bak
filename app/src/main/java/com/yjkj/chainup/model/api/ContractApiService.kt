@@ -37,6 +37,11 @@ interface ContractApiService {
     @POST("position/find_current_single_list")
     fun findCurrentSingleList(): Observable<HttpResult<TraderPositionInfo>>
     /**
+     * 历史跟单
+     */
+    @POST("position/find_his_single_list")
+    fun findHisSingleList(): Observable<ResponseBody>
+    /**
      * 带单列表
      */
     @POST("position/trader_position_list")
