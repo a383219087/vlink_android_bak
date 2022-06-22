@@ -170,23 +170,18 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:id="@+id/v_top_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_10"
-                        android:background="@color/bg_color" />
-
-
                     <RelativeLayout
                         android:id="@+id/recycler_center_service_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        tool:visibility="gone"
                         android:paddingTop="@dimen/dp_8">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_center_service"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_128" />
+                            android:layout_height="wrap_content" />
 
                         <LinearLayout
                             android:id="@+id/rl_controller"
@@ -216,6 +211,7 @@
                     <RelativeLayout
                         android:id="@+id/rl_custom_config"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/dp_16"
                         android:paddingRight="@dimen/dp_16"
@@ -235,10 +231,7 @@
                     </RelativeLayout>
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_10"
-                        android:background="@color/bg_color" />
+
 
                     <include
                         android:id="@+id/no_network_bottom_vp"

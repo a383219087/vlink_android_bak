@@ -10,8 +10,6 @@ import android.content.Context;
 
 public class GlobalAppComponent {
 
-    public static boolean hasEnterLogin = false;//标记是否已进入登录页面
-    public static boolean isAutoForwardLogin = true;//标记是否已进入登录页面
 
 
     /**

@@ -23,7 +23,11 @@ data class EnableModuleInfo(
     val options :Int?,
     val chat :Int?,
     val blocks :Int?,
-    val crazy :Int?
+    val crazy :Int?,
+    val blocks_version :String?,
+    val crazy_version :String?,
+    val options_version :String?
+
 
 
     ) : Serializable

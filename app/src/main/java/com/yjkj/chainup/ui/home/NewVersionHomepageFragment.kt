@@ -227,7 +227,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         override fun onResponseSuccess(jsonObject: JSONObject) {
             if (getTopDataReqType == req_type) {
                 recycler_top_24?.visibility = View.VISIBLE
-                v_top_line?.visibility = View.VISIBLE
                 showTopSymbolsData(jsonObject.optJSONArray("data"))
             } else if (homepageReqType == req_type) {
                 showHomepageData(jsonObject.optJSONObject("data"))
@@ -242,7 +241,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             super.onResponseFailure(code, msg)
             if (getTopDataReqType == req_type) {
                 recycler_top_24?.visibility = View.GONE
-                v_top_line?.visibility = View.GONE
             }
             if (req_type == homeData) {
                 initSocket()
@@ -598,11 +596,9 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             } else {
                 layout_item?.visibility = View.GONE
             }
-            v_top_line?.visibility = View.VISIBLE
         } else {
             recycler_top_24?.visibility = View.GONE
             layout_item?.visibility = View.GONE
-            v_top_line?.visibility = View.GONE
         }
     }
 

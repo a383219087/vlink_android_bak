@@ -30,6 +30,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
     private WebView mwebView;
     UdeskWebChromeClient udeskWebChromeClient;
     String url = "";
+    boolean clean = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.udesk_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
+        clean = getIntent().getBooleanExtra(ParamConstant.DEFAULT_NAME_ERROR,false);
         setBarColor(PublicInfoDataService.getInstance().getThemeMode());
         initViews();
     }
@@ -71,7 +73,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         //  设置自适应屏幕，两者合用
         settings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
+        settings.setCacheMode(clean?WebSettings.LOAD_NO_CACHE:WebSettings.LOAD_DEFAULT);
         //若setSupportZoom是false，则该WebView不可缩放，这个不管设置什么都不能缩放。
         settings.setSupportZoom(true);  //支持缩放，默认为true。是setBuiltInZoomControls的前提。
         settings.setBuiltInZoomControls(true); //设置内置的缩放控件。
@@ -167,6 +169,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -185,7 +188,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
     /**
      * 设置状态栏的颜色
      *
-     * @param 0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
+     *  0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
      */
     private void setBarColor(int index) {
         if (index == 0) {

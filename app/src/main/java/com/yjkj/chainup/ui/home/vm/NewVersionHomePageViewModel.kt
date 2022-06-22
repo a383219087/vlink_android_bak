@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
+import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.utils.CpClLogicContractSetting.getThemeMode
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
@@ -28,11 +29,6 @@ import java.util.*
 
 
 class NewVersionHomePageViewModel : HomePageViewModel() {
-
-
-
-
-
 
 
     /**
@@ -76,12 +72,18 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
+                    var clean = false
+                    if (SPUtils.getInstance().getString("optionUrl", "") != item.version.value) {
+                        clean = true
+                        SPUtils.getInstance().put("optionUrl", item.version.value)
+                    }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
                     val url = "${ChainUpApp.url?.optionUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
 
                 }
@@ -110,12 +112,18 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
+                    var clean = false
+                    if (SPUtils.getInstance().getString("blocksUrl", "") != item.version.value) {
+                        clean = true
+                        SPUtils.getInstance().put("blocksUrl", item.version.value)
+                    }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
                     val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
 
                 }
@@ -127,7 +135,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                         return
                     }
                     val bundle = Bundle()
-                    bundle.putString(ParamConstant.URL_4_SERVICE,ChainUpApp.url?.chatUrl)
+                    bundle.putString(ParamConstant.URL_4_SERVICE, ChainUpApp.url?.chatUrl)
                     ArouterUtil.greenChannel(RoutePath.ChatWebViewActivity, bundle)
                 }
                 /**
@@ -146,12 +154,19 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
+                    var clean = false
+                    if (SPUtils.getInstance().getString("crazyUrl", "") != item.version.value) {
+                        clean = true
+                        SPUtils.getInstance().put("crazyUrl", item.version.value)
+                    }
+
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
                     val style = if (getThemeMode(context) == 0) "white" else "black"
                     val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
                     ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
                 }
 
@@ -174,6 +189,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
         var index = MutableLiveData(0)
         var resImg = MutableLiveData(0)
         var title = MutableLiveData("")
+        var version = MutableLiveData("")
 
     }
 
@@ -243,6 +259,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 val item = Item()
                 item.index.value = 3
                 item.resImg.value = R.mipmap.qiquan
+                item.version.value = it.data?.enable_module_info?.options_version
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text4")
                 items.add(item)
             }
@@ -273,6 +290,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 val item = Item()
                 item.index.value = 6
                 item.resImg.value = R.mipmap.youxi
+                item.version.value = it.data?.enable_module_info?.blocks_version
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text7")
                 items.add(item)
             }
@@ -303,6 +321,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 val item = Item()
                 item.index.value = 9
                 item.resImg.value = R.mipmap.youxi
+                item.version.value = it.data?.enable_module_info?.crazy_version
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text14")
                 items.add(item)
             }
@@ -313,7 +332,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     /**
      * 快捷买币
      */
-    fun quickBuy(){
+    fun quickBuy() {
         if (!LoginManager.checkLogin(mActivity.value, true)) {
             return
         }
@@ -323,7 +342,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     /**
      * p2p买币
      */
-    fun p2pBuy(){
+    fun p2pBuy() {
         ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
     }
 
