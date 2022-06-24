@@ -105,28 +105,28 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     ArouterUtil.navigation(RoutePath.FinancialActivity, null)
                 }
-                /**
-                 * 猜区块
-                 */
-                6 -> {
-                    if (!LoginManager.checkLogin(mActivity.value, true)) {
-                        return
-                    }
-                    var clean = false
-                    if (SPUtils.getInstance().getString("blocksUrl", "") != item.version.value) {
-                        clean = true
-                        SPUtils.getInstance().put("blocksUrl", item.version.value)
-                    }
-                    val token = UserDataService.getInstance().token
-                    val lang = NLanguageUtil.getLanguage()
-                    val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&type=${style}"
-                    val bundle = Bundle()
-                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
-                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
-                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
-
-                }
+//                /**
+//                 * 猜区块
+//                 */
+//                6 -> {
+//                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+//                        return
+//                    }
+//                    var clean = false
+//                    if (SPUtils.getInstance().getString("blocksUrl", "") != item.version.value) {
+//                        clean = true
+//                        SPUtils.getInstance().put("blocksUrl", item.version.value)
+//                    }
+//                    val token = UserDataService.getInstance().token
+//                    val lang = NLanguageUtil.getLanguage()
+//                    val style = if (getThemeMode(context) == 0) "white" else "black"
+//                    val url = "${ChainUpApp.url?.blocksUrl}?token=${token}&lang=${lang}&type=${style}"
+//                    val bundle = Bundle()
+//                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+//                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
+//                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+//
+//                }
                 /**
                  * 密聊
                  */
@@ -147,28 +147,28 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
                 }
-                /**
-                 * 疯狂竞猜
-                 */
-                9 -> {
-                    if (!LoginManager.checkLogin(mActivity.value, true)) {
-                        return
-                    }
-                    var clean = false
-                    if (SPUtils.getInstance().getString("crazyUrl", "") != item.version.value) {
-                        clean = true
-                        SPUtils.getInstance().put("crazyUrl", item.version.value)
-                    }
-
-                    val token = UserDataService.getInstance().token
-                    val lang = NLanguageUtil.getLanguage()
-                    val style = if (getThemeMode(context) == 0) "white" else "black"
-                    val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&type=${style}"
-                    val bundle = Bundle()
-                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
-                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
-                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
-                }
+//                /**
+//                 * 疯狂竞猜
+//                 */
+//                9 -> {
+//                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+//                        return
+//                    }
+//                    var clean = false
+//                    if (SPUtils.getInstance().getString("crazyUrl", "") != item.version.value) {
+//                        clean = true
+//                        SPUtils.getInstance().put("crazyUrl", item.version.value)
+//                    }
+//
+//                    val token = UserDataService.getInstance().token
+//                    val lang = NLanguageUtil.getLanguage()
+//                    val style = if (getThemeMode(context) == 0) "white" else "black"
+//                    val url = "${ChainUpApp.url?.crazyUrl}?token=${token}&lang=${lang}&type=${style}"
+//                    val bundle = Bundle()
+//                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+//                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, clean)
+//                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+//                }
 
 
             }
@@ -258,7 +258,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
             if (futures == 1) {
                 val item = Item()
                 item.index.value = 3
-                item.resImg.value = R.mipmap.qiquan
+                item.resImg.value = R.mipmap.youxi
                 item.version.value = it.data?.enable_module_info?.options_version
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text4")
                 items.add(item)
@@ -283,17 +283,17 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text6")
                 items.add(item)
             }
-            /**
-             * 猜区块
-             */
-            if (blocks == 1) {
-                val item = Item()
-                item.index.value = 6
-                item.resImg.value = R.mipmap.youxi
-                item.version.value = it.data?.enable_module_info?.blocks_version
-                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text7")
-                items.add(item)
-            }
+//            /**
+//             * 猜区块
+//             */
+//            if (blocks == 1) {
+//                val item = Item()
+//                item.index.value = 6
+//                item.resImg.value = R.mipmap.youxi
+//                item.version.value = it.data?.enable_module_info?.blocks_version
+//                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text7")
+//                items.add(item)
+//            }
             /**
              * 密聊
              */
@@ -314,17 +314,17 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text9")
                 items.add(item)
             }
-            /**
-             * 疯狂
-             */
-            if (crazy == 1) {
-                val item = Item()
-                item.index.value = 9
-                item.resImg.value = R.mipmap.youxi
-                item.version.value = it.data?.enable_module_info?.crazy_version
-                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text14")
-                items.add(item)
-            }
+//            /**
+//             * 疯狂
+//             */
+//            if (crazy == 1) {
+//                val item = Item()
+//                item.index.value = 9
+//                item.resImg.value = R.mipmap.youxi
+//                item.version.value = it.data?.enable_module_info?.crazy_version
+//                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text14")
+//                items.add(item)
+//            }
         })
 
     }
