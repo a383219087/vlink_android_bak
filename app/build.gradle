@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "ua.eshepelyuk.ManifestClasspath"
-
+//apply from: "../gradle/exported.gradle"
 
 //apply plugin: 'com.alibaba.arouter'
 //TODO 上线开启
@@ -361,5 +361,6 @@ dependencies {
     api project(path: ':talkingdata_library')
     implementation 'com.binioter:guideview:1.0.0'
     api 'com.qmuiteam:qmui:1.2.0'
+
 
 }

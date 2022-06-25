@@ -3,11 +3,11 @@
 
 ext{
     android = [
-            compileSdkVersion : 30,
+            compileSdkVersion : 32,
             buildToolsVersion : "30.0.3",
             minSdkVersion : 23,
-            maxSdkVersion : 30,
-            targetSdkVersion : 30,
+            maxSdkVersion : 32,
+            targetSdkVersion : 32,
             appcompatVersion : '1.0.2',
             corektxVersion : '1.0.2',
             constraintlayoutVersion : '1.1.3',

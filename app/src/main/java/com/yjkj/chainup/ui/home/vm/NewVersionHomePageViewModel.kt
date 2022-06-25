@@ -346,4 +346,8 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
         ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
     }
 
+
+
+
+
 }
