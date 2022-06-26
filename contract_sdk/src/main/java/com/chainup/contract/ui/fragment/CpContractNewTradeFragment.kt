@@ -13,16 +13,15 @@ import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.chainup.contract.view.CpSlDialogHelper
 import com.chainup.contract.ws.CpWsContractAgentManager
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.coorchice.library.utils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity
 import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
 import io.reactivex.Observable
@@ -586,13 +585,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             getContractPublicInfo()
             v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
         }
-        AppAnalyticsExt.instance.activityStart(AppAnalyticsExt.CONTRACT_APP_PAGE_1)
     }
 
-    override fun onStop() {
-        super.onStop()
-        AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.CONTRACT_APP_PAGE_1)
-    }
+
     override fun onPause() {
         super.onPause()
         loopStop()

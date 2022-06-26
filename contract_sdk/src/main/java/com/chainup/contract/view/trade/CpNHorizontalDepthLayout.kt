@@ -15,7 +15,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SizeUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpAppConstant
 import com.chainup.contract.app.CpCommonConstant
@@ -29,7 +28,6 @@ import com.chainup.contract.view.CpNewDialogUtils
 import com.chainup.contract.view.bubble.CpBubbleSeekBar
 import com.chainup.contract.view.dialog.CpTDialog
 import com.chainup.contract.view.dialog.listener.OnCpBindViewListener
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.google.gson.Gson
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
@@ -39,7 +37,6 @@ import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_depth_horizontal_layout.view.*
-import kotlinx.android.synthetic.main.cp_item_price_type_button.view.*
 import kotlinx.android.synthetic.main.cp_item_transaction_detail.view.*
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundColor
@@ -53,7 +50,6 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                                                          attrs: AttributeSet? = null,
@@ -384,7 +380,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             val mMessageEvent = CpMessageEvent(CpMessageEvent.sl_contract_go_fundsTransfer_page)
             mMessageEvent.msg_content = marginCoin
             CpEventBusUtil.post(mMessageEvent)
-            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_10)
         }
 
         //资金费率

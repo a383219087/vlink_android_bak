@@ -53,9 +53,6 @@ public class CommonComponent {
             Bugly.init(context, ContextUtil.getString(R.string.buglyId), BuildConfig.DEBUG,user);
         }
 
-//        if (AppConfig.isFirebaseAnalyticsOpen) {
-//            FirebaseAnalytics.getInstance(context);
-//        }
         String time = DateUtils.Companion.getYearLongDayMS();
         LogNetCollector.getInstance(context)
                 .setCleanCache(false)

@@ -5,17 +5,14 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
-import com.chainup.contract.app.CpMyApp.Companion.instance
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -24,14 +21,11 @@ import com.chainup.contract.utils.*
 import com.chainup.contract.view.CpCommonlyUsedButton
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.cp_depth_horizontal_layout.view.*
-import kotlinx.android.synthetic.main.cp_include_contract_trade_left_layout.*
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.view
@@ -153,7 +147,6 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             val mCpMessageEvent=  CpMessageEvent(CpMessageEvent.sl_contract_modify_depth_event)
             mCpMessageEvent.msg_content=buyOrSellHelper
             CpEventBusUtil.post(mCpMessageEvent)
-            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_1)
         }
         rb_sell.setSafeListener {
             transactionType = CpParamConstant.TYPE_SELL
@@ -163,16 +156,8 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             val mCpMessageEvent=  CpMessageEvent(CpMessageEvent.sl_contract_modify_depth_event)
             mCpMessageEvent.msg_content=buyOrSellHelper
             CpEventBusUtil.post(mCpMessageEvent)
-            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_2)
         }
-        et_volume.setSafeListener {
-//            it.setFocusable(true);//设置输入框可聚集
-//            it.setFocusableInTouchMode(true);//设置触摸聚焦
-//            it.requestFocus();//请求焦点
-//            it.findFocus();//获取焦点
-//            isPercentPlaceOrder = false
-//            rg_trade.clearCheck()
-        }
+
 
         btn_login_contract.setSafeListener {
             if (!CpClLogicContractSetting.isLogin()) {
@@ -214,24 +199,24 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             RxView.clicks(it)
                     .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ x ->
+                    .subscribe { x ->
                         clearUIFocus()
                         tv_rival_price_type?.stratAnim()
-                        CpDialogUtil.createRivalPricePop(context, buyOrSellHelper, it, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-                            override fun clickItem(position: Int, text: String) {
-                                tv_rival_price_type?.textContent = text
-                                when(position){
-                                    0->AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_7)
-                                    1->AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_8)
-                                    2->AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_9)
+                        CpDialogUtil.createRivalPricePop(
+                            context,
+                            buyOrSellHelper,
+                            it,
+                            object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+                                override fun clickItem(position: Int, text: String) {
+                                    tv_rival_price_type?.textContent = text
                                 }
-                            }
-                        }, object : CpNewDialogUtils.DialogOnDismissClickListener {
-                            override fun clickItem() {
-                                tv_rival_price_type?.stopAnim()
-                            }
-                        })
-                    })
+                            },
+                            object : CpNewDialogUtils.DialogOnDismissClickListener {
+                                override fun clickItem() {
+                                    tv_rival_price_type?.stopAnim()
+                                }
+                            })
+                    }
         }
 
         //点击条件单下的市价单
@@ -345,22 +330,18 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     R.id.rb_1st -> {
                         et_volume.setText(rb_1st.text.toString())
                         adjustRatio("0.10")
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_3)
                     }
                     R.id.rb_2nd -> {
                         et_volume.setText(rb_2nd.text.toString())
                         adjustRatio("0.20")
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_4)
                     }
                     R.id.rb_3rd -> {
                         et_volume.setText(rb_3rd.text.toString())
                         adjustRatio("0.50")
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_5)
                     }
                     R.id.rb_4th -> {
                         et_volume.setText(rb_4th.text.toString())
                         adjustRatio("1.0")
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_6)
                     }
                 }
             }

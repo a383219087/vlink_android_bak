@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.chainup.talkingdata.AppAnalyticsExt
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.view.RxView
@@ -691,7 +690,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 撤销订单
      */
     private fun deleteOrder(order_id: String, symbol: String, pos: Int) {
-        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.APP_ACTION_OrderCancel, mapOf("orderId" to order_id, "symbol" to symbol))
         addDisposable(getMainModel().cancelOrder(order_id = order_id, symbol = symbol, consumer = object : NDisposableObserver(activity, true) {
             override fun onResponseSuccess(data: JSONObject) {
                 NToastUtil.showTopToastNet(this.mActivity, true, LanguageUtil.getString(context, "common_tip_cancelSuccess"))
@@ -950,17 +948,13 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        AppAnalyticsExt.instance.activityStart(AppAnalyticsExt.APP_EVENT_SpotTransactionPage)
-    }
+
 
     override fun onStop() {
         super.onStop()
         netValueDisposable?.clear()
         subscribe?.dispose()
         subscribeCoin?.dispose()
-        AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.APP_EVENT_SpotTransactionPage)
 //        LogUtil.d(TAG, "onStop()")
 
     }

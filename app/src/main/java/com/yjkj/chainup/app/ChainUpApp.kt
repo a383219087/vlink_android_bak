@@ -18,7 +18,6 @@ import com.bilibili.boxing.BoxingMediaLoader
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpLocalManageUtil
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.contract.sdk.ContractSDKAgent
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.db.constant.CommonConstant
@@ -61,11 +60,6 @@ class ChainUpApp : CpMyApp() {
             appStateChangeListener = getAppStateChangeListener()
             registerActivityLifecycleCallbacks(this)
             CommonComponent.getInstance().init(app)
-            val headerParams = SystemUtils.getHeaderParams()
-            LogUtil.e(TAG,"headerParams ${headerParams}")
-            AppAnalyticsExt.instance.init(this, headerParams)
-
-
             setCurrentTheme()
             initAppStatusListener()
 

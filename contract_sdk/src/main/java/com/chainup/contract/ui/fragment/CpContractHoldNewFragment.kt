@@ -10,20 +10,19 @@ import com.chainup.contract.R
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseFragment
+import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.listener.CpDoListener
+import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.coorchice.library.SuperTextView
 import com.google.gson.Gson
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
-import com.chainup.contract.bean.CpContractPositionBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -58,7 +57,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             val clickData = adapter.data[position] as CpContractPositionBean
             when (view.id) {
                 R.id.tv_close_position -> {
-                    AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_11)
                     mClosePositionDialog = CpDialogUtil.showClosePositionDialog(this.activity!!, OnBindViewListener {
                         it.setText(R.id.tv_type, if (clickData.orderSide.equals("BUY")) getString(R.string.cp_order_text6) else getString(R.string.cp_order_text15))
                         it.setTextColor(R.id.tv_type, if (clickData.orderSide.equals("BUY")) activity?.resources?.getColor(R.color.main_green)!! else activity?.resources?.getColor(R.color.main_red)!!)
@@ -122,7 +120,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             checkedIdBuff = it.id
                                             rg_order_type.check(it.id)
                                         }
-                                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_12)
                                     }
                                     R.id.rb_2 -> {
                                         tvOrderTips.setText(getString(R.string.cp_order_text44))
@@ -138,7 +135,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             checkedIdBuff = it.id
                                             rg_order_type.check(it.id)
                                         }
-                                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_14)
                                     }
                                     R.id.rb_3 -> {
                                         tvOrderTips.setText(getString(R.string.cp_order_text45))
@@ -154,7 +150,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             checkedIdBuff = it.id
                                             rg_order_type.check(it.id)
                                         }
-                                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_13)
                                     }
                                 }
                             }
@@ -176,24 +171,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             }
                             etVolume.clearFocus()
                             checkedIdBuff = checkedId
-                            LogUtils.e("checkedId" + checkedId)
-//                            when (checkedId) {
-//                                R.id.rb_1st -> {
-//                                    it.setText(R.id.et_volume, "10%")
-//                                }
-//                                R.id.rb_2nd -> {
-//                                    it.setText(R.id.et_volume, "20%")
-//                                }
-//                                R.id.rb_3rd -> {
-//                                    it.setText(R.id.et_volume, "50%")
-//                                }
-//                                R.id.rb_4th -> {
-//                                    it.setText(R.id.et_volume, "100%")
-//                                }
-//                                else -> {
-//                                    it.setText(R.id.et_volume, "")
-//                                }
-//                            }
                             val scale = if (CpClLogicContractSetting.getContractUint(CpMyApp.instance()) == 0) 0 else multiplierPrecision
                             val mCanCloseVolumeStr = if (CpClLogicContractSetting.getContractUint(CpMyApp.instance()) == 0) {
                                 clickData?.canCloseVolume.toString()
@@ -602,7 +579,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                     CpContractStopRateLossActivity.show(this.activity!!, clickData)
                 }
                 R.id.iv_share -> {
-                    AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_15)
                     CpNewDialogUtils.showShareDialog(
                             context!!,
                             clickData,

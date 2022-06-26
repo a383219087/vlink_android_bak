@@ -18,7 +18,6 @@ import android.widget.RadioButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding2.view.RxView
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -744,8 +743,6 @@ class TradeView @JvmOverloads constructor(context: Context,
         val volume = inputQuantity
         //限价模式下表示价格，市价无意义
         val price = inputPrice
-        val eventType = if (isLever) AppAnalyticsExt.APP_ACTION_LeverCreate else AppAnalyticsExt.APP_ACTION_OrderCreate
-        AppAnalyticsExt.instance.clickAction(eventType, mapOf("side" to side, "type" to type, "volume" to volume, "price" to price, "symbol" to getCurrentSymbol()))
         Log.d(TAG, "=disposable:===${disposable == null} ,${mainModel == null}======")
         (disposable ?: CompositeDisposable()).add((mainModel
                 ?: MainModel()).createOrder(side, type, volume, price, coinMapData?.optString("symbol", "")

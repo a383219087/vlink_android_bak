@@ -17,7 +17,6 @@ import com.chainup.contract.listener.CpDoListener
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.coorchice.library.SuperTextView
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.timmy.tdialog.TDialog
@@ -77,7 +76,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                 val clickData = adapter.data[position] as CpContractPositionBean
                 when (view.id) {
                     com.chainup.contract.R.id.tv_close_position -> {
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_11)
                         mClosePositionDialog = CpDialogUtil.showClosePositionDialog(mActivity, OnBindViewListener {
                             it.setText(
                                 com.chainup.contract.R.id.tv_type, if (clickData.orderSide.equals("BUY")) getString(com.chainup.contract.R.string.cp_order_text6) else getString(
@@ -148,7 +146,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                                                 checkedIdBuff = it.id
                                                 rg_order_type.check(it.id)
                                             }
-                                            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_12)
                                         }
                                         com.chainup.contract.R.id.rb_2 -> {
                                             tvOrderTips.setText(getString(com.chainup.contract.R.string.cp_order_text44))
@@ -164,7 +161,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                                                 checkedIdBuff = it.id
                                                 rg_order_type.check(it.id)
                                             }
-                                            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_14)
                                         }
                                         com.chainup.contract.R.id.rb_3 -> {
                                             tvOrderTips.setText(getString(com.chainup.contract.R.string.cp_order_text45))
@@ -180,7 +176,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                                                 checkedIdBuff = it.id
                                                 rg_order_type.check(it.id)
                                             }
-                                            AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_13)
                                         }
                                     }
                                 }
@@ -599,7 +594,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                         CpContractStopRateLossActivity.show(this.mActivity!!, clickData)
                     }
                     com.chainup.contract.R.id.iv_share -> {
-                        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.CONTRACT_APP_ACTION_15)
                         CpNewDialogUtils.showShareDialog(
                             mActivity!!,
                             clickData,

@@ -10,7 +10,6 @@ import com.chainup.contract.utils.CpClickUtil
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.chainup.contract.view.CpNewDialogUtils
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
@@ -364,17 +363,8 @@ class CpContractHistoryEntrustNewFragment : CpNBaseFragment() {
                         })
         )
     }
-    override fun onResume() {
-        super.onResume()
-        AppAnalyticsExt.instance.activityStart(AppAnalyticsExt.CONTRACT_APP_PAGE_10)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        if(!this.isHidden()){
-            AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.CONTRACT_APP_PAGE_10)
-        }
-    }
+
 
 
 }

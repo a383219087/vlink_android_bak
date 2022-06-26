@@ -4,14 +4,12 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.FileProvider
-import cn.ljuns.logcollector.LogNetCollector
 import cn.ljuns.logcollector.util.FileUtils
 import com.elvishew.xlog.LogUtils
 import com.elvishew.xlog.XLog
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.util.RxUtil
 import com.yjkj.chainup.util.SystemUtils
 import io.reactivex.Observable
@@ -66,7 +64,6 @@ class ChainUpManager private constructor() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
-                    LogNetCollector.getInstance(ChainUpApp.app).start("")
                 }
                 success
             }.compose(RxUtil.applySchedulersToObservable())

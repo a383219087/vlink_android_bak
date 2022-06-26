@@ -2,11 +2,8 @@ package com.chainup.contract.base
 
 import android.app.Activity
 import android.content.Context
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
-import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -14,6 +11,8 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.eventbus.CpEventBusUtil
@@ -25,13 +24,11 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpLocalManageUtil
 import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.view.CpNLoadingDialog
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.jaeger.library.StatusBarUtil
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.lang.Exception
 import java.lang.reflect.Method
 
 /**
@@ -262,13 +259,9 @@ abstract class CpNBaseActivity : AppCompatActivity(), View.OnClickListener {
     override fun onPause() {
         super.onPause()
         closeLoadingDialog()
-        AppAnalyticsExt.instance.activityStart(this::class.java.simpleName)
     }
 
-    override fun onResume() {
-        super.onResume()
-        AppAnalyticsExt.instance.activityStop(this::class.java.simpleName)
-    }
+
 
     override fun finish() {
         super.finish()

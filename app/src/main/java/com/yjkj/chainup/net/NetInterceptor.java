@@ -3,7 +3,6 @@ package com.yjkj.chainup.net;
 import android.app.Application;
 import android.content.Intent;
 
-import com.chainup.talkingdata.AppAnalyticsExt;
 import com.elvishew.xlog.XLog;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.service.UserDataService;
@@ -64,12 +63,7 @@ public class NetInterceptor implements Interceptor {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("url", neworiUrl);
         LogUtil.e(TAG, "NetInterceptor==response is " + response);
-        AppAnalyticsExt.Companion.getInstance().network(AppAnalyticsExt.Companion.getAPP_HTTP_httpTrack(), map);
         if (response.code() == 200) {
-            if (time >= 400) {
-                XLog.e(printTime);
-                AppAnalyticsExt.Companion.getInstance().network(AppAnalyticsExt.Companion.getAPP_HTTP_httpTrackLow(), map);
-            }
             String json = readResponseStr(response);
             LogUtil.e(TAG, "NetInterceptor==json is " + json);
             if (json != null) {
@@ -83,7 +77,6 @@ public class NetInterceptor implements Interceptor {
                         XLog.e(print);
                         HashMap<String, Object> errorMap = new HashMap<String, Object>();
                         errorMap.put("error", neworiUrl + code + " " + result.getMsg());
-                        AppAnalyticsExt.Companion.getInstance().network(AppAnalyticsExt.Companion.getAPP_HTTP_httpError(), errorMap);
                     }
                     if (code.equals("10055")) {
                         new MainModel().savePublicInfo();

@@ -11,7 +11,6 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.chainup.contract.view.CpSlDialogHelper
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
@@ -153,17 +152,9 @@ class CpContractPLRecordFragment : CpNBaseFragment() {
                         })
         )
     }
-    override fun onResume() {
-        super.onResume()
-        AppAnalyticsExt.instance.activityStart(AppAnalyticsExt.CONTRACT_APP_PAGE_2)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        if(!this.isHidden()){
-            AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.CONTRACT_APP_PAGE_2)
-        }
-    }
+
+
 
 
 }

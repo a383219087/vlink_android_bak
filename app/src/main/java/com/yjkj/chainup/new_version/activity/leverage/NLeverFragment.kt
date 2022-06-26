@@ -7,7 +7,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.jakewharton.rxbinding2.view.RxView
-import com.chainup.talkingdata.AppAnalyticsExt
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.AppConstant
@@ -580,7 +579,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
      * 撤销订单
      */
     private fun deleteOrder(order_id: String, symbol: String, pos: Int) {
-        AppAnalyticsExt.instance.clickAction(AppAnalyticsExt.APP_ACTION_LeverCancel, mapOf("orderId" to order_id, "symbol" to symbol))
         addDisposable(getMainModel().cancelOrder(order_id = order_id, symbol = symbol, isLever = true, consumer = object : NDisposableObserver(activity) {
             override fun onResponseSuccess(data: JSONObject) {
                 NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(context, "common_tip_cancelSuccess"))
@@ -699,7 +697,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
     override fun onStop() {
         super.onStop()
         subscribeCoin?.dispose()
-        AppAnalyticsExt.instance.activityStop(AppAnalyticsExt.APP_EVENT_LeveragePage)
     }
 
     var leverFragment = true
@@ -790,10 +787,7 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
         mCoinSearchDialogFg.showDialog(childFragmentManager, "TradeFragment")
     }
 
-    override fun onResume() {
-        super.onResume()
-        AppAnalyticsExt.instance.activityStart(AppAnalyticsExt.APP_EVENT_LeveragePage)
-    }
+
 
     private fun changeCoinMap(){
         if (null != coinMapData) {
