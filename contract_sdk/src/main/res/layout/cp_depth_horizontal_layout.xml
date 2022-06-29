@@ -66,29 +66,32 @@
         <LinearLayout
             android:id="@+id/ll_transfer"
             android:layout_width="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="19dp"
             android:layout_toLeftOf="@+id/ll_rate"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_aavl_value"
-                android:layout_width="wrap_content"
-                android:text="--"
                 style="@style/textStyle_text_nor_12"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_aavl_unit"
-                    android:layout_width="wrap_content"
-                    android:text="@string/cp_overview_text19"
-                    android:textColor="@color/normal_text_color"
                     style="@style/textStyle_text_nor_10"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cp_overview_text19"
+                    android:textColor="@color/normal_text_color" />
+
                 <ImageView
                     android:id="@+id/img_transfer"
                     android:layout_width="15dp"
@@ -98,6 +101,7 @@
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_rate"
             android:layout_width="wrap_content"

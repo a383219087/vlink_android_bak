@@ -476,6 +476,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
             CpMessageEvent.sl_contract_req_current_entrust_list_event -> {
                 getCurrentOrderList()
+                getPositionAssetsList()
             }
             CpMessageEvent.sl_contract_req_plan_entrust_list_event -> {
                 getCurrentPlanOrderList()

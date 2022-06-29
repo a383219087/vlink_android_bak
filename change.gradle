@@ -56,6 +56,7 @@ ext {
             umAppKey:"5bc7f280b465f50f72000134",
             versionCode:100028,
             versionName:"1.0.1",
+//            versionName:"dev",
             sobotAppKey:"72f598f55a1d4eb6975e33145676c34b",
             pushAppId:"DMoLWodaPy95voRaXpFNj6",
             pushAppKey:"0uZGX5jmEq77ZoNz44CjV",
