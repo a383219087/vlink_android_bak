@@ -8,9 +8,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
@@ -179,20 +181,25 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             RxView.clicks(it)
                     .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ x ->
+                    .subscribe { x ->
                         clearUIFocus()
                         tv_order_type?.stratAnim()
-                        CpDialogUtil.createCVCOrderPop(context, buyOrSellHelper.orderType, it, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-                            override fun clickItem(position: Int, text: String) {
-                                tv_order_type?.textContent = text
-                                changePriceType(position)
-                            }
-                        }, object : CpNewDialogUtils.DialogOnDismissClickListener {
-                            override fun clickItem() {
-                                tv_order_type?.stopAnim()
-                            }
-                        })
-                    })
+                        CpDialogUtil.createCVCOrderPop(
+                            context,
+                            buyOrSellHelper.orderType,
+                            it,
+                            object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+                                override fun clickItem(position: Int, text: String) {
+                                    tv_order_type?.textContent = text
+                                    changePriceType(position)
+                                }
+                            },
+                            object : CpNewDialogUtils.DialogOnDismissClickListener {
+                                override fun clickItem() {
+                                    tv_order_type?.stopAnim()
+                                }
+                            })
+                    }
         }
         //选择对手价档位
         tv_rival_price_type?.view()?.let {
@@ -273,56 +280,8 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             CpEventBusUtil.post(mCpMessageEvent)
         }
         var checkedIdBuff = 0
-        //百分比选择
-//        rg_trade?.setOnCheckedChangeListener { group, checkedId ->
-//            Log.d(TAG, "=======rg_trade初始化...==========" + checkedId)
-//            if (checkedId == -1) {
-//                et_volume.setText("")
-//                return@setOnCheckedChangeListener
-//            }
-//            if (checkedIdBuff == checkedId) {
-//                et_volume.setText("")
-//                return@setOnCheckedChangeListener
-//            }
-//            checkedIdBuff = checkedId
-//            isPercentPlaceOrder = true
-//            if (checkedId > -1) {
-//                if (!CpClLogicContractSetting.isLogin()) {
-//                    CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
-//                    return@setOnCheckedChangeListener
-//                }
-//                et_volume.isFocusable = false
-//            }
-//
-//            when (checkedId) {
-//                R.id.rb_1st -> {
-//                    et_volume.setText(rb_1st.text.toString())
-//                    adjustRatio("0.10")
-//                }
-//
-//                R.id.rb_2nd -> {
-//                    et_volume.setText(rb_2nd.text.toString())
-//                    adjustRatio("0.20")
-//                }
-//
-//                R.id.rb_3rd -> {
-//                    et_volume.setText(rb_3rd.text.toString())
-//                    adjustRatio("0.50")
-//                }
-//
-//                R.id.rb_4th -> {
-//                    et_volume.setText(rb_4th.text.toString())
-//                    adjustRatio("1.0")
-//
-//                }
-//                else -> {
-//                    et_volume.setText("")
-//                }
-//            }
-//        }
 
-
-        for (buff in 0..rg_trade?.childCount?.toInt()!! - 1) {
+        for (buff in 0 until rg_trade?.childCount?.toInt()!!) {
             rg_trade.getChildAt(buff).setOnClickListener {
                 isPercentPlaceOrder = true
                 et_volume.clearFocus()
@@ -350,22 +309,29 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         btn_buy.isEnable(true)
         btn_buy.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
-                var isOpen = false;
-                if (transactionType == CpParamConstant.TYPE_BUY) {
-                    isOpen = true
-                } else {
-                    isOpen = false
+
+                if (!canBuy){
+                    ToastUtils.showShort(context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1))
+                    return
                 }
+
+
+                var isOpen = false;
+                isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen")==1){
-                    if (mUserConfigInfoJson?.optInt("authLevel")==3){
-                        goKycTips(context.getString(R.string.cl_kyc_8));
-                        return
-                    }else if (mUserConfigInfoJson?.optInt("authLevel")==2){
-                        goKycTips(context.getString(R.string.cl_kyc_8));
-                        return
-                    }else if (mUserConfigInfoJson?.optInt("authLevel")==0){
-                        kycTips(context.getString(R.string.cl_kyc_9));
-                        return
+                    when {
+                        mUserConfigInfoJson?.optInt("authLevel")==3 -> {
+                            goKycTips(context.getString(R.string.cl_kyc_8));
+                            return
+                        }
+                        mUserConfigInfoJson?.optInt("authLevel")==2 -> {
+                            goKycTips(context.getString(R.string.cl_kyc_8));
+                            return
+                        }
+                        mUserConfigInfoJson?.optInt("authLevel")==0 -> {
+                            kycTips(context.getString(R.string.cl_kyc_9));
+                            return
+                        }
                     }
                 }
                 doBuyOrSell("BUY")
@@ -375,11 +341,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 var isOpen = false;
-                if (transactionType == CpParamConstant.TYPE_BUY) {
-                    isOpen = true
-                } else {
-                    isOpen = false
-                }
+                isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen")==1){
                     if (mUserConfigInfoJson?.optInt("authLevel")==3){
                         goKycTips(context.getString(R.string.cl_kyc_8));
@@ -455,11 +417,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         var orderType = 1;
         var dialogTitle = ""
         var volume = et_volume.text.toString();
-        if (transactionType == CpParamConstant.TYPE_BUY) {
-            isOpen = true
-        } else {
-            isOpen = false
-        }
+        isOpen = transactionType == CpParamConstant.TYPE_BUY
         var isStopLoss = cb_stop_loss.isChecked
         var stopProfitPrice = et_stop_profit_price.text.toString().trim()
         var stopLossPrice = et_stop_loss_price.text.toString().trim()
@@ -811,6 +769,8 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                         .toPlainString()
     }
 
+    private  var canBuy=false
+
     fun setContractJsonInfo(json: JSONObject) {
         mContractJson = json
         mContractJson?.let {
@@ -835,9 +795,10 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             } else {
                 mContractJson?.optString("base")
             }
-            tv_volume_unit.setText(volumeUnit)
-            tv_coin_name.setText(quote)
-            tv_equivalent.setText("≈ 0 " + equivalentUnit)
+            tv_volume_unit.text = volumeUnit
+            tv_coin_name.text = quote
+            tv_equivalent.text = "≈ 0 $equivalentUnit"
+            canBuy=false
             et_price.numberFilter(symbolPricePrecision, otherFilter = object : CpDoListener {
                 override fun doThing(obj: Any?): Boolean {
                     updateAvailableVol()
@@ -970,11 +931,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
 
     private fun updateAvailableVol() {
         var isOpen = false;
-        if (transactionType == CpParamConstant.TYPE_BUY) {
-            isOpen = true
-        } else {
-            isOpen = false
-        }
+        isOpen = transactionType == CpParamConstant.TYPE_BUY
         if (positionType.equals("1")){
             isOpen=!cb_only_reduce_positions.isChecked
         }
@@ -1095,6 +1052,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         }
         val unit = if (CpClLogicContractSetting.getContractUint(context) == 0) mContractJson?.optString("multiplierCoin") else context.getString(R.string.cp_overview_text9)
         tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionStr(positionAmount, multiplier, multiplierPrecision, unit)
+        canBuy=true
         if (isOpen && buyOrSellHelper.orderType == 2) {
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
                     contractSide.equals("1"),
@@ -1105,6 +1063,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     multiplierPrecision,
                     unit
             )
+            canBuy=true
         }
         if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
@@ -1116,6 +1075,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     multiplierPrecision,
                     unit
             )
+            canBuy=true
         }
 
         //通过保证金计算的可开数

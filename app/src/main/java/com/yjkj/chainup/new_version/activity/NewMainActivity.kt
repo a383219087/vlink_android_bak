@@ -564,7 +564,7 @@ class NewMainActivity : NBaseActivity() {
     private var contractIndex = -1
 
     private fun initContract() {
-        LogUtil.e(TAG, "渲染底部tab菜单时 ：ContractMode = " + PublicInfoDataService.getInstance().getContractMode())
+        LogUtil.e(TAG, "渲染底部tab菜单时 ：ContractMode = " + PublicInfoDataService.getInstance().contractMode)
         val isNewOldContract = PublicInfoDataService.getInstance().isNewOldContract
         if (isNewOldContract) {
             fragmentList.add(slCoContractFragment)

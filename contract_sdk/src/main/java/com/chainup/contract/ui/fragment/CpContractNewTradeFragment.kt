@@ -71,11 +71,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }
 
         appbarlayout?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (verticalOffset >= 0) {
-                swipeLayout.setEnabled(true);
-            } else {
-                swipeLayout.setEnabled(false);
-            }
+            swipeLayout.isEnabled = verticalOffset >= 0
             LogUtils.e("verticalOffset:" + verticalOffset)
             if (verticalOffset <= -100) {
                 img_top.visibility = View.VISIBLE

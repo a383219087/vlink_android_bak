@@ -407,9 +407,9 @@
         <TextView
             android:id="@+id/tv_equivalent"
             android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:text="≈ 0 BTC"
             android:textColor="@color/tab_type_color"
             android:textSize="12sp" />

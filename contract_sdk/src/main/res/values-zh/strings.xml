@@ -3848,5 +3848,7 @@
     <string name="cl_kyc_7">无法获取用户信息，请刷新后重试</string>
     <string name="cl_kyc_8">合约交易前需要通过 KYC 认证，请先进行认证！\n根据当地法律法规，不支持以下国家或地区的客户开通合约交易，美国、伊拉克、中国香港、古巴、伊朗、朝鲜、苏丹、叙利亚、东萨摩亚（美）、波多黎各、关岛、孟加拉国、厄瓜多尔、中国、吉尔吉斯坦、马里亚纳群岛、英国、加拿大、中国澳门、中国台湾。</string>
     <string name="cl_kyc_9">KYC 审核中，认证成功才可进行合约交易！</string>
+    <string name="cp_trade_text1">,无法下单</string>
+    <string name="cp_trade_text2">当前合约</string>
 </resources>
 
