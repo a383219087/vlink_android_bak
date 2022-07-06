@@ -7,7 +7,7 @@ ext{
             buildToolsVersion : "30.0.3",
             minSdkVersion : 23,
             maxSdkVersion : 32,
-            targetSdkVersion : 32,
+            targetSdkVersion : 30,
             appcompatVersion : '1.0.2',
             corektxVersion : '1.0.2',
             constraintlayoutVersion : '1.1.3',

@@ -77,7 +77,7 @@ public abstract class NetObserver<T> implements Observer<HttpResult<T>> {
             Log.d("=====AA11===", e.getMessage());
             onHandleError(LanguageUtil.getString(ChainUpApp.appContext, "warn_data_parse_failed"));
         } else {
-            onHandleError(LanguageUtil.getString(ChainUpApp.appContext, "warn_net_exception"));
+            onHandleError(e.getMessage());
         }
     }
 

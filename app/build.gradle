@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -37,7 +39,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
 
 
     }
@@ -91,7 +92,7 @@ android {
             signingConfig signingConfigs.release
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField  "boolean","isRelease","true"
+            buildConfigField "boolean", "isRelease", "true"
             resValue "string", "buglyId", "$change.buglyId"
             resValue "string", "baseUrl", "$change.baseUrl"
             resValue "string", "otcBaseUrl", "$change.otcBaseUrl"
@@ -108,7 +109,7 @@ android {
 //                    GETUI_APP_SECRET : "$change.pushAppSecret"
 //            ]
             ndk {
-                abiFilters 'arm64-v8a','armeabi-v7a',"armeabi"
+                abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi"
             }
         }
         debug {
@@ -116,7 +117,7 @@ android {
             shrinkResources false
 
             signingConfig signingConfigs.debug
-            buildConfigField  "boolean","isRelease","false"
+            buildConfigField "boolean", "isRelease", "false"
             resValue "string", "buglyId", "$change.buglyId"
             resValue "string", "baseUrl", "$change.baseUrl"
             resValue "string", "otcBaseUrl", "$change.otcBaseUrl"
@@ -133,9 +134,10 @@ android {
 //                    GETUI_APP_SECRET : "$change.pushAppSecret"
 //            ]
             ndk {
-                abiFilters 'arm64-v8a','armeabi-v7a',"armeabi",'x86'
+                abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi", 'x86'
             }
         }
+
     }
 
     compileOptions {
@@ -154,6 +156,16 @@ android {
 
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
+                Date curDate = new Date(System.currentTimeMillis());
+                outputFileName = "zww-release-${change.versionName}-${change.versionCode}-${formatter.format(curDate)}.apk"
+
+            }
     }
 
 }
@@ -327,7 +339,7 @@ dependencies {
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.2.0', {
         exclude group: 'com.github.CymChad'
     }
-    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit-leakcanary:3.2.0',{
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit-leakcanary:3.2.0', {
         exclude group: 'com.github.CymChad'
     }
 
