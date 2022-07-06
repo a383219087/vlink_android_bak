@@ -3504,7 +3504,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="traders_apply_text4">资料正在审核中</string>
     <string name="traders_apply_text5">您已是交易员</string>
     <string name="traders_apply_text6">已拒绝了你的申请</string>
-    <string name="traders_apply_text7">申请成为交易员，联系在线客服?</string>
+    <string name="traders_apply_text7">申请成为交易员?</string>
     <string name="traders_apply_text8">申请成功</string>
     <string name="dialog_close_text1">开仓均价</string>
     <string name="dialog_close_text2">平仓价</string>

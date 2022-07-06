@@ -110,6 +110,8 @@ class FirstViewModel : BaseViewModel() {
         startTask(contractApiService.checkFuturesUser(map), Consumer {
             if (it.data.result==1){
                 ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
+
+
             }else{
                 toLaunchSingle()
             }

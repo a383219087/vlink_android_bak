@@ -37,8 +37,8 @@ class ApplyTradersViewModel : BaseViewModel() {
     fun applyCurrentStatus() {
         if (status.value==-1){
             startTask(apiService.applyBecomeTrader(), Consumer {
-                finish()
                 ToastUtils.showToast(context.getString(R.string.common_tip_cerSubmitSuccess))
+                finish()
 //                val bundle = Bundle()
 //              val  visiter_id= UserDataService.getInstance().userInfo4UserId
 //              val  visiter_name= UserDataService.getInstance().nickName
