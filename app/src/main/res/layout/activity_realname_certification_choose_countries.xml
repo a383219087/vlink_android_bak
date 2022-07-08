@@ -39,6 +39,7 @@
         app:isPwdShow="false"
         app:textContent="@string/default_area_verify"
         app:textContentSize="@dimen/sp_14" />
+
     <com.yjkj.chainup.new_version.view.CommonlyUsedButton
         android:id="@+id/cub_next"
         android:layout_width="match_parent"

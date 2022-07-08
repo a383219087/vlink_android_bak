@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -17,6 +19,7 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.constant.ParamConstant;
@@ -24,6 +27,10 @@ import com.yjkj.chainup.db.constant.RoutePath;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
 import com.yjkj.chainup.new_version.view.ICloseWindow;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutionException;
 
 @Route(path = RoutePath.UdeskWebViewActivity)
 public class UdeskWebViewActivity extends AppCompatActivity {
@@ -153,6 +160,16 @@ public class UdeskWebViewActivity extends AppCompatActivity {
                 return true;
             }
         });
+        mwebView.addJavascriptInterface(new MyJavascriptInterface(this){
+
+            @JavascriptInterface
+            public void finishActivity() {
+                finish();
+
+            }
+
+
+        }, "Android");
         mwebView.loadUrl(url);
     }
 

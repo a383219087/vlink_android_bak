@@ -154,10 +154,10 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_43"
-            android:paddingRight="@dimen/dp_10"
             android:background="@drawable/bg_personal_unauthorized"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_10">
 
             <ImageView
                 android:id="@+id/iv_certification"

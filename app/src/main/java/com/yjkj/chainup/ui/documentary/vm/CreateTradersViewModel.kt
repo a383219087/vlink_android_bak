@@ -2,18 +2,29 @@ package com.yjkj.chainup.ui.documentary.vm
 
 
 import android.app.Activity
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
+import com.yjkj.chainup.bean.AboutUSBean
 import com.yjkj.chainup.bean.CommissionBean
+import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.util.DecimalUtil
-import com.yjkj.chainup.util.ToastUtils
+import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.net.retrofit.NetObserver
+import com.yjkj.chainup.new_version.adapter.AbountAdapter
+import com.yjkj.chainup.util.*
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_about.*
 
 
 class CreateTradersViewModel : BaseViewModel() {
@@ -148,6 +159,25 @@ class CreateTradersViewModel : BaseViewModel() {
           rate.value= DecimalUtil.cutValueByPrecision(it.data,2)
          isRed.value=  rate.value?.toDouble()!! >0
         })
+    }
+
+    //用户协议
+    fun getAgree(){
+        HttpClient.instance.getAboutUs()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetObserver<ArrayList<AboutUSBean>>() {
+                override fun onHandleSuccess(list: ArrayList<AboutUSBean>?) {
+                    if (list == null) return
+                    if (list.last().content.isHttpUrl()){
+                        val bundle = Bundle()
+                        bundle.putString(ParamConstant.URL_4_SERVICE, list.last().content)
+                        ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+                    }
+
+                }
+            })
+
     }
 
 
