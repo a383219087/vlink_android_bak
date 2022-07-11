@@ -467,7 +467,12 @@ class MainModel : BaseDataManager() {
         }
         changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).user_info(getBaseReqBody()), consumer)
     }
-
+    /**
+     * 获取用户签名
+     */
+    fun getSign(consumer: DisposableObserver<ResponseBody>): Disposable? {
+        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getDescriptionUsing(getBaseReqBody()), consumer)
+    }
 
     /**
      * 找回密码 Step 4

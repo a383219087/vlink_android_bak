@@ -37,6 +37,10 @@ interface MainApiService {
     @POST("common/user_info")
     fun user_info(@Body requestBody: RequestBody): Observable<ResponseBody>
 
+
+    @GET("trader-user-act/getDescriptionUsing")
+    fun getDescriptionUsing(@Body requestBody: RequestBody): Observable<ResponseBody>
+
     /**
      * 1. 合约的公共接口
      */

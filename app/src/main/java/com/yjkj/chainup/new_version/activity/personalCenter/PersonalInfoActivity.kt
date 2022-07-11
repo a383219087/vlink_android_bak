@@ -78,11 +78,13 @@ class PersonalInfoActivity : NBaseActivity() {
         super.onResume()
         if (UserDataService.getInstance().isLogined) {
             getUserInfo()
+            getSign()
         }
         initViews()
         initClickListener()
         title_layout?.setContentTitle(LanguageUtil.getString(this,"userinfo_text_data"))
         v_edit_nick?.setTitle(LanguageUtil.getString(this,"otcSafeAlert_action_nickname"))
+        v_edit_sign?.setTitle(LanguageUtil.getString(this,"otcSafeAlert_action_sign"))
         v_account?.setTitle(LanguageUtil.getString(this,"userinfo_text_account"))
         v_account_state?.setTitle(LanguageUtil.getString(this,"userinfo_text_accountState"))
         v_verify?.setTitle(LanguageUtil.getString(this,"otcSafeAlert_action_identify"))
@@ -261,6 +263,17 @@ class PersonalInfoActivity : NBaseActivity() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var json = jsonObject.optJSONObject("data")
                 UserDataService.getInstance().saveData(json)
+            }
+
+        }))
+    }
+    /**
+     * 获取用户签名
+     */
+    private fun getSign() {
+        addDisposable(getMainModel().getSign(object : NDisposableObserver() {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+              Log.d("我是",jsonObject.toString())
             }
 
         }))

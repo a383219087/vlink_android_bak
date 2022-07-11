@@ -68,6 +68,16 @@
                 app:itemTitle="@string/otcSafeAlert_action_nickname"
                 app:showArrow="true"
                 tools:StatusText="齐天大圣" />
+            <!--修改个性签名-->
+            <com.yjkj.chainup.new_version.view.AccountItemView
+                android:id="@+id/v_edit_sign"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:icon="@drawable/ic_account_state"
+                app:isShowLeftIcon="false"
+                app:itemTitle="@string/otcSafeAlert_action_nickname"
+                app:showArrow="true"
+                tools:StatusText="齐天大圣" />
 
             <!--账户-->
             <com.yjkj.chainup.new_version.view.AccountItemView

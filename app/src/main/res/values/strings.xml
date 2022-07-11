@@ -1540,6 +1540,7 @@ Mark Price: This is the current mark price.</string>
     <string name="otcSafeAlert_action_bindphoneOrGoogle">Bind phone or Google Authenticator</string>
     <string name="otcSafeAlert_action_identify">Real Name Authentication</string>
     <string name="otcSafeAlert_action_nickname">Nickname</string>
+    <string name="otcSafeAlert_action_sign">Sign</string>
     <string name="otcSafeAlert_text_otcBuyDesc">To buy fiat, you need to complete the following settings.</string>
     <string name="otcSafeAlert_text_otcPwd">Trade Password</string>
     <string name="otcSafeAlert_text_settingDesc">To ensure the security of your funds, please complete the following fiat trading configuration.</string>

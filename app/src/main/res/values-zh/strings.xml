@@ -1648,6 +1648,7 @@
     <string name="otcSafeAlert_action_bindphoneOrGoogle">绑定手机或谷歌</string>
     <string name="otcSafeAlert_action_identify">实名认证</string>
     <string name="otcSafeAlert_action_nickname">昵称</string>
+    <string name="otcSafeAlert_action_sign">个性签名</string>
     <string name="otcSafeAlert_text_otcBuyDesc">进行法币购买，您需要完成以下设置</string>
     <string name="otcSafeAlert_text_otcPwd">资金密码</string>
     <string name="otcSafeAlert_text_settingDesc">为保证您的资金安全，请完成以下交易配置</string>
