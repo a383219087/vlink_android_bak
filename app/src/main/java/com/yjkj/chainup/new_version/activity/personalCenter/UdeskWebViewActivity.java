@@ -2,6 +2,7 @@ package com.yjkj.chainup.new_version.activity.personalCenter;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,6 +46,8 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.udesk_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
+//        url = "http://8.219.40.68/wallet/#/pages/index/index?token=3f941afdb53a3cac949d49fb2ff2e0314f4ce8f88a5e48ea864ccc0b0ead3541";
+//        url = "file:///android_asset/test.html";
         clean = getIntent().getBooleanExtra(ParamConstant.DEFAULT_NAME_ERROR,false);
         setBarColor(PublicInfoDataService.getInstance().getThemeMode());
         initViews();
@@ -52,12 +55,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 
     private void initViews() {
         try {
-            udeskWebChromeClient = new UdeskWebChromeClient(this, new ICloseWindow() {
-                @Override
-                public void closeActivty() {
-                    finish();
-                }
-            });
+            udeskWebChromeClient = new UdeskWebChromeClient(this, this::finish);
             mwebView = (WebView) findViewById(R.id.webview);
             settingWebView(url);
         } catch (Exception e) {
@@ -85,7 +83,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         settings.setSupportZoom(true);  //支持缩放，默认为true。是setBuiltInZoomControls的前提。
         settings.setBuiltInZoomControls(true); //设置内置的缩放控件。
         settings.supportMultipleWindows();  //多窗口
-
+        settings.setUserAgentString("User-Agent:Android");
         settings.setAllowFileAccess(true);  //设置可以访问文件
         settings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
 
@@ -108,18 +106,15 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         settings.setLoadsImagesAutomatically(true);  //支持自动加载图片
 
         settings.setDomStorageEnabled(true); //开启DOM Storage
-
-        mwebView.setDownloadListener(new DownloadListener() {
-            @Override
-            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                // 监听下载功能，当用户点击下载链接的时候，直接调用系统的浏览器来下载
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
+        mwebView.setDownloadListener((url1, userAgent, contentDisposition, mimetype, contentLength) -> {
+            // 监听下载功能，当用户点击下载链接的时候，直接调用系统的浏览器来下载
+            Uri uri = Uri.parse(url1);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
 
         mwebView.setWebChromeClient(udeskWebChromeClient);
+
         mwebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -128,26 +123,15 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                UdeskWebViewActivity.this.finish();
+//                UdeskWebViewActivity.this.finish();
             }
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage(getString(R.string.base_error_prompt5));
-                builder.setPositiveButton(getString(R.string.common_text_btnConfirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.proceed();
-                    }
-                });
-
-                builder.setNegativeButton(getString(R.string.common_text_btnCancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.cancel();
-                    }
-                });
+                builder.setPositiveButton(getString(R.string.common_text_btnConfirm), (dialog, which) -> handler.proceed());
+                builder.setNegativeButton(getString(R.string.common_text_btnCancel), (dialog, which) -> handler.cancel());
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -160,16 +144,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
                 return true;
             }
         });
-        mwebView.addJavascriptInterface(new MyJavascriptInterface(this){
-
-            @JavascriptInterface
-            public void finishActivity() {
-                finish();
-
-            }
-
-
-        }, "Android");
+        mwebView.addJavascriptInterface(new MyJavascriptInterface1(this), "Android");
         mwebView.loadUrl(url);
     }
 
@@ -183,6 +158,25 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 //    }
+
+    private class MyJavascriptInterface1 {
+
+        private Context context;
+
+        public MyJavascriptInterface1(Context context) {
+            this.context = context;
+        }
+
+        /**
+         * 返回主页
+         *
+         */
+        @JavascriptInterface
+        public void finishActivity() {
+          finish();
+        }
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

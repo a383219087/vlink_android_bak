@@ -33,6 +33,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_real_name_certification_download_img.*
 import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
 
 
 /**
@@ -489,12 +491,22 @@ class RealNameCertificaionDownloadImgActivity : NewBaseActivity() {
                     }
                 })
     }
+    fun getFileSize(file: File): Int {
+        var size = 0
+        if (file.exists()) {
+            var fis: FileInputStream? = null
+            fis = FileInputStream(file)
+            size = fis.available()
+        }
+        return size
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         imageTool?.onAcitvityResult(requestCode, resultCode, data
-        ) { bitmap, path ->
+        ) { _, path ->
+            val bitmap = QRCodeUtils.getDecodeAbleBitmap(path)
             if (PublicInfoDataService.getInstance().getUploadImgType(null) == "1") {
                 Utils.saveBitmap(path, object : OnSaveSuccessListener {
                     override fun onSuccess(path: String) {

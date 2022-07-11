@@ -162,6 +162,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         mwebView.loadUrl(url);
     }
 

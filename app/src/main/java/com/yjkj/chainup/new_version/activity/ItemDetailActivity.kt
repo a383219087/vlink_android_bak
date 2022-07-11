@@ -45,12 +45,11 @@ import com.yjkj.chainup.dsbridge.DWebView
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.net.NetUrl
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.NetUrl
+import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_contract.activity.ClContractAssetRecordActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.BindMobileOrEmailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.GoogleValidationActivity
@@ -60,6 +59,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.JsEchoApi
 import com.yjkj.chainup.new_version.view.UploadHelper
 import com.yjkj.chainup.util.*
+import com.yjkj.chainup.util.QRCodeUtils.Companion.getDecodeAbleBitmap
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_item_detail.*
@@ -1038,7 +1038,9 @@ class ItemDetailActivity : NBaseActivity() {
             var index = indexList[0]
             indexList.removeAt(0)
             imageTool?.onAcitvityResult(requestCode, resultCode, data
-            ) { bitmap, path ->
+            ) { scanBitmap, path ->
+                Log.e("我是大小1",getFileSize(File(path)).toString())
+                val bitmap = getDecodeAbleBitmap(path)
                 val jsonObject = JSONObject()
                 jsonObject.put("index", index)
                 JsApi.uploadExchangeHandlers?.complete(jsonObject.toString())
@@ -1081,6 +1083,7 @@ class ItemDetailActivity : NBaseActivity() {
                     }
                     JsApi.handlers?.complete(jsonObject.toString())
                 } else {
+                    Log.e("我是大小2",(bitmap!!.getRowBytes() * bitmap.getHeight()).toString())
                     LogUtil.d(TAG, "=====上传图片:服务器======")
                     val bitmap2Base64 = imageTool?.bitmap2Base64(bitmap)
                     uploadImg(bitmap2Base64 ?: return@onAcitvityResult, index)
@@ -1270,18 +1273,18 @@ class ItemDetailActivity : NBaseActivity() {
         val domain = NetUrl.baseUrl()
         val newDomain = PublicInfoDataService.getInstance().getDomainPage(null)
         Log.e(TAG, "getDomain() ${domain}   " + StringUtil.isDoMainUrl(domain) + " [] " + newDomain)
-        if (StringUtil.isDoMainUrl(web_url)) {
+        return if (StringUtil.isDoMainUrl(web_url)) {
             // 是加速域名 替换域名
             val newUrl = PublicInfoDataService.getInstance().newWorkURL.getHostByPublicUrl()
             Log.e(TAG, "加速域名 newUrl  ${newUrl} ")
-            return newUrl
+            newUrl
         } else {
             if (newDomain.isNotEmpty()) {
                 val newUrl = newDomain.getHostByPublicUrl()
-                return newUrl
+                newUrl
             } else {
                 val newUrl = domain.getHostByUrl()
-                return newUrl
+                newUrl
             }
         }
     }
