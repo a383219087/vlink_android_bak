@@ -1458,6 +1458,7 @@
     <string name="verify_msgs">认证消息</string>
     <string name="otc_msgs">法币消息</string>
     <string name="userinfo_text_nickname">新昵称</string>
+    <string name="userinfo_text_sign">新签名</string>
     <string name="common_tip_bestPriceTransaction">以当前最优价格交易</string>
     <string name="personal_text_safeSettingOpen">已开启</string>
     <string name="otc_text_pwd">法币资金密码</string>

@@ -24,6 +24,7 @@
         android:layout_marginRight="15dp"
         android:onClick="@{()->onItemListener.onClick(item)}"
         android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/dp_10"
         app:elevation="@{2}"
         android:orientation="vertical"
         app:ResColor="@{R.color.bg_card_color}"
@@ -38,59 +39,88 @@
                 android:layout_width="@dimen/dp_37"
                 android:layout_height="@dimen/dp_37"
                 android:layout_marginLeft="13dp"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/personal_headportrait"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/text_color"
-                android:textSize="13sp"
-                android:text="@{item.bean.nickname}" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_height="14dp"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    app:radius="@{3}"
-                    app:ResColor="@{R.color.color_etf_blue}"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="9dp"
-                        android:layout_height="9dp"
-                        android:layout_marginLeft="3dp"
-                        android:src="@mipmap/ic_document_people"/>
-
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="9sp"
-                        android:layout_marginRight="3dp"
-                        android:text="@{item.bean.currentFollowCount+`/50`}"
-                        android:textColor="@color/color_nonetwork_btn_blue" />
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp"
+                        android:text="@{item.bean.nickname}" />
+                    <LinearLayout
+                        android:layout_height="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:radius="@{3}"
+                        app:ResColor="@{R.color.color_etf_blue}"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_marginLeft="3dp"
+                            android:src="@mipmap/ic_document_people"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="9sp"
+                            android:layout_marginRight="3dp"
+                            android:text="@{item.bean.currentFollowCount+`/50`}"
+                            android:textColor="@color/color_nonetwork_btn_blue" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-           <View
-               android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:gravity="center|left"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_gravity="center"
+                    android:textColor="@color/text_color"
+                    android:textSize="13sp"
+                    android:text="@{item.bean.description==null||item.bean.description.equals(``)?@string/userinfo_text_sign:item.bean.description}" />
+
+
+
+
+            </LinearLayout>
+
+
+
+
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:gravity="right|center"
-                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
                 android:layout_marginRight="@dimen/dp_18"
                 android:visibility="@{(item.status==1||item.bean.follow==1)?View.GONE:View.VISIBLE}"
                 android:text="@{`+`+@string/NewVersionHomePageViewModel_text5}"
@@ -105,11 +135,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:gravity="right|center"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="@dimen/dp_18"
                 android:visibility="@{(item.status==1||item.bean.follow!=1)?View.GONE:View.VISIBLE}"
                 android:text="@string/decumentary_detail_text25"
                 app:radius="@{3}"
+                android:layout_gravity="center"
                 tools:background="@color/warn_yellow"
                 app:ResColor="@{R.color.warn_yellow}"
                 android:textSize="11sp"

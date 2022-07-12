@@ -45,17 +45,40 @@
                     android:layout_height="48dp"
                     android:src="@drawable/personal_headportrait" />
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="@{_all.bean.nickname}"
+                            android:textColor="@color/text_color"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:text="@{_all.bean.nickname}"
-                    android:textColor="@color/text_color"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left|center"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="@{_all.bean.description}"
+                            android:textColor="@color/text_color"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
 
 
                 <LinearLayout

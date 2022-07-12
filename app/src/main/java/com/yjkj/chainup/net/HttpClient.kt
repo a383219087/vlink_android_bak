@@ -296,6 +296,14 @@ class HttpClient private constructor() {
         map[NICKNAME] = nickName
         return apiService.editNickname(toRequestBody(DataHandler.encryptParams(map)))
     }
+    /**
+     * 用户签名修改
+     */
+    fun editSign(sign: String): Observable<HttpResult<Any>> {
+        val map = getBaseMap()
+        map["description"] = sign
+        return apiService.description(map)
+    }
 
 
     /**

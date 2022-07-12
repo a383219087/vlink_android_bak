@@ -12,10 +12,12 @@ import com.yjkj.chainup.net.HttpClient.Companion.LOGIN_PWORD
 import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.StringUtil
 import com.yjkj.chainup.util.StringUtils
 import com.yjkj.chainup.util.verfitionTypeCheck
+import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.ResponseBody
@@ -470,9 +472,10 @@ class MainModel : BaseDataManager() {
     /**
      * 获取用户签名
      */
-    fun getSign(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getDescriptionUsing(getBaseReqBody()), consumer)
+    fun getSign(consumer: DisposableObserver<HttpResult<String?>>): Disposable? {
+        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getDescriptionUsing(), consumer)
     }
+
 
     /**
      * 找回密码 Step 4

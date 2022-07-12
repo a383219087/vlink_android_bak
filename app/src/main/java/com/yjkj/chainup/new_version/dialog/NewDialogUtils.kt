@@ -1903,6 +1903,76 @@ class NewDialogUtils {
                     .create()
                     .show()
         }
+        /**
+         * 一个输入框的dialog
+         */
+        fun showAloneEdittextSignDialog(context: Context,
+                                    title: String,
+                                    listener: DialogBottomAloneListener): TDialog {
+
+            var nickName = ""
+            return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+                    .setLayoutRes(R.layout.item_security_verification_adapter1)
+                    .setScreenWidthAspect(context, 1f)
+                    .setGravity(Gravity.BOTTOM)
+                    .setDimAmount(0.8f)
+                    .setCancelableOutside(true)
+                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                        viewHolder?.setText(R.id.tv_title, title)
+                        viewHolder?.setText(R.id.tv_pwd_title, LanguageUtil.getString(context, "register_text_loginPwd"))
+                        viewHolder?.getView<PwdSettingView>(R.id.pwd_login_pwd)?.setHintEditText(LanguageUtil.getString(context, "register_text_loginPwd"))
+                        viewHolder?.setText(R.id.tv_security_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
+                        viewHolder?.setGone(R.id.rl_google_layout, false)
+                        viewHolder?.setGone(R.id.rl_phone_layout, false)
+                        viewHolder?.setGone(R.id.rl_mail_layout, false)
+                        viewHolder?.setGone(R.id.rl_pwd_layout, false)
+                        viewHolder?.setGone(R.id.ce_account, true)
+                        var editText = viewHolder?.getView<CustomizeEditText>(R.id.ce_account)
+                        var v_line = viewHolder?.getView<View>(R.id.v_line)
+                        var button = viewHolder?.getView<CommonlyUsedButton>(R.id.tv_confirm)
+                        button?.setContent(LanguageUtil.getString(context, "common_action_next"))
+                        editText?.isFocusable = true
+                        editText?.isFocusableInTouchMode = true
+                        button?.isEnable(false)
+                        editText?.setOnFocusChangeListener { v, hasFocus ->
+                            v_line?.setBackgroundResource(if (hasFocus) R.color.main_blue else R.color.new_edit_line_color)
+                        }
+
+                        editText?.addTextChangedListener(object : TextWatcher {
+                            override fun afterTextChanged(s: Editable?) {
+
+                            }
+
+                            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                            }
+
+                            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                                nickName = s.toString()
+                                if (TextUtils.isEmpty(nickName)) {
+                                    button?.isEnable(false)
+                                } else {
+                                    button?.isEnable(true)
+                                }
+                            }
+                        })
+                        viewHolder?.getView<CommonlyUsedButton>(R.id.tv_confirm)?.listener = object : CommonlyUsedButton.OnBottonListener {
+                            override fun bottonOnClick() {
+                                listener.returnContent(nickName)
+                            }
+
+                        }
+                    }
+                    .addOnClickListener(R.id.tv_security_cancel)
+                    .setOnViewClickListener { viewHolder, view, tDialog ->
+                        when (view.id) {
+                            R.id.tv_security_cancel -> {
+                                tDialog.dismiss()
+                            }
+                        }
+                    }
+                    .create()
+                    .show()
+        }
 
         /**
          * 验证密码

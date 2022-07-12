@@ -941,6 +941,7 @@
     <string name="new_version_deputy_district">副区</string>
     <string name="noun_account_avatar">头像</string>
     <string name="new_input_nickname">请输入6个中文字符以内的昵称</string>
+    <string name="new_input_sign">忙着赚钱,什么都不想说</string>
 
     <string name="all_msgs">全部消息</string>
     <string name="sys_msgs">系统消息</string>

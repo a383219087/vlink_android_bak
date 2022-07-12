@@ -175,13 +175,13 @@
     <com.yjkj.chainup.new_version.view.CustomizeEditText
         android:id="@+id/ce_account"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_32"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_32"
         android:gravity="center_vertical"
-        android:hint="@string/new_input_nickname"
-        android:maxLength="10"
+        android:hint="@string/new_input_sign"
         android:textColor="@color/normal_text_color"
         android:textColorHint="@color/gesture_dot_color" />
 

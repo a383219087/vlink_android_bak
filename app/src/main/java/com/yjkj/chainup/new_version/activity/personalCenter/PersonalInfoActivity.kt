@@ -18,6 +18,7 @@ import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.new_version.activity.asset.FIRST_INDEX
 import com.yjkj.chainup.new_version.bean.ImageTokenBean
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -28,6 +29,8 @@ import com.yjkj.chainup.util.ImageTools
 import com.yjkj.chainup.util.ToastUtils
 import com.yjkj.chainup.util.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import kotlinx.android.synthetic.main.activity_personal_info.title_layout
@@ -194,6 +197,13 @@ class PersonalInfoActivity : NBaseActivity() {
         }
 
         /**
+         * 编辑签名
+         */
+        v_edit_sign.setOnClickListener {
+            showEditSignDialog()
+        }
+
+        /**
          * {"code":"0","msg":"成功","data":{"forceAuto":"0","openAuto":"1","toKenUrl":"https://api.megvii.com/faceid/lite/do?token=10ddc064bdf056d82302cc4f8a50336d"}}
          */
         v_verify.setOnClickListener {
@@ -213,14 +223,27 @@ class PersonalInfoActivity : NBaseActivity() {
     }
 
     var nickNameDialog: TDialog? = null
+    var signDialog: TDialog? = null
     /**
      * 编辑"Nick"的弹窗
      */
-    fun showEditNickDialog() {
+    private fun showEditNickDialog() {
         nickNameDialog = NewDialogUtils.showAloneEdittextDialog(this, LanguageUtil.getString(this,"userinfo_text_nickname"), object : NewDialogUtils.DialogBottomAloneListener {
             override fun returnContent(content: String) {
                 editNickname(nickname = content)
                 nickNameDialog?.dismiss()
+            }
+
+        })
+    }
+    /**
+     * 编辑"sign"的弹窗
+     */
+    private fun showEditSignDialog() {
+        signDialog = NewDialogUtils.showAloneEdittextSignDialog(this, LanguageUtil.getString(this,"userinfo_text_sign"), object : NewDialogUtils.DialogBottomAloneListener {
+            override fun returnContent(content: String) {
+                editSign(sign = content)
+                signDialog?.dismiss()
             }
 
         })
@@ -253,6 +276,28 @@ class PersonalInfoActivity : NBaseActivity() {
 
                 })
     }
+    /**
+     * 修改签名
+     */
+    fun editSign(sign: String) {
+        HttpClient.instance.editSign(sign)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : NetObserver<Any>() {
+                    override fun onHandleSuccess(t: Any?) {
+                        DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(this@PersonalInfoActivity,"common_tip_editSuccess"), isSuc = true)
+                        v_edit_sign.setStatusText(sign)
+
+
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        super.onHandleError(code, msg)
+                        DisplayUtil.showSnackBar(window?.decorView, msg, isSuc = false)
+                    }
+
+                })
+    }
 
 
     /**
@@ -271,9 +316,20 @@ class PersonalInfoActivity : NBaseActivity() {
      * 获取用户签名
      */
     private fun getSign() {
-        addDisposable(getMainModel().getSign(object : NDisposableObserver() {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-              Log.d("我是",jsonObject.toString())
+        addDisposable(getMainModel().getSign(object :DisposableObserver<HttpResult<String?>>(){
+            override fun onNext(t: HttpResult<String?>) {
+                if (t.data.isNullOrEmpty()){
+                    v_edit_sign.setStatusText( LanguageUtil.getString(this@PersonalInfoActivity,"new_input_sign"))
+                }else{
+                    v_edit_sign.setStatusText(t.data)
+                }
+
+            }
+
+            override fun onError(e: Throwable) {
+            }
+
+            override fun onComplete() {
             }
 
         }))

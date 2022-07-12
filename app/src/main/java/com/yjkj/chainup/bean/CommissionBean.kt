@@ -22,6 +22,7 @@ data class CommissionBean(
     val userCreateTime: Long,
     val winRatio: Double,
     val nickname: String,
+    val description: String?,
     val entryDay: String,
     val followerUid: String,
     val type: Int,

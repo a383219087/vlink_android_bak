@@ -964,6 +964,7 @@ Mark Price: This is the current mark price.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="noun_account_avatar">头像</string>
     <string name="new_input_nickname">Please enter a nickname within 6 Chinese characters</string>
+    <string name="new_input_sign">not sign</string>
     <string name="all_msgs">全部消息</string>
     <string name="sys_msgs">系统消息</string>
     <string name="recharge_withdraw_msgs">充值提现</string>
@@ -1650,6 +1651,7 @@ Mark Price: This is the current mark price.</string>
     <string name="userinfo_text_data">My profile</string>
     <string name="userinfo_text_mailUnbind">Not Linked</string>
     <string name="userinfo_text_nickname">New nickname</string>
+    <string name="userinfo_text_sign">New sign</string>
     <string name="userinfo_tip_inputNickname">Please enter a new nickname within 10 characters</string>
     <string name="userinfo_tip_inputPhone">Please enter your mobile number</string>
     <string name="withdraw_action_confirm">Confirm withdrawal</string>

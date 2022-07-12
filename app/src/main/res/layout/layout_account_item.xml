@@ -43,9 +43,9 @@
             android:id="@+id/iv_icon_right"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:padding="@dimen/dp_8"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_1"
+            android:padding="@dimen/dp_8"
             android:src="@drawable/ic_tips"
             android:visibility="invisible" />
 
@@ -106,10 +106,8 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/dp_200"
             android:layout_marginLeft="@dimen/dp_5"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
             android:text="已认证"
             android:textColor="@color/normal_text_color"
             android:textSize="@dimen/sp_14"

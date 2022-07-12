@@ -50,6 +50,12 @@ interface ApiService {
      */
     @POST("user/nickname_update")
     fun editNickname(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
+    /**
+     * 修改签名
+     */
+    @POST("traderUser/description")
+    @FormUrlEncoded
+    fun description(@FieldMap map: Map<String, String>): Observable<HttpResult<Any>>
 
 
     /**

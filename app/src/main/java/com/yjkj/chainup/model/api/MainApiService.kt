@@ -1,5 +1,6 @@
 package com.yjkj.chainup.model.api
 
+import com.yjkj.chainup.net.api.HttpResult
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -38,8 +39,8 @@ interface MainApiService {
     fun user_info(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
-    @GET("trader-user-act/getDescriptionUsing")
-    fun getDescriptionUsing(@Body requestBody: RequestBody): Observable<ResponseBody>
+    @GET("traderUser/description")
+    fun getDescriptionUsing(): Observable<HttpResult<String?>>
 
     /**
      * 1. 合约的公共接口
