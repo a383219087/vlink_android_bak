@@ -46,6 +46,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
     private WebView mwebView;
     UdeskWebChromeClient udeskWebChromeClient;
     String url = "";
+    String vip = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +54,10 @@ public class ChatWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
+        vip = getIntent().getStringExtra(ParamConstant.homeTabType);
         setBarColor(PublicInfoDataService.getInstance().getThemeMode());
         initViews();
-        loginById(UserDataService.getInstance().getUserInfo4UserId(), "");
+        loginById(UserDataService.getInstance().getUserInfo4UserId(), vip);
     }
 
     private void initViews() {
