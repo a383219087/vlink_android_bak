@@ -481,7 +481,7 @@ class NewMainActivity : NBaseActivity() {
             override fun onResponseFailure(code: Int, msg: String?) {
                 if (code == 109109) {
                     check_visitstatus.visibility = View.VISIBLE
-                    check_visit_tv2.setText(msg)
+                    check_visit_tv2.text = msg
                 }
             }
         }))
