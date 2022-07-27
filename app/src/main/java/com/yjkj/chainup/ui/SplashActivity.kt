@@ -19,6 +19,7 @@ import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.util.LogUtil
+import com.yjkj.chainup.util.ToastUtils
 import com.yjkj.chainup.util.Utils
 import com.yjkj.chainup.util.permissionIsGranted
 import com.yjkj.chainup.ws.WsAgentManager
@@ -45,6 +46,7 @@ class SplashActivity : AppCompatActivity() {
 
     private var mBinding: ActivitySplashBinding? = null
     private var liksArray: ArrayList<String> = arrayListOf()
+    private var links: ArrayList<String> = arrayListOf()
     private var currentCheckIndex = 0
     private var mRetrofit: Retrofit? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +65,10 @@ class SplashActivity : AppCompatActivity() {
                     return
                 }
             }
+        }
+        val linkData=SPUtils.getInstance().getString("links","")
+        if(linkData.isNotEmpty()){
+            liksArray.addAll(linkData.split(","))
         }
         liksArray.add("http://8.219.64.81:8091")
         liksArray.add("http://8.219.72.62:8091")
@@ -90,9 +96,13 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     HttpClient.instance.changeNetwork(it.baseUrl)
                 }
-
-//                PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
-                CpClLogicContractSetting.setApiWsUrl(this, it.contractUrl, it.contractSocketAddress)
+                links.remove(it.baseUrl.replace("/base/appapi",""))
+                links.add(0,it.baseUrl.replace("/base/appapi",""))
+                var linkData=""
+                for(link in links){
+                    linkData= "$linkData,$link"
+                }
+                SPUtils.getInstance().put("links",linkData.substring(1))
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
                 if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
@@ -113,11 +123,14 @@ class SplashActivity : AppCompatActivity() {
 
 
             }, {
+                LogUtil.d("我是SplashActivity", it.toString())
                 if (currentCheckIndex < liksArray.size - 1) {
                     currentCheckIndex++
                     checkNetworkLine(liksArray[currentCheckIndex])
-                }
+                }else{
+                    ToastUtils.showToast("load failed...")
 
+                }
 
             })
 

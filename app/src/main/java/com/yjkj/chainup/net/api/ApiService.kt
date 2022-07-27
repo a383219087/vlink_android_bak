@@ -216,6 +216,12 @@ interface ApiService {
     fun getHelpCenterList(@Body requestBody: RequestBody): Observable<HttpResult<ArrayList<HelpCenterBean>>>
 
     /**
+     * 获取vip
+     */
+    @POST("user/level")
+    fun level(): Observable<HttpResult<String>>
+
+    /**
      * 获取kv配置
      */
     @GET("common/kv")

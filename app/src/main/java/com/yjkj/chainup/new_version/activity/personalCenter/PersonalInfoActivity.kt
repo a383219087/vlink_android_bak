@@ -306,7 +306,7 @@ class PersonalInfoActivity : NBaseActivity() {
     private fun getUserInfo() {
         addDisposable(getMainModel().getUserInfo(object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
-                var json = jsonObject.optJSONObject("data")
+                val json = jsonObject.optJSONObject("data")
                 UserDataService.getInstance().saveData(json)
             }
 

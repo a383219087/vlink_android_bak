@@ -163,11 +163,9 @@ class NewMainActivity : NBaseActivity() {
     private var fragmentList = arrayListOf<Fragment>()
     private var mImageViewList = ArrayList<Int>()
     private var mTextviewList = ArrayList<String>()
-    private var otcOpen = false
     private var contractOpen = false
     private fun initTabsData(data: JSONObject?) {
 
-        otcOpen = PublicInfoDataService.getInstance().otcOpen(data)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(data)
         val cid = PublicInfoDataService.getInstance().getCompanyId(data)
         WsAgentManager.instance.saveCID(cid)
@@ -197,7 +195,7 @@ class NewMainActivity : NBaseActivity() {
         getAdvert()
         HomeTabMap.initMaps(data)
         initView()
-        val isNewForceContract = PublicInfoDataService.getInstance().isNewForceContract()
+        val isNewForceContract = PublicInfoDataService.getInstance().isNewForceContract
         if (isNewForceContract && contractOpen) {
             showLogoutDialog()
         }
@@ -481,7 +479,7 @@ class NewMainActivity : NBaseActivity() {
             override fun onResponseFailure(code: Int, msg: String?) {
                 if (code == 109109) {
                     check_visitstatus.visibility = View.VISIBLE
-                    check_visit_tv2.setText(msg)
+                    check_visit_tv2.text = msg
                 }
             }
         }))
