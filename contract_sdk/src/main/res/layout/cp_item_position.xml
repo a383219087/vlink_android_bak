@@ -57,22 +57,22 @@
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_open_type"
-                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
-                android:layout_toRightOf="@+id/tv_contract_name"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="1dp"
-                android:paddingBottom="1dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/tv_contract_name"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:paddingLeft="4dp"
+                android:paddingTop="1dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="1dp"
                 android:text="逐仓20X"
                 android:textColor="@color/main_blue"
                 android:textSize="@dimen/sp_10"
-                app:stv_solid="@color/main_blue_15"
-                app:stv_corner="2dp"/>
+                app:stv_corner="2dp"
+                app:stv_solid="@color/main_blue_15" />
 
             <ImageView
                 android:id="@+id/iv_share"

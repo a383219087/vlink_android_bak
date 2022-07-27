@@ -225,15 +225,19 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
         var req_type = type
         override fun onResponseSuccess(jsonObject: JSONObject) {
-            if (getTopDataReqType == req_type) {
-                recycler_top_24?.visibility = View.VISIBLE
-                showTopSymbolsData(jsonObject.optJSONArray("data"))
-            } else if (homepageReqType == req_type) {
-                showHomepageData(jsonObject.optJSONObject("data"))
-            } else if (homeData == req_type) {
-                closeLoadingDialog()
-                showHomepageData(jsonObject.optJSONObject("data"))
-                advertTime()
+            when {
+                getTopDataReqType == req_type -> {
+                    recycler_top_24?.visibility = View.VISIBLE
+                    showTopSymbolsData(jsonObject.optJSONArray("data"))
+                }
+                homepageReqType == req_type -> {
+                    showHomepageData(jsonObject.optJSONObject("data"))
+                }
+                homeData == req_type -> {
+                    closeLoadingDialog()
+                    showHomepageData(jsonObject.optJSONObject("data"))
+                    advertTime()
+                }
             }
         }
 
@@ -253,9 +257,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     var homepageData: JSONObject? = null
 
-    var contractHomeRecommendNameList = arrayListOf<String>()
-
-    var contractHomeRecommendList = arrayListOf<JSONArray>()
 
     /*
      * 首页数据展示
@@ -347,23 +348,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     }
 
-
-    private fun loadContractData() {
-        ContractPublicDataAgent.registerTickerWsListener(this, object : ContractTickerListener() {
-            override fun onWsContractTicker(ticker: ContractTicker) {
-                if (isHidden || !isVisible || !isResumed) {
-                    return
-                }
-                for (i in selectTopSymbol4Contract?.indices!!) {
-                    if (selectTopSymbol4Contract?.get(i)?.instrument_id == ticker.instrument_id) {
-                        selectTopSymbol4Contract[i] = ticker
-                        break
-                    }
-                }
-                topSymbol4ContractAdapter?.setNewData(selectTopSymbol4Contract)
-            }
-        })
-    }
 
 
     private fun showAdvertising(isShow: Boolean) {
@@ -625,48 +609,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
     val chooseType = arrayListOf<String>()
 
 
-    /**
-     * 合约
-     */
-    fun showBottom4Contract() {
-
-        fragments.clear()
-        if (contractHomeRecommendNameList.size == 0) {
-            return
-        }
-        for (i in contractHomeRecommendNameList.indices) {
-            fragments.add(
-                NewSlCoinSearchItemFragment.newInstance(
-                    i,
-                    fragment_market,
-                    contractHomeRecommendList.get(i).toString()
-                )
-            )
-        }
-        var marketPageAdapter = NVPagerAdapter(childFragmentManager, contractHomeRecommendNameList, fragments)
-        fragment_market?.adapter = marketPageAdapter
-        fragment_market?.offscreenPageLimit = fragments.size
-        fragment_market?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                selectPostion = position
-//                WsAgentManager.instance.unbind(this@NewVersionHomepageFragment)
-//                loopData()
-                fragment_market?.resetHeight(selectPostion)
-            }
-        })
-
-        try {
-            stl_homepage_list?.setViewPager(fragment_market, contractHomeRecommendNameList.toTypedArray())
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
 
     fun showBottomVp(data: JSONArray) {
@@ -1222,7 +1164,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                     jsonObject.put("close", this.optString("close"))
                     jsonObject.put("vol", this.optString("vol"))
                     val index = dates.indexOf(jsonObject)
-                    dates.set(index, jsonObject)
+                    dates[index] = jsonObject
                     isLoad++
                 }
             }

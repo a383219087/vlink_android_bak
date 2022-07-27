@@ -126,16 +126,7 @@ public class UdeskWebViewActivity extends AppCompatActivity {
 //                UdeskWebViewActivity.this.finish();
             }
 
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage(getString(R.string.base_error_prompt5));
-                builder.setPositiveButton(getString(R.string.common_text_btnConfirm), (dialog, which) -> handler.proceed());
-                builder.setNegativeButton(getString(R.string.common_text_btnCancel), (dialog, which) -> handler.cancel());
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

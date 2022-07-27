@@ -149,7 +149,7 @@ class TouchIDFaceIDActivity : NBaseActivity() {
             }
         }
 
-        var cryptoObjectHelper = CryptoObjectHelper()
+        val cryptoObjectHelper = CryptoObjectHelper()
         if (cancellationSignal == null) {
             cancellationSignal = CancellationSignal()
         }

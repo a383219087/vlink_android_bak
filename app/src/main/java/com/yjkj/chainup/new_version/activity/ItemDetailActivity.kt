@@ -267,17 +267,7 @@ class ItemDetailActivity : NBaseActivity() {
                 indicator?.start()
             }
 
-            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-                //忽略证书的错误继续Load页面内容，不会显示空白页面
-                var builder = AlertDialog.Builder(view?.getContext());
-                builder.setMessage(LanguageUtil.getString(this@ItemDetailActivity, "base_error_prompt5"))
-                builder.setPositiveButton(LanguageUtil.getString(this@ItemDetailActivity, "common_text_btnConfirm")) { dialog, which -> handler?.proceed(); };
 
-                builder.setNegativeButton(LanguageUtil.getString(this@ItemDetailActivity, "common_text_btnCancel")) { dialog, which -> handler?.cancel() };
-
-                var dialog = builder.create()
-                dialog.show()
-            }
 
             //解决无法调用拨打电话问题,还要重写下面这个重载函数
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {

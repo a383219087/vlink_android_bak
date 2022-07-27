@@ -4174,15 +4174,6 @@ class NewDialogUtils {
                                 return true
                             }
 
-                            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-                                super.onReceivedSslError(view, handler, error)
-                                var builder = AlertDialog.Builder(view?.getContext());
-                                builder.setMessage(LanguageUtil.getString(context, "base_error_prompt5"))
-                                builder.setPositiveButton(LanguageUtil.getString(context, "common_text_btnConfirm")) { dialog, which -> handler?.proceed(); };
-                                builder.setNegativeButton(LanguageUtil.getString(context, "common_text_btnCancel")) { dialog, which -> handler?.cancel() };
-                                var dialog = builder.create()
-                                dialog.show()
-                            }
                         })
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             WebView.setWebContentsDebuggingEnabled(true)

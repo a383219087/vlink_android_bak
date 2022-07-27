@@ -42,11 +42,6 @@ interface MainApiService {
     @GET("traderUser/description")
     fun getDescriptionUsing(): Observable<HttpResult<String?>>
 
-    /**
-     * 1. 合约的公共接口
-     */
-    @POST("contract_public_info_v2")
-    fun contract_public_info_v2(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 13. 账户余额信息 ：
@@ -173,11 +168,7 @@ interface MainApiService {
     @POST("user/reset_password_step_two")
     fun findPwdStep2(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 指纹或者人脸识别 - 验证本地密码
-     */
-    @POST("common/check_native_pwd")
-    fun checkLocalPwd(@Body requestBody: RequestBody): Observable<ResponseBody>
+
 
 
     /**
@@ -200,18 +191,8 @@ interface MainApiService {
     @POST("auth/app/user/open_hand_two")
     fun setHandPwd(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 设置手势密码第一步
-     */
-    @POST("auth/app/user/open_hand_one")
-    fun setHandPwdOne(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
-    /**
-     * 指纹或者人脸识别 - 验证本地密码
-     */
-    @POST("user/open_handPwd_V2")
-    fun newOpenHandPwd(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 找回密码 Step 1
@@ -366,12 +347,6 @@ interface MainApiService {
 
 
     /**
-     * 交易加价卖出
-     */
-    @POST("order/create_overcharge_onekey")
-    fun raisePriceSell(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
      * /notice/detail app公告详情页
      */
     @GET("notice/detail")
@@ -436,11 +411,6 @@ interface MainApiService {
     @POST("lever/order/list/new")
     fun newOrders4Lever(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 根据订单号获取成交记录
-     */
-    @POST("lever/trade/list_by_order")
-    fun orderRecords4Lever(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 当前申请(未归还记录)
@@ -494,11 +464,6 @@ interface MainApiService {
     @POST("finance/otc_transfer")
     fun transher4OTC(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 资金划转
-     */
-    @POST("capital_transfer")
-    fun capitalTransfer4Contract(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 划转时获取资金
@@ -564,78 +529,10 @@ interface MainApiService {
     fun submitAuthInfoCheck(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
-     * 获取kol列表 get
-     */
-    @GET("out/follow/chainup/kol/list")
-    fun getFollowKolList(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
-     * 获取跟单列表 get
-     */
-    @GET("out/follow/chainup/follow/list")
-    fun getFollowList(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-
-    /**
-     * 获取跟单配置 get
-     */
-    @GET("out/follow/chainup/follow/options")
-    fun getFollowOptions(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
      * 获取跟单收益(跟单列表上的跟单收益信息)
      */
     @GET("out/follow/chainup/follow/profit")
     fun getFollowProfit(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
-     * 获取跟单详情
-     */
-    @GET("out/follow/chainup/follow/detail")
-    fun getFollowDetail(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
-     * 获取跟单收益趋势
-     */
-    @GET("out/follow/chainup/follow/trend")
-    fun getFollowTrend(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
-     * 获取跟单分享信息
-     */
-    @GET("out/follow/chainup/follow/share")
-    fun getFollowShare(@QueryMap map: Map<String, String>): Observable<ResponseBody>
-
-    /**
-     * 开始跟单
-     */
-    @POST("inner/follow/set")
-    fun getInnerFollowbegin(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     * 结束跟单
-     */
-    @POST("inner/follow/stop")
-    fun getInnerFollowEnd(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     * 结束跟单
-     */
-    @POST("app-increment-api/v2/co/agent/index")
-    fun getAgentIndex(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     * 结束跟单
-     */
-    @POST("app-increment-api/common/public")
-    fun getNoTokenPublic(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     * 新增接口 指纹登录
-     */
-    @POST("app-auth/user/quick_login")
-    fun newQuickLogin(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 新增接口 手势登录
@@ -656,31 +553,6 @@ interface MainApiService {
     @POST("common/index_v5")
     fun getHome(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 现货经纪人
-     */
-    @POST("agentV2/agent_data_query")
-    fun getAgentDataQuery(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     * 经纪人展示页面图片链接接口
-     */
-    @POST("app-increment-api/invitation/pageConfig")
-    fun getPageConfig(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     * 我的邀请
-     */
-    @POST("app-increment-api/invitation/myInvitations")
-    fun getMyInvitations(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     *  邀请奖励
-     */
-    @POST("app-increment-api/invitation/myInvitationRewards")
-    fun getMyInvitationRewards(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
@@ -707,12 +579,6 @@ interface MainApiService {
     @POST("finance/get_charge_address")
     fun getChargeAddress(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 币币划转到合约
-     */
-//    @POST("app/futures_transfer")
-    @POST("app/co_transfer")
-    fun futuresTransfer(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 新版本获取合约资产、和账户总资产接口
@@ -737,8 +603,6 @@ interface MainApiService {
      */
     @POST("app-quant-api/quant/calBaseAmount")
     fun calBaseAmount(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
 
     /**
      * 策略交易列表
@@ -785,13 +649,6 @@ interface MainApiService {
      */
     @POST("etfAct/positionRecordList")
     fun getETFPositionRecordList(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     * 申请邀请名额
-     */
-    @POST("user/apply_invite_quota")
-    fun applyInviteQuota(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
 

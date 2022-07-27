@@ -1,17 +1,15 @@
 package com.yjkj.chainup.ui.home;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.DownloadListener;
-import android.webkit.SslErrorHandler;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -90,23 +88,20 @@ public class ChatWebViewActivity extends AppCompatActivity {
 
         settings.setAllowFileAccess(true);  //设置可以访问文件
         settings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
-
+        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        settings.setBlockNetworkImage(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         //设置编码格式
         settings.setDefaultTextEncodingName("UTF-8");
         // 关于是否缩放
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            settings.setDisplayZoomControls(false);
-        }
+        settings.setDisplayZoomControls(false);
         /**
          *  Webview在安卓5.0之前默认允许其加载混合网络协议内容
          *  在安卓5.0之后，默认不允许加载http与https混合内容，需要设置webview允许其加载混合网络协议内容
          */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
-        }
-//        dealJavascriptLeak();
+        //        dealJavascriptLeak();
         settings.setLoadsImagesAutomatically(true);  //支持自动加载图片
 
         settings.setDomStorageEnabled(true); //开启DOM Storage
@@ -129,53 +124,38 @@ public class ChatWebViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                ChatWebViewActivity.this.finish();
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage(getString(R.string.base_error_prompt5));
-                builder.setPositiveButton(getString(R.string.common_text_btnConfirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.proceed();
-                    }
-                });
-
-                builder.setNegativeButton(getString(R.string.common_text_btnCancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.cancel();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-
-            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
                 view.loadUrl(url);
                 return true;
             }
         });
-
+        mwebView.addJavascriptInterface(new MyJavascriptInterface1(this), "Android");
         mwebView.loadUrl(url);
     }
 
-//    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-//    private void dealJavascriptLeak() {
-//        try {
-//            mwebView.removeJavascriptInterface("searchBoxJavaBridge_");
-//            mwebView.removeJavascriptInterface("accessibility");
-//            mwebView.removeJavascriptInterface("accessibilityTraversal");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private class MyJavascriptInterface1 {
+
+        private Context context;
+
+        public MyJavascriptInterface1(Context context) {
+            this.context = context;
+        }
+
+        /**
+         * 扫一扫
+         *
+         * @return
+         */
+        @JavascriptInterface
+        public String qrcode() {
+
+            return "M125773663";
+        }
+
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

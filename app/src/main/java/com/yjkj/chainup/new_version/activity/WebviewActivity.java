@@ -146,27 +146,6 @@ public class WebviewActivity extends Activity {
 
             }
 
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage(getString(R.string.base_error_prompt5));
-                builder.setPositiveButton(getString(R.string.common_text_btnConfirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.proceed();
-                    }
-                });
-
-                builder.setNegativeButton(getString(R.string.common_text_btnCancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.cancel();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

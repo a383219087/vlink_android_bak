@@ -603,19 +603,6 @@ class MainModel : BaseDataManager() {
     }
 
 
-    /**
-     * 手势密码登录
-     */
-    fun handPwdLogin(account: String, loginPwd: String, handPwd: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["mobileNumber"] = account
-            this["handPwd"] = handPwd
-            this["loginPwd"] = loginPwd
-        }
-
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).handPwdLogin(getBaseReqBody(map)), consumer)
-    }
-
 
     /*************登录注册END***************/
 
@@ -895,15 +882,6 @@ class MainModel : BaseDataManager() {
     }
 
 
-    /**
-     * 交易加价卖出
-     */
-    fun raisePriceSell(symbol: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["symbol"] = symbol
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).raisePriceSell(getBaseReqBody(map)), consumer)
-    }
 
 
     /**
@@ -1057,34 +1035,10 @@ class MainModel : BaseDataManager() {
             this["toAccount"] = toAccount
             this["amount"] = amount
             if (null != coinSymbol) {
-                this["coinSymbol"] = coinSymbol!!
+                this["coinSymbol"] = coinSymbol
             }
         }
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).transher4OTC(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 12. 资金划转 ：
-     *
-     * @param fromType 转出账户type
-     * @param toType   转入账户type
-     * @param amount   划转金额
-     * @param bond     保证金币种
-     *
-     */
-    fun capitalTransfer4Contract(fromType: String,
-                                 toType: String,
-                                 amount: String,
-                                 bond: String?, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["fromType"] = fromType
-            this["toType"] = toType
-            this["amount"] = amount
-            if (null != bond) {
-                this["bond"] = bond!!
-            }
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).capitalTransfer4Contract(getBaseReqBody(map)), consumer)
     }
 
 
@@ -1094,7 +1048,7 @@ class MainModel : BaseDataManager() {
     fun accountGetCoin4OTC(coin: String?, consumer: DisposableObserver<ResponseBody>): Disposable? {
         val map = getBaseMaps().apply {
             if (null != coin) {
-                this["coin"] = coin!!
+                this["coin"] = coin
             }
         }
 
@@ -1137,18 +1091,12 @@ class MainModel : BaseDataManager() {
     fun getTotalAsset(consumer: DisposableObserver<ResponseBody>): Disposable? {
         var isNewOldContract: Boolean
         val mContractMode = PublicInfoDataService.getInstance().getContractMode()
-        if (mContractMode == 0 || mContractMode == -1) {
-            //旧版合约
-            isNewOldContract = false
-        } else {
-            //新版合约
-            isNewOldContract = true
-        }
+        isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
         AppConstant.IS_NEW_CONTRACT = isNewOldContract
-        if (AppConstant.IS_NEW_CONTRACT) {
-            return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getContractTotalAccountBalanceV2(getBaseReqBody()), consumer)
+        return if (AppConstant.IS_NEW_CONTRACT) {
+            changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getContractTotalAccountBalanceV2(getBaseReqBody()), consumer)
         } else {
-            return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getTotalAsset(getBaseReqBody()), consumer)
+            changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getTotalAsset(getBaseReqBody()), consumer)
         }
     }
 
@@ -1195,42 +1143,8 @@ class MainModel : BaseDataManager() {
     }
 
 
-    /**
-     * 开始跟单
-     * @param trade_currency_id
-     * @param total
-     * @param is_stop_deficit
-     * @param stop_deficit
-     * @param is_stop_profit
-     * @param stop_profit
-     * @param coin_symbol
-     */
-    fun getInnerFollowbegin(trade_currency_id: String, total: String, is_stop_deficit: String, stop_deficit: String, is_stop_profit: String, stop_profit: String, symbol: String, currency: String, trade_currency: String, follow_immediately: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["trade_currency_id"] = trade_currency_id
-            this["total"] = total
-            this["is_stop_deficit"] = is_stop_deficit
-            this["stop_deficit"] = stop_deficit
-            this["is_stop_profit"] = is_stop_profit
-            this["stop_profit"] = stop_profit
-            this["symbol"] = symbol
-            this["currency"] = currency
-            this["trade_currency"] = trade_currency
-            this["follow_immediately"] = follow_immediately
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getInnerFollowbegin(getBaseReqBody(map)), consumer)
-    }
 
-    /**
-     * 结束跟单
-     * @param follow_id
-     */
-    fun getInnerFollowEnd(follow_id: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["follow_id"] = follow_id
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getInnerFollowEnd(getBaseReqBody(map)), consumer)
-    }
+
 
     /**
      * 获取账户余额信息
@@ -1242,30 +1156,9 @@ class MainModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).accountBalance(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 获取账户余额信息
-     */
-    fun getAgentIndex(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getAgentIndex(getBaseReqBody()), consumer)
-    }
-
-    /**
-     * 获取账户余额信息
-     */
-    fun getNoTokenPublic(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getNoTokenPublic(getBaseReqBody()), consumer)
-    }
 
 
-    /**
-     * 指纹登录new
-     */
-    fun newQuickLogin(quicktoken: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["quicktoken"] = quicktoken
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).newQuickLogin(getBaseReqBody(map)), consumer)
-    }
+
 
 
     /**
@@ -1326,44 +1219,9 @@ class MainModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).confirmLogin(getBaseReqBody(hashMap)), consumer)
     }
 
-    /**
-     * 获取现货经纪人
-     */
-    fun getAgentDataQuery(coinName: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["coinName"] = coinName
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getAgentDataQuery(getBaseReqBody(map)), consumer)
-    }
 
-    /**
-     * 获取现货经纪人
-     */
-    fun getPageConfig(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getPageConfig(getBaseReqBody()), consumer)
-    }
 
-    /**
-     * 我的邀请
-     */
-    fun getMyInvitations(page: String = "1", consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["page"] = page
-            this["pageSize"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getMyInvitations(getBaseReqBody(map)), consumer)
-    }
 
-    /**
-     * 邀请奖励
-     */
-    fun getMyInvitationRewards(page: String = "1", consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["page"] = page
-            this["pageSize"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getMyInvitationRewards(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 获取首页数据
@@ -1418,18 +1276,6 @@ class MainModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).optionalUploadSymbol(getBaseReqBody(map)), consumer)
     }
 
-
-    /**
-     * 币币划转到合约
-     */
-    fun futuresTransfer(uid: String = "", coinSymbol: String = "", amount: String = "",transferType: String = "", consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["coinSymbol"] = coinSymbol
-            this["amount"] = amount
-            this["transferType"] = transferType
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).futuresTransfer(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 新版本获取合约总资产接口
@@ -1647,16 +1493,7 @@ class MainModel : BaseDataManager() {
         }
         changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).public_info_v4(getBaseReqBody()), consumer)
     }
-    /**
-     * 申请邀请名额
-     */
-    fun applyInviteQuota( applyQuota:String, applyDesc:String,consumer: NDisposableObserver): Disposable? {
-        val hashMap = getBaseMaps().apply {
-            this["applyQuota"] = applyQuota
-            this["applyDesc"] = applyDesc
-        }
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).applyInviteQuota(getBaseReqBody(hashMap)), consumer)
-    }
+
 
     /**
      * 内部转账用户认证

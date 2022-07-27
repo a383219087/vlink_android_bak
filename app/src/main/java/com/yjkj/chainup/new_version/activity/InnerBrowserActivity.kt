@@ -62,19 +62,6 @@ class InnerBrowserActivity : NBaseActivity() {
         web_view.settings.blockNetworkImage = false//解决图片不显示
         web_view.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
-        web_view.webViewClient =object : WebViewClient(){
-            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-                //忽略证书的错误继续Load页面内容，不会显示空白页面
-                var builder = AlertDialog.Builder(view?.getContext());
-                builder.setMessage(LanguageUtil.getString(this@InnerBrowserActivity, "base_error_prompt5"))
-                builder.setPositiveButton(LanguageUtil.getString(this@InnerBrowserActivity, "common_text_btnConfirm")) { dialog, which -> handler?.proceed(); };
-
-                builder.setNegativeButton(LanguageUtil.getString(this@InnerBrowserActivity, "common_text_btnCancel")) { dialog, which -> handler?.cancel() };
-
-                var dialog = builder.create()
-                dialog.show()
-            }
-        }
 
         web_view.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, newProgress: Int) {

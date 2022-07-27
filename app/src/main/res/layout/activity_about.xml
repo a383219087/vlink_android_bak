@@ -24,6 +24,7 @@
     <com.yjkj.chainup.new_version.view.CommonlyUsedButton
         android:id="@+id/cub_submit"
         style="@style/PersonalButton"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         app:bottonTextContent="@string/personal_action_checkUpdate" />

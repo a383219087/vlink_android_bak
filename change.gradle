@@ -54,7 +54,7 @@ ext {
             buglyId:"a72519d9ba",
             homepageService:"0",
             umAppKey:"5bc7f280b465f50f72000134",
-            versionCode:100029,
+            versionCode:100030,
 //            versionName:"1.0.1",
 //            versionName:"dev",
 

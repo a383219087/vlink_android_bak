@@ -1136,16 +1136,6 @@ class HttpClient private constructor() {
     }
 
 
-    /**
-     * 指纹或者人脸识别
-     */
-    fun quickLogin(countryCode: String, mobileNumber: String, loginPword: String): Observable<HttpResult<JsonObject>> {
-        val map = getBaseMap(false)
-        map["countryCode"] = countryCode
-        map["mobileNumber"] = mobileNumber
-        map["loginPword"] = loginPword
-        return apiService.quickLogin(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
     /**
      * 指纹或者人脸识别
