@@ -1,12 +1,14 @@
 package com.yjkj.chainup.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
@@ -23,8 +25,8 @@ import com.yjkj.chainup.R;
 import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.constant.RoutePath;
-import com.yjkj.chainup.db.service.PublicInfoDataService;
 import com.yjkj.chainup.db.service.UserDataService;
+import com.yjkj.chainup.new_version.activity.asset.CaptureActivity;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 import com.yjkj.chainup.util.MD5Util;
 
@@ -53,7 +55,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.chat_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
         vip = getIntent().getStringExtra(ParamConstant.homeTabType);
-        setBarColor(PublicInfoDataService.getInstance().getThemeMode());
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.red));
         initViews();
         loginById(UserDataService.getInstance().getUserInfo4UserId(), vip);
     }
@@ -62,6 +64,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
         try {
             udeskWebChromeClient = new UdeskWebChromeClient(this, () -> finish());
             mwebView = (WebView) findViewById(R.id.webview);
+//         findViewById(R.id.back).setOnClickListener(view -> finish());
             settingWebView(url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,6 +136,15 @@ public class ChatWebViewActivity extends AppCompatActivity {
         });
         mwebView.addJavascriptInterface(new MyJavascriptInterface1(this), "Android");
         mwebView.loadUrl(url);
+        mwebView.setOnKeyListener((view, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && mwebView.canGoBack()) {
+                    mwebView.goBack();
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     private class MyJavascriptInterface1 {
@@ -149,20 +161,31 @@ public class ChatWebViewActivity extends AppCompatActivity {
          * @return
          */
         @JavascriptInterface
-        public String qrcode() {
+        public void qrcode() {
+            Intent intent = new Intent(context, CaptureActivity.class);
+            startActivityForResult(intent, 0x1111);
+        }
 
-            return "M125773663";
+        /**
+         * 返回主页
+         */
+        @JavascriptInterface
+        public void finishActivity() {
+            finish();
         }
 
     }
-
-
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 0x1111) {
+                data.getStringExtra(CaptureActivity.SCAN_RESULT);
+            }
+        }
     }
 
     @Override
@@ -177,22 +200,6 @@ public class ChatWebViewActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * 设置状态栏的颜色
-     * <p>
-     * 0 是 白天模式，状态栏是白底黑字  1是夜间模式 状态栏是黑底白字
-     */
-    private void setBarColor(int index) {
-        if (index == 0) {
-            StatusBarUtil.setLightMode(this);
-        } else {
-            StatusBarUtil.setDarkMode(this);
-        }
-
-
-    }
-
-
     public void loginById(String id, String vip) {
         int randomnum = 0;
         randomnum = Integer.parseInt(id);
@@ -203,15 +210,15 @@ public class ChatWebViewActivity extends AppCompatActivity {
         data.put("Data", object);
         new Thread(() -> {
 //            try {
-                OkHttpClient client = new OkHttpClient();
-                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-                RequestBody body = RequestBody.create(JSON, data.toJSONString());
-                Request request = new Request.Builder()
-                        .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostRegistIMUserId")
-                        .post(body)
-                        .build();
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody body = RequestBody.create(JSON, data.toJSONString());
+            Request request = new Request.Builder()
+                    .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostRegistIMUserId")
+                    .post(body)
+                    .build();
 
-                Call call = client.newCall(request);
+            Call call = client.newCall(request);
             Response response = null;
             try {
                 response = call.execute();
@@ -227,67 +234,67 @@ public class ChatWebViewActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                    System.out.println(jsonString);
-                    JSONObject jsonObject = JSONObject.parseObject(jsonString);
-                    String user_id = jsonObject.getJSONObject("Data").getString("user_id");
-                    String key = jsonObject.getJSONObject("Data").getString("key");
-                    Timestamp d = new Timestamp(System.currentTimeMillis());
-                    String timestamp = String.valueOf(d.getTime());
+                System.out.println(jsonString);
+                JSONObject jsonObject = JSONObject.parseObject(jsonString);
+                String user_id = jsonObject.getJSONObject("Data").getString("user_id");
+                String key = jsonObject.getJSONObject("Data").getString("key");
+                Timestamp d = new Timestamp(System.currentTimeMillis());
+                String timestamp = String.valueOf(d.getTime());
 
-                    System.out.println(timestamp);
-
-
-                    String code = user_id + key + timestamp;
-                    ArrayList<Character> list = new ArrayList<Character>(code.length());
-                    for (int i = 0; i < code.length(); i++) {
-                        list.add(code.charAt(i));
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        list.sort(Character::compare);
-                    }
-                    code = "";
-                    for (Character ch : list) {
-                        code += ch;
-                    }
-                    code = MD5Util.getMD5(code);
-                    JSONObject object1 = new JSONObject();
-                    object1.put("user_id", user_id);
-                    object1.put("code", code);
-                    object1.put("timestamp", timestamp);
-                    JSONObject data1 = new JSONObject();
-                    data1.put("Data", object1);
-
-                    MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
-                    RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
-                    request = new Request.Builder()
-                            .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostIMLoginCode")//访问连接
-                            .post(body1).build();
+                System.out.println(timestamp);
 
 
-                    call = client.newCall(request);
-
-                    try {
-                        response = call.execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    JSONObject mine = null;
-                    try {
-                        mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    String js = "window.localStorage.setItem('USERS_KEY','" + mine.toJSONString() + "');";
-
-                    this.runOnUiThread(() -> mwebView.evaluateJavascript(js, s -> mwebView.reload()));
-
-
-                } else {
-                    Log.e("-------------------------", "shib");
+                String code = user_id + key + timestamp;
+                ArrayList<Character> list = new ArrayList<Character>(code.length());
+                for (int i = 0; i < code.length(); i++) {
+                    list.add(code.charAt(i));
                 }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    list.sort(Character::compare);
+                }
+                code = "";
+                for (Character ch : list) {
+                    code += ch;
+                }
+                code = MD5Util.getMD5(code);
+                JSONObject object1 = new JSONObject();
+                object1.put("user_id", user_id);
+                object1.put("code", code);
+                object1.put("timestamp", timestamp);
+                JSONObject data1 = new JSONObject();
+                data1.put("Data", object1);
+
+                MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
+                RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
+                request = new Request.Builder()
+                        .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostIMLoginCode")//访问连接
+                        .post(body1).build();
+
+
+                call = client.newCall(request);
+
+                try {
+                    response = call.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                JSONObject mine = null;
+                try {
+                    mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                String js = "window.localStorage.setItem('USERS_KEY','" + mine.toJSONString() + "');";
+
+                this.runOnUiThread(() -> mwebView.evaluateJavascript(js, s -> mwebView.reload()));
+
+
+            } else {
+                Log.e("-------------------------", "shib");
+            }
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }

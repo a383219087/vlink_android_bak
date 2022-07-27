@@ -24,8 +24,8 @@
 
         <include
             android:id="@+id/home_header"
-            app:vm="@{_all}"
-            layout="@layout/activity_home_title" />
+            layout="@layout/activity_home_title"
+            app:vm="@{_all}" />
 
         <RelativeLayout
             android:id="@+id/net_wrong"

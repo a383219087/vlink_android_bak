@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.blankj.utilcode.util.SPUtils
-import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
@@ -89,6 +88,7 @@ class SplashActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+
                 LogUtil.d("我是SplashActivity", it.toString())
                 ChainUpApp.url = it
                 if (it.baseUrl.contains("http://") || it.baseUrl.contains("https://")) {

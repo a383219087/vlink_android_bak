@@ -120,13 +120,7 @@ class PersonalCenterActivity : NBaseActivity() {
                 title_layout?.setCertification(0)
             }
         }
-//        if (PublicInfoDataService.getInstance().getIncrementConfig(null).status == 1) {
-//            aiv_freeStaking.visibility = View.VISIBLE
-//            if (PublicInfoDataService.getInstance().getIncrementConfig(null).isNew == 1) {
-////                aiv_freeStaking.setShowLabel(true)
-//            }
-//            aiv_freeStaking.setTitle(PublicInfoDataService.getInstance().getIncrementConfig(null).name)
-//        }
+
     }
     var countIndex = 0
 

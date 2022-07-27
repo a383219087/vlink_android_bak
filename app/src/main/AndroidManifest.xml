@@ -314,7 +314,9 @@
         <activity android:name="com.yjkj.chainup.ui.financial.OutActivity" />
         <activity android:name=".ui.buy.QuickBuyActivity" />
         <activity android:name=".ui.buy.QuickBuySureActivity" />
-        <activity android:name=".ui.home.ChatWebViewActivity" />
+        <activity android:name=".ui.home.ChatWebViewActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
 
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"

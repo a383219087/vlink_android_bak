@@ -1,18 +1,13 @@
 package com.yjkj.chainup.new_version.activity.personalCenter;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
-import android.webkit.DownloadListener;
+import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,18 +15,12 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.yjkj.chainup.R;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.constant.RoutePath;
 import com.yjkj.chainup.db.service.PublicInfoDataService;
-import com.yjkj.chainup.new_version.view.ICloseWindow;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
-
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.ExecutionException;
 
 @Route(path = RoutePath.UdeskWebViewActivity)
 public class UdeskWebViewActivity extends AppCompatActivity {
@@ -137,6 +126,15 @@ public class UdeskWebViewActivity extends AppCompatActivity {
         });
         mwebView.addJavascriptInterface(new MyJavascriptInterface1(this), "Android");
         mwebView.loadUrl(url);
+        mwebView.setOnKeyListener((view, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && mwebView.canGoBack()) {
+                    mwebView.goBack();
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
 //    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
