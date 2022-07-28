@@ -316,6 +316,8 @@
         <activity android:name=".ui.buy.QuickBuySureActivity" />
         <activity android:name=".ui.home.ChatWebViewActivity"
             android:windowSoftInputMode="adjustResize"
+            android:launchMode="singleTask"
+
             />
 
         <meta-data
