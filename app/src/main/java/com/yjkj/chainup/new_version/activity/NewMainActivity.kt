@@ -450,7 +450,6 @@ class NewMainActivity : NBaseActivity() {
         }
         contractOpen = PublicInfoDataService.getInstance().contractOpen(catchObj)
 
-            CheckUpdateUtil.update(mActivity, true)
 
         WsContractAgentManager.instance.connectionSocket()
 

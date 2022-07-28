@@ -251,7 +251,6 @@ dependencies {
     // 底部导航
     implementation 'com.aurelhubert:ahbottomnavigation:2.2.0'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
 
     //    Tecent Bugly
     implementation 'com.tencent.bugly:crashreport:2.6.6'

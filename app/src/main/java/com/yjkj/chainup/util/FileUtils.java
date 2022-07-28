@@ -1,9 +1,7 @@
 package com.yjkj.chainup.util;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
@@ -20,8 +18,6 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.os.Environment.MEDIA_MOUNTED;
-
 /**
  * @Author lianshangljl
  * @Date 2020-02-20-17:07
@@ -31,19 +27,7 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class FileUtils {
 
 
-    private static final String EXTERNAL_STORAGE_PERMISSION = "android.permission.WRITE_EXTERNAL_STORAGE";
 
-
-    /**
-     * sdcard
-     */
-    private static final String SD_ROOT = Environment.getExternalStorageDirectory().getPath();
-
-    /**
-     * app根目录
-     */
-    public static final String PICTURE_DIR = SD_ROOT + File.separator + ChainUpApp.appContext.getPackageName()
-            + File.separator + "cer" + File.separator;
 
     private FileUtils() {
     }
@@ -57,78 +41,7 @@ public class FileUtils {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
-    public static boolean initPictureDir() {
-        if (!sdExist()) {
-            return false;
-        }
-        File picFile = new File(PICTURE_DIR);
-        boolean exists = picFile.exists();
-        boolean mkdirs = picFile.mkdirs();
-        return exists || mkdirs;
-    }
 
-    // 获取文件大小
-    public static void deDuplication(File file) {
-        if (file.exists()) {
-            Log.d("fileUtil", "存在了：" + file.getPath());
-            boolean isDelete = file.delete();
-            Log.d("fileUtil", "删除文件结果：" + isDelete);
-        } else {
-            Log.d("fileUtil", "文件不存在：" + file.getPath());
-        }
-    }
-
-    public static String getDownloadApkCachePath(Context context) {
-        String appCachePath;
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            appCachePath = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/ChainUp/";
-        } else {
-            appCachePath = context.getFilesDir().getAbsolutePath() + "/ChainUp/";
-
-        }
-        File file = new File(appCachePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return appCachePath;
-    }
-
-    public static File getCacheDirectory(Context context) {
-        File appCacheDir = null;
-        if (MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && hasExternalStoragePermission(context)) {
-            appCacheDir = getExternalCacheDir(context);
-        }
-        if (appCacheDir == null) {
-            appCacheDir = context.getCacheDir();
-        }
-        if (appCacheDir == null) {
-            Log.w("UpdateFun TAG", "Can't define system cache directory! The app should be re-installed.");
-        }
-        return appCacheDir;
-    }
-
-    private static File getExternalCacheDir(Context context) {
-        File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data");
-        File appCacheDir = new File(new File(dataDir, context.getPackageName()), "cache");
-        if (!appCacheDir.exists()) {
-            if (!appCacheDir.mkdirs()) {
-                Log.w("UpdateFun TAG", "Unable to create external cache directory");
-                return null;
-            }
-            try {
-                new File(appCacheDir, ".nomedia").createNewFile();
-            } catch (IOException e) {
-                Log.i("UpdateFun TAG", "Can't create \".nomedia\" file in application external cache directory");
-            }
-        }
-        return appCacheDir;
-    }
-
-    private static boolean hasExternalStoragePermission(Context context) {
-        int perm = context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION);
-        return perm == PackageManager.PERMISSION_GRANTED;
-    }
 
     public static void downloadAdvert(Context mContext, String imageUrl) {
         LogUtil.e("LogUtils","开始下载图片 "+imageUrl);

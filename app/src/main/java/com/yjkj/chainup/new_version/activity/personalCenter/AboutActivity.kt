@@ -1,7 +1,6 @@
 package com.yjkj.chainup.new_version.activity.personalCenter
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
@@ -9,13 +8,10 @@ import com.yjkj.chainup.bean.AboutUSBean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.adapter.AbountAdapter
-import com.yjkj.chainup.new_version.view.CommonlyUsedButton
-import com.yjkj.chainup.util.CheckUpdateUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.PackageInfoUtils
 import com.yjkj.chainup.util.isHttpUrl
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,14 +38,8 @@ class AboutActivity : NBaseActivity() {
 
 
     override fun initView() {
-        cub_submit.isEnable(true)
-        cub_submit.listener = object : CommonlyUsedButton.OnBottonListener {
-            override fun bottonOnClick() {
-                CheckUpdateUtil.update(mActivity, false)
-            }
-        }
+
         v_title?.setContentTitle(LanguageUtil.getString(this, "personal_text_aboutus"))
-        cub_submit?.setBottomTextContent(LanguageUtil.getString(this, "personal_action_checkUpdate"))
     }
 
     /**
