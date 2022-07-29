@@ -15,7 +15,7 @@ import org.json.JSONObject
 class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObject>) : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.cll_item_historical_position, data), LoadMoreModule {
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
-        helper?.run {
+        helper.run {
             var mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(context, item.optInt("contractId"))
             var mMarginCoin = LogicContractSetting.getContractMarginCoinById(context, item.optInt("contractId"))
             val mMultiplierPrecision = LogicContractSetting.getContractMultiplierPrecisionById(context, item.optInt("contractId"))
@@ -48,7 +48,7 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
 
             val positionVolume = if (LogicContractSetting.getContractUint(context) == 0) item.optString("positionVolume") else BigDecimalUtils.mulStr(item.optString("positionVolume"), mMultiplier, mMultiplierPrecision)
             setTextColor(R.id.tv_value1, context.resources.getColor(profitLossColor))
-            setText(R.id.tv_value1, BigDecimalUtils.showSNormal(item.optString("profitRealizedAmount"), mMarginCoinPrecision)) //已实现盈亏
+            setText(R.id.tv_value1, BigDecimalUtils.showSNormal(item.optString("historyRealizedAmount"), mMarginCoinPrecision)) //已实现盈亏
             setText(R.id.tv_value2, BigDecimalUtils.showSNormal(item.optString("openPrice"), mMarginCoinPrecision))//开仓均价
             setText(R.id.tv_value3, BigDecimalUtils.showSNormal(item.optString("closePrice"), mMarginCoinPrecision))//平仓均价
             setText(R.id.tv_value4, positionVolume)//仓位数量
