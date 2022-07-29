@@ -217,7 +217,6 @@
         <activity android:name=".new_version.activity.asset.NewCoinActivity" />
         <activity android:name=".new_version.activity.EntrustDetialsActivity" />
         <activity android:name=".new_version.activity.asset.CaptureActivity" /> <!-- 合约start -->
-        <activity android:name=".contract.activity.SlContractEntrustActivity" />
         <activity android:name=".contract.activity.SlContractEntrustDetailActivity" />
         <activity
             android:name=".contract.activity.SlHoldShareActivity"

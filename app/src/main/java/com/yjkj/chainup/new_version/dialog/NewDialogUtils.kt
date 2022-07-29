@@ -462,68 +462,6 @@ class NewDialogUtils {
 
         }
 
-        fun showDialogNew(context: Context,
-                          content: String,
-                          isSingle: Boolean,
-                          listener: DialogBottomListener?,
-                          title: String = "",
-                          cancelTitle: String = "",
-                          confrimTitle: String = "",
-                          returnListener: Boolean = false, isBackCancel: Boolean = false) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_normal_dialog)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .setOnKeyListener { p0, p1, p2 -> isBackCancel }
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-
-                        if (!TextUtils.isEmpty(title)) {
-                            viewHolder?.setGone(R.id.tv_title, true)
-                            viewHolder?.setText(R.id.tv_title, title)
-                        }
-
-                        if (isSingle) {
-                            viewHolder?.setGone(R.id.tv_cancel, false)
-                            if (!TextUtils.isEmpty(cancelTitle)) {
-                                viewHolder?.setText(R.id.tv_confirm_btn, cancelTitle)
-                            } else {
-                                viewHolder?.setText(R.id.tv_confirm_btn, LanguageUtil.getString(context, "common_text_btnConfirm"))
-                            }
-
-                        } else {
-                            viewHolder?.setText(R.id.tv_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
-                            if (confrimTitle.isNotEmpty()) {
-                                viewHolder?.setText(R.id.tv_cancel, confrimTitle)
-                            }
-                            if (!TextUtils.isEmpty(cancelTitle)) {
-                                viewHolder?.setText(R.id.tv_confirm_btn, cancelTitle)
-                            } else {
-                                viewHolder?.setText(R.id.tv_confirm_btn, LanguageUtil.getString(context, "common_text_btnConfirm"))
-                            }
-                        }
-                        viewHolder?.setText(R.id.tv_content, content)
-
-                    }
-                    .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_confirm_btn -> {
-                                if (listener != null && (!isSingle || returnListener)) {
-                                    listener.sendConfirm()
-                                }
-                                tDialog.dismiss()
-                            }
-                        }
-                    }
-                    .create()
-                    .show()
-
-        }
 
         /**
          * 划转
@@ -2552,70 +2490,6 @@ class NewDialogUtils {
         }
 
 
-        /**
-         * otc 昵称或者收款方式
-         * 安全
-         */
-        fun OTCTradingSecurityNickAndPaymentDialog(context: Context,
-                                                   listener: DialogBottomListener,
-                                                   paymentStatus: Boolean
-        ) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_otc_trading_security_dialog)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.setText(R.id.tv_money_password, LanguageUtil.getString(context, "nickname"))
-
-                        val tipsTitle = if (PublicInfoDataService.getInstance().getB2CSwitchOpen(null)) {
-                            LanguageUtil.getString(context, "otcSafeAlert_text_settingDesc_forotc")
-                        } else {
-                            LanguageUtil.getString(context, "otcSafeAlert_text_settingDesc")
-                        }
-
-                        viewHolder?.setText(R.id.tv_tips_title, tipsTitle)
-                        viewHolder?.setText(R.id.tv_money_password, LanguageUtil.getString(context, "safety_action_otcPassword"))
-                        viewHolder?.setText(R.id.tv_collect_money, LanguageUtil.getString(context, "noun_order_paymentTerm"))
-                        viewHolder?.setText(R.id.tv_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
-                        viewHolder?.setText(R.id.tv_goto_set, LanguageUtil.getString(context, "common_text_btnSetting"))
-
-                        if (UserDataService.getInstance().nickName.isEmpty()) {
-                            viewHolder?.getView<ImageView>(R.id.iv_money_password)?.setImageResource(R.drawable.fiat_unfinished)
-                            viewHolder?.getView<TextView>(R.id.tv_money_password)?.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
-                        } else {
-                            viewHolder?.getView<ImageView>(R.id.iv_money_password)?.setImageResource(R.drawable.fiat_complete)
-                            viewHolder?.getView<TextView>(R.id.tv_money_password)?.setTextColor(ColorUtil.getColor(R.color.main_blue))
-                        }
-                        if (UserDataService.getInstance().nickName.isNotEmpty()) {
-                            viewHolder?.getView<ImageView>(R.id.iv_collect_money)?.setImageResource(R.drawable.fiat_unfinished)
-                            viewHolder?.getView<TextView>(R.id.tv_collect_money)?.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
-                        } else if (paymentStatus) {
-                            viewHolder?.getView<ImageView>(R.id.iv_collect_money)?.setImageResource(R.drawable.fiat_unfinished)
-                            viewHolder?.getView<TextView>(R.id.tv_collect_money)?.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
-                        } else {
-                            viewHolder?.getView<ImageView>(R.id.iv_collect_money)?.setImageResource(R.drawable.fiat_complete)
-                            viewHolder?.getView<TextView>(R.id.tv_collect_money)?.setTextColor(ColorUtil.getColor(R.color.main_blue))
-                        }
-
-
-                    }
-                    .addOnClickListener(R.id.tv_goto_set, R.id.tv_cancel)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_goto_set -> {
-                                listener.sendConfirm()
-                                tDialog.dismiss()
-                            }
-                        }
-                    }
-                    .create()
-                    .show()
-        }
 
         /**
          * otc 买或者卖
@@ -2826,19 +2700,6 @@ class NewDialogUtils {
             return showNewListDialog(context, list, position, listener)
         }
 
-        /**
-         * otc 认证
-         */
-        fun showOTCCertificationDialog(context: Context, listener: DialogBottomListener) {
-            OTCTradingPermissionsDialog(context, listener)
-        }
-
-        /**
-         * otc 安全
-         */
-        fun showOTCSecurityDialog(context: Context, listener: DialogBottomListener) {
-            OTCTradingSecurityDialog(context, listener, false)
-        }
 
         /**
          *  根据安全选择 展示安全验证
@@ -2848,13 +2709,6 @@ class NewDialogUtils {
             return showSecurityVerificationDialog(context, type, codeType, listener, emailType, confirmTitle)
         }
 
-
-        /**
-         * 只有一个输入框的 dialog
-         */
-        fun showAloneDialog(context: Context, title: String, listener: DialogBottomAloneListener): TDialog {
-            return showAloneEdittextDialog(context, title, listener)
-        }
 
         /**
          * 验证密码 dialog

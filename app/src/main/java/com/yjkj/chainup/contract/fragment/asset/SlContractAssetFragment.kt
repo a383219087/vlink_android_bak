@@ -1,13 +1,12 @@
 package com.yjkj.chainup.contract.fragment.asset
 
 import android.app.Activity
-import androidx.lifecycle.Observer
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.timmy.tdialog.listener.OnBindViewListener
@@ -29,14 +28,10 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.accet_header_view.view.*
-import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.*
-import kotlinx.android.synthetic.main.sl_fragment_contract_asset.rc_contract
-import java.lang.Exception
 
 /**
  * 合约资产类
