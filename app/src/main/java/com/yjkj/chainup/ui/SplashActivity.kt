@@ -67,12 +67,12 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         val linkData=SPUtils.getInstance().getString("links","")
-        if(linkData.isNotEmpty()){
-            liksArray.addAll(linkData.split(","))
-        }
-//        liksArray.add("http://8.219.64.81:8091")
-//        liksArray.add("http://8.219.72.62:8091")
-        liksArray.add("http://www.qyrx.me/gate")
+//        if(linkData.isNotEmpty()){
+//            liksArray.addAll(linkData.split(","))
+//        }
+        liksArray.add("http://8.219.64.81:8091")
+        liksArray.add("http://8.219.72.62:8091")
+//        liksArray.add("http://www.qyrx.me/gate")
         checkNetworkLine(liksArray[currentCheckIndex])
 //                        if (hasPermission()) {
 //                    Handler().postDelayed({ goHome() }, 150)
@@ -97,13 +97,13 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     HttpClient.instance.changeNetwork(it.baseUrl)
                 }
-                links.remove(it.baseUrl.replace("/base/appapi",""))
-                links.add(0,it.baseUrl.replace("/base/appapi",""))
-                var linkData=""
-                for(link in links){
-                    linkData= "$linkData,$link"
-                }
-                SPUtils.getInstance().put("links",linkData.substring(1))
+//                links.remove(it.baseUrl.replace("/base/appapi",""))
+//                links.add(0,it.baseUrl.replace("/base/appapi",""))
+//                var linkData=""
+//                for(link in links){
+//                    linkData= "$linkData,$link"
+//                }
+//                SPUtils.getInstance().put("links",linkData.substring(1))
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
                 CpHttpHelper.instance.serviceUrl(it.contractUrl)
@@ -144,8 +144,8 @@ class SplashActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("http://47.242.7.76:9091")
         val mBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .connectTimeout(3, TimeUnit.SECONDS)
-            .readTimeout(3, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
             .proxy(Proxy.NO_PROXY)
         val client: OkHttpClient = mBuilder.build()
         mRetrofit = retrofitBuilder.client(client).build()

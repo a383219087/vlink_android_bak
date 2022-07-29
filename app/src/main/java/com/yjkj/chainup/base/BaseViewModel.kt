@@ -88,6 +88,19 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     /**
      * 启动网络任务
      */
+    fun <D> startTask(single: Observable<D>, onNext: Consumer<in D>? ,onErr:Consumer<Throwable>) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = CompositeDisposable()
+        }
+        mCompositeDisposable!!.add(
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(onNext,onErr)
+        )
+    }
+
+    /**
+     * 启动网络任务
+     */
     fun <D> startTask(single: Observable<D>, onNext: Consumer<in D>? ) {
         if (mCompositeDisposable == null) {
             mCompositeDisposable = CompositeDisposable()

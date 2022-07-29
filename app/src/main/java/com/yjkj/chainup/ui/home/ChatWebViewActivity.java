@@ -26,7 +26,6 @@ import com.yjkj.chainup.app.ChainUpApp;
 import com.yjkj.chainup.db.constant.ParamConstant;
 import com.yjkj.chainup.db.constant.RoutePath;
 import com.yjkj.chainup.db.service.UserDataService;
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil;
 import com.yjkj.chainup.new_version.activity.asset.CaptureActivity;
 import com.yjkj.chainup.new_version.view.UdeskWebChromeClient;
 import com.yjkj.chainup.util.MD5Util;
@@ -54,12 +53,12 @@ public class ChatWebViewActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_webview);
-//        url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
-        url = "http://120.79.39.93/#/";
+        url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
+//        url = "http://120.79.39.93/#/";
         vip = getIntent().getStringExtra(ParamConstant.homeTabType);
         StatusBarUtil.setColor(this, getResources().getColor(R.color.red));
         initViews();
-//        loginById(UserDataService.getInstance().getUserInfo4UserId(), vip);
+        loginById(UserDataService.getInstance().getUserInfo4UserId(), vip);
     }
 
     private void initViews() {
@@ -176,12 +175,9 @@ public class ChatWebViewActivity extends AppCompatActivity {
          */
         @JavascriptInterface
         public void qrcode() {
-//            Intent intent = new Intent(context, CaptureActivity.class);
-//            startActivityForResult(intent, 0x1111);
-            String newUrl =url+"pages/wchat/wchat-detail?name=M445360378";
-            Bundle bundle =new Bundle();
-            bundle.putString(ParamConstant.URL_4_SERVICE, newUrl);
-            ArouterUtil.greenChannel(RoutePath.ChatWebViewActivity, bundle);
+            Intent intent = new Intent(context, CaptureActivity.class);
+            startActivityForResult(intent, 0x1111);
+
         }
 
         /**
@@ -202,15 +198,14 @@ public class ChatWebViewActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x1111) {
                 String newUrl =url+"pages/wchat/wchat-detail?name=";
-                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
-
-                if (res!=null&&!res.isEmpty()){
-                    if (res.startsWith("M")) {
-                        mwebView.loadUrl(newUrl+res);
-                    }
-
-
-                }
+//                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
+//                if (res!=null&&!res.isEmpty()){
+//                    if (res.startsWith("M")) {
+//                        mwebView.loadUrl(newUrl+res);
+//                    }
+//
+//
+//                }
 
 
             }
