@@ -6,13 +6,10 @@ import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chainup.contract.R;
 import com.chainup.contract.app.CpMyApp;
-import com.chainup.contract.net.CpNetUrl;
 import com.yjkj.chainup.manager.CpLanguageUtil;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -180,45 +177,6 @@ public class CpClLogicContractSetting {
         return CpPreferenceManager.getInstance(CpMyApp.Companion.instance()).getSharedString(CpPreferenceManager.CONTRACT_INVITE_URL,"");
     }
 
-
-    /**
-     * 设置api接口以及ws所用的url
-     *
-     * @param context
-     * @param mApiUrl
-     * @param mWsUrl
-     */
-    public static void setApiWsUrl(Context context, String mApiUrl, String mWsUrl) {
-        if (TextUtils.isEmpty(mApiUrl)) {
-            ChainUpLogUtil.e("传入ApiUrl为空");
-            return;
-        }
-        if (TextUtils.isEmpty(mWsUrl)) {
-            ChainUpLogUtil.e("传入WsUrl为空");
-            return;
-        }
-        CpNetUrl.ContractNewUrl=mApiUrl;
-        CpPreferenceManager.getInstance(context).putSharedString(CpPreferenceManager.CONTRACT_API_URL, mApiUrl);
-        CpPreferenceManager.getInstance(context).putSharedString(CpPreferenceManager.CONTRACT_WS_URL, mWsUrl);
-    }
-
-    /**
-     * 获取合约apiurl
-     *
-     */
-    public static String getApiUrl() {
-        LogUtils.e("获取合约apiurl",CpPreferenceManager.getInstance(CpMyApp.Companion.instance()).getSharedString(CpPreferenceManager.CONTRACT_API_URL, ""));
-           return CpPreferenceManager.getInstance(CpMyApp.Companion.instance()).getSharedString(CpPreferenceManager.CONTRACT_API_URL, "");
-    }
-
-    /**
-     * 获取合约wsurl
-     *
-     * @param context
-     */
-    public static String getWsUrl(Context context) {
-        return CpPreferenceManager.getInstance(context).getSharedString(CpPreferenceManager.CONTRACT_WS_URL, "");
-    }
 
 
     private static int s_pnl_calculate = 0;

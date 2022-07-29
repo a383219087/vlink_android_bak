@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.blankj.utilcode.util.SPUtils
+import com.chainup.contract.net.CpHttpHelper
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
@@ -105,6 +106,7 @@ class SplashActivity : AppCompatActivity() {
                 SPUtils.getInstance().put("links",linkData.substring(1))
                 WsAgentManager.instance.socketUrl(it.socketAddress, true)
                 CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
+                CpHttpHelper.instance.serviceUrl(it.contractUrl)
                 if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
                     val intent = Intent(this, DataInitService::class.java)
                     intent.putExtra("isFirst", true)

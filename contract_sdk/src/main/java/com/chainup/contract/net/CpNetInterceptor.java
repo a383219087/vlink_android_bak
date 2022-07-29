@@ -35,10 +35,6 @@ public class CpNetInterceptor implements Interceptor {
         String oriUrl = originReq.url().toString();
         ChainUpLogUtil.d(TAG, "NetInterceptor==oriUrl is " + oriUrl);
 
-        if (oriUrl.contains(CpNetUrl.biki_monitor_appUrl)) {
-            Request.Builder builder = originReq.newBuilder();
-            originReq = builder.url(CpNetUrl.biki_monitor_appUrl).build();
-        }
 
         originReq = getBuilderHeader(originReq.newBuilder()).build();
 

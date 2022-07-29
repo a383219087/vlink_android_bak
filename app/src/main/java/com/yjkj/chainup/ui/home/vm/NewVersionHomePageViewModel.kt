@@ -139,7 +139,8 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                         bundle.putString(ParamConstant.URL_4_SERVICE, ChainUpApp.url?.chatUrl)
                         bundle.putString(ParamConstant.homeTabType, it.data)
                         ArouterUtil.greenChannel(RoutePath.ChatWebViewActivity, bundle)
-                    })
+                    }
+                    )
 
                 }
                 /**
