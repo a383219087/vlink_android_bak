@@ -97,12 +97,7 @@ object AppUtils {
         return null
     }
 
-    @Synchronized
-    fun restartApplication(context: Context) {
-        val mIntent = context.getPackageManager().getLaunchIntentForPackage(getPackageName(context)!!)
-        mIntent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        context.startActivity(mIntent)
-    }
+
 
 
     @JvmStatic

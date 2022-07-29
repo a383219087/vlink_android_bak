@@ -12,7 +12,6 @@ import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.contract.data.bean.TabInfo
-import com.yjkj.chainup.contract.fragment.SlContractHoldFragment
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.NCoinManager
@@ -51,7 +50,6 @@ class ClCoinDetailActivity : NBaseActivity() {
     private val pageInfo = PageInfo()
 
     var marginCoin = "USDT"
-    private var holdFragment = SlContractHoldFragment()
     private lateinit var mAccountList: JSONArray
 
     //类型

@@ -67,10 +67,10 @@ class CurrentEntrustFragment : NBaseFragment(), HistoryScreeningListener {
                 if (symbolCoin.isNotEmpty()){
                     symbol = NCoinManager.setShowNameGetName(symbolCoin) + NCoinManager.setShowNameGetName(symbolAndUnit)
                 }
-                if (priceType == 0) {
-                    type = ""
+                type = if (priceType == 0) {
+                    ""
                 } else {
-                    type = priceType.toString()
+                    priceType.toString()
                 }
                 startTime = begin
                 endTime = end

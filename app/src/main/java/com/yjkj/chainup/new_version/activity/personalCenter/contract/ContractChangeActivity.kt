@@ -78,7 +78,6 @@ class ContractChangeActivity : NewBaseActivity() {
         mAdapter?.data?.get(position)?.value = true
         mAdapter?.notifyDataSetChanged()
         HttpClient.instance.refresh()
-        PublicInfoDataService.getInstance().contractMode = position
         val intent = Intent(context, SplashActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)

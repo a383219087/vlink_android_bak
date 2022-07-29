@@ -71,10 +71,10 @@ class NewVersionLoginActivity : NBaseActivity() {
         list.add(LanguageUtil.getString(mActivity, "safety_text_phoneAuth"))
         list.add(LanguageUtil.getString(mActivity, "safety_text_mailAuth"))
 
-        var logoBeanLogos = PublicInfoDataService.getInstance().getApp_logo_list_new(null)
+        val logoBeanLogos = PublicInfoDataService.getInstance().getApp_logo_list_new(null)
 
         if (logoBeanLogos != null && logoBeanLogos?.size > 0) {
-            var logo_black = logoBeanLogos[0]
+            val logo_black = logoBeanLogos[0]
             var logo_white = ""
             if (logoBeanLogos.size > 1) {
                 logo_white = logoBeanLogos[1]
