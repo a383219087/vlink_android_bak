@@ -10,7 +10,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.yjkj.chainup.new_contract.ClContractFragment;
 import com.yjkj.chainup.new_version.activity.NewMainActivity;
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment;
 import com.yjkj.chainup.new_version.fragment.LikesFragment;
@@ -21,7 +20,6 @@ import com.yjkj.chainup.new_version.fragment.NewVersionMarketFragment;
 import com.yjkj.chainup.new_version.home.NewHomeDetailFragment;
 import com.yjkj.chainup.ui.home.NewVersionHomepageFragment;
 import com.yjkj.chainup.ws.WsAgentManager;
-import com.yjkj.chainup.ws.WsContractAgentManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +47,6 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
     public final static String ACTIVITY_MARKET_HOME_TAB = MarketFragment.class.getSimpleName();
     public final static String ACTIVITY_MARKET_LIKE_TAB = LikesFragment.class.getSimpleName();
     public final static String ACTIVITY_HOME_TAB = NewHomeDetailFragment.class.getSimpleName();
-    public final static String ACTIVITY_CONTRACT_TAB = ClContractFragment.class.getSimpleName();
 
     private static String wsLastWindow = "";
 
@@ -206,12 +203,7 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
         if (wsLastWindow.equals(ACTIVITY_TRADE_DEFAULT)) {
             tempName = ACTIVITY_NCVC_DEFAULT;
         }
-        if (wsLastWindow.equals(ACTIVITY_CONTRACT_TAB)) {
-            tempName = ACTIVITY_CONTRACT_TAB;
-            WsContractAgentManager.Companion.getInstance().wsBackgroupChange(tempName, unBind);
-        } else {
             WsAgentManager.Companion.getInstance().wsBackgroupChange(tempName, unBind);
-        }
     }
 
     @Override

@@ -675,10 +675,6 @@ class WsAgentManager private constructor() {
         this.keyLine = name
     }
 
-    enum class WSStatus {
-        CONNECTIONING,
-        CONNECTION
-    }
 
     fun saveCID(cid: String?) {
         if (cid != null && cid.isNotEmpty()) {
@@ -686,13 +682,6 @@ class WsAgentManager private constructor() {
         }
     }
 
-    private fun print(message: String) {
-        try {
-//            XLog.e(StringBuffer("ws: ${message}"))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     fun stopWs(url: String, isReStop: Boolean = true) {
         isAppStopWs = false
@@ -727,17 +716,6 @@ class WsAgentManager private constructor() {
         return 0
     }
 
-    fun getMarketDataBySymbol(item: JSONObject): LinkedTreeMap<String, Any>? {
-        if (null != reqJson) {
-            val key = item.getString("symbol")
-//            Log.e(TAG, "WS getMarketDataBySymbol ${key}")
-            if (reqJson?.containsKey(key)!!) {
-                val tick = reqJson?.get(key)
-                return tick
-            }
-        }
-        return null
-    }
 
     private fun coinCountTime(pageKey: String) {
         val key = pageKey

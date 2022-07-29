@@ -1465,7 +1465,7 @@ public class PublicInfoDataService {
      * @return
      */
     public boolean isNewOldContract() {
-        return getContractMode() == 1;
+        return true;
     }
 
     public String getOldContractUrl(boolean isSplit) {
