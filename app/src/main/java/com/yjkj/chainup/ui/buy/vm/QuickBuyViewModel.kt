@@ -19,7 +19,8 @@ import io.reactivex.functions.Consumer
 import java.util.*
 
 
-class QuickBuyViewModel : BaseViewModel() {
+class
+QuickBuyViewModel : BaseViewModel() {
 
     var activity = MutableLiveData<FragmentActivity>()
 

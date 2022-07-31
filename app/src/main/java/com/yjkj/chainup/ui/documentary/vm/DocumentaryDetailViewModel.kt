@@ -48,32 +48,6 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
 
 
-
-    fun onShareClick() {
-         ClHoldShareActivity.show(activity.value!!, bean.value!!)
-
-    }
-
-     fun onShareClick1() {
-         NewDialogUtils.adjustDepositDialog(activity.value!!, JSONObject.toJSON(bean.value) as org.json.JSONObject,
-             object : NewDialogUtils.DialogBottomAloneListener {
-                 override fun returnContent(content: String) {
-                     val map = HashMap<String, Any>()
-                     map["amount"] =content
-                     map["contractId"] =bean.value?.contractId!!
-                     map["positionId"] =bean.value?.id!!
-                     startTask(contractApiService.transferMargin4Contract1(toRequestBody(map)), Consumer {
-                         NToastUtil.showTopToastNet(activity.value!!,true, LanguageUtil.getString(activity.value!!, "contract_modify_the_success"))
-
-                     })
-                 }
-             })
-    }
-
-     fun onShareClick2() {
-         CpContractStopRateLossActivity.show(activity.value!!,bean.value!!)
-    }
-
     class Item{
         var bean = MutableLiveData<FollowerStatisticsBean>()
 
@@ -102,7 +76,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
         contractType.value ="${orderSide}${positionType}${bean.value?.leverageLevel}X"
         //回报率
         returnRate.value = NumberUtil.getDecimal(2).format(
-            MathHelper.round(MathHelper.mul(bean.value?.returnRate.toString(), "100"), 2)
+            MathHelper.round(MathHelper.mul(bean.value?.returnRate?.let {"0" }, "100"), 2)
         ).toString() + "%"
         val mMarginCoinPrecision =
             LogicContractSetting.getContractMarginCoinPrecisionById(context, bean.value!!.contractId)
