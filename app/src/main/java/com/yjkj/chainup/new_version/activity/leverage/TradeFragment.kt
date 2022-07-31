@@ -2,8 +2,8 @@ package com.yjkj.chainup.new_version.activity.leverage
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.coorchice.library.SuperTextView
@@ -16,12 +16,12 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.grid.NGridFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.util.ColorUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.getVisible
 import com.yjkj.chainup.ws.WsAgentManager
@@ -167,7 +167,7 @@ class TradeFragment : NBaseFragment() {
         }
     }
 
-
+     //币币
     private val cvcTradeFragment = NCVCTradeFragment()
     private val leverFragment = NLeverFragment.newInstance("", "")
     private val gridFragment = NGridFragment()

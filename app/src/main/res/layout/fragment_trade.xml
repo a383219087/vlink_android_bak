@@ -38,6 +38,7 @@
                     android:background="@drawable/bg_btn_lines"
                     android:orientation="horizontal">
 
+
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/btn_bb"
                         android:layout_width="0dp"

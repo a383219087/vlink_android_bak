@@ -19,7 +19,6 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
-import com.yjkj.chainup.util.BigDecimalUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -148,7 +147,7 @@ class FirstViewModel : BaseViewModel() {
         }else{
             startTask(contractApiService.statistics(), Consumer {
                 bean.value = it.data
-                cnyString.value = BigDecimalUtils.divForDown(it.data.positionBalance.toString(), RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
+                cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data.positionBalance.toString(), isOnlyResult = true)
 
             })
         }

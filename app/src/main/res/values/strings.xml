@@ -3486,11 +3486,14 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_mine_text11">date</string>
     <string name="decumentary_mine_text12">follow numbe</string>
     <string name="decumentary_mine_text13">traders</string>
-    <string name="decumentary_mine_text14">follow amount</string>
+    <string name="decumentary_mine_text14">follow total</string>
     <string name="decumentary_mine_text15">edit</string>
     <string name="decumentary_mine_text16">strong parity</string>
     <string name="decumentary_mine_text17">registered </string>
     <string name="decumentary_mine_text18">day</string>
+    <string name="decumentary_mine_text19">followers</string>
+    <string name="decumentary_mine_text20">follow amount</string>
+    <string name="decumentary_mine_text21">success</string>
 
 
 

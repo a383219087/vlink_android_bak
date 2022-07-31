@@ -390,21 +390,7 @@ class RateManager {
                 }
             }
         }
-        fun getNumRose(rose: String): Boolean {
-            if (!StringUtil.isNumeric(rose)) return false
-            var lines = false
-            val compareTo = BigDecimalUtils.compareTo(rose, "0")
-            when (compareTo) {
-                -1 -> {
-                    lines = false
-                }
 
-                1 -> {
-                    lines = true
-                }
-            }
-            return lines
-        }
 
         /**
          * 根据coinName自动和汇率进行计算(推荐使用)

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
@@ -19,12 +18,12 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.new_version.adapter.AbountAdapter
-import com.yjkj.chainup.util.*
+import com.yjkj.chainup.util.DecimalUtil
+import com.yjkj.chainup.util.ToastUtils
+import com.yjkj.chainup.util.isHttpUrl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_about.*
 
 
 class CreateTradersViewModel : BaseViewModel() {
@@ -117,7 +116,7 @@ class CreateTradersViewModel : BaseViewModel() {
         map["profitRatio"] =winRate.value.toString()
         map["lossRatio"] =stopRate.value.toString()
         startTask(apiService.createTrader(map), Consumer {
-            ToastUtils.showToast(it.msg)
+            ToastUtils.showToast(context.getString(R.string.decumentary_mine_text21))
             EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
           finish()
 

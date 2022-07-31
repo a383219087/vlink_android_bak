@@ -258,7 +258,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center|right"
-                            android:text="@{_all.bean.followerCount+``}"
+                            android:text="@{_all.bean.currentFollowCount+``}"
                             android:textSize="12sp"
                             android:textColor="@color/text_color" />
 

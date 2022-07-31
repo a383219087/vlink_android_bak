@@ -114,8 +114,7 @@ class SingleMoneyViewModel : BaseViewModel() {
     fun getData1() {
         startTask(contractApiService.traderTotalProfit(), Consumer {
             usdtString.value = it.data
-            cnyString.value = BigDecimalUtils.divForDown(it.data, RateManager.getRatesByPayCoin(otcDefaultPaycoin.value)).toPlainString()
-
+            cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data, isOnlyResult = true)
         })
         val map = HashMap<String, Any>()
         map["uid"] = UserDataService.getInstance().userInfo4UserId

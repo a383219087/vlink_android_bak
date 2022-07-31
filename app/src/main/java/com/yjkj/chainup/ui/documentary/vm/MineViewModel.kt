@@ -7,13 +7,11 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.StatisticsBean
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
-import com.yjkj.chainup.db.service.OTCPublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.ui.documentary.ApplyTradersDialog
-import com.yjkj.chainup.util.BigDecimalUtils
 import io.reactivex.functions.Consumer
 
 
@@ -59,8 +57,7 @@ class MineViewModel : BaseViewModel() {
     fun getData1() {
         startTask(apiService.myStatistics(), Consumer {
             bean.value=it.data
-            cnyString.value = BigDecimalUtils.divForDown(it.data.followTotalAmount, RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
-
+            cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data.followTotalAmount, isOnlyResult = true)
         })
 
     }

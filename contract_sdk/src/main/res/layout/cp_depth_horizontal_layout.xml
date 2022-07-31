@@ -68,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="19dp"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/ll_rate"
             android:orientation="vertical">
 
@@ -105,25 +106,27 @@
         <LinearLayout
             android:id="@+id/ll_rate"
             android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="@dimen/dp_12"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content">
+            android:layout_marginRight="@dimen/dp_12"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_rate"
-                android:layout_width="wrap_content"
-                android:text="--"
                 style="@style/textStyle_text_nor_12"
-                android:layout_height="wrap_content"/>
-            <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/cp_overview_text26"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                style="@style/textStyle_text_nor_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:drawableRight="@drawable/cp_contract_prompt"
                 android:drawablePadding="3dp"
-                android:textColor="@color/normal_text_color"
-                style="@style/textStyle_text_nor_10"
-                android:layout_height="wrap_content"/>
+                android:text="@string/cp_overview_text26"
+                android:textColor="@color/normal_text_color" />
         </LinearLayout>
     </RelativeLayout>
     <FrameLayout

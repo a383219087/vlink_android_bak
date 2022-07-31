@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="@string/decumentary_mine_text13"
+                    android:text="@string/decumentary_mine_text19"
                     android:textSize="12sp"
                     android:textColor="@color/text_color_99" />
                 <TextView
@@ -163,7 +163,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@{@string/decumentary_mine_text12}"
+                    android:text="@{@string/decumentary_mine_text20+`(USDT)`}"
                     android:textSize="12sp"
                     android:textColor="@color/text_color_99" />
 
@@ -188,7 +188,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.followAmount+``,2)}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.profitRatio+``,2)}"
                     android:textSize="12sp"
                     android:textColor="@color/text_color" />
                 <TextView
@@ -196,7 +196,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@{item.bean1.currentFollowCount+``}"
+                    android:text="@{DecimalUtil.cutValueByPrecision(item.bean1.followAmount+``,2)}"
 
                     android:textSize="12sp"
                     android:textColor="@color/text_color" />
