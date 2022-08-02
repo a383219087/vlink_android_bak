@@ -73,25 +73,9 @@
             android:textColor="@color/hint_color"
             android:textSize="14sp" />
 
-        <!--验证码-->
-        <com.yjkj.chainup.new_version.view.ComVerifyView
-            android:id="@+id/cet_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_send_verification_code"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginTop="@dimen/dp_50"
-            android:layout_marginRight="@dimen/dp_30"
-            android:visibility="gone" />
 
 
-        <com.yjkj.chainup.new_version.view.CommonlyUsedButton
-            android:id="@+id/cubtn_view"
-            style="@style/NewVersionCommonlyUsedButtonStyle"
-            android:layout_below="@+id/cet_view"
-            android:visibility="gone"
-            app:bgColor="@color/main_blue"
-            app:bottonTextContent="@string/common_action_next" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

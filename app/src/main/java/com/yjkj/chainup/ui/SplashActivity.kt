@@ -70,9 +70,9 @@ class SplashActivity : AppCompatActivity() {
 //        if(linkData.isNotEmpty()){
 //            liksArray.addAll(linkData.split(","))
 //        }
-        liksArray.add("http://8.219.64.81:8091")
-        liksArray.add("http://8.219.72.62:8091")
-//        liksArray.add("http://www.qyrx.me/gate")
+//        liksArray.add("http://8.219.64.81:8091")
+//        liksArray.add("http://8.219.72.62:8091")
+        liksArray.add("http://www.qyrx.me/gate")
         checkNetworkLine(liksArray[currentCheckIndex])
 //                        if (hasPermission()) {
 //                    Handler().postDelayed({ goHome() }, 150)
@@ -130,7 +130,7 @@ class SplashActivity : AppCompatActivity() {
                     currentCheckIndex++
                     checkNetworkLine(liksArray[currentCheckIndex])
                 }else{
-                    ToastUtils.showToast("load failed...")
+                    ToastUtils.showToast(it.message)
 
                 }
 
@@ -146,6 +146,7 @@ class SplashActivity : AppCompatActivity() {
         val mBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .proxy(Proxy.NO_PROXY)
         val client: OkHttpClient = mBuilder.build()
         mRetrofit = retrofitBuilder.client(client).build()

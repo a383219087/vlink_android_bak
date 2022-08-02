@@ -107,10 +107,6 @@ class HttpClient private constructor() {
          */
         const val SMS_AUTHCODE = "smsAuthCode"
 
-        /**
-         * 邀请码
-         */
-        const val INVITED_CODE = "invitedCode"
 
         /**
          * 邮箱

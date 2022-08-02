@@ -67,24 +67,12 @@
             app:icon_res="@mipmap/login_eyesclose"
             app:isEditable="true" />
 
-        <!--验证方式-->
-        <com.yjkj.chainup.new_version.view.PwdSettingView
-            android:id="@+id/security_view"
-            style="@style/NewVersionPwdStyle"
-            android:layout_below="@+id/pws_view"
-            android:gravity="bottom"
-            android:inputType="text"
-            android:visibility="gone"
-            app:icon_res2="@drawable/dropdown"
-            app:isEditable="false"
-            app:isPwdShow="false"
-            app:textContent="@string/safety_text_phoneAuth" />
 
 
         <com.yjkj.chainup.new_version.view.CommonlyUsedButton
             android:id="@+id/cbtn_view"
             style="@style/NewVersionCommonlyUsedButtonStyle"
-            android:layout_below="@+id/security_view"
+            android:layout_below="@+id/pws_view"
             android:layout_marginTop="@dimen/dp_40"
             app:bottonTextContent="@string/login_action_login"
             apps:bgColor="@color/main_blue" />

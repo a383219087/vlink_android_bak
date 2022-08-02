@@ -21,7 +21,6 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.FindPwd2verifyActivity
 import com.yjkj.chainup.new_version.view.ComVerifyView
-import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerificationCodeView
 import io.reactivex.Observable
@@ -145,7 +144,6 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
 
     fun setTextContent() {
         tv_send_verification_code?.text = LanguageUtil.getString(this, "login_tip_didSendCode")
-        cubtn_view?.setBottomTextContent(LanguageUtil.getString(this, "common_action_next"))
     }
 
     override fun initView() {
@@ -153,7 +151,6 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         fingerprintManager = FingerprintManagerCompat.from(this)
         getData()
         setOnClick()
-        cubtn_view?.isEnable(false)
 
         verificationcodeview.setOnCodeFinishListener(this)
 
@@ -163,7 +160,6 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
                 tv_title?.text = LanguageUtil.getString(mActivity, "safety_text_googleAuth")
                 tv_resend_code?.visibility = View.VISIBLE
                 tv_send_verification_code.setText(LanguageUtil.getString(this, "please_check_with_google_auth"))
-                cet_view?.setType(ComVerifyView.GOOGLE)
                 tv_resend_code.setText(LanguageUtil.getString(this, "common_action_paste"))
                 tv_resend_code.setTextColor(ColorUtil.getColor(R.color.main_color))
             }
@@ -172,67 +168,38 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
             MOBiLE_VERIFY -> {
                 tv_send_verification_code.setText(LanguageUtil.getString(this, "phone_didSendCode_to") + " " + StringUtil.midleReplaceStar(account))
                 tv_title?.text = LanguageUtil.getString(mActivity, "personal_tip_inputPhoneCode")
-                cet_view?.setType(ComVerifyView.MOBILE)
                 verifyType = ComVerifyView.MOBILE
                 when (isLogin) {
                     0 -> {
-                        cet_view?.otypeForPhone = AppConstant.MOBILE_LOGIN
                         sendVerify(ComVerifyView.MOBILE, token4last = token)
                     }
 
                     1 -> {
-                        cet_view?.setValidation(true)
-                        cet_view?.otypeForPhone = AppConstant.REGISTER_MOBILE
                         sendCode(ComVerifyView.MOBILE, account, countryCode)
                     }
 
-                    2 -> {
-                        cet_view?.otypeForPhone = AppConstant.FIND_PWD_MOBILE
-                        cet_view?.sendVerify(ComVerifyView.MOBILE, token4last = token)
-                    }
 
-                    3 -> {
-                        cet_view?.otypeForPhone = AppConstant.CHANGE_PWD
-                        cet_view?.sendVerify(ComVerifyView.MOBILE)
-                    }
                 }
             }
 
             EMAIL_VERIFY -> {
                 tv_send_verification_code.setText(LanguageUtil.getString(this, "mail_didSendCode_to") + " " + StringUtil.midleReplaceStar(account))
                 tv_title?.text = LanguageUtil.getString(mActivity, "personal_tip_inputMailCode")
-                cet_view?.setType(ComVerifyView.EMAIL)
                 verifyType = ComVerifyView.EMAIL
                 when (isLogin) {
                     0 -> {
-                        cet_view?.otypeForEmail = AppConstant.EMAIL_LOGIN
                         sendVerify(ComVerifyView.EMAIL, token4last = token)
                     }
                     1 -> {
-                        cet_view?.setValidation(true)
-                        cet_view?.otypeForEmail = AppConstant.REGISTER_EMAIL
                         sendCode(ComVerifyView.EMAIL, account, countryCode)
                     }
-                    2 -> {
-                        cet_view?.otypeForEmail = AppConstant.FIND_PWD_EMAIL
-                        cet_view?.sendVerify(ComVerifyView.EMAIL, token4last = token)
-                    }
-                    3 -> {
-                        cet_view?.sendVerify(ComVerifyView.EMAIL)
-                    }
+
                 }
 
             }
         }
         when (isLogin) {
-            0 -> {
-                cubtn_view?.setContent(LanguageUtil.getString(mActivity, "common_text_btnConfirm"))
-            }
-            1 -> {
-                cubtn_view?.setContent(LanguageUtil.getString(mActivity, "common_action_next"))
-            }
             2 -> {
-                cubtn_view?.setContent(LanguageUtil.getString(mActivity, "common_action_next"))
                 tv_title?.text = LanguageUtil.getString(mActivity, "login_action_fogetpwdSafety")
             }
         }
@@ -245,26 +212,7 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
             finish()
         }
 
-        cet_view?.onTextListener = object : ComVerifyView.OnTextListener {
-            override fun showText(text: String): String {
-                code = text
-                if (code.length == 6) {
-                    setLoginStatus(code)
-                    cubtn_view?.isEnable(true)
-                } else {
-                    cubtn_view?.isEnable(false)
-                }
 
-                return text
-            }
-        }
-
-        cubtn_view?.listener = object : CommonlyUsedButton.OnBottonListener {
-            override fun bottonOnClick() {
-                setLoginStatus("")
-            }
-
-        }
 
         tv_resend_code.setOnClickListener {
             when (verifyType) {

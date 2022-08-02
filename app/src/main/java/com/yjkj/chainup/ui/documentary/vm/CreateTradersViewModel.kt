@@ -43,7 +43,7 @@ class CreateTradersViewModel : BaseViewModel() {
     //保证金使用上限
     var maxEarnestMoney = MutableLiveData("")
 
-    //跟单必留
+    //跟单比例
     var documentaryRate = MutableLiveData("")
 
     //止盈比例

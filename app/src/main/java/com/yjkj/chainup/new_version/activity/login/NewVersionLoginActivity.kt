@@ -56,13 +56,6 @@ class NewVersionLoginActivity : NBaseActivity() {
 
 
 
-    /**
-     * 安全验证
-     *  0是谷歌
-     *  1是手机验证
-     *  2是邮箱验证
-     */
-    var securityVerification = ParamConstant.LOGIN_PHONE
 
     override fun initView() {
         StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.bg_card_color_day), 0)
@@ -92,7 +85,6 @@ class NewVersionLoginActivity : NBaseActivity() {
         }
 
 
-        security_view?.setSelect(securityVerification)
         ce_account?.isFocusable = true
         ce_account?.isFocusableInTouchMode = true
         cbtn_view?.isEnable(false)
@@ -129,7 +121,6 @@ class NewVersionLoginActivity : NBaseActivity() {
         tv_to_register?.text = LanguageUtil.getString(this, "login_action_register")
         ce_account?.hint = LanguageUtil.getString(this, "common_tip_inputPhoneOrMail")
         pws_view?.setHintEditText(LanguageUtil.getString(this, "register_tip_inputPassword"))
-        security_view?.setHintEditText(LanguageUtil.getString(this, "safety_text_phoneAuth"))
         cbtn_view?.setBottomTextContent(LanguageUtil.getString(this, "login_action_login"))
     }
 
@@ -162,25 +153,7 @@ class NewVersionLoginActivity : NBaseActivity() {
             }
         })
 
-        security_view?.setListener(object : PwdSettingView.OnTextListener, NewDialogUtils.DialogOnclickListener {
-            override fun clickItem(data: ArrayList<String>, item: Int) {
-                securityVerification = item
-                security_view?.setEditText(list[item])
-                tDialog?.dismiss()
-            }
 
-            override fun onclickImage() {
-                tDialog = NewDialogUtils.showBottomListDialog(this@NewVersionLoginActivity, list, securityVerification, this)
-            }
-
-            override fun showText(text: String): String {
-                return text
-            }
-
-            override fun returnItem(item: Int) {
-            }
-
-        })
 
 
         tv_cancel?.setOnClickListener {
@@ -247,14 +220,6 @@ class NewVersionLoginActivity : NBaseActivity() {
                 loginInfo.loginPwd = password
                 LoginManager.getInstance().saveLoginInfo(loginInfo)
 
-                Log.d(TAG, "=====是否登录：======" + UserDataService.getInstance().isLogined)
-                // {"code":"0","msg":"成功","data":{"type":"2","token":"39257f8399139a329ca6637f6c9f6474"}}
-                Log.d("=== mobile login====", "登录成功$data")
-
-                /**
-                 * 登录新逻辑
-                 * 跳到验证码页面
-                 */
                 /**
                  * 登录新逻辑
                  * 跳到验证码页面
