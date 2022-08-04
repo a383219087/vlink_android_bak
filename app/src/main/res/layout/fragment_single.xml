@@ -288,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:onClick="@{()->_all.setIndex(0)}"
-                            android:text="@{_all.status==1?@string/decumentary_mine_text2:@string/decumentary_mine_text5}"
+                            android:text="@{_all.status!=1?@string/decumentary_mine_text2:@string/decumentary_mine_text5}"
                             android:textColor="@{_all.index==0?@color/main_color:@color/text_color}"
                             android:textSize="15sp" />
 
@@ -313,7 +313,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:onClick="@{()->_all.setIndex(1)}"
-                            android:text="@{_all.status==1?@string/decumentary_mine_text3:@string/decumentary_mine_text6}"
+                            android:text="@{_all.status!=1?@string/decumentary_mine_text3:@string/decumentary_mine_text6}"
                             android:textColor="@{_all.index==1?@color/main_color:@color/text_color}"
                             android:textSize="15sp" />
 
