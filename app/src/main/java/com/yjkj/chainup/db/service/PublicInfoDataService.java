@@ -94,10 +94,6 @@ public class PublicInfoDataService {
     //合约模式默认 -1 为旧版本合约
     public static final int CONTRACT_MODE_DEFAULT = 1;
 
-    /**
-     * 保存 是否cet
-     */
-    private static final String SAVE_CET_COMPANYID_DATA = "save_cet_companyID_data";
 
     private MMKVDb mMMKVDb;
 
