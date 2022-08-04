@@ -15,7 +15,7 @@ data class CommissionBean(
     val orderCount: Int,
     val profitRatio: Double,
     val profitUSDT: Double,
-    val searchKey: Int,
+    val searchKey: String,
     val totalRatio: Double,
     val totalUSDT: Double,
     val uid: Int,
