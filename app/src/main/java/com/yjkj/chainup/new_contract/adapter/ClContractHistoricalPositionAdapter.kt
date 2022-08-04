@@ -37,7 +37,7 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             setText(R.id.tv_symbol_value, item.optString("symbol"))
             //cl_currentsymbol_marginmodel1
             //cl_currentsymbol_marginmodel2
-            setText(R.id.tv_level_value, (if (item.optInt("positionType") == 1) context.getString(R.string.cl_currentsymbol_marginmodel1) else context.getString(R.string.cl_currentsymbol_marginmodel2)) + item.optString("leverageLevel") + "X")
+            setText(R.id.tv_level_value, (if (item.optString("positionType") .equals("1") ) context.getString(R.string.cl_currentsymbol_marginmodel1) else context.getString(R.string.cl_currentsymbol_marginmodel2)) + item.optString("leverageLevel") + "X")
             setText(R.id.tv_time_value, TimeFormatUtils.timeStampToDate(item.optString("mtime").toLong(), "yyyy-MM-dd  HH:mm:ss"))
 
             val profitLossColor = if (BigDecimalUtils.compareTo(BigDecimalUtils.showSNormal(item.optString("historyRealizedAmount"), mMarginCoinPrecision), "0") == 1) {

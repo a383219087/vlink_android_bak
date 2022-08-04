@@ -79,9 +79,17 @@ class DocumentaryDetailViewModel : BaseViewModel() {
             MathHelper.round(MathHelper.mul(bean.value?.returnRate?.let {"0" }, "100"), 2)
         ).toString() + "%"
         val mMarginCoinPrecision =
-            LogicContractSetting.getContractMarginCoinPrecisionById(context, bean.value!!.contractId)
+            bean.value?.contractId?.let {
+                LogicContractSetting.getContractMarginCoinPrecisionById(context,
+                    it
+                )
+            }
         revenue.value =
-            BigDecimalUtils.showSNormal(bean.value!!.profitRealizedAmount, mMarginCoinPrecision)
+            mMarginCoinPrecision?.let {
+                BigDecimalUtils.showSNormal(bean.value?.profitRealizedAmount,
+                    it
+                )
+            }
     }
 
 
