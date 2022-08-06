@@ -2013,7 +2013,7 @@ Mark Price: This is the current mark price.</string>
     <string name="b2c_text_transferNote">线下转账时填入该文案作为备注，可以方便工作人员更快确认您的充值。</string>
     <string name="b2c_text_editSuccess">编辑成功</string>
     <string name="b2c_text_fiatCoin">法币币种</string>
-    <string name="b2c_text_edit">编辑</string>
+    <string name="b2c_text_edit">edit</string>
     <string name="b2c_text_inputBankNo">请输入银行账号</string>
     <string name="b2c_text_deleteSuccess">删除成功</string>
     <string name="common_text_allBlance">总账户资产折合</string>
@@ -3442,6 +3442,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="dialog_create_trader_text24">A contract that has followed an open position will still participate in the gain after cancellation of the order</string>
     <string name="dialog_create_trader_text25">confirm</string>
     <string name="dialog_create_trader_text26">close</string>
+    <string name="dialog_create_trader_text27">Documentary amount shall not be greater than the maximum margin</string>
     <string name="activity_documentary_text1">traders</string>
     <string name="activity_documentary_text2">documentary</string>
     <string name="activity_documentary_text3">home</string>
@@ -3474,11 +3475,11 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text24">number of followers</string>
     <string name="decumentary_detail_text25">In documentary</string>
     <string name="decumentary_mine_text1">History total documentary principal</string>
-    <string name="decumentary_mine_text2">current documentary</string>
-    <string name="decumentary_mine_text3">historical documentary</string>
-    <string name="decumentary_mine_text4">My trader</string>
-    <string name="decumentary_mine_text5">current single</string>
-    <string name="decumentary_mine_text6">history single</string>
+    <string name="decumentary_mine_text2">current</string>
+    <string name="decumentary_mine_text3">historical</string>
+    <string name="decumentary_mine_text4">traders</string>
+    <string name="decumentary_mine_text5">current</string>
+    <string name="decumentary_mine_text6">history</string>
     <string name="decumentary_mine_text7">follower</string>
     <string name="decumentary_mine_text8">earnings yesterday</string>
     <string name="decumentary_mine_text9">total earnings</string>

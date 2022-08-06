@@ -11,33 +11,12 @@ public final class PreferenceManager {
 	private static PreferenceManager sInstance;
 	private final SharedPreferences mPreferences;
 
-	public static final String PREF_LANGUAGE = "Language";
-	public static final String PREF_HIDE0 = "Hide0";
-	public static final String PREF_CLOSEEYE = "CloseEye";
-	public static final String PREF_CLOSECONTRACTEYE = "CloseContractEye";
-	public static final String PREF_COINBASE = "CoinBase";
 	public static final String PREF_LEVERAGE = "ContractLeverage";
-	public static final String PREF_DECIMALS = "Decimals";
-	public static final String PREF_ASKBID = "AskBid";
-	public static final String PREF_ORDER_TYPE = "OrderType";
-	public static final String PREF_CONTRACT_ORDER_TYPE = "ContractOrderType";
-	public static final String PREF_COLLECTS = "Collects";
-	public static final String PREF_FIRST_INSTALL = "FirstInstall";
-	public static final String PREF_CONTRACT_FIRST_INSTALL = "ContractFirstInstall";
-	public static final String PREF_DEPOSIT_NOTIFY = "DepositNotify";
 	public static final String PREF_TRADE_CONFIRM = "TradeConfirm";
-	public static final String PREF_LOGIN_TYPE = "LoginType";
-	public static final String PREF_GESTURE_ERROR_TIMES = "GestureErrorTimes";
-	public static final String PREF_SHOW_ALL_OPENORDER = "ShowAllOpenOrder";
-	public static final String PREF_CONTRACT_UNIT = "ContractUnit";
 	public static final String PREF_CONTRACT_PNL_CALCULATE = "ContractPnlCalculate";
-	public static final String PREF_TRIGGER_PRICE_TYPE = "TriggerPriceType";
 	public static final String PREF_EXECUTION = "Execution";
 	public static final String PREF_STRATEGY_EFFECTIVE_TIME = "StrategyEffectiveTime";
-	public static final String PREF_SHOW_GUIDE = "ShowGuide";
-	public static final String PREF_CONTRACT_GUIDE = "ContractGuide";
-	public static final String PREF_CONTRACT_DEPOSIT_GUIDE = "ContractDepositGuide";
-	public static final String PREF_LINE_TYPE = "LineType";
+
 
 	//合约云子账号信息
 	public static final String CONTRACT_CLOUD_UID = "contract_cloud_uid";
@@ -49,7 +28,6 @@ public final class PreferenceManager {
 	public static final String CONTRACT_MARGIN_COIN_STR = "contract_margin_coin_str";
 
 	public static final String CONTRACT_CURRENT_SELECTED_ID = "contract_current_selected_id";
-	public static final String PREF_CONTRACT_IS_OPEN = "ContractIsOpen";
 
 	public static final String CONTRACT_POSITION_MODEL = "contract_position_model";
 

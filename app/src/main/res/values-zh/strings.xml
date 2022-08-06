@@ -3539,6 +3539,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="dialog_create_trader_text24">取消跟单后，已跟随未平仓的合约仍然会参与收益</string>
     <string name="dialog_create_trader_text25">确认取消</string>
     <string name="dialog_create_trader_text26">关闭</string>
+    <string name="dialog_create_trader_text27">跟单金额不得大于保证金上限</string>
     <string name="activity_documentary_text1">交易员</string>
     <string name="activity_documentary_text2">跟单</string>
     <string name="activity_documentary_text3">首页</string>

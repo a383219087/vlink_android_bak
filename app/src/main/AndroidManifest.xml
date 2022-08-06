@@ -221,10 +221,7 @@
         <activity
             android:name=".contract.activity.SlHoldShareActivity"
             android:theme="@style/SlTransparentActivity" />
-        <activity android:name=".contract.activity.SlContractSettingActivity" />
-        <activity
-            android:name=".contract.activity.SlContractCalculateActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity android:name=".contract.activity.SlContractDetailActivity" />
         <activity
             android:name=".contract.activity.SlContractKlineActivity"
@@ -234,7 +231,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".contract.activity.SlCoinDetailActivity" />
         <activity android:name=".contract.activity.SlContractAssetRecordActivity" />
-        <activity android:name=".contract.activity.SlContractHistoryHoldActivity" />
         <activity android:name=".contract.activity.SlAdjustMarginActivity" />
         <activity android:name=".contract.activity.SlSelectLeverageActivity" />
         <activity
@@ -258,20 +254,15 @@
         <activity
             android:name=".new_contract.activity.ClContractStopRateLossActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".new_contract.activity.ClContractSettingActivity" />
         <activity android:name=".new_contract.activity.ClContractSearchActivity" />
-        <activity
-            android:name=".new_contract.activity.ClContractCalculateActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity android:name=".new_contract.activity.ClAdjustMarginActivity" />
         <activity android:name=".new_contract.activity.ClSelectPositionActivity" />
         <activity android:name=".new_contract.activity.ClSelectLeverageActivity" />
         <activity android:name=".new_contract.activity.ClContractEntrustActivity" />
         <activity android:name=".new_contract.activity.ClCoinDetailActivity" />
         <activity android:name=".new_contract.activity.ClContractAssetRecordActivity" />
-        <activity android:name=".new_contract.activity.ClContractDetailActivity" />
         <activity android:name=".new_contract.activity.ClContractEntrustDetailActivity" />
-        <activity android:name=".new_contract.activity.ClContractHistoricalPositionActivity" />
         <activity android:name=".new_version.activity.personalCenter.contract.ContractChangeActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOtcActivity" />
         <activity android:name=".new_version.activity.grid.HistoryGridActivity" />

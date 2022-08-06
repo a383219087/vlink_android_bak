@@ -83,12 +83,20 @@ class CreateTradersViewModel : BaseViewModel() {
             ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text19))
             return
         }
+        if (checkIndex.value==0&&(documentaryRate.value!!.toDouble()<=0||documentaryRate.value!!.toDouble()>5)){
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text8))
+            return
+        }
         if (checkIndex.value==1&&documentaryMoney.value.isNullOrBlank()){
             ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text20))
             return
         }
         if (maxEarnestMoney.value.isNullOrBlank()){
             ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text21))
+            return
+        }
+        if (checkIndex.value==1&&documentaryMoney.value!!.toDouble()>maxEarnestMoney.value!!.toDouble()){
+            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text27))
             return
         }
         if (winRate.value.isNullOrBlank()){

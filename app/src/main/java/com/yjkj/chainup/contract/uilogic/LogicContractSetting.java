@@ -1,10 +1,8 @@
 package com.yjkj.chainup.contract.uilogic;
 
 import android.content.Context;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
-
+import com.chainup.contract.utils.CpPreferenceManager;
 import com.yjkj.chainup.contract.utils.PreferenceManager;
 import com.yjkj.chainup.util.LogUtil;
 
@@ -14,7 +12,6 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,33 +38,6 @@ public class LogicContractSetting {
 
     }
 
-    public void registListener(IContractSettingListener listener) {
-
-        if (listener == null) return;
-
-        int iCount;
-        for (iCount = 0; iCount < mListeners.size(); iCount++) {
-            if (listener.equals(mListeners.get(iCount)))
-                break;
-        }
-
-        if (iCount >= mListeners.size())
-            mListeners.add(listener);
-    }
-
-
-    public void unregistListener(IContractSettingListener listener) {
-
-        if (listener == null) return;
-
-        int iCount;
-        for (iCount = 0; iCount < mListeners.size(); iCount++) {
-            if (listener.equals(mListeners.get(iCount))) {
-                mListeners.remove(mListeners.get(iCount));
-                return;
-            }
-        }
-    }
 
     public void refresh() {
         for (int i = 0; i < mListeners.size(); i++) {
@@ -84,16 +54,13 @@ public class LogicContractSetting {
     //0 张 1 币
     public static int getContractUint(Context context) {
         if (s_contract_unit_first) {
-            s_contract_unit = PreferenceManager.getInstance(context).getSharedInt(PreferenceManager.PREF_CONTRACT_UNIT, 0);
+            s_contract_unit = PreferenceManager.getInstance(context).getSharedInt(CpPreferenceManager.PREF_CONTRACT_UNIT, 1);
             s_contract_unit_first = false;
         }
         return s_contract_unit;
     }
 
-    public static void setContractUint(Context context, int unit) {
-        s_contract_unit = unit;
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_CONTRACT_UNIT, unit);
-    }
+
 
     private static int s_pnl_calculate = 0;
     private static boolean s_pnl_calculate_first = true;
@@ -107,31 +74,6 @@ public class LogicContractSetting {
         return s_pnl_calculate;
     }
 
-    public static void setPnlCalculate(Context context, int unit) {
-        s_pnl_calculate = unit;
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_CONTRACT_PNL_CALCULATE, unit);
-    }
-
-    private static int s_trigger_price_type = 1;
-    private static boolean s_trigger_price_type_first = true;
-
-    //1市场价 2合理价 4指数价
-    public static int getTriggerPriceType(Context context) {
-        if (s_trigger_price_type_first) {
-            s_trigger_price_type = PreferenceManager.getInstance(context).getSharedInt(PreferenceManager.PREF_TRIGGER_PRICE_TYPE, 1);
-            s_trigger_price_type_first = false;
-        }
-        //字段升级，需兼容老版本为0的情况
-        if (s_trigger_price_type == 0) {
-            s_trigger_price_type = 1;
-        }
-        return s_trigger_price_type;
-    }
-
-    public static void setTriggerPriceType(Context context, int unit) {
-        s_trigger_price_type = unit;
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_TRIGGER_PRICE_TYPE, unit);
-    }
 
     private static int s_execution = 0;
     private static boolean s_execution_first = true;
@@ -145,10 +87,6 @@ public class LogicContractSetting {
         return s_execution;
     }
 
-    public static void setExecution(Context context, int unit) {
-        s_execution = unit;
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_EXECUTION, unit);
-    }
 
     private static int s_strategy_effect_time = 0;
     private static boolean s_strategy_effect_time_first = true;
@@ -165,16 +103,6 @@ public class LogicContractSetting {
     //获取有效期时间 默认取14天
     public static int getStrategyEffectTimeStr(Context context) {
         return PreferenceManager.getInstance(context).getSharedInt(PreferenceManager.PREF_STRATEGY_EFFECTIVE_TIME, 14);
-    }
-
-
-    public static void setStrategyEffectTime(Context context, int unit) {
-        s_strategy_effect_time = unit;
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_STRATEGY_EFFECTIVE_TIME, unit);
-    }
-
-    public static void setStrategyEffectTimeStr(Context context, int unit) {
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.PREF_STRATEGY_EFFECTIVE_TIME, unit);
     }
 
     public static String getContractJsonListStr(Context context) {
@@ -373,29 +301,6 @@ public class LogicContractSetting {
                 int id = mJSONObject.getInt("id");
                 if (contractId == id) {
                     return mJSONObject.getString("multiplierCoin");
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "--";
-        }
-        return "--";
-    }
-
-    public static String getContractSymbolNameById(Context context, int contractId) {
-        String contractJsonListStr = getContractJsonListStr(context);
-        try {
-            JSONArray jsonArray = new JSONArray(contractJsonListStr);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject mJSONObject = (JSONObject) jsonArray.get(i);
-                int id = mJSONObject.getInt("id");
-                if (contractId == id) {
-                    String contractType = mJSONObject.getString("contractType");
-                    String symbol = mJSONObject.getString("symbol");
-                    String marginCoin = mJSONObject.getString("marginCoin");
-                    if (!contractType.equals("H") && !contractType.equals("S"))
-                        symbol = symbol + "-" + marginCoin;
-                    return symbol;
                 }
             }
         } catch (JSONException e) {

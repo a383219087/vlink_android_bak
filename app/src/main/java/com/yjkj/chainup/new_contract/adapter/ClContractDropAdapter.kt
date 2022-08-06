@@ -50,7 +50,6 @@ class ClContractDropAdapter(data: ArrayList<JSONObject>) : BaseQuickAdapter<JSON
                 }
             }
             helper?.getView<RelativeLayout>(R.id.rl_content)?.setOnClickListener {
-                LogicContractSetting.setContractCurrentSelectedId(context, ticker.optInt("id"))
                 var msgEvent = MessageEvent(MessageEvent.sl_contract_left_coin_type)
                 msgEvent.msg_content = ticker
                 EventBusUtil.post(msgEvent)

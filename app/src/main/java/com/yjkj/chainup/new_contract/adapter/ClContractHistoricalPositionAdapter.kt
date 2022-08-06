@@ -4,10 +4,8 @@ import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.common.sdk.utlis.TimeFormatUtils
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
-import com.yjkj.chainup.contract.utils.*
 import com.yjkj.chainup.util.BigDecimalUtils
 import org.json.JSONObject
 
@@ -39,7 +37,7 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             //cl_currentsymbol_marginmodel2
             setText(R.id.tv_level_value, (if (item.optString("positionType") .equals("1") ) context.getString(R.string.cl_currentsymbol_marginmodel1) else context.getString(R.string.cl_currentsymbol_marginmodel2)) + item.optString("leverageLevel") + "X")
             if(!item.optString("mtime").isNullOrEmpty()){
-                setText(R.id.tv_time_value, TimeFormatUtils.timeStampToDate(item.optString("mtime").toLong(), "yyyy-MM-dd  HH:mm:ss"))
+                setText(R.id.tv_time_value, item.optString("mtime"))
             }
 
             val profitLossColor = if (BigDecimalUtils.compareTo(BigDecimalUtils.showSNormal(item.optString("historyRealizedAmount"), mMarginCoinPrecision), "0") == 1) {
