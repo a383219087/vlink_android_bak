@@ -29,7 +29,9 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.*
+import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.manager.NCoinManager
+import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
@@ -40,7 +42,7 @@ import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.depth_vertical_layout.view.ll_etf_item
+import kotlinx.android.synthetic.main.depth_vertical_layout.view.*
 import kotlinx.android.synthetic.main.trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.doAsync
@@ -50,6 +52,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import kotlin.math.pow
 
 /**
  * @Author: Bertking
@@ -214,14 +217,18 @@ class TradeView @JvmOverloads constructor(context: Context,
             RxView.clicks(it)
                     .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ x ->
-                        DialogUtil.createCVCOrderPop(context, priceType, it, object : NewDialogUtils.DialogOnSigningItemClickListener {
-                            override fun clickItem(position: Int, text: String) {
-                                tv_order_type?.textContent = text
-                                changePriceType(position)
-                            }
-                        })
-                    })
+                    .subscribe { x ->
+                        DialogUtil.createCVCOrderPop(
+                            context,
+                            priceType,
+                            it,
+                            object : NewDialogUtils.DialogOnSigningItemClickListener {
+                                override fun clickItem(position: Int, text: String) {
+                                    tv_order_type?.textContent = text
+                                    changePriceType(position)
+                                }
+                            })
+                    }
         }
         getAvailableBalance()
 
@@ -846,10 +853,10 @@ class TradeView @JvmOverloads constructor(context: Context,
      */
     fun buyOrSell(transferType: Int, isLever: Boolean = false) {
         this.isLever = isLever
-        if (isLever) {
-            coinMapData = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol4Lever)
+        coinMapData = if (isLever) {
+            NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol4Lever)
         } else {
-            coinMapData = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
+            NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         }
         ll_etf_item?.visibility = View.GONE
         resetPrice()
@@ -977,13 +984,6 @@ class TradeView @JvmOverloads constructor(context: Context,
 
             tv_coin_name?.text = if (priceType == TYPE_LIMIT) "${showCoinName()}" else "${showMarket()}"
         } else {
-            val coinName = NCoinManager.getMarketCoinName(coinMapData?.optString("name", ""))
-            var precision = NCoinManager.getCoinShowPrecision(coinName)
-
-            if (TradeFragment.currentIndex == LEVER_INDEX_TAB) {
-                precision = 8
-            }
-
             canUseMoney = baseCoinBalance.getTradeCoinBalance(coinMapData)
             tv_coin_name?.text = "${showCoinName()}"
             tv_available_balance?.text = "$canUseMoney ${showCoinName()}"
@@ -1007,7 +1007,6 @@ class TradeView @JvmOverloads constructor(context: Context,
                     setTextColor(ContextCompat.getColor(context!!, R.color.btn_normal_text_color))
                     backgroundResource = R.mipmap.coins_exchange_sell_grey
                 }
-                showBuyOrSellBg(true)
             }
             // 卖
             TYPE_SELL -> {
@@ -1023,7 +1022,6 @@ class TradeView @JvmOverloads constructor(context: Context,
                     backgroundResource = ColorUtil.getBuyOrSell(false)
                 }
 
-                showBuyOrSellBg(false)
             }
         }
     }
@@ -1191,9 +1189,9 @@ class TradeView @JvmOverloads constructor(context: Context,
                 if (!LoginManager.checkLogin(context, true)) return false
 
                 val unit = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    (1 / Math.pow(10.0, volumeScale.toDouble())).toString()
+                    (1 / 10.0.pow(volumeScale.toDouble())).toString()
                 } else {
-                    (1 / Math.pow(10.0, priceScale.toDouble())).toString()
+                    (1 / 10.0.pow(priceScale.toDouble())).toString()
                 }
                 Log.d(TAG, "=======price:加的单位量unit:$unit===")
                 if (TextUtils.isEmpty(unit)) return false

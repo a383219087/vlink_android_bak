@@ -143,18 +143,22 @@ class TradeFragment : NBaseFragment() {
         action4Selected(btn_lever, ParamConstant.LEVER_INDEX_TAB == tabIndex)
         action4Selected(btn_grid, ParamConstant.GRID_INDEX_TAB == tabIndex)
 
-        if (tabIndex == ParamConstant.CVC_INDEX_TAB) {
-            switchFragment(cvcTradeFragment)
-            cvcTradeFragment.sendAgentData()
-            gridFragment.unbindAgentData()
-        } else if (tabIndex == ParamConstant.LEVER_INDEX_TAB) {
-            switchFragment(leverFragment)
-            cvcTradeFragment.unbindAgentData()
-            gridFragment.unbindAgentData()
-        } else {
-            switchFragment(gridFragment)
-            cvcTradeFragment.unbindAgentData()
-            gridFragment.sendAgentData()
+        when (tabIndex) {
+            ParamConstant.CVC_INDEX_TAB -> {
+                switchFragment(cvcTradeFragment)
+                cvcTradeFragment.sendAgentData()
+                gridFragment.unbindAgentData()
+            }
+            ParamConstant.LEVER_INDEX_TAB -> {
+                switchFragment(leverFragment)
+                cvcTradeFragment.unbindAgentData()
+                gridFragment.unbindAgentData()
+            }
+            else -> {
+                switchFragment(gridFragment)
+                cvcTradeFragment.unbindAgentData()
+                gridFragment.sendAgentData()
+            }
         }
     }
 

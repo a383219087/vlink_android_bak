@@ -64,19 +64,19 @@
 
                         <com.flyco.tablayout.SlidingTabLayout
                             android:id="@+id/tab_order"
-                            android:layout_toLeftOf="@+id/ll_all_entrust_order"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
+                            android:layout_toLeftOf="@+id/ll_all_entrust_order"
                             app:tl_indicator_color="@color/main_blue"
                             app:tl_indicator_corner_radius="@dimen/dp_2"
                             app:tl_indicator_height="@dimen/dp_2"
                             app:tl_indicator_width="@dimen/dp_48"
                             app:tl_indicator_width_equal_title="false"
-                            app:tl_textBold="BOTH"
                             app:tl_tab_padding="10dp"
+                            app:tl_textBold="BOTH"
                             app:tl_textSelectColor="@color/main_color"
-                            app:tl_textUnSelectColor="@color/normal_text_color"
-                            app:tl_textSize="@dimen/sp_14" />
+                            app:tl_textSize="@dimen/sp_14"
+                            app:tl_textUnSelectColor="@color/normal_text_color" />
 
                         <TextView
                             android:id="@+id/ll_all_entrust_order"

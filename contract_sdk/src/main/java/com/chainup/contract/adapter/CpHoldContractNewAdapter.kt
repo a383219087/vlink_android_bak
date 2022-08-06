@@ -47,7 +47,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             setGone(R.id.ll_button, !isMySelf)
             setGone(R.id.tv_tradle_name, !isTrader)
             if (isTrader&&!item.traderName.isNullOrEmpty()){
-                setText(R.id.tv_tradle_name, "traders：${item.traderName}")
+                setText(R.id.tv_tradle_name, "${context.getString(R.string.traders_apply_text9)}：${item.traderName}")
             }else{
 
                 setGone(R.id.tv_tradle_name, true)

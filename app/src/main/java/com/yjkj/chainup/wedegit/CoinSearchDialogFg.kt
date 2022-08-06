@@ -18,19 +18,18 @@ import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.util.LanguageUtil.getString
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.adapter.PageAdapter
 import com.yjkj.chainup.new_version.fragment.NSearchLikeFragment
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.util.JsonUtils
+import com.yjkj.chainup.util.LanguageUtil.getString
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.ws.WsAgentManager
 import com.yjkj.chainup.ws.WsAgentManager.Companion.instance
 import com.yjkj.chainup.ws.WsAgentManager.WsResultCallback
 import kotlinx.android.synthetic.main.dialogfg_coin_search.*
 import org.json.JSONObject
-import java.util.*
 
 /**
  * @Description:
@@ -212,7 +211,7 @@ class CoinSearchDialogFg : NBaseLeftDialogFragment(), WsResultCallback {
     private fun addCoinList(position: Int, marketName: String) {
         val tempArray = arrayListOf<JSONObject>()
         if (position == 0) {
-            var localData = LikeDataService.getInstance().getCollecData(TradeTypeEnum.LEVER_TRADE.value == type)
+            val localData = LikeDataService.getInstance().getCollecData(TradeTypeEnum.LEVER_TRADE.value == type)
             if (null != localData) {
                 if (TradeTypeEnum.GRID_TRADE.value == type) {
                     var listGrid = arrayListOf<JSONObject>()
@@ -264,9 +263,7 @@ class CoinSearchDialogFg : NBaseLeftDialogFragment(), WsResultCallback {
         WsAgentManager.instance.unbind(this, true)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+
 
     override fun onStart() {
         super.onStart()

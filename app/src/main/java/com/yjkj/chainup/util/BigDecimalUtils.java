@@ -1263,8 +1263,25 @@ public class BigDecimalUtils {
         if (s.indexOf(".") > 0) {
             s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
         }
-        return s;
+        return deleteO(s);
     }
+
+    /**
+     * 取消小数后面的0
+     * @param num
+     * @return
+     */
+    private static String deleteO(String num) {
+        if (num.contains(".")) {
+            if (num.endsWith("0")) {
+                num = num.substring(0, num.length() - 1);
+                deleteO(num);
+                return "";
+            }
+        }
+        return num;
+    }
+
 
     public static String showDepthVolumeNew(String value) {
         if (!StringUtil.isNumeric(value))

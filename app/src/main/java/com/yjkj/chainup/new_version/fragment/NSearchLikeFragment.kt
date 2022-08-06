@@ -8,10 +8,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -24,9 +24,8 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
-import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.util.LanguageUtil
+import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.NSearchCoinAdapter
@@ -68,21 +67,14 @@ class NSearchLikeFragment : NBaseFragment() {
     override fun initView() {
 
         initAdapter()
-        showSearchData()
         initSocket()
         showSearch()
     }
 
-    private fun showSearchData() {
-//        NLiveDataUtil.observeData(this, Observer {
-//            if (null != it) {
-//
-//            }
-//        })
-    }
 
 
-    fun filterLeverData(dataList: ArrayList<JSONObject>): ArrayList<JSONObject> {
+
+    private fun filterLeverData(dataList: ArrayList<JSONObject>): ArrayList<JSONObject> {
         val newList = java.util.ArrayList<JSONObject>()
         if (dataList.size > 0) {
             for (i in dataList.indices) {
@@ -196,7 +188,7 @@ class NSearchLikeFragment : NBaseFragment() {
     }
 
     private fun closeDialog() {
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             var msgEvent = MessageEvent(MessageEvent.closeLeftCoinSearchType)
             NLiveDataUtil.postValue(msgEvent)
         }, 200)
@@ -478,36 +470,31 @@ class NSearchLikeFragment : NBaseFragment() {
     }
 
     private fun searchList(content: String) {
-        if (content is String) {
-            if (StringUtil.checkStr(content)) {
-                val list = if (TradeTypeEnum.LEVER_TRADE.value == type) {
-                    filterLeverData(normalTickList)
-                } else {
-                    normalTickList
-                }
-                val searchData = NCoinManager.getSearchData(list, content)
-                refreshAdapter(searchData)
+        if (StringUtil.checkStr(content)) {
+            val list = if (TradeTypeEnum.LEVER_TRADE.value == type) {
+                filterLeverData(normalTickList)
             } else {
-                if (TradeTypeEnum.LEVER_TRADE.value == type) {
-                    adapter?.setNewData(filterLeverData(normalTickList))
-                } else {
-                    adapter?.setNewData(normalTickList)
-                }
+                normalTickList
+            }
+            val searchData = NCoinManager.getSearchData(list, content)
+            refreshAdapter(searchData)
+        } else {
+            if (TradeTypeEnum.LEVER_TRADE.value == type) {
+                refreshAdapter(filterLeverData(normalTickList))
+            } else {
+                  refreshAdapter(normalTickList)
             }
         }
 
     }
 
     private fun showSearch() {
-        et_search?.setHint(LanguageUtil.getString(context, "assets_action_search"))
+        et_search?.hint = LanguageUtil.getString(context, "assets_action_search")
         et_search?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                var content = ""
-                if (null != s) {
-                    content = s.toString()
-                }
+                val content = s.toString()
                 LogUtil.d("et_search", "afterTextChanged==content is $content")
                 searchList(content)
             }

@@ -3451,6 +3451,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text9">Liq. Price</string>
     <string name="cp_order_text10">ROI</string>
     <string name="cp_order_text11">Total</string>
+    <string name="traders_apply_text9">trader</string>
     <string name="cp_order_text12">Margin</string>
     <string name="cp_order_text13">Mark Price</string>
     <string name="cp_order_text14">Settled Profit And Loss</string>

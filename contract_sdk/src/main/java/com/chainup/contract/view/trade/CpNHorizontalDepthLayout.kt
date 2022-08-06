@@ -112,13 +112,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
     var isShowPositionInfo = false
     var isShowPositionDesc = false
     var mBindViewHolder: BindViewHolder? = null
-//    var coinMapData: JSONObject? = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
-//        set(value) {
-//            field = value
-////            trade_amount_view?.coinMapData = value ?: return
-////            trade_amount_view?.setPrice()
-//            setDepth(context)
-//        }
 
     /**
      * 卖盘的item
@@ -144,31 +137,13 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
 
         //选择仓位模式
         ll_position.setOnClickListener {
-//            if (!CpClLogicContractSetting.isLogin()) {
-//                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
-//                return@setSafeListener
-//            }
-//            if (openContract == 0) {
-//                CpDialogUtil.showCreateContractDialog(context, object : CpNewDialogUtils.DialogBottomListener {
-//                    override fun sendConfirm() {
-//                        CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_open_contract_event))
-//                    }
-//                })
-//                return@setSafeListener
-//            }
+
             if (CpClickUtil.isFastDoubleClick()){
                 return@setOnClickListener
             }
             val mMarginModel = mUserConfigInfoJson?.optInt("marginModel")
-//            tv_tab_full.setBackgroundResource(if (mMarginModel == 1) R.drawable.cp_btn_linear_blue_bg else R.drawable.cp_btn_linear_grey_bg)
-//            tv_tab_gradually.setBackgroundResource(if (mMarginModel == 2) R.drawable.cp_btn_linear_blue_bg else R.drawable.cp_btn_linear_grey_bg)
-//            tv_tab_full.setTextColor(if (mMarginModel == 1) CpColorUtil.getColor(R.color.main_blue) else CpColorUtil.getColor(R.color.normal_text_color))
-//            tv_tab_gradually.setTextColor(if (mMarginModel == 2) CpColorUtil.getColor(R.color.main_blue) else CpColorUtil.getColor(R.color.normal_text_color))
-//
             var mMarginModelCanSwitch = mUserConfigInfoJson?.getInt("marginModelCanSwitch")
-//            tv_no_switch_position.visibility = if (mMarginModelCanSwitch == 0) View.VISIBLE else View.GONE
-//            ll_select_position.visibility = if (!isShowPositionInfo) View.VISIBLE else View.GONE
-//            isShowPositionInfo = !isShowPositionInfo
+
             img_position.animate().setDuration(200).rotation(180f).start()
             CpDialogUtil.createModifyPositionPop(context, mMarginModelCanSwitch!!, mMarginModel!!, it, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
                 override fun clickItem(position: Int, text: String) {
