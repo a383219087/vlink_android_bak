@@ -60,8 +60,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun loadData() {
         super.loadData()
         CpWsContractAgentManager.instance.addWsCallback(this)
-//        var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
-//        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+
     }
 
     override fun initView() {

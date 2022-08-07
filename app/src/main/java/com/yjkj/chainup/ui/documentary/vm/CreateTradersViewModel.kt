@@ -151,7 +151,7 @@ class CreateTradersViewModel : BaseViewModel() {
             map["traderUid"] = uid.value.toString()
         }
         startTask(apiService.cancelTrader(map), Consumer {
-            ToastUtils.showToast(it.msg)
+            ToastUtils.showToast(context.getString(R.string.save_success))
             EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
             finish()
 

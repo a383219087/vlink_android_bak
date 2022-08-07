@@ -5,10 +5,10 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -314,7 +314,10 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     ToastUtils.showShort(context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1))
                     return
                 }
-
+                if (et_volume.text.isNullOrEmpty()){
+                    ToastUtils.showShort(context.getString(R.string.cp_trade_text3))
+                    return
+                }
 
                 var isOpen = false;
                 isOpen = transactionType == CpParamConstant.TYPE_BUY
@@ -467,16 +470,16 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     sellMaxPriceList.sortBy {
                         it.optDouble(0)
                     }
-                    if (side.equals("BUY")) {
+                    price = if (side.equals("BUY")) {
                         if (sellMaxPriceList.size > buyOrSellHelper.rivalPricePosition) {
-                            price = sellMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
+                            sellMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
                         } else {
                             CpNToastUtil.showTopToastNet(getActivity(), false, context.getString(R.string.cp_overview_text50))
                             return
                         }
                     } else {
                         if (buyMaxPriceList.size > buyOrSellHelper.rivalPricePosition) {
-                            price = buyMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
+                            buyMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
                         } else {
                             CpNToastUtil.showTopToastNet(getActivity(), false, context.getString(R.string.cp_overview_text50))
                             return
@@ -498,21 +501,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                 )
                 isMarketPriceModel = true
                 if (isOpen && isPercentPlaceOrder) {
-//                    if (CpClLogicContractSetting.getContractUint(context) == 0) {
-//                        if (contractSide.equals("1")) {
-//                            val buff1 = CpBigDecimalUtils.mulStr(volume, price, symbolPricePrecision)
-//                            volume = CpBigDecimalUtils.mulStr(multiplier, buff1, symbolPricePrecision)
-//                        } else {
-//                            val buff1 = CpBigDecimalUtils.mulStr(volume, multiplier, symbolPricePrecision)
-//                            volume = CpBigDecimalUtils.divStr(buff1, price, symbolPricePrecision)
-//                        }
-//                    } else {
-//                        if (contractSide.equals("1")) {
-//                            volume = CpBigDecimalUtils.mulStr(volume, price, symbolPricePrecision)
-//                        } else {
-//                            volume = CpBigDecimalUtils.divStr(volume, price, symbolPricePrecision)
-//                        }
-//                    }
+
                     var buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
                     volume=CpBigDecimalUtils.mulStr(buff,level.toString(),symbolPricePrecision)
                 }
@@ -535,21 +524,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     }
                 }
                 if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-//                    if (mContractUint == 0) {
-//                        if (contractSide.equals("1")) {
-//                            val buff1 = CpBigDecimalUtils.mulStr(volume, price, symbolPricePrecision)
-//                            volume = CpBigDecimalUtils.mulStr(multiplier, buff1, symbolPricePrecision)
-//                        } else {
-//                            val buff1 = CpBigDecimalUtils.mulStr(volume, multiplier, symbolPricePrecision)
-//                            volume = CpBigDecimalUtils.divStr(buff1, price, symbolPricePrecision)
-//                        }
-//                    } else {
-//                        if (contractSide.equals("1")) {
-//                            volume = CpBigDecimalUtils.mulStr(volume, price, symbolPricePrecision)
-//                        } else {
-//                            volume = CpBigDecimalUtils.divStr(volume, price, symbolPricePrecision)
-//                        }
-//                    }
+
                     var buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
                     volume=CpBigDecimalUtils.mulStr(buff,level.toString(),symbolPricePrecision)
                 }
@@ -710,12 +685,16 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             context.getString(R.string.cp_overview_text53)
         } else {
             if (isRivalPriceModel) {
-                if (buyOrSellHelper.rivalPricePosition == 0) {
-                    context.getString(R.string.cp_overview_text38)
-                } else if (buyOrSellHelper.rivalPricePosition == 4) {
-                    context.getString(R.string.cp_overview_text39)
-                } else {
-                    context.getString(R.string.cp_overview_text40)
+                when (buyOrSellHelper.rivalPricePosition) {
+                    0 -> {
+                        context.getString(R.string.cp_overview_text38)
+                    }
+                    4 -> {
+                        context.getString(R.string.cp_overview_text39)
+                    }
+                    else -> {
+                        context.getString(R.string.cp_overview_text40)
+                    }
                 }
             } else {
                 price + " " + quote

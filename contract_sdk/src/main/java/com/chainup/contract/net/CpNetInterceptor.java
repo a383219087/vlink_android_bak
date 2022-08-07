@@ -39,7 +39,6 @@ public class CpNetInterceptor implements Interceptor {
         originReq = getBuilderHeader(originReq.newBuilder()).build();
 
         String neworiUrl = originReq.url().toString();
-        ChainUpLogUtil.d("我是ChainUpLogUtil", "NetInterceptor==neworiUrl is " + neworiUrl);
 
 
         Response response = chain.proceed(originReq);

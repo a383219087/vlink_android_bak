@@ -549,10 +549,6 @@ class NewMainActivity : NBaseActivity() {
   }
 
 
-  @SuppressLint("MissingSuperCall")
-  override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-  }
 
   private var contractIndex = -1
 

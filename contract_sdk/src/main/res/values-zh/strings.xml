@@ -3851,5 +3851,6 @@
     <string name="cl_kyc_9">KYC 审核中，认证成功才可进行合约交易！</string>
     <string name="cp_trade_text1">,无法下单</string>
     <string name="cp_trade_text2">当前合约</string>
+    <string name="cp_trade_text3">请输入合约数量</string>
 </resources>
 
