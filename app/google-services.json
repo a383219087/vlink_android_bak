@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "593588431430",
-    "firebase_url": "https://bikiapp.firebaseio.com",
-    "project_id": "bikiapp",
-    "storage_bucket": "bikiapp.appspot.com"
+    "project_number": "455025117691",
+    "project_id": "zww-d978c",
+    "storage_bucket": "zww-d978c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:593588431430:android:5c904972cd99b7cc",
+        "mobilesdk_app_id": "1:455025117691:android:9b5fc91f89c9157915e35e",
         "android_client_info": {
-          "package_name": "com.chainup.exchange.bikicoin"
+          "package_name": "com.zww.exchange"
         }
       },
       "oauth_client": [
         {
-          "client_id": "593588431430-j5b1gdp1d7uru3a26te26lka4gpdk3js.apps.googleusercontent.com",
+          "client_id": "455025117691-bl0glaoq6e5d7shvcg58btnv34i90iod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zww.exchange",
+            "certificate_hash": "d485ebe341a80fcd86edd24945cc6bc679725075"
+          }
+        },
+        {
+          "client_id": "455025117691-124tmpgdb973cuqil5p2k2r0ua7cvp22.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhwASrY3OM5hx9AruZ9SZN-3bDg_1ZAXM"
+          "current_key": "AIzaSyCrQ4QH_dccqyVRxw5768i7xeLv6syoOxk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "593588431430-j5b1gdp1d7uru3a26te26lka4gpdk3js.apps.googleusercontent.com",
+              "client_id": "455025117691-124tmpgdb973cuqil5p2k2r0ua7cvp22.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "593588431430-rsst7mhe92cj379fgans7sekdsfu4ou4.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chainup.exchange.bikicoin"
-              }
             }
           ]
         }
