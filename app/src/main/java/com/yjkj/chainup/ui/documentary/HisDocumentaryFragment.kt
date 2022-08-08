@@ -77,7 +77,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val jsonObject = JSONUtil.parse(it, true)
                 jsonObject.optJSONObject("data").run {
                     val mPositionList = optJSONArray("positionList")
-                    if (mPositionList.length() != 0) {
+                    if (mPositionList!=null&&mPositionList.length() != 0) {
                         tv_em.visibility = View.GONE
                         for (i in 0 until mPositionList.length()) {
                             var obj: JSONObject = mPositionList.get(i) as JSONObject
@@ -105,8 +105,8 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
             mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList1(map), Consumer {
                 val jsonObject = JSONUtil.parse(it, true)
                 jsonObject.optJSONObject("data").run {
-                    var mPositionList = optJSONArray("positionList")
-                    if (mPositionList.length() != 0) {
+                    val mPositionList = optJSONArray("positionList")
+                    if (mPositionList!=null&&mPositionList.length() != 0) {
                         tv_em.visibility = View.GONE
                         for (i in 0 until mPositionList.length()) {
                             var obj: JSONObject = mPositionList.get(i) as JSONObject
