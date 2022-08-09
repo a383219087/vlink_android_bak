@@ -18,12 +18,7 @@ import okhttp3.ResponseBody
 class ContractModel : BaseDataManager() {
 
 
-    /**
-     * 1. 合约的公共接口
-     */
-    fun getPublicInfo4Contract(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getPublicInfo4Contract1(getBaseReqBody()), consumer)
-    }
+
 
     /**
      *
@@ -139,18 +134,6 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getTagPrice4Contract1(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 8. 修改杠杆倍数
-     */
-    fun changeLevel4Contract(contractId: String, newLevel: String,
-                             consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["leverageLevel"] = newLevel
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).changeLevel4Contract1(getBaseReqBody(map)), consumer)
-    }
-
 
     /**
      * 9. 追加保证金 ：
@@ -193,40 +176,7 @@ class ContractModel : BaseDataManager() {
     }
 
 
-    /**
-     * 12. 资金划转 ：
-     *
-     * @param fromType 转出账户type
-     * @param toType   转入账户type
-     * @param amount   划转金额
-     * @param bond     保证金币种
-     *
-     */
-    fun capitalTransfer4Contract(fromType: String,
-                                 toType: String,
-                                 amount: String,
-                                 bond: String?,
-                                 consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps()
-        map["fromType"] = fromType
-        map["toType"] = toType
-        map["amount"] = amount
-        if (null != bond) {
-            map["bond"] = bond!!
 
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).capitalTransfer4Contract1(getBaseReqBody(map)), consumer)
-    }
-
-
-    /**
-     * 13. 账户余额 ：
-     */
-    fun getAccountBalance4Contract(
-            consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps()
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getAccountBalance4Contract1(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 15.风险评估(need登录)

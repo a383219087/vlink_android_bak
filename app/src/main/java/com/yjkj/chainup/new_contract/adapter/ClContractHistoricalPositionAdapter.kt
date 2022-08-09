@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_contract.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
@@ -12,6 +13,8 @@ import org.json.JSONObject
 
 class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObject>) : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.cll_item_historical_position, data), LoadMoreModule {
 
+
+
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
         helper.run {
             var mMarginCoinPrecision = LogicContractSetting.getContractMarginCoinPrecisionById(context, item.optInt("contractId"))
@@ -23,6 +26,12 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
                 context.getString(R.string.cl_HistoricalPosition_1)
             } else {
                 context.getString(R.string.cl_HistoricalPosition_2)
+            }
+            if (!item.optString("traderName").isNullOrEmpty()){
+                setText(R.id.tv_tradle_name, "${context.getString(com.chainup.contract.R.string.traders_apply_text9)}：${item.optString("traderName")}")
+            }else{
+
+                setGone(R.id.tv_tradle_name, true)
             }
             val typeColor = if (item.optString("orderSide").equals("BUY")) {
                 R.color.main_green
@@ -55,7 +64,7 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             setText(R.id.tv_key1, context.getString(R.string.cl_realized_profit_and_loss_str) + "(" + mMarginCoin + ")")
             setText(R.id.tv_key2, context.getString(R.string.cl_open_price_str) + "(" + mMarginCoin + ")")//cl_open_price_str
             setText(R.id.tv_key3, context.getString(R.string.sl_str_avg_close_px) + "(" + mMarginCoin + ")")//sl_str_avg_close_px
-            setText(R.id.tv_key4, if (LogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cl_calculator_text21) + "("+context.getString(R.string.sl_str_contracts_unit)+")" else context.getString(R.string.cl_calculator_text21) + "(" + mMultiplierCoin + ")"+"）")
+            setText(R.id.tv_key4, if (LogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cl_calculator_text21) + "("+context.getString(R.string.sl_str_contracts_unit)+")" else context.getString(R.string.cl_calculator_text21) + "(" + mMultiplierCoin + ")")
         }
     }
 }
