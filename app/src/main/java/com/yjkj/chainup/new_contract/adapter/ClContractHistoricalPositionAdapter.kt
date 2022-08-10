@@ -1,6 +1,5 @@
 package com.yjkj.chainup.new_contract.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
@@ -27,7 +26,8 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             } else {
                 context.getString(R.string.cl_HistoricalPosition_2)
             }
-            if (!item.optString("traderName").isNullOrEmpty()){
+            if (!item.optString("traderName").isNullOrEmpty()&&!item.optString("traderName").equals("null")){
+                setGone(R.id.tv_tradle_name, false)
                 setText(R.id.tv_tradle_name, "${context.getString(com.chainup.contract.R.string.traders_apply_text9)}：${item.optString("traderName")}")
             }else{
 

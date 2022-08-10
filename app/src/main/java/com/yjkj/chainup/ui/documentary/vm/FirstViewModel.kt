@@ -71,6 +71,7 @@ class FirstViewModel : BaseViewModel() {
 
             ARouter.getInstance().build(RoutePath.TradersActivity)
                 .withSerializable("bean", item.bean.value)
+                .withInt("status", item.status.value!!)
                 .navigation()
 
 

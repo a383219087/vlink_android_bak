@@ -132,9 +132,9 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
         tv_force_close_price.setText(reducePriceStr)
 
         var openAvgPriceStr = CpBigDecimalUtils.showSNormal(mContractPositionBean?.openAvgPrice, mPricePrecision)
-        tv_open_price_value.setText(openAvgPriceStr)
+        tv_open_price_value.text = openAvgPriceStr
 
-        tv_contract_name.setText(CpClLogicContractSetting.getContractShowNameById(this, mContractPositionBean?.contractId!!))
+        tv_contract_name.text = CpClLogicContractSetting.getContractShowNameById(this, mContractPositionBean?.contractId!!)
 
 
         when (mContractPositionBean?.positionType) {
@@ -337,13 +337,6 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
     }
 
     private fun initListener() {
-//        et_stop_profit_trigger_price.numberFilter(3)
-//        et_stop_profit_price.numberFilter(3)
-//        et_stop_profit_position.numberFilter(0)
-//
-//        et_stop_loss_trigger_price.numberFilter(3)
-//        et_stop_loss_price.numberFilter(3)
-//        et_stop_loss_position.numberFilter(0)
         ll_stop_profit_price.visibility = if (isLimit) View.VISIBLE else View.GONE
         ll_stop_loss_price.visibility = if (isLimit) View.VISIBLE else View.GONE
         et_stop_profit_trigger_price.setText("")
@@ -390,19 +383,43 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                  */
                 if (cb_tab_stop_profit.isChecked) {
                     orderType = if (isLimit) 1 else 2
+                    //止盈触发价
                     val et_stop_profit_trigger_price_str = et_stop_profit_trigger_price.text.toString()
+                    //止盈委托价
                     val et_stop_profit_price_str = et_stop_profit_price.text.toString()
+                    //交易量
                     var et_stop_profit_position_str = et_stop_profit_position.text.toString()
+                    //开仓均价
+                    val  openAvgPrice =tv_open_price_value.text.toString().toDouble()
                     if (TextUtils.isEmpty(et_stop_profit_trigger_price_str)) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text104))
+                        return
+                    }
+                    //止盈触发价必须大于开仓均价
+                    if (et_stop_profit_trigger_price_str.toDouble()<openAvgPrice) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1041))
                         return
                     }
                     if (TextUtils.isEmpty(et_stop_profit_price_str) && isLimit) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text105))
                         return
                     }
+                    //止盈委托价必须大于开仓均价
+                    if (isLimit && et_stop_profit_price_str.toDouble()<openAvgPrice ) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1042))
+                        return
+                    }
                     if (TextUtils.isEmpty(et_stop_profit_position_str)) {
-                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text106))
+                        CpNToastUtil.showTopToastNet(
+                            this@CpContractStopRateLossActivity,
+                            false,
+                            getString(R.string.cp_extra_text106)
+                        )
+                        return
+                    }
+                    //交易量必须小于可平仓位
+                    if (et_stop_profit_position_str.toDouble()>mCanCloseVolumeStr.toDouble()) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1043))
                         return
                     }
 
@@ -420,21 +437,41 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                 }
                 if (cb_tab_stop_loss.isChecked) {
                     orderType = if (isLimit) 1 else 2
+                    //止损触发价
                     val et_stop_loss_trigger_price_str = et_stop_loss_trigger_price.text.toString()
+                    //止损委托价
                     val et_stop_loss_price_str = et_stop_loss_price.text.toString()
                     var et_stop_loss_position_str = et_stop_profit_position.text.toString()
+                    //开仓均价
+                    val  openAvgPrice =tv_open_price_value.text.toString().toDouble()
                     if (TextUtils.isEmpty(et_stop_loss_trigger_price_str)) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text101))
+                        return
+                    }
+                    //止损触发价必须小于开仓均价
+                    if (et_stop_loss_trigger_price_str.toDouble()>openAvgPrice) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1044))
                         return
                     }
                     if (TextUtils.isEmpty(et_stop_loss_price_str) && isLimit) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text102))
                         return
                     }
+                    //止损触发价必须小于开仓均价
+                    if (isLimit&& et_stop_loss_price_str.toDouble()>openAvgPrice) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1045))
+                        return
+                    }
                     if (TextUtils.isEmpty(et_stop_loss_position_str)) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text103))
                         return
                     }
+                    //交易量必须小于可平仓位
+                    if (et_stop_loss_position_str.toDouble()>mCanCloseVolumeStr.toDouble()) {
+                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1043))
+                        return
+                    }
+
                     if (CpClLogicContractSetting.getContractUint(CpMyApp.instance()) == 1) {
                         et_stop_loss_position_str = CpBigDecimalUtils.getOrderLossNum(et_stop_loss_position_str, multiplier)
                     }

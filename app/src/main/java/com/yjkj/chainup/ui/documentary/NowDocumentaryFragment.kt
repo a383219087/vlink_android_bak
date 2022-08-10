@@ -64,6 +64,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
 
     override fun setContentView(): Int = R.layout.fragment_now_documentary
+    @SuppressLint("SetTextI18n")
     override fun initView() {
         mViewModel?.activity?.value=mActivity
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
@@ -393,10 +394,6 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         val imgTransfer = it.getView<ImageView>(com.chainup.contract.R.id.img_transfer)
                         val etVolume = it.getView<EditText>(com.chainup.contract.R.id.et_volume)
                         val rg_trade = it.getView<RadioGroup>(com.chainup.contract.R.id.rg_trade)
-                        val rb_1st = it.getView<RadioButton>(com.chainup.contract.R.id.rb_1st)
-                        val rb_2nd = it.getView<RadioButton>(com.chainup.contract.R.id.rb_2nd)
-                        val rb_3rd = it.getView<RadioButton>(com.chainup.contract.R.id.rb_3rd)
-                        val rb_4th = it.getView<RadioButton>(com.chainup.contract.R.id.rb_4th)
                         val marginCoin = CpClLogicContractSetting.getContractMarginCoinById(activity, clickData.contractId)
                         val marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(activity, clickData.contractId)
                         val currentPositionMargin = clickData?.holdAmount.toString()
@@ -407,9 +404,12 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                             llVolume?.setBackgroundResource(if (hasFocus) com.chainup.contract.R.drawable.cp_bg_trade_et_focused else com.chainup.contract.R.drawable.cp_bg_trade_et_unfocused)
                         }
 
-                        val canUseAmountShowStr = CpBigDecimalUtils.showSNormal(canUseAmountStr, marginCoinPrecision)
+                        var canUseAmountShowStr = CpBigDecimalUtils.showSNormal(canUseAmountStr, marginCoinPrecision)
                         val canSubMarginAmountShowStr = CpBigDecimalUtils.showSNormal(clickData.canSubMarginAmount, marginCoinPrecision)
-                        tvCanuseValue.setText(canUseAmountShowStr + " " + marginCoin)
+                        if (canUseAmountShowStr.isNullOrEmpty()){
+                            canUseAmountShowStr="0.00"
+                        }
+                        tvCanuseValue.text = "$canUseAmountShowStr $marginCoin"
                         var isAdd = true
                         tvAdd.setOnClickListener {
                             tvAdd.setTextAppearance(activity, com.chainup.contract.R.style.item_adjust_margin_dialog_title_check)

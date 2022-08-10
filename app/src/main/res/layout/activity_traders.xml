@@ -62,17 +62,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:select="@{_all.index}" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_gravity="bottom"
-                android:layout_margin="15dp"
-                android:onClick="@{(v)->_all.onClickDocumentary(v)}"
-                app:ResColor="@{R.color.main_blue}"
-                app:radius="@{10}"
-                android:gravity="center"
-                android:text="@{_all.item.follow==1?@string/b2c_text_edit:@string/activity_documentary_text2}"
-                android:textColor="@color/white" />
+
 
         </FrameLayout>
 

@@ -19,6 +19,9 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
     @Autowired(name = "bean")
     @JvmField
     var item : CommissionBean?=null
+    @Autowired(name = "status")
+    @JvmField
+    var status : Int=0
 
 
 
@@ -30,7 +33,7 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
         mViewModel?.item?.value=item
         mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
-        mFragments?.add(MySingleFragment.newInstance(1,item?.uid.toString()))
+        mFragments?.add(MySingleFragment.newInstance(status,item?.uid.toString()))
 
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
 
