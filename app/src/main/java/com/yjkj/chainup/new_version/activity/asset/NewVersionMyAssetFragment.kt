@@ -48,7 +48,7 @@ private const val ARG_PARAM1 = "param1"
  *
  * NOTE:币币、法币（B2C）、场外（OTC）、合约、杠杆
  */
-class NewVersionMyAssetFragment : NBaseFragment() {
+open class NewVersionMyAssetFragment : NBaseFragment() {
 
     override fun setContentView() = R.layout.fragment_new_version_my_asset
 
@@ -362,8 +362,7 @@ class NewVersionMyAssetFragment : NBaseFragment() {
         adapter4Heat = OTCMyAssetHeatAdapter(assetlist)
         activity_my_asset_rv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         activity_my_asset_rv?.adapter = adapter4Heat
-//        var snapHelper = PagerSnapHelper()
-//        snapHelper.attachToRecyclerView(activity_my_asset_rv ?: return)
+
         activity_my_asset_rv?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             var adapterNowPos = 0
@@ -407,7 +406,12 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                 activity_my_asset_rv?.smoothScrollToPosition(position)
             }
         })
-        stl_assets_type.setViewPager(vp_otc_asset, showTitles.toTypedArray())
+        try {
+            stl_assets_type.setViewPager(vp_otc_asset, showTitles.toTypedArray())
+        }catch(e :Exception){
+
+        }
+
 
 
         appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
@@ -415,25 +419,16 @@ class NewVersionMyAssetFragment : NBaseFragment() {
             var scrollRange = -1
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
+                    scrollRange = appBarLayout.totalScrollRange;
                 }
                 LogUtil.e("scrollRange + verticalOffset", (verticalOffset).toString())
-//                val distance = resources.getDimension(R.dimen.dp_30)
-//                tv_title_top?.alpha = -verticalOffset / distance - 1
+
                 if (-verticalOffset >= 150) {
                     tv_title_top.setTextColor(Color.argb(255, 255, 255, 255))
                 } else {
                     tv_title_top.setTextColor(Color.argb(-verticalOffset, 255, 255, 255))
                 }
 
-//                collapsingToolbarLayout.setExpandedTitleColor(Color.argb(scrollRange + verticalOffset, 255, 255, 255))
-//                if (scrollRange + verticalOffset == 0) {
-//                    collapsingToolbarLayout.setTitle(LanguageUtil.getString(activity, "mainTab_text_assets"));
-//                    isShow = true;
-//                } else if (isShow) {
-//                    collapsingToolbarLayout.setTitle(" ");
-//                    isShow = false;
-//                }
             }
 
         })
@@ -678,10 +673,10 @@ class NewVersionMyAssetFragment : NBaseFragment() {
                 consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         val data = jsonObject.optJSONObject("data")
-                        if (null == totalBalance) {
-                            totalBalance = data.optString("totalBalance")
+                        totalBalance = if (null == totalBalance) {
+                            data.optString("totalBalance")
                         } else {
-                            totalBalance = BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
+                            BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
                         }
 //                        总资产折合计算： 币币总资产+ 法币总资产 +合约总资产估值 +杠杆净资产（总资产 - 借贷资产）
 

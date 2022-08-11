@@ -638,11 +638,14 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                 }
             }
         }else{
-            val obj = JSONObject(jsonStr)
-            mList1.add(obj)
-            adapter1 = ClContractHistoricalPositionAdapter(mContext!!,mList1)
-            rv_hold_contract.layoutManager = CpMyLinearLayoutManager(mActivity)
-            rv_hold_contract.adapter = adapter
+            jsonStr?.let {
+                val obj = JSONObject(it)
+                mList1.add(obj)
+                adapter1 = ClContractHistoricalPositionAdapter(mContext!!,mList1)
+                rv_hold_contract.layoutManager = CpMyLinearLayoutManager(mActivity)
+                rv_hold_contract.adapter = adapter
+            }
+
         }
 
     }

@@ -94,6 +94,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
             })
         } else {
             val map = HashMap<String, Any>()
+
             if (mViewModel?.uid?.value.isNullOrEmpty()) {
                 map["traderUid"] = UserDataService.getInstance().userInfo4UserId
             } else {

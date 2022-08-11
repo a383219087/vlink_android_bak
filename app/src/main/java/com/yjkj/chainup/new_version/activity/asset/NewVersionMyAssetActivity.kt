@@ -70,7 +70,7 @@ class NewVersionMyAssetActivity : NBaseActivity() {
         myAssetFragment.activityRefresh(true)
     }
 
-    fun setClickListener() {
+    private fun setClickListener() {
         iv_back?.setOnClickListener { finish() }
 
         /**
@@ -87,7 +87,7 @@ class NewVersionMyAssetActivity : NBaseActivity() {
 
     override fun onMessageEvent(event: MessageEvent) {
         super.onMessageEvent(event)
-        if(event?.msg_type == MessageEvent.assets_activity_finish_event){
+        if(event.msg_type == MessageEvent.assets_activity_finish_event){
             finish()
         }
     }
