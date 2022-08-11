@@ -16,6 +16,7 @@ class CreateTradersDialog : BaseDialogMVFragment<CreateTradersViewModel?, Dialog
     override fun initView() {
         mViewModel?.uid?.value= arguments?.getString("uid")
         mViewModel?.type?.value= arguments?.getInt("type")
+        mViewModel?.mAcitiviy?.value=context
            arguments?.getSerializable("bean")?.let {
                mViewModel?.bean?.value= it as CommissionBean
                mViewModel?.getData()

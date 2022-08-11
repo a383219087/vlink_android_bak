@@ -1,14 +1,14 @@
 package com.yjkj.chainup.new_version.view
 
 import android.content.Context
-import com.google.android.material.appbar.AppBarLayout
-import androidx.appcompat.app.AppCompatActivity
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.yjkj.chainup.R
-import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.layout_com_header.view.*
 import org.jetbrains.anko.imageResource
 
@@ -82,7 +82,7 @@ class ComHeaderView @JvmOverloads constructor(context: Context,
         tv_right?.visibility = if (showRightText) View.VISIBLE else View.GONE
 
         iv_close?.setOnClickListener {
-            ToastUtils.showToast("哈哈哈哈")
+
             (context as AppCompatActivity).finish()
         }
         ly_appbar?.addOnOffsetChangedListener (OnOffsetChangedListener{ _, verticalOffset ->

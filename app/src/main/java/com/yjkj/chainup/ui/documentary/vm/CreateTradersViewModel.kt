@@ -1,11 +1,10 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
-import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.common.sdk.LibCore.context
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AboutUSBean
@@ -28,7 +27,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CreateTradersViewModel : BaseViewModel() {
     var uid = MutableLiveData("")
-    var mAcitiviy = MutableLiveData<Activity>()
+    var mAcitiviy = MutableLiveData<Context>()
 
 
     //1是新建2是编辑
@@ -80,31 +79,31 @@ class CreateTradersViewModel : BaseViewModel() {
 
     fun create() {
         if (checkIndex.value==0&&documentaryRate.value.isNullOrBlank()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text19))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text19))
             return
         }
         if (checkIndex.value==0&&(documentaryRate.value!!.toDouble()<=0||documentaryRate.value!!.toDouble()>5)){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text8))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text8))
             return
         }
         if (checkIndex.value==1&&documentaryMoney.value.isNullOrBlank()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text20))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text20))
             return
         }
         if (maxEarnestMoney.value.isNullOrBlank()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text21))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text21))
             return
         }
         if (checkIndex.value==1&&documentaryMoney.value!!.toDouble()>maxEarnestMoney.value!!.toDouble()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text27))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text27))
             return
         }
         if (winRate.value.isNullOrBlank()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text22))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text22))
             return
         }
         if (stopRate.value.isNullOrBlank()){
-            ToastUtils.showToast(context.getString(R.string.dialog_create_trader_text23))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.dialog_create_trader_text23))
             return
         }
 
@@ -124,7 +123,7 @@ class CreateTradersViewModel : BaseViewModel() {
         map["profitRatio"] =winRate.value.toString()
         map["lossRatio"] =stopRate.value.toString()
         startTask(apiService.createTrader(map), Consumer {
-            ToastUtils.showToast(context.getString(R.string.decumentary_mine_text21))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.decumentary_mine_text21))
             EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
           finish()
 
@@ -151,7 +150,7 @@ class CreateTradersViewModel : BaseViewModel() {
             map["traderUid"] = uid.value.toString()
         }
         startTask(apiService.cancelTrader(map), Consumer {
-            ToastUtils.showToast(context.getString(R.string.save_success))
+            ToastUtils.showToast(mAcitiviy.value!!.getString(R.string.save_success))
             EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
             finish()
 

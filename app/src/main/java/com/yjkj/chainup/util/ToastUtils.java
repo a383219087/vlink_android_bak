@@ -1,6 +1,7 @@
 package com.yjkj.chainup.util;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -37,7 +38,10 @@ public class ToastUtils {
 
     public static void showToast(String msg) {
         showToast(ChainUpApp.appContext, msg);
+
     }
+
+
 
     /**
      * @param string

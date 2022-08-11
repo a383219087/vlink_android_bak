@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:layout_gravity="right"
-                android:visibility="@{item.type==1?View.VISIBLE:View.GONE}"
+                android:visibility="@{item.type==1?View.GONE:View.VISIBLE}"
                 android:layout_marginTop="@dimen/dp_15"
                 android:gravity="center"
                 android:onClick="@{()->onItemListener.onClick(item)}"
