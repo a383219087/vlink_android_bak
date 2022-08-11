@@ -23,6 +23,7 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
         fun newInstance(status: Int,uid:String): MySingleFragment {
             val fg = MySingleFragment()
             val bundle = Bundle()
+            //1是别人2是自己
             bundle.putInt(ParamConstant.CUR_INDEX, status)
             bundle.putString(ParamConstant.MARKET_NAME, uid)
             fg.arguments = bundle

@@ -44,7 +44,7 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
         mFragments?.clear()
         if (status == 1) {
             mFragments?.add(FirstFragment.newInstance(status))
-            mFragments?.add(MySingleFragment.newInstance(1,""))
+            mFragments?.add(MySingleFragment.newInstance(2,""))
             mFragments?.add(MySingleMoneyFragment.newInstance())
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
         } else {

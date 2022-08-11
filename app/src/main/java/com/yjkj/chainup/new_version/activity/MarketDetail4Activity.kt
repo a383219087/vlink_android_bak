@@ -216,7 +216,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
     }
 
     private fun setOnclick() {
-        coin_info_item.setOnTouchListener(OnTouchListener { view, motionEvent -> klinPanelTouch(view, motionEvent) })
+        coin_info_item.setOnTouchListener({ view, motionEvent -> klinPanelTouch(view, motionEvent) })
         id_kline_period_more_bg_view.setOnClickListener {
             b(false)
         }
@@ -246,7 +246,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
             )
         }
 
-        binding.ibBack?.setOnClickListener {
+        binding.ibBack.setOnClickListener {
             finish()
         }
 
