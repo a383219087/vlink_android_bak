@@ -54,7 +54,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_webview);
         url = getIntent().getStringExtra(ParamConstant.URL_4_SERVICE);
-//        url = "http://120.79.39.93/#/";
+//        url = "http://8.219.176.94/#/";
         vip = getIntent().getStringExtra(ParamConstant.homeTabType);
         StatusBarUtil.setColor(this, getResources().getColor(R.color.red));
         initViews();
@@ -158,6 +158,9 @@ public class ChatWebViewActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
+
     }
 
     private class MyJavascriptInterface1 {
@@ -198,7 +201,8 @@ public class ChatWebViewActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x1111) {
                 String newUrl =url+"pages/wchat/wchat-detail?name=";
-//                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
+                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
+                this.runOnUiThread(() ->    mwebView.evaluateJavascript("javascript:getQRcodeValue('" +res + "')",s ->mwebView.reload()));
 //                if (res!=null&&!res.isEmpty()){
 //                    if (res.startsWith("M")) {
 //                        mwebView.loadUrl(newUrl+res);
