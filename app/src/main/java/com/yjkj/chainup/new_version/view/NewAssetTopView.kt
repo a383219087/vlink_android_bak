@@ -409,9 +409,6 @@ class NewAssetTopView @JvmOverloads constructor(
 
     fun setRefreshAdapter() {
         if (param_index == "contract") {
-            var mcanUseBalance = Contract2PublicInfoManager.cutDespoitByPrecision(symbol4Contract.optString("canUseBalance"))
-            var mpositionMargin = Contract2PublicInfoManager.cutDespoitByPrecision(symbol4Contract.optString("positionMargin"))
-            var morderMargin = Contract2PublicInfoManager.cutDespoitByPrecision(symbol4Contract.optString("orderMargin"))
 
             tv_assets_title.setText(assetsTitle + "(BTC)")
             val totalBalanceSymbol = "BTC"

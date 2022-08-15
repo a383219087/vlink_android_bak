@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 
 /**
@@ -23,6 +25,7 @@ public class UdeskWebChromeClient extends WebChromeClient {
     private ValueCallback<Uri[]> uploadMessageAboveL;
     private final static int FILE_CHOOSER_RESULT_CODE = 10000;
     ICloseWindow closeWindow = null;
+    ProgressBar mProgressBar = null;
 
 
 
@@ -30,9 +33,25 @@ public class UdeskWebChromeClient extends WebChromeClient {
         mContext = context;
         this.closeWindow = closeWindow;
     }
+    public UdeskWebChromeClient(Activity context, ICloseWindow closeWindow, ProgressBar mProgressBar) {
+        mContext = context;
+        this.closeWindow = closeWindow;
+        this.mProgressBar = mProgressBar;
+    }
 
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
+        if(mProgressBar!=null){
+            if (newProgress==100){
+                mProgressBar.setVisibility(View.GONE);
+            }else {
+                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setProgress(newProgress);
+            }
+
+        }
+
+
         super.onProgressChanged(view, newProgress);
     }
 
@@ -83,6 +102,8 @@ public class UdeskWebChromeClient extends WebChromeClient {
     public void onConsoleMessage(String message, int lineNumber, String sourceID) {
         Log.e("h5端的log", String.format("%s -- From line %s of %s", message, lineNumber, sourceID));
     }
+
+
 
 
     private void openImageChooserActivity() {

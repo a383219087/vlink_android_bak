@@ -8,27 +8,29 @@ import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.utils.CpClLogicContractSetting.getThemeMode
-import com.common.sdk.LibCore.context
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NLanguageUtil
-import com.yjkj.chainup.util.ToastUtils
+import com.yjkj.chainup.util.NToastUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import java.util.*
 
 
 class NewVersionHomePageViewModel : HomePageViewModel() {
+
 
 
     /**
@@ -50,7 +52,26 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
-                    ToastUtils.showToast("正在开发")
+                    if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
+                        NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value!!.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
+                            override fun sendConfirm() {
+                                when (UserDataService.getInstance().authLevel) {
+                                    0 -> {
+                                        NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value!!.getString(R.string.noun_login_pending))
+                                    }
+
+                                    2, 3 -> {
+                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                    }
+                                }
+                            }
+                        })
+                        return
+                    }
+                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
+                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
+                        putBoolean(ParamConstant.COIN_FROM, true)
+                    })
                 }
                 /**
                  * 提现转账
@@ -59,7 +80,29 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
-                    ToastUtils.showToast("正在开发")
+                    if (phoneCertification()) return
+                    if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
+                        NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value?.getString(R.string.common_kyc_chargeAndwithdraw)
+                            ?: "", object : NewDialogUtils.DialogBottomListener {
+                            override fun sendConfirm() {
+                                when (UserDataService.getInstance().authLevel) {
+                                    0 -> {
+                                        NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value?.getString(R.string.noun_login_pending))
+                                    }
+
+                                    2, 3 -> {
+                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                    }
+                                }
+                            }
+                        })
+                        return
+                    }
+
+                    ArouterUtil.navigation(RoutePath.WithdrawSelectCoinActivity, Bundle().apply {
+                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
+                        putBoolean(ParamConstant.COIN_FROM, true)
+                    })
                 }
                 /**
                  * 合约
@@ -79,7 +122,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     val token = UserDataService.getInstance().token
                     val lang = NLanguageUtil.getLanguage()
-                    val style = if (getThemeMode(context) == 0) "white" else "black"
+                    val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
                     val url = "${ChainUpApp.url?.optionUrl}?token=${token}&lang=${lang}&type=${style}"
                     val bundle = Bundle()
                     bundle.putString(ParamConstant.URL_4_SERVICE, url)
@@ -143,6 +186,78 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
 
 
         }
+    }
+
+
+    fun phoneCertification(type: Int = 2): Boolean {
+        if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
+            if (UserDataService.getInstance().googleStatus != 1) {
+                NewDialogUtils.OTCTradingMustPermissionsDialog(mActivity.value!!, object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
+                        if (UserDataService.getInstance().googleStatus != 1) {
+                            ArouterUtil.greenChannel(RoutePath.SafetySettingActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().authLevel != 1) {
+                            when (UserDataService.getInstance().authLevel) {
+                                0 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
+                                }
+
+                                2, 3 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+                                }
+                            }
+                            return
+                        }
+
+                    }
+                }, type = type, title = LanguageUtil.getString(mActivity.value, "withdraw_tip_bindGoogleFirst"))
+                return true
+            }
+        } else {
+            if (UserDataService.getInstance().isOpenMobileCheck != 1 && UserDataService.getInstance().googleStatus != 1) {
+                NewDialogUtils.OTCTradingPermissionsDialog(mActivity.value!!, object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
+                        if (UserDataService.getInstance().googleStatus != 1) {
+                            ArouterUtil.greenChannel(RoutePath.SafetySettingActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                            //.enter2(context!!)
+                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                            return
+                        }
+                        if (UserDataService.getInstance().authLevel != 1) {
+                            when (UserDataService.getInstance().authLevel) {
+                                0 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
+                                }
+
+                                2, 3 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+                                }
+                            }
+                            return
+                        }
+
+                    }
+
+                }, type = 2, title = LanguageUtil.getString(mActivity.value, "otcSafeAlert_action_bindphoneOrGoogle"))
+                return true
+            }
+        }
+
+        return false
     }
     val itemBinding =
         ItemBinding.of<Item>(BR.item, R.layout.item_new_version_item).bindExtra(BR.onItemListener, onItemListener)

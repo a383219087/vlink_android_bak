@@ -15,6 +15,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,9 +45,11 @@ import okhttp3.Response;
 @Route(path = RoutePath.ChatWebViewActivity)
 public class ChatWebViewActivity extends AppCompatActivity {
     private WebView mwebView;
+    private ProgressBar mProgressBar;
     UdeskWebChromeClient udeskWebChromeClient;
     String url = "";
     String vip = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +62,14 @@ public class ChatWebViewActivity extends AppCompatActivity {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.red));
         initViews();
         loginById(UserDataService.getInstance().getUserInfo4UserId(), vip);
+
     }
 
     private void initViews() {
         try {
             udeskWebChromeClient = new UdeskWebChromeClient(this, () -> finish());
             mwebView = (WebView) findViewById(R.id.webview);
+            mProgressBar = (ProgressBar) findViewById(R.id.loading_wb);
 //         findViewById(R.id.back).setOnClickListener(view -> finish());
             settingWebView(url);
         } catch (Exception e) {
