@@ -151,7 +151,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="15dp"
                                 android:layout_gravity="center"
-                                android:text="@string/decumentary_detail_text21"
+                                android:text="@string/decumentary_detail_text26"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
 

@@ -3427,8 +3427,8 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="dialog_create_trader_text6">Note: The system will place an order according to the ratio of your balance of assets and the balance of traders\' assets. For example, if the trader opens a position with a principal of 100 USDT and you set it to 3 times, you will place an order of 1003=300 USDT.</string>
     <string name="dialog_create_trader_text7">Note: No matter how much the trader orders, your order margin is a fixed documentary amount.</string>
     <string name="dialog_create_trader_text8">proportion（0–5）</string>
-    <string name="dialog_create_trader_text9">amount</string>
-    <string name="dialog_create_trader_text10">max</string>
+    <string name="dialog_create_trader_text9">documentary</string>
+    <string name="dialog_create_trader_text10">max margin</string>
     <string name="dialog_create_trader_text11">risk management</string>
     <string name="dialog_create_trader_text12">stop profit%</string>
     <string name="dialog_create_trader_text15">clean</string>
@@ -3475,6 +3475,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text23">no data</string>
     <string name="decumentary_detail_text24">number of followers</string>
     <string name="decumentary_detail_text25">In documentary</string>
+    <string name="decumentary_detail_text26">P/L Ratio </string>
     <string name="decumentary_mine_text1">History total documentary principal</string>
     <string name="decumentary_mine_text2">current</string>
     <string name="decumentary_mine_text3">historical</string>

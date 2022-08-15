@@ -1,7 +1,7 @@
 package com.chainup.contract.view
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.text.TextUtils
 import android.view.Gravity
@@ -33,7 +33,6 @@ import com.zyyoona7.popup.EasyPopup
 import com.zyyoona7.popup.XGravity
 import com.zyyoona7.popup.YGravity
 import org.json.JSONArray
-import kotlin.math.roundToInt
 
 //Created by $USER_NAME on 2018/10/15.
 
@@ -213,9 +212,9 @@ class CpDialogUtil {
                 list.add(CpTabInfo(context?.getString(R.string.cp_overview_text3).toString(), 1))
                 list.add(CpTabInfo(context?.getString(R.string.cp_overview_text4).toString(), 2))
                 list.add(CpTabInfo(context?.getString(R.string.cp_overview_text5).toString(), 3))
-                list.add(CpTabInfo("Post Only", 4))
-                list.add(CpTabInfo("FOK", 5))
-                list.add(CpTabInfo("IOC", 6))
+                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text511).toString(), 4))
+                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text521).toString(), 5))
+                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text531).toString(), 6))
                 var adapter = CpPopAdapter(list, index)
                 rView?.layoutManager = LinearLayoutManager(context)
                 rView?.adapter = adapter
@@ -690,7 +689,11 @@ class CpDialogUtil {
                                 CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
                                         CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotAgain.isChecked)
                                 if (listener != null) {
-                                    listener.sendConfirm()
+                                    if (!CpChainUtil.isFastClick()) {
+                                        listener.sendConfirm()
+                                    }
+
+
                                 }
                                 tDialog.dismiss()
                             }

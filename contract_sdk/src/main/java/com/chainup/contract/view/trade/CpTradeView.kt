@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -449,19 +448,19 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             }
 
         }
-        if (side.equals("BUY")) {
-            volume = buyPositionAmount
+        volume = if (side.equals("BUY")) {
+            buyPositionAmount
         } else {
-            volume = sellPositionAmount
+            sellPositionAmount
         }
         if (mContractUint == 0) {
-            if (isOpen){
-                volume = CpBigDecimalUtils.showSNormal(volume, 0)
+            volume = if (isOpen){
+                CpBigDecimalUtils.showSNormal(volume, 0)
             }else{
-                volume = CpBigDecimalUtils.showSNormalUp(volume, 0)
+                CpBigDecimalUtils.showSNormalUp(volume, 0)
             }
         }
-        LogUtils.e("下单数量：" + volume)
+        LogUtils.e("下单数量：$volume")
 
         when (buyOrSellHelper.orderType) {
             1 -> {
@@ -470,7 +469,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     sellMaxPriceList.sortBy {
                         it.optDouble(0)
                     }
-                    price = if (side.equals("BUY")) {
+                    price = if (side == "BUY") {
                         if (sellMaxPriceList.size > buyOrSellHelper.rivalPricePosition) {
                             sellMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
                         } else {
@@ -502,7 +501,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                 isMarketPriceModel = true
                 if (isOpen && isPercentPlaceOrder) {
 
-                    var buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+                    val buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
                     volume=CpBigDecimalUtils.mulStr(buff,level.toString(),symbolPricePrecision)
                 }
             }
@@ -643,18 +642,18 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                 stopProfitPrice,
                 stopLossPrice
         )
-        val titleColor = if (side.equals("BUY")) {
+        val titleColor = if (side == "BUY") {
             resources.getColor(R.color.main_green)
         } else {
             resources.getColor(R.color.main_red)
         }
-        if (isOpen && side.equals("BUY")) {
+        if (isOpen && side == "BUY") {
             dialogTitle = context.getString(R.string.cp_overview_text13)//买入开多
-        } else if (isOpen && side.equals("SELL")) {
+        } else if (isOpen && side == "SELL") {
             dialogTitle = context.getString(R.string.cp_overview_text14)//卖出开空
-        } else if (!isOpen && side.equals("BUY")) {
+        } else if (!isOpen && side == "BUY") {
             dialogTitle = context.getString(R.string.cp_extra_text4)//买入平空
-        } else if (!isOpen && side.equals("SELL")) {
+        } else if (!isOpen && side == "SELL") {
             dialogTitle = context.getString(R.string.cp_extra_text5)//卖出平多
         }
         val contractName = CpClLogicContractSetting.getContractShowNameById(context, mContractId)

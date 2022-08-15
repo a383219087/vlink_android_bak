@@ -3200,6 +3200,9 @@
     <string name="cp_overview_text3">Limit Order</string>
     <string name="cp_overview_text4">Market Order</string>
     <string name="cp_overview_text5">Trigger Order</string>
+    <string name="cp_overview_text511">Post Only</string>
+    <string name="cp_overview_text521">FOK</string>
+    <string name="cp_overview_text531">IOC</string>
     <string name="cp_overview_text6">Price</string>
     <string name="cp_overview_text7">BBO</string>
     <string name="cp_overview_text8">Quantity</string>

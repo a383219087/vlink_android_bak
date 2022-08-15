@@ -376,6 +376,11 @@
                 app:addOnPageChangeListener="@{_all.onPageChangeListener}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:select="@{_all.index}" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:visibility="@{_all.status==1?View.VISIBLE:View.GONE}"/>
+
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
