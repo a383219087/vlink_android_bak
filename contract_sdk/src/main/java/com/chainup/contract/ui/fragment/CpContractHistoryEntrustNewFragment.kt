@@ -3,6 +3,7 @@ package com.chainup.contract.ui.fragment
 import android.text.TextUtils
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chainup.contract.R
+import com.chainup.contract.adapter.CpContractEntrustNewAdapter
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
@@ -13,7 +14,6 @@ import com.chainup.contract.view.CpNewDialogUtils
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
-import com.yjkj.chainup.new_contract.adapter.CpContractEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract

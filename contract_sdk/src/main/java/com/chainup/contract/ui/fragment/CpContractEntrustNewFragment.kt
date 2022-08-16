@@ -11,7 +11,7 @@ import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractEntrustDetailActivity
-import com.yjkj.chainup.new_contract.adapter.CpContractEntrustNewAdapter
+import com.chainup.contract.adapter.CpContractEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract

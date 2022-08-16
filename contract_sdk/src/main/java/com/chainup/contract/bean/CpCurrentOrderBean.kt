@@ -30,6 +30,7 @@ data class CpCurrentOrderBean(
         val triggerType: Int,
         val memo: Int,
         val volume: String,
+        val traderName: String?="",
         val otoOrder: otoOrder,
         var layoutType: Int
 ) : Serializable, MultiItemEntity {

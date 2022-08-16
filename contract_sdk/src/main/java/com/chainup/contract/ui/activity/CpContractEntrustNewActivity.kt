@@ -451,27 +451,6 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
 
     }
 
-//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-//        if (!inRangeOfView(ll_sel_coins, ev) && !inRangeOfView(ll_coin_select, ev)) {
-//            ll_coin_select.visibility = View.GONE
-//        }
-//        if (!inRangeOfView(ll_entrust_type, ev) && !inRangeOfView(ll_contract_type, ev) && !inRangeOfView(ll_contract_direction, ev) && !inRangeOfView(ll_common_select, ev)) {
-//            ll_common_select.visibility = View.GONE
-//        }
-//        if (isShowContractSelect){
-//            img_coins_name_arrow.animate().setDuration(200).rotation(0f).start()
-//        }
-//        if (isShowEntrustTypeSelect){
-//            img_entrust_type_arrow.animate().setDuration(200).rotation(0f).start()
-//        }
-//        if (isShowOrderTypeSelect){
-//            img_order_type_arrow.animate().setDuration(200).rotation(0f).start()
-//        }
-//        if (isShowSideTypeSelect){
-//            img_side_type_arrow.animate().setDuration(200).rotation(0f).start()
-//        }
-//        return super.dispatchTouchEvent(ev)
-//    }
 
     private fun inRangeOfView(view: View, ev: MotionEvent): Boolean {
         val location = IntArray(2)

@@ -716,8 +716,8 @@
     <string name="otc_receipt_qr_code">Receipt QR Code</string>
 
 
-    <string name="otc_single_min">No less than the minimum transaction amount per order </string>
-    <string name="otc_single_max">No more than the maximum transaction amount per order</string>
+    <string name="otc_bill_min">No less than the minimum transaction amount per order </string>
+    <string name="otc_bill_max">No more than the maximum transaction amount per order</string>
 
 
     <string name="otc_buy_order">Buy and place an order</string>
@@ -1784,10 +1784,10 @@ Mark Price: This is the current mark price.</string>
     <string name="redpacket_send_exchangeAccount">Exchange Account</string>
     <string name="redpacket_sendout_cannotReplicated">Link has expired and cannot be replicated</string>
     <string name="redpacket_send_noMoney">Insufficient available balance</string>
-    <string name="redpacket_send_notExceed">The single total payment amount shall not exceed %s</string>
-    <string name="redpacket_send_notLess">The single Red Packet is not less than %s</string>
-    <string name="redpacket_send_singleNotExceed">The amount of a single Red Packet shall not exceed %s</string>
-    <string name="redpacket_send_numNotExceed">Each single Red Packet amount shall not greater than %s</string>
+    <string name="redpacket_send_notExceed">The bill total payment amount shall not exceed %s</string>
+    <string name="redpacket_send_notLess">The bill Red Packet is not less than %s</string>
+    <string name="redpacket_send_billNotExceed">The amount of a bill Red Packet shall not exceed %s</string>
+    <string name="redpacket_send_numNotExceed">Each bill Red Packet amount shall not greater than %s</string>
     <string name="contract_flat_long">Close(Long)</string>
     <string name="contract_flat_short">Close(Short)</string>
     <string name="contract_text_marketPriceFlat">Market Close (All)</string>
@@ -1829,8 +1829,8 @@ Mark Price: This is the current mark price.</string>
     <string name="transfer_text_gradeRate">Class/Rate</string>
     <string name="transfer_text_entrustDetails">Commission Details</string>
     <string name="withdraw_b2c">提现</string>
-    <string name="b2c_text_singleWithdrawMin">单笔最小提现金额: %s</string>
-    <string name="b2c_text_singleWithdrawMax">单笔最大提现限额：%s</string>
+    <string name="b2c_text_billWithdrawMin">单笔最小提现金额: %s</string>
+    <string name="b2c_text_billWithdrawMax">单笔最大提现限额：%s</string>
     <string name="b2c_text_todaywithdraw">今日可提现金额: %s</string>
     <string name="b2c_recharge_min">单笔充值不得小于%s</string>
     <string name="b2c_text_withdrawAccountList">提现账户列表</string>
@@ -1867,7 +1867,7 @@ Mark Price: This is the current mark price.</string>
     <string name="otc_setPrice_method">Pricing Method</string>
     <string name="otc_outPrice_direction">Premium direction</string>
     <string name="otc_outPrice_percent">Premium price</string>
-    <string name="otc_userSet_singlePrice">Custom unit price</string>
+    <string name="otc_userSet_billPrice">Custom unit price</string>
     <string name="otc_min_amount">Minimum amount</string>
     <string name="otc_max_amount">Maximum amount</string>
     <string name="otc_payMoney_time">Time Limit for the Payment</string>
@@ -1999,7 +1999,7 @@ Mark Price: This is the current mark price.</string>
     <string name="b2c_Withdrawal_Time">提现时间</string>
     <string name="b2c_Deal_Time">处理时间</string>
     <string name="b2c_text_bankNo">银行账号</string>
-    <string name="b2c_text_singleNoLessthan">单笔充值不得小于%s</string>
+    <string name="b2c_text_billNoLessthan">单笔充值不得小于%s</string>
     <string name="b2c_Transfer_Vouchers">转账凭证</string>
     <string name="b2c_text_rechargeSuccess">充值成功，等待审核</string>
     <string name="b2c_text_addTransferCredentials">请添加转账凭证</string>
@@ -2127,7 +2127,7 @@ Mark Price: This is the current mark price.</string>
     <string name="sl_str_fund_pwd_tips2"> 6</string>
     <string name="sl_str_fund_pwd_tips3"> Digits</string>
     <string name="sl_str_no_fund_pwd">No Fund Password</string>
-    <string name="sl_str_effect_single">Single Time Effective</string>
+    <string name="sl_str_effect_bill">bill Time Effective</string>
     <string name="sl_str_minutes">min</string>
     <string name="sl_str_hours">hr</string>
     <string name="sl_str_repeat_password">Repeat password</string>
@@ -2456,7 +2456,7 @@ at %3$s price according to the profit ranking status</string>
     <string name="contract_project_replay">Est Perf</string>
     <string name="contract_project_profit">Est Profit</string>
     <string name="customSetting_action_push">Push Settings</string>
-    <string name="common_text_entrustListLimit">All the transaction data of coin pairs only support the display of data in the past 180 days. Please filter a single coin pair to view all orders.</string>
+    <string name="common_text_entrustListLimit">All the transaction data of coin pairs only support the display of data in the past 180 days. Please filter a bill coin pair to view all orders.</string>
     <string name="contract_swap_gift">Bonus</string>
     <string name="contract_tips_noExperience">Bonus is not include</string>
     <string name="contract_tips_experienceGold">The trading bonus cannot be withdrawn directly, but the profitable part could.The trading bonus can be used for opening positions, paying trading fees, funding fee and the settlement for closing positions.
@@ -2669,9 +2669,9 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="cl_conditional_market_price_str">条件市价</string>
     <string name="cl_conditional_limit_price_str">条件限价</string>
     <string name="cl_minimum_order_quantity_str">最小下单量</string>
-    <string name="cl_exceeding_the_maximum_single_order_quantity_str">超出单次最大下单量</string>
+    <string name="cl_exceeding_the_maximum_bill_order_quantity_str">超出单次最大下单量</string>
     <string name="cl_minimum_order_amount_str">最小下单金额</string>
-    <string name="cl_Exceeding_the_maximum_single_order_amount_str">超出单次最大下单金额</string>
+    <string name="cl_Exceeding_the_maximum_bill_order_amount_str">超出单次最大下单金额</string>
     <string name="cl_str_close">限价平仓</string>
     <string name="statusText2">已过期</string>
     <string name="statusText3">已完成</string>
@@ -2812,10 +2812,10 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="cl_tradeform_text39">Buy long</string>
     <string name="cl_tradeform_text40">Sell short</string>
     <string name="cl_tradeform_text41">Too much price deviation</string>
-    <string name="cl_tradeform_text42">Exceed single order amount limit max amount</string>
-    <string name="cl_tradeform_text43">Below single order amount limit min amount</string>
-    <string name="cl_tradeform_text44">Exceed single order volume limit max volume</string>
-    <string name="cl_tradeform_text45">Below single order volume limit min volume</string>
+    <string name="cl_tradeform_text42">Exceed bill order amount limit max amount</string>
+    <string name="cl_tradeform_text43">Below bill order amount limit min amount</string>
+    <string name="cl_tradeform_text44">Exceed bill order volume limit max volume</string>
+    <string name="cl_tradeform_text45">Below bill order volume limit min volume</string>
     <string name="cl_tradeform_text46">Exceed close available</string>
     <string name="cl_tradeform_text47">Price</string>
     <string name="cl_tradeform_text48">Volume</string>
@@ -3338,7 +3338,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="pos_state_release">本金释放</string>
     <string name="pos_string_timeEarn">收益时间</string>
     <string name="pos_string_earnNumber">收益数量</string>
-    <string name="pos_string_earnDetail">earn detail</string>
+    <string name="pos_string_earnDetail">Income details</string>
     <string name="pos_string_lockNotAvailable">锁仓数量不得超过您账户中的数量</string>
     <string name="pos_string_maxlockNumber">累计锁仓不超过</string>
     <string name="pos_string_coinName">币种</string>
@@ -3427,7 +3427,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="dialog_create_trader_text6">Note: The system will place an order according to the ratio of your balance of assets and the balance of traders\' assets. For example, if the trader opens a position with a principal of 100 USDT and you set it to 3 times, you will place an order of 1003=300 USDT.</string>
     <string name="dialog_create_trader_text7">Note: No matter how much the trader orders, your order margin is a fixed documentary amount.</string>
     <string name="dialog_create_trader_text8">proportion（0–5）</string>
-    <string name="dialog_create_trader_text9">documentary</string>
+    <string name="dialog_create_trader_text9">documentary amount</string>
     <string name="dialog_create_trader_text10">max margin</string>
     <string name="dialog_create_trader_text11">risk management</string>
     <string name="dialog_create_trader_text12">stop profit%</string>
@@ -3448,8 +3448,8 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="activity_documentary_text2">documentary</string>
     <string name="activity_documentary_text3">home</string>
     <string name="activity_documentary_text4">documentary</string>
-    <string name="activity_documentary_text5">single</string>
-    <string name="activity_documentary_text6">single income</string>
+    <string name="activity_documentary_text5">bill</string>
+    <string name="activity_documentary_text6">bill income</string>
     <string name="decumentary_detail_text1">detail</string>
     <string name="decumentary_detail_text2">follow:</string>
     <string name="decumentary_detail_text3">earnings</string>
@@ -3460,7 +3460,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text8">position valuation</string>
     <string name="decumentary_detail_text9">apply trader</string>
     <string name="decumentary_detail_text10">earnings today</string>
-    <string name="decumentary_detail_text11">launch single</string>
+    <string name="decumentary_detail_text11">launch bill</string>
     <string name="decumentary_detail_text12">My follower</string>
     <string name="decumentary_detail_text13">List of traders</string>
     <string name="decumentary_detail_text14">The data is updated hourly</string>
@@ -3484,8 +3484,8 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_mine_text6">history</string>
     <string name="decumentary_mine_text7">follower</string>
     <string name="decumentary_mine_text8">earnings yesterday</string>
-    <string name="decumentary_mine_text9">total earnings</string>
-    <string name="decumentary_mine_text10">single amount</string>
+    <string name="decumentary_mine_text9">Income statistics</string>
+    <string name="decumentary_mine_text10">bill amount</string>
     <string name="decumentary_mine_text11">date</string>
     <string name="decumentary_mine_text12">follow amount</string>
     <string name="decumentary_mine_text13">traders</string>
@@ -3537,7 +3537,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="financial_text35">deposit amount</string>
     <string name="financial_text36">edit</string>
     <string name="financial_text37">total amount deposit</string>
-    <string name="financial_text38">single limit</string>
+    <string name="financial_text38">bill limit</string>
     <string name="financial_text39">Estimated daily revenue</string>
     <string name="financial_text40">Determine the deposit</string>
     <string name="financial_text42">Current annualized interest rate</string>
@@ -3554,7 +3554,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="financial_text54">security</string>
     <string name="financial_text55">Offline storage\n Multiple Authorization\n Security transparent</string>
     <string name="financial_text56">In the rules</string>
-    <string name="financial_text57">Single limit</string>
+    <string name="financial_text57">bill limit</string>
     <string name="financial_text58">In the time</string>
     <string name="financial_text59">rules</string>
     <string name="financial_text60">Take out the rules</string>

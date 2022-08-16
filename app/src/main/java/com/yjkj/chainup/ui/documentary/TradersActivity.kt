@@ -31,6 +31,7 @@ class TradersActivity : BaseMVActivity<TradersViewModel?, ActivityTradersBinding
     override fun setContentView() = R.layout.activity_traders
     override fun initData() {
         mViewModel?.item?.value=item
+        mViewModel?.status?.value=status
         mViewModel?.activity?.value=mActivity
         mFragments = ArrayList()
         mFragments?.add(MySingleFragment.newInstance(1,item?.uid.toString()))

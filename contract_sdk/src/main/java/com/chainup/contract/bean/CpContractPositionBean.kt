@@ -13,7 +13,7 @@ data class CpContractPositionBean(
     /**
      * 交易员
      */
-    val traderName: String,
+    val traderName: String?="",
     /**
      * 可减少保证金
      */

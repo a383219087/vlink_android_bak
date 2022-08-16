@@ -1,6 +1,7 @@
 package com.yjkj.chainup.ui.documentary
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.chainup.contract.adapter.CpNVPagerAdapter
 import com.yjkj.chainup.R
@@ -46,9 +47,6 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
         mFragments?.add(HisDocumentaryFragment.newInstance(2,arguments?.getString(ParamConstant.MARKET_NAME)!!))
         mFragments?.add(MyTradersFragment.newInstance(1,arguments?.getString(ParamConstant.MARKET_NAME)!!,false))
         mBinding?.viewPager?.adapter = FmPagerAdapter(mFragments, childFragmentManager)
-
-
-
 
     }
 

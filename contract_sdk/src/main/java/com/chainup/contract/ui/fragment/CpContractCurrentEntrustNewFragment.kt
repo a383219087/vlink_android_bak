@@ -1,6 +1,7 @@
 package com.chainup.contract.ui.fragment
 
 import com.chainup.contract.R
+import com.chainup.contract.adapter.CpContractCurrentEntrustNewAdapter
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -8,7 +9,6 @@ import com.chainup.contract.view.CpEmptyOrderForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.adapter.CpContractCurrentEntrustNewAdapter
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
 import org.greenrobot.eventbus.Subscribe

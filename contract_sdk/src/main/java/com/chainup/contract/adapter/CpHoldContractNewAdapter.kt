@@ -45,11 +45,10 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
         helper.run {
             setGone(R.id.ll_button, !isMySelf)
-            setGone(R.id.tv_tradle_name, !isTrader)
-            if (isTrader&&!item.traderName.isNullOrEmpty()){
+            if (!item.traderName.isNullOrEmpty()){
+                setGone(R.id.tv_tradle_name, false)
                 setText(R.id.tv_tradle_name, "${context.getString(R.string.traders_apply_text9)}：${item.traderName}")
             }else{
-
                 setGone(R.id.tv_tradle_name, true)
             }
             when (item.orderSide) {

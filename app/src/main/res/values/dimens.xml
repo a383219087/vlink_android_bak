@@ -39,7 +39,7 @@
     <dimen name="sp_32">32sp</dimen>
 
     <!---->
-    <dimen name="dp_zero">0.0dp</dimen>
+    <dimen name="dp_zero">0dp</dimen>
     <dimen name="dp_half">0.5dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_1_5">1.5dp</dimen>

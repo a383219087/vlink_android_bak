@@ -18,6 +18,7 @@ class TradersViewModel : BaseViewModel() {
     var activity = MutableLiveData<FragmentActivity>()
 
     var index = MutableLiveData(0)
+    var status = MutableLiveData(-1)
 
 
 

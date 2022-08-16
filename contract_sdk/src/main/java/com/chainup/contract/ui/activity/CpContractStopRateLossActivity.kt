@@ -72,7 +72,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(mActivity, mContractPositionBean?.contractId!!)
 
-        multiplierPrecision = if (CpClLogicContractSetting.getContractUint(mActivity) == 0) 0 else multiplierPrecision
+        multiplierPrecision =  multiplierPrecision
 
         mPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(mContext, mContractPositionBean?.contractId!!)
 

@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.util.BigDecimalUtils
+import com.yjkj.chainup.util.TimeUtil
 import org.json.JSONObject
 
 
@@ -21,7 +22,12 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             val mMultiplierPrecision = LogicContractSetting.getContractMultiplierPrecisionById(context, item.optInt("contractId"))
             val mMultiplier = LogicContractSetting.getContractMultiplierById(context, item.optInt("contractId"))
             val mMultiplierCoin = LogicContractSetting.getContractMultiplierCoinPrecisionById(context, item.optInt("contractId"))
-            val typeStr = if (item.optString("orderSide").equals("BUY")) {
+            val orderSide= if(item.optString("orderSide").isNullOrEmpty()){
+                item.optString("side")
+            }else{
+                item.optString("orderSide")
+            }
+            val typeStr = if (orderSide.equals("BUY")) {
                 context.getString(R.string.cl_HistoricalPosition_1)
             } else {
                 context.getString(R.string.cl_HistoricalPosition_2)
@@ -33,7 +39,7 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
 
                 setGone(R.id.tv_tradle_name, true)
             }
-            val typeColor = if (item.optString("orderSide").equals("BUY")) {
+            val typeColor = if (orderSide.equals("BUY")) {
                 R.color.main_green
             } else {
                 R.color.main_red
@@ -41,12 +47,29 @@ class ClContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             setText(R.id.tv_type_value, typeStr)
             setTextColor(R.id.tv_type_value, context.resources.getColor(typeColor))
 
-            setText(R.id.tv_symbol_value, item.optString("symbol"))
+            val contractName= if(item.optString("symbol").isNullOrEmpty()){
+                item.optString("contractName")
+            }else{
+                item.optString("symbol")
+            }
+
+            setText(R.id.tv_symbol_value, contractName)
             //cl_currentsymbol_marginmodel1
             //cl_currentsymbol_marginmodel2
             setText(R.id.tv_level_value, (if (item.optString("positionType") .equals("1") ) context.getString(R.string.cl_currentsymbol_marginmodel1) else context.getString(R.string.cl_currentsymbol_marginmodel2)) + item.optString("leverageLevel") + "X")
-            if(!item.optString("mtime").isNullOrEmpty()){
-                setText(R.id.tv_time_value, item.optString("mtime").replaceFirst("T"," "))
+            val time=item.optString("mtime");
+            if(!time.isNullOrEmpty()){
+
+
+
+                if (time.contains("T")){
+                    setText(R.id.tv_time_value, time.replaceFirst("T"," "))
+                }else {
+
+                    setText(R.id.tv_time_value, time.toLongOrNull()?.let { TimeUtil.instance.getFormatDateTime(it) })
+                }
+
+
             }
 
             val profitLossColor = if (BigDecimalUtils.compareTo(BigDecimalUtils.showSNormal(item.optString("historyRealizedAmount"), mMarginCoinPrecision), "0") == 1) {
