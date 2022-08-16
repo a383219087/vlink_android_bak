@@ -2,6 +2,8 @@ package com.chainup.contract.utils
 
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 inline fun View.setSafeListener(crossinline action:()->Unit){
@@ -26,4 +28,39 @@ fun View.click(action: (view: View) -> Unit) {
         removeCallbacks(_clickRunnable)
         postDelayed(_clickRunnable, 500)
     }
+}
+
+class TimeUtil private constructor() {
+    private val formatDate: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    private val formatDateTime: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+    companion object {
+        @JvmStatic
+        val instance: TimeUtil by lazy {
+            TimeUtil()
+        }
+    }
+
+    private var lastClickTime: Long = 0
+    private val CLICK_TIME = 800 //快速点击间隔时间
+
+
+    /**
+     * @Author: hl
+     * @Date: created at 2020/3/27 14:39
+     * @Description: 是否快速点击判断
+     */
+    fun isFastDoubleClick(): Boolean {
+        val time = System.currentTimeMillis()
+        val timeD = time - lastClickTime
+        if (0 < timeD && timeD < CLICK_TIME) {
+            return true
+        }
+        lastClickTime = time
+        return false
+    }
+
+
+
 }

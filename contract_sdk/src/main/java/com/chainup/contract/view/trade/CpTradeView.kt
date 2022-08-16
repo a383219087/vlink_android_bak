@@ -661,17 +661,15 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         var mAmoutValue = ""
         val base = mContractJson?.optString("base")
         val quote = mContractJson?.optString("quote")
-        if (buyOrSellHelper.orderType == 2 && isOpen) {
-            mAmoutValue =
-                    volume + " " + if (contractSide == 1) quote else base
+        mAmoutValue = if (buyOrSellHelper.orderType == 2 && isOpen) {
+            volume + " " + if (contractSide == 1) quote else base
         } else if (buyOrSellHelper.orderType == 3 && isMarketPriceModel && isOpen
         ) {
-            mAmoutValue =
-                    volume + " " + if (contractSide == 1) quote else base
+            volume + " " + if (contractSide == 1) quote else base
         } else {
-            mAmoutValue = volume + " " + if (mContractUint == 0
+            volume + " " + if (mContractUint == 0
             ) context.getString(R.string.cp_overview_text9) else mContractJson?.optString(
-                    "multiplierCoin"
+                "multiplierCoin"
             )
         }
         if (isPercentPlaceOrder) {
@@ -696,11 +694,11 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     }
                 }
             } else {
-                price + " " + quote
+                "$price $quote"
             }
         }
-        showTriggerPrice = triggerPrice + " " + quote
-        val showTag = marginModel.toString() + level.toString() + "X"
+        showTriggerPrice = "$triggerPrice $quote"
+        val showTag = marginModel + level.toString() + "X"
         val tradeConfirm = CpPreferenceManager.getInstance(CpMyApp.instance())
                 .getSharedBoolean(CpPreferenceManager.PREF_TRADE_CONFIRM, true)
         if (tradeConfirm) {

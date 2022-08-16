@@ -310,7 +310,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:onClick="@{()->_all.onOut()}"
+                android:onClick="@{()->_all. onOut()}"
                 app:ResColor="@{R.color.main_blue}"
                 app:radius="@{5}"
                 android:layout_margin="@dimen/dp_10"

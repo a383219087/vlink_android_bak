@@ -122,7 +122,6 @@ class PersonalCenterActivity : NBaseActivity() {
         }
 
     }
-    var countIndex = 0
 
     fun setOnClick() {
         if (!UserDataService.getInstance().isLogined) {
