@@ -136,10 +136,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_25"
-                app:bottomEditTextContent="@string/otc_custom_price"
+                app:bottomEditTextContent="自定义"
                 app:editTextRightContent="CNY"
                 app:editTextRightIVVisible="false"
-                app:topEditTextContent="@string/otc_userSet_singlePrice" />
+                app:topEditTextContent="自定义单价" />
 
             <com.yjkj.chainup.new_version.view.NewOTCTextView
                 android:id="@+id/ntt_all_amount"

@@ -421,7 +421,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 if (scrollRange == -1) {
                     scrollRange = appBarLayout.totalScrollRange;
                 }
-                LogUtil.e("scrollRange + verticalOffset", (verticalOffset).toString())
 
                 if (-verticalOffset >= 150) {
                     tv_title_top.setTextColor(Color.argb(255, 255, 255, 255))

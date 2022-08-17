@@ -68,8 +68,6 @@ class AreaAdapter(var datas: ArrayList<CountryInfo>,var contextm: SelectAreaActi
              * 执行了搜索的话，根据搜索的规则过滤即可，最后把过滤后的数据的值和大小赋值给results
              */
 
-            Log.d(TAG, "=======s:$constraint")
-            Log.d(TAG, "=======s1:${contextm?.countryListNormal.size}")
 
             if (TextUtils.isEmpty(constraint)) {
                 results.values = contextm?.countryListNormal

@@ -8,12 +8,14 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseActivity
+import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.utils.*
+import com.chainup.contract.utils.CpBigDecimalUtils
+import com.chainup.contract.utils.CpClLogicContractSetting
+import com.chainup.contract.utils.numberFilter
 import com.chainup.contract.view.CpCommonlyUsedButton
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.chainup.contract.bean.CpContractPositionBean
 import kotlinx.android.synthetic.main.cp_activity_adjust_margin.*
 import org.json.JSONObject
 
@@ -154,7 +156,6 @@ class CpAdjustMarginActivity : CpNBaseActivity() {
             tv_expect_price.text = "--"
             return
         }
-        ChainUpLogUtil.d("DEBUG", "updatePriceAndBtnUi2 保证金:$amount")
         //计算杠杆、强平价格
         doDealLeverage(amount)
         if (CpBigDecimalUtils.compareTo(amount, mMinMargin) == 1 && CpBigDecimalUtils.compareTo(amount, mMaxMargin) == -1) {
@@ -196,9 +197,7 @@ class CpAdjustMarginActivity : CpNBaseActivity() {
         var maxFeeRate = mContractPositionBean?.maxFeeRate
         //仓位数量
         var positionVolume = CpBigDecimalUtils.mulStr(mContractPositionBean?.positionVolume, multiplier, 4)
-        ChainUpLogUtil.e(TAG, positionVolume)
-        ChainUpLogUtil.e(TAG, mContractPositionBean?.positionVolume)
-        ChainUpLogUtil.e(TAG, multiplier)
+
 
         //仓位方向：多仓是1，空仓是-1
         var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide.equals("1"), positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)

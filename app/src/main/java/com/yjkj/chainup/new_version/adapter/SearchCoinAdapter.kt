@@ -8,10 +8,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.QuotesData
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.util.DecimalUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.setGoneV3
 
 /**
@@ -155,8 +155,6 @@ class SearchCoinAdapter(var datas: ArrayList<QuotesData.Tick>, var allData: Arra
              * 执行了搜索的话，根据搜索的规则过滤即可，最后把过滤后的数据的值和大小赋值给results
              */
 
-            Log.d(TAG, "=======s:$constraint")
-            Log.d(TAG, "=======s1:${originalData.size}")
 
             if (TextUtils.isEmpty(constraint)) {
                 results.values = originalData

@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
-import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
@@ -31,7 +30,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
     private var loadDialog: CpNLoadingDialog? = null
 
 
-    var cp_overview_text9 = ""
+
 
     var cl_order_volume_str = ""
 
@@ -85,8 +84,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
         //面值精度
         val multiplierPrecision = if (multiplierBuff.contains(".")) {
-            ChainUpLogUtil.e("------------", multiplierBuff)
-            ChainUpLogUtil.e("------------", multiplierBuff.split(".".toRegex()).toTypedArray().size.toString() + "")
             val index = multiplierBuff.indexOf(".")
             if (index < 0) 0 else multiplierBuff.length - index - 1
         } else {
@@ -94,45 +91,14 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         }
         var showDealNumber = ""
         var showEntrustNumber = ""
-        //委托数量展示单位
-        var showEntrustUnit = ""
-        showEntrustUnit = if (coUnit == 0) {
-            cl_order_volume_str + "(" + cp_overview_text9 + ")"
-        } else {
-            cl_order_volume_str + "(" + multiplierCoin + ")"
-        }
+
 
         //成交数量展示单位
-        var showDealUnit = ""
-        if (coUnit == 0) {
-            showDealUnit = transaction_text_dealNum + "(" + cp_overview_text9 + ")"
-        } else {
-            showDealUnit = transaction_text_dealNum + "(" + multiplierCoin + ")"
-        }
-        if (coUnit == 0) {
-            //成交数量
-            showDealNumber = item.dealVolume
-            //委托数量
-            showEntrustNumber = item.volume
-            showDealUnit = transaction_text_dealNum + "(" + cp_overview_text9 + ")"
-        } else {
-            //成交数量
-            showDealNumber = CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)
-            //委托数量
-            showEntrustNumber = CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision)
-            showDealUnit = transaction_text_dealNum + "(" + multiplierCoin + ")"
-        }
-
-        if (item.type.equals("2") && item.open.equals("OPEN")) {
-            showEntrustNumber = item.volume
-        }
-
 
         var openStr = item.open
         var sideStr = item.side
         var typeStr = ""
-        var isOnlyReducePosition = false
-        var only_reduce_position = context.getString(R.string.cp_extra_text2)//"否"
+
         //context.getLineText("cp_overview_text13")
         if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
@@ -142,10 +108,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
             typeStr = context.getString(R.string.cp_extra_text4)//买入平空
         } else if (openStr.equals("CLOSE") && sideStr.equals("SELL")) {
             typeStr = context.getString(R.string.cp_extra_text5)//卖出平多
-        }
-        if (openStr.equals("CLOSE")) {
-            only_reduce_position = context.getString(R.string.cp_extra_text3)//"是"
-            isOnlyReducePosition = true
         }
 
 
@@ -176,17 +138,17 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
             else -> "error"
         }
 
-        if (coUnit == 0) {
-            showDealUnit = "(" + cp_overview_text9 + ")"
+        var  showDealUnit: String = if (coUnit == 0) {
+            "(${context.getString(R.string.cp_overview_text9)})"
         } else {
-            showDealUnit = "(" + multiplierCoin + ")"
+            "($multiplierCoin)"
         }
 
 
         when (helper.itemViewType) {
             1 -> {
-                var volumePercentBig = CpBigDecimalUtils.div(item.dealVolume, item.volume, 2)
-                var volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
+                val volumePercentBig = CpBigDecimalUtils.div(item.dealVolume, item.volume, 2)
+                val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
                 helper.setText(R.id.tv_side, typeStr)
                 helper.setText(R.id.tv_coin_name, symbolName)
                 helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
@@ -199,11 +161,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 helper.setText(R.id.tv_totalvolume_key, context.getString(R.string.cp_order_text66) + showDealUnit)
 
                 helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
-                if (item.otoOrder != null) {
-                    val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString().equals("null")) "--" else item.otoOrder.takerProfitTrigger.toString()
-                    val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString().equals("null")) "--" else item.otoOrder.stopLossTrigger.toString()
-                    helper.setText(R.id.tv_deal, takerProfitTrigger + "/" + stopLossTrigger)
-                }
+                val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString().equals("null")) "--" else item.otoOrder.takerProfitTrigger.toString()
+                val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString().equals("null")) "--" else item.otoOrder.stopLossTrigger.toString()
+                helper.setText(R.id.tv_deal, takerProfitTrigger + "/" + stopLossTrigger)
                 val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
                 pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
                 if (!item.traderName.isNullOrEmpty()){
@@ -255,7 +215,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                     "6" -> context.getString(R.string.cp_status_text3)//"异常订单"
                     else -> "error"
                 }
-                if (openStr.equals("OPEN") && item.type.equals("2")) {
+                if (openStr == "OPEN" && item.type == "2") {
                     helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_extra_text9) + "(" + (if (contractSide == 1) item.quote else item.base) + ")")
                     helper.setText(R.id.tv_entrust_amount, item.volume)
                 } else {

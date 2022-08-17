@@ -82,7 +82,6 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         mMarginCoin = CpClLogicContractSetting.getContractMarginCoinById(mContext, mContractPositionBean?.contractId!!)
 
-        ChainUpLogUtil.e(TAG, "multiplierPrecision:$multiplierPrecision")
         et_stop_profit_position.numberFilter(multiplierPrecision)
         et_stop_loss_position.numberFilter(multiplierPrecision)
         et_stop_profit_trigger_price.numberFilter(mPricePrecision)
@@ -660,7 +659,6 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
     }
 
     override fun onWsMessage(json: String) {
-        ChainUpLogUtil.e(TAG, "止赢止损界面返回数据：$json")
         val jsonObj = JSONObject(json)
         val channel = jsonObj.optString("channel")
         if (!jsonObj.isNull("tick")) {

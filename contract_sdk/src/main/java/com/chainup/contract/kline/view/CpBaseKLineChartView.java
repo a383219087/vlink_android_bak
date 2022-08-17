@@ -10,19 +10,16 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Looper;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GestureDetectorCompat;
-
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import com.chainup.contract.R;
 import com.chainup.contract.app.CpMyApp;
-import com.chainup.contract.utils.ChainUpLogUtil;
 import com.chainup.contract.utils.CpBigDecimalUtils;
 import com.chainup.contract.utils.CpColorUtil;
 import com.chainup.contract.utils.CpDisplayUtil;
@@ -1031,9 +1028,7 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
 
         startIndex = indexOfTranslateX(xToTranslateX(0));
         stopIndex = indexOfTranslateX(xToTranslateX(displayWidth));
-        Log.d(TAG, "========stopIndex:==" + stopIndex);
 
-//        stopIndex = indexOfTranslateX(xToTranslateX(displayWidth));
 
         mainMaxIndex = startIndex;
         mainMinIndex = startIndex;
@@ -1768,20 +1763,10 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
 
     private void renderPriceLine(Canvas canvas, float tempRight) {
         float y = getMainY(lastPrice);
-        ChainUpLogUtil.e("lastPrice : Y轴", y + "");
-        ChainUpLogUtil.e("lastPrice : tempRight", tempRight + "");
         String priceText = formatValue(lastPrice);
         float textWidth = textPaint.measureText(priceText);
-        float textLeft = tempRight - textWidth - 13f;
-        float klineRight = getX(stopIndex);
-        ChainUpLogUtil.e("lastPrice : klineRight", klineRight + "");
         if (stopIndex == itemCount - 1) {
-//            float toRight = (this.mainRect.width() * 4) / 5 + this.mScrollX;
             float toRight = translateXtoX(getX(stopIndex));
-//            LogUtil.e("lastPrice : tempRight Line", toRight + "");
-//            canvas.drawLine(toRight, y, ((float) this.mainRect.width()) - textWidth, y, this.priceLinePaint);
-//            renderRightPriceLabel(canvas, y, priceText, textWidth, textLeft);
-//            showPriceLabelInLine = false;
 
             renderDotLine(canvas, toRight, ((float) this.mainRect.width()) - textWidth - priceLineMarginPriceLabel, y, priceLineRightPaint);
             renderRightPriceLabel(canvas, y, priceText, textWidth, ((float) this.mainRect.width()) - textWidth - priceLineMarginPriceLabel);

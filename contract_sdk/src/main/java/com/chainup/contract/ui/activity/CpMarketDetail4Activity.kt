@@ -761,9 +761,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
     fun getSymbol(symbol: String) {
 
-        ChainUpLogUtil.d(TAG, "=======SYM1:$symbol,CUR:${jsonObject?.optJSONObject("symbol")}======")
         if (jsonObject?.optString("symbol") != symbol) {
-            ChainUpLogUtil.d(TAG, "=======SYM2:$symbol,CUR:${jsonObject?.optJSONObject("symbol")}======")
             chooseCoinAfterAddDetailsFg()
             setDepthSymbol()
             initHeaderData()
@@ -1182,17 +1180,12 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                  * 最新K线数据
                  */
                 var scale = if (curTime == "line") "1min" else curTime
-                ChainUpLogUtil.e(TAG, "本地channel：" + WsLinkUtils.getKlineNewLink(symbol, scale).channel)
-                ChainUpLogUtil.e(TAG, "远端channel：" + jsonObj.getString("channel"))
                 if (jsonObj.getString("channel") == WsLinkUtils.getKlineNewLink(
                                 symbol,
                                 scale
                         ).channel
                 ) {
-                    Log.w(
-                            TAG,
-                            "=======最新K线： ${klineData.size} ||  ${klineData.lastIndex}==  adapter ${adapter.getCount()}======"
-                    )
+
                     doAsync {
                         /**
                          * 这里需要处理：重复添加的问题
@@ -1296,7 +1289,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
         } catch (e: Exception) {
             e.printStackTrace()
-            ChainUpLogUtil.e(TAG, e.message)
         }
     }
 
@@ -1593,9 +1585,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                                                     var tagPrice = optString("tagPrice")
                                                     var fundRate = optString("currentFundRate")
                                                     var indexPrice = optString("indexPrice")
-                                                    ChainUpLogUtil.e("标记价格", tagPrice)
-                                                    ChainUpLogUtil.e("资金费率", fundRate)
-                                                    ChainUpLogUtil.e("指数价格", indexPrice)
                                                     var obj = JSONObject()
                                                     obj.put(
                                                             "tagPrice",

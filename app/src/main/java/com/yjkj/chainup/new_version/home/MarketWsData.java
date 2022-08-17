@@ -65,9 +65,7 @@ public class MarketWsData {
     private void showWsData(JSONObject jsonObject) {
         if(null==mRefreshListener || null==dataList)
             return;
-        LogUtil.d(TAG,"showWsData==jsonObject is "+jsonObject);
         JSONObject obj = new SymbolWsData().getNewSymbolObj(dataList,jsonObject);
-        LogUtil.d(TAG,"showWsData==obj is "+obj);
         if(null!=obj && obj.length()>0){
             int pos = dataList.indexOf(obj);
             if(pos>=0){

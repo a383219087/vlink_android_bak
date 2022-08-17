@@ -1,12 +1,13 @@
 package com.chainup.contract.base
 
+
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -16,8 +17,6 @@ import com.chainup.contract.listener.CpForegroundCallbacksObserver
 import com.chainup.contract.model.CpNewContractModel
 import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.view.CpNLoadingDialog
-
-
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.Subscribe
@@ -125,21 +124,7 @@ abstract class CpNBaseFragment : Fragment() {
         super.onResume()
         isCanShowing = isVisible
         if (userVisibleHint) {
-            LogUtils.e("onResume"+userVisibleHint)
             fragmentVisibile(true)
-            /*var fgs = fragmentManager?.fragments
-            LogUtil.d("setOnScrowListener", "NBaseFragment==onResume==userVisibleHint is $userVisibleHint，isVisible is $isVisible,fgs is $fgs")
-            if(null!=fgs){
-                for(i in 0 until fgs.size  ){
-                    var fg = fgs[i]
-                    LogUtil.d("setOnScrowListener", "NBaseFragment==onResume==userVisibleHint is $userVisibleHint，isVisible is $isVisible,fg is $fg,this is $this")
-
-                    if(null!=fg && fg == this){
-
-                    }
-                }
-            }*/
-            //
         }
     }
 
@@ -147,8 +132,6 @@ abstract class CpNBaseFragment : Fragment() {
         super.onPause()
         isFirstLoad = false
         if (userVisibleHint) {
-            LogUtils.e("onPause"+userVisibleHint)
-            ChainUpLogUtil.d("setOnScrowListener", "NBaseFragment==onPause==userVisibleHint is $userVisibleHint")
             fragmentVisibile(false)
         }
 
@@ -183,7 +166,6 @@ abstract class CpNBaseFragment : Fragment() {
         super.onHiddenChanged(hidden)
         isCanShowing = !hidden
         fragmentVisibile(!hidden)
-        LogUtils.e("onHiddenChanged"+hidden)
 
         onVisibleChanged(isVisibleOnScreen())
     }

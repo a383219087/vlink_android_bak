@@ -378,7 +378,6 @@ class CpNewDialogUtils {
                             tDialog.dismiss()
                         }
                         R.id.bt_share -> {
-                            ChainUpLogUtil.e(TAG, "点击分享")
                             val llShareLayout =
                                 viewHolder?.getView<LinearLayout>(R.id.ll_share_layout)
                             llShareLayout?.isDrawingCacheEnabled = true

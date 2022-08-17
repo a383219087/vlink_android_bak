@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
-import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
@@ -27,7 +26,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
 
 
-    var cp_overview_text9 = ""
+
     var cl_order_volume_str = ""
     var transaction_text_dealNum = ""
     var coUnit = 0
@@ -58,8 +57,6 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
         //面值精度
         val multiplierPrecision = if (multiplierBuff.contains(".")) {
-            ChainUpLogUtil.e("------------", multiplierBuff)
-            ChainUpLogUtil.e("------------", multiplierBuff.split(".".toRegex()).toTypedArray().size.toString() + "")
             val index = multiplierBuff.indexOf(".")
             if (index < 0) 0 else multiplierBuff.length - index - 1
         } else {
@@ -69,21 +66,21 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
         //委托数量展示单位
         var showEntrustUnit = ""
         showEntrustUnit = if (coUnit == 0) {
-            cl_order_volume_str + "(" + cp_overview_text9 + ")"
+            cl_order_volume_str + "(" + context.getString(R.string.cp_overview_text9) + ")"
         } else {
             cl_order_volume_str + "(" + multiplierCoin + ")"
         }
 
         //成交数量展示单位
         var showDealUnit = ""
-    
-        if (coUnit == 0) {
 
-            showDealUnit = transaction_text_dealNum + "(" + cp_overview_text9 + ")"
+        showDealUnit = if (coUnit == 0) {
+
+            transaction_text_dealNum + "(" + context.getString(R.string.cp_overview_text9) + ")"
         } else {
 
             //委托数量
-            showDealUnit = transaction_text_dealNum + "(" + multiplierCoin + ")"
+            transaction_text_dealNum + "(" + multiplierCoin + ")"
         }
 
 

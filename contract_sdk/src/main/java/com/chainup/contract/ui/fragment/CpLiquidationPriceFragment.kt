@@ -11,16 +11,13 @@ import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.ui.fragment.CpCapitalRateFragment
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.view.CpCommonlyUsedButton
 import com.chainup.contract.view.CpNewDialogUtils
 import com.chainup.contract.view.CpSlDialogHelper
 import com.chainup.contract.view.bubble.CpBubbleSeekBar
-
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.cp_fragment_contract_calculate_item.*
@@ -32,7 +29,6 @@ import org.jetbrains.anko.uiThread
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.Exception
 
 
 /**
@@ -114,8 +110,6 @@ class CpLiquidationPriceFragment : CpNBaseFragment() {
             override fun getProgressOnActionUp(bubbleSeekBar: CpBubbleSeekBar?, progress: Int, progressFloat: Float) {
                 for (i in 0 until leverList.length()) {
                     try {
-                        ChainUpLogUtil.e(TAG, progress.toString())
-                        ChainUpLogUtil.e(TAG, leverList.getJSONObject(i).getInt("maxLever").toString())
                         if (progress <= leverList.getJSONObject(i).getInt("maxLever")) {
                             tv_amount_user_max.setText(getString(R.string.cp_extra_text120) + leverList.getJSONObject(i).getString("maxHoldAmount") + " BTC")
                             break

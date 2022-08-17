@@ -220,7 +220,6 @@ class OldNGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 处理 24H,KLine数据
      */
     fun handleData(data: String) {
-        Log.d(TAG, "==111==24H行情:$data")
         try {
             val jsonObj = JSONObject(data)
             if (!jsonObj.isNull("tick")) {
@@ -328,7 +327,6 @@ class OldNGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-//        Log.e("jinlong", "fragmentVisibile==NCVCTradeFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
 
         val mainActivity = activity
         if (mainActivity != null) {

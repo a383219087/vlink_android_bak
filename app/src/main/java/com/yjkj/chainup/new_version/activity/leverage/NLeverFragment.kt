@@ -637,7 +637,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
      * 处理 24H,KLine数据
      */
     fun handleData(data: String) {
-//        Log.d(TAG, "==111==24H行情:$data")
         try {
             val jsonObj = JSONObject(data)
             if (!jsonObj.isNull("tick")) {
@@ -738,7 +737,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
     }
 
     fun changeInitData() {
-//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData changeInitData() is $coinMapData")
         val leverGroup = NCoinManager.getLeverGroup()
         val currentSymbol = PublicInfoDataService.getInstance().currentSymbol4Lever
         if (TextUtils.isEmpty(currentSymbol)) {
@@ -771,7 +769,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
         coinMapData = NCoinManager.getSymbolObj(tempSymbol)
         showTopCoin()
         changeCoinMap()
-//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
         symbol = coinMapData?.optString("symbol") ?: ""//return
         setTagView(coinMapData?.optString("name", "").toString())
     }

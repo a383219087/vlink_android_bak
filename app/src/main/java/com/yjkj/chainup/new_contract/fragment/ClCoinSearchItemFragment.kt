@@ -170,7 +170,6 @@ class ClCoinSearchItemFragment : NBaseFragment(), WsContractAgentManager.WsResul
         val layoutManager = rv_search_coin?.layoutManager as LinearLayoutManager
         val firstView = layoutManager.findFirstVisibleItemPosition()
         val lastItem = layoutManager.findLastVisibleItemPosition()
-        LogUtil.d(TAG, "showWsData== ${firstView} }} ${lastItem} jsonObject is $jsonObject")
         if (null != obj && obj.length() > 0) {
             val pos = tickers.indexOf(obj)
             if (pos >= 0) {

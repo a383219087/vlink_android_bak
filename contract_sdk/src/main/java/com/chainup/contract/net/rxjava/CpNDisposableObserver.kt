@@ -5,7 +5,6 @@ import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.net.CpJSONUtil
 import com.chainup.contract.utils.CpContextUtil
-import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.view.CpNLoadingDialog
 import io.reactivex.observers.DisposableObserver
@@ -67,7 +66,6 @@ abstract class CpNDisposableObserver : DisposableObserver<ResponseBody> {
     }
 
     override fun onNext(responseBody: ResponseBody) {
-        ChainUpLogUtil.d(TAG, "MyDisposableObserver==onNext==t is " + responseBody)
         closeLoadingDialog()
         var jsonObj = CpJSONUtil.parse(responseBody, isShowToast)
         if (null != jsonObj) {

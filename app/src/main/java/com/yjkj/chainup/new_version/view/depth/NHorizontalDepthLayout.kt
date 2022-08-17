@@ -547,7 +547,6 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
-//                    Log.d(TAG, "=======sell==curVolume is $curVolume,maxVolume is $maxVol,showBgwidth is $width，itemWidth is ${measuredWidth * 0.4}")
                     layoutParams.width = width.toInt()
                     sellViewList[i].fl_bg_item.layoutParams = layoutParams
                     /*****深度背景色END****/

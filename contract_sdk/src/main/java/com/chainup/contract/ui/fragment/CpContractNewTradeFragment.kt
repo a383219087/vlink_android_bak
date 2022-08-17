@@ -71,7 +71,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         appbarlayout?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             swipeLayout.isEnabled = verticalOffset >= 0
-            LogUtils.e("verticalOffset:" + verticalOffset)
             if (verticalOffset <= -100) {
                 img_top.visibility = View.VISIBLE
             } else if (verticalOffset >= 0) {
@@ -563,7 +562,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        ChainUpLogUtil.e(TAG, "合约展示 onHiddenChanged $hidden")
         isContractHidden=hidden
         if (hidden){
             loopStop()
@@ -576,7 +574,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onResume() {
         super.onResume()
-        ChainUpLogUtil.e(TAG, "合约展示 onResume " )
         if (!isContractHidden&&isContractFirst){
             getContractPublicInfo()
             v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
@@ -588,6 +585,5 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onPause()
         loopStop()
         CpWsContractAgentManager.instance.unbind(this, true)
-        ChainUpLogUtil.e(TAG, "合约展示 onPause " )
     }
 }

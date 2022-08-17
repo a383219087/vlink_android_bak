@@ -5,8 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.chainup.contract.R
-import com.chainup.contract.utils.ChainUpLogUtil
-import kotlinx.android.synthetic.main.cp_activity_contract_entrust_new.*
 import kotlinx.android.synthetic.main.cp_item_price_type_button.view.*
 
 /**
@@ -27,7 +25,6 @@ class CpPriceTypeButton @JvmOverloads constructor(
         set(value) {
             field = value
             tv_trade_order_type?.text = value
-            ChainUpLogUtil.e("LogUtils","textContent ${tv_trade_order_type}")
         }
 
     init {

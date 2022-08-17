@@ -49,26 +49,20 @@ public class CpNetInterceptor implements Interceptor {
         String startTime = CpDateUtils.Companion.getLogTimeMS(start);
         String endTime = CpDateUtils.Companion.getLogTimeMS(end);
         String printTime = String.format(string.toString(), response.code(), neworiUrl, time, startTime, endTime);
-        ChainUpLogUtil.e(TAG, printTime);
         if (response.code() == 200) {
-            if (time >= 400) {
-                ChainUpLogUtil.e(printTime);
-            }
+
             String json = readResponseStr(response);
+            ChainUpLogUtil.d(TAG, "NetInterceptor " + json);
             if (json != null) {
                 CpHttpResult result = CpJsonUtils.INSTANCE.jsonToBean(json, CpHttpResult.class);
                 if (result != null) {
                     String code = result.getCode();
                     Boolean login = !code.equals("10021") && !code.equals("10002") && !code.equals("104008") && !code.equals("3") && !code.equals("0");
                     Boolean otc = !code.equals("2001") && !code.equals("2056") && !code.equals("2069") && !code.equals("2074") && !code.equals("2055");
-                    if (login && otc) {
-                        String print = printTime + "[chainUP:code] " + code;
-                        ChainUpLogUtil.e(print);
-                    }
+
                 }
             }
         } else if (response.code() != 200) {
-            ChainUpLogUtil.e(printTime);
         }
         return response;
     }

@@ -920,14 +920,12 @@ class NContractTradeFragment : NBaseFragment() {
                      * 买盘取最大
                      */
                     transactionData?.tick?.buys?.sortByDescending { it.get(0).asDouble }
-                    Log.d(TAG, "========111=====" + transactionData?.tick?.asks)
 
                     uiThread {
                         refreshDepthView(transactionData)
                     }
                 }
             } else {
-                Log.d(TAG, "=====24H行情=====$data")
                 /**
                  * 24H
                  */
@@ -1067,7 +1065,6 @@ class NContractTradeFragment : NBaseFragment() {
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val width = (subList[i].get(1).asDouble / askMaxVol!!) * itemWidth
                     layoutParams.width = width.toInt()
-                    Log.d(TAG, "====1111=width:${width.toInt()}=======")
                     sellViewList[i].fl_bg_item.layoutParams = layoutParams
 
                     /*****深度背景色END****/
@@ -1087,9 +1084,7 @@ class NContractTradeFragment : NBaseFragment() {
                         sellViewList[i].fl_bg_item.setBackgroundResource(R.color.entrust_sell_color)
                         val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                         val width = (tick.asks[i - temp].get(1).asDouble / askMaxVol!!) * itemWidth
-                        Log.d(TAG, "=========${tick.asks[i - temp].get(1).asDouble}=,${askMaxVol}==,${itemWidth}=======")
                         layoutParams.width = width.toInt()
-                        Log.d(TAG, "====1111=width:${width.toInt()}=======")
                         sellViewList[i].fl_bg_item.layoutParams = layoutParams
                         /*****深度背景色END****/
 

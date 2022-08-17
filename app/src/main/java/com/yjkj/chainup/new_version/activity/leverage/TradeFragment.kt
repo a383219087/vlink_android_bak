@@ -282,13 +282,11 @@ class TradeFragment : NBaseFragment() {
 
     override fun background() {
         super.background()
-        LogUtil.e(TAG, "fragmentVisibile==TradeFragment() background ")
 
     }
 
     override fun foreground() {
         super.foreground()
-        LogUtil.e(TAG, "fragmentVisibile==TradeFragment() foreground ")
     }
 
     private fun initViewData() {

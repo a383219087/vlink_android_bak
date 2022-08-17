@@ -458,7 +458,6 @@ public class BigDecimalUtils {
 
 
     public static String formatNumber(String str) {
-        Log.d("==111=", "" + str);
         if (!StringUtil.isNumeric(str))
             return "--";
         String number = "";
@@ -478,7 +477,6 @@ public class BigDecimalUtils {
             }
             return number + "K";
         } else if (temp.compareTo(b1) >= 0 && temp.compareTo(b2) < 0) {
-            Log.d("==111=", "M" + str);
             String substring = temp.divide(b1, 2, BigDecimal.ROUND_DOWN).toString().substring(0, 4);
             if (substring.endsWith(".")) {
                 number = substring.substring(0, 3);
@@ -487,7 +485,6 @@ public class BigDecimalUtils {
             }
             return number + "M";
         } else if (temp.compareTo(b2) >= 0) {
-            Log.d("==111=", "B" + str);
             String substring = temp.divide(b2, 2, BigDecimal.ROUND_DOWN).toString().substring(0, 4);
             if (substring.endsWith(".")) {
                 number = substring.substring(0, 3);
@@ -532,7 +529,6 @@ public class BigDecimalUtils {
     public static String canBuyStr(boolean isOpen, boolean isLimit, boolean isForward, String price, String parValue, String canUseAmount, String canCloseVolume, String nowLevel, String rate, int scale, String unit) {
 
         String defaultStr = "0.00" + " " + unit;
-        LogUtil.e("是否属于只减仓", isOpen + "");
         BigDecimal parValueBig = new BigDecimal(parValue);
         BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
         BigDecimal buff;
@@ -550,12 +546,7 @@ public class BigDecimalUtils {
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
         BigDecimal rateBig = new BigDecimal(rate);
-        LogUtil.e("parValueBig", parValueBig.toPlainString());
-        LogUtil.e("canCloseVolumeBig", canCloseVolumeBig.toPlainString());
-        LogUtil.e("priceBig", priceBig.toPlainString());
-        LogUtil.e("canUseAmountBig", canUseAmountBig.toPlainString());
-        LogUtil.e("nowLevelBig", nowLevelBig.toPlainString());
-        LogUtil.e("rateBig", rateBig.toPlainString());
+
 
         if (isForward) {
             buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
@@ -603,12 +594,6 @@ public class BigDecimalUtils {
         BigDecimal maxOpenLimitBig = new BigDecimal(maxOpenLimit);//（币的单位）
         BigDecimal positionValueBig = new BigDecimal(positionValue);//（币的单位）
         BigDecimal entrustedValueBig = new BigDecimal(entrustedValue);//（币的单位）
-        LogUtil.e("ClContractTradeFragment", "parValue:" + parValueBig.toPlainString());
-        LogUtil.e("ClContractTradeFragment", "price:" + priceBig.toPlainString());
-        LogUtil.e("ClContractTradeFragment", "rate:" + rateBig.toPlainString());
-        LogUtil.e("ClContractTradeFragment", "maxOpenLimit:" + maxOpenLimitBig.toPlainString());
-        LogUtil.e("ClContractTradeFragment", "positionValue:" + positionValueBig.toPlainString());
-        LogUtil.e("ClContractTradeFragment", "entrustedValue:" + entrustedValueBig.toPlainString());
         BigDecimal buff;
         if (compareTo(price, "0") == 0) {
             return defaultStr;

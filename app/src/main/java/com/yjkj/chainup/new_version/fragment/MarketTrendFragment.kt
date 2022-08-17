@@ -286,7 +286,6 @@ class MarketTrendFragment : NBaseFragment() {
                         val array = json.optJSONObject("data")
                         if (null != array && array.length() > 0) {
                             val it = array.keys()
-                            LogUtil.d(TAG, "showWsData== req count ${array.length()}")
                             val wsArrayMap = hashMapOf<String, JSONObject>()
                             normalTickList.forEach {
                                 val key = it.getString("symbol")

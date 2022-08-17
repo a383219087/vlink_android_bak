@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
@@ -310,11 +309,11 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             override fun bottonOnClick() {
 
                 if (!canBuy){
-                    ToastUtils.showShort(context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1))
+                    CpNToastUtil.showTopToastNet(getActivity(),false,context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1))
                     return
                 }
                 if (et_volume.text.isNullOrEmpty()){
-                    ToastUtils.showShort(context.getString(R.string.cp_trade_text3))
+                    CpNToastUtil.showTopToastNet(getActivity(),false,context.getString(R.string.cp_trade_text3))
                     return
                 }
 
@@ -342,6 +341,11 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         btn_sell.isEnable(true)
         btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
+                if (et_volume.text.isNullOrEmpty()){
+                    CpNToastUtil.showTopToastNet(getActivity(),false,context.getString(R.string.cp_trade_text3))
+                    return
+                }
+
                 var isOpen = false;
                 isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen")==1){
@@ -920,7 +924,6 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             tv_short_title.onLineText("cp_overview_text17")
         }
         et_volume.setHint(context.getString(R.string.cp_overview_text8))
-        ChainUpLogUtil.e("-------base:"+base)
         tv_volume_unit.setText(base)
         if (isOpen && buyOrSellHelper.orderType == 2) {
             et_volume.setHint(context.getString(R.string.cp_overview_text28))
@@ -950,8 +953,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                 sellPrice = buyMaxPriceList[buyOrSellHelper.rivalPricePosition].optDouble(0).toString()
             }
         }
-        LogUtils.e("-------- buyPrice:" + buyPrice)
-        LogUtils.e("-------- sellPrice:" + sellPrice)
+
         var positionAmount = et_volume.text.toString()
         var buyPositionAmount = positionAmount
         var sellPositionAmount = positionAmount

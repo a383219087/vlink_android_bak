@@ -398,7 +398,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         val marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(activity, clickData.contractId)
                         val currentPositionMargin = clickData?.holdAmount.toString()
                         it.setText(com.chainup.contract.R.id.tv_coin_name, marginCoin)
-                        var canUseAmountStr = ""
+                        var canUseAmountStr = clickData.canUseAmount
                         var canSubAmountStr = clickData.canSubMarginAmount
                         etVolume?.setOnFocusChangeListener { _, hasFocus ->
                             llVolume?.setBackgroundResource(if (hasFocus) com.chainup.contract.R.drawable.cp_bg_trade_et_focused else com.chainup.contract.R.drawable.cp_bg_trade_et_unfocused)
@@ -414,9 +414,9 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         tvAdd.setOnClickListener {
                             tvAdd.setTextAppearance(activity, com.chainup.contract.R.style.item_adjust_margin_dialog_title_check)
                             tvSub.setTextAppearance(activity, com.chainup.contract.R.style.item_adjust_margin_dialog_title_no_check)
-                            tvCanuseKey.setText(getString(com.chainup.contract.R.string.cp_order_text22))
-                            tvCanuseValue.setText(canUseAmountShowStr + " " + marginCoin)
-                            tvTips.setText(getString(com.chainup.contract.R.string.cp_order_text24))
+                            tvCanuseKey.text = getString(com.chainup.contract.R.string.cp_order_text22)
+                            tvCanuseValue.text = "$canUseAmountShowStr $marginCoin"
+                            tvTips.text = getString(com.chainup.contract.R.string.cp_order_text24)
                             imgTransfer.visibility = View.VISIBLE
                             isAdd = true
                             etVolume.setText("")
@@ -459,10 +459,10 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                 etVolume.isFocusable = false
                             }
                             var buff = ""
-                            if (isAdd) {
-                                buff = canUseAmountStr
+                            buff = if (isAdd) {
+                                canUseAmountStr
                             } else {
-                                buff = canSubAmountStr
+                                canSubAmountStr
                             }
                             when (checkedId) {
                                 com.chainup.contract.R.id.rb_1st -> {
@@ -531,10 +531,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                 var maxFeeRate = clickData?.maxFeeRate
                                 //仓位数量
                                 var positionVolume = CpBigDecimalUtils.mulStr(clickData?.positionVolume, multiplier, 4)
-//                                var positionVolume = clickData?.positionVolume
-                                ChainUpLogUtil.e(TAG, positionVolume)
-                                ChainUpLogUtil.e(TAG, clickData?.positionVolume)
-                                ChainUpLogUtil.e(TAG, multiplier)
+
 
                                 //仓位方向：多仓是1，空仓是-1
                                 var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide.equals("1"), positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)

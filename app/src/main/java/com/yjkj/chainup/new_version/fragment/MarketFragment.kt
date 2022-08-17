@@ -261,13 +261,11 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
         GlobalScope.launch {
             isSending = true
-            LogUtil.e(TAG, "行情页面网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
             delay(3000L)
             val marketCoins = marketCoins()
             val isResult = marketCoins.isNotEmpty()
             val isCurrent = currentItem == viewpagePosotion && mIsVisibleToUser
             val time = WsAgentManager.instance.pageSubWsTime(this@MarketFragment)
-            LogUtil.e(TAG, "行情页面网络统计 end ws状态 " + WsAgentManager.instance.isConnection() + " ${marketCoins.size} k线数据 ${isResult} " + " time ${time} isCurrent ${isCurrent}")
             val statusType = marketCoins.getKlineByType(WsAgentManager.instance.pageSubWs(this@MarketFragment))
             sendWsHomepage(isCurrent, statusType, NetworkDataService.KEY_PAGE_MARKET, NetworkDataService.KEY_SUB_MARKET_BATCH, time)
             isSending = false

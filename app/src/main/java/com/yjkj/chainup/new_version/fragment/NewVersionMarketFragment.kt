@@ -125,12 +125,10 @@ class NewVersionMarketFragment : NBaseFragment() {
 
     override fun background() {
         super.background()
-        LogUtil.e(TAG, "fragmentVisibile==NewVersionMarketFragment== background ")
     }
 
     override fun foreground() {
         super.foreground()
-        LogUtil.e(TAG, "fragmentVisibile==NewVersionMarketFragment== foreground ")
     }
 
     override fun onVisibleChanged(isVisible: Boolean) {
@@ -142,7 +140,6 @@ class NewVersionMarketFragment : NBaseFragment() {
     private fun sendWS(isVisibleToUser: Boolean) {
         var mainActivity = activity
         if (mainActivity is NewMainActivity) {
-            LogUtil.d(TAG, "fragmentVisibile==NewVersionMarketFragment== ${mainActivity.curPosition}  isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
             if (fragments.size <= viewpagePosotion) return
             if (isVisibleToUser) {
                 clickTabItem()

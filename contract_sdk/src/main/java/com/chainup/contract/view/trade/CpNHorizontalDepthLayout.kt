@@ -382,7 +382,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                         break
                     }
                     c.add(Calendar.HOUR, capitalFrequency)
-                    ChainUpLogUtil.e("timeSlot", CpDateUtils.getHourMin(c.timeInMillis))
                     timeMillisBuff = c.timeInMillis
                 }
 
@@ -391,10 +390,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                         .subscribe {
                             currentTimeMillis = currentTimeMillis + 1000L
                             timeDiff = timeDiff - 1000L
-                            ChainUpLogUtil.e(
-                                    "currentTimeMillis",
-                                    CpDateUtils.getYearMonthDayHourMinSecondMS(currentTimeMillis)
-                            )
+
                             var showCountDownTime = CpDateUtils.formatLongToTimeStr(timeDiff)
                             showCountDownTime =
                                     if (showCountDownTime.equals("00:00:00") || timeDiff <= 0) "00:00:00" else showCountDownTime
@@ -956,7 +952,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
-                    Log.d(TAG, "=======sell==curVolume is $curVolume,maxVolume is $maxVol,showBgwidth is $width，itemWidth is ${measuredWidth * 0.4}")
                     layoutParams.width = width.toInt()
                     sellViewList[i].fl_bg_item.layoutParams = layoutParams
                     /*****深度背景色END****/
@@ -1080,7 +1075,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     val layoutParams = buyViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
-                    Log.d(TAG, "=======sell==curVolume is $curVolume,maxVolume is $maxVol,showBgwidth is $width，itemWidth is ${measuredWidth * 0.4}")
                     layoutParams.width = width.toInt()
                     buyViewList[i].fl_bg_item.layoutParams = layoutParams
                     /*****深度背景色END****/

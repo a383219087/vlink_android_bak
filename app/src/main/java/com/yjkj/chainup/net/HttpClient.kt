@@ -694,30 +694,8 @@ class HttpClient private constructor() {
         return apiOTCService.removeRelationFromBlack4OTC(toRequestBody(DataHandler.encryptParams(map)))
     }
 
-    /**
-     * 划转首页
-     */
-    fun transher4OTC(fromAccount: String, toAccount: String, amount: String, coinSymbol: String?): Observable<HttpResult<Any>> {
-        val map = getBaseMap()
-        map["fromAccount"] = fromAccount
-        map["toAccount"] = toAccount
-        map["amount"] = amount
-        if (null != coinSymbol) {
-            map["coinSymbol"] = coinSymbol
-        }
-        return apiService.transher4OTC(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
-    /**
-     * 获取某币种的交易账户
-     */
-    fun accountGetCoin4OTC(coin: String?): Observable<HttpResult<OTCGetCoinBean>> {
-        val map = getBaseMap()
-        if (null != coin) {
-            map["coin"] = coin
-        }
-        return apiService.accountGetCoin4OTC(toRequestBody(DataHandler.encryptParams(map)))
-    }
+
 
     /**
      * 申诉页面

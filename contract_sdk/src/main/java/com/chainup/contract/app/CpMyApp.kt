@@ -3,16 +3,12 @@ package com.chainup.contract.app
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.chainup.contract.listener.CpForegroundCallbacks
 import com.chainup.contract.listener.CpForegroundCallbacksObserver
-import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.ChainUpLogUtil
-import com.chainup.contract.utils.CpLocalManageUtil
-import com.chainup.contract.utils.CpSystemUtils
+import com.chainup.contract.utils.CpClLogicContractSetting
 
 
 open class CpMyApp : Application(), Application.ActivityLifecycleCallbacks {
@@ -45,19 +41,6 @@ open class CpMyApp : Application(), Application.ActivityLifecycleCallbacks {
 
     }
 
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//        CpLocalManageUtil.setApplicationLanguage(applicationContext)
-//        val isZhEnv = CpSystemUtils.isZh()
-//        if (isZhEnv) {
-//            Log.d(TAG, "====中文")
-//            CpLocalManageUtil.saveSelectLanguage(this, "zh_CN")
-//        } else if (CpSystemUtils.isVietNam()) {
-//            Log.d(TAG, "====英文")
-//            CpLocalManageUtil.saveSelectLanguage(this, "vi_VN")
-//        }
-//    }
-
     private fun setCurrentTheme() {
         val themeMode = CpClLogicContractSetting.getThemeMode(this)
         when (themeMode) {
@@ -87,11 +70,9 @@ open class CpMyApp : Application(), Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityPaused(activity: Activity) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityPaused ------------")
     }
 
     override fun onActivityStarted(activity: Activity) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityStarted ------------")
         if (appCount == 0) {
             currentState = STATE_FOREGROUND
             appStateChangeListener?.appTurnIntoForeground()
@@ -100,15 +81,12 @@ open class CpMyApp : Application(), Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityDestroyed ------------")
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        ChainUpLogUtil.e(TAG, "------------ onActivitySaveInstanceState ------------")
     }
 
     override fun onActivityStopped(activity: Activity) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityStopped ------------")
         appCount--
         if (appCount == 0) {
             currentState = STATE_BACKGROUND
@@ -117,11 +95,9 @@ open class CpMyApp : Application(), Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityCreated ------------")
     }
 
     override fun onActivityResumed(activity: Activity) {
-        ChainUpLogUtil.e(TAG, "------------ onActivityResumed ------------")
     }
 
     interface AppStateChangeListener {

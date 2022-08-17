@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -33,11 +32,9 @@ public class GlideUtils {
         LogUtil.d(TAG, "GlideUtils==load==imageView is " + imageView + ",url is " + url);
         if (null == imageView || null == url)
             return;
-        LogUtil.d(TAG, "GlideUtils==load==111111");
 
         if (activity == null || activity.isFinishing() || activity.isDestroyed())
             return;
-        LogUtil.d(TAG, "GlideUtils==load==222222");
 
 
         Glide.with(activity)
@@ -51,14 +48,11 @@ public class GlideUtils {
                             ImageView imageView,
                             RequestOptions options) {
 
-        LogUtil.d(TAG, "GlideUtils==load==imageView is " + imageView + ",url is " + url);
         if (null == imageView || null == url)
             return;
-        LogUtil.d(TAG, "GlideUtils==load==111111");
 
         if (activity == null || activity.isFinishing() || activity.isDestroyed())
             return;
-        LogUtil.d(TAG, "GlideUtils==load==222222");
 
 
         Glide.with(activity)
@@ -76,11 +70,9 @@ public class GlideUtils {
         LogUtil.d(TAG, "GlideUtils==load==imageView is " + imageView + ",url is " + url);
         if (null == imageView || null == url)
             return;
-        LogUtil.d(TAG, "GlideUtils==load==111111");
 
         if (activity == null || activity.isFinishing() || activity.isDestroyed())
             return;
-        LogUtil.d(TAG, "GlideUtils==load==222222");
 
 
         Glide.with(activity)

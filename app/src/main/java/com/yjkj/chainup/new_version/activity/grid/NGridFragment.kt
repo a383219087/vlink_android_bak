@@ -205,7 +205,6 @@ class NGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
         getAccountBalanceByMarginCoin()
         showTopCoin()
-//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
         symbol = coinMapData?.optString("symbol") ?: ""
         setTagView(coinMapData?.optString("name", "").toString())
         sendAgentData()
@@ -235,7 +234,6 @@ class NGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 处理 24H,KLine数据
      */
     fun handleData(data: String) {
-        Log.d(TAG, "==111==24H行情:$data")
         try {
             val jsonObj = JSONObject(data)
             if (!jsonObj.isNull("tick")) {
@@ -342,7 +340,6 @@ class NGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        Log.e("jinlong", "fragmentVisibile==NGridFragment==isVisible is $isVisible  isVisibleToUser ${isVisibleToUser}")
 
         val mainActivity = activity
         if (mainActivity != null) {

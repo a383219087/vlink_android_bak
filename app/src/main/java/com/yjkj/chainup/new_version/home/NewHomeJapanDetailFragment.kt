@@ -202,7 +202,6 @@ class NewHomeJapanDetailFragment : NBaseFragment(), NewHomeDetailWsData.RefreshW
     private var startReq = 0
     private var mHandler: Handler? = null;
     private fun loopData() {
-        LogUtil.d(TAG, "loopData()===111==isFirstLoad is $isFirstLoad,tradeType is $tradeType")
         if (isFirstLoad)
             return
 
@@ -253,10 +252,8 @@ class NewHomeJapanDetailFragment : NBaseFragment(), NewHomeDetailWsData.RefreshW
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        LogUtil.d(TAG, "fragmentVisibile==NewHomeDetailFragment==isVisibleToUser is $isVisibleToUser")
         if (isVisibleToUser) {
             if (!isFirstLoad) {
-                LogUtil.d(TAG, "fragmentVisibile==NewHomeDetailFragment==loopData==isVisibleToUser is $isVisibleToUser")
                 startReq = 0
                 loopData()
             }

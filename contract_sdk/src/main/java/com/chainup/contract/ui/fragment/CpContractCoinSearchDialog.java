@@ -22,7 +22,6 @@ import com.chainup.contract.base.CpNBaseDialogFragment;
 import com.chainup.contract.eventbus.CpEventBusUtil;
 import com.chainup.contract.eventbus.CpMessageEvent;
 import com.chainup.contract.eventbus.CpNLiveDataUtil;
-import com.chainup.contract.utils.ChainUpLogUtil;
 import com.chainup.contract.utils.CpJsonUtils;
 import com.chainup.contract.utils.CpSoftKeyboardUtil;
 import com.chainup.contract.ws.CpWsContractAgentManager;
@@ -68,7 +67,6 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             if (null != s) {
                 content = s.toString();
             }
-            ChainUpLogUtil.d("et_search", "afterTextChanged==content is " + content);
             CpMessageEvent msgEvent = new CpMessageEvent(CpMessageEvent.coinSearchType);
             msgEvent.setMsg_content(content);
             CpNLiveDataUtil.postValue(msgEvent);
@@ -169,9 +167,7 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
         for (int i = 0; i < mContractList.length(); i++) {
             String contractType="E";
             try {
-                ChainUpLogUtil.e("合约币对", mContractList.getJSONObject(i).get("symbol").toString());
                 // (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
-                ChainUpLogUtil.e("合约方向", mContractList.getJSONObject(i).get("contractSide").toString());
                 int contractSide = mContractList.getJSONObject(i).getInt("contractSide");
                  contractType = mContractList.getJSONObject(i).getString("contractType");
                 //E,USDT合约 2,币本位合约 H,混合合约 S,模拟合约
@@ -186,15 +182,7 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
                         isHasH = true;
                         break;
                 }
-//                if (contractSide == 1 && contractType.equals("E")) {
-//                    isHasU = true;
-//                } else if (contractSide == 0 && contractType.equals("E")) {
-//                    isHasB = true;
-//                } else if (contractType.equals("S")) {
-//                    isHasM = true;
-//                } else {
-//                    isHasH = true;
-//                }
+
                 JSONObject obj = (JSONObject) mContractList.get(i);
                 String currentSymbolBuff = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase();
                 ContractCodeList.add(currentSymbolBuff);
@@ -249,7 +237,6 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
         tl_market_aa.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                ChainUpLogUtil.e(TAG,"点击的position"+position);
                 if (showTitles.get(position).equals(CpLanguageUtil.getString(getContext(), "cl_market_text7"))){
                     CpEventBusUtil.post(new CpMessageEvent(CpMessageEvent.sl_contract_receive_coupon));
                 }

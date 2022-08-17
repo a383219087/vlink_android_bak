@@ -86,7 +86,6 @@ class ComHeaderView @JvmOverloads constructor(context: Context,
             (context as AppCompatActivity).finish()
         }
         ly_appbar?.addOnOffsetChangedListener (OnOffsetChangedListener{ _, verticalOffset ->
-            Log.d(TAG, "=====滑动距离:${Math.abs(verticalOffset)}======")
             if (Math.abs(verticalOffset) >= 140) {
                 tv_title?.visibility = View.VISIBLE
                 tv_sub_title?.visibility = View.GONE

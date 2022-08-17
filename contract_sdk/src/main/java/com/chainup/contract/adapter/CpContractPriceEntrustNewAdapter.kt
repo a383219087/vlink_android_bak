@@ -140,8 +140,6 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
 
         //面值精度
         val multiplierPrecision = if (multiplierBuff.contains(".")) {
-            ChainUpLogUtil.e("------------", multiplierBuff)
-            ChainUpLogUtil.e("------------", multiplierBuff.split(".".toRegex()).toTypedArray().size.toString() + "")
             val index = multiplierBuff.indexOf(".")
             if (index < 0) 0 else multiplierBuff.length - index - 1
         } else {

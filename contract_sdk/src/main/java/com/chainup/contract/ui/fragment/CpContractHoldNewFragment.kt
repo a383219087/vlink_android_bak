@@ -93,7 +93,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         val llVolume = it.getView<LinearLayout>(R.id.ll_volume)
                         val tvOrderTips = it.getView<SuperTextView>(R.id.tv_order_tips_layout)
                         val multiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, clickData.contractId)
-                        etVolume.numberFilter(if (CpClLogicContractSetting.getContractUint(context) == 0) 0 else multiplierPrecision, otherFilter = object : CpDoListener {
+                        etVolume.numberFilter(multiplierPrecision, otherFilter = object : CpDoListener {
                             override fun doThing(obj: Any?): Boolean {
                                 return true
                             }
@@ -511,10 +511,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 var maxFeeRate = clickData?.maxFeeRate
                                 //仓位数量
                                 var positionVolume = CpBigDecimalUtils.mulStr(clickData?.positionVolume, multiplier, 4)
-//                                var positionVolume = clickData?.positionVolume
-                                ChainUpLogUtil.e(TAG, positionVolume)
-                                ChainUpLogUtil.e(TAG, clickData?.positionVolume)
-                                ChainUpLogUtil.e(TAG, multiplier)
+
 
                                 //仓位方向：多仓是1，空仓是-1
                                 var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide.equals("1"), positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)

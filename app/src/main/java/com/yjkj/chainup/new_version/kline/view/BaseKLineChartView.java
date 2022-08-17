@@ -1035,7 +1035,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
         startIndex = indexOfTranslateX(xToTranslateX(0));
         stopIndex = indexOfTranslateX(xToTranslateX(displayWidth));
-        Log.d(TAG, "========stopIndex:==" + stopIndex);
 
 //        stopIndex = indexOfTranslateX(xToTranslateX(displayWidth));
 

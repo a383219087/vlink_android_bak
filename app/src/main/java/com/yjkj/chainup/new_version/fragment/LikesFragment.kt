@@ -484,7 +484,6 @@ class LikesFragment : NBaseFragment() {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        LogUtil.d(TAG, "fragmentVisibile==LikesFragment==isVisible is $isVisible")
     }
 
     var isLogined = false
@@ -557,7 +556,6 @@ class LikesFragment : NBaseFragment() {
     private fun showWsData(jsonObject: JSONObject) {
         if (normalTickList.isEmpty())
             return
-        LogUtil.d(TAG, "showWsData==jsonObject is $jsonObject")
         if (rv_market_detail?.layoutManager == null) {
             return
         }
@@ -591,7 +589,6 @@ class LikesFragment : NBaseFragment() {
         val data = adapter?.data
         if (data?.isEmpty()!!)
             return
-        LogUtil.d(TAG, "showWsData==jsonObject is $items")
         if (rv_market_detail?.layoutManager == null) {
             return
         }

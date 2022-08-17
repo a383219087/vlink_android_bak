@@ -1,14 +1,12 @@
 package com.yjkj.chainup.new_contract.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chainup.contract.R
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.eventbus.CpNLiveDataUtil
-import com.chainup.contract.utils.ChainUpLogUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpStringUtil
 import com.chainup.contract.utils.CpSymbolWsData
@@ -68,7 +66,6 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
         super.loadData()
 
         index = arguments!!.getInt(CpParamConstant.CUR_INDEX)
-//        contractListJson = arguments!!.getString("contractList")
         try {
             contractListJson= CpClLogicContractSetting.getContractJsonListStr(mActivity)
             mContractList = JSONArray(contractListJson)
@@ -105,27 +102,9 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
         contractDropAdapter?.notifyDataSetChanged()
     }
 
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
-//        if (tickers.size!=0) {
-//            val arrays = arrayOfNulls<String>(tickers.size)
-//            for (i in tickers.indices) {
-//                var obj: JSONObject = tickers.get(i)
-//                var currentSymbolBuff = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
-//                arrays.set(i, currentSymbolBuff)
-//            }
-//            if (isVisibleToUser) {
-//                LogUtil.e(TAG, "index:" + arguments!!.getInt(ParamConstant.CUR_INDEX).toString())
-//                WsContractAgentManager.instance.sendMessage(hashMapOf("bind" to true, "symbols" to JsonUtils.gson.toJson(arrays)), this)
-//            } else {
-//                WsContractAgentManager.instance.sendMessage(hashMapOf("bind" to false, "symbols" to JsonUtils.gson.toJson(arrays)), this)
-//            }
-//        }
-    }
 
-    override fun onVisibleChanged(isVisible: Boolean) {
-        super.onVisibleChanged(isVisible)
-    }
+
+
 
     companion object {
         @JvmStatic
@@ -144,7 +123,6 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
     }
 
     fun handleData(data: String) {
-        Log.d(TAG, "侧边栏涨跌副:$data")
         try {
             val json = JSONObject(data)
             if (!json.isNull("tick")) {
@@ -161,13 +139,10 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
     private fun showWsData(jsonObject: JSONObject) {
         if (null == tickers)
             return
-        ChainUpLogUtil.e(TAG, "index1:" + arguments!!.getInt(CpParamConstant.CUR_INDEX).toString())
-        ChainUpLogUtil.e(TAG, "tickers:" + tickers.size)
         val obj = CpSymbolWsData().getNewSymbolObjContract(tickers, jsonObject)
         val layoutManager = rv_search_coin?.layoutManager as LinearLayoutManager
         val firstView = layoutManager.findFirstVisibleItemPosition()
         val lastItem = layoutManager.findLastVisibleItemPosition()
-        ChainUpLogUtil.d(TAG, "showWsData== ${firstView} }} ${lastItem} jsonObject is $jsonObject")
         if (null != obj && obj.length() > 0) {
             val pos = tickers.indexOf(obj)
             if (pos >= 0) {

@@ -739,7 +739,6 @@ class NewVersionTransferActivity : NBaseActivity() {
                         NewDialogUtils.showLeverDialog(this@NewVersionTransferActivity,
                                 listener = object : NewDialogUtils.DialogTransferBottomListener {
                                     override fun sendConfirm() {
-                                        Log.d(TAG, "=======sendConfirm============")
                                         tDialog?.dismiss()
                                         forwardCoinMapActivity()
                                     }

@@ -11,7 +11,6 @@ inline fun View.setSafeListener(crossinline action:()->Unit){
     setOnClickListener {
         val gap = System.currentTimeMillis() - lastClick
         lastClick=System.currentTimeMillis()
-        ChainUpLogUtil.e("gap:"+gap)
         if(gap<500) return@setOnClickListener
         action.invoke()
     }

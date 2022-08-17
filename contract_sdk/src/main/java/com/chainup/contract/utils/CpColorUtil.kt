@@ -63,7 +63,6 @@ object CpColorUtil {
      */
     fun getMainColorType(isRise: Boolean = true): Int {
         var colorSelect = getColorType()
-        ChainUpLogUtil.d(TAG, "getMainColorType==isRise is $isRise,colorSelect is $colorSelect")
         val mainGreen = getColor(R.color.main_green)
         val mainRed = getColor(R.color.main_red)
 

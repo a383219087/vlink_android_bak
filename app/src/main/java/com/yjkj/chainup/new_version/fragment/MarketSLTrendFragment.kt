@@ -162,7 +162,6 @@ class MarketSLTrendFragment : NBaseFragment() {
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
-        LogUtil.e(TAG, "fragmentVisibile==MarketTrendFragment= ${marketName}  =isVisible is $isVisible")
     }
 
 

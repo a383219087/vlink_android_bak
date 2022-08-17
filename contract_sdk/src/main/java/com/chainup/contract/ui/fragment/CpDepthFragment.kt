@@ -784,24 +784,13 @@ class CpDepthFragment : CpNBaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e("LogUtils", "ClDepthFragment onDestroyView()")
         restart()
 
     }
 
-    override fun onStop() {
-        super.onStop()
-        Log.e("LogUtils", "ClDepthFragment onStop()")
-    }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e("LogUtils", "ClDepthFragment onDestroy()")
-    }
 
     fun onClDepthFragment(json: String) {
-        ChainUpLogUtil.e(TAG, json)
         handleData(json)
     }
 

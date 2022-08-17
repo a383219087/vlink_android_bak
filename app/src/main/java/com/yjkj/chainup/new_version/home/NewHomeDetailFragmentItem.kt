@@ -219,7 +219,6 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
             }
             forwardMarketTab(arrays)
         } else {
-            LogUtil.d(TAG, "fragmentVisibile==MarketTrendFragment== pageEventSymbol 找不到列表 无法处理")
         }
     }
 

@@ -88,10 +88,7 @@ class SelectCoinAdapter(val datas: ArrayList<JSONObject>) : BaseQuickAdapter<JSO
              * 执行了搜索的话，根据搜索的规则过滤即可，最后把过滤后的数据的值和大小赋值给results
              */
 
-            Log.d(TAG, "=======s:$constraint")
-            Log.d(TAG, "=======s1:${originalData.size}")
-            Log.d(TAG, "=======s2:${beanData?.size}")
-            Log.d(TAG, "=======s3:${data?.size}")
+
 
             if (TextUtils.isEmpty(constraint)) {
                 results.values = data

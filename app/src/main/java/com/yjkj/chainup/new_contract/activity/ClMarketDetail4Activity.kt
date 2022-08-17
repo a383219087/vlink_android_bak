@@ -550,7 +550,6 @@ class ClMarketDetail4Activity : NBaseActivity(), WsContractAgentManager.WsResult
 
     fun getSymbol(symbol: String) {
 
-        LogUtil.d(TAG, "=======SYM:$symbol,CUR:${jsonObject?.optJSONObject("symbol")}======")
         if (jsonObject?.optString("symbol") != symbol) {
             initCoinData()
             chooseCoinAfterAddDetailsFg()

@@ -180,8 +180,8 @@
                 android:visibility="gone"
                 app:bottomMaxLength="32"
                 app:bottomRightEditTextviewContent="CNY"
-                app:bottomhintContent="@string/otc_userSet_singlePrice"
-                app:topEditTextviewcontent="@string/otc_userSet_singlePrice" />
+                app:bottomhintContent="自定义"
+                app:topEditTextviewcontent="自定义单价" />
 
             <com.yjkj.chainup.new_version.view.NewOTCEditTextView
                 android:id="@+id/ntt_premium_direction"

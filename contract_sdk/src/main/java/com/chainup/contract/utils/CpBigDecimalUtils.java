@@ -488,7 +488,6 @@ public class CpBigDecimalUtils {
 
 
     public static String formatNumber(String str) {
-        Log.d("==111=", "" + str);
         if (!CpStringUtil.isNumeric(str))
             return "--";
         String number = "";
@@ -508,7 +507,6 @@ public class CpBigDecimalUtils {
             }
             return number + "K";
         } else if (temp.compareTo(b1) >= 0 && temp.compareTo(b2) < 0) {
-            Log.d("==111=", "M" + str);
             String substring = temp.divide(b1, 2, BigDecimal.ROUND_DOWN).toString().substring(0, 4);
             if (substring.endsWith(".")) {
                 number = substring.substring(0, 3);
@@ -517,7 +515,6 @@ public class CpBigDecimalUtils {
             }
             return number + "M";
         } else if (temp.compareTo(b2) >= 0) {
-            Log.d("==111=", "B" + str);
             String substring = temp.divide(b2, 2, BigDecimal.ROUND_DOWN).toString().substring(0, 4);
             if (substring.endsWith(".")) {
                 number = substring.substring(0, 3);
@@ -567,7 +564,6 @@ public class CpBigDecimalUtils {
         } else {
             defaultStr = "0" + " " + unit;
         }
-        ChainUpLogUtil.e("是否属于只减仓", isOpen + "");
         BigDecimal parValueBig = new BigDecimal(parValue);
         BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
         BigDecimal buff;
@@ -588,12 +584,7 @@ public class CpBigDecimalUtils {
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
         BigDecimal rateBig = new BigDecimal(rate);
-        ChainUpLogUtil.e("parValueBig", parValueBig.toPlainString());
-        ChainUpLogUtil.e("canCloseVolumeBig", canCloseVolumeBig.toPlainString());
-        ChainUpLogUtil.e("priceBig", priceBig.toPlainString());
-        ChainUpLogUtil.e("canUseAmountBig", canUseAmountBig.toPlainString());
-        ChainUpLogUtil.e("nowLevelBig", nowLevelBig.toPlainString());
-        ChainUpLogUtil.e("rateBig", rateBig.toPlainString());
+
 
         if (isForward) {
             buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
@@ -646,12 +637,6 @@ public class CpBigDecimalUtils {
         BigDecimal maxOpenLimitBig = new BigDecimal(maxOpenLimit);//（币的单位）
         BigDecimal positionValueBig = new BigDecimal(positionValue);//（币的单位）
         BigDecimal entrustedValueBig = new BigDecimal(entrustedValue);//（币的单位）
-        ChainUpLogUtil.e("ClContractTradeFragment", "parValue:" + parValueBig.toPlainString());
-        ChainUpLogUtil.e("ClContractTradeFragment", "price:" + priceBig.toPlainString());
-        ChainUpLogUtil.e("ClContractTradeFragment", "rate:" + rateBig.toPlainString());
-        ChainUpLogUtil.e("ClContractTradeFragment", "maxOpenLimit:" + maxOpenLimitBig.toPlainString());
-        ChainUpLogUtil.e("ClContractTradeFragment", "positionValue:" + positionValueBig.toPlainString());
-        ChainUpLogUtil.e("ClContractTradeFragment", "entrustedValue:" + entrustedValueBig.toPlainString());
         BigDecimal buff;
         if (compareTo(price, "0") == 0) {
             return defaultStr;

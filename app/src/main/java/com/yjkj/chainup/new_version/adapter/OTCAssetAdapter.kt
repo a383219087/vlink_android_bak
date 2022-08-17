@@ -8,13 +8,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
-import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.Utils
-import com.yjkj.chainup.util.setGoneV3
+import com.yjkj.chainup.util.*
 import org.json.JSONObject
 
 /**
@@ -105,7 +101,6 @@ open class OTCAssetAdapter(var datas: ArrayList<JSONObject>) :
                 results.values = filteredList
                 results.count = filteredList.size
             }
-            LogUtil.e("-------resultsresults",  results.count.toString())
             // 返回FilterResults对象
             return results
         }
@@ -114,18 +109,15 @@ open class OTCAssetAdapter(var datas: ArrayList<JSONObject>) :
          * 该方法用来刷新用户界面，根据过滤后的数据重新展示列表
          */
         override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
-            LogUtil.e("++++++++resultsresults",  results.count.toString())
 
             // 获取过滤后的数据
             if (null != results.values) {
                 data = results.values as ArrayList<JSONObject>
             }
-            LogUtil.e("++++++++resultsresults",  data.size.toString())
             // 如果接口对象不为空，那么调用接口中的方法获取过滤后的数据，具体的实现在new这个接口的时候重写的方法里执行
 //            if (listener != null) {
 //                listener?.getFilterData(data as ArrayList<JSONObject>)
 //            }
-            LogUtil.e("++++++++resultsresults",  data.size.toString())
             // 刷新数据源显示
             notifyDataSetChanged()
             notifyItemRangeChanged(0, data.size)

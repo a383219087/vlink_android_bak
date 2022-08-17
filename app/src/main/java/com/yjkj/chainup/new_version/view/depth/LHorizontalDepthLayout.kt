@@ -359,7 +359,6 @@ class LHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 sellViewList[i].fl_bg_item.backgroundColor = ColorUtil.getMinorColorType(isRise = false)
                 val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                 val width = (subList[i].optDouble(1).toFloat() / maxVol) * measuredWidth / 2
-                Log.d(TAG, "=======sell-1:$width:=====" + (subList[i].optDouble(1).toFloat()) + "m:" + measuredWidth)
                 layoutParams.width = width.toInt()
                 sellViewList[i].fl_bg_item.layoutParams = layoutParams
                 /*****深度背景色END****/

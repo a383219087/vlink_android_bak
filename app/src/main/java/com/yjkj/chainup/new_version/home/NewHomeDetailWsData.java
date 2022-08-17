@@ -88,9 +88,7 @@ public class NewHomeDetailWsData {
     private void showWsData(JSONObject jsonObject, boolean history) {
         if (null == mRefreshListener || null == dataList)
             return;
-        LogUtil.d(TAG, "showWsData==jsonObject is " + jsonObject);
         JSONObject obj = new SymbolWsData().getNewSymbolObj(dataList, jsonObject, history);
-        LogUtil.d(TAG, "showWsData==obj is " + obj);
         if (null != obj && obj.length() > 0) {
             int pos = dataList.indexOf(obj);
             if (pos >= 0) {

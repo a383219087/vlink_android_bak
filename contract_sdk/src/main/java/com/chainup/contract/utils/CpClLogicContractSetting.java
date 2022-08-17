@@ -155,7 +155,6 @@ public class CpClLogicContractSetting {
      */
     public static void setToken(String key) {
         if (TextUtils.isEmpty(key)) {
-            ChainUpLogUtil.e("传入token为空");
             return;
         }
         CpPreferenceManager.getInstance(CpMyApp.Companion.instance()).putSharedString(CpPreferenceManager.CONTRACT_TOKEN, key);
@@ -430,11 +429,8 @@ public class CpClLogicContractSetting {
                     String multiplier = mJSONObject.getString("multiplier");
                     String multiplierBuff = new BigDecimal(multiplier).stripTrailingZeros().toPlainString();
                     if (multiplierBuff.contains(".")) {
-                        ChainUpLogUtil.e("------------", multiplierBuff);
-                        ChainUpLogUtil.e("------------", multiplierBuff.split(".").length + "");
                         int index = multiplierBuff.indexOf(".");
                         int num = index < 0 ? 0 : multiplierBuff.length() - index - 1;
-                        ChainUpLogUtil.e("------------", num + "");
                         return num;
                     } else {
                         return multiplierBuff.length();

@@ -526,10 +526,7 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
                                     var maxFeeRate = clickData?.maxFeeRate
                                     //仓位数量
                                     var positionVolume = CpBigDecimalUtils.mulStr(clickData?.positionVolume, multiplier, 4)
-//                                var positionVolume = clickData?.positionVolume
-                                    ChainUpLogUtil.e(TAG, positionVolume)
-                                    ChainUpLogUtil.e(TAG, clickData?.positionVolume)
-                                    ChainUpLogUtil.e(TAG, multiplier)
+
 
                                     //仓位方向：多仓是1，空仓是-1
                                     var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide.equals("1"), positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)

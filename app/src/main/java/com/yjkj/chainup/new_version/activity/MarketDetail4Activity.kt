@@ -430,10 +430,8 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
 
         setTagView(NCoinManager.getNameForSymbol(symbol))
         GlobalScope.launch {
-            LogUtil.e(TAG, "k线网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
             delay(3000L)
             val isResult = klineData.size
-            LogUtil.e(TAG, "k线网络统计 end ws状态 " + WsAgentManager.instance.isConnection() + " k线数据 ${isResult} " + " ${isFinishing}" + " time ${klineTime}")
 
             val statusType = klineData.getKlineByType(WsAgentManager.instance.pageSubWs(this@MarketDetail4Activity))
             sendWsHomepage(mActivity, statusType, NetworkDataService.KEY_PAGE_KLINE, NetworkDataService.KEY_SUB_KLINE_HISTORY, klineTime)
@@ -521,7 +519,6 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
 
     fun getSymbol(symbol: String) {
 
-        LogUtil.d(TAG, "=======SYM:$symbol,CUR:${jsonObject?.optJSONObject("symbol")}======")
         if (jsonObject?.optString("symbol") != symbol) {
             initCoinData()
             chooseCoinAfterAddDetailsFg()

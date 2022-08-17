@@ -29,7 +29,6 @@ public class CpShareToolUtil {
     public static void sendLocalShare(Context context, Bitmap bmp) {
         try {
             final File shareFile = CpShareToolUtil.saveSharePic(context, bmp);
-            ChainUpLogUtil.d("DEBUG", "shareFile:" + shareFile);
             Intent intent = new Intent(Intent.ACTION_SEND);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + AUTHORITY, shareFile);
@@ -68,7 +67,6 @@ public class CpShareToolUtil {
                     e.printStackTrace();
                     return null;
                 }
-                ChainUpLogUtil.d("DEBUG", "----" + filePic.getAbsolutePath());
                 MediaStore.Images.Media.insertImage(context.getContentResolver(), filePic.getAbsolutePath(), fileName, null);
                 //保存图片后发送广播通知更新数据库
                 Uri uri = Uri.fromFile(filePic);

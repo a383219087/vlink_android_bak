@@ -293,6 +293,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
                 object1.put("user_id", user_id);
                 object1.put("code", code);
                 object1.put("timestamp", timestamp);
+                object1.put("token", UserDataService.getInstance().getToken());
                 JSONObject data1 = new JSONObject();
                 data1.put("Data", object1);
 

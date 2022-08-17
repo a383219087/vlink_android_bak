@@ -129,7 +129,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         setOnClick()
         initNetWorkRemind()
         mViewModel?.getPublicInfo(context!!)
-        LogUtil.d(TAG, "切换语言==NewVersionHomepageFragment==")
         defaultBanner = R.drawable.banner_king
         val data = CommonService.instance.getHomeData()
         showHomepageData(data, true)
@@ -215,9 +214,7 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
             }
         })
         GlobalScope.launch {
-            LogUtil.e(TAG, "首页网络统计 start ws状态 " + WsAgentManager.instance.isConnection())
             delay(3000L)
-            LogUtil.e(TAG, "首页网络统计 end ws状态 " + WsAgentManager.instance.isConnection())
         }
     }
 
@@ -286,7 +283,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
              */
             showBottomVp(homeRecommendList)
 
-        LogUtil.d("NewVersionHomepageFragment", "showHomepageData==cmsAppAdvertList is $cmsAppAdvertList")
         newNoticeInfoList = noticeInfoList
         showGuanggao(noticeInfoList)
         showBannerData(cmsAppAdvertList)
@@ -1118,7 +1114,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                             val fragment = fragments[selectPostion]
                             if (fragment is NewHomeDetailFragmentItem) {
                                 val tempMap = HashMap<String, JSONObject>()
-                                LogUtil.e(TAG, "showWsData bottom ${items.size}")
                                 for (item in items) {
                                     val channelNew = item.value.optString("channel").split("_")[1]
                                     val tempBottom = bottomCoins.filter {
@@ -1128,7 +1123,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
                                         tempMap.put(item.key, item.value)
                                     }
                                 }
-                                LogUtil.e(TAG, "showWsData bottom 过滤 ${tempMap.size}")
                                 if (tempMap.isEmpty()) {
                                     return@doAsync
                                 }
@@ -1179,7 +1173,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        LogUtil.e(TAG, "onVisibleChanged==NewVersionHomepageFragment ${isVisible} ")
         if (isVisible) {
             Handler().postDelayed({
                 isRoseHttp()
@@ -1301,7 +1294,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
 
     override fun appBackGroundChange(isVisible: Boolean) {
         super.appBackGroundChange(isVisible)
-        LogUtil.e(TAG, "appBackGroundChange==NewVersionHomepageFragment ${isVisible} ")
         mIsVisibleToUser = isVisible
         if (isVisible) {
             isRoseHttp()
