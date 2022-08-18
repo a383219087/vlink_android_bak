@@ -12,6 +12,7 @@
         <import type="android.view.View" />
 
         <import type="com.yjkj.chainup.R" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
 
     </data>
 
@@ -21,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:onRefreshCommand="@{_all.onRefreshCommand}"
+        app:onRefreshCommand="@{_all.onRefreshCommand1}"
         >
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

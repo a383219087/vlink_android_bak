@@ -15,6 +15,7 @@
             name="onItemListener"
             type="com.yjkj.chainup.ui.documentary.vm.SingleMoneyViewModel.OnItemListener" />
         <import type="com.yjkj.chainup.util.DateUtil" />
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -132,7 +133,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{item.bean.followerAmount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.followerAmount,2)+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
@@ -141,7 +142,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{item.bean.profit+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profit,2)+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
@@ -214,7 +215,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.amount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.amount,2)+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />
@@ -223,7 +224,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.bean.followerAmount+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.followerAmount,2)+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />

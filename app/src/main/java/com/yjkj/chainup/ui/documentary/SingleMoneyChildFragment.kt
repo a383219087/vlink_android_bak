@@ -1,11 +1,15 @@
 package com.yjkj.chainup.ui.documentary
 
 import android.os.Bundle
+import com.chainup.contract.bean.CpContractPositionBean
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentSingleMoneyBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.vm.SingleMoneyViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class SingleMoneyChildFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentSingleMoneyBinding?>(){
@@ -34,6 +38,16 @@ class SingleMoneyChildFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentS
 
 
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        when (event.msg_type) {
+            MessageEvent.refresh_MyInviteCodesActivity -> {
+                mViewModel?.getList()
+            }
+        }
     }
 
 

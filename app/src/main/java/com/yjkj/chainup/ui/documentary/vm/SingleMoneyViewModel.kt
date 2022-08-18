@@ -12,9 +12,12 @@ import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.common.binding.command.BindingConsumer
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.DateUtil
+import com.yjkj.chainup.util.DecimalUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -71,8 +74,8 @@ class SingleMoneyViewModel : BaseViewModel() {
         ItemBinding.of<Item>(BR.item, R.layout.item_single_money).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<Item> = ObservableArrayList()
 
-    var onRefreshCommand = BindingCommand<Any>(BindingAction {
-        getList()
+    var onRefreshCommand1 = BindingCommand<Any>(BindingAction {
+        EventBusUtil.post(MessageEvent(MessageEvent.refresh_MyInviteCodesActivity))
     })
 
     fun getList() {
@@ -113,7 +116,7 @@ class SingleMoneyViewModel : BaseViewModel() {
 
     fun getData1() {
         startTask(contractApiService.traderTotalProfit(), Consumer {
-            usdtString.value = it.data
+            usdtString.value = DecimalUtil.cutValueByPrecision( it.data,2)
             cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data, isOnlyResult = true)
         })
         val map = HashMap<String, Any>()
@@ -125,10 +128,11 @@ class SingleMoneyViewModel : BaseViewModel() {
             for (i in 0 until it.data!!.size) {
 
                 if (it.data[i].date == DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis())) {
-                    todayString.value = it.data[i].followerAmount.toString()
+                    todayString.value = DecimalUtil.cutValueByPrecision(it.data[i].followerAmount,2)
                 }
                 if (it.data[i].date == DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis() - 24 * 3600 * 1000)) {
-                    yesterdayString.value = it.data[i].followerAmount.toString()
+                    yesterdayString.value =DecimalUtil.cutValueByPrecision(it.data[i].followerAmount,2)
+
                 }
             }
 
