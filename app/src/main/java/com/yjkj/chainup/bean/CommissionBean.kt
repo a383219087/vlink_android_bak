@@ -171,27 +171,27 @@ data class TraderTransactionBean(
     val follower: String,
     val coinSymbol: String,
     val date: String,
-    val amount: Double,
-    val followerAmount: Int,
-    val profit: Double,
-    val followerCount: Int
+    val amount: String,
+    val followerAmount: String,
+    val profit: String,
+    val followerCount: String
 
 ) : Serializable
 
 data class GetAssetsTotalBean(
-    val canUseAmount: Int,
-    val allAmount: Double,
-    val allReturnRate: Double,
-    val positionBalance: Double,
-    val isolateMargin: Int,
-    val lockAmount: Int,
-    val realizedAmount: Int,
+    val canUseAmount: String,
+    val allAmount: String,
+    val allReturnRate: String,
+    val positionBalance: String,
+    val isolateMargin: String,
+    val lockAmount: String,
+    val realizedAmount: String,
     val symbol: String,
-    val totalAmount: Int,
-    val totalMargin: Int,
-    val totalMarginRate: Int,
-    val unRealizedAmount: Int,
-    val result: Int
+    val totalAmount: String,
+    val totalMargin: String,
+    val totalMarginRate: String,
+    val unRealizedAmount: String,
+    val result: String
 
 ) : Serializable
 data class FollowerStatisticsBean(

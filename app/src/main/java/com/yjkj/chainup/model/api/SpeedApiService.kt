@@ -34,3 +34,4 @@ data class HttpResultUrlData(
     val chatUrl: String,
     val chatApiUrl: String
 )
+

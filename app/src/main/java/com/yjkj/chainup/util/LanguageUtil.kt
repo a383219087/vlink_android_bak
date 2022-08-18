@@ -93,13 +93,13 @@ object LanguageUtil {
         LogUtil.d(TAG, "rate:$rate")
         val negative = rate.contains("-")
         var rates = 0.0
-        if (negative) {
-            rates = rate.replace("-", "").toDouble()
+        rates = if (negative) {
+            rate.replace("-", "").toDouble()
         } else {
-            rates = rate.toDouble()
+            rate.toDouble()
         }
 
-
+       
 
         return when (rates) {
             in 0.0..5.0 -> {
