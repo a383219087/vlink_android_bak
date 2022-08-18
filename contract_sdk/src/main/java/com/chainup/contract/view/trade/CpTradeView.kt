@@ -341,10 +341,15 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         btn_sell.isEnable(true)
         btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
+                if (!canBuy){
+                    CpNToastUtil.showTopToastNet(getActivity(),false,context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1))
+                    return
+                }
                 if (et_volume.text.isNullOrEmpty()){
                     CpNToastUtil.showTopToastNet(getActivity(),false,context.getString(R.string.cp_trade_text3))
                     return
                 }
+
 
                 var isOpen = false;
                 isOpen = transactionType == CpParamConstant.TYPE_BUY
@@ -785,7 +790,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     return true
                 }
             })
-            var mPrecision=if (mContractUint == 0) 0 else multiplierPrecision
+            var mPrecision= multiplierPrecision
             if (isMarketPriceModel&&transactionType == CpParamConstant.TYPE_BUY){
                 mPrecision=symbolPricePrecision
             }

@@ -63,25 +63,7 @@ class RateManager {
                 }
 
             }
-            /*var lang_logo = rate?.optString(lang_logo)
-            var lang_coin = rate?.optString(lang_coin)
-            LogUtil.d(TAG,"getFiat4Coin==coin is $coin,lang_logo is $lang_logo,lang_coin is $lang_coin,coin == lang_logo  is ${coin.equals(lang_logo,ignoreCase = true) },coin == lang_coin is ${coin.equals(lang_coin,ignoreCase = true)}")
-            if (coin == lang_logo || coin == lang_coin) {
-                LogUtil.d(TAG,"getFiat4Coin==coin is $coin,isOTC is $isOTC")
-                var aa = ""
-                if(isOTC){
-                    aa = rate?.optString("coin_fiat_precision")?:""
-                    if(!StringUtil.checkStr(aa)){
-                        aa = rate?.optString("coin_precision")?:""
-                    }
-                }else{
-                    aa = rate?.optString("coin_precision")?:""
-                }
-                LogUtil.d(TAG,"getFiat4Coin==coin is $coin,isOTC is $isOTC,aa is $aa")
-                if (StringUtil.isNumeric(aa)) {
-                    return aa!!.toInt()
-                }
-            }*/
+
             return default_precision
         }
 
@@ -115,7 +97,7 @@ class RateManager {
          * @isFiatTrade true为取common/public_info_v4  的rate值
          */
 
-        private fun getRatesByLanguage(isFiatTrade: Boolean = false): JSONObject? {
+         fun getRatesByLanguage(isFiatTrade: Boolean = false): JSONObject? {
             val language = LanguageUtil.getSelectLanguage()
             var jsonObject: JSONObject? = null
             if (isFiatTrade) {

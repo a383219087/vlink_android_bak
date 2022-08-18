@@ -147,7 +147,7 @@ class FirstViewModel : BaseViewModel() {
         }else{
             startTask(contractApiService.statistics(), Consumer {
                 bean.value = it.data
-                cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data.positionBalance.toString(), isOnlyResult = true)
+                cnyString.value =RateManager.getHomeCNYByCoinName("USDT", it.data.positionBalance, isOnlyResult = true)
 
             })
         }

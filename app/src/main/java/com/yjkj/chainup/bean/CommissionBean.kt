@@ -97,6 +97,7 @@ data class TraderTransactionBean(
     val ctime: String,
     val follower: String,
     val coinSymbol: String,
+    val contractName: String,
     val date: String,
     val leverageLevel: String,
     val amount: String="0.0",

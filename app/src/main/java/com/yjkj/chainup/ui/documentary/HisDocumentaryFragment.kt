@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
+import com.alibaba.fastjson.JSON
+import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
@@ -53,8 +55,10 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         adapter?.setOnItemClickListener { adapter, view, position ->
             if (mViewModel?.uid?.value.isNullOrEmpty()) {
                 val item = adapter.data[position] as JSONObject
+                val bean:CpContractPositionBean=JSON.parseObject(item.toString(), CpContractPositionBean::class.java)
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("json", item.toString())
+                    .withSerializable("bean",bean )
                     .withInt("status", mViewModel?.status?.value!!)
                     .navigation()
             }

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:text="@{item.bean.contractConfig.contractName}"
+                android:text="@{item.bean.contractName}"
                 android:textColor="@color/text_color"
                 android:textSize="13sp" />
 
