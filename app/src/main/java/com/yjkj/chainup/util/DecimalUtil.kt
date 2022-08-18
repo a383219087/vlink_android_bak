@@ -68,7 +68,7 @@ class DecimalUtil {
         /**
          * 暂用来解决首页"成交榜"的成交量
          */
-        fun formatNumber(str: String, precision: Int = 2): String {
+        fun formatNumber(str: String?, precision: Int = 2): String {
             if (!StringUtil.isNumeric(str))
                 return "--"
             var number = ""
@@ -108,7 +108,10 @@ class DecimalUtil {
          * @param scale 表示表示需要精确到小数点以后几位。
          */
         @JvmStatic
-        fun cutValueByPrecision(v1: String, scale: Int): String {
+        fun cutValueByPrecision(v1: String?, scale: Int): String {
+            if(v1.isNullOrEmpty()){
+                return "0"
+            }
             var result: String = "0"
             try {
                 var v1 = v1

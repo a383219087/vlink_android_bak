@@ -55,17 +55,6 @@ data class CommissionBean1(
 
 ) : Serializable
 
-data class InviteCodeBean(
-    val ctime: Long,
-    val id: Int,
-    val inviteCode: String,
-    val inviteLevel: Int,
-    val isDefault: Int,
-    val mtime: Long,
-    val rate: Int,
-    val remark: String,
-    val uid: Int
-)
 
 data class CurrentStatusBean(
     val uid: Long,
@@ -87,68 +76,6 @@ data class StatisticsBean(
 data class TraderPositionInfo(
 
 
-//    "positionList":[
-//{
-//    "id":1,
-//    "contractId":1,
-//    "contractName":"E-BTC-USDT",
-//    "symbol":"BTC-USDT",
-//    "positionVolume":10,
-//    "canCloseVolume":10,
-//    "openAvgPrice":0,
-//    "indexPrice":0,
-//    "reducePrice":null,
-//    "holdAmount":10000083.45,
-//    "marginRate":null,
-//    "realizedAmount":100,
-//    "returnRate":0,
-//    "orderSide":"BUY",
-//    "positionType":1,
-//    "canUseAmount":9999983.45,
-//    "canSubMarginAmount":0,
-//    "openRealizedAmount":0,
-//    "keepRate":0,
-//    "maxFeeRate":0.05,
-//    "unRealizedAmount":0,
-//    "leverageLevel":1,
-//    "positionBalance":0,
-//    "tradeFee":"0",
-//    "capitalFee":"0",
-//    "closeProfit":"0",
-//    "settleProfit":"0",
-//    "shareAmount":"0",
-//    "historyRealizedAmount":"0",
-//    "profitRealizedAmount":"100",
-//    "openAmount":0,
-//    "coPosition":{
-//    "id":1,
-//    "uid":10027,
-//    "contractId":1,
-//    "positionType":1,
-//    "side":"BUY",
-//    "volume":10,
-//    "openPrice":0,
-//    "avgPrice":0,
-//    "closePrice":0,
-//    "leverageLevel":1,
-//    "openAmount":0,
-//    "holdAmount":0,
-//    "closeVolume":10,
-//    "pendingCloseVolume":0,
-//    "realizedAmount":100,
-//    "historyRealizedAmount":0,
-//    "tradeFee":0,
-//    "capitalFee":0,
-//    "closeProfit":0,
-//    "shareAmount":0,
-//    "freezeLock":0,
-//    "status":0,
-//    "ctime":"2022-04-24T21:02:23",
-//    "mtime":"2022-05-21T17:32:29",
-//    "brokerId":1,
-//    "lockTime":"2022-04-24T21:02:23"
-//}
-//}
 
     val positionList: List<CpContractPositionBean>?
 
@@ -171,26 +98,26 @@ data class TraderTransactionBean(
     val follower: String,
     val coinSymbol: String,
     val date: String,
-    val amount: String,
-    val followerAmount: String,
-    val profit: String,
+    val amount: String="0.0",
+    val followerAmount: String="0.0",
+    val profit: String="0.0",
     val followerCount: String
 
 ) : Serializable
 
 data class GetAssetsTotalBean(
-    val canUseAmount: String,
-    val allAmount: String,
-    val allReturnRate: String,
-    val positionBalance: String,
+    val canUseAmount: String="0.0",
+    val allAmount: String="0.0",
+    val allReturnRate: String="0.0",
+    val positionBalance: String="0.0",
     val isolateMargin: String,
-    val lockAmount: String,
-    val realizedAmount: String,
+    val lockAmount: String="0.0",
+    val realizedAmount: String="0.0",
     val symbol: String,
-    val totalAmount: String,
-    val totalMargin: String,
+    val totalAmount: String="0.0",
+    val totalMargin: String="0.0",
     val totalMarginRate: String,
-    val unRealizedAmount: String,
+    val unRealizedAmount: String="0.0",
     val result: String
 
 ) : Serializable
@@ -212,7 +139,7 @@ data class ContractConfig(
     val base: Any,
     val brokerId: Int,
     val capitalDepthMoney: Double,
-    val volume: String,
+    val volume: String="",
     val capitalFrequency: Int,
     val capitalIntervalMax: Double,
     val capitalIntervalMin: Double,
