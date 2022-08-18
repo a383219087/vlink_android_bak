@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.profit,2)+``}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.bean.amount,2)+``}"
                 android:textSize="11sp"
                 android:textColor="@color/text_color"
                 />

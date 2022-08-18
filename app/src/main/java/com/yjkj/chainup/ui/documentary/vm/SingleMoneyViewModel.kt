@@ -128,10 +128,10 @@ class SingleMoneyViewModel : BaseViewModel() {
             for (i in 0 until it.data!!.size) {
 
                 if (it.data[i].date == DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis())) {
-                    todayString.value = DecimalUtil.cutValueByPrecision(it.data[i].followerAmount,2)
+                    todayString.value = DecimalUtil.cutValueByPrecision(it.data[i].amount,2)
                 }
                 if (it.data[i].date == DateUtil.longToString("yyyy-MM-dd", System.currentTimeMillis() - 24 * 3600 * 1000)) {
-                    yesterdayString.value =DecimalUtil.cutValueByPrecision(it.data[i].followerAmount,2)
+                    yesterdayString.value =DecimalUtil.cutValueByPrecision(it.data[i].amount,2)
 
                 }
             }
