@@ -41,6 +41,9 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
     @Autowired(name = "bean")
     @JvmField
     var item : CpContractPositionBean?=null
+    @Autowired(name = "id")
+    @JvmField
+    var id : String?=null
 
     @Autowired(name = "status")
     @JvmField
@@ -60,7 +63,7 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
     override fun setContentView() = R.layout.activity_documentary_detail
     override fun initData() {
         mViewModel?.activity?.value=mActivity
-        mViewModel?.status?.value=status
+        mViewModel?.id?.value=id
         mViewModel?.getData()
         if (status==1){
             mViewModel?.bean?.value=item

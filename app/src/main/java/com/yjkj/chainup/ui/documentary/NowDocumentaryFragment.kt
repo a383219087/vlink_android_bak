@@ -644,6 +644,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val item = adapter.data[position] as CpContractPositionBean
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("bean", item)
+                    .withString("id", item.id.toString())
                     .withInt("status",  mViewModel?.status?.value!!)
                     .navigation()
             }

@@ -55,10 +55,9 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         adapter?.setOnItemClickListener { adapter, view, position ->
             if (mViewModel?.uid?.value.isNullOrEmpty()) {
                 val item = adapter.data[position] as JSONObject
-                val bean:CpContractPositionBean=JSON.parseObject(item.toString(), CpContractPositionBean::class.java)
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("json", item.toString())
-                    .withSerializable("bean",bean )
+                    .withString("id", item.optString("id") )
                     .withInt("status", mViewModel?.status?.value!!)
                     .navigation()
             }

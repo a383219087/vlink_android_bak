@@ -32,19 +32,9 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     var bean = MutableLiveData<CpContractPositionBean>()
 
 
-    //  1当前0是历史
-
-    var status = MutableLiveData<Int>()
+    var id = MutableLiveData<String>()
 
 
-    var  contractType= MutableLiveData<String>()
-
-
-    //收益lv
-    var returnRate = MutableLiveData<String>()
-
-    //收益
-    var revenue = MutableLiveData<String>()
 
 
 
@@ -63,40 +53,14 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     fun getData(){
         record()
-        val orderSide = if (bean.value?.orderSide == "BUY") {
-            context.getString(R.string.cl_HistoricalPosition_1) + "-"
-        } else {
-            context.getString(R.string.cl_HistoricalPosition_2) + "-"
-        }
-        val positionType = if (bean.value?.positionType== 1) {
-            context.getString(R.string.cl_currentsymbol_marginmodel1) + "-"
-        } else {
-            context.getString(R.string.cl_currentsymbol_marginmodel2) + "-"
-        }
-        contractType.value ="${orderSide}${positionType}${bean.value?.leverageLevel}X"
-        //回报率
-        returnRate.value = NumberUtil.getDecimal(2).format(
-            MathHelper.round(MathHelper.mul(bean.value?.returnRate?.let {"0" }, "100"), 2)
-        ).toString() + "%"
-        val mMarginCoinPrecision =
-            bean.value?.contractId?.let {
-                LogicContractSetting.getContractMarginCoinPrecisionById(context,
-                    it
-                )
-            }
-        revenue.value =
-            mMarginCoinPrecision?.let {
-                BigDecimalUtils.showSNormal(bean.value?.profitRealizedAmount,
-                    it
-                )
-            }
+
     }
 
 
     //操作记录
     fun record() {
         val map = HashMap<String, Any>()
-        map["positionId"] = bean.value?.id.toString()
+        map["positionId"] = id.value.toString()
         startTask(contractApiService.positionLog(map), Consumer {
             if (it.data.isEmpty()){
                 return@Consumer
