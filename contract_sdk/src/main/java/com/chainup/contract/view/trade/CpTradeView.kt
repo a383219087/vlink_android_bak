@@ -812,7 +812,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
             level = it.optInt("nowLevel")
             marginModel = if (it.optInt("marginModel") == 1) context.getString(R.string.cp_contract_setting_text1) else context.getString(R.string.cp_contract_setting_text2)
             positionType = it.optString("positionModel")
-            buyOrSellHelper.isOneWayPosition=(!positionType.equals("2"))
+            buyOrSellHelper.isOneWayPosition=(positionType != "2")
             var coUnit = it.optInt("coUnit")//合约单位 1标的货币, 2张
             CpClLogicContractSetting.setContractUint(
                     context,

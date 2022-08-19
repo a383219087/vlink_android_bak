@@ -1,6 +1,8 @@
 package com.chainup.contract.model
 
 import android.text.TextUtils
+import android.util.Log
+import com.alibaba.fastjson.JSON
 import com.chainup.contract.api.CpContractApiService
 import com.chainup.contract.bean.CpTpslOrderBean
 import com.google.gson.Gson
@@ -241,6 +243,8 @@ class CpNewContractModel : CpBaseDataManager() {
             this["stopLossPrice"] = "0" //止损委托价格
             this["stopLossType"] = "2" //止损类型
         }
+        Log.e("我是创建订单",JSON.toJSONString(map))
+
         return changeIOToMainThread(
             httpHelper.getContractNewUrlService(CpContractApiService::class.java)
                 .createOrder(getBaseReqBodyV1(map)), consumer
