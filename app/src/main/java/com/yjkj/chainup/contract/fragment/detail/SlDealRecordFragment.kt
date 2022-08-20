@@ -2,22 +2,15 @@ package com.yjkj.chainup.contract.fragment.detail
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.text.TextUtils
 import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.ContractTrade
-import com.contract.sdk.extra.dispense.DataTradeHelper
 import com.contract.sdk.impl.ContractTradeListener
-import com.common.sdk.impl.IResponse
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.contract.adapter.TradeHistoryAdapter
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.util.ColorUtil
 import kotlinx.android.synthetic.main.sl_fragment_deal_record.*
-import org.jetbrains.anko.support.v4.runOnUiThread
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.math.min
 
 /**
  * 成交记录

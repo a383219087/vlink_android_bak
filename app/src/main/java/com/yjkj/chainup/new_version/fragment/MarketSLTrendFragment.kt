@@ -77,11 +77,7 @@ class MarketSLTrendFragment : NBaseFragment() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (ParamConstant.ONSCROLLSTATECHANGED == newState) {
-                    adapterScroll = true
-                } else {
-                    adapterScroll = false
-                }
+                adapterScroll = ParamConstant.ONSCROLLSTATECHANGED == newState
             }
         })
     }

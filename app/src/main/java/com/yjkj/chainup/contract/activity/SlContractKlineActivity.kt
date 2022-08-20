@@ -53,7 +53,6 @@ import kotlinx.android.synthetic.main.sl_activity_contract_k_line.v_kline
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.textColor
-import org.json.JSONObject
 import java.text.DecimalFormat
 
 

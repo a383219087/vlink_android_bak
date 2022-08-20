@@ -126,31 +126,7 @@ object SlDialogHelper {
 
 
 
-    /**
-     * 仓位平仓对话框
-     */
-    fun showClosePositionDialog(context: Context,
-                                listener: OnBindViewListener
-    ): TDialog {
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.sl_item_close_position_dialog)
-                .setScreenWidthAspect(context, 1.0f)
-                .setGravity(Gravity.BOTTOM)
-                .setDimAmount(0.8f)
-                .setCancelableOutside(false)
-                .setOnBindViewListener(listener)
-                .addOnClickListener(R.id.tv_cancel)
-                .setOnViewClickListener { _, view, tDialog ->
-                    when (view.id) {
-                        R.id.tv_cancel -> {
-                            tDialog.dismiss()
-                        }
-                    }
-                }
-                .create()
-                .show()
 
-    }
 
 
 

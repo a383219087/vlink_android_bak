@@ -1,7 +1,6 @@
 package com.yjkj.chainup.contract.fragment.detail
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.contract.sdk.ContractPublicDataAgent

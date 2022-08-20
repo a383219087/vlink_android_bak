@@ -217,9 +217,7 @@
         <activity android:name=".new_version.activity.EntrustDetialsActivity" />
         <activity android:name=".new_version.activity.asset.CaptureActivity" /> <!-- 合约start -->
         <activity android:name=".contract.activity.SlContractEntrustDetailActivity" />
-        <activity
-            android:name=".contract.activity.SlHoldShareActivity"
-            android:theme="@style/SlTransparentActivity" />
+
 
         <activity android:name=".contract.activity.SlContractDetailActivity" />
         <activity
@@ -228,16 +226,8 @@
         <activity
             android:name=".contract.activity.SlContractHKlineActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".contract.activity.SlCoinDetailActivity" />
         <activity android:name=".contract.activity.SlContractAssetRecordActivity" />
-        <activity android:name=".contract.activity.SlAdjustMarginActivity" />
-        <activity android:name=".contract.activity.SlSelectLeverageActivity" />
-        <activity
-            android:name=".contract.activity.SlContractStopRateLossActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name=".contract.activity.SlContractSearchActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity android:name="com.yjkj.chainup.ui.invite.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
         <activity android:name=".new_contract.activity.ClMarketDetail4Activity" />
@@ -253,7 +243,6 @@
         <activity
             android:name=".new_contract.activity.ClContractStopRateLossActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".new_contract.activity.ClContractSearchActivity" />
 
         <activity android:name=".new_contract.activity.ClAdjustMarginActivity" />
         <activity android:name=".new_contract.activity.ClSelectPositionActivity" />
