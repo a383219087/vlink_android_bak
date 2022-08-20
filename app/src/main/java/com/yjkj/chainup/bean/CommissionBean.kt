@@ -99,10 +99,12 @@ data class TraderTransactionBean(
     val coinSymbol: String,
     val contractName: String,
     val date: String,
+    val side: String,
     val leverageLevel: String,
     val amount: String="0.0",
     val followerAmount: String="0.0",
     val profit: String="0.0",
+    val orderSide: String="0.0",
     val followerCount: String
 
 ) : Serializable

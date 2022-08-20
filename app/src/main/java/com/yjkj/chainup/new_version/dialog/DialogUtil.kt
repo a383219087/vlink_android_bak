@@ -38,7 +38,6 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.grid.NGridFragment
 import com.yjkj.chainup.new_version.activity.leverage.NLeverFragment
-import com.yjkj.chainup.new_version.activity.oldgrid.OldNGridFragment
 import com.yjkj.chainup.new_version.adapter.trade.NSearchCoinAdapter
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.new_version.home.AdvertModel
@@ -59,10 +58,6 @@ import java.math.BigDecimal
 //Created by $USER_NAME on 2018/10/15.
 
 class DialogUtil {
-
-    interface ConfirmListener {
-        fun click(pos: Int = 0)
-    }
 
     companion object {
 
@@ -185,7 +180,6 @@ class DialogUtil {
                         v_horizontal_depth?.resetPrice()
                         v_vertical_depth?.resetPrice()
                         v_vertical_depth?.clearDepthView()
-//                        v_horizontal_depth?.refreshDepthView()
                         v_horizontal_depth?.changeTape(AppConstant.DEFAULT_TAPE)
                     }
                     cvcEasyPopup.dismiss()
@@ -194,84 +188,7 @@ class DialogUtil {
             cvcEasyPopup?.showAtAnchorView(targetView, YGravity.ALIGN_TOP, XGravity.ALIGN_RIGHT, -50, 50)
         }
 
-        /**
-         * 网格界面的popupWindow
-         */
-        fun createGridPop(context: Context?, targetView: View, fragment: OldNGridFragment) {
-            val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.popwindow_cvc_entrance)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
 
-            val coinMapBean = DataManager.getCoinMapBySymbol(PublicInfoDataService.getInstance().currentSymbol)
-            val coin = NCoinManager.getMarketName(coinMapBean.name)
-
-            cvcEasyPopup?.run {
-                /* 充值 */
-                findViewById<View>(R.id.ll_recharge)?.setOnClickListener {
-                    cvcEasyPopup.dismiss()
-                    if (!LoginManager.checkLogin(context, true)) {
-                        return@setOnClickListener
-                    }
-
-                    if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                        NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                ?: "", object : NewDialogUtils.DialogBottomListener {
-                            override fun sendConfirm() {
-                                when (UserDataService.getInstance().authLevel) {
-                                    0 -> {
-                                        NToastUtil.showTopToastNet(context as Activity, false, context?.getString(R.string.noun_login_pending))
-                                    }
-
-                                    2, 3 -> {
-                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
-                                    }
-                                }
-                            }
-                        })
-                        return@setOnClickListener
-                    }
-
-
-                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
-                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
-                        putBoolean(ParamConstant.COIN_FROM, true)
-                    })
-                }
-                findViewById<TextView>(R.id.tv_text_recharge).text = LanguageUtil.getString(context, "coin_text_recharge")
-                findViewById<TextView>(R.id.tv_action_transfer).text = LanguageUtil.getString(context, "assets_action_transfer")
-
-
-                /*划转*/
-                val llTransfer = findViewById<View>(R.id.ll_transfer)
-                if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                    llTransfer.visibility = View.VISIBLE
-                } else {
-                    llTransfer.visibility = View.GONE
-                }
-                llTransfer?.setOnClickListener {
-                    cvcEasyPopup.dismiss()
-                    if (!LoginManager.checkLogin(context, true)) {
-                        return@setOnClickListener
-                    }
-                    ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, coin)
-                }
-
-                val isHorizontalDepth = PublicInfoDataService.getInstance().isHorizontalDepth
-                if (isHorizontalDepth) {
-                    findViewById<ImageView>(R.id.iv_change_direction)?.setImageResource(R.mipmap.coins_vertical_version)
-                    findViewById<TextView>(R.id.tv_change_direction).text = LanguageUtil.getString(context, "coin_text_horizontalDish")
-                } else {
-                    findViewById<ImageView>(R.id.iv_change_direction)?.setImageResource(R.mipmap.coins_horizontal_version)
-                    findViewById<TextView>(R.id.tv_change_direction).text = LanguageUtil.getString(context, "coin_text_verticalDish")
-                }
-
-                findViewById<View>(R.id.ll_change_pan)?.visibility = View.GONE
-            }
-            cvcEasyPopup?.showAtAnchorView(targetView, YGravity.ALIGN_TOP, XGravity.ALIGN_RIGHT, -50, 50)
-        }
         fun createGridPop(context: Context?, targetView: View, fragment: NGridFragment) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.popwindow_cvc_entrance)
                     .setFocusAndOutsideEnable(true)
@@ -432,7 +349,6 @@ class DialogUtil {
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
                     .setLayoutRes(R.layout.dialog_etf_statement)
                     .setScreenWidthAspect(context, 0.8f)
-//                    .setScreenHeightAspect(context, 0.8f)
                     .setGravity(Gravity.CENTER)
                     .setDimAmount(0.8f)
                     .setCancelableOutside(false)
@@ -544,7 +460,6 @@ class DialogUtil {
                             tv_contract_symbol?.text = baseSymbol + quoteSymbol
 
 
-                            val tv_contract_price_title = viewHolder?.getView<TextView>(R.id.tv_contract_price_title)
                             val tv_contract_price = viewHolder?.getView<TextView>(R.id.tv_contract_price)
 
                             /**
@@ -555,7 +470,6 @@ class DialogUtil {
                             /**
                              * 开仓均价
                              */
-                            val tv_open_avg_price_title = viewHolder?.getView<TextView>(R.id.tv_open_avg_price_title)
                             val tv_open_avg_price = viewHolder?.getView<TextView>(R.id.tv_open_avg_price)
                             tv_open_avg_price?.text = Contract2PublicInfoManager.cutValueByPrecision(avgPrice.toString(), pricePrecision)
 
@@ -613,7 +527,6 @@ class DialogUtil {
                                         .subscribe(object : NetObserver<Any>() {
                                             override fun onHandleSuccess(bean: Any?) {
                                                 tDialog.dismiss()
-//                                                ToastUtils.showToast("授权成功，进行跳转")
                                                 context.finish()
                                             }
 

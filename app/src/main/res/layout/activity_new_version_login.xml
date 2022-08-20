@@ -68,7 +68,6 @@
             app:isEditable="true" />
 
 
-
         <com.yjkj.chainup.new_version.view.CommonlyUsedButton
             android:id="@+id/cbtn_view"
             style="@style/NewVersionCommonlyUsedButtonStyle"

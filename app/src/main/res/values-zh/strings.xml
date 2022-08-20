@@ -3567,7 +3567,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="decumentary_detail_text18">累计交易笔数</string>
     <string name="decumentary_detail_text19">当前跟随人数</string>
     <string name="decumentary_detail_text20">近2周收益率</string>
-    <string name="decumentary_detail_text21">综合排名</string>
+    <string name="decumentary_detail_text21">累计收益率</string>
     <string name="decumentary_detail_text22">近2周胜率</string>
     <string name="decumentary_detail_text23">暂无数据</string>
     <string name="decumentary_detail_text24">累计跟随人数</string>
@@ -3594,6 +3594,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="decumentary_mine_text19">跟随人员</string>
     <string name="decumentary_mine_text20">跟随收益</string>
     <string name="decumentary_mine_text21">跟单成功</string>
+    <string name="decumentary_mine_text22">带单收益</string>
 
 
 

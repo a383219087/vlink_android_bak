@@ -10,6 +10,8 @@ package com.yjkj.chainup.util;
  */
 public class NLanguageUtil {
 
+    // zh_CN,zh_rTW,en_US,ar,bn,de,es_rES,fr,hi_rlN,ja_rJP,ko_rKR,pt,ru,th,tr,ur,vi_rVN,
+
     public static String getLanguage(){
         String language = "en_US";
         if (SystemUtils.isZh()) {

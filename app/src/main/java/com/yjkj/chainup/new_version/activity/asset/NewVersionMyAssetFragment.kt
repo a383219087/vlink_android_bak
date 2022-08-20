@@ -94,10 +94,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
      */
     var leverOpen = false
 
-    /**
-     * 头部页面
-     */
-    var adapter4Heat: OTCMyAssetHeatAdapter? = null
 
     var indexList = ArrayList<String>()
 
@@ -161,7 +157,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         if (isVisibleToUser) {
             isLogined = UserDataService.getInstance().isLogined
             if (isLogined) {
-                adapter4Heat?.notifyDataSetChanged()
                 setAssetViewVisible()
                 getAccountBalance()
                 for (fragment in fragments) {
@@ -182,7 +177,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
 
     fun refresh4Homepage() {
-        adapter4Heat?.notifyDataSetChanged()
         if (UserDataService.getInstance().isLogined) {
             getAccountBalance()
         }
@@ -202,8 +196,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             isShowAssets = !isShowAssets
             UserDataService.getInstance().setShowAssetStatus(isShowAssets)
             setAssetViewVisible()
-
-            adapter4Heat?.notifyDataSetChanged()
             for (fragment in fragments) {
                 if (fragment is ClContractAssetFragment) {
                     if (AppConstant.IS_NEW_CONTRACT) {
@@ -240,11 +232,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     }
 
     fun refresh() {
-        adapter4Heat?.notifyDataSetChanged()
         if (null == totalBalance) return
         Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
-//        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance)
-//        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, legalCurrency)
     }
 
     override fun initView() {
@@ -359,33 +348,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[i], i, indexList[i]))
             }
         }
-        adapter4Heat = OTCMyAssetHeatAdapter(assetlist)
-        activity_my_asset_rv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        activity_my_asset_rv?.adapter = adapter4Heat
 
-        activity_my_asset_rv?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            var adapterNowPos = 0
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                var l: LinearLayoutManager = activity_my_asset_rv.layoutManager as LinearLayoutManager
-                adapterNowPos = l.findFirstCompletelyVisibleItemPosition()
-
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                /**new State 一共有三种状态
-                 * SCROLL_STATE_IDLE：目前RecyclerView不是滚动，也就是静止
-                 * SCROLL_STATE_DRAGGING：RecyclerView目前被外部输入如用户触摸输入。
-                 * SCROLL_STATE_SETTLING：RecyclerView目前动画虽然不是在最后一个位置外部控制。
-                //这里进行加载更多数据的操作 */
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    vp_otc_asset?.currentItem = adapterNowPos
-                }
-            }
-
-        })
 
         val marketPageAdapter = NVPagerAdapter(childFragmentManager, tabTitles.toMutableList(), fragments)
         vp_otc_asset?.adapter = marketPageAdapter
@@ -403,7 +366,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             override fun onPageSelected(position: Int) {
                 viewpagePosotion = position
                 tv_title?.text = tabTitles[position]
-                activity_my_asset_rv?.smoothScrollToPosition(position)
             }
         })
         try {
@@ -415,7 +377,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
 
         appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            var isShow = true
             var scrollRange = -1
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 if (scrollRange == -1) {
@@ -538,13 +499,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
                 var json = jsonObject.optJSONObject("data")
                 vp_otc_asset ?: return
-                activity_my_asset_rv ?: return
                 accountBean = json
                 assetlist.get(0).put("totalBalance", json.optString("totalBalance") ?: "")
                 assetlist.get(0).put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: "")
                 vp_otc_asset?.currentItem = viewpagePosotion
-                activity_my_asset_rv?.smoothScrollToPosition(viewpagePosotion)
                     when {
                         leverOpen -> {
                             getLeverData()
@@ -633,14 +592,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         val data = jsonObject.optJSONObject("data")
                         if (leverOpen) {
-                            assetlist.get(2).put("totalBalance", data.optString("totalBtcValue")
+                            assetlist[2].put("totalBalance", data.optString("totalBtcValue")
                                     ?: "")
-                            assetlist.get(2).put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
+                            assetlist[2].put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
                                     ?: "")
                         } else {
-                            assetlist.get(1).put("totalBalance", data.optString("totalBtcValue")
+                            assetlist[1].put("totalBalance", data.optString("totalBtcValue")
                                     ?: "")
-                            assetlist.get(1).put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
+                            assetlist[1].put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
                                     ?: "")
                         }
                         val allCoinMap = data?.optJSONArray("allCoinMap")
@@ -686,15 +645,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
 
     fun updateAsset(status: Boolean) {
-        if (status) {
-            totalBalance = BigDecimalUtil.add(totalBalance, contractTotal.toString(), 8).toPlainString()
+        totalBalance = if (status) {
+            BigDecimalUtil.add(totalBalance, contractTotal.toString(), 8).toPlainString()
         } else {
-            totalBalance = BigDecimalUtil.add(totalBalance, "0", 8).toPlainString()
+            BigDecimalUtil.add(totalBalance, "0", 8).toPlainString()
         }
         legalCurrency = RateManager.getCNYByCoinName("BTC", totalBalance)
         Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets,tv_assets_btc_balance,totalBalance,legalCurrency)
-//        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance)
-//        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, legalCurrency)
+
     }
 
 
@@ -718,9 +676,9 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var json: JSONObject? = jsonObject.optJSONObject("data") ?: return
                 var jsonLeverMap: JSONObject? = json?.optJSONObject("leverMap") ?: return
-                assetlist.get(1).put("totalBalance", json.optString("totalBalance")
+                assetlist[1].put("totalBalance", json.optString("totalBalance")
                         ?: "")
-                assetlist.get(1).put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
+                assetlist[1].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: "")
                 when {
                     b2cOpen -> {

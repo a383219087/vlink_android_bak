@@ -70,7 +70,6 @@ class ClContractAssetFragment : NBaseFragment() {
         })
         //划转
         assetHeadView?.ll_transfer_layout?.setOnClickListener {
-//            val list = ContractUserDataAgent.getContractAccounts()
             if (openContract == 0) {
                 showOpenContractDialog()
             } else {
@@ -111,7 +110,6 @@ class ClContractAssetFragment : NBaseFragment() {
     }
 
     override fun loadData() {
-//        ContractUserDataAgent.getContractAccounts(true)
         getPositionList()
     }
 
@@ -120,17 +118,7 @@ class ClContractAssetFragment : NBaseFragment() {
         if (isVisibleToUser) {
             loadContractUserConfig()
             getTotalAccountBalance()
-//            val list = ContractUserDataAgent.getContractAccounts()
-//            if (list.size >= 0) {
-//                if (isShowContractBuyDialog) {
-//                    isShowContractBuyDialog = false
-//                    PreferenceManager.putBoolean(mActivity, "isShowContractBuyDialog", isShowContractBuyDialog)
-//                    val totalBalance = ContractUtils.calculateTotalBalance("USDT")
-//                    if (totalBalance == 0.0) {
-//                        showBuyContractDialog()
-//                    }
-//                }
-//            }
+
 
 
         }
@@ -208,43 +196,13 @@ class ClContractAssetFragment : NBaseFragment() {
 
         }, object : NewDialogUtils.DialogBottomListener {
             override fun sendConfirm() {
-//                addDisposable(getContractModel().createContract(
-//                        consumer = object : NDisposableObserver(true) {
-//                            override fun onResponseSuccess(jsonObject: JSONObject) {
-//                                NToastUtil.showTopToastNet(this.mActivity,true, getLineText("sl_str_account_created_successfully"))
-//                                loadContractUserConfig()
-//                            }
-//                        }))
+
                 var messageEvent = MessageEvent(MessageEvent.contract_switch_type)
                 EventBusUtil.post(messageEvent)
             }
 
         })
     }
-
-    /**
-     * 合约购买对话框
-     */
-    private fun showBuyContractDialog() {
-        SlDialogHelper.showSimpleCreateContractDialog(mActivity!!, OnBindViewListener { viewHolder ->
-            viewHolder?.let {
-                it.getView<TextView>(R.id.tv_cancel_btn).onLineText("common_text_btnCancel")
-
-                it.setImageResource(R.id.iv_logo, R.drawable.sl_reminders_buy_logo)
-                it.setText(R.id.tv_text, getLineText("sl_str_str_open_quick_deposit_tips"))
-                it.setText(R.id.tv_confirm_btn, getLineText("sl_str_quick_buy"))
-            }
-        }, object : NewDialogUtils.DialogBottomListener {
-            override fun sendConfirm() {
-                ArouterUtil.navigation(RoutePath.NewVersionTransferActivity, Bundle().apply {
-                    putString(ParamConstant.TRANSFERSTATUS, ParamConstant.TRANSFER_CONTRACT)
-                    putString(ParamConstant.TRANSFERSYMBOL, "USDT")
-                })
-            }
-
-        })
-    }
-
 
     fun setRefreshAdapter() {
         assetHeadView?.setRefreshAdapter()
@@ -254,12 +212,7 @@ class ClContractAssetFragment : NBaseFragment() {
 
 
     private fun refreshViewData() {
-//        val contractAccounts: List<ContractAccount>? = ContractUserDataAgent.getContractAccounts()
-//        mList.clear()
-//        if (contractAccounts != null) {
-//            mList.addAll(contractAccounts)
-//        }
-//        adapterHoldContract?.notifyDataSetChanged()
+
         assetHeadView?.setRefreshViewData()
     }
 

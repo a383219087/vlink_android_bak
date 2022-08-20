@@ -24,5 +24,4 @@ class EditInviteCodesDialog : BaseDialogMVFragment<EditInviteCodesViewModel?, Di
 
 
 
-
 }

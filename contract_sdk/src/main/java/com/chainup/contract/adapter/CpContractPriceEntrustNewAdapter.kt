@@ -25,28 +25,13 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
 
     //是否是当前委托
     private var isCurrentEntrust = true
-    private var loadDialog: CpNLoadingDialog? = null
 
 
-//    var cp_overview_text130 = ""
-//    var sl_str_sell_open0 = ""
-//    var contract_flat_short = ""
-//    var contract_flat_long = ""
-//    var sl_str_latest_price_simple = ""
-//    var sl_str_fair_price_simple = ""
-//    var sl_str_index_price_simple = ""
+
     var sl_str_trigger_price = ""
-//    var sl_str_execution_price = ""
-//    var sl_str_execution_volume = ""
-    var cp_overview_text9 = ""
+var cp_overview_text9 = ""
     var sl_str_market_price_simple = ""
-//    var sl_str_deadline = ""
     var sl_str_trigger_time = ""
-//    var sl_str_cancel_order = ""
-//    var sl_str_order_complete = ""
-//    var sl_str_user_canceled = ""
-//    var sl_str_order_timeout = ""
-//    var sl_str_trigger_failed = ""
     var cl_order_price_str = ""
     var cl_order_volume_str = ""
     var cl_open_value_str = ""
@@ -72,34 +57,17 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
     var mMultiplier = "0"
     var coUnit = 0
 
-    init {
-
-    }
 
     fun setIsCurrentEntrust(isCurrentEntrust: Boolean = true) {
         this.isCurrentEntrust = isCurrentEntrust
     }
 
     override fun convert(helper: BaseViewHolder, item: CpCurrentOrderBean) {
-//        cp_overview_text130 = context.getString(R.string.cp_overview_text130) //开多
-//        sl_str_sell_open0 = context.getString(R.string.sl_str_sell_open0)//开空
-//        contract_flat_short = context.getString(R.string.contract_flat_short)//平空
-//        contract_flat_long = context.getString(R.string.contract_flat_long)//平多
-//        sl_str_latest_price_simple = context.getString(R.string.sl_str_latest_price_simple)//最新价
-//        sl_str_fair_price_simple = context.getString(R.string.sl_str_fair_price_simple)//合理价
-//        sl_str_index_price_simple = context.getString(R.string.sl_str_index_price_simple)//指数价
+        cp_overview_text9 = context.getString(R.string.cp_overview_text9)
         sl_str_trigger_price = context.getString(R.string.cp_overview_text29)//触发价格
-//        sl_str_execution_price = context.getString(R.string.sl_str_execution_price)//执行价格
-//        sl_str_execution_volume = context.getString(R.string.sl_str_execution_volume)//执行数量
         cp_overview_text9 = context.getString(R.string.cp_overview_text9)//张
         sl_str_market_price_simple = context.getString(R.string.cp_overview_text53)//市价
-//        sl_str_deadline = context.getString(R.string.sl_str_deadline)//到期时间
         sl_str_trigger_time = context.getString(R.string.cp_extra_text68)//触发时间
-//        sl_str_cancel_order = context.getString(R.string.sl_str_cancel_order)//撤销
-//        sl_str_order_complete = context.getString(R.string.sl_str_order_complete)//订单完成
-//        sl_str_user_canceled = context.getString(R.string.sl_str_user_canceled)//用户取消
-//        sl_str_order_timeout = context.getString(R.string.sl_str_order_timeout)//订单过期
-//        sl_str_trigger_failed = context.getString(R.string.sl_str_trigger_failed)//执行失败
         cl_order_price_str = context.getString(R.string.cp_order_text56)//委托价格
         cl_order_volume_str = context.getString(R.string.cp_order_text66)//委托数量
         cl_open_value_str = context.getString(R.string.cp_overview_text28)//开仓价值
@@ -149,19 +117,15 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
         var showEntrustNumber = ""
         //委托数量展示单位
         var showEntrustUnit = ""
-        if (coUnit == 0) {
-            showEntrustUnit = cl_order_volume_str + "(" + cp_overview_text9 + ")"
+        showEntrustUnit = if (coUnit == 0) {
+            "$cl_order_volume_str($cp_overview_text9)"
         } else {
-            showEntrustUnit = cl_order_volume_str + "(" + multiplierCoin + ")"
+            "$cl_order_volume_str($multiplierCoin)"
         }
 
         //成交数量展示单位
         var showDealUnit = ""
-        if (coUnit == 0) {
-            showDealUnit = transaction_text_dealNum + "(" + cp_overview_text9 + ")"
-        } else {
-            showDealUnit = transaction_text_dealNum + "(" + multiplierCoin + ")"
-        }
+
         if (coUnit == 0) {
             //成交数量
             showDealNumber = item.dealVolume
@@ -185,7 +149,6 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
         var sideStr = item.side
         var typeStr = ""
         var only_reduce_position = context.getString(R.string.cp_extra_text2)//"否"
-        //context.getLineText("cp_overview_text13")
         if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
         } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
@@ -205,10 +168,10 @@ class CpContractPriceEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOr
             helper.setGone(R.id.ll_common, false)
             when (sideStr) {
                 "BUY" -> {
-                    helper?.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_green))
+                    helper.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_green))
                 }
                 "SELL" -> {
-                    helper?.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_red))
+                    helper.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_red))
                 }
                 else -> {
                 }

@@ -7,7 +7,10 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityContractAgent1Binding
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.invite.vm.ContractAgentViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @Author lianshangljl
@@ -47,6 +50,15 @@ class ContractAgentActivity1 : BaseMVActivity<ContractAgentViewModel?, ActivityC
 
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        when (event.msg_type) {
+            MessageEvent.refresh_MyInviteCodesActivity -> {
+                mViewModel?.myInviteCodes()
+            }
+        }
+    }
 
 
 }

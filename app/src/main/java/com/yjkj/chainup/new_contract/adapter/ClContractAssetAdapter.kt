@@ -45,61 +45,7 @@ class ClContractAssetAdapter(context: Context, data: ArrayList<JSONObject>) : Ba
                     ?: "")).toPlainString())
 
 
-//            helper?.setText(R.id.tv_coin_name,  NCoinManager.getShowMarket(it.coin_code))
-//            val contract: Contract? = ContractPublicDataAgent.getContract(it.contract_id)
-//            val dfDefault: DecimalFormat = NumberUtil.getDecimal(NCoinManager.getCoinShowPrecision(it.coin_code))
-//            val freezeVol: Double = MathHelper.round(it.freeze_vol)
-//            val availableVol: Double = MathHelper.round(it.available_vol)
-//
-//            helper?.getView<TextView>(R.id.tv_account_equity_label)?.apply {
-//                text = accountEquity
-//                onClick {
-//                    ContractDialog.showDialog4AccountRights(context)
-//                }
-//            }
-//            helper?.getView<TextView>(R.id.tv_wallet_balance_label)?.text = walletBalance
-//            helper?.getView<TextView>(R.id.tv_margin_balance_label)?.text = marginBalance
-//
-//            var longProfitAmount = 0.0 //多仓位的未实现盈亏
-//            var shortProfitAmount = 0.0 //空仓位的未实现盈亏
-//            var positionMargin = 0.0
-//            val contractPositions: List<ContractPosition>? = ContractUserDataAgent.getCoinPositions(it.coin_code)
-//            if (contractPositions != null && contractPositions.isNotEmpty()) {
-//                for (i in contractPositions.indices){
-//                    val contractPosition = contractPositions[i]
-//                    val positionContract = ContractPublicDataAgent.getContract(contractPosition.instrument_id)
-//                    val contractTicker: ContractTicker? = ContractPublicDataAgent.getContractTicker(contractPosition.instrument_id)
-//                    if (positionContract == null || contractTicker == null) {
-//                        continue
-//                    }
-//                    positionMargin += MathHelper.round(contractPosition.im)
-//                    if (contractPosition.side === 1) { //开多
-//                        longProfitAmount += ContractCalculate.CalculateCloseLongProfitAmount(
-//                                contractPosition.cur_qty,
-//                                contractPosition.avg_cost_px,
-//                                contractTicker.fair_px,
-//                                positionContract.face_value,
-//                                positionContract.isReserve)
-//                    } else if (contractPosition.side === 2) { //开空
-//                        shortProfitAmount += ContractCalculate.CalculateCloseShortProfitAmount(
-//                                contractPosition.cur_qty,
-//                                contractPosition.avg_cost_px,
-//                                contractTicker.fair_px,
-//                                positionContract.face_value,
-//                                positionContract.isReserve)
-//                    }
-//                }
-//            }
-//            val balance = MathHelper.add(freezeVol, availableVol)
-//            val packBalance = MathHelper.add(balance, positionMargin)
-//            var isShowAssets = UserDataService.getInstance().isShowAssets
-//            val index = contract?.value_index?: 6
-            //账户权益 可用资产
-//            Utils.assetsHideShow(isShowAssets, helper?.getView(R.id.tv_normal_balance), dfDefault.format(MathHelper.round(balance + positionMargin + longProfitAmount + shortProfitAmount, index)))
-//            钱包余额
-//            Utils.assetsHideShow(isShowAssets, helper?.getView(R.id.tv_available_value), dfDefault.format(MathHelper.round(packBalance, index)))
-            //总资产
-//            Utils.assetsHideShow(isShowAssets, helper?.getView(R.id.tv_margin_balance_value), dfDefault.format(MathHelper.round(availableVol, index)))
+
             //跳转到币种详情
             helper?.getView<LinearLayout>(R.id.rl_header_layout)?.setOnClickListener {
                 ClCoinDetailActivity.show(context as Activity, item.optString("symbol"))

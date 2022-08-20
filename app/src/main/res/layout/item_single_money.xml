@@ -49,10 +49,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{(item.bean.contractConfig.contractSide==1?`多-`:`空-`)+item.bean.leverageLevel+`X`}"
+                android:text="@{item.side+item.bean.leverageLevel+`X`}"
                 android:layout_marginLeft="5dp"
                 android:textStyle="bold"
-                android:textColor="@{item.bean.contractConfig.contractSide==1?@color/green:@color/red}"
+                android:textColor="@{item.bean.side.equals(`BUY`)?@color/green:@color/red}"
                 android:textSize="13sp" />
 
 

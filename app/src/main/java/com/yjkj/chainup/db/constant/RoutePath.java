@@ -150,7 +150,6 @@ public class RoutePath {
      */
     public static final String NewOTCOrdersActivity = "/order/NewOTCOrdersActivity";
 
-    public static final String NewVersionCodeActivity = "/login/codeVerification";
 
     public static final String LikeEditActivity = "/search/EditActivity";
 

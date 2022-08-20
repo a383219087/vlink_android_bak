@@ -31,7 +31,7 @@ data class CpCurrentOrderBean(
         val memo: Int,
         val volume: String,
         val traderName: String?="",
-        val otoOrder: otoOrder,
+        val otoOrder: otoOrder?,
         var layoutType: Int
 ) : Serializable, MultiItemEntity {
     var isPlan: Boolean = false

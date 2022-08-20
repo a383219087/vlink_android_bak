@@ -33,6 +33,7 @@ class SingleMoneyChildFragment : BaseMVFragment<SingleMoneyViewModel?, FragmentS
 
     override fun initView() {
         mViewModel?.index?.value=arguments?.getInt(ParamConstant.COIN_TYPE)
+        mViewModel?.context?.value=mActivity
          mViewModel?.getList()
 
 

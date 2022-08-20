@@ -925,7 +925,7 @@ Mark Price: This is the current mark price.\nThis indicator shows your position 
 Mark Price: This is the current mark price.</string>
     <string name="risk_show_tips">This indicator shows your position in the auto-deleverage queue. If all lights are lit, in the event of a liquidation, your position may be reduced.</string>
     <string name="dealt_amount">Exec Qty</string>
-    <string name="title_history_trade">Historical trades</string>
+    <string name="title_history_trade">history trades</string>
     <string name="contract_tag">Contract</string>
     <string name="please_enter_margin">Please enter a deposit</string>
     <string name="contract_please_enter_margin">Please enter a deposit</string>
@@ -3452,14 +3452,14 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="activity_documentary_text6">bill income</string>
     <string name="decumentary_detail_text1">detail</string>
     <string name="decumentary_detail_text2">follow:</string>
-    <string name="decumentary_detail_text3">earnings</string>
+    <string name="decumentary_detail_text3">Income</string>
     <string name="decumentary_detail_text4">capital</string>
     <string name="decumentary_detail_text5">position number</string>
     <string name="decumentary_detail_text6">call margin</string>
     <string name="decumentary_detail_text7">operation records</string>
     <string name="decumentary_detail_text8">position valuation</string>
     <string name="decumentary_detail_text9">apply trader</string>
-    <string name="decumentary_detail_text10">earnings today</string>
+    <string name="decumentary_detail_text10">Income today</string>
     <string name="decumentary_detail_text11">launch bill</string>
     <string name="decumentary_detail_text12">My follower</string>
     <string name="decumentary_detail_text13">List of traders</string>
@@ -3470,7 +3470,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text18">Transactions</string>
     <string name="decumentary_detail_text19">Followers</string>
     <string name="decumentary_detail_text20">P/L Ratio 2W</string>
-    <string name="decumentary_detail_text21">comprehensive</string>
+    <string name="decumentary_detail_text21">P/L Ratio Total</string>
     <string name="decumentary_detail_text22">Winning last 2 weeks</string>
     <string name="decumentary_detail_text23">no data</string>
     <string name="decumentary_detail_text24">number of followers</string>
@@ -3478,12 +3478,12 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_detail_text26">P/L Ratio </string>
     <string name="decumentary_mine_text1">History total documentary principal</string>
     <string name="decumentary_mine_text2">current</string>
-    <string name="decumentary_mine_text3">historical</string>
+    <string name="decumentary_mine_text3">history</string>
     <string name="decumentary_mine_text4">traders</string>
     <string name="decumentary_mine_text5">current</string>
     <string name="decumentary_mine_text6">history</string>
     <string name="decumentary_mine_text7">follower</string>
-    <string name="decumentary_mine_text8">earnings yesterday</string>
+    <string name="decumentary_mine_text8">Income yesterday</string>
     <string name="decumentary_mine_text9">Income statistics</string>
     <string name="decumentary_mine_text10">bill amount</string>
     <string name="decumentary_mine_text11">date</string>
@@ -3497,6 +3497,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="decumentary_mine_text19">followers</string>
     <string name="decumentary_mine_text20">follow amount</string>
     <string name="decumentary_mine_text21">success</string>
+    <string name="decumentary_mine_text22">withASingleIncome</string>
 
 
 
@@ -3508,9 +3509,9 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="financial_text6">product</string>
     <string name="financial_text7">hold</string>
     <string name="financial_text8">details</string>
-    <string name="financial_text9">earnings yesterday</string>
-    <string name="financial_text10">earnings total</string>
-    <string name="financial_text11">earnings year</string>
+    <string name="financial_text9">Income yesterday</string>
+    <string name="financial_text10">Income total</string>
+    <string name="financial_text11">Income year</string>
     <string name="financial_text12">all</string>
     <string name="financial_text13">in record</string>
     <string name="financial_text14">detailed</string>
@@ -3523,9 +3524,9 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="financial_text21">redemption</string>
     <string name="financial_text22">automatic deposit</string>
     <string name="financial_text23">total deposit</string>
-    <string name="financial_text24">total earnings</string>
+    <string name="financial_text24">total Income</string>
     <string name="financial_text25">In position</string>
-    <string name="financial_text26">historical position</string>
+    <string name="financial_text26">history position</string>
     <string name="financial_text27">out amount</string>
     <string name="financial_text28">can:</string>
     <string name="financial_text29">edit</string>

@@ -157,7 +157,6 @@
         <activity android:name=".new_version.activity.login.NewSetPasswordActivity" />
         <activity android:name=".new_version.activity.login.NewVersionForgetPwdActivity" />
         <activity android:name=".new_version.activity.login.NewPhoneVerificationActivity" />
-        <activity android:name=".new_version.activity.login_v2.NewCodeVerificationActivity" />
         <activity android:name=".new_version.activity.FindPwd2verifyActivity" />
         <activity android:name=".new_version.activity.WebviewActivity" />
         <activity android:name=".new_version.activity.personalCenter.NewSettingActivity" />

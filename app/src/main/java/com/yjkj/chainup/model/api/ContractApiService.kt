@@ -396,11 +396,6 @@ interface ContractApiService {
     @POST("record/get_transaction_list")
     fun getTransactionList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     *  获取资产详情
-     */
-    @POST("account/account_balance")
-    fun getAccountBalanceByMarginCoin(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      *  获取止盈止损订单列表

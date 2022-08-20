@@ -68,7 +68,7 @@ class ChainUpApp : CpMyApp() {
              * isNewOldContract     true 新版  false 旧版
              */
             val isNewOldContract: Boolean
-            val mContractMode = PublicInfoDataService.getInstance().getContractMode()
+            val mContractMode = PublicInfoDataService.getInstance().contractMode
             isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
 
             AppConstant.IS_NEW_CONTRACT = isNewOldContract

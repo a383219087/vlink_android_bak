@@ -1,6 +1,7 @@
 package com.yjkj.chainup.ui.documentary.vm
 
 
+import android.app.Activity
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +24,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
 class SingleMoneyViewModel : BaseViewModel() {
-
+    var context = MutableLiveData<Activity>()
 
     //0是收益明细1是收益统计
     var index = MutableLiveData(0)
@@ -66,6 +67,7 @@ class SingleMoneyViewModel : BaseViewModel() {
 
     class Item {
         var index = MutableLiveData(0)
+        var side = MutableLiveData("")
         var bean = MutableLiveData<TraderTransactionBean>()
     }
 
@@ -91,6 +93,11 @@ class SingleMoneyViewModel : BaseViewModel() {
                     val item = Item()
                     item.bean.value = it.data.records!![i]
                     item.index.value = index.value
+                    item.side.value=if (it.data.records!![i].side=="BUY"){
+                            context.value?.getString(R.string.contract_text_long)
+                    }else{
+                        context.value?.getString(R.string.contract_text_long)
+                    }
                     items.add(item)
                 }
 

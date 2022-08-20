@@ -140,11 +140,6 @@ class CommonlyUsedButton @JvmOverloads constructor(
         return normalDrawable
     }
 
-    fun setBgColor(color: Int) {
-        bg_color.setBackgroundColor(color)
-        rl_layout.setBackgroundColor(R.drawable.bg_new_provisions)
-    }
-
     fun setContent(content: String) {
         tv_complainCommand_content?.text = content
     }
