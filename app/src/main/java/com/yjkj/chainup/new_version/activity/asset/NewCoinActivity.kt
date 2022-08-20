@@ -109,7 +109,6 @@ class NewCoinActivity : NBaseActivity() {
                     coinList = DataManager.getCoinsFromDB(true)
                 }
                 OTC_CONTRACT -> {
-                    if (AppConstant.IS_NEW_CONTRACT) {
                         val coinJsonStr = PreferenceManager.getInstance(this).getSharedString("contract#bibi#coin", "")
                         val mContractMarginCoinListJsonStr = LogicContractSetting.getContractMarginCoinListStr(this)
                         if (mContractMarginCoinListJsonStr != null && mContractMarginCoinListJsonStr.isNotEmpty()) {
@@ -119,22 +118,7 @@ class NewCoinActivity : NBaseActivity() {
                                 coinList.add(coinBean)
                             }
                         }
-                    } else {
-                        //合约划转选择币种，币种列表 来自合约接口
-                        val coinJsonStr = PreferenceManager.getInstance(this).getSharedString("contract#bibi#coin", "")
-                        val contractAccounts: List<ContractAccount> = ContractUserDataAgent.getContractAccounts().filter { !ContractPublicDataAgent.isVirtualCoin(it.coin_code) }
-                        contractAccounts.forEach { item ->
-                            if (coinJsonStr.isNotEmpty()) {
-                                if (coinJsonStr.contains(item.coin_code)) {
-                                    val coinBean = CoinBean(0, "0", item.coin_code, "", 0, false, 0, 0, "", item.coin_code)
-                                    coinList.add(coinBean)
-                                }
-                            } else {
-                                val coinBean = CoinBean(0, "0", item.coin_code, "", 0, false, 0, 0, "", item.coin_code)
-                                coinList.add(coinBean)
-                            }
-                        }
-                    }
+
                 }
             }
         }

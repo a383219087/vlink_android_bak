@@ -1089,15 +1089,8 @@ class MainModel : BaseDataManager() {
      * 获取总资产首页用
      */
     fun getTotalAsset(consumer: DisposableObserver<ResponseBody>): Disposable? {
-        var isNewOldContract: Boolean
-        val mContractMode = PublicInfoDataService.getInstance().getContractMode()
-        isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
-        AppConstant.IS_NEW_CONTRACT = isNewOldContract
-        return if (AppConstant.IS_NEW_CONTRACT) {
-            changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getContractTotalAccountBalanceV2(getBaseReqBody()), consumer)
-        } else {
-            changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getTotalAsset(getBaseReqBody()), consumer)
-        }
+        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getContractTotalAccountBalanceV2(getBaseReqBody()), consumer)
+
     }
 
     /**

@@ -63,15 +63,7 @@ class ChainUpApp : CpMyApp() {
             setCurrentTheme()
             initAppStatusListener()
 
-            /**
-             * contract_version_settings    0 - 旧版合约   1 - 新版合约
-             * isNewOldContract     true 新版  false 旧版
-             */
-            val isNewOldContract: Boolean
-            val mContractMode = PublicInfoDataService.getInstance().contractMode
-            isNewOldContract = !(mContractMode == 0 || mContractMode == -1)
 
-            AppConstant.IS_NEW_CONTRACT = isNewOldContract
             Debug.stopMethodTracing()
             BoxingMediaLoader.getInstance().init(BoxingGlideLoader()) // 需要实现IBoxingMediaLoader
             BoxingCrop.getInstance().init(BoxingUcrop())

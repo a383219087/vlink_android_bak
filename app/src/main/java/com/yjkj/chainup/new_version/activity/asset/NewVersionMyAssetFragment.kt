@@ -8,8 +8,6 @@ import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
@@ -17,9 +15,7 @@ import com.contract.sdk.impl.ContractAccountListener
 import com.google.android.material.appbar.AppBarLayout
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
-import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.base.NBaseFragment
-import com.yjkj.chainup.contract.fragment.asset.SlContractAssetFragment
 import com.yjkj.chainup.contract.utils.ContractUtils
 import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.onLineText
@@ -33,7 +29,6 @@ import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_contract.fragment.ClContractAssetFragment
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
-import com.yjkj.chainup.new_version.adapter.OTCMyAssetHeatAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
@@ -70,7 +65,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     var contractAssetFragment: ClContractAssetFragment? = null
 
-    var mSlContractAssetFragment: SlContractAssetFragment? = null
 
 
     /**
@@ -198,11 +192,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             setAssetViewVisible()
             for (fragment in fragments) {
                 if (fragment is ClContractAssetFragment) {
-                    if (AppConstant.IS_NEW_CONTRACT) {
                         contractAssetFragment?.setRefreshAdapter()
-                    } else {
-                        mSlContractAssetFragment?.setRefreshAdapter()
-                    }
+
                 } else {
                     (fragment as NewVersionAssetOptimizeDetailFragment).setRefreshAdapter()
                 }
@@ -337,12 +328,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         for (i in 0 until tabTitles.size) {
             if (indexList[i] == ParamConstant.CONTRACT_INDEX) {
                 contractAssetFragment = ClContractAssetFragment()
-                mSlContractAssetFragment = SlContractAssetFragment()
-                if (AppConstant.IS_NEW_CONTRACT) {
                     fragments.add(contractAssetFragment!!)
-                } else {
-                    fragments.add(mSlContractAssetFragment!!)
-                }
+
                 updateContractAccount()
             } else {
                 fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[i], i, indexList[i]))
@@ -576,11 +563,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         //刷新header
         refresh()
         //通知列表刷新
-        if (AppConstant.IS_NEW_CONTRACT) {
             contractAssetFragment?.setRefreshAdapter()
-        } else {
-            mSlContractAssetFragment?.setRefreshAdapter()
-        }
+
     }
 
     /**

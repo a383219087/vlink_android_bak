@@ -77,7 +77,6 @@ public class CashFlowAdapter extends BaseQuickAdapter<CashFlowBean.Finance, Base
                 break;
             case OTHER_INDEX:
 
-                if (AppConstant.Companion.getIS_NEW_CONTRACT()) {
                     //日期
                     helper.setText(R.id.tv_date, DateUtil.INSTANCE.longToString("yyyy-MM-dd HH:mm:ss", item.getCreatedAtTime()));
                     // 划转数量
@@ -90,14 +89,7 @@ public class CashFlowAdapter extends BaseQuickAdapter<CashFlowBean.Finance, Base
                         statusStr = LanguageUtil.getString(getContext(),"contract_assets_record_transfer_to_swap_account");
                     }
                     helper.setText(R.id.tv_status, statusStr);
-                } else {
-                    //日期
-                    helper.setText(R.id.tv_date, item.getTranCreateTime());
-                    // 划转数量
-                    helper.setText(R.id.tv_count, BigDecimalUtils.divForDown(item.getAmount(), NCoinManager.getCoinShowPrecision(item.getCoinSymbol())).toPlainString());
-                    // 状态//'充值状态: 0 未确认，1 已完成，2 异常'
-                    helper.setText(R.id.tv_status, item.getStatusText());
-                }
+
 
 
                 break;

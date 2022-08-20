@@ -141,22 +141,24 @@ class NewVersionTransferActivity : NBaseActivity() {
             }
 
             override fun onclickRightIcon() {
-                if (transferStatus == ParamConstant.TRANSFER_CONTRACT) {
-                    if (AppConstant.IS_NEW_CONTRACT) {
+                when (transferStatus) {
+                    ParamConstant.TRANSFER_CONTRACT -> {
                         if (openContract == 0) {
                             NToastUtil.showTopToastNet(this@NewVersionTransferActivity, false, "未开通合约")
                             return
                         }
+                        WithDrawRecordActivity.enterContractTransfer(this@NewVersionTransferActivity, transferSymbol)
                     }
-                    WithDrawRecordActivity.enterContractTransfer(this@NewVersionTransferActivity, transferSymbol)
-                } else if (transferStatus == ParamConstant.LEVER_INDEX) {
-                    ArouterUtil.navigation(RoutePath.LeverTransferRecordActivity, Bundle().apply {
-                        putString(ParamConstant.symbol, transferCurrency)
-                        putString(ParamConstant.COIN_SYMBOL, transferSymbol)
+                    ParamConstant.LEVER_INDEX -> {
+                        ArouterUtil.navigation(RoutePath.LeverTransferRecordActivity, Bundle().apply {
+                            putString(ParamConstant.symbol, transferCurrency)
+                            putString(ParamConstant.COIN_SYMBOL, transferSymbol)
 
-                    })
-                } else {
-                    WithDrawRecordActivity.enter2(this@NewVersionTransferActivity, transferSymbol, ParamConstant.OTC_TRANSFER_RECORD, TRANSFER)
+                        })
+                    }
+                    else -> {
+                        WithDrawRecordActivity.enter2(this@NewVersionTransferActivity, transferSymbol, ParamConstant.OTC_TRANSFER_RECORD, TRANSFER)
+                    }
                 }
             }
 
@@ -209,7 +211,6 @@ class NewVersionTransferActivity : NBaseActivity() {
     }
 
     private fun doCoinVerifyTips(): Boolean {
-        if (AppConstant.IS_NEW_CONTRACT) {
             var isExist = false;
             val mContractMarginCoinListJsonStr = LogicContractSetting.getContractMarginCoinListStr(this)
             if (mContractMarginCoinListJsonStr != null && mContractMarginCoinListJsonStr.isNotEmpty()) {
@@ -222,22 +223,13 @@ class NewVersionTransferActivity : NBaseActivity() {
                     }
                 }
             }
-            if (openContract == 1 && isExist) {
-                return true
-            } else {
-//                NToastUtil.showTopToastNet(this.NewVersionTransferActivity,false, LanguageUtil.getString(this, "sl_str_transfer_tips"))
-                mContracAmount = "0"
-                return false
-            }
+        return if (openContract == 1 && isExist) {
+            true
         } else {
-            val contractAccount = ContractUserDataAgent.getContractAccount(transferSymbol)
-            if (contractAccount == null) {
-                NToastUtil.showTopToastNet(this, false, LanguageUtil.getString(this, "sl_str_transfer_tips"))
-                beanContract = null
-                return false
-            }
-            return true
+            mContracAmount = "0"
+            false
         }
+
 
     }
 
@@ -256,9 +248,7 @@ class NewVersionTransferActivity : NBaseActivity() {
         } else {
             iv_change_account_arr_down?.visibility = View.INVISIBLE
         }
-        if (AppConstant.IS_NEW_CONTRACT) {
             getBibiCoinList()
-        }
         when (transferStatus) {
             ParamConstant.TRANSFER_BIBI -> {
                 selectTransferPosition = if (PublicInfoDataService.getInstance().isLeverOpen(null)) {
@@ -570,11 +560,8 @@ class NewVersionTransferActivity : NBaseActivity() {
                     amount = if (transferSequence) {
                         bean?.optString("exNormal", "") ?: ""
                     } else {
-                        if (AppConstant.IS_NEW_CONTRACT) {
                             newContractBalance(mContracAmount)
-                        } else {
-                            mContracAmount
-                        }
+
                     }
                     et_number?.setText(BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(amount, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString()))
                 }
@@ -708,7 +695,6 @@ class NewVersionTransferActivity : NBaseActivity() {
                         transferCurrency = ""
                     }
                     fromBorrow = false
-                    if (AppConstant.IS_NEW_CONTRACT) {
                         val mContractMarginCoinListJsonStr = LogicContractSetting.getContractMarginCoinListStr(this@NewVersionTransferActivity)
 
                         val coinJsonStr = PreferenceManager.getInstance(this@NewVersionTransferActivity).getSharedString("contract#bibi#coin", "")
@@ -720,7 +706,6 @@ class NewVersionTransferActivity : NBaseActivity() {
                                 break
                             }
                         }
-                    }
                     setEdittextFilter(NCoinManager.getCoinShowPrecision(transferSymbol))
                     et_symbol?.text = NCoinManager.getShowMarket(transferSymbol)
                     iv_next?.visibility = View.VISIBLE
@@ -787,25 +772,13 @@ class NewVersionTransferActivity : NBaseActivity() {
                 setMoreNumberContent(bean?.optString("exNormal", "") ?: "0")
             } else {
                 //合约
-                if (AppConstant.IS_NEW_CONTRACT) {
                     setMoreNumberContent(mContracAmount)
                     val numberContract = getCouponBalance()
                     if (MathHelper.round(numberContract) > 0) {
                         tv_contract_coupon_tips.visibility = View.VISIBLE
                         tv_contract_coupon_tips.text = "(" + getLineText("contract_tips_noExperience") + " " + numberContract + NCoinManager.getShowMarket(transferSymbol) + ")"
                     }
-                } else {
-                    if (beanContract != null) {
-                        setMoreNumberContent(beanContract?.getCanWithdraw(1.05).toString())
-                        //当划划出账户为合约账户，且当前选择的币种体验金余额不为0时 显示合约增加提示文案
-                        if (PublicInfoDataService.getInstance().contractCouponOpen(null) && MathHelper.round(beanContract!!.bonus_vol) > 0) {
-                            tv_contract_coupon_tips.visibility = View.VISIBLE
-                            tv_contract_coupon_tips.text = "(" + getLineText("contract_tips_noExperience") + " " + BigDecimalUtils.divForDown(beanContract!!.bonus_vol, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString() + beanContract!!.coin_code + ")"
-                        }
-                    } else {
-                        setMoreNumberContent("0")
-                    }
-                }
+
             }
         }
     }
@@ -825,12 +798,9 @@ class NewVersionTransferActivity : NBaseActivity() {
                 }
             }
             ParamConstant.TRANSFER_CONTRACT -> {
-                if (AppConstant.IS_NEW_CONTRACT) {
                     val amount = newContractBalance(balance)
                     tv_max_more_number_content?.text = LanguageUtil.getString(mActivity, "transfer_tip_maxTransfer") + " " + BigDecimalUtils.divForDown(amount, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString() + " " + NCoinManager.getShowMarket(transferSymbol)
-                } else {
-                    tv_max_more_number_content?.text = LanguageUtil.getString(mActivity, "transfer_tip_maxTransfer") + " " + BigDecimalUtils.divForDown(balance, NCoinManager.getCoinShowPrecision(transferSymbol)).toPlainString() + " " + NCoinManager.getShowMarket(transferSymbol)
-                }
+
             }
         }
 
@@ -1110,7 +1080,6 @@ class NewVersionTransferActivity : NBaseActivity() {
         if (!UserDataService.getInstance().isLogined) {
             return
         }
-        if (AppConstant.IS_NEW_CONTRACT) {
             if (!UserDataService.getInstance().isLogined) return
             addDisposable(getContractModel().getUserConfig("0",
                     consumer = object : NDisposableObserver(true) {
@@ -1126,10 +1095,7 @@ class NewVersionTransferActivity : NBaseActivity() {
                         }
                     }))
 
-        } else {
-            beanContract = ContractUserDataAgent.getContractAccount(transferSymbol)
-            initContractAccount()
-        }
+
     }
 
     private fun getPositionAssetsList() {

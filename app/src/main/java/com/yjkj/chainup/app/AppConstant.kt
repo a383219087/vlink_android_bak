@@ -157,9 +157,6 @@ class AppConstant {
 
 
 
-         var IS_NEW_CONTRACT = false
-
-
     }
 
 }
