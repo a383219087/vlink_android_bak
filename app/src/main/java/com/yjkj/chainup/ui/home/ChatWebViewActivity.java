@@ -165,7 +165,6 @@ public class ChatWebViewActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private class MyJavascriptInterface1 {
@@ -205,8 +204,8 @@ public class ChatWebViewActivity extends AppCompatActivity {
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x1111) {
-                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
-                this.runOnUiThread(() ->mwebView.evaluateJavascript("javascript:getQRcodeValue('" +res + "')",s ->mwebView.reload()));
+                String res = data.getStringExtra(CaptureActivity.SCAN_RESULT);
+                this.runOnUiThread(() -> mwebView.evaluateJavascript("javascript:getQRcodeValue('" + res + "')", s -> mwebView.reload()));
 //                if (res!=null&&!res.isEmpty()){
 //                    if (res.startsWith("M")) {
 //                        mwebView.loadUrl(newUrl+res);
@@ -231,6 +230,17 @@ public class ChatWebViewActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mwebView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mwebView.onResume();
+    }
 
     public void loginById(String id, String vip) {
         int randomnum = 0;
