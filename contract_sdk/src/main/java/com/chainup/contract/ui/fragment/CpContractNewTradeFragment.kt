@@ -452,7 +452,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 showTabInfo(obj)
             }
             CpMessageEvent.sl_contract_create_order_event -> {
-                ToastUtils.showShort("发起下单请求")
+//                ToastUtils.showShort("发起下单请求")
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(getContractModel().createOrder(obj,
                         consumer = object : CpNDisposableObserver(mActivity, true) {
@@ -465,7 +465,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             }
                             override fun onResponseFailure(code: Int, msg: String?) {
                                 super.onResponseFailure(code, msg)
-                                ToastUtils.showShort("下单失败")
                                 kycTips(msg.toString());
                             }
                         })
@@ -477,8 +476,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
             CpMessageEvent.sl_contract_req_plan_entrust_list_event -> {
                 getCurrentPlanOrderList()
-            }
-            CpMessageEvent.sl_contract_req_plan_entrust_list_event -> {
                 getPositionAssetsList()
             }
             CpMessageEvent.sl_contract_req_modify_leverage_event -> {
