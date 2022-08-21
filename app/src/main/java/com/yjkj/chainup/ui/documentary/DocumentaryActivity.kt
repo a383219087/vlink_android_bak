@@ -67,6 +67,7 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
                 finish()
             }
             MessageEvent.DocumentaryActivity_index -> {
+                mViewModel?.setIndex(1)
                 mBinding?.vpOrder?.setCurrentItem(1,true)
 
 

@@ -84,7 +84,6 @@ class B2CBankListActivity : NBaseActivity() {
                         jsonObject.optJSONArray("data").run {
                             if (this?.length() != 0) {
                                 this?.run {
-                                    Log.d(TAG, "========bankID:$bankNo=====")
                                     adapter.setSelectedID(bankNo)
                                     val list = JSONUtil.arrayToList(this)
                                     adapter.setList(list)

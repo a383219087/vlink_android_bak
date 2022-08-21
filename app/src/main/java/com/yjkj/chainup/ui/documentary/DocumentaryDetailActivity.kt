@@ -69,7 +69,6 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
             mViewModel?.bean?.value=item
             item?.let { mList.add(it) }
             adapter = CpHoldContractNewAdapter(mList)
-            adapter!!.setMySelf(true)
             adapter!!.setMyTrader(true)
             rv_hold_contract.layoutManager = CpMyLinearLayoutManager(mContext)
             rv_hold_contract.adapter = adapter

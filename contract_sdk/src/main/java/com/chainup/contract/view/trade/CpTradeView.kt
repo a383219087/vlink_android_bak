@@ -1,5 +1,6 @@
 package com.chainup.contract.view.trade
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
@@ -879,8 +880,6 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                                         positionValueBuff
                                 )
                     }
-                    LogUtils.e("canCloseVolumeBuy:" + canCloseVolumeBuy)
-                    LogUtils.e("canCloseVolumeSell:" + canCloseVolumeSell)
                 }
                 positionValue =
                         positionValueBuff.setScale(multiplierPrecision, BigDecimal.ROUND_HALF_DOWN)
@@ -914,6 +913,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         updateAvailableVol()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateAvailableVol() {
         var isOpen = false;
         isOpen = transactionType == CpParamConstant.TYPE_BUY
@@ -1037,8 +1037,9 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionStr(positionAmount, multiplier, multiplierPrecision, unit)
         canBuy=true
         if (isOpen && buyOrSellHelper.orderType == 2) {
+
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
-                    contractSide.equals("1"),
+                contractSide == "1",
                     marginRate,
                     multiplier,
                     positionAmount,
@@ -1050,7 +1051,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
         }
         if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
-                    contractSide.equals("1"),
+                contractSide == "1",
                     marginRate,
                     multiplier,
                     positionAmount,

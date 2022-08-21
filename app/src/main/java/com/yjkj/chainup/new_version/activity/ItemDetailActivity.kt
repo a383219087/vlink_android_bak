@@ -602,16 +602,6 @@ class ItemDetailActivity : NBaseActivity() {
         }
     }
 
-//    private fun showCommonKV(jsonObject: JSONObject) {
-//        var data = jsonObject.optJSONObject("data")
-//        if (null == data || data.length() <= 0)
-//            return
-//
-//        var h5_url = data.optString("h5_url")
-//        if (StringUtil.checkStr(h5_url)) {
-//            showWeb(h5_url.getHelpUrl(web_url))
-//        }
-//    }
 
     private fun showCommonKV(jsonObject: JSONObject) {
         var data = jsonObject.optJSONObject("data")
@@ -720,7 +710,6 @@ class ItemDetailActivity : NBaseActivity() {
 
         @JavascriptInterface
         fun uploadExchange(args: Any, handler: CompletionHandler<String>) {
-            LogUtil.d("uploadExchange", "========")
             try {
                 val jsonObject = JSONObject(args.toString())
                 val routerName = jsonObject.optString("routerName")

@@ -442,7 +442,6 @@ abstract class SlBaseKlineActivity : NBaseActivity() {
      */
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            Log.d(TAG, "========dispatchTouchEvent=======")
             val viewRect = Rect()
             showedView?.getGlobalVisibleRect(viewRect)
 

@@ -364,7 +364,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
                 MessageEvent.symbol_switch_type -> {
                     if (null != it.msg_content) {
                         val nSymbol = it.msg_content as String
-                        Log.d(TAG, "========nSymbol:$nSymbol======")
                         setTagView(NCoinManager.getNameForSymbol(nSymbol))
                         showSymbolSwitchData(nSymbol)
                         setTopBar()
@@ -389,7 +388,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
                 }
                 // 下单通知
                 MessageEvent.CREATE_ORDER_TYPE -> {
-                    Log.d(TAG, "====isCreatedOrder:=========")
                     val isRun = it.msg_content as Boolean
                     if (isRun) {
                         getEachEntrust()
@@ -603,7 +601,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
                 }
 
                 override fun onClose(code: Int, reason: String?, remote: Boolean) {
-                    Log.d(TAG, "=====onClose:$code,$reason,$remote========")
                 }
 
                 override fun onMessage(bytes: ByteBuffer?) {
@@ -718,7 +715,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
         } else if (MessageEvent.CREATE_ORDER_TYPE == event.msg_type) {
             // 下单通知
             val isCreatedOrder = event.msg_content as Boolean
-            Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
             if (isCreatedOrder) {
                 if (event.dataIsNotNull()) {
                     val item = event.dataJson
@@ -788,7 +784,6 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
 
     private fun changeCoinMap(){
         if (null != coinMapData) {
-            Log.d(TAG, "========HERE-----111=======")
             v_horizontal_depth_lever?.coinMapData = coinMapData
             v_vertical_depth_lever?.coinMapData = coinMapData
         }

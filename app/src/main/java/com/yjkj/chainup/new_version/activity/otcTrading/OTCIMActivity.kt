@@ -452,19 +452,15 @@ class OTCIMActivity : NewBaseActivity() {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-                        Log.d("=========", "====onSubscribe====")
                         disposable = d
                         Log.e(TAG, "disposable:${disposable.toString()}")
                     }
 
 
                     override fun onError(e: Throwable) {
-                        Log.d("========", "===onError")
-
                     }
 
                     override fun onComplete() {
-                        Log.d("========", "===onComplete")
 
                     }
                 })

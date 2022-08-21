@@ -210,7 +210,6 @@ class CoinActivity : NewBaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
-                Log.d(TAG, "=========" + (adapter == null) + (adapter.filter == null))
                 adapter.filter?.filter(s)
             }
 

@@ -13,15 +13,10 @@ import com.chainup.contract.utils.CpNumberUtil
 class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_position, data) {
 
-    private var isMySelf=true
 
     private var isTrader=false
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setMySelf(boolean: Boolean){
-        this.isMySelf=boolean
-        notifyDataSetChanged()
-    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun setMyTrader(boolean: Boolean){
         this.isTrader=boolean
@@ -44,7 +39,6 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
 
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
         helper.run {
-            setGone(R.id.ll_button, !isMySelf)
             if (!item.traderName.isNullOrEmpty()){
                 setGone(R.id.tv_tradle_name, false)
                 setText(R.id.tv_tradle_name, "${context.getString(R.string.traders_apply_text9)}：${item.traderName}")

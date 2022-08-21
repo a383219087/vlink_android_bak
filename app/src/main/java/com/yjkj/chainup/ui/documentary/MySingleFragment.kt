@@ -8,6 +8,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
 import com.yjkj.chainup.databinding.FragmentSingleBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.ui.documentary.vm.SingleViewModel
 import com.yjkj.chainup.util.FmPagerAdapter
@@ -64,6 +65,14 @@ class MySingleFragment : BaseMVFragment<SingleViewModel?, FragmentSingleBinding?
             MessageEvent.refresh_MyInviteCodesActivity -> {
                 mViewModel?.getDetail()
             }
+            MessageEvent.DocumentaryActivity_index -> {
+               mViewModel?.setIndex(2)
+                mBinding?.viewPager?.setCurrentItem(2,true)
+
+
+            }
+
         }
     }
 }
+

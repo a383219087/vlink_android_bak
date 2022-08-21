@@ -108,12 +108,9 @@ class ChainUpApp : CpMyApp() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        Log.d(TAG, "==========onConfigurationChanged==========")
         LocalManageUtil.setApplicationLanguage(applicationContext)
         CpLocalManageUtil.setApplicationLanguage(applicationContext)
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d(TAG, "========现在横屏===")
-        }
+
         val isZhEnv = SystemUtils.isZh()
         //通知合约SDK语言环境
         ContractSDKAgent.isZhEnv = isZhEnv
@@ -138,14 +135,12 @@ class ChainUpApp : CpMyApp() {
     var isBackgroud = false
     private fun getAppStateChangeListener() = object : AppStateChangeListener {
         override fun appTurnIntoBackGround() {
-            Log.d(TAG, "========appTurnIntoBackGround===")
             isBackgroud = true
             WsAgentManager.instance.isBackgroud = true
             restart()
         }
 
         override fun appTurnIntoForeground() {
-            Log.d(TAG, "========appTurnIntoForeground===")
             isBackgroud = true
             WsAgentManager.instance.isBackgroud = false
             if (!SPUtils.getInstance().getBoolean("SplashActivityIsFirst",true)){
@@ -206,31 +201,25 @@ class ChainUpApp : CpMyApp() {
     }
 
     override fun onActivityPaused(p0: Activity) {
-        Log.d(TAG, "========onActivityPaused===")
     }
 
     override fun onActivityStarted(p0: Activity) {
-        Log.d(TAG, "========onActivityStarted===")
 
         if (appCount == 0) {
             currentState = STATE_FOREGROUND
             appStateChangeListener?.appTurnIntoForeground()
         }
         appCount++
-        Log.d(TAG, "========onActivityStarted=== ${appCount}")
     }
 
     override fun onActivityDestroyed(p0: Activity) {
-        Log.d(TAG, "========onActivityDestroyed===")
     }
 
     override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
-        Log.d(TAG, "========onActivitySaveInstanceState===")
     }
 
     override fun onActivityStopped(p0: Activity) {
         appCount--
-        Log.d(TAG, "========onActivityStopped=== ${appCount}")
         if (appCount == 0) {
             currentState = STATE_BACKGROUND
             appStateChangeListener?.appTurnIntoBackGround()
@@ -238,11 +227,9 @@ class ChainUpApp : CpMyApp() {
     }
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-        Log.d(TAG, "========onActivityCreated===")
     }
 
     override fun onActivityResumed(p0: Activity) {
-        Log.d(TAG, "========onActivityResumed===")
     }
 
 }

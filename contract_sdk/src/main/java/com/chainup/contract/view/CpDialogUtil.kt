@@ -209,19 +209,19 @@ class CpDialogUtil {
             cvcEasyPopup?.run {
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
                 var list = ArrayList<CpTabInfo>()
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text3).toString(), 1))
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text4).toString(), 2))
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text5).toString(), 3))
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text511).toString(), 4))
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text521).toString(), 5))
-                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text531).toString(), 6))
+                list.add(CpTabInfo(context?.getString(R.string.cp_overview_text3)!!, 1))
+                list.add(CpTabInfo(context.getString(R.string.cp_overview_text4), 2))
+                list.add(CpTabInfo(context.getString(R.string.cp_overview_text5), 3))
+                list.add(CpTabInfo(context.getString(R.string.cp_overview_text511), 4))
+                list.add(CpTabInfo(context.getString(R.string.cp_overview_text521), 5))
+                list.add(CpTabInfo(context.getString(R.string.cp_overview_text531), 6))
                 var adapter = CpPopAdapter(list, index)
                 rView?.layoutManager = LinearLayoutManager(context)
                 rView?.adapter = adapter
                 rView?.setHasFixedSize(true)
                 adapter.setOnItemClickListener { adapter, view, position ->
                     dialogItemClickListener?.clickItem(list[position].index, list[position].name)
-                    cvcEasyPopup?.dismiss()
+                    cvcEasyPopup.dismiss()
                 }
 
             }

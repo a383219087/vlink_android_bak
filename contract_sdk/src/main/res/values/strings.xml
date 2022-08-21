@@ -3735,6 +3735,10 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_extra_text1043">The can close volume must be greater than quantity</string>
     <string name="cp_extra_text1044">The average opening price must be greater than SL trigger price</string>
     <string name="cp_extra_text1045">The average opening price must be greater than SL order price</string>
+    <string name="cp_extra_text1046">The average opening price must be greater than the TP trigger price</string>
+    <string name="cp_extra_text1047">The average opening price must be greater than the TP order price</string>
+    <string name="cp_extra_text1048">The SL trigger price must be greater than average opening price</string>
+    <string name="cp_extra_text1049">The SL order price must be greater than average opening price</string>
     <string name="cp_extra_text105">Please enter the TP order price</string>
     <string name="cp_extra_text106">Please enter the quantity</string>
     <string name="cp_extra_text107">Submit</string>

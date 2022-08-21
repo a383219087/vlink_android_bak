@@ -433,7 +433,6 @@ class B2CRechargeActivity : NBaseActivity() {
         addDisposable(getMainModel().uploadImg(imgBase64 = imageBase,
                 consumer = object : NDisposableObserver(mActivity) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
-                        Log.d(TAG,"======老接口上传照片:${jsonObject}=========");
                         val fileName = jsonObject.optJSONObject("data")?.optString("filename") ?: ""
                         if (jsonObject.has("filenameStr")) {
                             val fileNameStr = jsonObject.getString("filenameStr")

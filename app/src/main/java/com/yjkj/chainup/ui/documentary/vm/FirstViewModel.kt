@@ -139,11 +139,7 @@ class FirstViewModel : BaseViewModel() {
 
     fun getData() {
         if (status.value == 1) {
-//            startTask(contractApiService.getAssetsTotal(), Consumer {
-//                bean.value = it.data
-//                cnyString.value = BigDecimalUtils.divForDown(it.data.allAmount.toString(), RateManager.getRatesByPayCoin( otcDefaultPaycoin.value)).toPlainString()
-//
-//            })
+
         }else{
             startTask(contractApiService.statistics(), Consumer {
                 bean.value = it.data

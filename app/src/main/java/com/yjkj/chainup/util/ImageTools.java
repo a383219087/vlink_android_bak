@@ -599,7 +599,6 @@ public class ImageTools {
 
             Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
-            Log.d("XXXXXX", "=======URI:==========" + uri);
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
             return uri;
         } catch (IOException e) {

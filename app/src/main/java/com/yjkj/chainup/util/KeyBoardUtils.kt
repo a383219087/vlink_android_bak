@@ -19,7 +19,6 @@ object KeyBoardUtils {
     fun closeKeyBoard(context: Context) {
         // 关闭键盘
         val inputManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        Log.d("=isActive=", "=======${inputManager?.isActive}===========")
         inputManager.hideSoftInputFromWindow((context as Activity)?.window?.decorView?.windowToken, 0)
     }
 

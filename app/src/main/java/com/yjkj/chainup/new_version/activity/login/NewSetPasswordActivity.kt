@@ -449,18 +449,15 @@ class NewSetPasswordActivity : NBaseActivity() {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-                        Log.d("=========", "====onSubscribe====")
                         disposable = d
                     }
 
 
                     override fun onError(e: Throwable) {
-                        Log.d("========", "===onError")
 
                     }
 
                     override fun onComplete() {
-                        Log.d("========", "===onComplete")
 
                     }
                 })

@@ -803,64 +803,6 @@ public class Utils {
         return inSampleSize;
     }
 
-    public static String[] getLeftTimeFormatedStrings(long leftTime) {
-        String days = "00";
-        String hours = "00";
-        String minutes = "00";
-        String seconds = "00";
-        String millisSeconds = "000";
-
-        if (leftTime > 0) {
-            //毫秒
-            long millisValue = leftTime % 1000;
-            if (millisValue > 100) {
-                millisSeconds = String.valueOf(
-                        millisValue);
-            } else if (millisValue >= 10 && millisValue < 100) {
-                millisSeconds = "0" + millisValue;
-            } else {
-                millisSeconds = "00" + millisValue;
-            }
-
-            //实际多少秒
-            long trueSeconds = leftTime / 1000;
-            //当前的秒
-            long secondValue = trueSeconds % 60;
-            if (secondValue < 10) {
-                seconds = "0" + secondValue;
-            } else {
-                seconds = String.valueOf(secondValue);
-            }
-
-            //当前的分
-            long trueMinutes = trueSeconds / 60;
-            long minuteValue = trueMinutes % 60;
-            if (minuteValue < 10) {
-                minutes = "0" + minuteValue;
-            } else {
-                minutes = String.valueOf(minuteValue);
-            }
-
-
-            //当前的小时数
-            long trueHours = trueMinutes / 60;
-            long hourValue = trueHours % 24;
-            if (hourValue < 10) {
-                hours = "0" + hourValue;
-            } else {
-                hours = String.valueOf(hourValue);
-            }
-
-            //当前的天数
-            long dayValue = trueHours / 24;
-            if (dayValue < 10) {
-                days = "0" + dayValue;
-            } else {
-                days = String.valueOf(dayValue);
-            }
-        }
-        return new String[]{days, hours, minutes, seconds, millisSeconds};
-    }
 
 
 
@@ -891,51 +833,7 @@ public class Utils {
         return null;
     }
 
-    public static String getAPIInsideString(String str) {
-        if (str.indexOf(".") < 0) {
-            return "";
-        }
-        if (str.lastIndexOf("/") < 0) {
-            return "";
-        }
-        if (str.contains("/hongbaoapi")) {
-            return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/hongbaoapi"));
-        } else if (str.contains("/kline-api")) {
-            return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/kline-api"));
-        } else if (str.contains("/otc-chat")) {
-            return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/otc-chat"));
-        } else if (str.contains("/wsswap/realTime")) {
-            return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/wsswap/realTime"));
-        } else if (str.contains("/contract-kline-api/ws")) {
-            return str.substring(str.indexOf(".") + ".".length(), str.indexOf("/contract-kline-api/ws"));
-        } else if (StringUtil.isDoMainIPUrl(URI.create(str).getHost())) {
-            return URI.create(str).getHost();
-        } else {
-            return str.substring(str.indexOf(".") + ".".length(), str.lastIndexOf("/"));
-        }
-    }
 
-    public static String getAPIHostInsideString(String str) {
-        if (str.indexOf("//") < 0) {
-            return "";
-        }
-        if (str.lastIndexOf("/") < 0) {
-            return "";
-        }
-        if (str.contains("/hongbaoapi")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/hongbaoapi"));
-        } else if (str.contains("/kline-api")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/kline-api"));
-        } else if (str.contains("/otc-chat")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/otc-chat"));
-        } else if (str.contains("/wsswap/realTime")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/wsswap/realTime"));
-        } else if (str.contains("/contract-kline-api/ws")) {
-            return str.substring(str.indexOf("//") + "//".length(), str.indexOf("/contract-kline-api/ws"));
-        } else {
-            return str.substring(str.indexOf("//") + "//".length(), str.lastIndexOf("/"));
-        }
-    }
 
 
     public static InputStream read_user(String filename) throws Exception {
@@ -954,25 +852,11 @@ public class Utils {
         return is;
     }
 
-    public static String returnSpeedUrl(String url, String mainUrl) {
-        String domain = getAPIInsideString(mainUrl);
-        return returnReplaceUrl(mainUrl, domain, url);
-    }
-
     public static String returnSpeedUrlV2(String url, String mainUrl) {
         String domain = getAPIInsideStringIP(mainUrl, url);
         return domain;
     }
 
-    public static int isLetterDigit(String temp) {
-        int isDigit = 0;
-        for (int i = 0; i < temp.length(); i++) {
-            if (Character.isDigit(temp.charAt(i))) {   //用char包装类中的判断数字的方法判断每一个字符
-                isDigit += 1;
-            }
-        }
-        return isDigit;
-    }
 
 
     public static String returnAPIUrl(String url, boolean isApi,String type) {
@@ -1013,36 +897,7 @@ public class Utils {
 
         return  url;
 
-//        if (isLetterDigit(url) < 4) {
-//            return url;
-//        }
-//        String domain = getAPIInsideString(url);
-//        String apiHost = getAPIHostInsideString(url);
-//        String domainUrl = netUrl(isApi);
-//        Log.e("jinlong", "text：" + apiHost + " domain " + domain + " domainUrl " + domainUrl);
-//            if (TextUtils.isEmpty(domainUrl)) {
-//                if (isApi) {
-//                    PublicInfoDataService.getInstance().saveNewWorkURL(apiHost);
-//                    Log.e("我是改变地址3", "serverUrl："+apiHost);
-//                } else {
-//                    PublicInfoDataService.getInstance().saveNewWorkWSURL(domain);
-//                }
-//                Log.e("我是改变地址3", "url："+url);
-//                return url;
-//            } else {
-//                Log.e("我是改变地址3", "url："+returnSpeedUrlV2(domainUrl, url));
-//
-//                return returnSpeedUrlV2(domainUrl, url);
-//            }
 
-    }
-
-
-    public static String returnReplaceUrl(String normalUrl, String domain, String replaceUrl) {
-        String url = normalUrl;
-
-        url = normalUrl.replace(domain, replaceUrl);
-        return url;
     }
 
 
@@ -1075,31 +930,6 @@ public class Utils {
         return false;
     }
 
-    public static String getJSONLink(String companyID) throws Exception {
-        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
-        String path = "https://saas-oss.oss-cn-hongkong.aliyuncs.com/domain/";
-        if (companyID != null && !companyID.equals("")) {
-            path = path + "update" + "_" + companyID + ".json";
-        } else {
-            path = "https://chainup.oss-accelerate.aliyuncs.com/updateV3.json";
-        }
-        HttpsURLConnection conn = (HttpsURLConnection) new URL(path).openConnection();
-        if (BuildConfig.DEBUG) {
-            conn.setSSLSocketFactory(sslParams.sSLSocketFactory);
-        }
-        conn.setConnectTimeout(5000);
-        conn.setRequestMethod("GET");
-        if (conn.getResponseCode() == 200) {
-            try {
-                InputStream json = conn.getInputStream();
-                String str = getStringFromInputStream(json);
-                return str;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
     public static String getAPIInsideStringIP(String str, String newUrl) {
         if (str.indexOf(".") < 0) {

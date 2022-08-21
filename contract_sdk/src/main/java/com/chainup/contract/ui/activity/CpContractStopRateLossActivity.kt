@@ -101,10 +101,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
         var orderSideStr=""
         if (mContractPositionBean?.orderSide.equals("BUY")) {
             orderSideStr="多"
-            tv_type.setText(getString(R.string.cp_order_text6))
+            tv_type.text = getString(R.string.cp_order_text6)
         }else{
             orderSideStr="空"
-            tv_type.setText(getString(R.string.cp_order_text15))
+            tv_type.text = getString(R.string.cp_order_text15)
         }
 
         var mPositionVolumeStr = if (CpClLogicContractSetting.getContractUint(CpMyApp.instance()) == 0) {
@@ -390,24 +390,41 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                     var et_stop_profit_position_str = et_stop_profit_position.text.toString()
                     //开仓均价
                     val  openAvgPrice =tv_open_price_value.text.toString().toDouble()
+
                     if (TextUtils.isEmpty(et_stop_profit_trigger_price_str)) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text104))
-                        return
-                    }
-                    //止盈触发价必须大于开仓均价
-                    if (et_stop_profit_trigger_price_str.toDouble()<openAvgPrice) {
-                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1041))
                         return
                     }
                     if (TextUtils.isEmpty(et_stop_profit_price_str) && isLimit) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text105))
                         return
                     }
-                    //止盈委托价必须大于开仓均价
-                    if (isLimit && et_stop_profit_price_str.toDouble()<openAvgPrice ) {
-                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1042))
-                        return
+
+
+                    if (mContractPositionBean?.orderSide.equals("BUY")) {
+                        //止盈触发价必须大于开仓均价
+                        if (et_stop_profit_trigger_price_str.toDouble()<openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1041))
+                            return
+                        }
+                        //止盈委托价必须大于开仓均价
+                        if (isLimit && et_stop_profit_price_str.toDouble()<openAvgPrice ) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1042))
+                            return
+                        }
+                    }else{
+                        //止盈触发价必须小于开仓均价
+                        if (et_stop_profit_trigger_price_str.toDouble()>openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1046))
+                            return
+                        }
+                        //止盈委托价必须小于开仓均价
+                        if (isLimit && et_stop_profit_price_str.toDouble()>openAvgPrice ) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1047))
+                            return
+                        }
                     }
+
                     if (TextUtils.isEmpty(et_stop_profit_position_str)) {
                         CpNToastUtil.showTopToastNet(
                             this@CpContractStopRateLossActivity,
@@ -447,24 +464,41 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text101))
                         return
                     }
-                    //止损触发价必须小于开仓均价
-                    if (et_stop_loss_trigger_price_str.toDouble()>openAvgPrice) {
-                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1044))
-                        return
-                    }
+
                     if (TextUtils.isEmpty(et_stop_loss_price_str) && isLimit) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text102))
                         return
                     }
-                    //止损触发价必须小于开仓均价
-                    if (isLimit&& et_stop_loss_price_str.toDouble()>openAvgPrice) {
-                        CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1045))
-                        return
-                    }
+
                     if (TextUtils.isEmpty(et_stop_loss_position_str)) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text103))
                         return
                     }
+
+                    if (mContractPositionBean?.orderSide.equals("BUY")) {
+                        //止损触发价必须小于开仓均价
+                        if (et_stop_loss_trigger_price_str.toDouble()>openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1044))
+                            return
+                        }
+                        //止损触发价必须小于开仓均价
+                        if (isLimit&& et_stop_loss_price_str.toDouble()>openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1045))
+                            return
+                        }
+                    }else{
+                        //止损触发价必须大于开仓均价
+                        if (et_stop_loss_trigger_price_str.toDouble()<openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1044))
+                            return
+                        }
+                        //止损触发价必须大于开仓均价
+                        if (isLimit&& et_stop_loss_price_str.toDouble()<openAvgPrice) {
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1045))
+                            return
+                        }
+                    }
+
                     //交易量必须小于可平仓位
                     if (et_stop_loss_position_str.toDouble()>mCanCloseVolumeStr.toDouble()) {
                         CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1043))
@@ -527,7 +561,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
             }
         })
 
-        for (buff in 0 until rg_trade?.childCount?.toInt()!!){
+        for (buff in 0 until rg_trade?.childCount!!){
             rg_trade.getChildAt(buff).setOnClickListener {
                 rg_trade.check(it.id)
                 et_stop_profit_position.clearFocus()
@@ -549,35 +583,14 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
             }
         }
 
-        et_stop_profit_position.setOnFocusChangeListener(object :View.OnFocusChangeListener{
+        et_stop_profit_position.onFocusChangeListener = object :View.OnFocusChangeListener{
             override fun onFocusChange(p0: View?, p1: Boolean) {
                 if (p1){
                     rg_trade.clearCheck()
                 }
             }
-        })
-//        sv_trade.setOnSelectionChangedListener(object : CpUISegmentedView.OnSelectionChangedListener {
-//            override fun onSelectionChanged(position: Int, value: String?) {
-//
-//            }
-//
-//            override fun onSelectionChanged(position: Int) {
-//                when (position) {
-//                    0 -> {
-//                        isLimit = false
-//                    }
-//                    1 -> {
-//                        isLimit = true
-//                    }
-//                }
-//                ll_stop_profit_price.visibility = if (isLimit) View.VISIBLE else View.GONE
-//                ll_stop_loss_price.visibility = if (isLimit) View.VISIBLE else View.GONE
-//                et_stop_profit_trigger_price.setText("")
-//                et_stop_profit_price.setText("")
-//                et_stop_loss_trigger_price.setText("")
-//                et_stop_loss_price.setText("")
-//            }
-//        })
+        }
+
 
         getTakeProfitStopLoss()
     }
@@ -593,28 +606,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                                 )
                         )
                         finish()
-//                        val errorMsg = StringBuffer()
-//                        jsonObject.optJSONObject("data").run {
-//                            val respList = optJSONArray("respList")
-//                            for (i in 0..(respList.length() - 1)) {
-//                                var obj: JSONObject = respList.get(i) as JSONObject
-//                                val code = obj.optString("code")
-//                                val msg = obj.optString("msg")
-//                                if (!code.equals("0")) {
-//                                    errorMsg.append(msg)
-//                                }
-//                            }
-//                        }
-//                        if (!TextUtils.isEmpty(errorMsg)) {
-//                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false, errorMsg.toString())
-//                        } else {
-//                            finish()
-//                            CpEventBusUtil.post(
-//                                    CpMessageEvent(
-//                                            CpMessageEvent.sl_contract_modify_position_margin_event
-//                                    )
-//                            )
-//                        }
+
                     }
                 }))
     }
@@ -629,10 +621,6 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                         jsonObject.optJSONObject("data").run {
                             mTakeProfitList = optJSONArray("takeProfitList")
                             mStopLossList = optJSONArray("stopLossList")
-//                            btn_cancel_stop_profit.visibility = if (mTakeProfitList.length() == 0) View.GONE else View.VISIBLE
-//                            btn_cancel_stop_loss.visibility = if (mStopLossList.length() == 0) View.GONE else View.VISIBLE
-//                            btn_cancel_stop_profit.setText(getString(R.string.cl_stoporder_text2) + "：" + mTakeProfitList.length())
-//                            btn_cancel_stop_loss.setText(getString(R.string.cl_stoporder_text8) + "：" + mStopLossList.length())
                         }
                     }
                 }))

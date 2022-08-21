@@ -164,7 +164,6 @@ class DownSettingView @JvmOverloads constructor(context: Context,
         et_pwd?.hint = hintText
 
         et_pwd?.setTextColor(textContentColor)
-        Log.d(TAG, "==========textContentSize:$textContentSize=========")
         et_pwd?.paint?.textSize = textContentSize
 
         et_pwd?.inputType = inputType

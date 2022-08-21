@@ -824,7 +824,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         sdv_bill_top_up?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }
@@ -868,7 +867,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         otc_my_order?.sdv_otc_order?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }
@@ -1063,7 +1061,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         otc_fund_pwd?.sdv_fund?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }
@@ -1218,7 +1215,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         contract_transfer_time_layout?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }
@@ -1229,7 +1225,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
     fun initPosRecord() {
         my_pos_record?.sdv_asset_top_up_pos?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }
@@ -1451,7 +1446,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         otc_transfer?.sdv_transfer?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }

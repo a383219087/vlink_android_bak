@@ -72,7 +72,6 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
 
         adapter = CpHoldContractNewAdapter(mList)
-        adapter!!.setMySelf(mViewModel?.uid?.value.isNullOrEmpty())
         adapter!!.setMyTrader(true)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter

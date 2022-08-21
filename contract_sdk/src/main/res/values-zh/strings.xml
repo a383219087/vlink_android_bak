@@ -3735,6 +3735,10 @@
     <string name="cp_extra_text1043">止盈止损数量不可大于可平仓位</string>
     <string name="cp_extra_text1044">止损触发价必须小于开仓均价</string>
     <string name="cp_extra_text1045">止损委托价必须小于开仓均价</string>
+    <string name="cp_extra_text1046">止盈触发价必须小于开仓均价</string>
+    <string name="cp_extra_text1047">止盈委托价必须小于开仓均价</string>
+    <string name="cp_extra_text1048">止损触发价必须大于开仓均价</string>
+    <string name="cp_extra_text1049">止损委托价必须大于开仓均价</string>
     <string name="cp_extra_text105">请输入止盈委托价</string>
     <string name="cp_extra_text106">请输入止盈止损数量</string>
     <string name="cp_extra_text107">确认并提交</string>
