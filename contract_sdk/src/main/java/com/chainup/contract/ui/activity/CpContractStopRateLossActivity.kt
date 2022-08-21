@@ -269,7 +269,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         btn_cancel_stop_profit.setSafeListener {
             var buff = StringBuffer()
-            for (i in 0..(mTakeProfitList.length() - 1)) {
+            for (i in 0 until mTakeProfitList.length()) {
                 var obj: JSONObject = mTakeProfitList.get(i) as JSONObject
                 buff.append(obj.optString("id"))
                 buff.append(",")
@@ -613,6 +613,8 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
     /**
      * 获取止盈止损列表
+     * triggerPrice -> {Double@11600} 34.0
+     * contractId -> {Integer@11606} 10
      */
     private fun getTakeProfitStopLoss() {
         addDisposable(getContractModel().getTakeProfitStopLoss(mContractPositionBean?.contractId!!.toString(), mContractPositionBean?.orderSide.toString(),
@@ -621,6 +623,29 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                         jsonObject.optJSONObject("data").run {
                             mTakeProfitList = optJSONArray("takeProfitList")
                             mStopLossList = optJSONArray("stopLossList")
+                            if (mTakeProfitList.length()>0){
+                                for (i in 0 until mTakeProfitList.length()) {
+                                    val obj: JSONObject = mTakeProfitList.get(i) as JSONObject
+                                   if (obj.optString("contractId")==mContractPositionBean?.contractId.toString()){
+                                       et_stop_profit_trigger_price.setText(obj.optString("triggerPrice"))
+                                       et_stop_profit_price.setText(obj.optString("triggerPrice"))
+                                   }
+
+                                }
+                            }
+                            if (mStopLossList.length()>0){
+                                for (i in 0 until mStopLossList.length()) {
+                                    val obj: JSONObject = mStopLossList.get(i) as JSONObject
+                                   if (obj.optString("contractId")==mContractPositionBean?.contractId.toString()){
+                                       et_stop_loss_trigger_price.setText(obj.optString("triggerPrice"))
+                                       et_stop_loss_price.setText(obj.optString("triggerPrice"))
+                                   }
+
+                                }
+                            }
+
+
+
                         }
                     }
                 }))

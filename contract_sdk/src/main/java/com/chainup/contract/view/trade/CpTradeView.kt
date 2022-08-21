@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
@@ -727,6 +728,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     showTag,
                     object : CpNewDialogUtils.DialogBottomListener {
                         override fun sendConfirm() {
+
                             val event = CpMessageEvent(CpMessageEvent.sl_contract_create_order_event)
                             event.msg_content = mCpCreateOrderBean
                             CpEventBusUtil.post(event)
@@ -985,19 +987,7 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     sellPrice = price
                 }
                 if (isOpen && isPercentPlaceOrder) {
-//                    if (mContractUint == 0) {
-//                        if (contractSide.equals("1")) {
-//                            positionAmount = BigDecimal(positionAmount).multiply(BigDecimal(price)).multiply(BigDecimal(multiplier)).toPlainString()
-//                        } else {
-//                            positionAmount = BigDecimal(positionAmount).multiply(BigDecimal(multiplier)).divide(BigDecimal(multiplier), symbolPricePrecision, BigDecimal.ROUND_DOWN).toPlainString()
-//                        }
-//                    } else {
-//                        if (contractSide.equals("1")) {
-//                            positionAmount = CpBigDecimalUtils.mulStr(positionAmount, price, symbolPricePrecision)
-//                        } else {
-//                            positionAmount = CpBigDecimalUtils.divStr(positionAmount, price, symbolPricePrecision)
-//                        }
-//                    }
+
                     var buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
                     positionAmount=CpBigDecimalUtils.mulStr(buff,level.toString(),multiplierPrecision)
                     buyPositionAmount = positionAmount
@@ -1013,19 +1003,6 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     sellPrice = price
                 }
                 if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-//                    if (mContractUint == 0) {
-//                        if (contractSide.equals("1")) {
-//                            positionAmount = BigDecimal(positionAmount).multiply(BigDecimal(price)).multiply(BigDecimal(multiplier)).toPlainString()
-//                        } else {
-//                            positionAmount = BigDecimal(positionAmount).multiply(BigDecimal(multiplier)).divide(BigDecimal(multiplier), symbolPricePrecision, BigDecimal.ROUND_DOWN).toPlainString()
-//                        }
-//                    } else {
-//                        if (contractSide.equals("1")) {
-//                            positionAmount = CpBigDecimalUtils.mulStr(positionAmount, price, symbolPricePrecision)
-//                        } else {
-//                            positionAmount = CpBigDecimalUtils.divStr(positionAmount, price, symbolPricePrecision)
-//                        }
-//                    }
                     var buff =CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
                     positionAmount=CpBigDecimalUtils.mulStr(buff,level.toString(),multiplierPrecision)
                     buyPositionAmount = positionAmount
@@ -1047,7 +1024,14 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     multiplierPrecision,
                     unit
             )
-            canBuy=true
+            canBuy=CpBigDecimalUtils.canPositionMarketBoolean(
+                contractSide == "1",
+                marginRate,
+                multiplier,
+                positionAmount,
+                price,
+                multiplierPrecision
+            )
         }
         if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
@@ -1059,7 +1043,14 @@ class CpTradeView @JvmOverloads constructor(context: Context,
                     multiplierPrecision,
                     unit
             )
-            canBuy=true
+            canBuy=CpBigDecimalUtils.canPositionMarketBoolean(
+                contractSide == "1",
+                marginRate,
+                multiplier,
+                positionAmount,
+                price,
+                multiplierPrecision
+            )
         }
 
         //通过保证金计算的可开数

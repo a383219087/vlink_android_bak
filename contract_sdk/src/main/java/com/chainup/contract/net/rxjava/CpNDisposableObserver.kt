@@ -89,17 +89,22 @@ abstract class CpNDisposableObserver : DisposableObserver<ResponseBody> {
     override fun onError(e: Throwable) {
         closeLoadingDialog()
 
-        if (e is HttpException) {
-            val code = e.code()
-            val message = e.message
-            onResponseFailure(code, message)
-        } else if (e is SocketTimeoutException) {
-            onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text10))
-        } else if (e is IOException) {
-            onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text11))
-        } else {
-            //server Error
-            onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text12))
+        when (e) {
+            is HttpException -> {
+                val code = e.code()
+                val message = e.message
+                onResponseFailure(code, message)
+            }
+            is SocketTimeoutException -> {
+                onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text10))
+            }
+            is IOException -> {
+                onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text11))
+            }
+            else -> {
+                //server Error
+                onResponseFailure(net_errorCode, CpContextUtil.getString(R.string.cp_extra_text12))
+            }
         }
     }
 

@@ -895,6 +895,46 @@ public class CpBigDecimalUtils {
             return buff.divide(parValueBig, 0, BigDecimal.ROUND_HALF_DOWN).toPlainString() + " " + unit;
         }
     }
+    /**
+     * 计算市价单/条件市价单的数据展示
+     *
+     * @param openValue  开仓价值
+     * @param price      本交易所最新价格
+     * @param scale      精度
+     * @param isForward  是否输入正向合约
+     * @param marginRate 保证金汇率
+     * @return判断是否大于1张
+     */
+    public static Boolean canPositionMarketBoolean(boolean isForward, String marginRate, String parValue, String openValue, String price, int scale) {
+
+        if (TextUtils.isEmpty(openValue)) {
+            return false;
+        }
+        if (TextUtils.isEmpty(price)) {
+            return false;
+        }
+        /**
+         * 正向合约
+         * ≈ 开仓价值 / 本交易所最新价格 {币}
+         * ≈ 开仓价值 / 本交易所最新价格 / 面值 {张}
+         *
+         * 反向合约
+         * ≈ 开仓价值 * 本交易所最新价格  {币}
+         * ≈ 开仓价值 * 本交易所最新价格 / 面值 {张}
+         */
+        BigDecimal openValueBig = new BigDecimal(openValue);
+        BigDecimal priceBig = new BigDecimal(price);
+
+        BigDecimal buff;
+        if (isForward) {
+            buff = openValueBig.divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN);
+        } else {
+            buff = openValueBig.multiply(priceBig);
+        }
+
+        return buff.intValue()>=1;
+
+    }
 
     /**
      * 计算中位数
