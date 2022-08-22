@@ -91,10 +91,6 @@ class CpContractBuyOrSellHelper {
      */
     var rivalPriceType: Int = 0
 
-    /**
-     * 买一价卖一价
-     */
-    var priceDisplay: String = ""
 
     /**
      * 输入数量
@@ -106,15 +102,6 @@ class CpContractBuyOrSellHelper {
      */
     var etPosition: String? = null
 
-    /**
-     * 是否显示止盈止损
-     */
-    var showRateAndLoss: Boolean = false
-
-    /**
-     * tagPrice
-     */
-    var tagPrice = "0.00"
 
 
 }

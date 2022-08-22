@@ -489,12 +489,12 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                     }else{
                         //止损触发价必须大于开仓均价
                         if (et_stop_loss_trigger_price_str.toDouble()<openAvgPrice) {
-                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1044))
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1048))
                             return
                         }
                         //止损触发价必须大于开仓均价
                         if (isLimit&& et_stop_loss_price_str.toDouble()<openAvgPrice) {
-                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1045))
+                            CpNToastUtil.showTopToastNet(this@CpContractStopRateLossActivity, false,  getString(R.string.cp_extra_text1049))
                             return
                         }
                     }
@@ -679,7 +679,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                 val tick = jsonObj.optJSONObject("tick")
                 if (channel == WsLinkUtils.tickerFor24HLink(currentSymbol, isChannel = true)) {
                     val close = tick.optString("close")
-                    this?.runOnUiThread {
+                    this.runOnUiThread {
                         tv_mark_price.setText(CpBigDecimalUtils.showSNormal(close, mPricePrecision))
                     }
                 }
