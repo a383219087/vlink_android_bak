@@ -4,12 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.net.http.SslError
 import android.os.*
 import android.provider.MediaStore
 import android.util.Log
@@ -50,7 +48,6 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.NetUrl
 import com.yjkj.chainup.net.retrofit.NetObserver
-import com.yjkj.chainup.new_contract.activity.ClContractAssetRecordActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.BindMobileOrEmailActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.GoogleValidationActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.RealNameCertificationChooseCountriesActivity

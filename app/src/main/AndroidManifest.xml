@@ -230,27 +230,15 @@
 
         <activity android:name="com.yjkj.chainup.ui.invite.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
-        <activity android:name=".new_contract.activity.ClMarketDetail4Activity" />
-        <activity
-            android:name=".new_contract.activity.ClHorizonMarketDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".new_contract.activity.ClHoldShareActivity"
-            android:theme="@style/SlTransparentActivity" />
+
+
         <activity
             android:name=".new_version.activity.KolShareActivity"
             android:theme="@style/SlTransparentActivity" />
-        <activity
-            android:name=".new_contract.activity.ClContractStopRateLossActivity"
-            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".new_contract.activity.ClAdjustMarginActivity" />
-        <activity android:name=".new_contract.activity.ClSelectPositionActivity" />
-        <activity android:name=".new_contract.activity.ClSelectLeverageActivity" />
-        <activity android:name=".new_contract.activity.ClContractEntrustActivity" />
-        <activity android:name=".new_contract.activity.ClCoinDetailActivity" />
-        <activity android:name=".new_contract.activity.ClContractAssetRecordActivity" />
-        <activity android:name=".new_contract.activity.ClContractEntrustDetailActivity" />
+
+        <activity android:name=".new_version.activity.ClCoinDetailActivity" />
+        <activity android:name=".new_version.activity.ClContractAssetRecordActivity" />
         <activity android:name=".new_version.activity.personalCenter.contract.ContractChangeActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOtcActivity" />
         <activity android:name=".new_version.activity.grid.HistoryGridActivity" />

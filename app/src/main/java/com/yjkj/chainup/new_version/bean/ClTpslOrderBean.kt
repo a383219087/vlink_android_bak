@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.bean
+package com.yjkj.chainup.new_version.bean
 
 data class ClTpslOrderBean(
         var triggerType: String, //止盈止损订单类型(1止损， 2 止盈)固定枚举

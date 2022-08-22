@@ -1,11 +1,10 @@
-package com.yjkj.chainup.new_contract.adapter
+package com.yjkj.chainup.new_version.adapter
 
 import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
-import com.yjkj.chainup.contract.utils.*
 import com.yjkj.chainup.util.BigDecimalUtils
 import org.json.JSONObject
 

@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.model.api.ContractApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
-import com.yjkj.chainup.new_contract.bean.ClTpslOrderBean
+import com.yjkj.chainup.new_version.bean.ClTpslOrderBean
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.ResponseBody

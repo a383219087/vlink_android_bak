@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.adapter
+package com.yjkj.chainup.new_version.adapter
 
 import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter

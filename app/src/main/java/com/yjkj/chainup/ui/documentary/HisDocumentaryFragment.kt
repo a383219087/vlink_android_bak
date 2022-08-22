@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
-import com.alibaba.fastjson.JSON
-import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
@@ -15,7 +13,7 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.net.JSONUtil
-import com.yjkj.chainup.new_contract.adapter.ClContractHistoricalPositionAdapter
+import com.yjkj.chainup.new_version.adapter.ClContractHistoricalPositionAdapter
 import com.yjkj.chainup.ui.documentary.vm.NowDocumentViewModel
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.fragment_now_documentary.*

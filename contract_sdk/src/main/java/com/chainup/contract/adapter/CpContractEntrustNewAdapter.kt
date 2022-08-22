@@ -238,7 +238,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 var tvOrderType=helper.getView<TextView>(R.id.tv_order_type);
                 val nav_up = context.getResources().getDrawable(R.drawable.cp_contract_prompt);
                 nav_up.setBounds(5, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
-                if (item.type.equals("6")){
+                if (item.type == "6"){
                     helper.setText(R.id.tv_deal_price, "--")
                     helper.setText(R.id.tv_deal_amount, "--")
                     tvOrderType.setCompoundDrawables(null, null, nav_up, null);

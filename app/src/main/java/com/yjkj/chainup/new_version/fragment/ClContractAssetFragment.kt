@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.fragment
+package com.yjkj.chainup.new_version.fragment
 
 import android.app.Activity
 import android.os.Bundle
@@ -22,8 +22,8 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_contract.activity.ClContractAssetRecordActivity
-import com.yjkj.chainup.new_contract.adapter.ClContractAssetAdapter
+import com.yjkj.chainup.new_version.activity.ClContractAssetRecordActivity
+import com.yjkj.chainup.new_version.adapter.ClContractAssetAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.util.ContextUtil

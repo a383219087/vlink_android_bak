@@ -27,7 +27,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_contract.fragment.ClContractAssetFragment
+import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.yjkj.chainup.new_version.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,7 @@ import com.yjkj.chainup.contract.data.bean.TabInfo
 import com.yjkj.chainup.contract.uilogic.LogicContractSetting
 import com.yjkj.chainup.contract.utils.getLineText
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_contract.adapter.ClContractAssetRecordAdapter
+import com.yjkj.chainup.new_version.adapter.ClContractAssetRecordAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import kotlinx.android.synthetic.main.cl_activity_asset_record.*

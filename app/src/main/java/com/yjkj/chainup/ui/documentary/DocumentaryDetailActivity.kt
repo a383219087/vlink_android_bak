@@ -26,7 +26,7 @@ import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityDocumentaryDetailBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.adapter.ClContractHistoricalPositionAdapter
+import com.yjkj.chainup.new_version.adapter.ClContractHistoricalPositionAdapter
 import com.yjkj.chainup.ui.documentary.vm.DocumentaryDetailViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

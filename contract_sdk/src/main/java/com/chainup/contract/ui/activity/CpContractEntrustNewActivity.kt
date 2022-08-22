@@ -457,9 +457,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         view.getLocationOnScreen(location)
         val x = location[0]
         val y = location[1]
-        return if (ev.x < x || ev.x > x + view.width || ev.y < y || ev.y > y + view.height) {
-            false
-        } else true
+        return !(ev.x < x || ev.x > x + view.width || ev.y < y || ev.y > y + view.height)
     }
 
     companion object {
