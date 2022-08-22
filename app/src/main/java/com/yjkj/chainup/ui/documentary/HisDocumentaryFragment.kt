@@ -56,7 +56,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("json", item.toString())
                     .withString("id", item.optString("id") )
-                    .withInt("status", mViewModel?.status?.value!!)
+                    .withInt("status",0)
                     .navigation()
             }
         }

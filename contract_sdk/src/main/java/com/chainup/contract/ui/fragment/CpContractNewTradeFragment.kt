@@ -208,6 +208,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         consumer = object : CpNDisposableObserver() {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data").run {
+                                    LogUtils.d("我是仓位${optInt("positionModel")}")
                                     openContract = optInt("openContract")
                                     couponTag = optInt("couponTag")
                                     futuresLocalLimit = optInt("futuresLocalLimit")

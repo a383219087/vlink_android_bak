@@ -124,11 +124,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         val llVolume = it.getView<LinearLayout>(com.chainup.contract.R.id.ll_volume)
                         val tvOrderTips = it.getView<SuperTextView>(com.chainup.contract.R.id.tv_order_tips_layout)
                         val multiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, clickData.contractId)
-                        etVolume.numberFilter(if (CpClLogicContractSetting.getContractUint(context) == 0) 0 else multiplierPrecision, otherFilter = object : CpDoListener {
-                            override fun doThing(obj: Any?): Boolean {
-                                return true
-                            }
-                        })
+
 
                         etPrice?.setOnFocusChangeListener { _, hasFocus ->
                             llPrice?.setBackgroundResource(if (hasFocus) com.chainup.contract.R.drawable.cp_bg_trade_et_focused else com.chainup.contract.R.drawable.cp_bg_trade_et_unfocused)
@@ -644,7 +640,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withSerializable("bean", item)
                     .withString("id", item.id.toString())
-                    .withInt("status",  mViewModel?.status?.value!!)
+                    .withInt("status",  1)
                     .navigation()
             }
         }

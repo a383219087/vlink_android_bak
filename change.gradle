@@ -13,52 +13,16 @@ ext {
             httpHostUrlContractV2:"http://8.219.64.81/contract/appapi/",
             wssHostContractV2:"ws://8.219.64.81/contract/kline/ws",
 
-//           http://8.219.64.81/base/appapi,
-            // contractSocketAddress=ws://8.219.64.81/contract/kline/ws,
-            // contractUrl=http://8.219.64.81/contract/appapi,
-            // httpHostUrlContractV2=http://8.219.64.81/contract/appapi,
-            // otcBaseUrl=http://8.219.64.81/otc/appapi,
-            // otcSocketAddress=ws://8.219.64.81/otc/chat/ws,
-            // redPackageUrl=https://dev5redpacket.chaindown.com/app-redPacket-api/,
-            // socketAddress=ws://8.219.64.81/base/kline/ws,
-            // wssHostContractV2=ws://8.219.64.81/contract/kline/ws)
 
-
-//            baseUrl:"http://exapi01.free.idcfengye.com/",
-//            socketAddress:"wss://exapi01.free.idcfengye.com/kline-api/ws",
-//            otcBaseUrl:"http://exapi01.free.idcfengye.com/",
-//            otcSocketAddress:"wss://exapi01.free.idcfengye.com/otc-chat/chatServer/",
-//            contractUrl:"http://exapi01.free.idcfengye.com/",
-//            contractSocketAddress:"wss://exapi01.free.idcfengye.com/kline-api/ws",
-//            redPackageUrl:"http://exapi01.free.idcfengye.com/app-redPacket-api/",
-//            httpHostUrlContractV2:"http://exapi01.free.idcfengye.com/",
-//            wssHostContractV2:"wss://exapi01.free.idcfengye.com/kline-api/ws",
-
-//            baseUrl:"http://appapi.ylty1688.com/",
-//            socketAddress:"wss://appapi.ylty1688.com/kline-api/ws",
-//            otcBaseUrl:"http://appapi.ylty1688.com/",
-//            otcSocketAddress:"wss://appapi.ylty1688.com/otc-chat/chatServer/",
-//            contractUrl:"http://appapi.ylty1688.com/",
-//            contractSocketAddress:"wss://appapi.ylty1688.com/kline-api/ws",
-//            redPackageUrl:"http://appapi.ylty1688.com/app-redPacket-api/",
-//            httpHostUrlContractV2:"https://appapi.ylty1688.com/",
-//            wssHostContractV2:"wss://appapi.ylty1688.com/kline-api/ws",
-
-
-            keyAlias:"bikicoin",
-            storePassword:"123456",
-            splashBg:"#0e1a43",
-            appswitchsaas:"0",
-            keyPassword:"123456",
 
             buglyId:"a72519d9ba",
             homepageService:"0",
             umAppKey:"5bc7f280b465f50f72000134",
             versionCode:100031,
 //            versionName:"1.0.1",
-//            versionName:"dev",
+            versionName:"dev",
  
-            versionName:"version_1",
+//            versionName:"version_1",
             sobotAppKey:"72f598f55a1d4eb6975e33145676c34b",
             appCompanyID:""
     ]
