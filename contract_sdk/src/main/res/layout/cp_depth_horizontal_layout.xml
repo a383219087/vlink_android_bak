@@ -22,15 +22,14 @@
             android:gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/tv_position"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="2dp"
                 android:gravity="center"
                 android:text="@string/cp_contract_setting_text1"
+                android:layout_marginRight="2dp"
                 android:textColor="@color/normal_text_color"
                 android:textSize="@dimen/sp_14" />
             <ImageView

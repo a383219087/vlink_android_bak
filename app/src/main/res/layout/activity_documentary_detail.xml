@@ -42,16 +42,28 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp_15"
-                android:text="@string/decumentary_detail_text7"
+                android:text="@string/decumentary_detail_text1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold" />
 
         </FrameLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hold_contract"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:text="@string/decumentary_detail_text7"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
 
 
         <androidx.recyclerview.widget.RecyclerView

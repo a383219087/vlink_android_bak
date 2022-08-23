@@ -263,7 +263,8 @@
         <service android:name=".manager.DataInitService" />
         <service android:name=".manager.NetworkLineService" />
         <service android:name=".manager.NetworkLineErrorService" />
-        <service android:name=".extra_service.push.MyFirebaseMessagingService" />
+
+
 
 
         <activity android:name=".new_version.activity.personalCenter.push.PushSettingsActivity" />

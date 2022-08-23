@@ -268,7 +268,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
-                android:text="@{(item.bean.totalRatio)+`%`}"
+                android:text="@{(item.bean.searchKey)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
             <TextView
