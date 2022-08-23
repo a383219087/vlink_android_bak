@@ -1822,7 +1822,6 @@ class ScreeningPopupWindowView @JvmOverloads constructor(
 
         history_contract_screening?.sdv_history_history_contract?.dateListener = object : SelectDateView.IDateValue {
             override fun returnValue(startTime: String, endTimes: String) {
-                Log.d(TAG, "=========RETURNVALUE:$startTime,$endTime========")
                 beginTime = startTime
                 endTime = endTimes
             }

@@ -427,7 +427,6 @@ class NContractTradeFragment : NBaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "=========onFragmentResume==========")
 //        getAccount4Contract()
         loopPriceRiskPosition()
 
@@ -464,9 +463,7 @@ class NContractTradeFragment : NBaseFragment() {
                 ?: 4))
 //        et_volume?.filters = arrayOf(DecimalDigitsInputFilter(currentContract?.pricePrecision ?: 20))
         loopOrderList4Contract()
-        Log.d(TAG, "========Level:${currentLevel}=======")
 
-        Log.d(TAG, "========合约ID:$contractId====")
         initSocket()
 
     }
@@ -877,7 +874,6 @@ class NContractTradeFragment : NBaseFragment() {
      * 订阅当前合约的24H行情&深度
      */
     fun subCurrentContractMsg() {
-        Log.d(TAG, "======last = $lastSymbol,current = $currentSymbol============")
         if (currentSymbol == lastSymbol) {
             sendMsg(WsLinkUtils.tickerFor24HLink(currentSymbol.toLowerCase()))
             sendMsg(WsLinkUtils.getDepthLink(currentSymbol.toLowerCase()).json)
@@ -1026,7 +1022,6 @@ class NContractTradeFragment : NBaseFragment() {
         sellViewList[0].ll_item.measure(w, w)
         sellViewList[0].ll_item.post {
             itemWidth = sellViewList[0].ll_item.measuredWidth
-            Log.d(TAG, "========itemWidth:$itemWidth=======")
         }
     }
 

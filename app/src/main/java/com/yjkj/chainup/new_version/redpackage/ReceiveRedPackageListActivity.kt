@@ -144,7 +144,6 @@ class ReceiveRedPackageListActivity : NewBaseActivity() {
                     override fun onHandleSuccess(bean: ReceiveRedPackageInfoBean?) {
                         printLogcat("收到的红包信息:" + bean?.toString())
 
-                        Log.d(TAG, "=========${tv_total_amount == null}========")
                         tv_total_amount?.text = BigDecimal(bean?.allAmount.toString()).toPlainString()
 
                         tv_coin?.text = NCoinManager.getShowMarket(bean?.rateSymbol)

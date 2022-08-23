@@ -524,7 +524,6 @@ class BindMobileOrEmailActivity : NewBaseActivity() {
             countryConten = area.enName + " " + area.dialingCode
         }
         pws_view.setEditText(countryConten)
-        Log.d(TAG, "==========area:====" + area.toString())
     }
 
 }

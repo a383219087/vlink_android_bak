@@ -893,7 +893,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val askMaxVol = askMaxVolJson?.optDouble(1) ?: 1.0
-            Log.d(TAG, "========askMAX:$askMaxVol=======")
 
             /**
              * 买盘交易量最大的
@@ -918,11 +917,9 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 it.optDouble(1)
             }
             val buyMaxVol = buyMaxVolJson?.optDouble(1) ?: 1.0
-            Log.d(TAG, "========buyMAX:$buyMaxVol=======")
 
             val maxVol = Math.max(askMaxVol, buyMaxVol)
 
-            Log.d(TAG, "========maxVol:$maxVol=========")
 
             sellTape(askList, maxVol)
             buyTape(buyList, maxVol)

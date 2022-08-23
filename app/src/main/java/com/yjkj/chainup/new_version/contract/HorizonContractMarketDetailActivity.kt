@@ -369,7 +369,6 @@ class HorizonContractMarketDetailActivity : AppCompatActivity() {
                  * 最新K线数据
                  */
                 if (jsonObj.getString("channel") == WsLinkUtils.getKlineNewLink(symbol, curTime).channel) {
-                    Log.d(TAG, "=======最新K线：========$jsonObj")
 
                     doAsync {
                         /**

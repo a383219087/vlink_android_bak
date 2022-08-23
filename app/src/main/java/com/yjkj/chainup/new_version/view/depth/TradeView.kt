@@ -588,7 +588,6 @@ class TradeView @JvmOverloads constructor(context: Context,
 
                 Log.d(TAG, "======价格输入框的内容==afterTextChanged:${s.toString()}=======")
                 bhlong = s.toString().length
-//                et_price?.setSelection(et_price.text.length)
 
                 if (priceType == TYPE_MARKET || TextUtils.isEmpty(s) || s.toString() == "0.") {
                     tv_convert_price?.visibility = View.INVISIBLE
@@ -1026,13 +1025,7 @@ class TradeView @JvmOverloads constructor(context: Context,
         }
     }
 
-    /*
-     *默认对应绿涨红跌的色值
-     */
-    private fun showBuyOrSellBg(isBuy: Boolean) {
 
-
-    }
 
     private fun showBalanceData() {
 
@@ -1047,6 +1040,7 @@ class TradeView @JvmOverloads constructor(context: Context,
 
     fun initTick(tick: JSONArray, depthLevel: Int = 2) {
         et_price.text = tick.getPriceTick(depthLevel).editable()
+        Log.d(TAG, "=======price:加的单位量unit:${et_price.text}===")
     }
 
     fun verticalDepth(isVertical: Boolean = false, isBuy: Boolean = true, isLever: Boolean = true) {
@@ -1123,12 +1117,12 @@ class TradeView @JvmOverloads constructor(context: Context,
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (!LoginManager.checkLogin(context, true)) return false
-                val unit = if (transactionType == ParamConstant.TYPE_SELL &&
-                        priceType == TYPE_MARKET) {
-                    (1 / Math.pow(10.0, volumeScale.toDouble())).toString()
+                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+                    volumeScale
                 } else {
-                    (1 / Math.pow(10.0, priceScale.toDouble())).toString()
+                    priceScale
                 }
+                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
                 Log.d(TAG, "=======price:减的单位量unit:$unit===")
                 if (TextUtils.isEmpty(unit)) return false
                 if (inputPrice.isEmpty()) {
@@ -1137,29 +1131,25 @@ class TradeView @JvmOverloads constructor(context: Context,
                     return true
                 }
                 if (BigDecimal(inputPrice).toFloat() > 0f) {
-                    inputPrice = BigDecimalUtils.sub(inputPrice, unit).toPlainString()
+                    inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
                     et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
                     tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
                 } else {
-                    et_price?.setText("")
-                    tv_convert_price?.text = ""
+                    et_price?.setText("0.0")
+                    tv_convert_price?.text = "0.0"
                     return true
                 }
 
                 doAsync {
                     while (isPriceLongClick) {
-                        Thread.sleep(delayTime)
                         if (!isStartPriceSubClick) continue
 
-                        inputPrice = try {
-                            if (BigDecimal(inputPrice).toFloat() > 0f) {
-                                BigDecimalUtils.sub(inputPrice, unit).toPlainString()
-                            } else {
-                                ""
-                            }
+                        try {
+                            inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
                         } catch (e: NumberFormatException) {
-                            ""
+                            Log.d(TAG, "=======price:加的单位量unit:$e===")
                         }
+
                         uiThread {
                             et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
                             tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
@@ -1187,28 +1177,33 @@ class TradeView @JvmOverloads constructor(context: Context,
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (!LoginManager.checkLogin(context, true)) return false
-
-                val unit = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    (1 / 10.0.pow(volumeScale.toDouble())).toString()
+                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+                    volumeScale
                 } else {
-                    (1 / 10.0.pow(priceScale.toDouble())).toString()
+                    priceScale
                 }
+                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
                 Log.d(TAG, "=======price:加的单位量unit:$unit===")
                 if (TextUtils.isEmpty(unit)) return false
 
-                inputPrice = BigDecimalUtils.add(inputPrice, unit).toPlainString()
-                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-
-                tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
+                if (BigDecimal(inputPrice).toFloat() > 0f) {
+                    inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
+                    et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                    tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                } else {
+                    et_price?.setText("0.0")
+                    tv_convert_price?.text = "0.0"
+                    return true
+                }
 
                 doAsync {
                     while (isPriceLongClick) {
-                        Thread.sleep(delayTime)
                         if (!isStartPricePlusClick) continue
-                        inputPrice = try {
-                            BigDecimalUtils.add(inputPrice, unit).toPlainString()
+                         try {
+                             inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
                         } catch (e: NumberFormatException) {
-                            ""
+                             Log.d(TAG, "=======price:加的单位量unit:$e===")
                         }
 
                         uiThread {

@@ -62,7 +62,6 @@ class ContractFragment : NBaseFragment() {
         liveData4Contract.observe(this, Observer<ContractBean> {
             tv_contract?.text = it?.baseSymbol + it?.quoteSymbol + " " + Contract2PublicInfoManager.getContractType(context!!,it?.contractType, it?.settleTime)
             tv_close_price?.text = "--"
-            Log.d(TAG, "======LiveData:${it?.symbol}========")
             Contract2PublicInfoManager.currentContractId(it?.id, isSave = true)
         })
 
@@ -128,7 +127,6 @@ class ContractFragment : NBaseFragment() {
 
                     tv_contract?.text = contractBean?.baseSymbol + contractBean?.quoteSymbol + " " + Contract2PublicInfoManager.getContractType(context!!,contractBean?.contractType, contractBean?.settleTime)
                     tv_close_price?.text = "--"
-                    Log.d(TAG, "======LiveData:${contractBean?.symbol}========")
                     Contract2PublicInfoManager.currentContractId(contractBean?.id, isSave = true)
                     NLiveDataUtil.removeObservers()
                 }

@@ -183,16 +183,7 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
     }
 
     private fun showSelectTypeDialog(view: View) {
-//        typeDialog = CpNewDialogUtils.showNewBottomListDialog(mActivity, typeList, mCurrTypeInfo!!.index, object : CpNewDialogUtils.DialogOnItemClickListener {
-//            override fun clickItem(index: Int) {
-//                typeDialog?.dismiss()
-//                typeDialog = null
-//                mCurrTypeInfo = typeList[index]
-//                updateTypeUI()
-//                pageInfo.reset()
-//                loadDataFromNet()
-//            }
-//        })
+
 
         img_tab_type.animate().setDuration(300).rotation(180f).start()
         LogUtils.e("createTopListPop","|||||"+ mCurrTypeInfo!!.extrasNum)

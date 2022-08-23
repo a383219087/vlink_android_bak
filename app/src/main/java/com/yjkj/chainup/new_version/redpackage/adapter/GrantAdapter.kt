@@ -21,7 +21,6 @@ class GrantAdapter(data: ArrayList<GrantRedPackageListBean.RedPacket>) : BaseQui
     val TAG = GrantAdapter::class.java.simpleName
     override fun convert(helper: BaseViewHolder, item: GrantRedPackageListBean.RedPacket) {
 
-        Log.d(TAG, "========发出的红包:name:${item?.toString()}=====")
         /**
          * 红包类型：0.普通 1.拼手气
          */

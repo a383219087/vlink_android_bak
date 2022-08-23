@@ -138,7 +138,6 @@ class GrantRedPackageListActivity : NewBaseActivity() {
                 .subscribe(object : NetObserver<GrantRedPackageInfo>() {
                     override fun onHandleSuccess(bean: GrantRedPackageInfo?) {
                         printLogcat("发出的红包信息:" + bean?.toString())
-                        Log.d(TAG, "=========${tv_total_amount == null}========")
 
                         tv_total_amount?.text = BigDecimal(bean?.allAmount.toString()).toPlainString()
 

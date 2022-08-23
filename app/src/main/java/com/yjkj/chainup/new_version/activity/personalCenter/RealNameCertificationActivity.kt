@@ -191,7 +191,6 @@ class RealNameCertificationActivity : NewBaseActivity() {
             areaCountry = area.enName
         }
 
-        Log.d(TAG, "==========area:====" + area.toString())
         if (Locale.getDefault().language.contentEquals("zh")) {
 //            tv_select_area.text = area.dialingCode + " ${area.cnName}"
             pws_view?.setEditText("${area.cnName}")
@@ -262,7 +261,6 @@ class RealNameCertificationActivity : NewBaseActivity() {
                         kycBean ?: return
                         LogUtil.d(TAG, "=====kyc:$kycBean ======")
                         if (kycBean?.openSingPass == "1") {
-                            LogUtil.d(TAG, "=====intoRealNameCertification:1========")
                             // 开启SingPass认证
                             val bundle = Bundle()
                             bundle.putString(ParamConstant.head_title, "")
@@ -273,7 +271,6 @@ class RealNameCertificationActivity : NewBaseActivity() {
                             bundle.putInt(ParamConstant.web_type, WebTypeEnum.SING_PASS.value)
                             ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, bundle)
                         } else {
-                            LogUtil.d(TAG, "=====intoRealNameCertification:2========")
                             if (kycBean?.verfyTemplet == "1") {
                                 //精简的
                                 RealNameCertificationChooseCountriesActivity.enter(this@RealNameCertificationActivity, areaInfo, areaCountry, areaCode)

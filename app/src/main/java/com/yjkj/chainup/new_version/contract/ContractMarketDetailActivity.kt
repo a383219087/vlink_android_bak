@@ -650,7 +650,6 @@ class ContractMarketDetailActivity : NewBaseActivity() {
                  * 最新K线数据
                  */
                 if (jsonObj.getString("channel") == WsLinkUtils.getKlineNewLink(currentContract?.symbol.toString().toLowerCase(), curTime).channel) {
-                    Log.d(TAG, "=======最新K线：========$jsonObj")
 
                     /**
                      * 这里需要处理：重复添加的问题
@@ -739,7 +738,6 @@ class ContractMarketDetailActivity : NewBaseActivity() {
 //            tv_converted_close_price?.text = RateManager.getCNYByCoinName(currentContract?.quoteSymbol
 //                    ?: "", tick.close, isLogo = false)
 
-            Log.d(TAG, "=coin:${currentContract?.baseSymbol},close:${tick.close}===========")
 
             RateManager.getRoseText(tv_rose, tick.rose.toString())
 
@@ -807,7 +805,6 @@ class ContractMarketDetailActivity : NewBaseActivity() {
      */
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            Log.d(TAG, "========dispatchTouchEvent=======")
             val viewRect = Rect()
             showedView?.getGlobalVisibleRect(viewRect)
 
