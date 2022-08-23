@@ -29,7 +29,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     class Item{
         var bean = MutableLiveData<FollowerStatisticsBean>()
-
+        var tradeTime = MutableLiveData<String>()
     }
 
 
@@ -48,6 +48,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     //操作记录
     fun record() {
+        items.clear()
         val map = HashMap<String, Any>()
         map["positionId"] = id.value.toString()
         startTask(contractApiService.positionLog(map), Consumer {
@@ -57,6 +58,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
             for (i in 0 until it.data.size) {
                 val item=Item()
                 item.bean.value=it.data[i]
+                item.tradeTime.value=it.data[i].tradeTime.replace("T"," ")
                 items.add(item)
 
             }

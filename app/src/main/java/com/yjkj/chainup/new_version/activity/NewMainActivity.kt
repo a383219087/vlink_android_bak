@@ -25,6 +25,9 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.fragment.CpContractNewTradeFragment
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.didichuxing.doraemonkit.DoraemonKit
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
@@ -40,9 +43,9 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
+import com.yjkj.chainup.extra_service.push.MyFirebaseMessagingService
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LoginManager
-import com.yjkj.chainup.manager.NetworkLineService
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
@@ -104,7 +107,7 @@ class NewMainActivity : NBaseActivity() {
   override fun onInit(savedInstanceState: Bundle?) {
     super.onInit(savedInstanceState)
     fragmentManager = supportFragmentManager
-    val intent = Intent(this, NetworkLineService::class.java)
+    val intent = Intent(this, MyFirebaseMessagingService::class.java)
     startService(intent)
     loadData()
     getIntentData()
@@ -115,6 +118,32 @@ class NewMainActivity : NBaseActivity() {
     DoraemonKit.setDebug(BuildConfig.DEBUG)
     DoraemonKit.show()
     netChangeStatus()
+    uploadFCMToken()
+  }
+
+  /**
+   * 获取到最新的FCM token并上报服务器
+   */
+  private fun uploadFCMToken() {
+    try {
+      val googlePlayServicesAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+      if (googlePlayServicesAvailable == ConnectionResult.SUCCESS) {
+        FirebaseMessaging.getInstance().token
+          .addOnCompleteListener {
+            if (it.isSuccessful) {
+              val token = it.result
+            } else {
+              ToastUtils.showToast("获取失败")
+            }
+
+          }
+      } else {
+        ToastUtils.showToast("获取失败")
+      }
+    } catch (e: Exception) {
+      e.printStackTrace();
+      ToastUtils.showToast("获取失败")
+    }
   }
 
   /*
@@ -143,8 +172,8 @@ class NewMainActivity : NBaseActivity() {
     gameToken = intent?.getStringExtra("gameToken") ?: ""
     pushUrl = intent?.getStringExtra("pushUrl") ?: ""
 
-    if(!TextUtils.isEmpty(gameID)) {
-      if(LoginManager.checkLogin(this, true)) {
+    if (!TextUtils.isEmpty(gameID)) {
+      if (LoginManager.checkLogin(this, true)) {
         DialogUtil.showAuthorizationDialog(this, gameID, gameName, gameToken)
       }
     }
@@ -176,7 +205,7 @@ class NewMainActivity : NBaseActivity() {
 
     mTextviewList.add(LanguageUtil.getString(this, "assets_action_transaction"))
 
-    if(contractOpen) {
+    if (contractOpen) {
       initContract()
     }
     fragmentList.add(assetFragment)
@@ -189,7 +218,7 @@ class NewMainActivity : NBaseActivity() {
     HomeTabMap.initMaps(data)
     initView()
     val isNewForceContract = PublicInfoDataService.getInstance().isNewForceContract
-    if(isNewForceContract && contractOpen) {
+    if (isNewForceContract && contractOpen) {
       showLogoutDialog()
     }
   }
@@ -234,7 +263,7 @@ class NewMainActivity : NBaseActivity() {
 
   private fun showTabs() {
     bottomtab_group?.setData(mImageViewList, mTextviewList, this, contractIndex, false)
-    for(i in 0 until fragmentList.size) {
+    for (i in 0 until fragmentList.size) {
       val fg = fragmentList[i]
       val transaction = fragmentManager?.beginTransaction()
       transaction?.add(R.id.fragment_container, fg, fg.javaClass.name)?.commitAllowingStateLoss()
@@ -246,14 +275,14 @@ class NewMainActivity : NBaseActivity() {
   override fun onClick(view: View) {
     super.onClick(view)
     val tag = view.tag
-    if(tag is Int) {
-      if(assetsTab > 0 && tag == assetsTab) {
-        if(!LoginManager.checkLogin(mActivity, true)) {
+    if (tag is Int) {
+      if (assetsTab > 0 && tag == assetsTab) {
+        if (!LoginManager.checkLogin(mActivity, true)) {
           return
         }
       }
       curPosition = tag
-      if(lastPosition != curPosition) {
+      if (lastPosition != curPosition) {
         lastPosition = curPosition
       }
 
@@ -264,7 +293,7 @@ class NewMainActivity : NBaseActivity() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
 
-    for(fragment in supportFragmentManager.fragments) {
+    for (fragment in supportFragmentManager.fragments) {
       fragment.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -273,62 +302,62 @@ class NewMainActivity : NBaseActivity() {
   @Subscribe(threadMode = ThreadMode.MAIN)
   override fun onMessageEvent(event: MessageEvent) {
     super.onMessageEvent(event)
-    if(event.msg_type == MessageEvent.coin_payment) {
+    if (event.msg_type == MessageEvent.coin_payment) {
 
       val msg_content = event.msg_content
-      if(null != msg_content && msg_content is JSONObject) {
+      if (null != msg_content && msg_content is JSONObject) {
         val position = msg_content.optInt("position")
-        if(ParamConstant.TYPE_COIN == position) {
+        if (ParamConstant.TYPE_COIN == position) {
           curPosition = HomeTabMap.maps[HomeTabMap.coinTradeTab] ?: 2
           setCurrentItem()
-        } else if(ParamConstant.TYPE_FAIT == position) {
+        } else if (ParamConstant.TYPE_FAIT == position) {
           ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
         }
       }
-    } else if(MessageEvent.hometab_switch_type == event.msg_type) {
+    } else if (MessageEvent.hometab_switch_type == event.msg_type) {
       //币币交易tab切换
       var msg_content = event.msg_content
-      if(null != msg_content && msg_content is Bundle) {
+      if (null != msg_content && msg_content is Bundle) {
         curPosition = msg_content.getInt(ParamConstant.homeTabType)
-        if(HomeTabMap.maps[HomeTabMap.coinTradeTab] == curPosition) {
+        if (HomeTabMap.maps[HomeTabMap.coinTradeTab] == curPosition) {
           Handler().postDelayed({
             forwardConinTradeTab(event.msg_content as Bundle)
           }, 150)
 
-        } else if(HomeTabMap.maps[HomeTabMap.assetsTab] == curPosition) {
+        } else if (HomeTabMap.maps[HomeTabMap.assetsTab] == curPosition) {
           Handler().postDelayed({
             forwardAssetsTab(event.msg_content as Bundle)
           }, 150)
         }
         setCurrentItem()
       }
-    } else if(MessageEvent.contract_switch_type == event.msg_type) {
+    } else if (MessageEvent.contract_switch_type == event.msg_type) {
       /**
        * 跳转合约
        */
       curPosition = HomeTabMap.maps[HomeTabMap.contractTab] ?: 0
       setCurrentItem()
-    } else if(MessageEvent.market_switch_type == event.msg_type) {
+    } else if (MessageEvent.market_switch_type == event.msg_type) {
       //币币交易tab切换
       val msg_content = event.msg_content
-      if(null != msg_content) {
+      if (null != msg_content) {
         curPosition = 1
         setCurrentItem()
       }
-    } else if(MessageEvent.login_bind_type == event.msg_type) {
+    } else if (MessageEvent.login_bind_type == event.msg_type) {
       CpClLogicContractSetting.setToken(UserDataService.getInstance().token)
 
-    } else if(MessageEvent.sl_contract_force_event == event.msg_type) {
+    } else if (MessageEvent.sl_contract_force_event == event.msg_type) {
       LogUtil.e("LogUtils", "重新配置新合约")
       showLogoutDialog()
-    } else if(event.msg_type == MessageEvent.refresh_ws_error_change) {
+    } else if (event.msg_type == MessageEvent.refresh_ws_error_change) {
       LogUtil.e("LogUtils", "ws 异常需要网络检测")
       connectCount++
-      if(connectCount == 11) {
+      if (connectCount == 11) {
         wsConnectCount()
       }
 //            changeNetworkError()
-    } else if(event.msg_type == MessageEvent.refresh_ws_open_change) {
+    } else if (event.msg_type == MessageEvent.refresh_ws_open_change) {
       LogUtil.e("LogUtils", "ws 建立链接")
       connectCount = 0
       wsConnectCount()
@@ -347,8 +376,8 @@ class NewMainActivity : NBaseActivity() {
    * 根据ws重连次数判断网络
    */
   private fun wsConnectCount() {
-    if(connectCount > 10) {
-      if(!mActivity.let(NetUtil.Companion::isNetConnected)) {
+    if (connectCount > 10) {
+      if (!mActivity.let(NetUtil.Companion::isNetConnected)) {
         no_network_main_bg?.visibility = View.VISIBLE
         main_bg?.visibility = View.GONE
       } else {
@@ -402,7 +431,7 @@ class NewMainActivity : NBaseActivity() {
 
   private var exitTime = 0L
   override fun onBackPressed() {
-    if(System.currentTimeMillis() - exitTime > 2000) {
+    if (System.currentTimeMillis() - exitTime > 2000) {
       UIUtils.showToast(LanguageUtil.getString(this, "exit_remind"))
       exitTime = System.currentTimeMillis()
       return
@@ -415,20 +444,20 @@ class NewMainActivity : NBaseActivity() {
     mActivity.runOnUiThread {
       bottomtab_group?.showCurTabView(curPosition)
     }
-    if(mTextviewList[curPosition].equals(LanguageUtil.getString(this, "mainTab_text_assets"))) {
+    if (mTextviewList[curPosition].equals(LanguageUtil.getString(this, "mainTab_text_assets"))) {
       StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.asset_status_bar_color_day), 0)
     } else {
       StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.market_status_bar_color_day), 0)
     }
-    for(i in 0 until fragmentList.size) {
+    for (i in 0 until fragmentList.size) {
       val transaction = fragmentManager?.beginTransaction()
       var fg = fragmentList[i]
-      if(i == curPosition) {
+      if (i == curPosition) {
         mActivity.runOnUiThread {
           transaction?.show(fg)?.commitAllowingStateLoss()
         }
       } else {
-        if(!fg.isHidden) {
+        if (!fg.isHidden) {
           transaction?.hide(fg)?.commitAllowingStateLoss()
         }
       }
@@ -440,7 +469,7 @@ class NewMainActivity : NBaseActivity() {
     super.loadData()
 
     val catchObj = PublicInfoDataService.getInstance().getData(null)
-    if(null != catchObj && catchObj.length() > 0) {
+    if (null != catchObj && catchObj.length() > 0) {
       LogUtil.e(TAG, "走缓存渲染底部tab菜单")
       initTabsData(catchObj)
     } else {
@@ -452,7 +481,7 @@ class NewMainActivity : NBaseActivity() {
 
     WsContractAgentManager.instance.connectionSocket()
 
-    if(LoginManager.isLogin(this)) {
+    if (LoginManager.isLogin(this)) {
       getMainModel().saveUserInfo()
     }
 
@@ -475,7 +504,7 @@ class NewMainActivity : NBaseActivity() {
       }
 
       override fun onResponseFailure(code: Int, msg: String?) {
-        if(code == 109109) {
+        if (code == 109109) {
           check_visitstatus.visibility = View.VISIBLE
           check_visit_tv2.text = msg
         }
@@ -489,7 +518,7 @@ class NewMainActivity : NBaseActivity() {
   inner class MyNDisposableObserver(activity: Activity) : NDisposableObserver(activity, false) {
     override fun onResponseSuccess(jsonObject: JSONObject) {
       var data = jsonObject.optJSONObject("data")
-      if(null != data && data.length() > 0) {
+      if (null != data && data.length() > 0) {
         var rate = data.optJSONObject("rate")
         RateDataService.getInstance().saveData(rate)
       }
@@ -513,7 +542,7 @@ class NewMainActivity : NBaseActivity() {
 
   override fun onResume() {
     super.onResume()
-    if(BuildConfig.isRelease) {
+    if (BuildConfig.isRelease) {
       loopStart()
     }
   }
@@ -543,11 +572,10 @@ class NewMainActivity : NBaseActivity() {
 
   private fun loopStop() {
     LogUtil.e("-----", "停止轮询")
-    if(subscribe != null) {
+    if (subscribe != null) {
       subscribe?.dispose()
     }
   }
-
 
 
   private var contractIndex = -1
@@ -595,17 +623,17 @@ class NewMainActivity : NBaseActivity() {
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe({
-        if(it != null) AdvertDataService.instance.getAdvertAndCacheLocal(it.data)
+        if (it != null) AdvertDataService.instance.getAdvertAndCacheLocal(it.data)
       }, {
         it.printStackTrace()
       })
   }
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-    if(ev?.getAction() == MotionEvent.ACTION_DOWN) {
+    if (ev?.getAction() == MotionEvent.ACTION_DOWN) {
       val v = getCurrentFocus()
       v?.let {
-        if(isShouldHideKeyboard(it, ev)) {
+        if (isShouldHideKeyboard(it, ev)) {
           val im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
           im.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS);
           it.clearFocus();
@@ -616,7 +644,7 @@ class NewMainActivity : NBaseActivity() {
   }
 
   private fun isShouldHideKeyboard(v: View, event: MotionEvent): Boolean {
-    if(v != null && (v is EditText)) {
+    if (v != null && (v is EditText)) {
       val l = intArrayOf(0, 0)
       v.getLocationInWindow(l)
       val left = l[0]
@@ -624,7 +652,7 @@ class NewMainActivity : NBaseActivity() {
       val bottom = top + v.getHeight()
       val right = left + v.getWidth()
       return !(event.x > left && event.x < right
-          && event.y > top && event.y < bottom)
+              && event.y > top && event.y < bottom)
     }
     return false
   }
