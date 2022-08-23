@@ -48,7 +48,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_account_equity_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/contract_assets_account_equity"
@@ -81,7 +80,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_wallet_balance_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sl_str_wallet_balance"
@@ -90,7 +88,6 @@
 
             <TextView
                 android:layout_marginTop="7dp"
-                android:id="@+id/tv_available_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -111,7 +108,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_margin_balance_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cl_total_asset_str"

@@ -108,7 +108,6 @@
                     tools:text="2018-12-22 15:00:23" />
 
                 <View
-                    android:id="@+id/v_line_date"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@+id/tv_date_title"
@@ -145,7 +144,6 @@
                     android:textSize="@dimen/sp_14" />
 
                 <View
-                    android:id="@+id/v_line_type"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@id/tv_type"
@@ -156,7 +154,6 @@
 
             <!-- 状态-->
             <RelativeLayout
-                android:id="@+id/rl_status_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_13">
@@ -181,7 +178,6 @@
                     tools:text="未到账" />
 
                 <View
-                    android:id="@+id/v_line_status"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@id/tv_status"
@@ -363,7 +359,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_txid_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -397,7 +392,6 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/v_line_wallet_process_time"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@id/ll_txid_layout"
@@ -433,7 +427,6 @@
                     tools:text="" />
 
                 <View
-                    android:id="@+id/v_line_wallet"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@+id/tv_wallet_process_time"
@@ -470,7 +463,6 @@
                     tools:text="" />
 
                 <View
-                    android:id="@+id/v_line_number"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_below="@+id/tv_number_time"

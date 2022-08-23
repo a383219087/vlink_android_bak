@@ -35,7 +35,6 @@
         app:layout_collapseMode="parallax"
         android:orientation="vertical"
         android:background="@color/bg_card_color"
-        android:id="@+id/header_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -55,7 +54,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_account_equity_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cp_total_asset_str"
@@ -153,7 +151,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_floating_gains_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cp_coaccount_lockmargin"
@@ -187,7 +184,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_all_margin_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cp_cross_balance_str"
@@ -217,7 +213,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_small_margin_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cp_isolated_balance_str"

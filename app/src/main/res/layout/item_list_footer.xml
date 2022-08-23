@@ -15,7 +15,6 @@
 
     <TextView
         android:textColor="@android:color/white"
-        android:id="@+id/tv_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/view_margin_normal"

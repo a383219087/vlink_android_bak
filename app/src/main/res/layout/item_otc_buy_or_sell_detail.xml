@@ -115,7 +115,6 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_fait_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_market_price_layout"

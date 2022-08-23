@@ -47,13 +47,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
     var transaction_text_dealNum = ""
     var coUnit = 0
 
-    init {
-
-    }
-
-    fun setIsCurrentEntrust(isCurrentEntrust: Boolean = true) {
-        this.isCurrentEntrust = isCurrentEntrust
-    }
 
     override fun convert(helper: BaseViewHolder, item: CpCurrentOrderBean) {
 
@@ -99,7 +92,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         var sideStr = item.side
         var typeStr = ""
 
-        //context.getLineText("cp_overview_text13")
         if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
         } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
@@ -113,10 +105,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
         //限价单，市价单，IOC，FOK，Post Only
 
-
-//            //普通
-//            helper.setGone(R.id.ll_plan, true)
-//            helper.setGone(R.id.ll_common, false)
         when (sideStr) {
             "BUY" -> {
                 helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))

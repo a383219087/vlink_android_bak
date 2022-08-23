@@ -102,7 +102,6 @@
                     android:textSize="@dimen/sp_12" />
 
                 <View
-                    android:id="@+id/view_symbol_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_alignParentBottom="true"
@@ -124,7 +123,6 @@
                     android:textSize="@dimen/sp_12" />
 
                 <TextView
-                    android:id="@+id/tv_add_new_adr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -156,7 +154,6 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
-                    android:id="@+id/iv_select_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingLeft="@dimen/dp_15"

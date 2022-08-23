@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_title_withdraw_type"
         style="@style/ScreeningPopup"
         android:layout_marginTop="@dimen/dp_18"
         android:text="@string/contract_text_type"
@@ -15,7 +14,6 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/ll_withdraw_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"

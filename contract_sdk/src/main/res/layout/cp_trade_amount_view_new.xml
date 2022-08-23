@@ -525,7 +525,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_buy_cost_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cp_overview_text11"
@@ -592,7 +591,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_sell_cost_label"
                 style="@style/textStyle_title_bold"
                 android:textColor="@color/normal_text_color"
                 android:textSize="@dimen/sp_12"

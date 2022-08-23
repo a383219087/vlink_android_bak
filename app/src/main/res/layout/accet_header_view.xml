@@ -335,7 +335,6 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_contract_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -365,7 +364,6 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_contract_position_margin_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -394,7 +392,6 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_contract_order_margin_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"

@@ -146,7 +146,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_oweAmount_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_color"
@@ -157,7 +156,6 @@
                 />
 
             <TextView
-                android:id="@+id/tv_oweAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"
@@ -180,7 +178,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_oweInterest_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_color"
@@ -190,7 +187,6 @@
                 android:text="未还利息" />
 
             <TextView
-                android:id="@+id/tv_oweInterest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"

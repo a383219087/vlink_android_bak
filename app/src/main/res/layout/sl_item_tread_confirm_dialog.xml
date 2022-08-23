@@ -336,7 +336,6 @@
                     </RelativeLayout>
                     <!--标记价格-->
                     <RelativeLayout
-                        android:id="@+id/rl_tag_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_10"
@@ -364,7 +363,6 @@
                     </RelativeLayout>
                     <!--预期强平价格-->
                     <RelativeLayout
-                        android:id="@+id/rl_forced_close_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_10"
@@ -393,7 +391,6 @@
                     </RelativeLayout>
                     <!-- 标记价格/预期强平价格-->
                     <RelativeLayout
-                        android:id="@+id/rl_ratio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_10"

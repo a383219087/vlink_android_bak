@@ -77,7 +77,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_open_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"
@@ -168,7 +167,6 @@
             android:paddingLeft="@dimen/dp_10">
 
             <TextView
-                android:id="@+id/tv_floating_gains"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"
@@ -210,7 +208,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_holdings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"
@@ -295,7 +292,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_amount_can_be_liquidated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_text_color"
@@ -421,7 +417,6 @@
             android:background="@color/bg_color" />
 
         <TextView
-            android:id="@+id/tv_stop_profit_loss"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"

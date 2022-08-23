@@ -113,7 +113,6 @@
                         android:textSize="@dimen/sp_12" />
 
                     <ImageView
-                        android:id="@+id/iv_select_coin"
                         android:layout_width="@dimen/dp_8"
                         android:layout_height="@dimen/dp_8"
                         android:layout_marginRight="@dimen/dp_10"
@@ -151,7 +150,6 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/rl_no_adr_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible">
@@ -396,7 +394,6 @@
                         tools:hint="最小提币数量为0.01" />
 
                     <View
-                        android:id="@+id/view_fee_line"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_half"
                         android:layout_alignParentBottom="true"

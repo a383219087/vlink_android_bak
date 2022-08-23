@@ -201,25 +201,6 @@ class ClCoinDetailActivity : NBaseActivity() {
                             pageInfo.nextPage()
                             closeLoadingDialog()
 
-//                            val mLadderList = optJSONArray("transList")
-//                            isLoading = false
-//                            if (mOffset == 1) {
-//                                mList.clear()
-//                            }
-//                            if (mLadderList.length() != 0) {
-//                                for (i in 0..(mLadderList.length() - 1)) {
-//                                    var obj: JSONObject = mLadderList.get(i) as JSONObject
-//                                    obj.put("mMarginCoinPrecision", mMarginCoinPrecision)
-//                                    mList.add(obj)
-//                                }
-//                                assetAdapter?.notifyDataSetChanged()
-////                                assetAdapter?.setEnableLoadMore(true)
-////                                assetAdapter?.loadMoreComplete()
-//                            } else {
-////                                assetAdapter?.loadMoreEnd()
-//                            }
-//                            assetAdapter?.notifyDataSetChanged()
-//                            assetAdapter?.disableLoadMoreIfNotFullPage()
                         }
                     }
 

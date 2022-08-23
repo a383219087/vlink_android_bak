@@ -69,7 +69,6 @@
                 android:background="@color/bg_card_color">
 
                 <TextView
-                    android:id="@+id/tv_direction_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -134,7 +133,6 @@
 
             <!--计算类型-->
             <RelativeLayout
-                android:id="@+id/rl_calculate_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sl_item_height"
                 android:background="@color/bg_card_color"
@@ -154,7 +152,6 @@
                     android:layout_centerVertical="true" />
 
                 <TextView
-                    android:id="@+id/tv_calculate_type_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -427,7 +424,6 @@
             android:paddingBottom="@dimen/dp_10">
 
             <TextView
-                android:id="@+id/tv_contract_calculator_tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"

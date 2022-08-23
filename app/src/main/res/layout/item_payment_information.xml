@@ -206,7 +206,6 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_pay_time_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/otc_text_payTime"
@@ -246,7 +245,6 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_put_coin_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/otc_text_sendCoinTime"
@@ -265,7 +263,6 @@
             tools:text="招商银行北京分行" />
 
         <ImageView
-            android:id="@+id/tv_put_coin_copy"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
