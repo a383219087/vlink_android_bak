@@ -54,9 +54,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
             if (mViewModel?.uid?.value.isNullOrEmpty()) {
                 val item = adapter.data[position] as JSONObject
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
-                    .withSerializable("json", item.toString())
                     .withString("id", item.optString("id") )
-                    .withInt("status", mViewModel?.status?.value!!)
                     .navigation()
             }
         }
