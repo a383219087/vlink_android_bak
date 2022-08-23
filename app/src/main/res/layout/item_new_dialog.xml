@@ -15,6 +15,7 @@
         android:layout_height="wrap_content" />
 
     <View
+        android:id="@+id/item_line_view"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@color/bg_color" />

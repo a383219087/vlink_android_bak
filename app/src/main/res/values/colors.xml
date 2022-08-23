@@ -9,6 +9,7 @@
     <color name="text_color_33">#333333</color>
     <color name="text_color_99">#999999</color>
     <color name="text_color_ee">#EEEEEE</color>
+    <color name="text_color_orange">#FCAE05</color>
 
 
     <!-- common -->
@@ -19,6 +20,7 @@
 
 
     <!--NEW ADD-->
+    <color name="col_808ca9">#808CA9</color>
     <!--<color name="main_blue">#6584f2</color>-->
     <color name="transparent">@android:color/transparent</color>
 
@@ -216,6 +218,7 @@
     <color name="base_text_grey_0">#0D1A3B</color>
     <color name="base_text_grey_1">#0D1A3B</color>
     <color name="base_green">#2EC39B</color>
+    <color name="contract_tab_color">#E8EAF1</color>
 
 
     <color name="market_kline_line">#D8D8D8</color>
@@ -256,6 +259,7 @@
     <color name="panel_line_color_kline_night">#1E2A40</color>
     <color name="panel_array_bottom_color">#8391A8</color>
     <color name="panel_array_bottom_color_kline_night">#334662</color>
+    <color name="contract_percentage_selection_color">#D7EAFD</color>
 
     <color name="default_segmented_selected_color">@color/main_blue_50</color>
     <color name="default_segmented_unselected_color">@color/transparent</color>

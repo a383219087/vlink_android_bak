@@ -8,6 +8,7 @@
     >
 
     <TextView
+        android:id="@+id/tv_miningType"
         style="@style/ScreeningPopup"
         android:layout_marginTop="@dimen/dp_15"
         android:text="@string/pos_type_staking"

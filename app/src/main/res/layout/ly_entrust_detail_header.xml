@@ -115,6 +115,7 @@
             >
 
             <TextView
+                android:id="@+id/tv_consume_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_color"
@@ -124,6 +125,7 @@
                 tools:text="消耗(BIKI)" />
 
             <TextView
+                android:id="@+id/tv_consume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"

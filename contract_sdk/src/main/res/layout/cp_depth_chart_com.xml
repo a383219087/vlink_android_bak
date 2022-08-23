@@ -9,6 +9,7 @@
     android:paddingBottom="@dimen/dp_2">
     <!--自定义图例-->
     <LinearLayout
+        android:id="@+id/legend_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"

@@ -367,6 +367,16 @@ class NewContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getPositionAssetsList(getBaseReqBody(map)), consumer)
     }
 
+    /**
+     * 获取持仓列表以及资产列表
+     * @param contractId contractId
+     */
+    fun getLadderInfo(contractId: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
+        val map = getBaseMaps().apply {
+            this["contractId"] = contractId
+        }
+        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getLadderInfo(getBaseReqBody(map)), consumer)
+    }
 
     /**
      * 获取合约资金流水

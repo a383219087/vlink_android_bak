@@ -82,6 +82,7 @@
                         android:background="@drawable/bg_transfer_mod" />
 
                     <View
+                        android:id="@+id/v_end_view"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:layout_below="@+id/v_middle_3"

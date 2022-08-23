@@ -13,6 +13,8 @@ import android.os.Process
 import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
+import com.bilibili.boxing.BoxingCrop
+import com.bilibili.boxing.BoxingMediaLoader
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpLocalManageUtil
@@ -22,6 +24,8 @@ import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
+import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
+import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.ForegroundCallbacks
@@ -61,7 +65,8 @@ class ChainUpApp : CpMyApp() {
 
 
             Debug.stopMethodTracing()
-
+            BoxingMediaLoader.getInstance().init(BoxingGlideLoader()) // 需要实现IBoxingMediaLoader
+            BoxingCrop.getInstance().init(BoxingUcrop())
         }
         webViewSetPath(this)
 

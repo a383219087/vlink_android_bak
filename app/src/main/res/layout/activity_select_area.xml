@@ -44,6 +44,7 @@
     </LinearLayout>
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/v_search"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:contextClickable="true"
@@ -54,6 +55,7 @@
 
 
     <include
+        android:id="@+id/ly_search"
         layout="@layout/widget_search_bar"
         android:visibility="gone" />
 

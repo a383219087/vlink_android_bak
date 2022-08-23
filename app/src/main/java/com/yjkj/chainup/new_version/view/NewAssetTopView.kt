@@ -329,6 +329,10 @@ class NewAssetTopView @JvmOverloads constructor(
                 et_search?.isFocusableInTouchMode = true
             }
         })
+//        et_search?.setOnFocusChangeListener { v, hasFocus ->
+//            et_search?.isFocusable = true
+//            et_search?.isFocusableInTouchMode = true
+//        }
 
         img_small_assets_tip.setOnClickListener {
             NewDialogUtils.showDialog(context!!, LanguageUtil.getString(context, "assets_less_than_0.0001BTC"), true, object : NewDialogUtils.DialogBottomListener {
@@ -353,6 +357,11 @@ class NewAssetTopView @JvmOverloads constructor(
                 ll_payment_methods_layout?.visibility = View.GONE
                 img_assets_pie_chart?.visibility = View.VISIBLE
                 ll_contract_layout?.visibility = View.GONE
+//                if (PublicInfoDataService.getInstance().isRedPacketOpen(null)) {
+//                    ll_red_envelope_layout?.visibility = View.VISIBLE
+//                } else {
+//                    ll_red_envelope_layout?.visibility = View.GONE
+//                }
                 assetsTitle = LanguageUtil.getString(context, "assets_crypto_asset_value")
             }
             ParamConstant.FABI_INDEX -> {

@@ -104,6 +104,7 @@
 
         </ScrollView>
         <LinearLayout
+            android:id="@+id/ll_btn_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_44"
             android:layout_below="@+id/ll_bb_layout"

@@ -145,9 +145,12 @@ class SplashActivity : AppCompatActivity() {
     WsAgentManager.instance.socketUrl(it.socketAddress, true)
     CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
     CpHttpHelper.instance.serviceUrl(it.contractUrl)
+    if(SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
       val intent = Intent(this, DataInitService::class.java)
       intent.putExtra("isFirst", true)
       startService(intent)
+      SPUtils.getInstance().put("SplashActivityIsFirst", false)
+    }
     runBlocking {
       Thread.sleep(200)
       if(hasPermission()) {

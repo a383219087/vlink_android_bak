@@ -8,6 +8,7 @@
     android:paddingBottom="@dimen/dp_12">
 
     <RelativeLayout
+        android:id="@+id/rl_ctrl"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginLeft="15dp"

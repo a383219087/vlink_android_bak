@@ -311,6 +311,7 @@
 
     <!--日期-->
     <TextView
+        android:id="@+id/tv_title_data"
         style="@style/ScreeningPopup"
         android:layout_marginTop="@dimen/dp_30"
         android:text="@string/charge_text_date"

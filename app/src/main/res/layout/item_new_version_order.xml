@@ -94,6 +94,7 @@
     </LinearLayout>
     <!--实名制信息-->
     <LinearLayout
+        android:id="@+id/ll_real_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"

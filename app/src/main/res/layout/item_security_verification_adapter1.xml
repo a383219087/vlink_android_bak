@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_security_verification_layout"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_height="wrap_content">

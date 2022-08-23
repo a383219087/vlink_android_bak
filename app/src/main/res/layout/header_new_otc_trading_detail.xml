@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_choose_symbol_layout"
         android:layout_width="match_parent"
         android:layout_height="47dp">
 
@@ -45,6 +46,7 @@
             android:src="@drawable/fiat_prompt" />
 
         <TextView
+            android:id="@+id/tv_reference_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -58,6 +60,7 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/rl_choose_symbol_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_half"
         android:background="@color/line_color" />

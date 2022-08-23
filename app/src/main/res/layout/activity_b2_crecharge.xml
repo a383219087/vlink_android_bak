@@ -98,6 +98,7 @@
                     android:textSize="@dimen/sp_12" />
 
                 <View
+                    android:id="@+id/view_symbol_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_alignParentBottom="true"
@@ -127,6 +128,7 @@
                 android:gravity="center_vertical"
                 >
                 <TextView
+                    android:id="@+id/tv_bank_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/b2c_text_bank"
@@ -152,6 +154,7 @@
                 android:gravity="center_vertical"
                 >
                 <TextView
+                    android:id="@+id/tv_bank_branch_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/otc_bank_name_lit"
@@ -187,6 +190,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/tv_bank_account_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/b2c_text_bankNo"

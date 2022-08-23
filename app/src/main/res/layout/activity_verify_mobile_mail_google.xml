@@ -51,7 +51,9 @@
                 android:track="@drawable/icon_switch_default"  />
         </RelativeLayout>
 
-        <View style="@style/common_horizon_line_style"/>
+        <View
+            android:id="@+id/line_phone"
+            style="@style/common_horizon_line_style"/>
 
         <com.yjkj.chainup.new_version.view.AccountItemView
             android:id="@+id/aiv_account"

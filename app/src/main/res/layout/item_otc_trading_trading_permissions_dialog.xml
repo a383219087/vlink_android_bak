@@ -62,6 +62,7 @@
         android:visibility="gone">
 
         <ImageView
+            android:id="@+id/iv_phone"
             android:layout_width="@dimen/dp_16"
             android:layout_height="@dimen/dp_16"
             android:src="@drawable/fiat_unfinished" />

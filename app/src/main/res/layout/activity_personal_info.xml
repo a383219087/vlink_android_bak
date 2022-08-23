@@ -104,6 +104,7 @@
 
             <!--信用-->
             <RelativeLayout
+                android:id="@+id/rl_credit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -111,6 +112,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/tv_credit_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -121,6 +123,7 @@
                     android:textSize="@dimen/sp_16" />
 
                 <TextView
+                    android:id="@+id/tv_credit"
                     android:layout_width="42dp"
                     android:layout_height="22dp"
                     android:layout_alignParentRight="true"
@@ -150,6 +153,7 @@
 
             <!--邀请码-->
             <com.yjkj.chainup.new_version.view.AccountItemView
+                android:id="@+id/v_invite_code"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:visibility="gone"

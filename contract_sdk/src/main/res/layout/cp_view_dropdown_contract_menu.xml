@@ -30,6 +30,7 @@
                 android:src="@drawable/cp_contract_record" />
 
             <TextView
+                android:id="@+id/tv_history_hold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_11"
@@ -53,6 +54,7 @@
                 android:src="@drawable/cp_contract_transfer" />
 
             <TextView
+                android:id="@+id/tv_funds_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_11"
@@ -99,6 +101,7 @@
                 android:src="@drawable/cp_contract_settings" />
 
             <TextView
+                android:id="@+id/tv_contract_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_11"
@@ -145,6 +148,7 @@
                 android:src="@drawable/cp_contract_calculator" />
 
             <TextView
+                android:id="@+id/tv_contract_calculate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_11"

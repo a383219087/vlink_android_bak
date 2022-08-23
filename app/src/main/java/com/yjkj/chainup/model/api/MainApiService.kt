@@ -42,6 +42,13 @@ interface MainApiService {
     @GET("traderUser/description")
     fun getDescriptionUsing(): Observable<HttpResult<String?>>
 
+
+    /**
+     * 13. 账户余额信息 ：
+     */
+    @POST("account_balance")
+    fun account_balance(@Body requestBody: RequestBody): Observable<ResponseBody>
+
     /**
      * 新首页 头部币对24小时行情
      */

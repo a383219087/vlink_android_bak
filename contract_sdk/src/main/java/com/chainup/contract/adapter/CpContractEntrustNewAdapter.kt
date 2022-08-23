@@ -47,6 +47,13 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
     var transaction_text_dealNum = ""
     var coUnit = 0
 
+    init {
+
+    }
+
+    fun setIsCurrentEntrust(isCurrentEntrust: Boolean = true) {
+        this.isCurrentEntrust = isCurrentEntrust
+    }
 
     override fun convert(helper: BaseViewHolder, item: CpCurrentOrderBean) {
 
@@ -92,6 +99,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         var sideStr = item.side
         var typeStr = ""
 
+        //context.getLineText("cp_overview_text13")
         if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
         } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
@@ -105,6 +113,10 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
         //限价单，市价单，IOC，FOK，Post Only
 
+
+//            //普通
+//            helper.setGone(R.id.ll_plan, true)
+//            helper.setGone(R.id.ll_common, false)
         when (sideStr) {
             "BUY" -> {
                 helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
@@ -227,6 +239,8 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 val nav_up = context.getResources().getDrawable(R.drawable.cp_contract_prompt);
                 nav_up.setBounds(5, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
                 if (item.type == "6"){
+                    helper.setText(R.id.tv_deal_price, "--")
+                    helper.setText(R.id.tv_deal_amount, "--")
                     tvOrderType.setCompoundDrawables(null, null, nav_up, null);
                 }else{
                     tvOrderType.setCompoundDrawables(null, null, null, null);

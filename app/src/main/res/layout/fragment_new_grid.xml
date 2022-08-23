@@ -206,6 +206,7 @@
                 android:layout_marginBottom="@dimen/dp_10">
 
                 <TextView
+                    android:id="@+id/tv_current_execute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/quant_ordering"

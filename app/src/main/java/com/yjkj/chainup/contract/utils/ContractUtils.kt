@@ -1,10 +1,19 @@
 package com.yjkj.chainup.contract.utils
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.TextUtils
-import com.common.sdk.utlis.MathHelper
 import com.contract.sdk.ContractPublicDataAgent
+import com.contract.sdk.ContractSDKAgent
 import com.contract.sdk.ContractUserDataAgent
+import com.contract.sdk.data.Contract
 import com.contract.sdk.extra.Contract.ContractCalculate
+import com.common.sdk.utlis.MathHelper
+import com.common.sdk.utlis.NumberUtil
+import com.yjkj.chainup.contract.extension.showBaseName
+import com.yjkj.chainup.contract.uilogic.LogicContractSetting
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager.Companion.getRatesByCoinName
 
 object ContractUtils {
@@ -68,6 +77,117 @@ object ContractUtils {
         return total_balance
     }
 
+    fun getHoldVolUnit(contract: Contract?): String? {
+        if (contract == null) {
+            return LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+        }
+        val unit = LogicContractSetting.getContractUint(ContractSDKAgent.context)
+        if (unit == 0) {
+            return LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+        } else if (unit == 1) {
+            return if (contract.isReserve) {
+                contract.showBaseName()
+            } else {
+                contract.showBaseName()
+            }
+        }
+        return LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+    }
 
+
+    fun getVolUnit(context: Context?, contract: Contract?, vol: String?, price: String?): String? {
+        if (contract == null) {
+            return "0"
+        }
+        val dfVol0 = NumberUtil.getDecimal(contract.vol_index)
+        val dfVol = NumberUtil.getDecimal(-1)
+        val unit = LogicContractSetting.getContractUint(context)
+        if (unit == 0) {
+            return dfVol0.format(MathHelper.round(vol)) + LanguageUtil.getString(context, "sl_str_contracts_unit")
+        } else if (unit == 1) {
+            return if (contract.isReserve) {
+                val bVol = MathHelper.div(MathHelper.mul(vol, contract.face_value), MathHelper.round(price))
+                dfVol.format(bVol) + contract.showBaseName()
+            } else {
+                val bVol = MathHelper.mul(vol, contract.face_value)
+                dfVol.format(bVol) + contract.showBaseName()
+            }
+        }
+        return "0"
+    }
+
+    fun getVolUnit(context: Context?, contract: Contract?, vol: Double, price: Double): String {
+        if (contract == null) {
+            return "0"
+        }
+        val dfVol0 = NumberUtil.getDecimal(contract.vol_index)
+        val dfVol = NumberUtil.getDecimal(-1)
+        val unit = LogicContractSetting.getContractUint(context)
+        if (unit == 0) {
+            return dfVol0.format(vol) + LanguageUtil.getString(context, "sl_str_contracts_unit")
+        } else if (unit == 1) {
+            return if (contract.isReserve) {
+                val bVol = MathHelper.div(MathHelper.mul(vol, MathHelper.round(contract.face_value)), price)
+                dfVol.format(bVol) + contract.showBaseName()
+            } else {
+                val bVol = MathHelper.mul(vol, MathHelper.round(contract.face_value))
+                dfVol.format(bVol) + contract.showBaseName()
+            }
+        }
+        return "0"
+    }
+
+    // CalculateContractBasicValue 通过量和价格计算合约的基础比价值
+// coinUnit true 单位为张 false 单位和BaseCoin单位一致
+    fun CalculateContractBasicValue(
+            vol: String?,
+            price: String?,
+            contract: Contract?): String {
+        val unit = LogicContractSetting.getContractUint(ContractSDKAgent.context)
+        if (MathHelper.round(vol) <= 0.0 || MathHelper.round(price) <= 0.0 || contract == null) {
+            return "0" + if (unit == 0) contract?.showBaseName() else LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+        }
+        var amount: Double
+        amount = if (contract.isReserve) {
+            MathHelper.div(vol, price)
+        } else {
+            MathHelper.round(vol)
+        }
+        val dfVol = NumberUtil.getDecimal(contract.vol_index)
+        val dfValue = NumberUtil.getDecimal(-1)
+        return if (unit == 0) {
+            amount = MathHelper.mul(amount, MathHelper.round(contract.face_value))
+            dfValue.format(amount) + contract.showBaseName()
+        } else {
+            if (contract.isReserve) {
+                dfVol.format(MathHelper.round(vol)) + LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+            } else {
+                dfVol.format(amount) + LanguageUtil.getString(ContractSDKAgent.context, "sl_str_contracts_unit")
+            }
+        }
+    }
+
+
+    fun safeOpenUrl(context: Context, url: String?) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        val content_url = Uri.parse(url)
+        intent.data = content_url
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (intent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(intent)
+        }
+    }
+
+
+    /**
+     * 是否中文
+     * @param context
+     * @return
+     */
+    fun isZhEnv(context: Context?): Boolean {
+        val language = LanguageUtil.getSelectLanguage()
+        return TextUtils.equals(language, "zh_CN") || TextUtils.equals("zh", language)
+    }
 
 }
