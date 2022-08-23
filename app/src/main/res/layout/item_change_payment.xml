@@ -35,7 +35,6 @@
         android:src="@drawable/enter" />
 
     <View
-        android:id="@+id/item_change_payment_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_half"
         android:layout_alignParentBottom="true"

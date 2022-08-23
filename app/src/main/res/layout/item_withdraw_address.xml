@@ -14,7 +14,6 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/tv_address_image"
             android:layout_width="@dimen/dp_15"
             android:layout_height="17dp"
             android:layout_marginTop="@dimen/dp_3"

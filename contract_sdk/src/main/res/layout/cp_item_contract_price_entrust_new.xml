@@ -140,7 +140,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_hold_layout2"
                 android:paddingLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:orientation="vertical"
@@ -166,7 +165,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll_hold_layout3"
                 android:paddingLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:orientation="vertical"
@@ -202,14 +200,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:id="@+id/ll_hold_layout4"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_hold_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/normal_text_color"
@@ -227,14 +223,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_hold_layout5"
                 android:paddingLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/tv_hold_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/normal_text_color"
@@ -403,7 +397,6 @@
                 android:layout_weight="1"/>
             <!--是否为只减仓-->
             <LinearLayout
-                android:id="@+id/ll_only_reduce_position_common"
                 android:paddingLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:gravity="right"
@@ -429,7 +422,6 @@
 
 
             <com.chainup.contract.view.CpContractUpDownItemLayout
-                android:id="@+id/item_only_reduce_position_common"
                 android:layout_width="0dp"
                 android:visibility="gone"
                 android:layout_height="wrap_content"
@@ -466,14 +458,12 @@
 
             <!--类型 -->
             <LinearLayout
-                android:id="@+id/item_order_type_common"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="right"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/tv_item_order_type_common_key"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/normal_text_color"

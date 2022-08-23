@@ -64,7 +64,6 @@
 
 
             <LinearLayout
-                android:id="@+id/ll_content_profit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_28"
@@ -79,7 +78,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_profit_price"
                         style="@style/textStyle_text_nor_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,7 +101,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_loss_price"
                         style="@style/textStyle_text_nor_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +123,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_profit_sum"
                         style="@style/textStyle_text_nor_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

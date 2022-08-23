@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="adapter_item_tag_key" type="id" />
 
     <item name="otc_chat_item_tag_type_other" type="id" />
     <item name="otc_chat_item_tag_holder_oter" type="id" />

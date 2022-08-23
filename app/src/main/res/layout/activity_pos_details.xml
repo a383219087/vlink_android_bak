@@ -12,13 +12,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/detail_head"
-            layout="@layout/detail_head_layout" />
+        <include layout="@layout/detail_head_layout" />
 
 
         <include
-            android:id="@+id/current_item"
             layout="@layout/expected_return_layout"
             android:visibility="visible" />
 
@@ -341,7 +338,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_lock"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_85"
                 android:layout_marginTop="@dimen/dp_25"

@@ -110,9 +110,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_risk_rate"
                 tools:progress="100" />
 
-            <include
-                android:id="@+id/item_currency_lending_view"
-                layout="@layout/item_currency_lending_view" />
+            <include layout="@layout/item_currency_lending_view" />
 
 
         </LinearLayout>

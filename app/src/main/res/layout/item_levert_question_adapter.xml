@@ -9,7 +9,6 @@
     android:background="@color/bg_card_color">
 
     <RelativeLayout
-        android:id="@+id/layout_select"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginRight="@dimen/dp_15"

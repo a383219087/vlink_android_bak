@@ -183,8 +183,6 @@
         <activity android:name=".new_version.activity.otcTrading.NewReleaseAdvertisingActivity" />
         <activity android:name=".new_version.activity.otcTrading.MineOrderActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewComplaintActivity" />
-        <activity android:name=".new_version.activity.asset.ChargeSymbolRecordActivity" />
-        <activity android:name=".new_version.activity.asset.ConfirmWithdrawActivity" />
         <activity android:name=".new_version.activity.asset.WithdrawActivity" />
         <activity android:name=".new_version.activity.asset.DirectlyWithdrawActivity" />
         <activity android:name=".new_version.activity.asset.IdentityAuthenticationActivity" />

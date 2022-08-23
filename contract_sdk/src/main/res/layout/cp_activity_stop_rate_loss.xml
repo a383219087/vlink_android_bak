@@ -121,7 +121,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_open_price_key"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cp_order_text30"
@@ -316,7 +315,6 @@
                     </LinearLayout>
 
                     <com.chainup.contract.view.CpUISegmentedView
-                        android:id="@+id/sv_trade"
                         android:layout_width="150dp"
                         android:layout_height="@dimen/dp_30"
                         android:layout_alignParentRight="true"
@@ -590,7 +588,6 @@
                                 android:textSize="@dimen/sp_14" />
 
                             <com.coorchice.library.SuperTextView
-                                android:id="@+id/tv_market_loss_price_hint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0"

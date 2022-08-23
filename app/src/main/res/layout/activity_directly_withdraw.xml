@@ -135,7 +135,6 @@
                     android:textSize="@dimen/sp_12" />
 
                 <View
-                    android:id="@+id/view_symbol_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_half"
                     android:layout_alignParentBottom="true"
@@ -161,7 +160,6 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/rl_no_adr_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible">
@@ -331,7 +329,6 @@
                         tools:hint="最小提币数量为0.01" />
 
                     <View
-                        android:id="@+id/view_fee_line"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_half"
                         android:layout_alignParentBottom="true"

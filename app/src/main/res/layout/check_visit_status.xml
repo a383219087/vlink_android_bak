@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/check_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -33,7 +32,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/check_visit_ll"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_30"
                     android:background="@drawable/check_visit_status_bg">
@@ -46,7 +44,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/check_visit_tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -81,7 +78,6 @@
         app:layout_constraintTop_toTopOf="@+id/top_ll" />
 
     <ImageView
-        android:id="@+id/check_visit_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_17"

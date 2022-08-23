@@ -96,7 +96,6 @@
         android:layout_marginRight="15dp" />
 
     <TextView
-        android:id="@+id/tv_title_bill_data"
         style="@style/ScreeningPopup"
         android:layout_marginTop="@dimen/dp_15"
         android:text="@string/charge_text_date"
