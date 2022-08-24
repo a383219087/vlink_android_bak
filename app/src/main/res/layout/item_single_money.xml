@@ -68,7 +68,7 @@
                 android:textColor="@color/text_color_99"
                 android:layout_marginLeft="5dp"
                 android:textSize="11sp"
-                android:text="@{ item.bean.ctime}" />
+                android:text="@{ item.bean.ctime.replaceAll(`T`,` `)}" />
 
 
 

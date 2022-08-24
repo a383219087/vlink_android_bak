@@ -160,10 +160,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         RxView.clicks(iv_more_coin)
                 .throttleFirst(1000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ x ->
+                .subscribe { x ->
                     val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), false)
                     DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.COIN_TRADE.value)
-                })
+                }
         /**
          * 切换币种
          */
@@ -838,7 +838,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
         } else if (MessageEvent.symbol_switch_type == event.msg_type) {
             val msg_content = event.msg_content
-            val isCurrent = WsAgentManager.instance.lastNew == this.javaClass.simpleName || WsAgentManager.instance.lastNew == "CoinSearchDialogFg"
             if (null != msg_content && event.isBibi) {
                 val nSymbol = msg_content as String
 
@@ -851,7 +850,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
         } else if (MessageEvent.CREATE_ORDER_TYPE == event.msg_type) {
             // 下单通知
-//            Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
             isCreatedOrder = event.msg_content as Boolean
             if (isCreatedOrder) {
                 if (event.dataIsNotNull()) {
@@ -869,7 +867,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 获取ETF声明所需字段
      */
     private fun getETFStateData() {
-//        LogUtil.d(TAG, "=======获取ETF声明所需字段:$coinMapData========")
         var url = ""
         if (coinMapData?.optInt("etfOpen", 0) == 1) {
             v_vertical_depth?.changeEtf(null)
@@ -878,8 +875,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 override fun onResponseSuccess(jsonObject: JSONObject) {
                     val json = jsonObject.optJSONObject("data")
                     url = json?.optString("faqUrl") ?: ""
-                    val domainName = json?.optString("domainName") ?: ""
-//                    DialogUtil.showETFStatement(context ?: return, domainName, url)
                     v_vertical_depth?.changeEtfInfo(json)
                     v_horizontal_depth?.changeEtfInfo(json)
                 }
@@ -912,7 +907,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      * 每5s调用一次接口
      */
     private fun loopPriceRiskPosition() {
-//        Log.d(TAG, "base:loopPriceRiskPosition()====")
         subscribe?.dispose()
         subscribe = Observable.interval(0,CommonConstant.etfLoopTime, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -928,7 +922,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 val name = coinMapData?.optString("name")
                 val base = NCoinManager.getMarketCoinName(name)
                 val quote = NCoinManager.getMarketName(name)
-//                LogUtil.d(TAG, "base:$base,quote:$quote")
                 (netValueDisposable
                         ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base, quote = quote, consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(data: JSONObject) {
@@ -953,7 +946,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         netValueDisposable?.clear()
         subscribe?.dispose()
         subscribeCoin?.dispose()
-//        LogUtil.d(TAG, "onStop()")
 
     }
 
@@ -962,11 +954,9 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         if(step.isNotEmpty()){
             stepTemp = step
         }
-//        LogUtil.d(TAG, "sendAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
         if (symbol.isNotEmpty()) {
             klineTime = System.currentTimeMillis()
             wsNetworkChange()
-//            WsAgentManager.instance.sendMessage(hashMapOf("symbol" to symbol, "step" to step), this)
 
             var etfUpAndDown = coinMapData?.optJSONArray("etfUpAndDown")
             var subsymbol = symbol
@@ -979,7 +969,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
     fun unbindAgentData() {
-//        LogUtil.d(TAG, "unbindAgentData() symbol 是否存在 ${symbol.isNotEmpty()}")
         if (symbol.isNotEmpty()) {
             WsAgentManager.instance.unbind(this, true)
         }
@@ -996,10 +985,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         loopData(false)
     }
 
-    override fun onVisibleChanged(isVisible: Boolean) {
-        super.onVisibleChanged(isVisible)
-//        LogUtil.e(TAG, "onVisibleChanged==NCVCTradeFragment ${isVisible} ")
-    }
+
 
     fun isInitSymbol(): Boolean {
         return symbol.isNotEmpty()
@@ -1008,20 +994,11 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     fun changeInitData() {
         coinMapData = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         showTopCoin()
-//        LogUtil.d(TAG, "NCVCTradeFragment==coinMapData is $coinMapData")
         symbol = coinMapData?.optString("symbol") ?: ""//return
         setTagView(coinMapData?.optString("name", "").toString())
     }
 
-    private fun etfViewChange() {
-        if (v_horizontal_depth?.visibility == View.VISIBLE) {
-            if (coinMapData?.optInt("etfOpen", 0) == 1) {
 
-            } else {
-
-            }
-        }
-    }
 
     var klineTime = 0L
 

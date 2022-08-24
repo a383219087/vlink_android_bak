@@ -445,11 +445,11 @@ fun JSONObject?.getMarketName(isLevel: Boolean = false): String {
 }
 
 fun JSONArray.getPriceTick(depthLevel: Int): String {
-    val price = SymbolInterceptUtils.interceptData(
-            this[0].toString().replace("\"", "").trim(),
-            depthLevel,
-            "price")
-    return price
+    return SymbolInterceptUtils.interceptData(
+        this[0].toString().replace("\"", "").trim(),
+        depthLevel,
+        "price"
+    )
 
 }
 

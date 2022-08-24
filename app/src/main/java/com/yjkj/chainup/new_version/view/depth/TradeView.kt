@@ -59,9 +59,11 @@ import kotlin.math.pow
  * @Date：2019/3/7-5:43 PM
  * @Description: 交易量的View
  */
-class TradeView @JvmOverloads constructor(context: Context,
-                                          attrs: AttributeSet? = null,
-                                          defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+class TradeView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
 
     val TAG = TradeView::class.java.simpleName
 
@@ -69,9 +71,10 @@ class TradeView @JvmOverloads constructor(context: Context,
     private val delayTime = 100L
 
     //交易类型
-    var transactionType = ParamConstant.TYPE_BUY
+    var transactionType = TYPE_BUY
     var isLever = false
     var isETF = false
+    var price = ""
 
     //价格类型
     var priceType = 0
@@ -116,7 +119,6 @@ class TradeView @JvmOverloads constructor(context: Context,
                 radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
                 radioButton.backgroundResource = R.color.transparent
             }
-            // et_price?.setText("")
             et_volume?.setText("")
             if (!StringUtil.checkStr(et_price?.text.toString())) {
                 tv_convert_price?.text = "--"
@@ -135,7 +137,7 @@ class TradeView @JvmOverloads constructor(context: Context,
 
 
         et_price?.filters = arrayOf(DecimalDigitsInputFilter(priceScale))
-        if (transactionType == ParamConstant.TYPE_BUY && priceType == ParamConstant.TYPE_MARKET) {
+        if (transactionType == TYPE_BUY && priceType == ParamConstant.TYPE_MARKET) {
             et_volume?.filters = arrayOf(DecimalDigitsInputFilter(priceScale))
             LogUtil.d(TAG, "setPrice()==市价数量精度")
         } else {
@@ -191,7 +193,7 @@ class TradeView @JvmOverloads constructor(context: Context,
          * 点击 买
          */
         rb_buy?.setOnClickListener {
-            transactionType = ParamConstant.TYPE_BUY
+            transactionType = TYPE_BUY
             buyOrSell(transactionType, isLever)
             showBalanceData()
         }
@@ -200,7 +202,7 @@ class TradeView @JvmOverloads constructor(context: Context,
          * 点击卖
          */
         rb_sell?.setOnClickListener {
-            transactionType = ParamConstant.TYPE_SELL
+            transactionType = TYPE_SELL
             buyOrSell(transactionType, isLever)
             showBalanceData()
         }
@@ -215,20 +217,20 @@ class TradeView @JvmOverloads constructor(context: Context,
 
         tv_order_type?.view()?.let {
             RxView.clicks(it)
-                    .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { x ->
-                        DialogUtil.createCVCOrderPop(
-                            context,
-                            priceType,
-                            it,
-                            object : NewDialogUtils.DialogOnSigningItemClickListener {
-                                override fun clickItem(position: Int, text: String) {
-                                    tv_order_type?.textContent = text
-                                    changePriceType(position)
-                                }
-                            })
-                    }
+                .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { x ->
+                    DialogUtil.createCVCOrderPop(
+                        context,
+                        priceType,
+                        it,
+                        object : NewDialogUtils.DialogOnSigningItemClickListener {
+                            override fun clickItem(position: Int, text: String) {
+                                tv_order_type?.textContent = text
+                                changePriceType(position)
+                            }
+                        })
+                }
         }
         getAvailableBalance()
 
@@ -307,15 +309,20 @@ class TradeView @JvmOverloads constructor(context: Context,
             override fun bottonOnClick() {
                 if (!LoginManager.checkLogin(context, true)) return
 
-                var status = if (TradeFragment.currentIndex == LEVER_INDEX_TAB) PublicInfoDataService.getInstance().leverTradeKycOpen else PublicInfoDataService.getInstance().exchangeTradeKycOpen
+                var status =
+                    if (TradeFragment.currentIndex == LEVER_INDEX_TAB) PublicInfoDataService.getInstance().leverTradeKycOpen else PublicInfoDataService.getInstance().exchangeTradeKycOpen
 
                 if (status && UserDataService.getInstance().authLevel != 1) {
                     NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_trading)
-                            ?: "", object : NewDialogUtils.DialogBottomListener {
+                        ?: "", object : NewDialogUtils.DialogBottomListener {
                         override fun sendConfirm() {
                             when (UserDataService.getInstance().authLevel) {
                                 0 -> {
-                                    NToastUtil.showTopToastNet(getActivity(), false, context?.getString(R.string.noun_login_pending))
+                                    NToastUtil.showTopToastNet(
+                                        getActivity(),
+                                        false,
+                                        context?.getString(R.string.noun_login_pending)
+                                    )
                                 }
 
                                 2, 3 -> {
@@ -339,26 +346,40 @@ class TradeView @JvmOverloads constructor(context: Context,
                  */
                 if (priceType == TYPE_LIMIT) {
                     if (TextUtils.isEmpty(inputPrice)) {
-                        NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "contract_tip_pleaseInputPrice"))
+                        NToastUtil.showTopToastNet(
+                            getActivity(),
+                            false,
+                            LanguageUtil.getString(context, "contract_tip_pleaseInputPrice")
+                        )
                         return
                     }
 
                     if (TextUtils.isEmpty(inputQuantity)) {
-                        NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "transfer_tip_emptyVolume"))
+                        NToastUtil.showTopToastNet(
+                            getActivity(),
+                            false,
+                            LanguageUtil.getString(context, "transfer_tip_emptyVolume")
+                        )
                         return
                     }
 
 
                     val limitPriceMin = coinMapData?.optString("limitPriceMin")
                     if (BigDecimalUtils.compareTo(inputPrice, limitPriceMin) < 0) {
-                        val msg = LanguageUtil.getString(context, "common_tip_limitMinTransactionPrice") + BigDecimalUtils.showSNormal(limitPriceMin)
+                        val msg =
+                            LanguageUtil.getString(context, "common_tip_limitMinTransactionPrice") + BigDecimalUtils.showSNormal(
+                                limitPriceMin
+                            )
                         NToastUtil.showTopToastNet(getActivity(), false, msg)
                         return
                     }
 
                     val limitVolumeMin = coinMapData?.optString("limitVolumeMin")
                     if (BigDecimalUtils.compareTo(inputQuantity, limitVolumeMin) < 0) {
-                        val msg = LanguageUtil.getString(context, "common_tip_limitMaxTransactionVolume") + BigDecimalUtils.showSNormal(limitVolumeMin)
+                        val msg =
+                            LanguageUtil.getString(context, "common_tip_limitMaxTransactionVolume") + BigDecimalUtils.showSNormal(
+                                limitVolumeMin
+                            )
                         NToastUtil.showTopToastNet(getActivity(), false, msg)
                         return
                     }
@@ -366,7 +387,11 @@ class TradeView @JvmOverloads constructor(context: Context,
                     if (transactionType == TYPE_SELL) {
                         if (BigDecimalUtils.compareTo(canUseMoney, inputQuantity) < 0) {
                             // DisplayUtil.showSnackBar(this@TradeView.rootView, LanguageUtil.getString(context,R.string.common_tip_balanceNotEnough), isSuc = false)
-                            NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "common_tip_balanceNotEnough"))
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "common_tip_balanceNotEnough")
+                            )
                             return
                         }
                     } else {
@@ -379,7 +404,11 @@ class TradeView @JvmOverloads constructor(context: Context,
                  */
                 if (priceType == TYPE_MARKET) {
                     if (TextUtils.isEmpty(inputQuantity)) {
-                        NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "transfer_tip_emptyVolume"))
+                        NToastUtil.showTopToastNet(
+                            getActivity(),
+                            false,
+                            LanguageUtil.getString(context, "transfer_tip_emptyVolume")
+                        )
                         return
                     }
                     val marketBuyMin = coinMapData?.optString("marketBuyMin")
@@ -396,12 +425,23 @@ class TradeView @JvmOverloads constructor(context: Context,
                          * 最小价格
                          */
                         if (BigDecimalUtils.compareTo(inputQuantity, marketBuyMin) < 0) {
-                            NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "common_tip_limitMinTransactionPrice") + BigDecimalUtils.showSNormal(marketBuyMin))
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(
+                                    context,
+                                    "common_tip_limitMinTransactionPrice"
+                                ) + BigDecimalUtils.showSNormal(marketBuyMin)
+                            )
                             return
                         }
 
                         if (BigDecimalUtils.compareTo(canUseMoney, inputQuantity) < 0) {
-                            NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "common_tip_balanceNotEnough"))
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "common_tip_balanceNotEnough")
+                            )
                             return
                         }
 
@@ -410,12 +450,23 @@ class TradeView @JvmOverloads constructor(context: Context,
                          * 最小交易量
                          */
                         if (BigDecimalUtils.compareTo(inputQuantity, marketSellMin) < 0) {
-                            NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "common_tip_limitMaxTransactionVolume") + BigDecimalUtils.showSNormal(marketSellMin))
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(
+                                    context,
+                                    "common_tip_limitMaxTransactionVolume"
+                                ) + BigDecimalUtils.showSNormal(marketSellMin)
+                            )
                             return
                         }
 
                         if (BigDecimalUtils.compareTo(canUseMoney, inputQuantity) < 0) {
-                            NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "common_tip_balanceNotEnough"))
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "common_tip_balanceNotEnough")
+                            )
                             return
                         }
 
@@ -573,6 +624,141 @@ class TradeView @JvmOverloads constructor(context: Context,
          */
         tv_add?.setOnTouchListener { view, motionEvent -> priceAdd(motionEvent) }
         iv_add?.setOnTouchListener { view, motionEvent -> priceAdd(motionEvent) }
+    }
+
+    private fun priceSub(event: MotionEvent): Boolean {
+        isPriceLongClick = true
+        isStartPriceSubClick = true
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (!LoginManager.checkLogin(context, true)) return false
+                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+                    volumeScale
+                } else {
+                    priceScale
+                }
+                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
+                Log.d(TAG, "=======price:减的单位量unit:$unit===")
+                if (TextUtils.isEmpty(unit)) return false
+                if (inputPrice.isEmpty()) {
+                    Log.d("我是入口","==7")
+                    et_price?.setText("")
+                    tv_convert_price?.text = ""
+                    return true
+                }
+                if (BigDecimal(inputPrice).toFloat() > 0f) {
+                    inputPrice =
+                        BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+                    if (inputPrice.isNotEmpty()) {
+                        Log.d("我是入口", "${inputPrice}==6")
+                        et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                        tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                    }
+                } else {
+                    Log.d("我是入口","0.0==5")
+                    et_price?.setText("0.0")
+                    tv_convert_price?.text = "0.0"
+                    return true
+                }
+
+                doAsync {
+                    while (isPriceLongClick) {
+                        Thread.sleep(delayTime)
+                        if (!isStartPriceSubClick) continue
+
+                        try {
+                            inputPrice = BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale)
+                                .toPlainString()
+                        } catch (e: NumberFormatException) {
+                            Log.d(TAG, "=======price:加的单位量unit:$e===")
+                        }
+
+                        uiThread {
+                            Log.d("我是入口","${inputPrice}==4")
+                            et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                            tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                        }
+
+                    }
+                }
+                return true
+            }
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                isPriceLongClick = false
+                isStartPriceSubClick = false
+            }
+        }
+
+
+        return true
+    }
+
+    private fun priceAdd(event: MotionEvent): Boolean {
+        isPriceLongClick = true
+        isStartPricePlusClick = true
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (!LoginManager.checkLogin(context, true)) return false
+                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+                    volumeScale
+                } else {
+                    priceScale
+                }
+                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
+                Log.d(TAG, "=======price:加的单位量unit:$unit===")
+                if (TextUtils.isEmpty(unit)) return false
+
+                inputPrice =
+                    BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+                if (BigDecimal(inputPrice).toFloat() > 0f) {
+                    inputPrice =
+                        BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+                    if (inputPrice.isNotEmpty()){
+                        et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                        Log.d("我是入口","${inputPrice}==3")
+                        tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                    }
+
+                } else {
+                    Log.d("我是入口","0.0==2")
+                    et_price?.setText("0.0")
+                    tv_convert_price?.text = "0.0"
+                    return true
+                }
+
+                doAsync {
+                    while (isPriceLongClick) {
+                        Thread.sleep(delayTime)
+                        if (!isStartPricePlusClick) continue
+                        try {
+                            inputPrice = BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale)
+                                .toPlainString()
+                        } catch (e: NumberFormatException) {
+                            Log.d(TAG, "=======price:加的单位量unit:$e===")
+                        }
+
+                        uiThread {
+                            if (inputPrice.isNotEmpty()){
+                                Log.d("我是入口","$inputPrice==1")
+                                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                                tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                isPriceLongClick = false
+                isStartPricePlusClick = false
+            }
+        }
+        return true
     }
 
     private var beforlong = 0
@@ -750,42 +936,55 @@ class TradeView @JvmOverloads constructor(context: Context,
         //限价模式下表示价格，市价无意义
         val price = inputPrice
         Log.d(TAG, "=disposable:===${disposable == null} ,${mainModel == null}======")
-        (disposable ?: CompositeDisposable()).add((mainModel
-                ?: MainModel()).createOrder(side, type, volume, price, coinMapData?.optString("symbol", "")
-                ?: return, isLever = TradeFragment.currentIndex == LEVER_INDEX_TAB, consumer = object : NDisposableObserver(true) {
-            override fun onResponseSuccess(data: JSONObject) {
-                cbtn_create_order?.hideLoading()
-                NToastUtil.showTopToastNet(getActivity(), true, LanguageUtil.getString(context, "contract_tip_submitSuccess"))
-                val event = MessageEvent(MessageEvent.CREATE_ORDER_TYPE, true, TradeFragment.currentIndex == LEVER_INDEX_TAB)
-                try {
-                    val item = data.getJSONObject("data")
-                    event.msg_content_data = item
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                NLiveDataUtil.postValue(event)
-                EventBusUtil.post(event)
-                //刷新委托列表
-                getAvailableBalance()
-                /**
-                 * 设置 RadioButton 的选中效果
-                 */
-                for (i in 0 until rg_trade.childCount step 2) {
-                    val radioButton = rg_trade?.getChildAt(i) as RadioButton
-                    radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
-                    radioButton.backgroundResource = R.color.transparent
-                }
-                rg_trade.clearCheck()
-                et_volume?.text?.clear()
-                et_volume?.invalidate()
-                et_volume?.setText("")
-            }
+        (disposable ?: CompositeDisposable()).add(
+            (mainModel
+                ?: MainModel()).createOrder(side,
+                type,
+                volume,
+                price,
+                coinMapData?.optString("symbol", "")
+                    ?: return,
+                isLever = TradeFragment.currentIndex == LEVER_INDEX_TAB,
+                consumer = object : NDisposableObserver(true) {
+                    override fun onResponseSuccess(data: JSONObject) {
+                        cbtn_create_order?.hideLoading()
+                        NToastUtil.showTopToastNet(
+                            getActivity(),
+                            true,
+                            LanguageUtil.getString(context, "contract_tip_submitSuccess")
+                        )
+                        val event =
+                            MessageEvent(MessageEvent.CREATE_ORDER_TYPE, true, TradeFragment.currentIndex == LEVER_INDEX_TAB)
+                        try {
+                            val item = data.getJSONObject("data")
+                            event.msg_content_data = item
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                        NLiveDataUtil.postValue(event)
+                        EventBusUtil.post(event)
+                        //刷新委托列表
+                        getAvailableBalance()
+                        /**
+                         * 设置 RadioButton 的选中效果
+                         */
+                        for (i in 0 until rg_trade.childCount step 2) {
+                            val radioButton = rg_trade?.getChildAt(i) as RadioButton
+                            radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
+                            radioButton.backgroundResource = R.color.transparent
+                        }
+                        rg_trade.clearCheck()
+                        et_volume?.text?.clear()
+                        et_volume?.invalidate()
+                        et_volume?.setText("")
+                    }
 
-            override fun onResponseFailure(code: Int, msg: String?) {
-                super.onResponseFailure(code, msg)
-                cbtn_create_order?.hideLoading()
-            }
-        })!!)
+                    override fun onResponseFailure(code: Int, msg: String?) {
+                        super.onResponseFailure(code, msg)
+                        cbtn_create_order?.hideLoading()
+                    }
+                })!!
+        )
 
     }
 
@@ -916,11 +1115,11 @@ class TradeView @JvmOverloads constructor(context: Context,
              * 币种
              */
             tv_coin_name?.text =
-                    if (priceType == TYPE_LIMIT) {
-                        "${showCoinName()}"
-                    } else {
-                        "${showMarket()}"
-                    }
+                if (priceType == TYPE_LIMIT) {
+                    "${showCoinName()}"
+                } else {
+                    "${showMarket()}"
+                }
 
             if (priceType == TYPE_LIMIT) {
                 et_volume?.hint = LanguageUtil.getString(context, "charge_text_volume")
@@ -975,8 +1174,10 @@ class TradeView @JvmOverloads constructor(context: Context,
             if (TradeFragment.currentIndex == LEVER_INDEX_TAB) {
                 precision = 8
             }
-            canUseMoney = DecimalUtil.cutValueByPrecision(countCoinBalance
-                    ?: "0", precision)
+            canUseMoney = DecimalUtil.cutValueByPrecision(
+                countCoinBalance
+                    ?: "0", precision
+            )
 
             NCoinManager.getMarketByName(showCoinName())
             tv_available_balance?.text = "$canUseMoney ${showMarket()}"
@@ -1026,7 +1227,6 @@ class TradeView @JvmOverloads constructor(context: Context,
     }
 
 
-
     private fun showBalanceData() {
 
     }
@@ -1038,18 +1238,21 @@ class TradeView @JvmOverloads constructor(context: Context,
         return false
     }
 
-    fun initTick(tick: JSONArray, depthLevel: Int = 2) {
-        et_price.text = tick.getPriceTick(depthLevel).editable()
-        Log.d(TAG, "=======price:加的单位量unit:${et_price.text}===")
+
+    fun initTick(tick: JSONArray, depthLevel: Int = 2,type: Int) {
+        et_price.text  = tick.getPriceTick(depthLevel).editable()
+        Log.d("我是入口","${tick.getPriceTick(depthLevel)}==8")
     }
+
+
 
     fun verticalDepth(isVertical: Boolean = false, isBuy: Boolean = true, isLever: Boolean = true) {
         rg_buy_sell.visibility = (!isVertical).visiableOrGone()
         tv_order_type.visibility = (!isVertical).visiableOrGone()
         img_transfer.visibility = (!isVertical).visiableOrGone()
         transactionType = when (isBuy) {
-            true -> ParamConstant.TYPE_BUY
-            else -> ParamConstant.TYPE_SELL
+            true -> TYPE_BUY
+            else -> TYPE_SELL
         }
         this.isLever = isLever
         buyOrSell(transactionType, isLever)
@@ -1110,130 +1313,21 @@ class TradeView @JvmOverloads constructor(context: Context,
     }
 
 
-    private fun priceSub(event: MotionEvent): Boolean {
-        isPriceLongClick = true
-        isStartPriceSubClick = true
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                if (!LoginManager.checkLogin(context, true)) return false
-                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    volumeScale
-                } else {
-                    priceScale
-                }
-                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
-                Log.d(TAG, "=======price:减的单位量unit:$unit===")
-                if (TextUtils.isEmpty(unit)) return false
-                if (inputPrice.isEmpty()) {
-                    et_price?.setText("")
-                    tv_convert_price?.text = ""
-                    return true
-                }
-                if (BigDecimal(inputPrice).toFloat() > 0f) {
-                    inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
-                    et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                    tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                } else {
-                    et_price?.setText("0.0")
-                    tv_convert_price?.text = "0.0"
-                    return true
-                }
-
-                doAsync {
-                    while (isPriceLongClick) {
-                        if (!isStartPriceSubClick) continue
-
-                        try {
-                            inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
-                        } catch (e: NumberFormatException) {
-                            Log.d(TAG, "=======price:加的单位量unit:$e===")
-                        }
-
-                        uiThread {
-                            et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                            tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                        }
-
-                    }
-                }
-                return true
-            }
-
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                isPriceLongClick = false
-                isStartPriceSubClick = false
-            }
-        }
-
-
-        return true
-    }
-
-    private fun priceAdd(event: MotionEvent): Boolean {
-        isPriceLongClick = true
-        isStartPricePlusClick = true
-
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                if (!LoginManager.checkLogin(context, true)) return false
-                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    volumeScale
-                } else {
-                    priceScale
-                }
-                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
-                Log.d(TAG, "=======price:加的单位量unit:$unit===")
-                if (TextUtils.isEmpty(unit)) return false
-
-                inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
-                if (BigDecimal(inputPrice).toFloat() > 0f) {
-                    inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
-                    et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                    tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                } else {
-                    et_price?.setText("0.0")
-                    tv_convert_price?.text = "0.0"
-                    return true
-                }
-
-                doAsync {
-                    while (isPriceLongClick) {
-                        if (!isStartPricePlusClick) continue
-                         try {
-                             inputPrice =BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(),scale).toPlainString()
-                        } catch (e: NumberFormatException) {
-                             Log.d(TAG, "=======price:加的单位量unit:$e===")
-                        }
-
-                        uiThread {
-                            et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                            tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                        }
-
-                    }
-                }
-            }
-
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                isPriceLongClick = false
-                isStartPricePlusClick = false
-            }
-        }
-        return true
-    }
 
     fun changeEtfLayout(isVerticalOrGone: Boolean = false) {
         val layoutParams = ll_transaction.layoutParams as LinearLayout.LayoutParams
-        layoutParams.topMargin = DisplayUtil.dip2px(when (isVerticalOrGone) {
-            true -> 18
-            else -> 35
-        })
+        layoutParams.topMargin = DisplayUtil.dip2px(
+            when (isVerticalOrGone) {
+                true -> 18
+                else -> 35
+            }
+        )
         isETF = !isVerticalOrGone
     }
 
     private fun isBuy(): Boolean {
-        return transactionType == ParamConstant.TYPE_BUY
+        return transactionType == TYPE_BUY
     }
 
     private fun tabChangeReset() {
@@ -1268,38 +1362,50 @@ class TradeView @JvmOverloads constructor(context: Context,
     }
 
     private fun tradeETF() {
-        (disposable ?: CompositeDisposable()).add((mainModel
+        (disposable ?: CompositeDisposable()).add(
+            (mainModel
                 ?: MainModel()).getETFCoin(consumer = object : NDisposableObserver(true) {
-            override fun onResponseSuccess(data: JSONObject) {
+                override fun onResponseSuccess(data: JSONObject) {
 
-                try {
-                    val item = data.getJSONObject("data")
-                    val status = item.optInt("status", 0)
-                    if (status == 0) {
-                        val url = etfInfo?.optString("faqUrl") ?: ""
-                        val domainName = etfInfo?.optString("domainName") ?: ""
-                        DialogUtil.showETFStatement(context
-                                ?: return, domainName, url, this@TradeView)
-                    } else if (status == 1) {
-                        NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "etf_agreement_pendingKYC"))
-                    } else if (status == 2) {
-                        // 跳转 kyc
-                        ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
-                    } else if (status == 3) {
-                        NToastUtil.showTopToastNet(getActivity(), false, LanguageUtil.getString(context, "etf_agreement_countryNotSurpport"))
-                    } else {
-                        MainModel().saveUserInfo()
+                    try {
+                        val item = data.getJSONObject("data")
+                        val status = item.optInt("status", 0)
+                        if (status == 0) {
+                            val url = etfInfo?.optString("faqUrl") ?: ""
+                            val domainName = etfInfo?.optString("domainName") ?: ""
+                            DialogUtil.showETFStatement(
+                                context
+                                    ?: return, domainName, url, this@TradeView
+                            )
+                        } else if (status == 1) {
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "etf_agreement_pendingKYC")
+                            )
+                        } else if (status == 2) {
+                            // 跳转 kyc
+                            ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+                        } else if (status == 3) {
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "etf_agreement_countryNotSurpport")
+                            )
+                        } else {
+                            MainModel().saveUserInfo()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
-            }
 
-            override fun onResponseFailure(code: Int, msg: String?) {
-                super.onResponseFailure(code, msg)
+                override fun onResponseFailure(code: Int, msg: String?) {
+                    super.onResponseFailure(code, msg)
 
-            }
-        })!!)
+                }
+            })!!
+        )
     }
 
 }

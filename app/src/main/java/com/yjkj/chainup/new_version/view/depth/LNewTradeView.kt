@@ -135,17 +135,21 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
             RxView.clicks(it)
                     .throttleFirst(500L, TimeUnit.MILLISECONDS) // 1秒内只有第一次点击有效
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ x ->
-                        DialogUtil.createCVCOrderPop(context, priceType, it, object : NewDialogUtils.DialogOnSigningItemClickListener {
-                            override fun clickItem(position: Int, text: String) {
-                                tv_order_type?.textContent = text
-                                priceType = position
-                                trade_amount_view_buy?.changePriceType(position)
-                                trade_amount_view_sell?.changePriceType(position)
-                                dialog?.dismiss()
-                            }
-                        })
-                    })
+                    .subscribe { x ->
+                        DialogUtil.createCVCOrderPop(
+                            context,
+                            priceType,
+                            it,
+                            object : NewDialogUtils.DialogOnSigningItemClickListener {
+                                override fun clickItem(position: Int, text: String) {
+                                    tv_order_type?.textContent = text
+                                    priceType = position
+                                    trade_amount_view_buy?.changePriceType(position)
+                                    trade_amount_view_sell?.changePriceType(position)
+                                    dialog?.dismiss()
+                                }
+                            })
+                    }
         }
         getAvailableBalance()
         operator4PriceVolume(context)
@@ -221,14 +225,6 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
         })
     }
 
-    private fun showCoinName(): String? {
-        return NCoinManager.getMarketShowCoinName(showAnoterName(coinMapData))
-    }
-
-    private fun showMarket(): String? {
-        return NCoinManager.getMarketName(showAnoterName(coinMapData))
-    }
-
     /**
      * 买入 & 卖出
      */
@@ -239,23 +235,15 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
     }
 
 
-    private fun showBalanceData() {
-
-    }
-
-    fun editPriceIsNull(): Boolean {
-        return false
-    }
 
     fun initTick(tick: JSONArray, isBuy: Boolean = true, depthLevel: Int = 2) {
-//        LogUtil.e(TAG,"initTick  isBuy ${isBuy}")
         if (!isBuy) {
             if (isFirstSetValue(!isBuy)) {
-                trade_amount_view_buy?.initTick(tick, depthLevel)
+                trade_amount_view_buy?.initTick(tick, depthLevel, type = 1)
             }
         } else {
             if (isFirstSetValue(!isBuy)) {
-                trade_amount_view_sell?.initTick(tick, depthLevel)
+                trade_amount_view_sell?.initTick(tick, depthLevel, type = 2)
             }
         }
 
@@ -265,11 +253,11 @@ class LNewTradeView @JvmOverloads constructor(context: Context,
     /**
      * 限价的情况下，价格默认为：收盘价
      */
-    fun isFirstSetValue(isBuy: Boolean = true): Boolean {
-        if (isBuy) {
-            return trade_amount_view_buy.editPriceIsNull()
+    private fun isFirstSetValue(isBuy: Boolean = true): Boolean {
+        return if (isBuy) {
+            trade_amount_view_buy.editPriceIsNull()
         } else {
-            return trade_amount_view_sell.editPriceIsNull()
+            trade_amount_view_sell.editPriceIsNull()
         }
     }
 

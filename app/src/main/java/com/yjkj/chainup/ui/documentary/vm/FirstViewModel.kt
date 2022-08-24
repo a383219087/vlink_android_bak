@@ -133,6 +133,7 @@ class FirstViewModel : BaseViewModel() {
 
     fun setIndex(i: Int) {
         index.value = i
+        setShow(true)
         page = 1
         getList(1)
     }

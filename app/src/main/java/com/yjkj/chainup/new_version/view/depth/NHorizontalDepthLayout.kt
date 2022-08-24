@@ -479,7 +479,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             if (asks.length() != 0) {
                 val item = asks.optJSONArray(0)
                 if (isFirstSetValue() && transactionType()) {
-                    trade_amount_view.initTick(item, depth_level)
+                    trade_amount_view.initTick(item, depth_level, type = 3)
                 }
             }
             for (i in 0 until asks.length()) {
@@ -500,7 +500,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             if (buys.length() != 0) {
                 val item = buys.optJSONArray(0)
                 if (isFirstSetValue() && !transactionType()) {
-                    trade_amount_view.initTick(item, depth_level)
+                    trade_amount_view.initTick(item, depth_level, type = 4)
                 }
             }
             for (i in 0 until buys.length()) {
