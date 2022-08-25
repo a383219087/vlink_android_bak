@@ -178,9 +178,6 @@ class TradeView @JvmOverloads constructor(
             val typedArray = context.obtainStyledAttributes(it, R.styleable.ComVerifyView, 0, 0)
             typedArray.recycle()
         }
-
-
-        LogUtil.d(TAG, "TradeView==init==priceScale is $priceScale,volumeScale is $volumeScale")
         /**
          * 这里的必须为：True
          */
@@ -233,12 +230,7 @@ class TradeView @JvmOverloads constructor(
                 }
         }
         getAvailableBalance()
-
-        // cbtn_create_order?.normalBgColor = ColorUtil.getMainColorType()
-
         operator4Price(context)
-
-
         /**
          * 交易额
          */
@@ -259,7 +251,6 @@ class TradeView @JvmOverloads constructor(
          * TODO 代码优化
          */
         rg_trade?.setOnCheckedChangeListener { group, checkedId ->
-            Log.d(TAG, "=======rg_trade初始化...==========" + checkedId)
 
             /**
              * 设置 RadioButton 的选中效果
@@ -420,7 +411,6 @@ class TradeView @JvmOverloads constructor(
                      */
                     if (transactionType == TYPE_BUY) {
 
-                        Log.d(TAG, "=======市价买:交易额$inputQuantity,最小买入量:${marketBuyMin}========")
                         /**
                          * 最小价格
                          */
@@ -482,11 +472,11 @@ class TradeView @JvmOverloads constructor(
             }
             if (isLever) {
                 ArouterUtil.navigation(RoutePath.NewVersionTransferActivity, Bundle().apply {
-                    putString(ParamConstant.TRANSFERSTATUS, ParamConstant.LEVER_INDEX)
-                    putString(ParamConstant.TRANSFERCURRENCY, getCurrentSymbol())
+                    putString(TRANSFERSTATUS, ParamConstant.LEVER_INDEX)
+                    putString(TRANSFERCURRENCY, getCurrentSymbol())
                 })
             } else {
-                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, getCurrentCoin())
+                ArouterUtil.forwardTransfer(TRANSFER_BIBI, getCurrentCoin())
             }
         }
     }
@@ -570,16 +560,13 @@ class TradeView @JvmOverloads constructor(
                     } else {
                         tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
                     }
-//                et_volume?.setSelection(et_volume?.text.toString().trim().length)
                 } else {
                     val volume = BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
                     et_volume?.setText(volume)
-//                et_volume?.setSelection(et_volume?.text.toString().trim().length)
-                    var consume = "0"
-                    if (TextUtils.isEmpty(price)) {
-                        consume = BigDecimalUtils.mul(volume, "0", priceScale).toString()
+                    val consume = if (TextUtils.isEmpty(price)) {
+                        BigDecimalUtils.mul(volume, "0", priceScale).toString()
                     } else {
-                        consume = BigDecimalUtils.mul(volume, price, priceScale).toString()
+                        BigDecimalUtils.mul(volume, price, priceScale).toString()
                     }
 
                     tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
@@ -593,13 +580,10 @@ class TradeView @JvmOverloads constructor(
                 if (transactionType == TYPE_BUY) {
                     val consume = BigDecimalUtils.mul(canUseMoney, radio, priceScale).toPlainString()
                     et_volume?.setText(consume)
-//                    et_volume?.setSelection(et_volume?.text.toString().trim().length)
                     tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
                 } else {
                     val volume = BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
                     et_volume?.setText(volume)
-//                    et_volume?.setSelection(et_volume?.text.toString().trim().length)
-
                     tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(volume) + showCoinName()}"
 
                 }
@@ -614,152 +598,94 @@ class TradeView @JvmOverloads constructor(
      * 价格操作(加 + 减 -)
      */
     private fun operator4Price(context: Context) {
+//        /**
+//         * 价格 （-）
+//         */
+//        tv_sub?.setOnTouchListener { view, motionEvent -> priceSub1(motionEvent) }
+//        iv_sub?.setOnTouchListener { view, motionEvent -> priceSub1(motionEvent) }
+//        /**
+//         * 价格 （+）
+//         */
+//        tv_add?.setOnTouchListener { view, motionEvent -> priceAdd1(motionEvent) }
+//        iv_add?.setOnTouchListener { view, motionEvent -> priceAdd1(motionEvent) }
         /**
          * 价格 （-）
          */
-        tv_sub?.setOnTouchListener { view, motionEvent -> priceSub(motionEvent) }
-        iv_sub?.setOnTouchListener { view, motionEvent -> priceSub(motionEvent) }
+        tv_sub?.setOnClickListener {priceSub() }
+        iv_sub?.setOnClickListener {priceSub() }
         /**
          * 价格 （+）
          */
-        tv_add?.setOnTouchListener { view, motionEvent -> priceAdd(motionEvent) }
-        iv_add?.setOnTouchListener { view, motionEvent -> priceAdd(motionEvent) }
+        tv_add?.setOnClickListener {priceAdd() }
+        iv_add?.setOnClickListener {priceAdd() }
+    }
+    private fun priceAdd() {
+        if (!LoginManager.checkLogin(context, true)) return
+        val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+            volumeScale
+        } else {
+            priceScale
+        }
+        val unit = (1 / 10.0.pow(scale.toDouble())).toString()
+        Log.d(TAG, "=======price:加的单位量unit:$unit===")
+        if (TextUtils.isEmpty(unit)) return
+        inputPrice =
+            BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+        if (BigDecimal(inputPrice).toFloat() > 0f) {
+            inputPrice =
+                BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+            if (inputPrice.isNotEmpty()){
+                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                Log.d("我是入口","${inputPrice}==3")
+                tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
+            }
+
+        } else {
+            Log.d("我是入口","0.0==2")
+            et_price?.setText("0.0")
+            tv_convert_price?.text = "0.0"
+            return
+        }
     }
 
-    private fun priceSub(event: MotionEvent): Boolean {
-        isPriceLongClick = true
-        isStartPriceSubClick = true
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                if (!LoginManager.checkLogin(context, true)) return false
-                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    volumeScale
-                } else {
-                    priceScale
-                }
-                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
-                Log.d(TAG, "=======price:减的单位量unit:$unit===")
-                if (TextUtils.isEmpty(unit)) return false
-                if (inputPrice.isEmpty()) {
-                    Log.d("我是入口","==7")
-                    et_price?.setText("")
-                    tv_convert_price?.text = ""
-                    return true
-                }
-                if (BigDecimal(inputPrice).toFloat() > 0f) {
-                    inputPrice =
-                        BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
-                    if (inputPrice.isNotEmpty()) {
-                        Log.d("我是入口", "${inputPrice}==6")
-                        et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                        tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                    }
-                } else {
-                    Log.d("我是入口","0.0==5")
-                    et_price?.setText("0.0")
-                    tv_convert_price?.text = "0.0"
-                    return true
-                }
-
-                doAsync {
-                    while (isPriceLongClick) {
-                        Thread.sleep(delayTime)
-                        if (!isStartPriceSubClick) continue
-
-                        try {
-                            inputPrice = BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale)
-                                .toPlainString()
-                        } catch (e: NumberFormatException) {
-                            Log.d(TAG, "=======price:加的单位量unit:$e===")
-                        }
-
-                        uiThread {
-                            Log.d("我是入口","${inputPrice}==4")
-                            et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                            tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                        }
-
-                    }
-                }
-                return true
+    private  fun priceSub(){
+        if (!LoginManager.checkLogin(context, true)){
+            return
+        }
+        val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
+            volumeScale
+        } else {
+            priceScale
+        }
+        val unit = (1 / 10.0.pow(scale.toDouble())).toString()
+        if (TextUtils.isEmpty(unit)){
+            return
+        }
+        if (inputPrice.isEmpty()) {
+            Log.d("我是入口","==7")
+            et_price?.setText("")
+            tv_convert_price?.text = ""
+            return
+        }
+        if (BigDecimal(inputPrice).toFloat() > 0f) {
+            inputPrice =
+                BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+            if (inputPrice.isNotEmpty()) {
+                Log.d("我是入口", "${inputPrice}==6")
+                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
             }
-
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                isPriceLongClick = false
-                isStartPriceSubClick = false
-            }
+        } else {
+            Log.d("我是入口","0.0==5")
+            et_price?.setText("0.0")
+            tv_convert_price?.text = "0.0"
+            return
         }
 
-
-        return true
     }
 
-    private fun priceAdd(event: MotionEvent): Boolean {
-        isPriceLongClick = true
-        isStartPricePlusClick = true
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                if (!LoginManager.checkLogin(context, true)) return false
-                val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
-                    volumeScale
-                } else {
-                    priceScale
-                }
-                val unit = (1 / 10.0.pow(scale.toDouble())).toString()
-                Log.d(TAG, "=======price:加的单位量unit:$unit===")
-                if (TextUtils.isEmpty(unit)) return false
-
-                inputPrice =
-                    BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
-                if (BigDecimal(inputPrice).toFloat() > 0f) {
-                    inputPrice =
-                        BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
-                    if (inputPrice.isNotEmpty()){
-                        et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                        Log.d("我是入口","${inputPrice}==3")
-                        tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                    }
-
-                } else {
-                    Log.d("我是入口","0.0==2")
-                    et_price?.setText("0.0")
-                    tv_convert_price?.text = "0.0"
-                    return true
-                }
-
-                doAsync {
-                    while (isPriceLongClick) {
-                        Thread.sleep(delayTime)
-                        if (!isStartPricePlusClick) continue
-                        try {
-                            inputPrice = BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale)
-                                .toPlainString()
-                        } catch (e: NumberFormatException) {
-                            Log.d(TAG, "=======price:加的单位量unit:$e===")
-                        }
-
-                        uiThread {
-                            if (inputPrice.isNotEmpty()){
-                                Log.d("我是入口","$inputPrice==1")
-                                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
-                                tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
-                            }
-
-                        }
-
-                    }
-                }
-            }
-
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                isPriceLongClick = false
-                isStartPricePlusClick = false
-            }
-        }
-        return true
-    }
 
     private var beforlong = 0
     private var bhlong: Int = 0
