@@ -222,9 +222,4 @@ interface CpContractApiService {
     @POST("common/get_risk_account")
     fun getRiskAccount(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-
-
-    //-------------------------------------------------------------------------------------//
-    //                                      新版本合约接口end
-    //-------------------------------------------------------------------------------------//
 }

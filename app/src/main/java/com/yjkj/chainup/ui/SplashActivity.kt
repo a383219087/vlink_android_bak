@@ -84,7 +84,6 @@ class SplashActivity : AppCompatActivity() {
           wssHostContractV2 = "ws://47.243.240.168/contract/kline/ws",
           optionUrl = "",
           blocksUrl = "",
-          crazyUrl = "",
           chatUrl = "",
           chatApiUrl = ""
 

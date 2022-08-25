@@ -30,7 +30,7 @@ data class HttpResultUrlData(
     val wssHostContractV2: String,
     val optionUrl: String,
     val blocksUrl: String,
-    val crazyUrl: String,
+    val crazyUrl: String?="",
     val chatUrl: String,
     val chatApiUrl: String
 )
