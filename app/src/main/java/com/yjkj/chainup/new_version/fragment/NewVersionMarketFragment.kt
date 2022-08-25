@@ -32,7 +32,6 @@ class NewVersionMarketFragment : NBaseFragment() {
         return R.layout.fragment_new_version_market
     }
 
-    var adapterScroll = true
     override fun initView() {
         NLiveDataUtil.observeData(this, Observer<MessageEvent> {
             if (null != it) {

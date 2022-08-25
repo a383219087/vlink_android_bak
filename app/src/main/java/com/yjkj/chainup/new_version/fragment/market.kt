@@ -4,11 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.util.ColorUtil
-import okhttp3.internal.indexOf
 import org.jetbrains.anko.textColor
 
 class MarketLayout @JvmOverloads constructor(context: Context,
@@ -57,9 +55,9 @@ class MarketLayout @JvmOverloads constructor(context: Context,
 
     private fun action4Selected(view: SuperTextView?, isSelected: Boolean = true) {
         view?.run {
-            solid = ColorUtil.getColor(if (isSelected) com.yjkj.chainup.R.color.transparent else com.yjkj.chainup.R.color.transparent)
-            strokeColor = ColorUtil.getColor(if (isSelected) com.yjkj.chainup.R.color.trade_main_blue else com.yjkj.chainup.R.color.transparent)
-            textColor = ColorUtil.getColor(if (isSelected) com.yjkj.chainup.R.color.trade_main_blue else com.yjkj.chainup.R.color.normal_text_color)
+            solid = ColorUtil.getColor(if (isSelected) R.color.transparent else R.color.transparent)
+            strokeColor = ColorUtil.getColor(if (isSelected) R.color.trade_main_blue else R.color.transparent)
+            textColor = ColorUtil.getColor(if (isSelected) R.color.trade_main_blue else R.color.normal_text_color)
         }
     }
 

@@ -101,6 +101,7 @@ class ClContractAssetRecordActivity : NBaseActivity() {
         typeList.add(TabInfo(getString(R.string.cl_contract_add_text7), 11))
         typeList.add(TabInfo(getString(R.string.cl_contract_add_text4), 6))
         typeList.add(TabInfo(getString(R.string.cl_contract_add_text5), 7))
+        typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_extra_text191), 13))
         for (typeItem in typeList) {
             if (typeItem.index == type) {
                 mCurrTypeInfo = typeItem

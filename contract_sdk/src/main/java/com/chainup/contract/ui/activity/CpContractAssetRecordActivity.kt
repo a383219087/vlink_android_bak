@@ -54,12 +54,10 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
     //合约
     private var contractList = ArrayList<CpTabInfo>()
     private var mCurrContractInfo: CpTabInfo? = null
-    private var contractDialog: TDialog? = null
 
     //类型
     private var typeList = ArrayList<CpTabInfo>()
     private var mCurrTypeInfo: CpTabInfo? = null
-    private var typeDialog: TDialog? = null
 
     private var assetAdapter: CpContractAssetRecordAdapter? = null
     private val mList = ArrayList<JSONObject>()
@@ -108,6 +106,7 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text16), 11,extras=7))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text18), 6,extras=8))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text19), 7,extras=9))
+        typeList.add(CpTabInfo(getString(R.string.cp_extra_text191), 13))
         for (typeItem in typeList) {
             if (typeItem.index == type) {
                 mCurrTypeInfo = typeItem
@@ -144,11 +143,6 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
         ll_layout.layoutManager = LinearLayoutManager(this)
         ll_layout.adapter = assetAdapter
         assetAdapter?.setEmptyView(CpEmptyForAdapterView(this))
-//        assetAdapter?.setOnLoadMoreListener {
-//            if (!isLoading) {
-//                loadDataFromNet()
-//            }
-//        }
 
         updateContractUI()
         updateTypeUI()
@@ -172,11 +166,7 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
 
     private fun initLoadMore() {
         assetAdapter?.loadMoreModule?.apply {
-            setOnLoadMoreListener(object : OnLoadMoreListener {
-                override fun onLoadMore() {
-                    loadDataFromNet()
-                }
-            })
+            setOnLoadMoreListener { loadDataFromNet() }
             isAutoLoadMore = true
             isEnableLoadMoreIfNotFullPage = false
         }
@@ -206,16 +196,7 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
 
 
     private fun showSelectContractDialog(view:View) {
-//        contractDialog = CpNewDialogUtils.showNewBottomListDialog(mActivity, contractList, mCurrContractInfo!!.index, object : CpNewDialogUtils.DialogOnItemClickListener {
-//            override fun clickItem(index: Int) {
-//                contractDialog?.dismiss()
-//                contractDialog = null
-//                mCurrContractInfo = contractList[index]
-//                updateContractUI()
-//                pageInfo.reset()
-//                loadDataFromNet()
-//            }
-//        })
+
 
         img_tab_contract.animate().setDuration(300).rotation(180f).start()
         CpDialogUtil.createTopListPop(this, mCurrContractInfo!!.extrasNum!!, contractList, view, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
@@ -247,19 +228,21 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
             showLoadingDialog()
         }
         clearDisposable()
-        var mMarginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionByMarginCoin(mActivity, mCurrContractInfo?.name.toString())
+        val mMarginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionByMarginCoin(mActivity, mCurrContractInfo?.name.toString())
         isLoading = true
         addDisposable(getContractModel().getTransactionList(mCurrContractInfo?.name.toString(), mCurrTypeInfo?.index.toString(), pageInfo.page.toString(),
                 consumer = object : CpNDisposableObserver() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data").run {
-                            val mLadderList = optJSONArray("transList")
+                            val mLadderList = this?.optJSONArray("transList")
                             val mListBuffer = ArrayList<JSONObject>()
-                            if (mLadderList.length() != 0) {
-                                for (i in 0..(mLadderList.length() - 1)) {
-                                    var obj: JSONObject = mLadderList.get(i) as JSONObject
-                                    obj.put("mMarginCoinPrecision", mMarginCoinPrecision)
-                                    mListBuffer.add(obj)
+                            if (mLadderList != null) {
+                                if (mLadderList.length() != 0) {
+                                    for (i in 0 until mLadderList.length()) {
+                                                val obj: JSONObject = mLadderList.get(i) as JSONObject
+                                                obj.put("mMarginCoinPrecision", mMarginCoinPrecision)
+                                                mListBuffer.add(obj)
+                                            }
                                 }
                             }
                             if (pageInfo.isFirstPage) {

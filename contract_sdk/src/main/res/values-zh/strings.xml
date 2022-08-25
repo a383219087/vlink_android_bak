@@ -3644,6 +3644,7 @@
     <string name="cp_extra_text17">用户主动撤销</string>
     <string name="cp_extra_text18">开仓手续费</string>
     <string name="cp_extra_text19">平仓手续费</string>
+    <string name="cp_extra_text191">交易员分成</string>
     <string name="cp_extra_text20">普通委托</string>
     <string name="cp_extra_text21">用户取消</string>
     <string name="cp_extra_text22">超过有效期</string>

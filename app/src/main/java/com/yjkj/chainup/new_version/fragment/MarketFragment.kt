@@ -50,7 +50,6 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         return R.layout.fragment_market_type
     }
 
-    var adapterScroll = true
     var adapterReq = false
     override fun initView() {
         /**
