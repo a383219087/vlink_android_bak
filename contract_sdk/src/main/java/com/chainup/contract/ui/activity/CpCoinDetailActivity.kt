@@ -107,6 +107,7 @@ class CpCoinDetailActivity : CpNBaseActivity() {
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text16), 11,extras=7))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text18), 6,extras=8))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text19), 7,extras=9))
+        typeList.add(CpTabInfo(getString(R.string.cp_extra_text191), 13))
 
         if (mCurrTypeInfo == null) {
             mCurrTypeInfo = typeList[0]
@@ -153,11 +154,7 @@ class CpCoinDetailActivity : CpNBaseActivity() {
 
     private fun initLoadMore() {
         assetAdapter?.loadMoreModule?.apply {
-            setOnLoadMoreListener(object : OnLoadMoreListener {
-                override fun onLoadMore() {
-                    loadDataFromNet()
-                }
-            })
+            setOnLoadMoreListener { loadDataFromNet() }
             isAutoLoadMore = true
             isEnableLoadMoreIfNotFullPage = false
         }
@@ -167,7 +164,7 @@ class CpCoinDetailActivity : CpNBaseActivity() {
         if (pageInfo.isFirstPage) {
             showLoadingDialog()
         }
-        var mMarginCoinPrecision =
+        val mMarginCoinPrecision =
             CpClLogicContractSetting.getContractMarginCoinPrecisionByMarginCoin(mActivity, marginCoin)
         isLoading = true
         addDisposable(

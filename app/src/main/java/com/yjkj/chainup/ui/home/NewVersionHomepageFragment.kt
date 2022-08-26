@@ -19,14 +19,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.contract.sdk.ContractPublicDataAgent
 import com.contract.sdk.data.ContractTicker
-import com.contract.sdk.impl.ContractTickerListener
 import com.gcssloop.widget.PagerGridLayoutManager
 import com.gcssloop.widget.PagerGridSnapHelper
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVFragment
-import com.yjkj.chainup.contract.activity.SlContractKlineActivity
 import com.yjkj.chainup.databinding.FragmentNewVersionHomepageBinding
 import com.yjkj.chainup.db.constant.*
 import com.yjkj.chainup.db.service.PublicInfoDataService
@@ -43,12 +40,14 @@ import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
-import com.yjkj.chainup.new_version.adapter.NewHomePageContractAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.new_version.home.*
+import com.yjkj.chainup.new_version.home.NetworkDataService
+import com.yjkj.chainup.new_version.home.NewHomeDetailFragmentItem
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
+import com.yjkj.chainup.new_version.home.sendWsHomepage
+import com.yjkj.chainup.new_version.home.showGuideHomepage
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
@@ -177,7 +176,6 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
      * 顶部 24小时涨幅榜(推荐币种)
      */
     private var topSymbolAdapter: NewhomepageTradeListAdapter? = null
-    private var topSymbol4ContractAdapter: NewHomePageContractAdapter? = null
     var scrollX = 0
     private fun initTop24HourView() {
         recycler_top_24?.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -185,8 +183,8 @@ class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?,
         recycler_top_24?.adapter = topSymbolAdapter
         topSymbolAdapter?.setOnItemClickListener { adapter, view, position ->
             var dataList = topSymbolAdapter!!.data
-            if (null != dataList && dataList.size > 0) {
-                var symbol = dataList[position].optString("symbol")
+            if (dataList.size > 0) {
+                val symbol = dataList[position].optString("symbol")
                 ArouterUtil.forwardKLine(symbol)
             }
         }

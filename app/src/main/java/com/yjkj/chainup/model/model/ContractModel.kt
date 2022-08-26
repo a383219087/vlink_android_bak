@@ -488,23 +488,7 @@ class ContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getLadderInfo(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 获取合约资金流水
-     * @param symbol   查询币种
-     * @param type 流水类型 1 转入,2 转出,5 资金费用 ,8 分摊
-     * @param page 页码
-     */
-    fun getTransactionList(symbol: String, type: String, page: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["symbol"] = symbol
-            if (!type.equals("0")){
-                this["type"] = type
-            }
-            this["page"] = page
-            this["limit"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getTransactionList(getBaseReqBody(map)), consumer)
-    }
+
 
 
 

@@ -3536,6 +3536,7 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_extra_text17">User active cancellation</string>
     <string name="cp_extra_text18">Open position commission</string>
     <string name="cp_extra_text19">Closing fee</string>
+    <string name="cp_extra_text191">Trader\'s share</string>
     <string name="cp_extra_text20">Ordinary</string>
     <string name="cp_extra_text21">Canceled</string>
     <string name="cp_extra_text22">Expired</string>

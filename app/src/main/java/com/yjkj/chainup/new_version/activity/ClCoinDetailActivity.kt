@@ -72,7 +72,6 @@ class ClCoinDetailActivity : NBaseActivity() {
     }
 
     override fun initView() {
-        initAutoTextView()
         setSupportActionBar(toolbar)
         toolbar?.setNavigationOnClickListener {
             finish()
@@ -85,16 +84,6 @@ class ClCoinDetailActivity : NBaseActivity() {
             it.title = NCoinManager.getShowMarket(marginCoin)
         }
 
-//        val transaction = supportFragmentManager!!.beginTransaction()
-//        transaction.add(R.id.fragment_container, holdFragment, "0000")
-//        transaction.commitAllowingStateLoss()
-
-        //类型
-//        typeList.add(TabInfo(getString(R.string.sl_str_order_type_none), 0))
-//        typeList.add(TabInfo(getString(R.string.sl_str_transfer_bb2contract), 1))//转入
-//        typeList.add(TabInfo(getString(com.chainup.contract.R.string.sl_str_transfer_contract2bb), 2))//转出
-//        typeList.add(TabInfo(getString(com.chainup.contract.R.string.cl_funding_fee_str), 5))//资金费用
-//        typeList.add(TabInfo(getString(com.chainup.contract.R.string.cl_loss_amortization_str), 8))//分摊
 
 
         typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_order_text4), 0))
@@ -107,6 +96,7 @@ class ClCoinDetailActivity : NBaseActivity() {
         typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_extra_text16), 11))
         typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_extra_text18), 6))
         typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_extra_text19), 7))
+        typeList.add(TabInfo(getString(com.chainup.contract.R.string.cp_extra_text191), 13))
 
 
         if (mCurrTypeInfo == null) {
@@ -142,14 +132,7 @@ class ClCoinDetailActivity : NBaseActivity() {
         tv_tab_type.text = mCurrTypeInfo?.name
     }
 
-    private fun initAutoTextView() {
-//        tv_account_equity_label.apply {
-//            onLineText("contract_assets_account_equity")
-//            onClick {
-//                ContractDialog.showDialog4AccountRights(this@SlCoinDetailActivity)
-//            }
-//        }
-    }
+
 
     override fun loadData() {
         super.loadData()
@@ -181,11 +164,13 @@ class ClCoinDetailActivity : NBaseActivity() {
                         jsonObject.optJSONObject("data").run {
                             val mLadderList = optJSONArray("transList")
                             val mListBuffer = ArrayList<JSONObject>()
-                            if (mLadderList.length() != 0) {
-                                for (i in 0..(mLadderList.length() - 1)) {
-                                    var obj: JSONObject = mLadderList.get(i) as JSONObject
-                                    obj.put("mMarginCoinPrecision", mMarginCoinPrecision)
-                                    mListBuffer.add(obj)
+                            if (mLadderList != null) {
+                                if (mLadderList.length() != 0) {
+                                    for (i in 0 until mLadderList.length()) {
+                                                val obj: JSONObject = mLadderList.get(i) as JSONObject
+                                                obj.put("mMarginCoinPrecision", mMarginCoinPrecision)
+                                                mListBuffer.add(obj)
+                                            }
                                 }
                             }
                             if (pageInfo.isFirstPage) {
