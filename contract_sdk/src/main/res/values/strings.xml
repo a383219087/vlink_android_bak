@@ -3865,5 +3865,6 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_trade_text1">,Unable to place an order</string>
     <string name="cp_trade_text2">The current contract</string>
     <string name="cp_trade_text3">Please enter the number of contracts</string>
+    <string name="cp_trade_text4">less than 1</string>
 </resources>
 
