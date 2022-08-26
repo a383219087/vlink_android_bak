@@ -65,10 +65,9 @@ class TradeView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    val TAG = TradeView::class.java.simpleName
+    val TAG = "我是交易量的View"
 
 
-    private val delayTime = 100L
 
     //交易类型
     var transactionType = TYPE_BUY
@@ -89,9 +88,7 @@ class TradeView @JvmOverloads constructor(
     var volumeScale = 2
     var etfInfo: JSONObject? = null
 
-    private var isPriceLongClick: Boolean = false
-    private var isStartPriceSubClick = false
-    private var isStartPricePlusClick = false
+
     var disposable: CompositeDisposable? = null
     var mainModel: MainModel? = null
 
@@ -192,7 +189,6 @@ class TradeView @JvmOverloads constructor(
         rb_buy?.setOnClickListener {
             transactionType = TYPE_BUY
             buyOrSell(transactionType, isLever)
-            showBalanceData()
         }
 
         /**
@@ -201,7 +197,6 @@ class TradeView @JvmOverloads constructor(
         rb_sell?.setOnClickListener {
             transactionType = TYPE_SELL
             buyOrSell(transactionType, isLever)
-            showBalanceData()
         }
         observeData()
 
@@ -598,16 +593,7 @@ class TradeView @JvmOverloads constructor(
      * 价格操作(加 + 减 -)
      */
     private fun operator4Price(context: Context) {
-//        /**
-//         * 价格 （-）
-//         */
-//        tv_sub?.setOnTouchListener { view, motionEvent -> priceSub1(motionEvent) }
-//        iv_sub?.setOnTouchListener { view, motionEvent -> priceSub1(motionEvent) }
-//        /**
-//         * 价格 （+）
-//         */
-//        tv_add?.setOnTouchListener { view, motionEvent -> priceAdd1(motionEvent) }
-//        iv_add?.setOnTouchListener { view, motionEvent -> priceAdd1(motionEvent) }
+
         /**
          * 价格 （-）
          */
@@ -620,6 +606,9 @@ class TradeView @JvmOverloads constructor(
         iv_add?.setOnClickListener {priceAdd() }
     }
     private fun priceAdd() {
+        if (Utils.isFastClick(300)){
+            return
+        }
         if (!LoginManager.checkLogin(context, true)) return
         val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
             volumeScale
@@ -629,13 +618,14 @@ class TradeView @JvmOverloads constructor(
         val unit = (1 / 10.0.pow(scale.toDouble())).toString()
         Log.d(TAG, "=======price:加的单位量unit:$unit===")
         if (TextUtils.isEmpty(unit)) return
-        inputPrice =
-            BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
         if (BigDecimal(inputPrice).toFloat() > 0f) {
             inputPrice =
                 BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
-            if (inputPrice.isNotEmpty()){
-                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+            //这边必须要这样不然字段会改变
+            val inputPrice1= inputPrice
+            if (inputPrice1.isNotEmpty()){
+                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice1))
+                inputPrice=inputPrice1
                 Log.d("我是入口","${inputPrice}==3")
                 tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
             }
@@ -643,6 +633,7 @@ class TradeView @JvmOverloads constructor(
         } else {
             Log.d("我是入口","0.0==2")
             et_price?.setText("0.0")
+            inputPrice="0.0"
             tv_convert_price?.text = "0.0"
             return
         }
@@ -650,6 +641,9 @@ class TradeView @JvmOverloads constructor(
 
 
     private  fun priceSub(){
+        if (Utils.isFastClick(300)){
+            return
+        }
         if (!LoginManager.checkLogin(context, true)){
             return
         }
@@ -670,10 +664,13 @@ class TradeView @JvmOverloads constructor(
         }
         if (BigDecimal(inputPrice).toFloat() > 0f) {
             inputPrice =
-                BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
-            if (inputPrice.isNotEmpty()) {
-                Log.d("我是入口", "${inputPrice}==6")
-                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice))
+                BigDecimalUtils.divForDown(BigDecimalUtils.sub(inputPrice, unit).toPlainString(), scale).toPlainString()
+            //这边必须要这样不然字段会改变
+            val inputPrice1= inputPrice
+            if (inputPrice1.isNotEmpty()){
+                et_price?.setText(BigDecimalUtils.subAndDot(inputPrice1))
+                inputPrice=inputPrice1
+                Log.d("我是入口","${inputPrice}==3")
                 tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
             }
         } else {
@@ -710,21 +707,20 @@ class TradeView @JvmOverloads constructor(
                 }
 
                 if (s?.startsWith(".") == true) {
+                    Log.d("我是入口", "${inputPrice}==10")
                     et_price?.text?.clear()
                     Log.d(TAG, "=======1===========")
                 }
+                if(s.isNullOrEmpty()&&inputPrice.isNotEmpty()){
+                    et_price.text=inputPrice.editable()
+                }
 
-                inputPrice = s.toString()
                 if (inputPrice.isEmpty()) {
                     isClear = true
                 }
                 if (inputPrice.startsWith(".")) {
                     inputPrice = "0"
                 }
-                if (beforlong > bhlong && !TextUtils.isEmpty(s.toString())) {//判断是否是清除状态
-                    Log.d(TAG, "==========inputPrice 清除状态:$inputPrice")
-                }
-                Log.d(TAG, "==========inputPrice:$inputPrice")
 
                 if (transactionType == TYPE_BUY) {
                     if (priceType == TYPE_LIMIT) {
@@ -1153,9 +1149,7 @@ class TradeView @JvmOverloads constructor(
     }
 
 
-    private fun showBalanceData() {
 
-    }
 
     fun editPriceIsNull(): Boolean {
         if (et_price.text.isNullOrEmpty() && !isClear) {
@@ -1166,8 +1160,13 @@ class TradeView @JvmOverloads constructor(
 
 
     fun initTick(tick: JSONArray, depthLevel: Int = 2,type: Int) {
-        et_price.text  = tick.getPriceTick(depthLevel).editable()
-        Log.d("我是入口","${tick.getPriceTick(depthLevel)}==8")
+        if(inputPrice.isEmpty()){
+            et_price.text  = tick.getPriceTick(depthLevel).editable()
+            Log.d("我是入口","${tick.getPriceTick(depthLevel)}==8")
+            inputPrice= tick.getPriceTick(depthLevel)
+        }
+
+
     }
 
 
@@ -1234,6 +1233,7 @@ class TradeView @JvmOverloads constructor(
 
     var isClear = false
     fun resetPrice() {
+        inputPrice=""
         et_price?.text?.clear()
         isClear = false
     }
@@ -1301,7 +1301,7 @@ class TradeView @JvmOverloads constructor(
                             val domainName = etfInfo?.optString("domainName") ?: ""
                             DialogUtil.showETFStatement(
                                 context
-                                    ?: return, domainName, url, this@TradeView
+                                    ?: return, domainName, url
                             )
                         } else if (status == 1) {
                             NToastUtil.showTopToastNet(

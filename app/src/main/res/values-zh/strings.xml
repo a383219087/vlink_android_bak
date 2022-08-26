@@ -3572,7 +3572,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="decumentary_detail_text23">暂无数据</string>
     <string name="decumentary_detail_text24">累计跟随人数</string>
     <string name="decumentary_detail_text25">跟单中</string>
-    <string name="decumentary_detail_text26">累计收益率</string>
+    <string name="decumentary_detail_text26">跟单排名</string>
     <string name="decumentary_mine_text1">历史总跟单本金</string>
     <string name="decumentary_mine_text2">当前跟单</string>
     <string name="decumentary_mine_text3">历史跟单</string>

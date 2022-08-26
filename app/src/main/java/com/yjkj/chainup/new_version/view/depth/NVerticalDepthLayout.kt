@@ -44,7 +44,7 @@ import kotlin.collections.ArrayList
 /**
  * @Author: Bertking
  * @Date：2019-09-10-17:27
- * @Description:
+ * @Description:横版买卖盘
  */
 class NVerticalDepthLayout @JvmOverloads constructor(context: Context,
                                                      attrs: AttributeSet? = null,

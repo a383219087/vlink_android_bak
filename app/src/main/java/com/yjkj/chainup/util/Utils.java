@@ -548,18 +548,7 @@ public class Utils {
     }
 
 
-    public static String formatDateTime(long date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        String formatDate = dateFormat.format(date);
-        return formatDate;
-    }
 
-
-    public static String formatTime(long millis) {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String formatDate = dateFormat.format(millis);
-        return formatDate;
-    }
 
     /**
      * 用于判断是否快速点击
@@ -574,6 +563,16 @@ public class Utils {
         boolean flag = false;
         long currentClickTime = System.currentTimeMillis();
         if ((currentClickTime - lastClickTime) <= FAST_CLICK_DELAY_TIME) {
+            return true;
+        }
+        lastClickTime = currentClickTime;
+        return flag;
+    }
+
+    public synchronized static boolean isFastClick(int time) {
+        boolean flag = false;
+        long currentClickTime = System.currentTimeMillis();
+        if ((currentClickTime - lastClickTime) <= time) {
             return true;
         }
         lastClickTime = currentClickTime;

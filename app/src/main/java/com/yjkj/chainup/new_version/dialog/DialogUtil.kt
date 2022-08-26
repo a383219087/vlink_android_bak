@@ -42,7 +42,6 @@ import com.yjkj.chainup.new_version.adapter.trade.NSearchCoinAdapter
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
 import com.yjkj.chainup.new_version.home.AdvertModel
 import com.yjkj.chainup.new_version.home.dialogType
-import com.yjkj.chainup.new_version.view.depth.TradeView
 import com.yjkj.chainup.util.*
 import com.zyyoona7.popup.EasyPopup
 import com.zyyoona7.popup.XGravity
@@ -343,7 +342,7 @@ class DialogUtil {
         /**
          * ETF免责声明
          */
-        fun showETFStatement(context: Context, domain: String, url: String, tradeView: TradeView) {
+        fun showETFStatement(context: Context, domain: String, url: String) {
             val homePageDialogStatus = PublicInfoDataService.getInstance().etfStateDialogStatus
             if (homePageDialogStatus) return
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)

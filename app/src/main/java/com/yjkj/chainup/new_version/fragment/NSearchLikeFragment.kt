@@ -118,13 +118,12 @@ class NSearchLikeFragment : NBaseFragment() {
                 normalTickList.clear()
             }
         } else {
-            var oriSymbols: ArrayList<JSONObject>? = null
-            if (TradeTypeEnum.LEVER_TRADE.value == type) {
-                oriSymbols = NCoinManager.getLeverGroupList(marketName)
+            val oriSymbols : ArrayList<JSONObject>? =  if (TradeTypeEnum.LEVER_TRADE.value == type) {
+                NCoinManager.getLeverGroupList(marketName)
             } else if (TradeTypeEnum.COIN_TRADE.value == type) {
-                oriSymbols = NCoinManager.getMarketByName(marketName)
+                NCoinManager.getMarketByName(marketName)
             } else {
-                oriSymbols = NCoinManager.getGridCroupList(marketName)
+                NCoinManager.getGridCroupList(marketName)
             }
 
             LogUtil.d(TAG, "type is $type,oriSymbols is $oriSymbols")

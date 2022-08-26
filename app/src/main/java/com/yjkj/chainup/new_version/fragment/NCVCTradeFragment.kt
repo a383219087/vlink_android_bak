@@ -119,7 +119,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     /**
      * 显示tag
      */
-    fun setTagView(name: String) {
+    private fun setTagView(name: String) {
         var tagCoin = NCoinManager.getMarketCoinName(name)
         if (!TextUtils.isEmpty(NCoinManager.getCoinTag4CoinName(tagCoin))) {
             ctv_content?.visibility = View.GONE
@@ -234,15 +234,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 
-    fun setUnlockVisible(status: Boolean) {
-        if (PublicInfoDataService.getInstance().isHorizontalDepth) {
-            v_horizontal_depth?.visibility = View.VISIBLE
-            v_vertical_depth?.visibility = View.GONE
-        } else {
-            v_horizontal_depth?.visibility = View.GONE
-            v_vertical_depth?.visibility = View.VISIBLE
-        }
-    }
 
     var isCreatedOrder: Boolean = false
     private fun observeData() {
@@ -258,19 +249,16 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
                     setTopBar()
                 }
-
+                /**
+                 * 切换币币的币种
+                 */
                 MessageEvent.symbol_switch_type -> {
                     var msg_content = it.msg_content
-                    val isCurrent = WsAgentManager.instance.lastNew == this.javaClass.simpleName || WsAgentManager.instance.lastNew == "CoinSearchDialogFg"
-//                    Log.e("jinlong", "symbol_switch_type==msg_content is ${msg_content}")
                     if (it.isBibi && null != msg_content && msg_content is String) {
                         val nSymbol = it.msg_content as String
-
                         setTagView(NCoinManager.getNameForSymbol(nSymbol))
-
                         showSymbolSwitchData(nSymbol)
                         setTopBar()
-
                         v_vertical_depth.coinSwitch(nSymbol)
                         v_horizontal_depth.coinSwitch(nSymbol)
                     }
