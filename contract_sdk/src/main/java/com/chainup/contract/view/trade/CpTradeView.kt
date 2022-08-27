@@ -315,22 +315,6 @@ class CpTradeView @JvmOverloads constructor(
     btn_buy.listener = object : CpCommonlyUsedButton.OnBottonListener {
       override fun bottonOnClick() {
 
-        if(!canBuy) {
-          CpNToastUtil.showTopToastNet(
-            getActivity(),
-            false,
-            context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1)
-          )
-          return
-        }
-        if(!canBuy1) {
-          CpNToastUtil.showTopToastNet(
-            getActivity(),
-            false,
-            context.getString(R.string.cp_trade_text2) +context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1)
-          )
-          return
-        }
         if(et_volume.text.isNullOrEmpty()) {
           CpNToastUtil.showTopToastNet(
             getActivity(),
@@ -339,6 +323,22 @@ class CpTradeView @JvmOverloads constructor(
           )
           return
         }
+        var  canBuy1 = CpBigDecimalUtils.canPositionMarketBoolean(
+          contractSide == "1",
+          et_volume.text.toString(),
+          multiplier,
+          price,
+          multiplierPrecision
+        )
+        if(!canBuy1) {
+          CpNToastUtil.showTopToastNet(
+            getActivity(),
+            false,
+            context.getString(R.string.cp_trade_text2) +context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1)
+          )
+          return
+        }
+
 
         var isOpen = false;
         isOpen = transactionType == CpParamConstant.TYPE_BUY
@@ -364,22 +364,6 @@ class CpTradeView @JvmOverloads constructor(
     btn_sell.isEnable(true)
     btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
       override fun bottonOnClick() {
-        if(!canBuy) {
-          CpNToastUtil.showTopToastNet(
-            getActivity(),
-            false,
-            context.getString(R.string.cp_trade_text2) + tv_equivalent.text + context.getString(R.string.cp_trade_text1)
-          )
-          return
-        }
-        if(!canBuy1) {
-          CpNToastUtil.showTopToastNet(
-            getActivity(),
-            false,
-            context.getString(R.string.cp_trade_text2) +context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1)
-          )
-          return
-        }
         if(et_volume.text.isNullOrEmpty()) {
           CpNToastUtil.showTopToastNet(
             getActivity(),
@@ -388,20 +372,37 @@ class CpTradeView @JvmOverloads constructor(
           )
           return
         }
+       val canBuy1 = CpBigDecimalUtils.canPositionMarketBoolean(
+          contractSide == "1",
+         et_volume.text.toString(),
+         multiplier,
+          price,
+          multiplierPrecision
+        )
+        if(!canBuy1) {
+          CpNToastUtil.showTopToastNet(
+            getActivity(),
+            false,
+            context.getString(R.string.cp_trade_text2) +context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1)
+          )
+          return
+        }
 
-
-        var isOpen = false;
-        isOpen = transactionType == CpParamConstant.TYPE_BUY
+        val isOpen = transactionType == CpParamConstant.TYPE_BUY
         if(isOpen && mUserConfigInfoJson?.optInt("forceKycOpen") == 1) {
-          if(mUserConfigInfoJson?.optInt("authLevel") == 3) {
-            goKycTips(context.getString(R.string.cl_kyc_8));
-            return
-          } else if(mUserConfigInfoJson?.optInt("authLevel") == 2) {
-            goKycTips(context.getString(R.string.cl_kyc_8));
-            return
-          } else if(mUserConfigInfoJson?.optInt("authLevel") == 0) {
-            kycTips(context.getString(R.string.cl_kyc_9));
-            return
+          when {
+              mUserConfigInfoJson?.optInt("authLevel") == 3 -> {
+                  goKycTips(context.getString(R.string.cl_kyc_8));
+                  return
+              }
+              mUserConfigInfoJson?.optInt("authLevel") == 2 -> {
+                  goKycTips(context.getString(R.string.cl_kyc_8));
+                  return
+              }
+              mUserConfigInfoJson?.optInt("authLevel") == 0 -> {
+                  kycTips(context.getString(R.string.cl_kyc_9));
+                  return
+              }
           }
         }
         doBuyOrSell("SELL")
@@ -874,8 +875,7 @@ class CpTradeView @JvmOverloads constructor(
         .toPlainString()
   }
 
-  private var canBuy = false
-  private var canBuy1 = false
+
 
   fun setContractJsonInfo(json: JSONObject) {
     mContractJson = json
@@ -908,7 +908,6 @@ class CpTradeView @JvmOverloads constructor(
       tv_volume_unit.text = volumeUnit
       tv_coin_name.text = quote
       tv_equivalent.text = "≈ 0 $equivalentUnit"
-      canBuy = false
       et_price.numberFilter(symbolPricePrecision, otherFilter = object : CpDoListener {
         override fun doThing(obj: Any?): Boolean {
           updateAvailableVol()
@@ -1154,13 +1153,7 @@ class CpTradeView @JvmOverloads constructor(
         multiplierPrecision,
         unit
       )
-      canBuy = true
-      canBuy1 = CpBigDecimalUtils.canPositionMarketBoolean(
-        contractSide == "1",
-        positionAmount,
-        price,
-        multiplierPrecision
-      )
+
 
     }
     if(isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
@@ -1173,13 +1166,7 @@ class CpTradeView @JvmOverloads constructor(
         multiplierPrecision,
         unit
       )
-      canBuy = true
-      canBuy1 = CpBigDecimalUtils.canPositionMarketBoolean(
-        contractSide == "1",
-        positionAmount,
-        price,
-        multiplierPrecision
-      )
+
     }
 
     //通过保证金计算的可开数

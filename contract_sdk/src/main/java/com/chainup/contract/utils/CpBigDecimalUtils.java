@@ -904,7 +904,7 @@ public class CpBigDecimalUtils {
      * @param isForward  是否输入正向合约
      * @return判断是否大于1张
      */
-    public static Boolean canPositionMarketBoolean(boolean isForward, String openValue, String price, int scale) {
+    public static Boolean canPositionMarketBoolean(boolean isForward, String openValue,String parValue, String price, int scale) {
 
         if (TextUtils.isEmpty(openValue)) {
             return false;
@@ -928,7 +928,7 @@ public class CpBigDecimalUtils {
         } else {
             buff = openValueBig.multiply(priceBig);
         }
-        return buff.setScale(scale,BigDecimal.ROUND_HALF_DOWN).intValue()>=1;
+        return buff.divide(new BigDecimal(parValue), 0, BigDecimal.ROUND_HALF_DOWN).intValue()>=1;
     }
 
     /**

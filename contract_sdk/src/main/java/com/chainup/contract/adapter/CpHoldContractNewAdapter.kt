@@ -14,12 +14,12 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
     R.layout.cp_item_position, data) {
 
 
-    private var isTrader=false
+    private var isMe=true
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setMyTrader(boolean: Boolean){
-        this.isTrader=boolean
+    fun setMySelf(boolean: Boolean){
+        this.isMe=boolean
         notifyDataSetChanged()
     }
 
@@ -45,6 +45,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             }else{
                 setGone(R.id.tv_tradle_name, true)
             }
+            setGone(R.id.ll_button, !isMe)
             when (item.orderSide) {
                 "BUY" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text6))

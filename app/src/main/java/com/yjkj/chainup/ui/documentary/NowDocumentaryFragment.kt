@@ -72,7 +72,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
 
         adapter = CpHoldContractNewAdapter(mList)
-        adapter!!.setMyTrader(true)
+        adapter!!.setMySelf( mViewModel?.uid?.value.isNullOrEmpty())
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
         adapter?.addChildClickViewIds(com.chainup.contract.R.id.tv_quick_close_position, com.chainup.contract.R.id.tv_close_position, com.chainup.contract.R.id.tv_forced_close_price_key, com.chainup.contract.R.id.tv_adjust_margins, com.chainup.contract.R.id.tv_profit_loss, com.chainup.contract.R.id.iv_share, com.chainup.contract.R.id.tv_tag_price, com.chainup.contract.R.id.tv_settled_profit_loss_key)
