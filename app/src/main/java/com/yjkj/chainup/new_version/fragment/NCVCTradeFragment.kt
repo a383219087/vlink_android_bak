@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -131,6 +132,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 
+    @SuppressLint("CheckResult")
     private fun setOnClick() {
         /**
          * 进入全部委托界面

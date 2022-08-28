@@ -709,11 +709,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         var stop_loss_trigger_price = et_stop_loss_trigger_price.text.toString().trim()
         var stop_loss_price = et_stop_loss_price.text.toString().trim()//委托价
-        var stop_loss_position = et_stop_loss_position.text.toString().trim()
 
         val direction = if (mContractPositionBean?.orderSide.equals("BUY")) 0 else 1
 
-        val isForward = if (CpClLogicContractSetting.getContractSideById(this, mContractPositionBean?.contractId!!) == 1) true else false
+        val isForward = CpClLogicContractSetting.getContractSideById(this, mContractPositionBean?.contractId!!) == 1
 
         val multiplier = CpClLogicContractSetting.getContractMultiplierById(this, mContractPositionBean?.contractId!!)
 

@@ -47,13 +47,29 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_account_equity_label"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/contract_assets_account_equity"
-                android:textColor="@color/normal_text_color"
-                android:textSize="@dimen/sp_12" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_account_equity_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contract_assets_account_equity"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/img_small_assets_tip"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                     android:layout_marginLeft="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/assets_doubt" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_marginTop="7dp"

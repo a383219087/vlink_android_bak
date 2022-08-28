@@ -3315,7 +3315,7 @@
     <string name="cp_overview_text7">对手价</string>
     <string name="cp_overview_text8">数量</string>
     <string name="cp_overview_text9">张</string>
-    <string name="cp_overview_text10">可开</string>
+    <string name="cp_overview_text10">可开多</string>
     <string name="cp_overview_text11">成本</string>
     <string name="cp_overview_text12">止盈止损</string>
     <string name="cp_overview_text13">买入开多</string>
@@ -3798,7 +3798,7 @@
     <string name="cp_total_asset_str">总资产</string>
     <string name="cp_stoporder_text1">止盈</string>
     <string name="cp_stoporder_text2">止损</string>
-    <string name="cp_stoporder_text3">收益率</string>
+    <string name="cp_stoporder_text3">回报率</string>
     <string name="cp_stoporder_text4">数字货币交易平台</string>
     <string name="cp_stoporder_text5">扫码下载APP</string>
     <string name="cp_stoporder_text6">可用资产</string>
@@ -3839,8 +3839,8 @@
     <string name="cp_content_text29">确认闪电平仓</string>
     <string name="cp_content_text30">金额</string>
     <string name="cp_content_text31">请输入</string>
-    <string name="cp_content_text32">做多</string>
-    <string name="cp_content_text33">做空</string>
+    <string name="cp_content_text32">多头</string>
+    <string name="cp_content_text33">空头</string>
     <string name="cp_content_text34">确认分享</string>
     <string name="cp_str_lose_intro1">这点亏损小爷我还承受的起</string>
     <string name="cp_str_lose_intro2">小赌怡情，大赌伤身</string>

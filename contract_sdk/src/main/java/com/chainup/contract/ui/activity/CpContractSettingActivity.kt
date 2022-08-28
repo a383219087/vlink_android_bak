@@ -128,7 +128,6 @@ class CpContractSettingActivity : CpNBaseActivity() {
         tv_pnl_calculator_label.setText(getString(R.string.cp_extra_text87))
         tv_book_confirm_label.setText(getString(R.string.cp_contract_setting_text19))
         tv_effective_time_label.setText(getString(R.string.cp_contract_setting_text21))
-//        tv_plan_settings_label.onLineText("sl_str_plan_settings")
     }
 
     private fun initListener() {
@@ -157,7 +156,6 @@ class CpContractSettingActivity : CpNBaseActivity() {
 
                         }
                     }, cancelTitle = CpLanguageUtil.getString(this, "cp_extra_text28"))
-                    return@setOnClickListener
                     return@setOnClickListener
                 }
                 positionModeDialog = CpNewDialogUtils.showNewBottomListDialog(mActivity, positionModeList, if (positionModel == 1) 0 else 1, object : CpNewDialogUtils.DialogOnItemClickListener {

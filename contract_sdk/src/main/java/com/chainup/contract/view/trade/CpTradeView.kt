@@ -1083,7 +1083,7 @@ class CpTradeView @JvmOverloads constructor(
     private fun updateAvailableVol() {
         var isOpen = false;
         isOpen = transactionType == CpParamConstant.TYPE_BUY
-        if (positionType.equals("1")) {
+        if (positionType == "1") {
             isOpen = !cb_only_reduce_positions.isChecked
         }
         tv_equivalent.visibility = if (isOpen) View.VISIBLE else View.INVISIBLE
@@ -1094,15 +1094,15 @@ class CpTradeView @JvmOverloads constructor(
             tv_long_title.onLineText("cp_overview_text18")
             tv_short_title.onLineText("cp_overview_text17")
         }
-        et_volume.setHint(context.getString(R.string.cp_overview_text8))
-        tv_volume_unit.setText(base)
+        et_volume.hint = context.getString(R.string.cp_overview_text8)
+        tv_volume_unit.text = base
         if (isOpen && buyOrSellHelper.orderType == 2) {
-            et_volume.setHint(context.getString(R.string.cp_overview_text28))
-            tv_volume_unit.setText(if (contractSide.equals("1")) quote else base)
+            et_volume.hint = context.getString(R.string.cp_overview_text28)
+            tv_volume_unit.text = if (contractSide == "1") quote else base
         }
         if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
-            et_volume.setHint(context.getString(R.string.cp_overview_text28))
-            tv_volume_unit.setText(if (contractSide.equals("1")) quote else base)
+            et_volume.hint = context.getString(R.string.cp_overview_text28)
+            tv_volume_unit.text = if (contractSide == "1") quote else base
         }
         price = et_price.text.toString()
         triggerPrice = et_trigger_price.text.toString()

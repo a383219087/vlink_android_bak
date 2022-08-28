@@ -139,7 +139,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         NLiveDataUtil.observeData(this, Observer {
             if (MessageEvent.hide_safety_advice == it?.msg_type) {
                 rl_safety_advice.visibility = if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
-//                rl_safety_advice.visibility = View.GONE
             }
         })
 
@@ -165,7 +164,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     var versionAssetStatus = false
     fun activityRefresh(status: Boolean) {
         versionAssetStatus = status
-        var message = MessageEvent(MessageEvent.into_my_asset_activity, versionAssetStatus)
+        val message = MessageEvent(MessageEvent.into_my_asset_activity, versionAssetStatus)
         NLiveDataUtil.postValue(message)
     }
 
@@ -230,17 +229,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     override fun initView() {
         setSelectClick()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            appBarLayout.setOutlineProvider(null);
-            collapsingToolbarLayout.setOutlineProvider(ViewOutlineProvider.BOUNDS);
-        }
-
+        appBarLayout.outlineProvider = null
+        collapsingToolbarLayout.outlineProvider = ViewOutlineProvider.BOUNDS
         otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
         contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
         b2cOpen = PublicInfoDataService.getInstance().getB2CSwitchOpen(null)
         leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
 
-        var jsonObject = JSONObject()
+        val jsonObject = JSONObject()
         jsonObject.put("title", LanguageUtil.getString(context, "otc_bibi_account"))
         jsonObject.put("totalBalanceSymbol", "BTC")
         jsonObject.put("totalBalance", "0")
@@ -253,7 +249,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         }
 
             if (leverOpen) {
-                var jsonObject = JSONObject()
+                val jsonObject = JSONObject()
                 jsonObject.put("title", LanguageUtil.getString(context, "leverage_asset"))
                 jsonObject.put("totalBalanceSymbol", "BTC")
                 jsonObject.put("totalBalance", "0")
@@ -262,7 +258,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
 
             if (b2cOpen) {
-                var jsonObject = JSONObject()
+                val jsonObject = JSONObject()
                 jsonObject.put("title", LanguageUtil.getString(context, "assets_text_otc"))
                 jsonObject.put("totalBalanceSymbol", "BTC")
                 jsonObject.put("totalBalance", "0")
@@ -272,7 +268,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
 
         if (otcOpen) {
-            var jsonObject = JSONObject()
+            val jsonObject = JSONObject()
             jsonObject.put("title", otcText)
             jsonObject.put("totalBalanceSymbol", "BTC")
             jsonObject.put("totalBalance", "0")
@@ -280,7 +276,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             assetlist.add(jsonObject)
         }
         if (contractOpen) {
-            var jsonObject = JSONObject()
+            val jsonObject = JSONObject()
             jsonObject.put("title", LanguageUtil.getString(context, "assets_text_contract"))
             jsonObject.put("totalBalanceSymbol", "USDT")
             jsonObject.put("totalBalance", "0")

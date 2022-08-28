@@ -4,6 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.view.Gravity
+import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
+import com.chainup.contract.utils.CpShareToolUtil
+import com.common.sdk.LibCore
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseDialogMVFragment
@@ -12,6 +16,7 @@ import com.yjkj.chainup.databinding.DialogInvitationPostersBinding
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.ui.invite.vm.InvitationPostersViewModel
 import com.yjkj.chainup.util.DisplayUtil
+import com.yjkj.chainup.util.ToastUtils
 
 
 class InvitationPostersDialog : BaseDialogMVFragment<InvitationPostersViewModel?, DialogInvitationPostersBinding?>() {
@@ -32,19 +37,13 @@ class InvitationPostersDialog : BaseDialogMVFragment<InvitationPostersViewModel?
 
     @SuppressLint("CheckResult")
     private fun doShare() {
-        val rxPermissions = activity?.let { RxPermissions(it) }
-        rxPermissions?.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-            ?.subscribe { granted ->
-                if (granted) {
-                    mBinding?.rlShare?.isDrawingCacheEnabled = true
-                    mBinding?.rlShare?.buildDrawingCache()
-                    val bitmap: Bitmap = Bitmap.createBitmap(mBinding?.rlShare!!.drawingCache)
-                    ShareToolUtil.sendLocalShare(activity, bitmap)
-                } else {
-                    DisplayUtil.showSnackBar(activity?.window?.decorView, getString(R.string.warn_storage_permission), false)
-                }
+        mBinding?.llShareAll1?.isDrawingCacheEnabled = true
+        mBinding?.llShareAll1?.buildDrawingCache()
+        val bitmap: Bitmap = Bitmap.createBitmap(mBinding?.llShareAll1!!.drawingCache)
+//        ShareToolUtil.sendLocalShare(activity, bitmap)
+        ToastUtils.showToast(LibCore.context.getString(R.string.share_text43))
 
-            }
+
     }
 
 

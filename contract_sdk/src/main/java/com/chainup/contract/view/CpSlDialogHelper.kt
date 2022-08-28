@@ -39,156 +39,6 @@ object CpSlDialogHelper {
 
 
     /**
-     * 开通合约/购买提示对话框
-     */
-    fun showSimpleCreateContractDialog(context: Context, viewListener: OnBindViewListener?,
-                                       listener: CpNewDialogUtils.DialogBottomListener
-    ): TDialog {
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.cp_item_simple_create_contract_dialog)
-                .setScreenWidthAspect(context, 0.8f)
-                .setGravity(Gravity.CENTER)
-                .setDimAmount(0.5f)
-                .setCancelableOutside(false)
-                .setOnBindViewListener(viewListener)
-                .addOnClickListener(R.id.tv_confirm_btn, R.id.tv_cancel_btn)
-                .setOnViewClickListener { _, view, tDialog ->
-                    when (view.id) {
-                        R.id.tv_confirm_btn -> {
-                            listener.sendConfirm()
-                            tDialog.dismiss()
-                        }
-                        R.id.tv_cancel_btn -> {
-                            tDialog.dismiss()
-                        }
-                    }
-                }
-                .create()
-                .show()
-
-    }
-
-
-    /**
-     * 仓位平仓对话框
-     */
-    fun showClosePositionDialog(context: Context,
-                                listener: OnBindViewListener
-    ): TDialog {
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.cp_item_close_position_dialog)
-                .setScreenWidthAspect(context, 1.0f)
-                .setGravity(Gravity.BOTTOM)
-                .setDimAmount(0.5f)
-                .setCancelableOutside(false)
-                .setOnBindViewListener(listener)
-                .addOnClickListener(R.id.tv_cancel)
-                .setOnViewClickListener { _, view, tDialog ->
-                    when (view.id) {
-                        R.id.tv_cancel -> {
-                            tDialog.dismiss()
-                        }
-                    }
-                }
-                .create()
-                .show()
-
-    }
-
-
-    /**
-     * 合约交易确认对话框
-     */
-    fun showOrderCreateConfirmDialog(context: Context,
-                                     titleColor: Int,
-                                     title: String,
-                                     contractName: String,
-                                     price: String,
-                                     triggerPrice: String,
-                                     costPrice: String,
-                                     amountValue: String,
-                                     orderType: Int,
-                                     profitTriggerPrice: String,
-                                     lossTriggerPrice: String,
-                                     sureLisener: CpNewDialogUtils.DialogBottomListener
-    ): TDialog {
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.cp_item_order_create_confirm_dialog)
-                .setScreenWidthAspect(context, 0.9f)
-                .setGravity(Gravity.CENTER)
-                .setDimAmount(0.5f)
-                .setCancelableOutside(false)
-                .setOnBindViewListener(OnBindViewListener {
-                    it.getView<TextView>(R.id.btn_cancel).setText(R.string.cp_overview_text56)
-                    it.getView<TextView>(R.id.btn_ok).setText(R.string.cp_calculator_text16)
-                    //标题
-                    it.setText(R.id.tv_title, title)
-                    it.setTextColor(R.id.tv_title, titleColor)
-                    //合约
-                    it.setText(R.id.tv_contract, contractName)
-                    //价格
-                    it.setText(R.id.tv_price_value, price)
-                    //委托价格
-                    it.setText(R.id.tv_commission_price_value, price)
-                    //触发价格
-                    it.setText(R.id.tv_trigger_price_value, triggerPrice)
-                    //成本
-                    it.setText(R.id.tv_cost_value, costPrice)
-                    //数量
-                    it.setText(R.id.tv_number_value, amountValue)
-                    //止盈触发价
-                    it.setText(R.id.tv_stop_profit_entrust_price_value, profitTriggerPrice)
-                    //止损触发价
-                    it.setText(R.id.tv_stop_loss_trigger_price_value, lossTriggerPrice)
-
-                    it.setVisibility(R.id.ll_stop_profit, if (TextUtils.isEmpty(profitTriggerPrice)) View.GONE else View.VISIBLE)
-                    it.setVisibility(R.id.ll_stop_loss, if (TextUtils.isEmpty(lossTriggerPrice)) View.GONE else View.VISIBLE)
-
-                    when (orderType) {
-                        1, 2, 4, 5, 6 -> {
-                            it.setVisibility(R.id.ll_price, View.VISIBLE)
-                            it.setVisibility(R.id.ll_cost, View.VISIBLE)
-
-                            it.setVisibility(R.id.ll_trigger_price, View.GONE)
-                            it.setVisibility(R.id.ll_commission_price, View.GONE)
-                        }
-                        else -> {
-                            it.setVisibility(R.id.ll_price, View.GONE)
-                            it.setVisibility(R.id.ll_cost, View.GONE)
-
-                            it.setVisibility(R.id.ll_trigger_price, View.VISIBLE)
-                            it.setVisibility(R.id.ll_commission_price, View.VISIBLE)
-                        }
-                    }
-                })
-                .addOnClickListener(R.id.btn_cancel, R.id.btn_ok, R.id.rl_not_remind)
-                .setOnViewClickListener { it, view, tDialog ->
-                    //是否提示
-                    val cbNotRemind = it.getView<CheckBox>(R.id.cb_not_remind)
-                    when (view.id) {
-                        R.id.btn_cancel -> {
-                            tDialog.dismiss()
-                            CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
-                                    CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotRemind.isChecked)
-                        }
-                        R.id.btn_ok -> {
-                            tDialog.dismiss()
-                            sureLisener.sendConfirm()
-                            CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
-                                    CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotRemind.isChecked)
-                        }
-                        R.id.rl_not_remind -> {
-                            cbNotRemind.isChecked = !cbNotRemind.isChecked
-                        }
-                    }
-                }
-                .create()
-                .show()
-
-    }
-
-
-    /**
      * 展示计算结果对话框
      */
     fun showCalculatorResultDialog(context: Context, itemList: List<CpTabInfo>?
@@ -199,7 +49,7 @@ object CpSlDialogHelper {
                 .setGravity(Gravity.CENTER)
                 .setDimAmount(0.5f)
                 .setCancelableOutside(false)
-                .setOnBindViewListener(OnBindViewListener {
+                .setOnBindViewListener {
                     it.getView<TextView>(R.id.tv_title).setText(R.string.cp_calculator_text12)
                     it.getView<TextView>(R.id.tv_confirm_btn).setText(R.string.cp_extra_text28)
 
@@ -212,8 +62,8 @@ object CpSlDialogHelper {
                         itemView.findViewById<TextView>(R.id.tv_left).text = info.name
                         itemView.findViewById<TextView>(R.id.tv_right).text = Html.fromHtml(info.extras)
                     }
-                })
-                .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
+                }
+            .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
                 .setOnViewClickListener { _, view, tDialog ->
                     when (view.id) {
                         R.id.tv_cancel -> {
@@ -229,24 +79,6 @@ object CpSlDialogHelper {
 
     }
 
-    /**
-     * 开通合约账号弹窗
-     */
-    fun showCreateContractAccountDialog(context: Context,
-                                        listener: OnBindViewListener
-    ): TDialog {
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.cp_create_contract_account_dialog)
-                .setScreenWidthAspect(context, 0.9f)
-                .setScreenHeightAspect(context, 0.8f)
-                .setGravity(Gravity.CENTER)
-                .setDimAmount(0.5f)
-                .setCancelableOutside(true)
-                .setOnBindViewListener(listener)
-                .create()
-                .show()
-
-    }
 
 
     /**

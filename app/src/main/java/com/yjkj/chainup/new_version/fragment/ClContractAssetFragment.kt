@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
@@ -130,6 +131,7 @@ class ClContractAssetFragment : NBaseFragment() {
         mList.clear()
         addDisposable(getContractModel().getPositionAssetsList(
                 consumer = object : NDisposableObserver(isScrollStatus) {
+                    @SuppressLint("NotifyDataSetChanged")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data")?.run {
                             if (!isNull("accountList")) {

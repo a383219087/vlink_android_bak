@@ -95,7 +95,6 @@ class TradeView @JvmOverloads constructor(
     var dialog: TDialog? = null
     var coinMapData: JSONObject? = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         set(value) {
-            Log.d(TAG, "=======调用SET=====value is $value")
             field = value
             synchronized(this) {
                 priceScale = value?.optInt("price", 2) ?: 2
@@ -104,7 +103,6 @@ class TradeView @JvmOverloads constructor(
 
             tv_coin_name?.text = NCoinManager.getMarketCoinName(showAnoterName(value))
 
-            LogUtil.d(TAG, "TradeView==coinMapData==priceScale ${context} is $priceScale,volumeScale is $volumeScale")
 
             getAvailableBalance()
 
@@ -136,7 +134,6 @@ class TradeView @JvmOverloads constructor(
         et_price?.filters = arrayOf(DecimalDigitsInputFilter(priceScale))
         if (transactionType == TYPE_BUY && priceType == ParamConstant.TYPE_MARKET) {
             et_volume?.filters = arrayOf(DecimalDigitsInputFilter(priceScale))
-            LogUtil.d(TAG, "setPrice()==市价数量精度")
         } else {
             et_volume?.filters = arrayOf(DecimalDigitsInputFilter(volumeScale))
         }

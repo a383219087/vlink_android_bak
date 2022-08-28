@@ -397,8 +397,8 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         val marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(activity, clickData.contractId)
                         val currentPositionMargin = clickData?.holdAmount.toString()
                         it.setText(com.chainup.contract.R.id.tv_coin_name, marginCoin)
-                        var canUseAmountStr = clickData.canUseAmount
-                        var canSubAmountStr = clickData.canSubMarginAmount
+                        val canUseAmountStr = clickData.canUseAmount
+                        val canSubAmountStr = clickData.canSubMarginAmount
                         etVolume?.setOnFocusChangeListener { _, hasFocus ->
                             llVolume?.setBackgroundResource(if (hasFocus) com.chainup.contract.R.drawable.cp_bg_trade_et_focused else com.chainup.contract.R.drawable.cp_bg_trade_et_unfocused)
                         }
@@ -424,9 +424,9 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         tvSub.setOnClickListener {
                             tvSub.setTextAppearance(activity, com.chainup.contract.R.style.item_adjust_margin_dialog_title_check)
                             tvAdd.setTextAppearance(activity, com.chainup.contract.R.style.item_adjust_margin_dialog_title_no_check)
-                            tvCanuseKey.setText(getString(com.chainup.contract.R.string.cp_order_text23))
-                            tvCanuseValue.setText(canSubMarginAmountShowStr + " " + marginCoin)
-                            tvTips.setText(getString(com.chainup.contract.R.string.cp_order_text25))
+                            tvCanuseKey.text = getString(com.chainup.contract.R.string.cp_order_text23)
+                            tvCanuseValue.text = "$canSubMarginAmountShowStr $marginCoin"
+                            tvTips.text = getString(com.chainup.contract.R.string.cp_order_text25)
                             imgTransfer.visibility = View.GONE
                             isAdd = false
                             etVolume.setText("")
@@ -495,12 +495,12 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                         etVolume.numberFilter(volumeDecimal, otherFilter = object : CpDoListener {
                             override fun doThing(obj: Any?): Boolean {
                                 amount = etVolume.text.toString()
-                                if (isAdd) {
-                                    amount = CpBigDecimalUtils.addStr(currentPositionMargin, amount, marginCoinPrecision)
+                                amount = if (isAdd) {
+                                    CpBigDecimalUtils.addStr(currentPositionMargin, amount, marginCoinPrecision)
                                 } else {
-                                    amount = CpBigDecimalUtils.subStr(currentPositionMargin, amount, marginCoinPrecision)
+                                    CpBigDecimalUtils.subStr(currentPositionMargin, amount, marginCoinPrecision)
                                 }
-                                tv_position_margin_value.setText(amount + " " + marginCoin)
+                                tv_position_margin_value.text = amount + " " + marginCoin
                                 if (TextUtils.isEmpty(amount) || TextUtils.equals(amount, ".") || CpBigDecimalUtils.compareTo(amount, "0") == 0) {
                                     tv_lever.text = "--"
                                     tv_expect_price.text = "--"
@@ -544,7 +544,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                 实际杠杆（反向合约） = 仓位数量 / 标记价格 / 调整后仓位保证金 / 保证金汇率
                                  */
                                 var adjustingLever = "0X"
-                                adjustingLever = if (contractSide.equals("1")) {
+                                adjustingLever = if (contractSide == "1") {
                                     //正向
                                     val buff1 = CpBigDecimalUtils.mul(positionVolume, indexPrice)//仓位数量 * 标记价格
                                     val buff2 = CpBigDecimalUtils.div(amount, marginRate)//调整后仓位保证金 / 保证金汇率
@@ -557,7 +557,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                 if (CpBigDecimalUtils.compareTo(adjustingLever, "0") != 1) {
                                     adjustingLever = "--"
                                 }
-                                tv_lever.setText(adjustingLever + " " + "X")
+                                tv_lever.text = "$adjustingLever X"
 
                                 btn_close_position.isEnable(CpBigDecimalUtils.compareTo(etVolume.text.toString(), "0") == 1)
                                 return true
@@ -625,7 +625,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                     )
                 }
                 com.chainup.contract.R.id.tv_settled_profit_loss_key -> {
-                    val obj: JSONObject = JSONObject()
+                    val obj = JSONObject()
                     obj.put("profitRealizedAmount", clickData.profitRealizedAmount)
                     obj.put("tradeFee", clickData.tradeFee)
                     obj.put("capitalFee", clickData.capitalFee)
@@ -708,6 +708,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val cp: CpContractPositionBean = event.msg_content as CpContractPositionBean
                 showClosePositionDialog(cp)
             }
+            CpMessageEvent.sl_contract_modify_position_margin_event,
             MessageEvent.refresh_MyInviteCodesActivity -> {
                getList()
             }
@@ -727,6 +728,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         )
     }
 
+    @SuppressLint("CheckResult")
     private fun doShare(shareBitmap: Bitmap) {
         val rxPermissions = activity?.let { RxPermissions(it) }
         rxPermissions?.request(

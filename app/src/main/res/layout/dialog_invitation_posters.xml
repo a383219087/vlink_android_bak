@@ -60,7 +60,7 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/rl_share"
+
                 android:layout_width="0dp"
                 android:layout_height="357dp"
                 android:layout_marginRight="@dimen/dp_8"
@@ -71,6 +71,7 @@
                 android:visibility="visible">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/rl_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/checkbox_invitation"
