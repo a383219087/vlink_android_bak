@@ -67,11 +67,6 @@ interface ContractApiService {
     fun traderTransactionDay(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<List<TraderTransactionBean>>>
 
     /**
-     * 带单收益统计
-     */
-    @POST("position/get_assets_total")
-    fun getAssetsTotal(): Observable<HttpResult<GetAssetsTotalBean>>
-    /**
      * 跟单收益统计
      */
     @POST("follower/statistics")
