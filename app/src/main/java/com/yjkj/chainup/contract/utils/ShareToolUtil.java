@@ -68,7 +68,7 @@ public class ShareToolUtil {
                     return null;
                 }
                 LogUtil.d("DEBUG", "----" + filePic.getAbsolutePath());
-                MediaStore.Images.Media.insertImage(context.getContentResolver(), filePic.getAbsolutePath(), fileName, null);
+//                MediaStore.Images.Media.insertImage(context.getContentResolver(), filePic.getAbsolutePath(), fileName, null);
                 //保存图片后发送广播通知更新数据库
                 Uri uri = Uri.fromFile(filePic);
                 context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));

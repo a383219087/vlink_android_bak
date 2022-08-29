@@ -324,8 +324,18 @@ class CpTradeView @JvmOverloads constructor(
                     )
                     return
                 }
-                val canBuy1 = if ( tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-                    et_volume.text.toString().toInt() >= 1
+                val canBuy1 = if (tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
+                    if (et_volume.text.toString().contains("%")) {
+                        true
+                    } else {
+                        try {
+                            et_volume.text.toString().toInt() >= 1
+                        } catch (e: Exception) {
+                            true
+                        }
+
+                    }
+
                 } else {
                     CpBigDecimalUtils.canPositionMarketBoolean(
                         contractSide == "1",
@@ -382,8 +392,17 @@ class CpTradeView @JvmOverloads constructor(
                     )
                     return
                 }
-                val canBuy1 = if ( tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-                    et_volume.text.toString().toInt() >= 1
+                val canBuy1 = if (tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
+                    if (et_volume.text.toString().contains("%")) {
+                        true
+                    } else {
+                        try {
+                            et_volume.text.toString().toInt() >= 1
+                        } catch (e: Exception) {
+                            true
+                        }
+
+                    }
 
                 } else {
                     CpBigDecimalUtils.canPositionMarketBoolean(

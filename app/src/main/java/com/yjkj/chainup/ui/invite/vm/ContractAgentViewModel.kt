@@ -1,7 +1,6 @@
 package com.yjkj.chainup.ui.invite.vm
 
 
-import android.os.Bundle
 import android.view.View
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
@@ -15,7 +14,6 @@ import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
-import com.yjkj.chainup.ui.invite.InvitationPostersDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -83,11 +81,11 @@ class ContractAgentViewModel : BaseViewModel() {
 
 
     fun onShareClick(view: View) {
-        InvitationPostersDialog().apply {
-            val bundle = Bundle()
-            bundle.putString("code",bean.value!!.inviteCode)
-            this.arguments = bundle
-        }.showDialog(activity.value?.supportFragmentManager,"")
+//        InvitationPostersDialog().apply {
+//            val bundle = Bundle()
+//            bundle.putString("code",bean.value!!.inviteCode)
+//            this.arguments = bundle
+//        }.showDialog(activity.value?.supportFragmentManager,"")
 
     }
 }

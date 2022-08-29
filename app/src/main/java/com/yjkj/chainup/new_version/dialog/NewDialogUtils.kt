@@ -1,11 +1,11 @@
 package com.yjkj.chainup.new_version.dialog
 
 import android.app.Activity
-import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
-import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -20,7 +20,10 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +31,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.coorchice.library.SuperTextView
@@ -45,7 +49,6 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.adapter.NewDialogAdapter
 import com.yjkj.chainup.new_version.home.TAG_ADVERT
@@ -120,7 +123,7 @@ class NewDialogUtils {
     }
 
     interface DialogSharePostersListener {
-        fun saveIamgePosters(imageUrl: String, shareView: ImageView)
+        fun saveIamgePosters(imageUrl: String, shareView: View, type: Int)
         fun saveIamgePostersNew(imageUrl: String)
     }
 
@@ -341,6 +344,113 @@ class NewDialogUtils {
         }
 
         /**
+         * 显示邀请海报
+         */
+        fun showInvitationPosters(context: Activity,
+                                  list: ArrayList<String>,
+                                  listener: DialogSharePostersListener): TDialog {
+            return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+                .setLayoutRes(R.layout.dialog_invitation_posters1)
+                .setScreenWidthAspect(context, 1f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.8f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener { viewHolder ->
+                    var imageUrl = list[0]
+                    var item = 0
+                    val checkbox1 = viewHolder?.getView<CheckBox>(R.id.checkbox_invitation)
+                    val checkbox2 = viewHolder?.getView<CheckBox>(R.id.checkbox_invitation_2)
+                    viewHolder?.getView<RelativeLayout>(R.id.ll_share_layout)?.setOnClickListener {
+                        imageUrl = list[0]
+                        if (checkbox1?.isChecked!!) {
+                            return@setOnClickListener
+                        }
+                        checkbox1?.isChecked = true
+                        checkbox2?.isChecked = false
+                        item = 0
+                    }
+                    viewHolder?.getView<RelativeLayout>(R.id.ll_share_layout_2)?.setOnClickListener {
+                        imageUrl = list[1]
+                        if (checkbox2?.isChecked!!) {
+                            return@setOnClickListener
+                        }
+                        item = 1
+                        checkbox2?.isChecked = true
+                        checkbox1?.isChecked = false
+                    }
+                    viewHolder?.setText(R.id.tv_iphone, UserDataService.getInstance().userAccount)
+                    viewHolder?.setText(R.id.tv_iphone_2, UserDataService.getInstance().userAccount)
+                    if (SystemUtils.isZh()) {
+                        viewHolder?.setText(R.id.tv_invitation_content, String.format(LanguageUtil.getString(context, "invite_you_qr"), LanguageUtil.getString(context, "app_name")))
+                        viewHolder?.setText(R.id.tv_invitation_content_2, String.format(LanguageUtil.getString(context, "invite_you_qr"), LanguageUtil.getString(context, "app_name")))
+                        val optionsOne = RequestOptions().placeholder(R.drawable.ic_share_cn_one).error(R.drawable.ic_share_cn_one)
+                        GlideUtils.load(context, list[0], viewHolder?.getView(R.id.iv_share_image), optionsOne)
+                        val optionsTwo = RequestOptions().placeholder(R.drawable.ic_share_cn_two).error(R.drawable.ic_share_cn_two)
+                        GlideUtils.load(context, list[1], viewHolder?.getView(R.id.iv_share_image_2), optionsTwo)
+                    } else {
+                        viewHolder?.setText(R.id.tv_invitation_content, String.format(LanguageUtil.getString(context, "invite_you_qr"), LanguageUtil.getString(context, "app_name")))
+                        viewHolder?.setText(R.id.tv_invitation_content_2, String.format(LanguageUtil.getString(context, "invite_you_qr"), LanguageUtil.getString(context, "app_name")))
+                        var optionsOne = RequestOptions().placeholder(R.drawable.ic_share_en_one).error(R.drawable.ic_share_en_one)
+                        GlideUtils.load(context, list[0], viewHolder?.getView(R.id.iv_share_image), optionsOne)
+                        val optionsTwo = RequestOptions().placeholder(R.drawable.ic_share_en_two).error(R.drawable.ic_share_en_two)
+                        GlideUtils.load(context, list[1], viewHolder?.getView(R.id.iv_share_image_2), optionsTwo)
+                    }
+
+
+                    /**
+                     * 二维码图片
+                     */
+                    if (!TextUtils.isEmpty(imageUrl)) {
+                        viewHolder?.getView<ImageView>(R.id.tv_invitation_qr_code)?.setImageBitmap(BitmapUtils.generateBitmap(imageUrl, 300, 300))
+                        viewHolder?.getView<ImageView>(R.id.tv_invitation_qr_code_2)?.setImageBitmap(BitmapUtils.generateBitmap(imageUrl, 300, 300))
+                    }
+
+
+                    viewHolder?.setText(R.id.tv_invitaion_title, LanguageUtil.getString(context, "share_your_tailored_poster"))
+                    viewHolder?.setText(R.id.tv_cancel, LanguageUtil.getString(context, "common_text_btnCancel"))
+                    viewHolder?.getView<TextView>(R.id.tvCopy)?.setOnClickListener {
+                        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText("simple text", imageUrl)
+                        clipboard.setPrimaryClip(clip)
+                    }
+                    viewHolder?.getView<TextView>(R.id.tvShare)?.setOnClickListener {
+                            when (item) {
+                                0 -> {
+                                    listener.saveIamgePosters(imageUrl, viewHolder.getView(R.id.ll_share_all_1),1)
+                                }
+                                1 -> {
+                                    listener.saveIamgePosters(imageUrl, viewHolder.getView(R.id.ll_share_all_2),1)
+                                }
+                            }
+                    }
+                    viewHolder?.getView<TextView>(R.id.tvSave)?.setOnClickListener {
+                        when (item) {
+                            0 -> {
+                                listener.saveIamgePosters(imageUrl, viewHolder.getView(R.id.ll_share_all_1),2)
+                            }
+                            1 -> {
+                                listener.saveIamgePosters(imageUrl, viewHolder.getView(R.id.ll_share_all_2),2)
+                            }
+                        }
+                    }
+
+
+                }
+
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
+                        }
+                    }
+                }
+                .create()
+                .show()
+
+        }
+
+        /**
          * 两个按钮新dialog
          */
         fun showNewDoubleDialog(context: Context,
@@ -394,7 +504,6 @@ class NewDialogUtils {
                     .create()
                     .show()
         }
-
 
         /**
          * 正常弹窗

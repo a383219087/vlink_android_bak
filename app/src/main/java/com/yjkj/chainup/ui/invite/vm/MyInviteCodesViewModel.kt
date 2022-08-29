@@ -1,21 +1,28 @@
 package com.yjkj.chainup.ui.invite.vm
 
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
+import com.common.sdk.LibCore
+import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.invite.EditInviteCodesDialog
-import com.yjkj.chainup.ui.invite.InvitationPostersDialog
+import com.yjkj.chainup.util.ContextUtil
+import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -34,15 +41,26 @@ class MyInviteCodesViewModel : BaseViewModel() {
         fun onDefault(item: AgentCodeBean)
     }
 
+    var dialog: TDialog? = null
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item: AgentCodeBean,view: View) {
             val activity: FragmentActivity= context.value!!
+            val list: ArrayList<String> = arrayListOf()
+            val url = UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
+                ?.get(0) + item.inviteCode
+            list.add(url)
+            list.add(url)
+            dialog = NewDialogUtils.showInvitationPosters(activity, list, object : NewDialogUtils.DialogSharePostersListener {
+                override fun saveIamgePosters(imageUrl: String, shareView: View, type: Int) {
+                    createShareView(activity,shareView, type)
+                    dialog?.dismiss()
+                }
 
-            InvitationPostersDialog().apply {
-                val bundle = Bundle()
-                bundle.putString("code",item.inviteCode)
-                this.arguments = bundle
-            }.showDialog(activity.supportFragmentManager,"")
+                override fun saveIamgePostersNew(imageUrl: String) {
+
+                }
+            })
+
 
         }
 
@@ -64,8 +82,25 @@ class MyInviteCodesViewModel : BaseViewModel() {
                 myInviteCodes()
             })
         }
+    }
 
+    private fun createShareView(context: FragmentActivity,shareView: View, type: Int) {
+        if (type == 1) {
+            ShareToolUtil.sendLocalShare(context, createViewBitmap(shareView))
+        } else {
+            ShareToolUtil.saveImageToGallery(context, createViewBitmap(shareView))
+        }
+        ToastUtils.showToast(LibCore.context.getString(R.string.share_text43))
+    }
 
+    private fun createViewBitmap(v: View): Bitmap? {
+        val bitmap: Bitmap = Bitmap.createBitmap(
+            v.width, v.height,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        v.draw(canvas)
+        return bitmap
     }
     fun onclickRightIcon() {
         EditInviteCodesDialog().apply {

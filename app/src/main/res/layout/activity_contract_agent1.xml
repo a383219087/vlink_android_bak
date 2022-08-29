@@ -309,12 +309,12 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tvShare"
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="5dp"
                             android:gravity="center"
-                            android:onClick="@{(v)->_all.onShareClick(v)}"
                             android:text="@string/share_text18"
                             android:textColor="@color/white"
                             app:ResColor="@{R.color.main_blue}"

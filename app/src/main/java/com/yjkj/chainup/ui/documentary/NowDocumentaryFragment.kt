@@ -576,14 +576,11 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                     type = "2"
                                     amount = CpBigDecimalUtils.subStr(amount, currentPositionMargin, marginCoinPrecision)
                                 }
-                                addDisposable(getContractModel().modifyPositionMargin(clickData?.contractId.toString(), clickData?.id.toString(), type.toString(), amount,
+                                addDisposable(getContractModel().modifyPositionMargin(
+                                    clickData.contractId.toString(), clickData?.id.toString(), type, amount,
                                     consumer = object : CpNDisposableObserver(mActivity, true) {
                                         override fun onResponseSuccess(jsonObject: JSONObject) {
-                                            CpEventBusUtil.post(
-                                                CpMessageEvent(
-                                                    CpMessageEvent.sl_contract_modify_position_margin_event
-                                                )
-                                            )
+                                            getList()
                                         }
                                     }))
                                 mAdjustMarginDialog?.dismiss()
@@ -708,7 +705,6 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val cp: CpContractPositionBean = event.msg_content as CpContractPositionBean
                 showClosePositionDialog(cp)
             }
-            CpMessageEvent.sl_contract_modify_position_margin_event,
             MessageEvent.refresh_MyInviteCodesActivity -> {
                getList()
             }
@@ -716,7 +712,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     }
 
     private fun quickClosePosition(contractId: String, open: String, side: String, positionType: String) {
-        var side = if (side.equals("BUY")) "SELL" else "BUY"
+        val side = if (side == "BUY") "SELL" else "BUY"
         addDisposable(
             getContractModel().lightClose(contractId, open, side, positionType,
                 consumer = object : CpNDisposableObserver(true) {
