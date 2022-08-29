@@ -134,7 +134,7 @@ android {
 //                    GETUI_APP_SECRET : "$change.pushAppSecret"
 //            ]
             ndk {
-                abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi", 'x86'
+                abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi"
             }
         }
 
