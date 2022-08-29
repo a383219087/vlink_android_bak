@@ -324,9 +324,8 @@ class CpTradeView @JvmOverloads constructor(
                     )
                     return
                 }
-                val canBuy1 = if (mContractUint == 0) {
+                val canBuy1 = if ( tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
                     et_volume.text.toString().toInt() >= 1
-
                 } else {
                     CpBigDecimalUtils.canPositionMarketBoolean(
                         contractSide == "1",
@@ -383,7 +382,7 @@ class CpTradeView @JvmOverloads constructor(
                     )
                     return
                 }
-                val canBuy1 = if (mContractUint == 0) {
+                val canBuy1 = if ( tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
                     et_volume.text.toString().toInt() >= 1
 
                 } else {

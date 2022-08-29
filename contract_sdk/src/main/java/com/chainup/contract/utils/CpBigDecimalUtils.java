@@ -8,6 +8,7 @@ import android.util.Log;
 import com.chainup.contract.app.CpMyApp;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 public class CpBigDecimalUtils {
@@ -869,6 +870,9 @@ public class CpBigDecimalUtils {
         if (TextUtils.isEmpty(price)) {
             return defaultStr;
         }
+
+
+
         /**
          * 正向合约
          * ≈ 开仓价值 / 本交易所最新价格 {币}
@@ -882,17 +886,19 @@ public class CpBigDecimalUtils {
         BigDecimal priceBig = new BigDecimal(price);
         BigDecimal marginRateBig = new BigDecimal(marginRate);
         BigDecimal parValueBig = new BigDecimal(parValue);
-
+         if (priceBig.doubleValue()==0){
+             return defaultStr;
+         }
         BigDecimal buff;
         if (isForward) {
-            buff = openValueBig.divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN);
+            buff = openValueBig.divide(priceBig, scale, RoundingMode.HALF_DOWN);
         } else {
             buff = openValueBig.multiply(priceBig);
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            return buff.setScale(scale,BigDecimal.ROUND_HALF_DOWN).toPlainString() + " " + unit;
+            return buff.setScale(scale, RoundingMode.HALF_DOWN).toPlainString() + " " + unit;
         } else {
-            return buff.divide(parValueBig, 0, BigDecimal.ROUND_HALF_DOWN).toPlainString() + " " + unit;
+            return buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN).toPlainString() + " " + unit;
         }
     }
     /**
