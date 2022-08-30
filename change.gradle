@@ -20,6 +20,9 @@ ext {
             splashBg:"#0e1a43",
             appswitchsaas:"0",
             keyPassword:"123456",
+            pushAppId:"yAubE4QD8c55iJTJIsXvW5",
+            pushAppKey:"fsWIcMlRub5NDtjhIiqjq2",
+            pushAppSecret:"spwdrTzV4r9w1hi5hHidv8",
 
             buglyId:"a72519d9ba",
             homepageService:"0",

@@ -918,6 +918,7 @@ public class CpBigDecimalUtils {
         if (TextUtils.isEmpty(price)) {
             return false;
         }
+
         /**
          * 正向合约
          * ≈ 开仓价值 / 本交易所最新价格 / 面值 {张}
