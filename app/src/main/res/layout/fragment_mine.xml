@@ -94,6 +94,7 @@
                             android:layout_height="@dimen/dp_28"
                             android:layout_gravity="center|right"
                             android:text="@string/decumentary_detail_text9"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:textSize="@dimen/sp_12"
                             android:background="@mipmap/ic_apply_traders"
