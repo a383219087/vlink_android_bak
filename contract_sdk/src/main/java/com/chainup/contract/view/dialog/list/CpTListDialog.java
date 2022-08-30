@@ -68,12 +68,6 @@ public class CpTListDialog extends TDialog {
             return this;
         }
 
-        //设置自定义列表布局和方向
-        public Builder setListLayoutRes(@LayoutRes int layoutRes,int orientation) {
-            params.listLayoutRes = layoutRes;
-            params.orientation = orientation;
-            return this;
-        }
 
         /**
          * 设置弹窗宽度是屏幕宽度的比例 0 -1

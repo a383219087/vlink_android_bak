@@ -452,7 +452,7 @@ class CpTradeView @JvmOverloads constructor(
     }
 
     //点击盘口切换对手价模式
-    fun updateRivalPriceUI() {
+    private fun updateRivalPriceUI() {
         isRivalPriceModel = false
         updataRivalPriceUI()
     }
@@ -465,7 +465,6 @@ class CpTradeView @JvmOverloads constructor(
     }
 
     fun initTick(tickPrice: String) {
-        LogUtils.e("tickPrice:" + tickPrice)
         et_price.setText(tickPrice)
     }
 
@@ -528,7 +527,7 @@ class CpTradeView @JvmOverloads constructor(
             volume = "0"
         }
         if (isPercentPlaceOrder) {
-            if (side.equals("BUY")) {
+            if (side == "BUY") {
                 volume = CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
                 buyPositionAmount = volume
             } else {
@@ -537,7 +536,7 @@ class CpTradeView @JvmOverloads constructor(
             }
 
         }
-        volume = if (side.equals("BUY")) {
+        volume = if (side == "BUY") {
             buyPositionAmount
         } else {
             sellPositionAmount
@@ -549,7 +548,6 @@ class CpTradeView @JvmOverloads constructor(
                 CpBigDecimalUtils.showSNormalUp(volume, 0)
             }
         }
-        LogUtils.e("下单数量：$volume")
 
         when (buyOrSellHelper.orderType) {
             1 -> {
@@ -1047,22 +1045,24 @@ class CpTradeView @JvmOverloads constructor(
             if (!isNull("positionList")) {
                 val mOrderListJson = optJSONArray("positionList")
                 var positionValueBuff = BigDecimal.ZERO
-                for (i in 0..(mOrderListJson.length() - 1)) {
-                    val obj = mOrderListJson.getJSONObject(i)
-                    if (obj.getInt("contractId") == mContractId) {
-                        var canCloseVolume =
-                            obj.getString("canCloseVolume")
-                        var orderSid =
-                            obj.getString("orderSide")
-                        if (orderSid.equals("BUY")) {
-                            canCloseVolumeSell = canCloseVolume
-                        } else if (orderSid.equals("SELL")) {
-                            canCloseVolumeBuy = canCloseVolume
+                if(mOrderListJson != null) {
+                    for (i in 0 until mOrderListJson.length()) {
+                        val obj = mOrderListJson.getJSONObject(i)
+                        if (obj.getInt("contractId") == mContractId) {
+                            var canCloseVolume =
+                                obj.getString("canCloseVolume")
+                            var orderSid =
+                                obj.getString("orderSide")
+                            if (orderSid.equals("BUY")) {
+                                canCloseVolumeSell = canCloseVolume
+                            } else if (orderSid.equals("SELL")) {
+                                canCloseVolumeBuy = canCloseVolume
+                            }
+                            positionValueBuff =
+                                BigDecimal(obj.optString("positionBalance")).add(
+                                    positionValueBuff
+                                )
                         }
-                        positionValueBuff =
-                            BigDecimal(obj.optString("positionBalance")).add(
-                                positionValueBuff
-                            )
                     }
                 }
                 positionValue =
@@ -1319,8 +1319,8 @@ class CpTradeView @JvmOverloads constructor(
             marginCoin
         )
 
-        tv_buy_cost.setText(buyCostbuff1)
-        tv_sell_cost.setText(sellCostbuff1)
+        tv_buy_cost.text = buyCostbuff1
+        tv_sell_cost.text = sellCostbuff1
 
         canOpenBuy = CpBigDecimalUtils.min(buybuff1.split(" ")[0], buybuff2.split(" ")[0])
         canOpenSell = CpBigDecimalUtils.min(sellbuff1.split(" ")[0], sellbuff2.split(" ")[0])
@@ -1328,17 +1328,17 @@ class CpTradeView @JvmOverloads constructor(
             canOpenBuy = buybuff1.split(" ")[0]
             canOpenSell = sellbuff1.split(" ")[0]
         }
-        tv_long_value.setText(canOpenBuy + " " + base)
-        tv_short_value.setText(canOpenSell + " " + base)
+        tv_long_value.text = "$canOpenBuy $base"
+        tv_short_value.text = "$canOpenSell $base"
 
 
-        val llLongTitle = ll_long_title.layoutParams as LinearLayout.LayoutParams
-        val llShortTitle = ll_short_title.layoutParams as LinearLayout.LayoutParams
+        val llLongTitle = ll_long_title.layoutParams as LayoutParams
+        val llShortTitle = ll_short_title.layoutParams as LayoutParams
 
         buyOrSellHelper.isOpen = isOpen
         buyOrSellHelper.isOto = cb_stop_loss.isChecked
         //根据订单类型来改变间距
-        if (positionType.equals("2")) {
+        if (positionType == "2") {
             //双向持仓
             when (buyOrSellHelper.orderType) {
                 1, 4, 5, 6 -> {

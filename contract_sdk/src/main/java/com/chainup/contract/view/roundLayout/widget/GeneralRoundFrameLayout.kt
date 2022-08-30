@@ -4,14 +4,12 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.os.Build
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.chainup.contract.R
 import com.minminaya.abs.GeneralRoundViewImpl
-import com.minminaya.abs.IRoundView
+import com.chainup.contract.view.roundLayout.abs.IRoundView
 
 class GeneralRoundFrameLayout : FrameLayout, IRoundView {
     private lateinit var generalRoundViewImpl: GeneralRoundViewImpl

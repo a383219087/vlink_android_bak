@@ -274,10 +274,10 @@ class CpNewContractModel : CpBaseDataManager() {
         consumer: DisposableObserver<ResponseBody>
     ): Disposable? {
         var sideBuff = ""
-        if (side.equals("BUY")) {
-            sideBuff = "SELL"
+        sideBuff = if (side == "BUY") {
+            "SELL"
         } else {
-            sideBuff = "BUY"
+            "BUY"
         }
         val map = getBaseMapsV2().apply {
             this["contractId"] = contractId
