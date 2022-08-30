@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.chainup.contract.R
 import com.minminaya.abs.GeneralRoundViewImpl
-import com.minminaya.abs.IRoundView
+import com.chainup.contract.view.roundLayout.abs.IRoundView
 
 
 class GeneralRoundLinearLayout : LinearLayout, IRoundView {

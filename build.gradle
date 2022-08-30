@@ -26,7 +26,6 @@ buildscript {
         maven {
             url "https://jcenter.bintray.com"
         }
-        maven { url "https://mvn.getui.com/nexus/content/repositories/releases/"}
         mavenCentral()
         mavenLocal()
         flatDir {
@@ -70,7 +69,9 @@ allprojects {
         maven {
             url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
         }
-        maven { url "https://mvn.getui.com/nexus/content/repositories/releases/"}
+        maven {
+            url "https://mvn.getui.com/nexus/content/repositories/releases/"
+        }
         mavenCentral()
         mavenLocal()
     }

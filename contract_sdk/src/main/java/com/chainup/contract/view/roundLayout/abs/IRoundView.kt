@@ -1,4 +1,4 @@
-package com.minminaya.abs
+package com.chainup.contract.view.roundLayout.abs
 
 
 interface IRoundView {

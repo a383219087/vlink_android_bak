@@ -5,13 +5,14 @@ import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
+import com.chainup.contract.view.roundLayout.abs.IRoundView
 import com.minminaya.policy.GeneralRoundView18Policy
 import com.minminaya.policy.GeneralRoundView21Policy
 import com.minminaya.policy.IRoundViewPolicy
 
 
 class GeneralRoundViewImpl(view: View, context: Context, attributeSet: AttributeSet?, attrs: IntArray, attrIndex: Int) :
-    IRoundView {
+  IRoundView {
 
     private lateinit var generalRoundViewPolicy: IRoundViewPolicy
 

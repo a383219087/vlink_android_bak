@@ -103,11 +103,11 @@ android {
             resValue "string", "httpHostUrlContractV2", "$change.httpHostUrlContractV2"
             resValue "string", "wssHostContractV2", "$change.wssHostContractV2"
             resValue "string", "redPackageUrl", "$change.redPackageUrl"
-//            manifestPlaceholders = [
-//                    GETUI_APP_ID : "$change.pushAppId",
-//                    GETUI_APP_KEY : "$change.pushAppKey",
-//                    GETUI_APP_SECRET : "$change.pushAppSecret"
-//            ]
+            manifestPlaceholders = [
+                    GETUI_APP_ID : "$change.pushAppId",
+                    GETUI_APP_KEY : "$change.pushAppKey",
+                    GETUI_APP_SECRET : "$change.pushAppSecret"
+            ]
             ndk {
                 abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi"
             }
@@ -128,11 +128,11 @@ android {
             resValue "string", "wssHostContractV2", "$change.wssHostContractV2"
             resValue "string", "redPackageUrl", "$change.redPackageUrl"
             resValue "string", "contractUrl", "$change.contractUrl"
-//            manifestPlaceholders = [
-//                    GETUI_APP_ID : "$change.pushAppId",
-//                    GETUI_APP_KEY : "$change.pushAppKey",
-//                    GETUI_APP_SECRET : "$change.pushAppSecret"
-//            ]
+            manifestPlaceholders = [
+                    GETUI_APP_ID : "$change.pushAppId",
+                    GETUI_APP_KEY : "$change.pushAppKey",
+                    GETUI_APP_SECRET : "$change.pushAppSecret"
+            ]
             ndk {
                 abiFilters 'arm64-v8a', 'armeabi-v7a', "armeabi"
             }
@@ -373,6 +373,8 @@ dependencies {
     api 'com.qmuiteam:qmui:1.2.0'
 
 //    implementation 'com.getui:sdk-for-google-play:4.3.8.0'
+//    implementation 'com.getui:gtc-for-google-play:3.1.9.10'//个推核心基础模块
+
     implementation 'com.google.firebase:firebase-analytics:21.1.0'
     implementation 'com.google.firebase:firebase-messaging:23.0.7'
 }
