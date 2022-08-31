@@ -197,7 +197,7 @@ public class LoginManager {
                     String id = UserDataService.getInstance().getUserInfo4UserId();
 
                     Activity a = null;
-                    if (null != context && context instanceof Activity) {
+                    if (context instanceof Activity) {
                         a = (Activity) context;
                     }
                     new MainModel().getGesturePwd(id, gesturePwd, new NDisposableObserver(a, false) {

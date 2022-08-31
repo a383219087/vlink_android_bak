@@ -364,12 +364,6 @@ interface MainApiService {
     @GET("common/getVersion")
     fun getAppVersion(@QueryMap map: Map<String, String>): Observable<ResponseBody>
 
-    /**
-     *下载App版本
-     */
-    @Streaming
-    @GET()
-    fun downloadAppFile(@Url fileUrl: String): Observable<ResponseBody>
 
     /**
      * 获取历史委托(币币)

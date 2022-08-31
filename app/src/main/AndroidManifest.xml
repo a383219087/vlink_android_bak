@@ -31,9 +31,6 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <permission
-        android:name="getui.permission.GetuiService.${applicationId}"
-        android:protectionLevel="normal" />
     <application
         android:name=".app.ChainUpApp"
         android:allowBackup="true"
@@ -250,6 +247,10 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="yAubE4QD8c55iJTJIsXvW5" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -263,7 +264,6 @@
         <service android:name=".manager.DataInitService" />
         <service android:name=".manager.NetworkLineService" />
         <service android:name=".manager.NetworkLineErrorService" />
-        <service android:name=".extra_service.push.MyFirebaseMessagingService" />
 
 
         <activity android:name=".new_version.activity.personalCenter.push.PushSettingsActivity" />
@@ -288,6 +288,20 @@
         <meta-data
             android:name="com.yjkj.chainup.util.glide.ChainUpAppGlideModule"
             android:value="GlideModule" />
+        <meta-data
+            android:name="GETUI_APPID"
+            android:value="${GETUI_APPID}" />
+
+        <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+        <service android:name="com.yjkj.chainup.extra_service.push.DemoIntentService" />
+        <!-- 用户自定义服务名 -->
+        <service
+            android:name="com.yjkj.chainup.extra_service.push.DemoPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+
+
     </application>
 
 </manifest>

@@ -25,9 +25,7 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.fragment.CpContractNewTradeFragment
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.didichuxing.doraemonkit.DoraemonKit
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.firebase.messaging.FirebaseMessaging
+
 import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
@@ -43,7 +41,6 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.extra_service.push.MyFirebaseMessagingService
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
@@ -107,8 +104,8 @@ class NewMainActivity : NBaseActivity() {
   override fun onInit(savedInstanceState: Bundle?) {
     super.onInit(savedInstanceState)
     fragmentManager = supportFragmentManager
-    val intent = Intent(this, MyFirebaseMessagingService::class.java)
-    startService(intent)
+//    val intent = Intent(this, MyFirebaseMessagingService::class.java)
+//    startService(intent)
     loadData()
     getIntentData()
     RouteApp.getInstance().execApp(pushUrl, this)
@@ -118,33 +115,33 @@ class NewMainActivity : NBaseActivity() {
     DoraemonKit.setDebug(BuildConfig.DEBUG)
     DoraemonKit.show()
     netChangeStatus()
-    uploadFCMToken()
+//    uploadFCMToken()
   }
 
-  /**
-   * 获取到最新的FCM token并上报服务器
-   */
-  private fun uploadFCMToken() {
-    try {
-      val googlePlayServicesAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
-      if (googlePlayServicesAvailable == ConnectionResult.SUCCESS) {
-        FirebaseMessaging.getInstance().token
-          .addOnCompleteListener {
-            if (it.isSuccessful) {
-              val token = it.result
-            } else {
-              ToastUtils.showToast("获取失败")
-            }
-
-          }
-      } else {
-        ToastUtils.showToast("获取失败")
-      }
-    } catch (e: Exception) {
-      e.printStackTrace();
-      ToastUtils.showToast("获取失败")
-    }
-  }
+//  /**
+//   * 获取到最新的FCM token并上报服务器
+//   */
+//  private fun uploadFCMToken() {
+//    try {
+//      val googlePlayServicesAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+//      if (googlePlayServicesAvailable == ConnectionResult.SUCCESS) {
+//        FirebaseMessaging.getInstance().token
+//          .addOnCompleteListener {
+//            if (it.isSuccessful) {
+//              val token = it.result
+//            } else {
+//              ToastUtils.showToast("获取失败")
+//            }
+//
+//          }
+//      } else {
+//        ToastUtils.showToast("获取失败")
+//      }
+//    } catch (e: Exception) {
+//      e.printStackTrace();
+//      ToastUtils.showToast("获取失败")
+//    }
+//  }
 
   /*
   *检测网络状态
