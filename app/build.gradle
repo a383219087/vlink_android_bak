@@ -11,7 +11,7 @@ apply plugin: "ua.eshepelyuk.ManifestClasspath"
 
 //apply plugin: 'com.alibaba.arouter'
 //TODO 上线开启
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 //apply from: '../change.gradle'
 
 kapt {
@@ -370,8 +370,8 @@ dependencies {
     implementation 'com.getui:sdk-for-google-play:4.3.8.0'
 //    implementation 'com.getui:gtc-for-google-play:3.1.9.10'//个推核心基础模块
 
-    implementation 'com.getui:gtsdk:3.2.12.0'  //个推SDK
-    implementation 'com.getui:gtc:3.1.10.0'  //个推核心组件
+//    implementation 'com.getui:gtsdk:3.2.12.0'  //个推SDK
+//    implementation 'com.getui:gtc:3.1.10.0'  //个推核心组件
 
 //    implementation 'com.google.firebase:firebase-analytics:21.1.0'
 //    implementation 'com.google.firebase:firebase-messaging:23.0.7'
