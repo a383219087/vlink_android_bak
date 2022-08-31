@@ -1706,14 +1706,6 @@ class HttpClient private constructor() {
     }
 
 
-//    /**
-//     * 合约 app资产信息
-//     */
-//    fun doAcocuntNormal(coinSymbol: String, amount: String, transferType: String): Observable<HttpResult<Any>> {
-//        val map = getBaseMap()
-//        map["coin"] = coinSymbol
-//        return contractService.doAcocuntNormal(toRequestBody(DataHandler.encryptParams(map)))
-//    }
     /**
      * 关于我们
      */

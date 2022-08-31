@@ -25,6 +25,7 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.fragment.CpContractNewTradeFragment
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.didichuxing.doraemonkit.DoraemonKit
+import com.igexin.sdk.PushManager
 
 import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
@@ -296,6 +297,7 @@ class NewMainActivity : NBaseActivity() {
 
   }
 
+  @SuppressLint("CheckResult")
   @Subscribe(threadMode = ThreadMode.MAIN)
   override fun onMessageEvent(event: MessageEvent) {
     super.onMessageEvent(event)
@@ -366,6 +368,16 @@ class NewMainActivity : NBaseActivity() {
         NetworkDataService.KEY_WS_OPEN,
         klineTime
       )
+    } else if (MessageEvent.login_bind_type == event.msg_type) {
+      LogUtil.e("LogUtils", "登录监听 ${UserDataService.getInstance().token}  [] ${PushManager.getInstance().getClientid(this)}")
+      CpClLogicContractSetting.setToken(UserDataService.getInstance().token)
+      HttpClient.instance.bindToken(PushManager.getInstance().getClientid(this)).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+
+        }, {
+          it.printStackTrace()
+        })
     }
   }
 

@@ -11,10 +11,12 @@ import androidx.databinding.DataBindingUtil
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.net.CpHttpHelper
 import com.chainup.contract.ws.CpWsContractAgentManager
+import com.igexin.sdk.PushManager
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.utils.UtilSystem
 import com.yjkj.chainup.databinding.ActivitySplashBinding
+import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.model.api.SpeedApiService
@@ -126,7 +128,7 @@ class SplashActivity : AppCompatActivity() {
 
   }
 
-  private fun goToMain(it: HttpResultUrlData) {
+  private  fun goToMain(it: HttpResultUrlData) {
     LogUtil.d("我是SplashActivity", it.toString())
     ChainUpApp.url = it
     if(it.baseUrl.contains("http://") || it.baseUrl.contains("https://")) {
@@ -141,6 +143,7 @@ class SplashActivity : AppCompatActivity() {
 //                    linkData= "$linkData,$link"
 //                }
 //                SPUtils.getInstance().put("links",linkData.substring(1))
+    PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
     WsAgentManager.instance.socketUrl(it.socketAddress, true)
     CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
     CpHttpHelper.instance.serviceUrl(it.contractUrl)

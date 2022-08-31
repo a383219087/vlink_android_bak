@@ -19,9 +19,11 @@ import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpLocalManageUtil
 import com.contract.sdk.ContractSDKAgent
+import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
+import com.yjkj.chainup.extra_service.push.DemoPushService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
@@ -67,6 +69,10 @@ class ChainUpApp : CpMyApp() {
             Debug.stopMethodTracing()
             BoxingMediaLoader.getInstance().init(BoxingGlideLoader()) // 需要实现IBoxingMediaLoader
             BoxingCrop.getInstance().init(BoxingUcrop())
+            //  com.getui.demo.ChainUpPushService 为第三方自定义推送服务
+            PushManager.getInstance().initialize(this, DemoPushService::class.java)
+            // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
+            PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
         }
         webViewSetPath(this)
 
