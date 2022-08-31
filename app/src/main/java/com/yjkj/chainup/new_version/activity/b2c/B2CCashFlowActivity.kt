@@ -58,7 +58,7 @@ class B2CCashFlowActivity : NBaseActivity() {
         adapter.setEmptyView(EmptyForAdapterView(this))
         rv_cash_flow?.adapter = adapter
 
-        adapter?.setOnItemClickListener { adapter, view, position ->
+        adapter.setOnItemClickListener { adapter, view, position ->
             if (list.isNotEmpty()) {
                 ArouterUtil.navigation(RoutePath.B2CCashFlowDetailActivity, Bundle().apply {
                     putString("detail_data", list[position].toString())

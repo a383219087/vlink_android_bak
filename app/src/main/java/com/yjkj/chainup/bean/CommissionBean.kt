@@ -4,8 +4,6 @@ import com.chainup.contract.bean.CpContractPositionBean
 import java.io.Serializable
 
 
-
-
 data class CommissionBean(
     val ctime: Long,
     val follow: Int,
@@ -35,6 +33,7 @@ data class CommissionBean(
 
 
 ) : Serializable
+
 data class CommissionBean1(
     val amount: Double,
     val ctime: Long,
@@ -76,7 +75,6 @@ data class StatisticsBean(
 data class TraderPositionInfo(
 
 
-
     val positionList: List<CpContractPositionBean>?
 
 
@@ -101,49 +99,97 @@ data class TraderTransactionBean(
     val date: String,
     val side: String,
     val leverageLevel: String,
-    val amount: String="0.0",
-    val followerAmount: String="0.0",
-    val profit: String="0.0",
-    val orderSide: String="0.0",
+    val amount: String = "0.0",
+    val followerAmount: String = "0.0",
+    val profit: String = "0.0",
+    val orderSide: String = "0.0",
     val followerCount: String
 
 ) : Serializable
 
 data class GetAssetsTotalBean(
-    val canUseAmount: String="0.0",
-    val allAmount: String="0.0",
-    val allReturnRate: String="0.0",
-    val positionBalance: String="0.0",
+    val canUseAmount: String = "0.0",
+    val allAmount: String = "0.0",
+    val allReturnRate: String = "0.0",
+    val positionBalance: String = "0.0",
     val isolateMargin: String,
-    val lockAmount: String="0.0",
-    val realizedAmount: String="0.0",
+    val lockAmount: String = "0.0",
+    val realizedAmount: String = "0.0",
     val symbol: String,
-    val totalAmount: String="0.0",
-    val totalMargin: String="0.0",
+    val totalAmount: String = "0.0",
+    val totalMargin: String = "0.0",
     val totalMarginRate: String,
-    val unRealizedAmount: String="0.0",
+    val unRealizedAmount: String = "0.0",
     val result: String
 
 ) : Serializable
+
 data class FollowerStatisticsBean(
-    val amount: Double,
-    val fee: String,
-    val id: String,
-    val name: String,
-    val orderId: String,
-    val price: String,
-    val scene: String,
-    val side: String,
+
     val tradeTime: String,
-    val type: String,
-    val volume: String
+    val transaction: TransactionBean?,
+    val coOrder: CoOrderBean?
+
+) : Serializable
+
+data class TransactionBean(
+    val id: String?,
+    val fromUid: String?,
+    val fromCid: String?,
+    val fromType: String?,
+    val fromBalance: String?,
+    val toUid: String?,
+    val toCid: String?,
+    val toType: String?,
+    val toBalance: String?,
+    val amount: String?,
+    val meta: String?,
+    val scene: String?,
+    val refType: String?,
+    val refId: String?,
+    val opUid: String?,
+    val opIp: String?,
+    val ctime: String?,
+    val mtime: String?
+
+
+) : Serializable
+
+data class CoOrderBean(
+
+    val id: String?,
+    val clientId: String?,
+    val uid: String?,
+    val positionType: String?,
+    val open: String?,
+    val side: String?,
+    val type: String?,
+    val leverageLevel: String?,
+    val price: String?,
+    val volume: String?,
+    val openTakerFeeRate: String?,
+    val openMakerFeeRate: String?,
+    val closeTakerFeeRate: String?,
+    val closeMakerFeeRate: String?,
+    val realizedAmount: String?,
+    val dealVolume: String?,
+    val dealMoney: String?,
+    val avgPrice: String?,
+    val tradeFee: String?,
+    val status: String?,
+    val memo: String?,
+    val source: String?,
+    val ctime: String?,
+    val mtime: String?,
+    val brokerId: String?
+
 ) : Serializable
 
 data class ContractConfig(
     val base: Any,
     val brokerId: Int,
     val capitalDepthMoney: Double,
-    val volume: String="",
+    val volume: String = "",
     val capitalFrequency: Int,
     val capitalIntervalMax: Double,
     val capitalIntervalMin: Double,

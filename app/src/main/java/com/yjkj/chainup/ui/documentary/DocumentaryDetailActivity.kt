@@ -16,6 +16,9 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
     @Autowired(name = "id")
     @JvmField
     var id : String?=null
+    @Autowired(name = "contractId")
+    @JvmField
+    var contractId : Int=0
 
 
 
@@ -23,6 +26,7 @@ class DocumentaryDetailActivity : BaseMVActivity<DocumentaryDetailViewModel?, Ac
     override fun initData() {
         mViewModel?.activity?.value=mActivity
         mViewModel?.id?.value=id
+        mViewModel?.contractId?.value=contractId
         mViewModel?.getData()
 
 

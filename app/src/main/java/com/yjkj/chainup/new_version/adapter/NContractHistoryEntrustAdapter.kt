@@ -16,7 +16,7 @@ import org.json.JSONObject
  */
 class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data = data, layoutId = R.layout.item_history_order_contract) {
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
-        item?.run {
+        item.run {
             val baseSymbol = optString("baseSymbol")
             val quoteSymbol = optString("quoteSymbol")
             val leverageLevel = optString("leverageLevel")
@@ -32,7 +32,7 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
             val dealVolume = optString("dealVolume")
             val statusText = optString("statusText")
 
-            helper?.run {
+            helper.run {
 
                 setText(R.id.tv_contract_symbol, baseSymbol + quoteSymbol)
 
@@ -66,9 +66,9 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                         setTextColor(R.id.tv_side, ColorUtil.getMainColorType())
                     } else {
                         val text = if (action == "OPEN") {
-                             LanguageUtil.getString(context, "contract_action_short")
+                            LanguageUtil.getString(context, "contract_action_short")
                         } else {
-                             LanguageUtil.getString(context, "contract_balance_empty")
+                            LanguageUtil.getString(context, "contract_balance_empty")
                         }
                         setText(R.id.tv_side, text)
                         setTextColor(R.id.tv_side, ColorUtil.getMainColorType(isRise = false))
@@ -79,11 +79,11 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                  * 价格（市价单 的价格为"市价"）
                  * （1：限价单，2：市价单）
                  */
-                getView<PositionITemView>(R.id.tv_entrust_price)?.run {
+                getView<PositionITemView>(R.id.tv_entrust_price).run {
                     title =  LanguageUtil.getString(context, "contract_text_trustPrice") + "(${quoteSymbol})"
                     value = if (type == "1") {
                         val price4Precision = Contract2PublicInfoManager.cutValueByPrecision(price.toString(), pricePrecision?.toInt()
-                                ?: 4)
+                            ?: 4)
                         price4Precision
                     } else {
                         ( LanguageUtil.getString(context, "contract_action_marketPrice"))
@@ -94,7 +94,7 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                 /**
                  * 订单时间
                  */
-                getView<PositionITemView>(R.id.tv_date)?.run {
+                getView<PositionITemView>(R.id.tv_date).run {
                     title = LanguageUtil.getString(context, "kline_text_dealTime")
                     value = TimeUtil.instance.getTime(ctime)
 
@@ -104,7 +104,7 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                 /**
                  * 仓位数量（张）
                  */
-                getView<PositionITemView>(R.id.tv_position_amount)?.run {
+                getView<PositionITemView>(R.id.tv_position_amount).run {
                     title =  LanguageUtil.getString(context, "contract_text_positionNumber")
                     value = volume
                     tailValueColor = ColorUtil.getMainColorType(side == "BUY")
@@ -114,8 +114,8 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                  * 成交均价
                  */
                 val avgPrice4Precision = Contract2PublicInfoManager.cutValueByPrecision(avgPrice, pricePrecision?.toInt()
-                        ?: 4)
-                getView<PositionITemView>(R.id.tv_avg_price)?.run {
+                    ?: 4)
+                getView<PositionITemView>(R.id.tv_avg_price).run {
                     title =  LanguageUtil.getString(context, "contract_text_dealAverage") + "(${quoteSymbol})"
                     value = (avgPrice4Precision)
                 }
@@ -123,7 +123,7 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                 /**
                  * 已成交
                  */
-                getView<PositionITemView>(R.id.tv_deal)?.run {
+                getView<PositionITemView>(R.id.tv_deal).run {
                     title =  LanguageUtil.getString(context, "contract_text_dealDone") + "(${ LanguageUtil.getString(context, "contract_text_volumeUnit")})"
                     value = dealVolume
                 }
@@ -132,7 +132,7 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                  * 类型:
                  * （1：限价单，2：市价单）
                  */
-                getView<PositionITemView>(R.id.tv_type)?.run {
+                getView<PositionITemView>(R.id.tv_type).run {
                     value = if (type == "1")  LanguageUtil.getString(context, "contract_text_limitPriceOrder") else  LanguageUtil.getString(context, "contract_text_typeMarket")
                 }
 
@@ -143,7 +143,6 @@ class NContractHistoryEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter
                 setText(R.id.tv_status, statusText)
 
             }
-            
 
 
         }

@@ -331,12 +331,6 @@ interface ContractApiService {
 
 
     /**
-     *  历史委托订单
-     */
-    @POST("order/history_order_list")
-    fun getHistoryOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
      *  历史计划委托订单
      */
     @POST("order/history_trigger_order_list")

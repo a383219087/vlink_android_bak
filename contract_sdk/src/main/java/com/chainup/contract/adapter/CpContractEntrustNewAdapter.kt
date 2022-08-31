@@ -27,7 +27,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
     //是否是当前委托
     private var isCurrentEntrust = true
-    private var loadDialog: CpNLoadingDialog? = null
 
 
 
@@ -186,9 +185,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 helper.setText(R.id.tv_order_type, orderTypeStr)
                 helper.setText(R.id.tv_trigger_price, item.triggerPrice)
                 helper.setText(R.id.tv_entrust_price, if (item.timeInForce.equals("2")) context.getString(R.string.cp_overview_text53) else item.price)
-//                helper.setText(R.id.tv_entrust_amount_value, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
-//                helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_order_text66) + showDealUnit)
-
                 if (openStr.equals("OPEN") && item.type.equals("2")) {
                     helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_extra_text9) + "(" + (if (contractSide == 1) item.quote else item.base) + ")")
                     helper.setText(R.id.tv_entrust_amount_value, item.volume)

@@ -14,7 +14,7 @@ import org.json.JSONObject
 class ClContractAssetRecordAdapter(ctx: Context, data: ArrayList<JSONObject>) : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.cl_item_asset_record, data), LoadMoreModule {
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
-        helper?.run {
+        helper.run {
             //金额
             setText(R.id.tv_amount_value, BigDecimalUtils.showSNormal(item.optString("amount"), item.optInt("mMarginCoinPrecision")))
             //时间
@@ -23,13 +23,13 @@ class ClContractAssetRecordAdapter(ctx: Context, data: ArrayList<JSONObject>) : 
             setText(R.id.tv_type_value, item.optString("type"))
             //symbol 名称
             setText(R.id.tv_symbol_name, item.optString("contractName"))
-//            setText(R.id.tv_type_value, when (item.optString("type")) {
-//                "1" -> "转入"
-//                "2" -> "转出"
-//                "5" -> "资金费用"
-//                "8" -> "分摊"
-//                else -> "error"
-//            })
+    //            setText(R.id.tv_type_value, when (item.optString("type")) {
+    //                "1" -> "转入"
+    //                "2" -> "转出"
+    //                "5" -> "资金费用"
+    //                "8" -> "分摊"
+    //                else -> "error"
+    //            })
         }
     }
 }

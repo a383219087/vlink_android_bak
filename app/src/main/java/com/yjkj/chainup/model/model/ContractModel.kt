@@ -445,20 +445,6 @@ class ContractModel : BaseDataManager() {
     }
 
 
-    /**
-     * 历史委托
-     * @param contractId 合约ID
-     * @param status 订单状态：0 init，1 new，2 filled，3 part_filled，4 canceled，5 pending_cancel，6 expired (不传默认查询 2 和 4 类型)
-     */
-    fun getHistoryOrderList(contractId: String, status: Int, page: Int, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            if (status != 0) this["type"] = status.toString()
-            this["page"] = page.toString()
-            this["limit"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).getHistoryOrderList(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 历史计划委托

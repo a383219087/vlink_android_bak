@@ -55,6 +55,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 val item = adapter.data[position] as JSONObject
                 ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
                     .withString("id", item.optString("id") )
+                    .withInt("contractId", item.optInt("contractId") )
                     .navigation()
             }
         }
