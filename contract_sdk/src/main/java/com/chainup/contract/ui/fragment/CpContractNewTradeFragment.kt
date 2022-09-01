@@ -455,7 +455,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 //                ToastUtils.showShort("发起下单请求")
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(getContractModel().createOrder(obj,
-                        consumer = object : CpNDisposableObserver(mActivity, true) {
+                        consumer = object : CpNDisposableObserver(mActivity, false) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 CpNToastUtil.showTopToastNet(
                                         this.mActivity,

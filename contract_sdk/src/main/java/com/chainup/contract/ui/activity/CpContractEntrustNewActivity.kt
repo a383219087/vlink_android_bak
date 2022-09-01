@@ -1,5 +1,6 @@
 package com.chainup.contract.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -81,7 +82,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
 
         mCurrContractInfo = CpTabInfo("", 0)
 
-        tv_coins_name.setText(CpClLogicContractSetting.getContractShowNameById(this, mContractId))
+        tv_coins_name.text = CpClLogicContractSetting.getContractShowNameById(this, mContractId)
         getCurrentCommonOrderList()
     }
 
@@ -125,12 +126,12 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
             }
             isShowEntrustTypeSelect = !isShowEntrustTypeSelect
             isShowContractSelect = false
-            var adapter = CpTopPopAdapter(entrustList, mCurrEntrustInfo!!.index)
+            val adapter = CpTopPopAdapter(entrustList, mCurrEntrustInfo!!.index)
             recycler_view?.layoutManager = LinearLayoutManager(this)
             recycler_view?.adapter = adapter
             recycler_view?.setHasFixedSize(true)
             adapter.setOnItemClickListener { adapter, view, position ->
-                tv_entrust_type.setText(entrustList[position].name)
+                tv_entrust_type.text = entrustList[position].name
                 mCurrEntrustInfo = CpTabInfo(entrustList[position].name, position)
                 val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_entrust_type_event)
                 event.msg_content = (position == 0)
@@ -152,7 +153,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
                 ll_common_select.visibility = View.GONE
             }
             isShowOrderTypeSelect = !isShowOrderTypeSelect
-            var adapter = CpTopPopAdapter(typeList, mCurrTypeInfo!!.index)
+            val adapter = CpTopPopAdapter(typeList, mCurrTypeInfo!!.index)
             recycler_view?.layoutManager = LinearLayoutManager(this)
             recycler_view?.adapter = adapter
             recycler_view?.setHasFixedSize(true)
@@ -176,7 +177,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
                 ll_common_select.visibility = View.GONE
             }
             isShowSideTypeSelect = !isShowSideTypeSelect
-            var adapter = CpTopPopAdapter(sideList, mCurrSideInfo!!.index)
+            val adapter = CpTopPopAdapter(sideList, mCurrSideInfo!!.index)
             recycler_view?.layoutManager = LinearLayoutManager(this)
             recycler_view?.adapter = adapter
             recycler_view?.setHasFixedSize(true)
@@ -191,16 +192,17 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setCoinData() {
-        var sideList = ArrayList<CpTabInfo>()
-        var sideListBuff = ArrayList<CpTabInfo>()
-        var sideListU = ArrayList<CpTabInfo>()
-        var sideListB = ArrayList<CpTabInfo>()
-        var sideListH = ArrayList<CpTabInfo>()
-        var sideListM = ArrayList<CpTabInfo>()
+        val sideList = ArrayList<CpTabInfo>()
+        val sideListBuff = ArrayList<CpTabInfo>()
+        val sideListU = ArrayList<CpTabInfo>()
+        val sideListB = ArrayList<CpTabInfo>()
+        val sideListH = ArrayList<CpTabInfo>()
+        val sideListM = ArrayList<CpTabInfo>()
 
         var isHasU = false //正向合约
-        var isHasB = false //币本位
+        val isHasB = false //币本位
         var isHasH = false //混合合约
         var isHasM = false //模拟合约
         val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(this))
@@ -261,21 +263,20 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         } else {
             sideListBuff.addAll(sideListH)
         }
-        var mRightAdapter = CpCoinSelectRightAdapter(sideListBuff, mContractId)
+        val mRightAdapter = CpCoinSelectRightAdapter(sideListBuff, mContractId)
         rv_right?.layoutManager = LinearLayoutManager(this)
         rv_right?.adapter = mRightAdapter
         rv_right?.setHasFixedSize(true)
         mRightAdapter.setOnItemClickListener { adapter, view, position ->
             mCurrContractInfo = CpTabInfo(sideListBuff[position].name, position)
             mContractId = sideListBuff[position].index
-            LogUtils.e("--------------------"+ mContractId)
-            tv_coins_name.setText(CpClLogicContractSetting.getContractShowNameById(this@CpContractEntrustNewActivity, mContractId))
+            tv_coins_name.text = CpClLogicContractSetting.getContractShowNameById(this@CpContractEntrustNewActivity, mContractId)
             val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_contract_event)
             event.msg_content = mContractId
             CpEventBusUtil.post(event)
             ll_coin_select.visibility = View.GONE
         }
-        var adapter = CpCoinSelectLeftAdapter(sideList, positionLeft)
+        val adapter = CpCoinSelectLeftAdapter(sideList, positionLeft)
         rv_left?.layoutManager = LinearLayoutManager(this)
         rv_left?.adapter = adapter
         rv_left?.setHasFixedSize(true)

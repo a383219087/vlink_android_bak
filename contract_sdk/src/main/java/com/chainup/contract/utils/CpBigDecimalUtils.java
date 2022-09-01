@@ -747,11 +747,6 @@ public class CpBigDecimalUtils {
     public static String canCostStr(boolean isOpen, boolean isForward, int orderType, String price, String position, String parValue, String nowLevel, String rate, int scale, String unit) {
 
         String defaultStr = "0" + " " + unit;
-//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) != 0) {
-//            defaultStr = "0.00" + " " + unit;
-//        } else {
-//            defaultStr = "0" + " " + unit;
-//        }
         if (!isOpen) {
             return "0" + " " + unit;
         }

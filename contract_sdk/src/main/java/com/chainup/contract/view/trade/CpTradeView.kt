@@ -491,7 +491,7 @@ class CpTradeView @JvmOverloads constructor(
     var dialogTitle = ""
     var volume = et_volume.text.toString();
     isOpen = transactionType == CpParamConstant.TYPE_BUY
-    var isStopLoss = cb_stop_loss.isChecked
+    val isStopLoss = cb_stop_loss.isChecked
     var stopProfitPrice = et_stop_profit_price.text.toString().trim()
     var stopLossPrice = et_stop_loss_price.text.toString().trim()
     var price = et_price.text.toString()
@@ -507,9 +507,6 @@ class CpTradeView @JvmOverloads constructor(
     }
     var buyPositionAmount = volume
     var sellPositionAmount = volume
-    if(TextUtils.isEmpty(volume)) {
-      volume = "0"
-    }
     if(isPercentPlaceOrder) {
       if(side == "BUY") {
         volume = CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
@@ -836,7 +833,7 @@ class CpTradeView @JvmOverloads constructor(
     ) {
       volume + " " + if(contractSide == 1) quote else base
     } else {
-      volume + " " + if(mContractUint == 0
+      "$volume " + if(mContractUint == 0
       ) context.getString(R.string.cp_overview_text9) else mContractJson?.optString(
         "multiplierCoin"
       )
@@ -1278,7 +1275,7 @@ class CpTradeView @JvmOverloads constructor(
     //计算预估成本价
     val buyCostbuff1 = CpBigDecimalUtils.canCostStr(
       isOpen,
-      contractSide.equals("1"),
+      contractSide == "1",
       buyOrSellHelper.orderType,
       buyPrice,
       buyPositionAmount,
@@ -1292,7 +1289,7 @@ class CpTradeView @JvmOverloads constructor(
     //计算预估成本价
     val sellCostbuff1 = CpBigDecimalUtils.canCostStr(
       isOpen,
-      contractSide.equals("1"),
+      contractSide == "1",
       buyOrSellHelper.orderType,
       sellPrice,
       sellPositionAmount,

@@ -29,25 +29,18 @@ class DocumentaryDetailViewModel : BaseViewModel() {
     var contractId = MutableLiveData(0)
 
 
-
-
-
-
-
-
-
     val itemBinding =
         ItemBinding.of<Item>(BR.item, R.layout.item_documentary_detail_record)
     val items: ObservableList<Item> = ObservableArrayList()
 
 
-
-    fun getData(){
+    fun getData() {
 
         record()
 
     }
-    class Item{
+
+    class Item {
         var bean = MutableLiveData<FollowerStatisticsBean>()
         var type = MutableLiveData(1)
         var tradeTime = MutableLiveData<String>()
@@ -66,28 +59,37 @@ class DocumentaryDetailViewModel : BaseViewModel() {
 
     //操作记录
     fun record() {
-        val context=activity.value
+        val context = activity.value
 
         items.clear()
         val map = HashMap<String, Any>()
         map["positionId"] = id.value.toString()
         startTask(contractApiService.positionLog(map), Consumer {
-            if (it.data.isEmpty()){
+            if (it.data.isEmpty()) {
                 return@Consumer
             }
             for (i in 0 until it.data.size) {
-                val item=Item()
-                item.bean.value=it.data[i]
-                item.tradeTime.value=it.data[i].tradeTime.replace("T"," ")
-                if (it.data[i].transaction!=null){
-                    it.data[i].transaction?.let {it1->
-                        item.title.value=it1.meta
-                        item.amount.value= DecimalUtil.cutValueByPrecision(it1.amount,2)
-                        item.entrustAmountKey.value= context?.getString(R.string.journalAccount_text_amount)
+                val item = Item()
+                item.bean.value = it.data[i]
+                item.tradeTime.value = it.data[i].tradeTime.replace("T", " ")
+                if (it.data[i].transaction != null) {
+                    it.data[i].transaction?.let { it1 ->
+                        item.title.value = it1.meta
+                        val sym = if (it1.fromUid == it1.toUid && it1.fromType == "2531002" && it1.toType == "2511002") {
+                            "-"
+                        } else if (it1.fromUid == it1.toUid && it1.fromType == "2511002" && it1.toType == "2531002") {
+                            "+"
+                        } else if (it1.fromUid == "1") {
+                            "+"
+                        } else {
+                            "-"
+                        }
+                        item.amount.value = "$sym${DecimalUtil.cutValueByPrecision(it1.amount, 2)}"
+                        item.entrustAmountKey.value = context?.getString(R.string.journalAccount_text_amount)
                     }
-                }else{
-                    it.data[i].coOrder?.let {it1->
-                        item.title.value= when (it1.status) {
+                } else {
+                    it.data[i].coOrder?.let { it1 ->
+                        item.title.value = when (it1.status) {
                             "2" -> context?.getString(com.chainup.contract.R.string.cp_extra_text1)//完全成交
                             "3" -> context?.getString(com.chainup.contract.R.string.cp_status_text5)//"部分成交"
                             "4" -> context?.getString(com.chainup.contract.R.string.cp_status_text2)//"已撤销"
@@ -100,7 +102,8 @@ class DocumentaryDetailViewModel : BaseViewModel() {
                         //合约面值单位
                         val multiplierCoin = CpClLogicContractSetting.getContractMultiplierCoinById(context, contractId.value!!)
                         val multiplierBuff = BigDecimal(multiplier).stripTrailingZeros().toPlainString()
-                        val mSymbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, contractId.value!!)
+                        val mSymbolPricePrecision =
+                            CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, contractId.value!!)
                         //面值精度
                         val multiplierPrecision = if (multiplierBuff.contains(".")) {
                             val index = multiplierBuff.indexOf(".")
@@ -115,16 +118,29 @@ class DocumentaryDetailViewModel : BaseViewModel() {
                             "($multiplierCoin)"
                         }
                         if (it1.open == "OPEN" && it1.type == "2") {
-                            item.entrustAmountKey.value=context?.getString(com.chainup.contract.R.string.cp_extra_text9)
-                            item.amount.value= DecimalUtil.cutValueByPrecision(it1.volume,2)
+                            item.entrustAmountKey.value = context?.getString(com.chainup.contract.R.string.cp_extra_text9)
+                            item.amount.value = DecimalUtil.cutValueByPrecision(it1.volume, 2)
                         } else {
-                            item.entrustAmountKey.value=context?.getString(com.chainup.contract.R.string.cp_order_text66)+ showDealUnit
-                            item.amount.value= if (coUnit == 0) it1.volume else CpBigDecimalUtils.mulStr(it1.volume, multiplier, multiplierPrecision)
+                            item.entrustAmountKey.value =
+                                context?.getString(com.chainup.contract.R.string.cp_order_text66) + showDealUnit
+                            item.amount.value = if (coUnit == 0) it1.volume else CpBigDecimalUtils.mulStr(
+                                it1.volume,
+                                multiplier,
+                                multiplierPrecision
+                            )
                         }
-                        item.entrustPrice.value=if (it1.type.equals("2")) context?.getString(com.chainup.contract.R.string.cp_overview_text53) else CpBigDecimalUtils.showSNormal(it1.price,multiplierPrecision)
-                        item.dealPrice.value=CpBigDecimalUtils.showSNormal(it1.avgPrice, mSymbolPricePrecision)
-                        item.dealAmount.value= if (coUnit == 0) it1.dealVolume else CpBigDecimalUtils.mulStr(it1.dealVolume, multiplier, multiplierPrecision)
-                        item.dealAmountKey.value= context?.getString(com.chainup.contract.R.string.cp_extra_text8) + showDealUnit
+                        item.entrustPrice.value =
+                            if (it1.type.equals("2")) context?.getString(com.chainup.contract.R.string.cp_overview_text53) else CpBigDecimalUtils.showSNormal(
+                                it1.price,
+                                multiplierPrecision
+                            )
+                        item.dealPrice.value = CpBigDecimalUtils.showSNormal(it1.avgPrice, mSymbolPricePrecision)
+                        item.dealAmount.value = if (coUnit == 0) it1.dealVolume else CpBigDecimalUtils.mulStr(
+                            it1.dealVolume,
+                            multiplier,
+                            multiplierPrecision
+                        )
+                        item.dealAmountKey.value = context?.getString(com.chainup.contract.R.string.cp_extra_text8) + showDealUnit
                     }
                 }
 

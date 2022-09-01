@@ -27,33 +27,24 @@ public class CpParamConstant {
     public static final String title = "title";
 
     public static final String assetTabType = "assetTabType";
-    public static final String IS_ANNOUNCEMENT = "is_announcement";
     public static final String ID = "html_url";
     public static final String TITLE = "title";
-    public static final String IS_NOTICE = "is_notice";
-    public static final String IS_HOMEPAGE = "is_homepageBar";
+
 
     public static final String transferType = "transferType";
     public static final String homeTabType = "homeTabType";
     public static final String symbol = "symbol";
     public static final String COIN_SYMBOL = "coin_symbol";
-    public static final String advertID = "advertID";
 
     public static final String BIBI_INDEX = "bibi";
-    public static final String FABI_INDEX = "fabi";
-    public static final String B2C_INDEX = "b2c";
-    public static final String LONA_INDEX = "lona_index";
-    public static final String CONTRACT_INDEX = "contract";
     public static final String LEVER_INDEX = "lever";
-    public static final String CHOOSE_INDEX = "choose_index";
-    public static final String JSON_BEAN = "json_bean";
+
 
     /*
      * 交易买卖常量值定义
      */
     public static final int TYPE_BUY = 0;
     public static final int TYPE_SELL = 1;
-    public static final int UNLOCK_THE_DEAL = 2;
 
     /**
      * 币币交易常量
