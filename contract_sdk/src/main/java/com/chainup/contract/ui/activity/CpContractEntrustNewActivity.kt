@@ -252,14 +252,19 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         if (isHasM) {
             sideList.add(CpTabInfo(getString(R.string.cp_contract_data_text11), 3, if (positionLeft == 3) 0 else 1))
         }
-        if (positionLeft == 0) {
-            sideListBuff.addAll(sideListU)
-        } else if (positionLeft == 1) {
-            sideListBuff.addAll(sideListB)
-        } else if (positionLeft == 3) {
-            sideListBuff.addAll(sideListM)
-        } else {
-            sideListBuff.addAll(sideListH)
+        when(positionLeft) {
+          0 -> {
+              sideListBuff.addAll(sideListU)
+          }
+          1 -> {
+              sideListBuff.addAll(sideListB)
+          }
+          3 -> {
+              sideListBuff.addAll(sideListM)
+          }
+          else -> {
+              sideListBuff.addAll(sideListH)
+          }
         }
         var mRightAdapter = CpCoinSelectRightAdapter(sideListBuff, mContractId)
         rv_right?.layoutManager = LinearLayoutManager(this)
@@ -268,14 +273,13 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         mRightAdapter.setOnItemClickListener { adapter, view, position ->
             mCurrContractInfo = CpTabInfo(sideListBuff[position].name, position)
             mContractId = sideListBuff[position].index
-            LogUtils.e("--------------------"+ mContractId)
-            tv_coins_name.setText(CpClLogicContractSetting.getContractShowNameById(this@CpContractEntrustNewActivity, mContractId))
+            tv_coins_name.text = CpClLogicContractSetting.getContractShowNameById(this@CpContractEntrustNewActivity, mContractId)
             val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_contract_event)
             event.msg_content = mContractId
             CpEventBusUtil.post(event)
             ll_coin_select.visibility = View.GONE
         }
-        var adapter = CpCoinSelectLeftAdapter(sideList, positionLeft)
+        val adapter = CpCoinSelectLeftAdapter(sideList, positionLeft)
         rv_left?.layoutManager = LinearLayoutManager(this)
         rv_left?.adapter = adapter
         rv_left?.setHasFixedSize(true)

@@ -159,7 +159,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 helper.setText(R.id.tv_dealvolume_key, context.getString(R.string.cp_extra_text8) + showDealUnit)
                 helper.setText(R.id.tv_totalvolume_key, context.getString(R.string.cp_order_text66) + showDealUnit)
 
-                helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
+                helper.setVisible(R.id.tv_only_reduce_position, openStr == "CLOSE")
                 val takerProfitTrigger = item.otoOrder?.takerProfitTrigger
                 val stopLossTrigger = item.otoOrder?.stopLossTrigger
                 helper.setText(R.id.tv_deal, "$takerProfitTrigger/$stopLossTrigger")
