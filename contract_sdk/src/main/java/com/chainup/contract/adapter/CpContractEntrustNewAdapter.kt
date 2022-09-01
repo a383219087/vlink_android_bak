@@ -98,30 +98,24 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         var sideStr = item.side
         var typeStr = ""
 
-        //context.getLineText("cp_overview_text13")
-        if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
+        if (openStr == "OPEN" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
-        } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
+        } else if (openStr == "OPEN" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_overview_text14)//卖出开空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("BUY")) {
+        } else if (openStr == "CLOSE" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_extra_text4)//买入平空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("SELL")) {
+        } else if (openStr == "CLOSE" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_extra_text5)//卖出平多
         }
 
 
         //限价单，市价单，IOC，FOK，Post Only
-
-
-//            //普通
-//            helper.setGone(R.id.ll_plan, true)
-//            helper.setGone(R.id.ll_common, false)
         when (sideStr) {
             "BUY" -> {
-                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
             }
             "SELL" -> {
-                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
             }
             else -> {
             }
