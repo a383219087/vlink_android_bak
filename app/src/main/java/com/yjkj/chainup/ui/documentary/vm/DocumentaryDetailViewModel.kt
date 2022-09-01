@@ -81,12 +81,14 @@ class DocumentaryDetailViewModel : BaseViewModel() {
                 item.tradeTime.value=it.data[i].tradeTime.replace("T"," ")
                 if (it.data[i].transaction!=null){
                     it.data[i].transaction?.let {it1->
+                        item.type.value=1
                         item.title.value=it1.meta
                         item.amount.value= DecimalUtil.cutValueByPrecision(it1.amount,2)
                         item.entrustAmountKey.value= context?.getString(R.string.journalAccount_text_amount)
                     }
                 }else{
                     it.data[i].coOrder?.let {it1->
+                        item.type.value=2
                         item.title.value= when (it1.status) {
                             "2" -> context?.getString(com.chainup.contract.R.string.cp_extra_text1)//完全成交
                             "3" -> context?.getString(com.chainup.contract.R.string.cp_status_text5)//"部分成交"
@@ -119,11 +121,11 @@ class DocumentaryDetailViewModel : BaseViewModel() {
                             item.amount.value= DecimalUtil.cutValueByPrecision(it1.volume,2)
                         } else {
                             item.entrustAmountKey.value=context?.getString(com.chainup.contract.R.string.cp_order_text66)+ showDealUnit
-                            item.amount.value= if (coUnit == 0) it1.volume else CpBigDecimalUtils.mulStr(it1.volume, multiplier, multiplierPrecision)
+                            item.amount.value= if (coUnit == 0) DecimalUtil.cutValueByPrecision(it1.volume,0) else CpBigDecimalUtils.mulStr(it1.volume, multiplier, multiplierPrecision)
                         }
                         item.entrustPrice.value=if (it1.type.equals("2")) context?.getString(com.chainup.contract.R.string.cp_overview_text53) else CpBigDecimalUtils.showSNormal(it1.price,multiplierPrecision)
                         item.dealPrice.value=CpBigDecimalUtils.showSNormal(it1.avgPrice, mSymbolPricePrecision)
-                        item.dealAmount.value= if (coUnit == 0) it1.dealVolume else CpBigDecimalUtils.mulStr(it1.dealVolume, multiplier, multiplierPrecision)
+                        item.dealAmount.value= if (coUnit == 0)DecimalUtil.cutValueByPrecision(it1.dealVolume,2)  else CpBigDecimalUtils.mulStr(it1.dealVolume, multiplier, multiplierPrecision)
                         item.dealAmountKey.value= context?.getString(com.chainup.contract.R.string.cp_extra_text8) + showDealUnit
                     }
                 }
