@@ -80,6 +80,7 @@ class CpTradeView @JvmOverloads constructor(
   var marginCoinPrecision = 0
   var multiplierPrecision = 0
   var symbolPricePrecision = 9
+  var priceType = 1
   var base = ""
   var quote = ""
 
@@ -182,6 +183,7 @@ class CpTradeView @JvmOverloads constructor(
     }
 
     changePriceType(1)
+    priceType=1
     //选择订单类型
     tv_order_type?.view()?.let {
       RxView.clicks(it)
@@ -197,6 +199,7 @@ class CpTradeView @JvmOverloads constructor(
             object : CpNewDialogUtils.DialogOnSigningItemClickListener {
               override fun clickItem(position: Int, text: String) {
                 tv_order_type?.textContent = text
+                priceType=position
                 changePriceType(position)
               }
             },
@@ -324,7 +327,7 @@ class CpTradeView @JvmOverloads constructor(
           )
           return
         }
-        val canBuy1 = if(isPercentPlaceOrder) {
+        val canBuy1 = if(isPercentPlaceOrder||priceType>3) {
           true
         } else if(tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
           et_volume.text.toString().toInt() >= 1
@@ -384,7 +387,7 @@ class CpTradeView @JvmOverloads constructor(
             return
           }
 
-          val canBuy1 = if(isPercentPlaceOrder) {
+          val canBuy1 = if(isPercentPlaceOrder||priceType>3) {
             true
           } else if(tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
             et_volume.text.toString().toInt() >= 1
@@ -916,12 +919,12 @@ class CpTradeView @JvmOverloads constructor(
   fun setContractJsonInfo(json: JSONObject) {
     mContractJson = json
     mContractJson?.let {
-      contractSide = it?.optString("contractSide")
+      contractSide = it.optString("contractSide")
       marginRate = it.optString("marginRate")
       marginCoin = it.optString("marginCoin")
-      multiplier = it?.optString("multiplier")
-      mContractId = it?.getInt("id")
-      var multiplierCoin = it?.optString("multiplierCoin")
+      multiplier = it.optString("multiplier")
+      mContractId = it.getInt("id")
+      val multiplierCoin = it.optString("multiplierCoin")
       base =
         if(mContractUint == 0) context.getString(R.string.cp_overview_text9) else multiplierCoin
       quote = mContractJson?.optString("quote").toString()
@@ -976,29 +979,31 @@ class CpTradeView @JvmOverloads constructor(
         )
       positionType = it.optString("positionModel")
       buyOrSellHelper.isOneWayPosition = (positionType != "2")
-      var coUnit = it.optInt("coUnit")//合约单位 1标的货币, 2张
+      val coUnit = it.optInt("coUnit")//合约单位 1标的货币, 2张
       CpClLogicContractSetting.setContractUint(
         context,
         if(coUnit == 1) 1 else 0
       )
       if(!it.isNull("leverOriginCeiling")) {
         val leverOriginCeilingObj = it.optJSONObject("leverOriginCeiling")
-        val iteratorKeys = leverOriginCeilingObj.keys()
-        var leverOriginCeilingArr = ArrayList<Int>()
-        while(iteratorKeys.hasNext()) {
-          val key = iteratorKeys.next().toInt()
-          leverOriginCeilingArr.add(key)
+        val iteratorKeys = leverOriginCeilingObj?.keys()
+        val leverOriginCeilingArr = ArrayList<Int>()
+        if(iteratorKeys != null) {
+          while(iteratorKeys.hasNext()) {
+            val key = iteratorKeys.next().toInt()
+            leverOriginCeilingArr.add(key)
+          }
         }
         leverOriginCeilingArr.sort()
         for(buff in leverOriginCeilingArr) {
-          if(level.toInt() <= buff.toInt()) {
-            maxOpenLimit = leverOriginCeilingObj.optString(buff.toString())
+          if(level <= buff) {
+            maxOpenLimit = leverOriginCeilingObj?.optString(buff.toString()) ?: "0"
             break
           }
         }
       }
     }
-    if(positionType.equals("1")) {
+    if(positionType == "1") {
       transactionType =
         if(!cb_only_reduce_positions.isChecked) CpParamConstant.TYPE_BUY else CpParamConstant.TYPE_SELL
       changeBuyOrSellUI()
@@ -1052,18 +1057,19 @@ class CpTradeView @JvmOverloads constructor(
       }
       if(!isNull("accountList")) {
         val mOrderListJson = optJSONArray("accountList")
-        for(i in 0..(mOrderListJson.length() - 1)) {
-          val obj = mOrderListJson.getJSONObject(i)
-          if(mContractJson?.optString("marginCoin")
-              .toString()
-              .equals(obj.optString("symbol"))
-          ) {
-            canUseAmount = obj.getString("canUseAmount")
-            canUseAmount =
-              CpBigDecimalUtils.scaleStr(
-                canUseAmount,
-                3
-              )
+        if(mOrderListJson != null) {
+          for(i in 0 until mOrderListJson.length()) {
+            val obj = mOrderListJson.getJSONObject(i)
+            if(mContractJson?.optString("marginCoin")
+                .toString() == obj.optString("symbol")
+            ) {
+              canUseAmount = obj.getString("canUseAmount")
+              canUseAmount =
+                CpBigDecimalUtils.scaleStr(
+                  canUseAmount,
+                  3
+                )
+            }
           }
         }
       }
@@ -1153,7 +1159,7 @@ class CpTradeView @JvmOverloads constructor(
         }
         if(isOpen && isPercentPlaceOrder) {
 
-          var buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
+          val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
           positionAmount =
             CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
           buyPositionAmount = positionAmount
@@ -1169,7 +1175,7 @@ class CpTradeView @JvmOverloads constructor(
           sellPrice = price
         }
         if(isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-          var buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
+          val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
           positionAmount =
             CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
           buyPositionAmount = positionAmount
@@ -1220,7 +1226,7 @@ class CpTradeView @JvmOverloads constructor(
     val buybuff1 = CpBigDecimalUtils.canBuyStr(
       isOpen,
       buyOrSellHelper.orderType == 2,
-      contractSide.equals("1"),
+      contractSide == "1",
       buyPrice,
       multiplier,
       canUseAmount,
@@ -1234,7 +1240,7 @@ class CpTradeView @JvmOverloads constructor(
     val sellbuff1 = CpBigDecimalUtils.canBuyStr(
       isOpen,
       buyOrSellHelper.orderType == 2,
-      contractSide.equals("1"),
+      contractSide == "1",
       sellPrice,
       multiplier,
       canUseAmount,
@@ -1247,7 +1253,7 @@ class CpTradeView @JvmOverloads constructor(
 
     //通过风险限额计算的可开数
     val buybuff2 = CpBigDecimalUtils.canOpenStr(
-      contractSide.equals("1"),
+      contractSide == "1",
       buyOrSellHelper.orderType == 2,
       buyPrice,
       maxOpenLimit,
@@ -1260,7 +1266,7 @@ class CpTradeView @JvmOverloads constructor(
     )
     //通过风险限额计算的可开数
     val sellbuff2 = CpBigDecimalUtils.canOpenStr(
-      contractSide.equals("1"),
+      contractSide == "1",
       buyOrSellHelper.orderType == 2,
       sellPrice,
       maxOpenLimit,

@@ -114,13 +114,14 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
 
 //            //普通
-
+//            helper.setGone(R.id.ll_plan, true)
+//            helper.setGone(R.id.ll_common, false)
         when (sideStr) {
             "BUY" -> {
-                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
             }
             "SELL" -> {
-                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
             }
             else -> {
             }
@@ -183,8 +184,8 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
                 helper.setText(R.id.tv_order_type, orderTypeStr)
                 helper.setText(R.id.tv_trigger_price, item.triggerPrice)
-                helper.setText(R.id.tv_entrust_price, if (item.timeInForce == "2") context.getString(R.string.cp_overview_text53) else item.price)
-                if (openStr == "OPEN" && item.type == "2") {
+                helper.setText(R.id.tv_entrust_price, if (item.timeInForce.equals("2")) context.getString(R.string.cp_overview_text53) else item.price)
+                if (openStr.equals("OPEN") && item.type.equals("2")) {
                     helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_extra_text9) + "(" + (if (contractSide == 1) item.quote else item.base) + ")")
                     helper.setText(R.id.tv_entrust_amount_value, item.volume)
                 } else {
@@ -193,7 +194,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 }
 
                 helper.setText(R.id.tv_expiration_date, CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd  HH:mm"))
-                helper.setVisible(R.id.tv_only_reduce_position, openStr == "CLOSE")
+                helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
                 if (!item.traderName.isNullOrEmpty()){
                     helper. setGone(R.id.tv_tradle_name, false)
                     helper. setText(R.id.tv_tradle_name, "${context.getString(R.string.traders_apply_text9)}：${item.traderName}")
@@ -272,6 +273,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
                 helper.setText(R.id.tv_entrust_amount_value, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
                 helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_order_text66) + showDealUnit)
                 helper.setText(R.id.tv_expiration_date, CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd  HH:mm"))
+//                helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
                 helper.setText(R.id.tv_only_reduce_position, orderTypeNewStr)
                 if (!item.traderName.isNullOrEmpty()){
                     helper. setGone(R.id.tv_tradle_name, false)

@@ -22,7 +22,6 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
     //是否是当前委托
     private var isCurrentEntrust = true
-    private var loadDialog: CpNLoadingDialog? = null
 
 
 
@@ -52,7 +51,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
         val multiplierBuff = BigDecimal(multiplier).stripTrailingZeros().toPlainString()
 
         //合约名称
-        var symbolName = CpClLogicContractSetting.getContractShowNameById(context, item.contractId.toInt())
+        val symbolName = CpClLogicContractSetting.getContractShowNameById(context, item.contractId.toInt())
 
 
         //面值精度
@@ -68,7 +67,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
         showEntrustUnit = if (coUnit == 0) {
             cl_order_volume_str + "(" + context.getString(R.string.cp_overview_text9) + ")"
         } else {
-            cl_order_volume_str + "(" + multiplierCoin + ")"
+            "$cl_order_volume_str($multiplierCoin)"
         }
 
         //成交数量展示单位
@@ -80,35 +79,30 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
         } else {
 
             //委托数量
-            transaction_text_dealNum + "(" + multiplierCoin + ")"
+            "$transaction_text_dealNum($multiplierCoin)"
         }
 
 
 
-        var openStr = item.open
-        var sideStr = item.side
+        val openStr = item.open
+        val sideStr = item.side
         var typeStr = ""
-        var isOnlyReducePosition = false
-        var only_reduce_position = context.getString(R.string.cp_extra_text2)//"否"
-        //context.getLineText("cp_overview_text13")
-        if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
+
+        if (openStr == "OPEN" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_order_text75)//买入开多
-        } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
+        } else if (openStr == "OPEN" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_overview_text14)//卖出开空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("BUY")) {
+        } else if (openStr == "CLOSE" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_extra_text4)//买入平空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("SELL")) {
+        } else if (openStr == "CLOSE" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_extra_text5)//卖出平多
         }
-        if (openStr.equals("CLOSE")) {
-            only_reduce_position = context.getString(R.string.cp_extra_text3)//"是"
-            isOnlyReducePosition = true
-        }
+
 
         if (!item.isPlan) {
 
             //限价单，市价单，IOC，FOK，Post Only
-            var orderType = when (item.type) {
+            val orderType = when (item.type) {
                 "1" -> context.getString(R.string.cp_overview_text3)//"限价单"
                 "2" -> context.getString(R.string.cp_overview_text4)//"市价单"
                 "3" -> "IOC"
@@ -119,36 +113,31 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
                 else -> "error"
             }
 
-//            //普通
-//            helper.setGone(R.id.ll_plan, true)
-//            helper.setGone(R.id.ll_common, false)
             when (sideStr) {
                 "BUY" -> {
-                    helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                    helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
                 }
                 "SELL" -> {
-                    helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                    helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
                 }
                 else -> {
                 }
             }
-            var volumePercentBig = CpBigDecimalUtils.div(item.dealVolume, item.volume, 2)
-            var volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
+            val volumePercentBig = CpBigDecimalUtils.div(item.dealVolume, item.volume, 2)
+            val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
             helper.setText(R.id.tv_side, typeStr)
             helper.setText(R.id.tv_coin_name, symbolName)
             helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
             helper.setText(R.id.tv_order_type, orderType)
             helper.setText(R.id.tv_price, item.price)
             helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
-//            helper.setText(R.id.tv_dealvolume, item.dealVolume + "(" + volumePercentStr + ")")
-//            helper.setText(R.id.tv_totalvolume, item.volume)
             helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) + "(" + volumePercentStr + ")")
             helper.setText(R.id.tv_totalvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
-            helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
+            helper.setVisible(R.id.tv_only_reduce_position, openStr == "CLOSE")
             if (item.otoOrder != null) {
-                val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString().equals("null")) "--" else item.otoOrder.takerProfitTrigger.toString()
-                val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString().equals("null")) "--" else item.otoOrder.stopLossTrigger.toString()
-                helper.setText(R.id.tv_deal, takerProfitTrigger + "/" + stopLossTrigger)
+                val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString() == "null") "--" else item.otoOrder.takerProfitTrigger.toString()
+                val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString() == "null") "--" else item.otoOrder.stopLossTrigger.toString()
+                helper.setText(R.id.tv_deal, "$takerProfitTrigger/$stopLossTrigger")
             }
             helper.setText(R.id.tv_dealvolume_key,  showDealUnit)
             helper.setText(R.id.tv_totalvolume_key, showEntrustUnit)

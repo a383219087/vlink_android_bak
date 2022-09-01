@@ -85,7 +85,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
                 else -> {
                 }
             }
-            var symbolName = CpClLogicContractSetting.getContractShowNameById(context, item.contractId)
+            val symbolName = CpClLogicContractSetting.getContractShowNameById(context, item.contractId)
             setText(R.id.tv_contract_name, symbolName)
             //开仓均价
             setText(R.id.tv_open_price_value, CpBigDecimalUtils.showSNormal(item.openAvgPrice, mPricePrecision))

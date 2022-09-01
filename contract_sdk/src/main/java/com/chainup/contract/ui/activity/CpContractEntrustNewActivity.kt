@@ -254,14 +254,19 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         if (isHasM) {
             sideList.add(CpTabInfo(getString(R.string.cp_contract_data_text11), 3, if (positionLeft == 3) 0 else 1))
         }
-        if (positionLeft == 0) {
-            sideListBuff.addAll(sideListU)
-        } else if (positionLeft == 1) {
-            sideListBuff.addAll(sideListB)
-        } else if (positionLeft == 3) {
-            sideListBuff.addAll(sideListM)
-        } else {
-            sideListBuff.addAll(sideListH)
+        when(positionLeft) {
+          0 -> {
+              sideListBuff.addAll(sideListU)
+          }
+          1 -> {
+              sideListBuff.addAll(sideListB)
+          }
+          3 -> {
+              sideListBuff.addAll(sideListM)
+          }
+          else -> {
+              sideListBuff.addAll(sideListH)
+          }
         }
         val mRightAdapter = CpCoinSelectRightAdapter(sideListBuff, mContractId)
         rv_right?.layoutManager = LinearLayoutManager(this)

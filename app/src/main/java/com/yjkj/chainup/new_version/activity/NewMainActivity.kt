@@ -26,7 +26,6 @@ import com.chainup.contract.ui.fragment.CpContractNewTradeFragment
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.igexin.sdk.PushManager
-
 import com.jaeger.library.StatusBarUtil
 import com.tencent.mmkv.MMKV
 import com.yjkj.chainup.BuildConfig
