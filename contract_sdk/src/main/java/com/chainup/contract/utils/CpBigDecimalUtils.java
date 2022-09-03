@@ -905,7 +905,7 @@ public class CpBigDecimalUtils {
      * @param isForward  是否输入正向合约
      * @return判断是否大于1张
      */
-    public static Boolean canPositionMarketBoolean(boolean isForward, String openValue,String parValue, String price, int scale) {
+    public static Boolean canPositionMarketBoolean(boolean isForward, String openValue,String parValue, String price, int scale, String unit) {
 
         if (TextUtils.isEmpty(openValue)) {
             return false;
@@ -923,14 +923,24 @@ public class CpBigDecimalUtils {
          */
         BigDecimal openValueBig = new BigDecimal(openValue);
         BigDecimal priceBig = new BigDecimal(price);
-
+        BigDecimal parValueBig = new BigDecimal(parValue);
         BigDecimal buff;
         if (isForward) {
             buff = openValueBig.divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN);
         } else {
             buff = openValueBig.multiply(priceBig);
         }
-        return buff.divide(new BigDecimal(parValue), 0, BigDecimal.ROUND_HALF_DOWN).intValue()>=1;
+
+        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+            BigDecimal a=buff.setScale(scale, RoundingMode.HALF_DOWN);
+            return a.intValue()>=1;
+
+        } else {
+            BigDecimal a= buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN);
+            //a/buff a=输入的币币，buff等于1张的币币
+            BigDecimal b= a.divide(buff, 0, RoundingMode.HALF_DOWN);
+            return  b.intValue()>=1;
+        }
     }
 
     /**

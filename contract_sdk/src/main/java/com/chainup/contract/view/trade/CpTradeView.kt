@@ -37,6 +37,7 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
+@SuppressLint("CustomViewStyleable")
 class CpTradeView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
@@ -330,14 +331,19 @@ class CpTradeView @JvmOverloads constructor(
         val canBuy1 = if(isPercentPlaceOrder||priceType>3) {
           true
         } else if(tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-          et_volume.text.toString().toInt() >= 1
+          et_volume.text.toString().toDouble() >= 1
         } else {
+          val unit =
+            if(CpClLogicContractSetting.getContractUint(context) == 0) mContractJson?.optString("multiplierCoin") else context.getString(
+              R.string.cp_overview_text9
+            )
           CpBigDecimalUtils.canPositionMarketBoolean(
             contractSide == "1",
             et_volume.text.toString(),
             multiplier,
             price,
-            multiplierPrecision
+            multiplierPrecision,
+            unit
           )
         }
 
@@ -390,14 +396,19 @@ class CpTradeView @JvmOverloads constructor(
           val canBuy1 = if(isPercentPlaceOrder||priceType>3) {
             true
           } else if(tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-            et_volume.text.toString().toInt() >= 1
+            et_volume.text.toString().toDouble() >= 1
           } else {
+            val unit =
+              if(CpClLogicContractSetting.getContractUint(context) == 0) mContractJson?.optString("multiplierCoin") else context.getString(
+                R.string.cp_overview_text9
+              )
             CpBigDecimalUtils.canPositionMarketBoolean(
               contractSide == "1",
               et_volume.text.toString(),
               multiplier,
               price,
-              multiplierPrecision
+              multiplierPrecision,
+              unit
             )
           }
           if(!canBuy1) {
@@ -495,10 +506,10 @@ class CpTradeView @JvmOverloads constructor(
     var volume = et_volume.text.toString();
     isOpen = transactionType == CpParamConstant.TYPE_BUY
     val isStopLoss = cb_stop_loss.isChecked
-    var stopProfitPrice = et_stop_profit_price.text.toString().trim()
-    var stopLossPrice = et_stop_loss_price.text.toString().trim()
+    val stopProfitPrice = et_stop_profit_price.text.toString().trim()
+    val stopLossPrice = et_stop_loss_price.text.toString().trim()
     var price = et_price.text.toString()
-    var triggerPrice = et_trigger_price.text.toString()//触发价格
+    val triggerPrice = et_trigger_price.text.toString()//触发价格
 
     if(isOpen && isStopLoss) {
       if(TextUtils.isEmpty(stopProfitPrice) && TextUtils.isEmpty(stopLossPrice)) {
@@ -617,7 +628,7 @@ class CpTradeView @JvmOverloads constructor(
         }
         if(isOpen && isPercentPlaceOrder && isMarketPriceModel) {
 
-          var buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+          val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
           volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
         }
       }
@@ -664,12 +675,12 @@ class CpTradeView @JvmOverloads constructor(
       return
     }
     //下单限制判断
-    var coinResultVo = JSONObject(mContractJson?.optString("coinResultVo"))
-    var minOrderVolume = coinResultVo.optString("minOrderVolume")//最小下单量
-    var minOrderMoney = coinResultVo.optString("minOrderMoney")//最小下单金额
-    var maxMarketVolume = coinResultVo.optString("maxMarketVolume")//市价单最大下单数量
-    var maxMarketMoney = coinResultVo.optString("maxMarketMoney")//市价最大下单金额
-    var maxLimitVolume = coinResultVo.optString("maxLimitVolume")//限价单最大下单数量
+    val coinResultVo = mContractJson?.optString("coinResultVo")?.let { JSONObject(it) }
+    val minOrderVolume = coinResultVo!!.optString("minOrderVolume")//最小下单量
+    val minOrderMoney = coinResultVo.optString("minOrderMoney")//最小下单金额
+    val maxMarketVolume = coinResultVo.optString("maxMarketVolume")//市价单最大下单数量
+    val maxMarketMoney = coinResultVo.optString("maxMarketMoney")//市价最大下单金额
+    val maxLimitVolume = coinResultVo.optString("maxLimitVolume")//限价单最大下单数量
     when(buyOrSellHelper.orderType) {
       1, 4, 5, 6 -> {
         //最小下单量  < x <限价单最大下单数量
@@ -1434,7 +1445,6 @@ class CpTradeView @JvmOverloads constructor(
   }
 
   private fun changeBuyOrSellUI() {
-//        et_price.setText("")
     when(this.transactionType) {
       // 买
       CpParamConstant.TYPE_BUY -> {

@@ -103,7 +103,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
             //限价单，市价单，IOC，FOK，Post Only
             val orderType = when (item.type) {
-                "1" -> context.getString(R.string.cp_overview_text3)//"限价单"
+                "1" ->  context.getString(R.string.cp_overview_text3)//"限价单"
                 "2" -> context.getString(R.string.cp_overview_text4)//"市价单"
                 "3" -> "IOC"
                 "4" -> "FOK"
