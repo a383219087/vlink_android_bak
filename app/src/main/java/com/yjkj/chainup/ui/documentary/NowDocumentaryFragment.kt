@@ -533,7 +533,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
 
                                 //仓位方向：多仓是1，空仓是-1
-                                var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide.equals("1"), positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)
+                                var reducePriceStr = CpBigDecimalUtils.calcForcedPrice(contractSide == "1", positionEquity, marginRate, positionVolume, positionDirection, indexPrice, keepRate, maxFeeRate, mPricePrecision)
                                 if (CpBigDecimalUtils.compareTo(reducePriceStr, "0") != 1) {
                                     reducePriceStr = "--"
                                 }
@@ -720,6 +720,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         CpNToastUtil.showTopToastNet(this.mActivity, true, getString(com.chainup.contract.R.string.cp_extra_text109))
                         LogUtils.e("quickClosePosition :success")
+                        getList()
                     }
                 })
         )
@@ -1065,13 +1066,14 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 priceType,
                 consumer = object :
                     CpNDisposableObserver(mActivity, true) {
+                    @SuppressLint("CheckResult")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         CpNToastUtil.showTopToastNet(this.mActivity, true, getString(com.chainup.contract.R.string.cp_extra_text109))
                         Observable.timer(500, TimeUnit.MILLISECONDS)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
-                                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_req_position_list_event))
+                                getList()
                             }
                     }
                 })

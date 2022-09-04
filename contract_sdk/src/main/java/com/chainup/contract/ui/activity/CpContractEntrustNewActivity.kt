@@ -158,7 +158,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
             recycler_view?.adapter = adapter
             recycler_view?.setHasFixedSize(true)
             adapter.setOnItemClickListener { adapter, view, position ->
-                tv_order_type.setText(typeList[position].name)
+                tv_order_type.text = typeList[position].name
                 mCurrTypeInfo = CpTabInfo(typeList[position].name, position)
                 val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_order_type_event)
                 event.msg_content = position
@@ -182,7 +182,7 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
             recycler_view?.adapter = adapter
             recycler_view?.setHasFixedSize(true)
             adapter.setOnItemClickListener { adapter, view, position ->
-                tv_contract_direction.setText(sideList[position].name)
+                tv_contract_direction.text = sideList[position].name
                 mCurrSideInfo = CpTabInfo(sideList[position].name, position)
                 val event = CpMessageEvent(CpMessageEvent.sl_contract_record_switch_contract_side_event)
                 event.msg_content = sideList[position].extras
@@ -209,7 +209,6 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         var positionLeft = 0
         for (i in 0 until mContractList.length()) {
             val obj = mContractList.getJSONObject(i)
-            val contractSide = obj.getInt("contractSide")
             val contractType = obj.getString("contractType")
             val id = obj.getInt("id")
 
@@ -287,14 +286,19 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         rv_left?.setHasFixedSize(true)
         adapter.setOnItemClickListener { adapter, view, position ->
             sideListBuff.clear()
-            if (sideList[position].index == 0) {
-                sideListBuff.addAll(sideListU)
-            } else if (sideList[position].index == 1) {
-                sideListBuff.addAll(sideListB)
-            } else if (sideList[position].index == 2) {
-                sideListBuff.addAll(sideListH)
-            } else {
-                sideListBuff.addAll(sideListM)
+            when (sideList[position].index) {
+                0 -> {
+                    sideListBuff.addAll(sideListU)
+                }
+                1 -> {
+                    sideListBuff.addAll(sideListB)
+                }
+                2 -> {
+                    sideListBuff.addAll(sideListH)
+                }
+                else -> {
+                    sideListBuff.addAll(sideListM)
+                }
             }
             mRightAdapter.notifyDataSetChanged()
 
@@ -368,9 +372,6 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
                                 getCurrentPlanOrderList()
                             }
 
-                            override fun onError(e: Throwable) {
-                                super.onError(e)
-                            }
                         })
         )
     }
@@ -392,10 +393,6 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
                                         }
                                     }
                                 }
-                            }
-
-                            override fun onError(e: Throwable) {
-                                super.onError(e)
                             }
                         })
         )

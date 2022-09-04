@@ -98,12 +98,9 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
         tv_position_key.setText(getString(R.string.cp_extra_text90) + "(" + base + ")")
         tv_stop_profit_volume_unit.setText(base)
         tv_stop_loss_volume_unit.setText(base)
-        var orderSideStr=""
         if (mContractPositionBean?.orderSide.equals("BUY")) {
-            orderSideStr="多"
             tv_type.text = getString(R.string.cp_order_text6)
         }else{
-            orderSideStr="空"
             tv_type.text = getString(R.string.cp_order_text15)
         }
 
@@ -128,7 +125,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
         if (CpBigDecimalUtils.compareTo(reducePriceStr, "0") != 1) {
             reducePriceStr = "--"
         }
-        tv_force_close_price.setText(reducePriceStr)
+        tv_force_close_price.text = reducePriceStr
 
         var openAvgPriceStr = CpBigDecimalUtils.showSNormal(mContractPositionBean?.openAvgPrice, mPricePrecision)
         tv_open_price_value.text = openAvgPriceStr
@@ -138,10 +135,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         when (mContractPositionBean?.positionType) {
             1 -> {
-                tv_contract_name_lable.setText(getString(R.string.cp_contract_setting_text1)+" " + mContractPositionBean?.leverageLevel + "X")
+                tv_contract_name_lable.text = getString(R.string.cp_contract_setting_text1)+" " + mContractPositionBean?.leverageLevel + "X"
             }
             2 -> {
-                tv_contract_name_lable.setText(getString(R.string.cp_contract_setting_text2)+" " + mContractPositionBean?.leverageLevel + "X")
+                tv_contract_name_lable.text = getString(R.string.cp_contract_setting_text2)+" " + mContractPositionBean?.leverageLevel + "X"
             }
             else -> {
             }
@@ -182,25 +179,17 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
         orderList = ArrayList();
         if (isStopProfitMarket) {
-//            tv_market_price_hint.visibility = View.VISIBLE
-//            et_stop_profit_price.visibility = View.GONE
-//            tv_stop_profit_coin_name.visibility = View.GONE
+
             tv_stop_profit_price_hint?.setBackgroundResource(R.drawable.cp_bg_trade_et_focused)
             tv_stop_profit_price_hint?.setTextColor(CpColorUtil.getColor(R.color.main_blue))
-//            et_stop_profit_price.requestFocus()
         } else {
-//            tv_market_price_hint.visibility = View.GONE
-//            et_stop_profit_price.visibility = View.VISIBLE
-//            tv_stop_profit_coin_name.visibility = View.VISIBLE
+
             tv_stop_profit_price_hint?.setBackgroundResource(R.drawable.cp_bg_trade_et_unfocused)
             tv_stop_profit_price_hint?.setTextColor(CpColorUtil.getColor(R.color.normal_text_color))
-//            et_stop_profit_price.clearFocus()
         }
 
         if (isStopLossMarket) {
-//            tv_market_loss_price_hint.visibility = View.VISIBLE
-//            et_stop_loss_price.visibility = View.GONE
-//            tv_stop_loss_coin_name.visibility = View.GONE
+
             tv_stop_loss_price_hint?.setBackgroundResource(R.drawable.cp_bg_trade_et_focused)
             tv_stop_loss_price_hint?.setTextColor(CpColorUtil.getColor(R.color.main_blue))
 //            et_stop_loss_price.requestFocus()
@@ -680,7 +669,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
                 if (channel == WsLinkUtils.tickerFor24HLink(currentSymbol, isChannel = true)) {
                     val close = tick.optString("close")
                     this.runOnUiThread {
-                        tv_mark_price.setText(CpBigDecimalUtils.showSNormal(close, mPricePrecision))
+                        tv_mark_price.text = CpBigDecimalUtils.showSNormal(close, mPricePrecision)
                     }
                 }
             }

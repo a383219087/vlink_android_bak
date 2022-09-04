@@ -3310,7 +3310,7 @@
     <string name="cp_overview_text5">条件单</string>
     <string name="cp_overview_text511">只做Maker(Post Only)</string>
     <string name="cp_overview_text521">全部成交或立即取消(FOK)</string>
-    <string name="cp_overview_text531">立即取消并取消剩余(IOC)</string>
+    <string name="cp_overview_text531">立即成交并取消剩余(IOC)</string>
     <string name="cp_overview_text6">价格</string>
     <string name="cp_overview_text7">对手价</string>
     <string name="cp_overview_text8">数量</string>

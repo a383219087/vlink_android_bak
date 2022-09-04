@@ -40,7 +40,8 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
     override fun convert(helper: BaseViewHolder, item: CpCurrentOrderBean) {
 
-
+         cl_order_volume_str = context.getString(R.string.cp_extra_text8)
+         transaction_text_dealNum = context.getString(R.string.cp_order_text66)
         coUnit = CpClLogicContractSetting.getContractUint(context)
 
         //合约面值

@@ -60,7 +60,7 @@
                             android:drawableRight="@{_all.showMoney?@drawable/assets_visible:@drawable/assets_invisible}"
                             android:drawablePadding="@dimen/dp_5"
                             android:onClick="@{()->_all.setShowMoney()}"
-                            android:text="@string/decumentary_detail_text17"
+                            android:text="@string/decumentary_detail_text171"
                             android:textColor="@color/white"
                             android:textSize="13sp" />
 

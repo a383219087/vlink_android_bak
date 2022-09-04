@@ -131,11 +131,7 @@ class CpContractEntrustNewFragment : CpNBaseFragment() {
 
     private fun getOrderList() {
         getCurrentOrderList()
-//        if (isCurrentEntrust) {
-//            getCurrentOrderList()
-//        } else {
-//            getHistoryOrderList()
-//        }
+
     }
 
 
@@ -147,16 +143,10 @@ class CpContractEntrustNewFragment : CpNBaseFragment() {
         }
     }
 
-    private fun getHistoryOrderList() {
-        if (isCommonEntrust) {
-            getHistoryCommonOrderList()
-        } else {
-            getHistoryPlanOrderList()
-        }
-    }
 
 
-    fun getCurrentCommonOrderList() {
+
+    private fun getCurrentCommonOrderList() {
         addDisposable(
                 getContractModel().getCurrentOrderList(mContractId.toString(),
                         mOrderType,

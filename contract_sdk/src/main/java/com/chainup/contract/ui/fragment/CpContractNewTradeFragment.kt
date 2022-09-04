@@ -1,6 +1,7 @@
 package com.chainup.contract.ui.fragment
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -287,6 +288,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         addDisposable(
                 getContractModel().getCurrentPlanOrderList(mContractId.toString(), 0, 1,
                         consumer = object : CpNDisposableObserver(true) {
+                            @SuppressLint("SetTextI18n")
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data").run {
                                     tab_order.getTitleView(2).text = getString(R.string.cp_order_text3) + " " + this.optString("count")
@@ -455,17 +457,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 //                ToastUtils.showShort("发起下单请求")
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(getContractModel().createOrder(obj,
-                        consumer = object : CpNDisposableObserver(mActivity, false) {
+                        consumer = object : CpNDisposableObserver(mActivity, true) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 CpNToastUtil.showTopToastNet(
                                         this.mActivity,
                                         true,
                                         getString(R.string.cp_extra_text53)
                                 )
-                            }
-                            override fun onResponseFailure(code: Int, msg: String?) {
-                                super.onResponseFailure(code, msg)
-                                kycTips(msg.toString());
                             }
                         })
                 )

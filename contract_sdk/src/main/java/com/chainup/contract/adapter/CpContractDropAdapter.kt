@@ -34,7 +34,7 @@ class CpContractDropAdapter(data: ArrayList<JSONObject>) : BaseQuickAdapter<JSON
     }
 
     override fun convert(helper: BaseViewHolder, ticker: JSONObject) {
-        ticker?.let {
+        ticker.let {
             val dfRate = CpNumberUtil().getDecimal(2)
             helper?.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id")))
             if (!ticker.isNull("rose")) {

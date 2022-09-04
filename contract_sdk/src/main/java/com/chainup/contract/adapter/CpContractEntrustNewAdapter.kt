@@ -114,14 +114,12 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
 
 //            //普通
-//            helper.setGone(R.id.ll_plan, true)
-//            helper.setGone(R.id.ll_common, false)
         when (sideStr) {
             "BUY" -> {
-                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
             }
             "SELL" -> {
-                helper?.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
             }
             else -> {
             }
