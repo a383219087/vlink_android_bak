@@ -263,11 +263,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     private fun getCurrentOrderList() {
-        if (mContractId == -1) return
         if (!CpClLogicContractSetting.isLogin()) return
         if (openContract == 0) return
         addDisposable(
-                getContractModel().getCurrentOrderList(mContractId.toString(), 0, 1,
+                getContractModel().getCurrentOrderListAll( 0, 1,
                         consumer = object : CpNDisposableObserver(true) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data").run {

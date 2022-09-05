@@ -94,6 +94,11 @@ interface CpContractApiService {
      */
     @POST("order/history_trigger_order_list")
     fun getHistoryPlanOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
+    /**
+     *  历史计划委托订单所有合约
+     */
+    @POST("order/history_trigger_order_list_all ")
+    fun getHistoryPlanOrderListAll(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
@@ -101,6 +106,11 @@ interface CpContractApiService {
      */
     @POST("order/current_order_list")
     fun getCurrentOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
+    /**
+     *  当前委托订单所有合约
+     */
+    @POST("order/current_order_list_all")
+    fun getCurrentOrderListAll(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**

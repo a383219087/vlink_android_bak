@@ -287,53 +287,6 @@ class CpContractEntrustNewFragment : CpNBaseFragment() {
         )
     }
 
-    private fun getHistoryPlanOrderList() {
-        addDisposable(
-                getContractModel().getHistoryPlanOrderList(mContractId.toString(),
-                        mOrderType,
-                        pageInfo.page,
-                        consumer = object : CpNDisposableObserver(true) {
-                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                val mListBuffer = ArrayList<CpCurrentOrderBean>()
-                                swipe_refresh?.isRefreshing = false
-                                jsonObject.optJSONObject("data").run {
-                                    if (!isNull("trigOrderList")) {
-                                        val mOrderListJson = optJSONArray("trigOrderList")
-                                        for (i in 0..(mOrderListJson.length() - 1)) {
-                                            var obj = mOrderListJson.getString(i)
-                                            val mClCurrentOrderBean = Gson().fromJson<CpCurrentOrderBean>(
-                                                    obj,
-                                                    CpCurrentOrderBean::class.java
-                                            )
-                                            mClCurrentOrderBean.layoutType = 4
-                                            mClCurrentOrderBean.isPlan = true
-                                            mListBuffer.add(mClCurrentOrderBean)
-                                        }
-                                    }
-                                }
-                                if (pageInfo.isFirstPage) {
-                                    adapter?.setList(mListBuffer)
-                                } else {
-                                    adapter?.addData(mListBuffer)
-                                }
-                                if (mListBuffer.size < 20) {
-                                    adapter?.loadMoreModule?.loadMoreEnd()
-                                } else {
-                                    adapter?.loadMoreModule?.loadMoreComplete()
-                                }
-                                pageInfo.nextPage()
-                                closeLoadingDialog()
-                            }
-
-                            override fun onError(e: Throwable) {
-                                super.onError(e)
-                                swipe_refresh?.isRefreshing = false
-
-                                closeLoadingDialog()
-                            }
-                        })
-        )
-    }
 
 
 
