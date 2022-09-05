@@ -281,7 +281,7 @@ class CpTradeView @JvmOverloads constructor(
       clearUIFocus()
     }
     //止盈止损选择监听
-    cb_stop_loss.setOnCheckedChangeListener { buttonView, isChecked ->
+    cb_stop_loss.setOnCheckedChangeListener { _, isChecked ->
       ll_stop_profit_loss_price.visibility = if(isChecked) View.VISIBLE else View.GONE
       et_stop_profit_price.setText("")
       et_stop_loss_price.setText("")

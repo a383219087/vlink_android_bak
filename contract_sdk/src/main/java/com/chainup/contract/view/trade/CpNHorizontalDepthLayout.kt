@@ -200,7 +200,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 return@setSafeListener
             }
             if (mUserConfigInfoJson?.getInt("levelCanSwitch") == 0) {
-                CpDialogUtil.showNewsingleDialog2(context!!, context.getString(R.string.cp_contract_setting_text11), object : CpNewDialogUtils.DialogBottomListener {
+                CpDialogUtil.showNewsingleDialog2(context, context.getString(R.string.cp_contract_setting_text11), object : CpNewDialogUtils.DialogBottomListener {
                     override fun sendConfirm() {
 
                     }
@@ -612,7 +612,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
         mUserConfigInfoJson?.apply {
             openContract = optInt("openContract")
             positionModel = optInt("positionModel")
-            LogUtils.e("positionModel:" + positionModel)
             CpClLogicContractSetting.setPositionModel(context, positionModel)
             rg_buy_sell.visibility = if (positionModel == 2) View.VISIBLE else View.GONE
             ll_only_reduce_positions.visibility = if (positionModel == 1) View.VISIBLE else View.GONE

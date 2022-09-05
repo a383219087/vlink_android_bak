@@ -122,7 +122,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         }
                                     }
                                     R.id.rb_2 -> {
-                                        tvOrderTips.setText(getString(R.string.cp_order_text44))
+                                        tvOrderTips.text = getString(R.string.cp_order_text44)
                                         tvOrderTips.visibility = View.VISIBLE
                                         llPrice.visibility = View.GONE
                                         if (checkedIdBuff == it.id) {
@@ -137,7 +137,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         }
                                     }
                                     R.id.rb_3 -> {
-                                        tvOrderTips.setText(getString(R.string.cp_order_text45))
+                                        tvOrderTips.text = getString(R.string.cp_order_text45)
                                         tvOrderTips.visibility = View.VISIBLE
                                         llPrice.visibility = View.GONE
                                         if (checkedIdBuff == it.id) {

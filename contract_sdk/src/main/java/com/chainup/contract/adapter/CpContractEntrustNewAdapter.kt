@@ -316,15 +316,20 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
             item.pricePrecision
           )
         )
-        var prefix = if(CpBigDecimalUtils.compareTo(
+        val prefix = if(CpBigDecimalUtils.compareTo(
             item.realizedAmount,
             "0"
           ) == -1 || CpBigDecimalUtils.compareTo(item.realizedAmount, "0") == 0
         ) "" else "+"
-        helper.setText(
-          R.id.tv_pl,
-          prefix + CpBigDecimalUtils.showSNormal(item.realizedAmount, marginCoinPrecision)
-        )
+        val plText=prefix + CpBigDecimalUtils.showSNormal(item.realizedAmount, marginCoinPrecision);
+        helper.setText(R.id.tv_pl,plText)
+        if (plText.contains("-")&& plText != "--"){
+          helper.setTextColorRes(R.id.tv_pl,R.color.main_red)
+        }else if (plText.contains("+")){
+          helper.setTextColorRes(R.id.tv_pl,R.color.main_green)
+        }
+
+
         helper.setText(
           R.id.tv_pl_key,
           context.getString(R.string.cp_order_text8) + "(" + marginCoin + ")"

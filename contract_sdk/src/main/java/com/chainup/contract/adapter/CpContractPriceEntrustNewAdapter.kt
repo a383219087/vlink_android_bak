@@ -128,19 +128,19 @@ var cp_overview_text9 = ""
 
         if (coUnit == 0) {
             //成交数量
-            showDealNumber = item.dealVolume
+            showDealNumber = item.dealVolume.toString()
             //委托数量
             showEntrustNumber = item.volume
-            showDealUnit = transaction_text_dealNum + "(" + cp_overview_text9 + ")"
+            showDealUnit = "$transaction_text_dealNum($cp_overview_text9)"
         } else {
             //成交数量
             showDealNumber = CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)
             //委托数量
             showEntrustNumber = CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision)
-            showDealUnit = transaction_text_dealNum + "(" + multiplierCoin + ")"
+            showDealUnit = "$transaction_text_dealNum($multiplierCoin)"
         }
 
-        if (item.type.equals("2") && item.open.equals("OPEN")) {
+        if (item.type == "2" && item.open == "OPEN") {
             showEntrustNumber = item.volume
         }
 
@@ -149,16 +149,16 @@ var cp_overview_text9 = ""
         var sideStr = item.side
         var typeStr = ""
         var only_reduce_position = context.getString(R.string.cp_extra_text2)//"否"
-        if (openStr.equals("OPEN") && sideStr.equals("BUY")) {
+        if (openStr == "OPEN" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_overview_text13)//买入开多
-        } else if (openStr.equals("OPEN") && sideStr.equals("SELL")) {
+        } else if (openStr == "OPEN" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_overview_text14)//卖出开空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("BUY")) {
+        } else if (openStr == "CLOSE" && sideStr == "BUY") {
             typeStr = context.getString(R.string.cp_extra_text4)//买入平空
-        } else if (openStr.equals("CLOSE") && sideStr.equals("SELL")) {
+        } else if (openStr == "CLOSE" && sideStr == "SELL") {
             typeStr = context.getString(R.string.cp_extra_text5)//卖出平多
         }
-        if (openStr.equals("CLOSE")) {
+        if (openStr == "CLOSE") {
             only_reduce_position = context.getString(R.string.cp_extra_text3)//"是"
         }
 

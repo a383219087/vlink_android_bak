@@ -96,7 +96,7 @@ class SingleMoneyViewModel : BaseViewModel() {
                     item.side.value=if (it.data.records!![i].side=="BUY"){
                             context.value?.getString(R.string.contract_text_long)
                     }else{
-                        context.value?.getString(R.string.contract_text_long)
+                        context.value?.getString(R.string.contract_text_short)
                     }
                     items.add(item)
                 }
