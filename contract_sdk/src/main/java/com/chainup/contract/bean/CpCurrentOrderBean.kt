@@ -6,7 +6,7 @@ import java.io.Serializable
 data class CpCurrentOrderBean(
         val avgPrice: String,
         val ctime: String,
-        val dealVolume: String,
+        val dealVolume: String?,
         val id: String,
         val contractId: String,
         val open: String,
