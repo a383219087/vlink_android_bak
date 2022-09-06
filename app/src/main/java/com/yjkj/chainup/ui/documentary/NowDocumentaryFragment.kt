@@ -15,6 +15,7 @@ import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.listener.CpDoListener
+import com.chainup.contract.model.CpNewContractModel
 import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
@@ -350,10 +351,10 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                 com.chainup.contract.R.id.tv_quick_close_position -> {
                     mQuickClosePositionDialog = CpDialogUtil.showQuickClosePositionDialog(this.activity!!, OnBindViewListener {
                         it.setText(
-                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide.equals("BUY")) getString(com.chainup.contract.R.string.cp_order_text6) else getString(
+                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide == "BUY") getString(com.chainup.contract.R.string.cp_order_text6) else getString(
                                 com.chainup.contract.R.string.cp_order_text15))
                         it.setTextColor(
-                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide.equals("BUY")) activity?.resources?.getColor(
+                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide == "BUY") activity?.resources?.getColor(
                                 com.chainup.contract.R.color.main_green)!! else activity?.resources?.getColor(com.chainup.contract.R.color.main_red)!!)
                         it.setText(com.chainup.contract.R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, clickData.contractId))
                         it.setText(
@@ -715,7 +716,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     private fun quickClosePosition(contractId: String, open: String, side: String, positionType: String) {
         val side = if (side == "BUY") "SELL" else "BUY"
         addDisposable(
-            getContractModel().lightClose(contractId, open, side, positionType,
+            CpNewContractModel().lightClose(contractId, open, side, positionType,
                 consumer = object : CpNDisposableObserver(true) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         CpNToastUtil.showTopToastNet(this.mActivity, true, getString(com.chainup.contract.R.string.cp_extra_text109))

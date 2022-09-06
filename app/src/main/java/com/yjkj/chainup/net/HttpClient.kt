@@ -558,18 +558,18 @@ class HttpClient private constructor() {
         map["amount"] = amount
         map["transferType"] = transferType
 
-        if(transferType.equals(ContractCloudAgent.WALLET_TO_CONTRACT)){
+        return if(transferType.equals(ContractCloudAgent.WALLET_TO_CONTRACT)){
             // 币币  -> 合约
-            return apiService.doAssetExchange(toRequestBody(DataHandler.encryptParams(map)))
+            apiService.doAssetExchange(toRequestBody(DataHandler.encryptParams(map)))
         }else{
             // 合约  -> 币币
-           val futuresType= PublicInfoDataService.getInstance().getfuturesType(null);
+            val futuresType= PublicInfoDataService.getInstance().getfuturesType(null);
             if (futuresType.equals("0")){
                 //私有化
-                return apiService.doAssetExchange(toRequestBody(DataHandler.encryptParams(map)))
+                apiService.doAssetExchange(toRequestBody(DataHandler.encryptParams(map)))
             }else{
                 //合约云
-                return contractService.coTransferEx(toRequestBody(DataHandler.encryptParams(map)))
+                contractService.coTransferEx(toRequestBody(DataHandler.encryptParams(map)))
             }
         }
 
@@ -925,16 +925,6 @@ class HttpClient private constructor() {
         return apiOTCService.updatePayment4OTC(toRequestBody(DataHandler.encryptParams(map)))
     }
 
-    /**
-     * 上传照片 4 OTC
-     */
-    fun uploadImg4OTC(imgBase64: String): Observable<HttpResult<JsonObject>> {
-        val map = getBaseMap()
-        map["imageData"] = imgBase64
-//        val body = RequestBody.create(MediaType.parse("form-data"), JSONObject(DataHandler.encryptParams(map)).toString())
-
-        return apiService.uploadImg4OTC(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
 
     /**
@@ -1121,107 +1111,9 @@ class HttpClient private constructor() {
     }
 
 
-    /**
-     * 1. 合约的公共接口
-     */
-    fun getPublicInfo4Contract(): Observable<HttpResult<ContractPublicInfoBean>> {
-        val map = getBaseMap(false)
-        return contractService.getPublicInfo4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
 
-    /**
-     *
-     * 2. 获取创建订单初始化信息（need login）
-     *
-     * @param contractId   合约id
-     * @param volume   用户输入数量（不输入默认按照1算）
-     * @param price    用户输入价格（不输入默认按照最新成交价，如果最新成交价为空，取币对开盘价格）
-     * @param level   杠杆倍数(只有在选择杠杆的时候必填)
-     * @param orderType 1:限价 2：市价
-     *
-     */
-    fun getInitTakeOrderInfo4Contract(contractId: String,
-                                      volume: String = "1",
-                                      price: String,
-                                      level: String = "",
-                                      orderType: Int): Observable<HttpResult<InitTakeOrderBean>> {
-        val map = getBaseMap(false)
-        map["contractId"] = contractId
-        map["volume"] = volume
-        map["price"] = price
-        if (!TextUtils.isEmpty(level)) {
-            map["level"] = level
-        }
-        map["orderType"] = orderType.toString()
-        return contractService.getInitTakeOrderInfo4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
-
-    /**
-     * 3. 创建订单
-     *
-     * @param contractId  合约id
-     * @param volume  下单数量
-     * @param price   下单价格
-     * @param orderType (1：限价单   2：市价单)
-     * @param copType (1：全仓    2：逐仓) 平仓时此参数不传
-     * @param side  (BUY:买     SELL:卖)
-     * @param closeType  (0:开仓单，1：平仓单)
-     * @param level  杠杆倍数
-     *
-     */
-    fun takeOrder4Contract(contractId: String,
-                           volume: String,
-                           price: String,
-                           orderType: Int,
-                           copType: String = "2",
-                           side: String,
-                           closeType: String = "0",
-                           level: String,
-                           positionId: String = ""
-    ): Observable<HttpResult<Any>> {
-        val map = getBaseMap(false)
-        map["contractId"] = contractId
-        map["volume"] = volume
-        map["price"] = price
-        map["orderType"] = orderType.toString()
-        map["copType"] = copType
-        map["side"] = side
-        map["closeType"] = closeType
-        map["level"] = level
-        if (!TextUtils.isEmpty(positionId)) {
-            map["positionId"] = positionId
-        }
-        return contractService.takeOrder4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
-
-
-    /**
-     * 4. 取消订单
-     * @param orderId 订单id
-     * @param contractId 合约id
-     */
-    @POST("/cancel_order")
-    fun cancelOrder4Contract(orderId: String,
-                             contractId: String
-    ): Observable<HttpResult<Any>> {
-        val map = getBaseMap(false)
-        map["orderId"] = orderId
-        map["contractId"] = contractId
-        return contractService.cancelOrder4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
-
-
-    /**
-     * 7. 标记价格(unneeded 登录)
-     * @param contractId 合约id
-     */
-    fun getTagPrice4Contract(contractId: String): Observable<HttpResult<TagPriceBean>> {
-        val map = getBaseMap(false)
-        map["contractId"] = contractId
-        return contractService.getTagPrice4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
     /**
      * 8. 修改杠杆倍数
@@ -1233,37 +1125,7 @@ class HttpClient private constructor() {
         return contractService.changeLevel4Contract(toRequestBody(DataHandler.encryptParams(map)))
     }
 
-    /**
-     * 10. 用户持仓信息 ：
-     *
-     * 合约id不填查询的为仓位列表
-     *  5s刷新
-     */
-    fun getPosition4Contract(contractId: String = ""): Observable<HttpResult<UserPositionBean>> {
-        val map = getBaseMap(false)
-        map["contractId"] = contractId
-        return contractService.getPosition4Contract(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
-
-    /**
-     * 12. 资金划转 ：
-     *
-     * @param fromType 转出账户type
-     * @param toType   转入账户type
-     * @param amount   划转金额
-     * @param bond     保证金币种
-     *
-     */
-
-    /**
-     * 15.风险评估(need登录)
-     */
-    fun getRiskLiquidationRate(contractId: String = ""): Observable<HttpResult<LiquidationRateBean>> {
-        val map = getBaseMap(false)
-        map["contractId"] = contractId
-        return contractService.getRiskLiquidationRate(toRequestBody(DataHandler.encryptParams(map)))
-    }
 
     /**
      * 16.合约资金流水(need登录)

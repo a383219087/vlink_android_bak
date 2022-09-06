@@ -20,7 +20,7 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.grid.adapter.AiGridAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton

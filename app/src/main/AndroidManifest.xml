@@ -93,7 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".new_version.activity.NewMainActivity"
+            android:name=".ui.NewMainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".new_version.redpackage.RedPackageDetailActivity" />
         <activity android:name=".new_version.redpackage.ReceiveRedPackageListActivity" />

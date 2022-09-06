@@ -61,36 +61,6 @@ object Contract2PublicInfoManager {
     private const val COIN_LIST = "coinList"
 
 
-    fun getContractPublicInfo() {
-        LogUtil.d("Contract2PublicInfoManager", "getContractPublicInfo")
-        HttpClient.instance
-                .getPublicInfo4Contract()
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : NetObserver<ContractPublicInfoBean>() {
-                    override fun onHandleSuccess(bean: ContractPublicInfoBean?) {
-                        Log.d(TAG, "=====AAÀa===${bean?.market.toString()}==")
-                        val marketJson = Gson().toJson(bean?.market, HashMap<String, ArrayList<ContractBean>>()::class.java)
-                        val sceneListJson = Gson().toJson(bean?.sceneList, ArrayList<ContractSceneList>()::class.java)
-                        mmkv?.encode(MARKET, marketJson)
-                        mmkv?.encode(DEFAULT_CONTRACT, bean?.marketSymbol)
-                        mmkv?.encode(SCENELIST, sceneListJson)
-                        /**
-                         * 合约模式
-                         */
-                        mmkv?.encode(CONTRACT_MODE, Gson().toJson(bean?.switch, ContractMode::class.java))
-                        /**
-                         * 存储coinList
-                         */
-                        mmkv?.encode(COIN_LIST, Gson().toJson(bean?.coinList, HashMap<String, CoinBean>()::class.java))
-                    }
-
-                    override fun onHandleError(code: Int, msg: String?) {
-                        super.onHandleError(code, msg)
-                        Log.d(TAG, "=====AAÀa===${msg}==")
-                    }
-                })
-    }
-
     /**
      * 获取全部合约信息
      */

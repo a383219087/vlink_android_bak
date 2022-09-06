@@ -11,7 +11,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -34,7 +33,7 @@ import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -45,8 +44,6 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.depth_vertical_layout.view.*
 import kotlinx.android.synthetic.main.trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import org.jetbrains.anko.view
 import org.json.JSONArray
 import org.json.JSONObject

@@ -21,7 +21,6 @@ import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.model.api.SpeedApiService
 import com.yjkj.chainup.net.HttpClient
-import com.yjkj.chainup.new_version.activity.NewMainActivity
 import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.ToastUtils
 import com.yjkj.chainup.util.Utils

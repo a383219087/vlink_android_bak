@@ -21,17 +21,6 @@ import retrofit2.http.POST
 interface ContractApiService {
 
     /**
-     * 1. 合约的公共接口
-     */
-    @POST("contract_public_info_v2")
-    fun getPublicInfo4Contract(@Body requestBody: RequestBody): Observable<HttpResult<ContractPublicInfoBean>>
-
-    /**
-     *  闪电平仓
-     */
-    @POST("order/light_close")
-    fun lightClose(@Body requestBody: RequestBody): Observable<ResponseBody>
-    /**
      * 跟单
      */
     @POST("position/find_current_single_list")
@@ -93,55 +82,12 @@ interface ContractApiService {
      */
     @POST("trader/trader_total_profit")
     fun traderTotalProfit(): Observable<HttpResult<String>>
-    /**
-     * 2. 获取创建订单初始化信息
-     */
-    @POST("init_take_order")
-    fun getInitTakeOrderInfo4Contract(@Body requestBody: RequestBody): Observable<HttpResult<InitTakeOrderBean>>
-
-
-    /**
-     * 3. 创建订单
-     */
-    @POST("take_order")
-    fun takeOrder4Contract(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-    /**
-     * 4. 取消订单
-     */
-    @POST("cancel_order")
-    fun cancelOrder4Contract(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-    /**
-     * 7. 标记价格
-     */
-    @POST("tag_price")
-    fun getTagPrice4Contract(@Body requestBody: RequestBody): Observable<HttpResult<TagPriceBean>>
 
     /**
      * 8. 修改杠杆倍数
      */
     @POST("change_level")
     fun changeLevel4Contract(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-    /**
-     * 10. 用户持仓信息 ：
-     */
-    @POST("user_position")
-    fun getPosition4Contract(@Body requestBody: RequestBody): Observable<HttpResult<UserPositionBean>>
-
-    /**
-     * 12. 资金划转 ：
-     */
-    @POST("capital_transfer")
-    fun capitalTransfer4Contract(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     * 15.风险评估
-     */
-    @POST("get_liquidation_rate")
-    fun getRiskLiquidationRate(@Body requestBody: RequestBody): Observable<HttpResult<LiquidationRateBean>>
 
     /**
      *17合约流水
@@ -152,11 +98,6 @@ interface ContractApiService {
 
     /**********************************合约改版接口**************************************************/
 
-    /**
-     * 1. 合约的公共接口
-     */
-    @POST("contract_public_info_v2")
-    fun getPublicInfo4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
@@ -191,11 +132,6 @@ interface ContractApiService {
     @POST("tag_price")
     fun getTagPrice4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 8. 修改杠杆倍数(any)
-     */
-    @POST("change_level")
-    fun changeLevel4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 9. 追加保证金(any)
@@ -215,11 +151,6 @@ interface ContractApiService {
     @POST("hold_contract_list")
     fun holdContractList4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-    /**
-     * 12. 资金划转(any)
-     */
-    @POST("capital_transfer")
-    fun capitalTransfer4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 13. 账户余额信息 ：
@@ -240,25 +171,6 @@ interface ContractApiService {
      */
     @POST("order_list_history")
     fun getHistoryEntrust4Contract1(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     *17合约流水
-     */
-    @POST("business_transaction_list_v2")
-    fun getBusinessTransferList1(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     *  资金划转接口
-     */
-    @POST("app/co_transfer")
-    fun doAssetExchange(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
-
-//    /**
-//     *  app资产信息
-//     */
-//    @GET("acocunt/normal")
-//    fun doAcocuntNormal(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
 
     //-------------------------------------------------------------------------------------//
@@ -316,39 +228,11 @@ interface ContractApiService {
     @POST("order/order_create")
     fun createOrder(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-
-    /**
-     *  提交委托（止盈/止损）
-     */
-    @POST("order/order_tpsl_create")
-    fun createTpslOrder(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     *  撤单
-     */
-    @POST("order/order_cancel")
-    fun orderCancel(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
     /**
      *  历史计划委托订单
      */
     @POST("order/history_trigger_order_list")
     fun getHistoryPlanOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     *  当前委托订单
-     */
-    @POST("order/current_order_list")
-    fun getCurrentOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     *  当前计划订单
-     */
-    @POST("order/trigger_order_list")
-    fun getCurrentPlanOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
     /**
@@ -371,14 +255,6 @@ interface ContractApiService {
     @POST("position/get_assets_list")
     fun getPositionAssetsList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
-
-    /**
-     *  获取杠杆阶梯配置
-     */
-    @POST("common/get_ladder_info")
-    fun getLadderInfo(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
     /**
      *  获取资金流水
      */
@@ -391,13 +267,6 @@ interface ContractApiService {
      */
     @POST("order/take_profit_stop_loss")
     fun getTakeProfitStopLoss(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-
-    /**
-     *  取消订单--止盈止损
-     */
-    @POST("order/order_tpsl_cancel")
-    fun cancelOrderTpsl(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      *  获取委托订单的成交记录
@@ -412,12 +281,6 @@ interface ContractApiService {
     fun coTransferEx(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
     /**
-     *  持仓/盈亏记录
-     */
-    @POST("position/history_position_list")
-    fun getHistoryPositionList(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
      *  资金流水
      */
     @POST("record/get_transfer_record")
@@ -429,14 +292,4 @@ interface ContractApiService {
     @POST("common/depth_map")
     fun getCoinDepth(@Body requestBody: RequestBody): Observable<HttpResult<DepthItem>>
 
-
-    /**
-     *  领取模拟合约体验金
-     */
-    @POST("user/receive_coupon")
-    fun receiveCoupon(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    //-------------------------------------------------------------------------------------//
-    //                                      新版本合约接口end
-    //-------------------------------------------------------------------------------------//
 }

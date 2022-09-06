@@ -10,7 +10,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.yjkj.chainup.new_version.activity.NewMainActivity;
+import com.yjkj.chainup.ui.NewMainActivity;
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment;
 import com.yjkj.chainup.new_version.fragment.LikesFragment;
 import com.yjkj.chainup.new_version.fragment.MarketFragment;

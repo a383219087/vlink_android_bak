@@ -5,7 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.yjkj.chainup.new_version.activity.NewMainActivity;
+import com.yjkj.chainup.ui.NewMainActivity;
 import com.yjkj.chainup.util.ToastUtils;
 
 /**

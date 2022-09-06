@@ -17,7 +17,7 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.TitleShowListener
 import com.yjkj.chainup.new_version.activity.personalCenter.contract.ContractChangeActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.push.PushSettingsActivity

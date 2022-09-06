@@ -111,20 +111,20 @@
 
     <com.coorchice.library.SuperTextView
         android:id="@+id/tv_order_tips_layout"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/cp_bg_trade_market_tip"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_10"
-        android:layout_marginTop="7dp"
         android:text="@string/cp_order_text48"
         android:textColor="@color/hint_color"
         android:textSize="@dimen/sp_14"
         android:visibility="visible"
         app:stv_stroke_color="@color/marker_border"
-        app:stv_stroke_width="0.5px"/>
+        app:stv_stroke_width="0.5px" />
 
     <RelativeLayout
         android:layout_width="match_parent"

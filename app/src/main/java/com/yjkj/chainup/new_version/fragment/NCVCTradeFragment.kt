@@ -28,7 +28,7 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.adapter.NCurrentEntrustAdapter
 import com.yjkj.chainup.new_version.dialog.DialogUtil

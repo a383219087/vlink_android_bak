@@ -3,13 +3,7 @@ package com.yjkj.chainup.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -36,7 +30,7 @@ import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
@@ -156,7 +150,7 @@ class NewVersionHomepageFragment :
     topSymbolAdapter = NewhomepageTradeListAdapter()
     mBinding?.recyclerTop24?.adapter = topSymbolAdapter
     topSymbolAdapter?.setOnItemClickListener { adapter, view, position ->
-      var dataList = topSymbolAdapter!!.data
+      val dataList = topSymbolAdapter!!.data
       if(dataList.size > 0) {
         val symbol = dataList[position].optString("symbol")
         ArouterUtil.forwardKLine(symbol)

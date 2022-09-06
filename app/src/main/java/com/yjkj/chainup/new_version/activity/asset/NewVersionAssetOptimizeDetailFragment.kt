@@ -860,19 +860,19 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             return
         }
         isFrist = false
-        if (isLittleAssetsShow) {
+        val b = if(isLittleAssetsShow) {
             list4OTC.addAll(nolittleBalanceList4OTC)
         } else {
             list4OTC.addAll(balanceList4OTC)
         }
-        adapter4Asset?.setType(ParamConstant.B2C_INDEX)
-        adapter4Asset?.setHeaderView(assetHeadView!!)
-        adapter4Asset?.setHasStableIds(true)
+        adapter4Asset.setType(ParamConstant.B2C_INDEX)
+        adapter4Asset.setHeaderView(assetHeadView!!)
+        adapter4Asset.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
 //        adapter4Asset?.setEmptyView(R.layout.item_new_empty)
-        adapter4Asset?.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset?.headerWithEmptyEnable = true
+        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Asset.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Asset
         rc_contract?.itemAnimator = null
 
@@ -880,14 +880,14 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
 
 
-        adapter4Asset?.setOnItemClickListener { adapter, view, position ->
+        adapter4Asset.setOnItemClickListener { adapter, view, position ->
 
             otcDialogList.clear()
-            if (list4OTC[position]?.optInt("depositOpen") == 1) {
+            if (list4OTC[position].optInt("depositOpen") == 1) {
                 otcDialogList.add(LanguageUtil.getString(context, "assets_action_chargeCoin"))
             }
 
-            if (list4OTC[position]?.optInt("withdrawOpen") == 1) {
+            if (list4OTC[position].optInt("withdrawOpen") == 1) {
                 otcDialogList.add(LanguageUtil.getString(context, "assets_action_withdraw"))
             }
             tDialog = NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
@@ -909,7 +909,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 提币
                          */
                         LanguageUtil.getString(context, "assets_action_withdraw") -> {
-                            if (list4OTC[position]?.optInt("withdrawOpen") == 1) {
+                            if (list4OTC[position].optInt("withdrawOpen") == 1) {
                                 if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
                                     if (UserDataService.getInstance().googleStatus != 1) {
                                         NewDialogUtils.OTCTradingMustPermissionsDialog(context!!, object : NewDialogUtils.DialogBottomListener {
@@ -977,9 +977,8 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             })
         }
 
-        adapter4Asset?.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
             override fun getFilterData(list: ArrayList<JSONObject>) {
-                if (list == null) return
                 list4OTC.clear()
                 list4OTC.addAll(list)
                 adapter4Asset?.notifyDataSetChanged()
@@ -1013,39 +1012,37 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         if (null != parent) {
             (parent as ViewGroup).removeAllViews()
         }
-        adapter4Fund?.setHeaderView(assetHeadView!!)
-        adapter4Fund?.setHasStableIds(true)
+        adapter4Fund.setHeaderView(assetHeadView!!)
+        adapter4Fund.setHasStableIds(true)
         rc_contract?.layoutManager = LinearLayoutManager(context)
 
-        adapter4Fund?.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Fund?.headerWithEmptyEnable = true
+        adapter4Fund.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Fund.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Fund
         rc_contract?.itemAnimator = null
 
-        adapter4Fund?.setOnItemClickListener { adapter, view, position ->
+        adapter4Fund.setOnItemClickListener { adapter, view, position ->
             bibiDialogList = arrayListOf(LanguageUtil.getString(context, "assets_action_chargeCoin"), LanguageUtil.getString(context, "assets_action_transfer"), LanguageUtil.getString(context, "assets_action_transaction"), LanguageUtil.getString(context, "otc_withdraw"))
 
-            var coin = PublicInfoDataService.getInstance().getCoinByName(listFund[position].optString("coinName", ""))
+            val coin = PublicInfoDataService.getInstance().getCoinByName(listFund[position].optString("coinName", ""))
             var existMarket: String? = null
-            if (null != listFund[position].optString("exchange_symbol", "")) {
-                existMarket = NCoinManager.returnExistMarket(listFund[position].optString("exchange_symbol", ""))
-            }
+            existMarket = NCoinManager.returnExistMarket(listFund[position].optString("exchange_symbol", ""))
 
 
             bibiDialogList.clear()
-            if (listFund[position]?.optInt("withdrawOpen") == 1) {
+            if (listFund[position].optInt("withdrawOpen") == 1) {
                 bibiDialogList.add(LanguageUtil.getString(context, "assets_action_withdraw"))
-                if (listFund[position]?.optInt("innerTransferOpen") == 1) {
+                if (listFund[position].optInt("innerTransferOpen") == 1) {
                     bibiDialogList.add(LanguageUtil.getString(context, "assets_action_internalTransfer"))
                 }
             }
-                if (coin?.optInt("otcOpen") == 1) {
-                    bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transfer"))
-                }
-                if (null != existMarket && existMarket?.isNotEmpty()!!) {
-                    bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
-                }
-            if (listFund[position]?.optInt("depositOpen") == 1) {
+            if (coin?.optInt("otcOpen") == 1) {
+                bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transfer"))
+            }
+            if (null != existMarket && existMarket.isNotEmpty()!!) {
+                bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
+            }
+            if (listFund[position].optInt("depositOpen") == 1) {
                 bibiDialogList.add(LanguageUtil.getString(context, "assets_action_chargeCoin"))
             }
             if (bibiDialogList.size == 0) {
@@ -1068,7 +1065,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                             if (listFund[position]?.optInt("depositOpen") == 1) {
                                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
                                     NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                            ?: "", object : NewDialogUtils.DialogBottomListener {
+                                        ?: "", object : NewDialogUtils.DialogBottomListener {
                                         override fun sendConfirm() {
                                             when (UserDataService.getInstance().authLevel) {
                                                 0 -> {
@@ -1093,11 +1090,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 提币
                          */
                         LanguageUtil.getString(context, "assets_action_withdraw") -> {
-                            if (listFund[position]?.optInt("withdrawOpen") == 1) {
+                            if (listFund[position].optInt("withdrawOpen") == 1) {
                                 if (phoneCertification()) return
                                 if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
                                     NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                            ?: "", object : NewDialogUtils.DialogBottomListener {
+                                        ?: "", object : NewDialogUtils.DialogBottomListener {
                                         override fun sendConfirm() {
                                             when (UserDataService.getInstance().authLevel) {
                                                 0 -> {
@@ -1184,14 +1181,14 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             })
 
         }
-        adapter4Fund?.setOnItemChildClickListener { adapter, view, position ->
+        adapter4Fund.setOnItemChildClickListener { adapter, view, position ->
             val coinName = listFund[position].optString("coinName", "")
             val isDeposit = (listFund[position].optInt("depositOpen") == 1)
             val isWithdraw = (listFund[position].optInt("withdrawOpen") == 1)
             showSuspendRechargeWithdrawalDialog(coinName, isDeposit, isWithdraw)
 
         }
-        adapter4Fund?.setListener(object : OTCFundAdapter.FilterListener {
+        adapter4Fund.setListener(object : OTCFundAdapter.FilterListener {
             override fun getFilterData(list: List<JSONObject>) {
                 if (list == null) return
                 listFund.clear()
@@ -1327,12 +1324,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     isFristRequest = false
                     closeLoadingDialog()
                 }
-                var json = jsonObject.optJSONArray("data")
+                val json = jsonObject.optJSONArray("data")
                 if (null == json || json.length() == 0) {
                     initHoldContractAdapter(arrayListOf())
                     return
                 }
-                var obj: ArrayList<JSONObject> = ArrayList()
+                val obj: ArrayList<JSONObject> = ArrayList()
                 for (num in 0 until json.length()) {
                     obj.add(json.optJSONObject(num))
                 }

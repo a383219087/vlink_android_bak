@@ -14,7 +14,7 @@ import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.SymbolManager
 import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.new_version.activity.NewBaseActivity
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.OTCChangeLanguageAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.LocalManageUtil

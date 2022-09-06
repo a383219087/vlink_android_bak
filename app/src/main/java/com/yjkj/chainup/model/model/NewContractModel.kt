@@ -32,70 +32,8 @@ class NewContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getUserConfig(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 修改保证金模式
-     * @param contractId 合约ID
-     * @param marginModel 当前保证金模式 1全仓, 2逐仓
-     */
-    fun modifyMarginModel(contractId: String = "", marginModel: String = "", consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["marginModel"] = marginModel
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).modifyMarginModel(getBaseReqBody(map)), consumer)
-    }
 
-    /**
-     * 闪电平仓
-     */
-    fun lightClose(
-        contractId: String,
-        open: String,
-        side: String,
-        positionType: String,
-        consumer: DisposableObserver<ResponseBody>
-    ): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["open"] = open
-            this["side"] = side
-            this["positionType"] = positionType
-        }
-        return changeIOToMainThread(
-            httpHelper.getContractNewUrlService(ContractApiService::class.java)
-                .lightClose(getBaseReqBody(map)), consumer
-        )
-    }
 
-    /**
-     * 修改杠杆
-     * @param contractId 合约ID
-     * @param nowLevel 当前杠杆倍数
-     */
-    fun modifyLevel(contractId: String = "", nowLevel: String = "", consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["nowLevel"] = nowLevel
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).modifyLevel(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 修改交易喜好
-     * @param contractId 合约ID
-     * @param positionModel 持仓类型 1持仓, 2双向持仓
-     * @param pcSecondConfirm PC页面下单前弹窗确认开关, 0使用，1停用
-     * @param coUnit 合约单位 1标的货币, 2张
-     */
-    fun modifyTransactionLike(contractId: String, positionModel: String, pcSecondConfirm: String, coUnit: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["positionModel"] = positionModel
-            this["pcSecondConfirm"] = pcSecondConfirm
-            this["coUnit"] = coUnit
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).modifyTransactionLike(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 开通合约交易
@@ -220,51 +158,6 @@ class NewContractModel : BaseDataManager() {
         )
     }
 
-    /**
-     * 提交委托(止盈/止损)
-     * @param contractId 合约ID
-     * @param positionType  持仓类型(1 全仓，2 仓逐)
-     * @param side  买卖方向（BUY 买入，SELL 卖出）
-     * @param leverageLevel  杠杆倍数
-     * @param orderList  下单列表
-     *          |triggerType 止盈止损订单类型(3止损， 4 止盈)固定枚举
-     *          |price 下单价格(市价单传0)
-     *          |volume 下单数量(开仓市价单：金额)
-     *          |triggerPrice 触发价格
-     *          |type  订单类型(1 limit， 2 market)
-     */
-    fun createTpslOrder(contractId: Int, positionType: String, side: String, leverageLevel: Int, mTpslOrderList: List<ClTpslOrderBean>, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        var sideBuff = ""
-        if (side.equals("BUY")) {
-            sideBuff = "SELL"
-        } else {
-            sideBuff = "BUY"
-        }
-        val map = getBaseMapsV2().apply {
-            this["contractId"] = contractId
-            this["positionType"] = positionType
-            this["side"] = sideBuff
-            this["leverageLevel"] = leverageLevel
-            this["orderListStr"] = Gson().toJson(mTpslOrderList)
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).createTpslOrder(getBaseReqBodyV1(map)), consumer)
-    }
-
-    /**
-     * 撤单
-     * @param contractId 合约ID
-     * @param orderId 订单ID
-     */
-    fun orderCancel(contractId: String, orderId: String, isConditionOrder: Boolean, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["isConditionOrder"] = isConditionOrder.toString()
-            if (!TextUtils.isEmpty(orderId)) {
-                this["orderId"] = orderId
-            }
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).orderCancel(getBaseReqBody(map)), consumer)
-    }
 
     /**
      * 调节逐仓仓位保证金
@@ -293,38 +186,6 @@ class NewContractModel : BaseDataManager() {
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getPositionList(getBaseReqBody(map)), consumer)
     }
 
-    /**
-     * 当前委托
-     * @param contractId 合约ID
-     * @param status 订单状态：0 init，1 new，2 filled，3 part_filled，4 canceled，5 pending_cancel，6 expired (不传默认查询 0, 1, 3, 5 状态)
-     */
-    fun getCurrentOrderList(contractId: String, status: Int, page: Int, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            if (status != 0) this["type"] = status.toString()
-            this["page"] = page.toString()
-            this["limit"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getCurrentOrderList(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 当前计划委托
-     * @param contractId 合约ID
-     * @param status 订单状态：0 init，1 new，2 filled，3 part_filled，4 canceled，5 pending_cancel，6 expired (不传默认查询 0, 1, 3, 5 状态)
-     */
-    fun getCurrentPlanOrderList(contractId: String, status: Int, page: Int, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            if (status != 0) this["type"] = status.toString()
-            this["page"] = page.toString()
-            this["limit"] = "20"
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getCurrentPlanOrderList(getBaseReqBody(map)), consumer)
-    }
-
-
-
 
     /**
      * 历史计划委托
@@ -352,17 +213,6 @@ class NewContractModel : BaseDataManager() {
             this["onlyAccount"] = "0"
         }
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getPositionAssetsList(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 获取持仓列表以及资产列表
-     * @param contractId contractId
-     */
-    fun getLadderInfo(contractId: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getLadderInfo(getBaseReqBody(map)), consumer)
     }
 
     /**
@@ -406,73 +256,6 @@ class NewContractModel : BaseDataManager() {
         }
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getTakeProfitStopLoss(getBaseReqBody(map)), consumer)
     }
-
-    /**
-     * 取消订单--止盈止损
-     * @param contractId   合约ID
-     * @param orderIds   订单ID, 多个英文半角逗号分割
-     */
-    fun cancelOrderTpsl(contractId: String, orderIds: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["orderIds"] = orderIds
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).cancelOrderTpsl(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 币币划转到合约
-     * @param uid   用户id
-     * @param coinSymbol   划转币种, 如USDT
-     * @param amount   划转金额
-     */
-//    fun coTransferEx(uid: String, coinSymbol: String, amount: String, transferType: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-//        val map = getBaseMaps().apply {
-//            this["coinSymbol"] = coinSymbol
-//            this["amount"] = amount
-//            this["transferType"] = transferType
-//        }
-//        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).coTransferEx(getBaseReqBody(map)), consumer)
-//    }
-
-    /**
-     * 获取委托订单的历史成交记录
-     * @param orderId   订单ID
-     * @param contractId   合约ID
-     */
-    fun getHistoryTradeList(contractId: String, orderId: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["orderId"] = orderId
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getHisTradeList(getBaseReqBody(map)), consumer)
-    }
-
-    /**
-     * 领取模拟合约体验金
-     */
-    fun receiveCoupon( consumer: DisposableObserver<ResponseBody>): Disposable? {
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).receiveCoupon(getBaseReqBody()), consumer)
-    }
-
-
-    /**
-     * 获取持仓/盈亏记录
-     * @param page  页码
-     * @param contractId   合约ID
-     */
-    fun getHistoryPositionList(contractId: String, page: String, side: String, consumer: DisposableObserver<ResponseBody>): Disposable? {
-        val map = getBaseMaps().apply {
-            this["contractId"] = contractId
-            this["page"] = page
-            this["limit"] = "20"
-            if (!TextUtils.isEmpty(side)){
-                this["side"] =side
-            }
-        }
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getHistoryPositionList(getBaseReqBody(map)), consumer)
-    }
-
 
 
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.yjkj.chainup.new_version.activity.NewMainActivity">
+    tools:context="com.yjkj.chainup.ui.NewMainActivity">
 </androidx.drawerlayout.widget.DrawerLayout>-->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -11,7 +11,7 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.NCoinManager
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.PageAdapter
 import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_new_version_market.*

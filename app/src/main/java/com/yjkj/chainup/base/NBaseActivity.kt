@@ -23,7 +23,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.push.ActivityCollector
 import com.yjkj.chainup.model.model.*
 import com.yjkj.chainup.net.NLoadingDialog
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.ui.SplashActivity
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksListener
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver

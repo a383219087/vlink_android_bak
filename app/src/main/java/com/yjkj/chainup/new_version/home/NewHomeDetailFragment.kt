@@ -16,7 +16,7 @@ import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.JSONUtil
-import com.yjkj.chainup.new_version.activity.NewMainActivity
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.NewHomepageBottomClinchDealAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomepageMarketAdapter
 import com.yjkj.chainup.new_version.home.callback.EmployeeDiffCallback
