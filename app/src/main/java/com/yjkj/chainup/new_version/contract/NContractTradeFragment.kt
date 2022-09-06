@@ -1036,13 +1036,13 @@ class NContractTradeFragment : NBaseFragment() {
          * 卖盘交易量最大的
          */
         try {
-            val askMaxVolJson = tick.asks.maxBy { it.get(1).asDouble }
+            val askMaxVolJson = tick.asks.maxByOrNull { it.get(1).asDouble }
             val askMaxVol = askMaxVolJson?.get(1)?.asDouble
 
             /**
              * 买盘交易量最大的
              */
-            val buyMaxVolJson = tick.buys.maxBy { it.get(1).asDouble }
+            val buyMaxVolJson = tick.buys.maxByOrNull { it.get(1).asDouble }
             val buyMaxVol = buyMaxVolJson?.get(1)?.asDouble
 
             for (i in 0 until sellViewList.size) {

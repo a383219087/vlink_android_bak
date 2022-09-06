@@ -95,7 +95,7 @@ class CoinMapIntroFragment : Fragment() {
     private fun fetchCoinIntro() {
         var coinName = "BTC"
         val symbolObj = NCoinManager.getSymbolObj(symbol)
-        if (null != symbolObj || symbolObj!!.length() >= 0) {
+        if (null != symbolObj) {
             var name = symbolObj.optString("name")
             if (name.contains("/")) {
                 coinName = name.split("/")[0]

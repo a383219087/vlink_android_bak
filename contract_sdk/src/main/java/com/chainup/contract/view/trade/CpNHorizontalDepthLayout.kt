@@ -888,7 +888,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             }
             trade_amount_view.setTickPrice(null, askList)
 
-            val askMaxVolJson = askList.maxBy {
+            val askMaxVolJson = askList.maxByOrNull {
                 it.optDouble(1)
             }
             val askMaxVol = askMaxVolJson?.optDouble(1) ?: 1.0
@@ -912,7 +912,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             /**
              * 买盘交易量最大的
              */
-            val buyMaxVolJson = buyList.maxBy {
+            val buyMaxVolJson = buyList.maxByOrNull {
                 it.optDouble(1)
             }
             val buyMaxVol = buyMaxVolJson?.optDouble(1) ?: 1.0
