@@ -19,7 +19,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.contract.sdk.data.ContractTicker
 import com.gcssloop.widget.PagerGridLayoutManager
 import com.gcssloop.widget.PagerGridSnapHelper
 import com.yjkj.chainup.R
@@ -57,8 +56,6 @@ import com.youth.banner.indicator.RectangleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_new_version_homepage.*
-import kotlinx.android.synthetic.main.no_network_remind.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,1324 +72,1321 @@ import java.util.concurrent.TimeUnit
  * @Email buptjinlong@163.com
  * @description 首页
  */
-class NewVersionHomepageFragment :  BaseMVFragment<NewVersionHomePageViewModel?, FragmentNewVersionHomepageBinding>(), WsAgentManager.WsResultCallback {
+class NewVersionHomepageFragment :
+  BaseMVFragment<NewVersionHomePageViewModel?, FragmentNewVersionHomepageBinding>(),
+  WsAgentManager.WsResultCallback {
 
-    val getTopDataReqType = 1 // 首页顶部行情数据请求
-    val homepageReqType = 2 // 首页数据请求
-    val homeData = 11 //总账户资产请求
+  val getTopDataReqType = 1 // 首页顶部行情数据请求
+  val homepageReqType = 2 // 首页数据请求
+  val homeData = 11 //总账户资产请求
 
-    /**
-     * 是否开启场外
-     */
-    private var otcOpen = false
+  /**
+   * 是否开启场外
+   */
+  private var otcOpen = false
 
-    private var leverOpen = false
+  private var leverOpen = false
 
-    /**
-     * 是否开启合约
-     */
-    private var contractOpen = false
+  /**
+   * 是否开启合约
+   */
+  private var contractOpen = false
 
-    /**
-     * 功能服务
-     */
-    private var serviceAdapter: NewHomePageServiceAdapter? = null
+  /**
+   * 功能服务
+   */
+  private var serviceAdapter: NewHomePageServiceAdapter? = null
 
-    var defaultBanner = 0
-
-
-    /*
-     *  是否已经登录
-     */
-    var isLogined = false
-    var subscribeCoin: Disposable? = null//保存订阅者
-    var isScrollStatus = false
-
-    override fun setContentView() = R.layout.fragment_new_version_homepage
-
-    override fun initView() {
-        mViewModel?.mActivity?.value=mActivity
-        otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
-        leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
-        contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
-        WsAgentManager.instance.addWsCallback(this)
-        observeData()
-        //设置轮播时间
-        banner_looper_custom?.setLoopTime(3000)
-        //设置指示器位置（当banner模式中有指示器时）
-        banner_looper_custom?.setIndicatorGravity(IndicatorConfig.Direction.CENTER)
-
-            initTop24HourView()
-
-        initRedPacketView()
-        setOnClick()
-        initNetWorkRemind()
-        mViewModel?.getPublicInfo(context!!)
-        defaultBanner = R.drawable.banner_king
-        val data = CommonService.instance.getHomeData()
-        showHomepageData(data, true)
-        swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
+  var defaultBanner = 0
 
 
+  /*
+   *  是否已经登录
+   */
+  var isLogined = false
+  var subscribeCoin: Disposable? = null//保存订阅者
+  var isScrollStatus = false
+
+  override fun setContentView() = R.layout.fragment_new_version_homepage
+
+  override fun initView() {
+    mViewModel?.mActivity?.value = mActivity
+    otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
+    leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
+    contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
+    WsAgentManager.instance.addWsCallback(this)
+    observeData()
+    //设置轮播时间
+    mBinding?.bannerLooperCustom?.setLoopTime(3000)
+    //设置指示器位置（当banner模式中有指示器时）
+    mBinding?.bannerLooperCustom?.setIndicatorGravity(IndicatorConfig.Direction.CENTER)
+
+    initTop24HourView()
+
+    initRedPacketView()
+    setOnClick()
+    mViewModel?.getPublicInfo(context!!)
+    defaultBanner = R.drawable.banner_king
+    val data = CommonService.instance.getHomeData()
+    showHomepageData(data, true)
+
+    mBinding?.swipeRefresh?.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
+
+
+  }
+
+
+  /*
+   * 初始化红包view
+   */
+  private fun initRedPacketView() {
+    val isRedPacketOpen = PublicInfoDataService.getInstance().isRedPacketOpen(null)
+    showRedPacket(isRedPacketOpen)
+  }
+
+  /**
+   * 顶部 24小时涨幅榜(推荐币种)
+   */
+  private var topSymbolAdapter: NewhomepageTradeListAdapter? = null
+  var scrollX = 0
+  private fun initTop24HourView() {
+
+    mBinding?.recyclerTop24?.layoutManager =
+      LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
+    topSymbolAdapter = NewhomepageTradeListAdapter()
+    mBinding?.recyclerTop24?.adapter = topSymbolAdapter
+    topSymbolAdapter?.setOnItemClickListener { adapter, view, position ->
+      var dataList = topSymbolAdapter!!.data
+      if(dataList.size > 0) {
+        val symbol = dataList[position].optString("symbol")
+        ArouterUtil.forwardKLine(symbol)
+      }
     }
-
-
-
-    private fun initNetWorkRemind() {
-        val spanStrStart = SpannableString(getString(R.string.check_network_settings))
-        val spanStrClick = SpannableString(getString(R.string.check_network))
-        val index = spanStrStart.indexOf(spanStrClick.toString(), 0)
-        var spanStrStartSub = spanStrStart.subSequence(0, index)
-        var spanStrEnd = spanStrStart.subSequence(index + spanStrClick.length, spanStrStart.length)
-
-        spanStrClick.setSpan(object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                startActivity(Intent(Settings.ACTION_SETTINGS))
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.color = context?.resources!!.getColor(R.color.color_nonetwork_btn_blue) //设置颜色
-                //去掉下划线，默认是带下划线的
-                ds.isUnderlineText = false
-            }
-        }, 0, spanStrClick.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        no_network_check.append(spanStrStartSub)
-        no_network_check.append(spanStrClick)
-        no_network_check.append(spanStrEnd)
-        no_network_check.movementMethod = LinkMovementMethod.getInstance()
-
-    }
-
-    /*
-     * 初始化红包view
-     */
-    private fun initRedPacketView() {
-        val isRedPacketOpen = PublicInfoDataService.getInstance().isRedPacketOpen(null)
-        showRedPacket(isRedPacketOpen)
-    }
-
-    /**
-     * 顶部 24小时涨幅榜(推荐币种)
-     */
-    private var topSymbolAdapter: NewhomepageTradeListAdapter? = null
-    var scrollX = 0
-    private fun initTop24HourView() {
-        recycler_top_24?.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
-        topSymbolAdapter = NewhomepageTradeListAdapter()
-        recycler_top_24?.adapter = topSymbolAdapter
-        topSymbolAdapter?.setOnItemClickListener { adapter, view, position ->
-            var dataList = topSymbolAdapter!!.data
-            if (dataList.size > 0) {
-                val symbol = dataList[position].optString("symbol")
-                ArouterUtil.forwardKLine(symbol)
-            }
+    mBinding?.recyclerTop24?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        scrollX += dx
+        val contentItem = recyclerView.computeHorizontalScrollOffset()
+        if(contentItem == 0) {
+          return
         }
-        recycler_top_24?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                scrollX += dx
-                val contentItem = recyclerView.computeHorizontalScrollOffset()
-                if (contentItem == 0) {
-                    return
-                }
-                val sum = recyclerView.computeHorizontalScrollRange() - recyclerView.computeHorizontalScrollExtent()
-                val count = BigDecimalUtils.div(scrollX.toString(), sum.toString())
-                layout_item.setRate(count.toFloat())
-            }
-        })
+        val sum =
+          recyclerView.computeHorizontalScrollRange() - recyclerView.computeHorizontalScrollExtent()
+        val count = BigDecimalUtils.div(scrollX.toString(), sum.toString())
+        mBinding?.layoutItem?.setRate(count.toFloat())
+      }
+    })
 
+  }
+
+  private fun observeData() {
+    NLiveDataUtil.observeData(this, Observer {
+      if(null != it) {
+        if(MessageEvent.color_rise_fall_type == it.msg_type) {
+          topSymbolAdapter?.notifyDataSetChanged()
+        }
+      }
+    })
+    GlobalScope.launch {
+      delay(3000L)
+    }
+  }
+
+  inner class MyNDisposableObserver(type: Int) : NDisposableObserver() {
+
+    var req_type = type
+    override fun onResponseSuccess(jsonObject: JSONObject) {
+      when {
+        getTopDataReqType == req_type -> {
+          mBinding?.recyclerTop24?.visibility = View.VISIBLE
+          showTopSymbolsData(jsonObject.optJSONArray("data"))
+        }
+        homepageReqType == req_type -> {
+          showHomepageData(jsonObject.optJSONObject("data"))
+        }
+        homeData == req_type -> {
+          closeLoadingDialog()
+          showHomepageData(jsonObject.optJSONObject("data"))
+          advertTime()
+        }
+      }
     }
 
-    private fun observeData() {
-        NLiveDataUtil.observeData(this, Observer {
-            if (null != it) {
-                if (MessageEvent.color_rise_fall_type == it.msg_type) {
-                    topSymbolAdapter?.notifyDataSetChanged()
-                }
-            }
+    override fun onResponseFailure(code: Int, msg: String?) {
+      super.onResponseFailure(code, msg)
+      if(getTopDataReqType == req_type) {
+        mBinding?.recyclerTop24?.visibility = View.GONE
+      }
+      if(req_type == homeData) {
+        initSocket()
+        advertTime(true)
+      }
+      closeLoadingDialog()
+    }
+  }
+
+
+  var homepageData: JSONObject? = null
+
+
+  /*
+   * 首页数据展示
+   */
+  private fun showHomepageData(data: JSONObject?, isCache: Boolean = false) {
+    if(null == data)
+      return
+    if(!isCache) {
+      homepageData = data
+      val jsonObjects = JSONObject(data.toString())
+      CommonService.instance.saveHomeData(jsonObjects)
+      val arrayGuide = arrayOf(
+        mBinding!!.homeHeader.layoutSearch,
+        mBinding.ivNationMore,
+        mBinding.layoutTop24,
+        mBinding.recyclerCenterServiceLayout
+      )
+      showGuideHomepage(mActivity, arrayGuide, data)
+    }
+    val noticeInfoList = data.optJSONArray("noticeInfoList")
+    val cmsAppAdvertList = data.optJSONArray("cmsAppAdvertList")
+    val cmsAppDataList = data.optJSONArray("cmsAppDataList")
+    val cmsAppNoteDataList = data.optJSONArray("cmsAppDataListOther")
+    val cmsSymbolList = data.optJSONArray("header_symbol")
+    val homeRecommendList = data.optJSONArray("home_recommend_list") ?: JSONArray()
+
+    showTopSymbolsData(cmsSymbolList)
+    /*
+     *涨幅榜等数据 显示
+     */
+    showBottomVp(homeRecommendList)
+
+    if(noticeInfoList != null) {
+      newNoticeInfoList = noticeInfoList
+    }
+    showGuanggao(noticeInfoList)
+    showBannerData(cmsAppAdvertList)
+    initNoteBanner(cmsAppNoteDataList)
+    setServiceData(cmsAppDataList)
+
+  }
+
+
+  var newNoticeInfoList = JSONArray()
+
+  /*
+   * 展示顶部轮播图
+   */
+  var bannerImgUrls = arrayListOf<String>()
+  var bannerNoteUrls: ArrayList<String> = arrayListOf()
+
+  private fun showBannerData(cmsAppAdvertList: JSONArray?) {
+
+    if(null == cmsAppAdvertList || cmsAppAdvertList.length() <= 0)
+      return
+
+    bannerImgUrls.clear()
+    mViewModel?.bannerImgUrls?.clear()
+    for(i in 0 until cmsAppAdvertList.length()) {
+      var obj = cmsAppAdvertList.optJSONObject(i)
+      var imageUrl = obj.optString("imageUrl")
+      if(StringUtil.isHttpUrl(imageUrl)) {
+        bannerImgUrls.add(imageUrl)
+        mViewModel?.bannerImgUrls?.add(imageUrl)
+      }
+    }
+
+    mBinding?.bannerLooper?.apply {
+      //设置图片集合
+      val mAdapter = ImageNetAdapter(bannerImgUrls)
+      adapter = mAdapter
+      //设置轮播时间
+      setLoopTime(3000)
+      indicator = RectangleIndicator(context)
+      //设置指示器位置（当banner模式中有指示器时）
+      setIndicatorGravity(IndicatorConfig.Direction.CENTER)
+    }
+    mBinding?.bannerLooper?.setOnBannerListener { data, position ->
+      var obj = cmsAppAdvertList.optJSONObject(position)
+      var httpUrl = obj?.optString("httpUrl") ?: ""
+      var nativeUrl = obj?.optString("nativeUrl") ?: ""
+
+      //TODO 需要一个标题
+      if(TextUtils.isEmpty(httpUrl)) {
+        if(StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
+          enter2Activity(nativeUrl.split("?"))
+        }
+      } else {
+        forwardWeb(obj)
+      }
+    }
+    // banner设置方法全部调用完毕时最后调用
+    mBinding?.bannerLooper?.start()
+
+  }
+
+
+  private fun showAdvertising(isShow: Boolean) {
+    if(null != mBinding?.vtcAdvertising?.textList && mBinding?.vtcAdvertising?.textList!!.size > 0) {
+      if(isShow) {
+        mBinding?.vtcAdvertising?.startAutoScroll()
+      } else {
+        mBinding?.vtcAdvertising?.stopAutoScroll()
+      }
+    }
+  }
+
+  private fun showBanner(isShow: Boolean) {
+    if(bannerImgUrls.size > 0) {
+      if(isShow) {
+        mBinding?.bannerLooper?.start()
+      } else {
+        mBinding?.bannerLooper?.stop()
+      }
+    }
+
+    if(bannerNoteUrls.size > 0) {
+      if(isShow) {
+        mBinding?.bannerLooperCustom?.start()
+      } else {
+        mBinding?.bannerLooperCustom?.stop()
+      }
+    }
+  }
+
+
+  private fun getAllAccounts() {
+    isLogined = UserDataService.getInstance().isLogined
+
+    if(null == homepageData) {
+      getHomeData()
+    }
+  }
+
+
+  /*
+   * 资产tab跳转
+   */
+  private fun homeAssetstab_switch(type: Int) {
+    var msgEvent = MessageEvent(MessageEvent.hometab_switch_type)
+    var bundle = Bundle()
+    var homeTabType = HomeTabMap.maps.get(HomeTabMap.assetsTab)
+    bundle.putInt(ParamConstant.homeTabType, homeTabType ?: 4)
+    bundle.putInt(ParamConstant.assetTabType, type)
+    msgEvent.msg_content = bundle
+    EventBusUtil.post(msgEvent)
+  }
+
+  /*
+   * 首页底部tab跳转的处理
+   */
+  private fun homeTabSwitch(tabType: Int?, symbol: String? = "") {
+    var msgEvent = MessageEvent(MessageEvent.hometab_switch_type)
+    var bundle = Bundle()
+    bundle.putInt(ParamConstant.homeTabType, tabType ?: 0)
+    if(symbol != null) {
+      bundle.putString(ParamConstant.symbol, symbol)
+    }
+    msgEvent.msg_content = bundle
+    EventBusUtil.post(msgEvent)
+  }
+
+  /*
+   * 跳转至 NewVersionMyAssetActivity
+   */
+  private fun forwardAssetsActivity(type: Int) {
+    var bundle = Bundle()
+    bundle.putInt(ParamConstant.assetTabType, type)//跳转到币币交易页面
+    ArouterUtil.navigation(RoutePath.NewVersionMyAssetActivity, bundle)
+  }
+
+
+  fun setOnClick() {
+    mBinding?.ivNationMore?.setOnClickListener {
+      startActivity(Intent(mActivity, NoticeActivity::class.java))
+    }
+
+    if(SystemUtils.isZh()) {
+      mBinding?.rlRedEnvelopeEntrance?.setImageResource(R.drawable.redenvelope)
+    } else {
+      mBinding?.rlRedEnvelopeEntrance?.setImageResource(R.drawable.redenvelope_english)
+    }
+
+    /**
+     * 点击红包 跳转
+     */
+
+    mBinding?.rlRedEnvelopeEntrance?.setOnClickListener {
+      if(!LoginManager.checkLogin(activity, true)) {
+        return@setOnClickListener
+      }
+
+      val isEnforceGoogleAuth = PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)
+
+      val authLevel = UserDataService.getInstance().authLevel
+      val googleStatus = UserDataService.getInstance().googleStatus
+      val isOpenMobileCheck = UserDataService.getInstance().isOpenMobileCheck
+
+      if(isEnforceGoogleAuth) {
+        if(authLevel != 1 || googleStatus != 1) {
+          NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
+          return@setOnClickListener
+        }
+      } else {
+        if(authLevel != 1 || (googleStatus != 1 && isOpenMobileCheck != 1)) {
+          NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
+          return@setOnClickListener
+        }
+      }
+      ArouterUtil.navigation(RoutePath.CreateRedPackageActivity, null)
+    }
+
+    /**
+     * 点击关闭红包
+     */
+
+    mBinding?.ivCloseRedEnvelope?.setOnClickListener {
+      showRedPacket(false)
+    }
+
+    /**
+     * 此处刷新
+     */
+    mBinding?.swipeRefresh?.setOnRefreshListener {
+      isScrollStatus = true
+      /**
+       * 刷新数据操作
+       */
+      if(homepageData == null || fragments.size == 0 || selectTopSymbol == null) {
+        getHomeData()
+      } else {
+        getVPTab()
+      }
+      mBinding?.swipeRefresh?.isRefreshing = false
+    }
+  }
+
+
+  private fun showRedPacket(isVisibile: Boolean) {
+    if(isVisibile) {
+      mBinding?.rlRedEnvelopeEntrancLayout?.visibility = View.VISIBLE
+    } else {
+      mBinding?.rlRedEnvelopeEntrancLayout?.visibility = View.GONE
+    }
+  }
+
+  /*
+   * 首页顶部symbol 24小时行情展示
+   */
+  var selectTopSymbol: ArrayList<JSONObject>? = null
+  private fun showTopSymbolsData(topSymbol: JSONArray?) {
+    selectTopSymbol = NCoinManager.getSymbols(topSymbol)
+    if(null == selectTopSymbol || selectTopSymbol?.size!! <= 0) {
+      setTopViewVisible(false)
+      return
+    }
+    setTopViewVisible(true)
+    topSymbolAdapter?.setList(selectTopSymbol)
+  }
+
+
+  private fun initSocket() {
+    if(selectTopSymbol == null) {
+      return
+    }
+    val arrays = arrayListOf<String>()
+    for(item in selectTopSymbol!!) {
+      arrays.add(item.getString("symbol"))
+    }
+    homeCoins.clear()
+    val json = if(bottomCoins.isNotEmpty()) {
+      val temp = bottomCoins union arrays
+      homeCoins.addAll(temp)
+      JsonUtils.gson.toJson(temp)
+    } else {
+      homeCoins.addAll(arrays)
+      JsonUtils.gson.toJson(arrays)
+    }
+    WsAgentManager.instance.sendMessage(hashMapOf("bind" to true, "symbols" to json), this)
+  }
+
+  override fun fragmentVisibile(isVisible: Boolean) {
+    super.fragmentVisibile(isVisible)
+    val mainActivity = activity
+    if(mainActivity != null) {
+      if(mainActivity is NewMainActivity) {
+        if(isVisible && mainActivity.curPosition == 0) {
+          getAllAccounts()
+          showAdvertising(true)
+          showBanner(true)
+        } else {
+          showAdvertising(false)
+          showBanner(false)
+        }
+
+      }
+    }
+
+  }
+
+
+  /**
+   * 是否显示24小时行情
+   */
+  private fun setTopViewVisible(isShow: Boolean) {
+    if(isShow) {
+
+      mBinding?.recyclerTop24?.visibility = View.VISIBLE
+      if(selectTopSymbol != null && selectTopSymbol!!.size > 3) {
+        mBinding?.layoutItem?.visibility = View.VISIBLE
+      } else {
+        mBinding?.layoutItem?.visibility = View.GONE
+      }
+    } else {
+      mBinding?.recyclerTop24?.visibility = View.GONE
+      mBinding?.layoutItem?.visibility = View.GONE
+    }
+  }
+
+  /**
+   * 获取顶部symbol 24小时行情
+   */
+  private fun getHomeData() {
+    showLoadingDialog()
+    val type = "1"
+    klineTime = System.currentTimeMillis()
+    val disposable = getMainModel().getHomeData(type, MyNDisposableObserver(homeData))
+    addDisposable(disposable)
+
+  }
+
+  override fun refreshOkhttp(position: Int) {
+    if(position == 0) {
+      getTopData()
+    }
+  }
+
+  val fragments = arrayListOf<Fragment>()
+  var selectPostion = 0
+  val chooseType = arrayListOf<String>()
+
+
+  private fun showBottomVp(data: JSONArray) {
+    val titles = arrayListOf<String>()
+    val serviceDatas = JSONUtil.arrayToList(data)
+    if(serviceDatas == null) {
+      if(!NetUtil.isNetConnected(mActivity!!)) {
+        mBinding?.bottomVpLinearlayout?.visibility = View.GONE
+      }
+      return
+    }
+    mBinding?.bottomVpLinearlayout?.visibility = View.VISIBLE
+    for(item in serviceDatas) {
+      titles.add(item.getString("title"))
+      chooseType.add(item.getString("key"))
+    }
+    fragments.clear()
+    if(titles.isEmpty())
+      return
+
+    for(i in titles.indices) {
+      fragments.add(
+        NewHomeDetailFragmentItem.newInstance(
+          titles[i],
+          i,
+          chooseType[i],
+          mBinding?.fragmentMarket!!,
+          serviceDatas[i].getJSONArray("list").toString()
+        )
+      )
+    }
+
+    val marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
+    mBinding?.fragmentMarket?.adapter = marketPageAdapter
+    mBinding?.fragmentMarket?.offscreenPageLimit = fragments.size
+    mBinding?.fragmentMarket?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+      override fun onPageScrollStateChanged(state: Int) {
+      }
+
+      override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+      }
+
+      override fun onPageSelected(position: Int) {
+        selectPostion = position
+        WsAgentManager.instance.unbind(this@NewVersionHomepageFragment)
+        loopData()
+        mBinding?.fragmentMarket?.resetHeight(selectPostion)
+      }
+    })
+    loopData()
+    try {
+      mBinding?.stlHomepageList?.setViewPager(mBinding?.fragmentMarket, titles.toTypedArray())
+    } catch(e: Exception) {
+      e.printStackTrace()
+    }
+  }
+
+  /**
+   * 获取滚动的广告
+   */
+  private fun getNoticeInfoList(notcieList: JSONArray): ArrayList<String> {
+    val noticeList4String: ArrayList<String> = arrayListOf()
+    for(i in 0 until notcieList.length()) {
+      val obj = notcieList.optJSONObject(i)
+      val title = obj.optString("title")
+      noticeList4String.add(title)
+    }
+    return noticeList4String
+  }
+
+  /**
+   * 广告根据数据加载
+   * 有数据显示，无数据隐藏
+   */
+  private fun showGuanggao(noticeInfoList: JSONArray?) {
+    if(null != noticeInfoList && noticeInfoList.length() > 0) {
+
+      mBinding?.llAdvertisingLayout?.visibility = View.VISIBLE
+      if(null ==   mBinding?.vtcAdvertising?.textList ||   mBinding?.vtcAdvertising?.textList!!.size == 0) {
+        mBinding?.vtcAdvertising?.setText(
+          12f,
+          0,
+          ContextCompat.getColor(context!!, R.color.text_color),
+          true
+        )
+        mBinding?.vtcAdvertising?.setTextStillTime(4000)//设置停留时长间隔
+        mBinding?.vtcAdvertising?.setAnimTime(400)//设置进入和退出的时间间隔
+        mBinding?.vtcAdvertising?.setOnItemClickListener(object :
+          VerticalTextview4ChainUp.OnItemClickListener {
+          override fun onItemClick(pos: Int) {
+            val obj = newNoticeInfoList.optJSONObject(pos)
+            forwardWeb(obj)
+          }
         })
-        GlobalScope.launch {
-            delay(3000L)
+      }
+      mBinding?.vtcAdvertising?.setTextList(getNoticeInfoList(noticeInfoList))
+      mBinding?.vtcAdvertising?.startAutoScroll()
+    } else {
+      mBinding?.llAdvertisingLayout?.visibility = View.GONE
+    }
+  }
+
+  private fun forwardWeb(jsonObject: JSONObject?) {
+    val id = jsonObject?.optString("id")
+    val title = jsonObject?.optString("title")
+    val httpUrl = jsonObject?.optString("httpUrl")
+
+    val bundle = Bundle()
+    bundle.putString(ParamConstant.head_title, title)
+    if(StringUtil.isHttpUrl(httpUrl)) {
+      bundle.putString(ParamConstant.web_url, httpUrl)
+    } else {
+      bundle.putString(ParamConstant.web_url, id)
+      bundle.putInt(ParamConstant.web_type, WebTypeEnum.Notice.value)
+    }
+    ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, bundle)
+  }
+
+
+  private fun forUdeskWebView() {
+    val bundle = Bundle()
+    bundle.putString(
+      ParamConstant.URL_4_SERVICE,
+      PublicInfoDataService.getInstance().getOnlineService(null)
+    )
+    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+  }
+
+  /**
+   * 如果服务器没有返回服务数据
+   * 服务功能这里整体GONE
+   */
+  private fun setServiceView() {
+    mBinding?.recyclerCenterServiceLayout?.visibility = View.GONE
+  }
+
+  private fun setServiceShowView() {
+    mBinding?.recyclerCenterServiceLayout?.visibility = View.VISIBLE
+  }
+
+  private var servicePageSize = 0
+
+  /**
+   *
+   *  从服务器获取功能服务数据后填充
+   */
+
+  private fun setServiceData(appData: JSONArray?, viewType: Int = 0) {
+    if(null == appData || appData.length() <= 0) {
+      setServiceView()
+      return
+    }
+    setServiceShowView()
+    val serviceDatas = JSONUtil.arrayToList(appData)
+    val mardBottom = if(bannerNoteUrls.size != 0) DisplayUtil.dip2px(2) else DisplayUtil.dip2px(12)
+    val linearParams = mBinding?.recyclerCenterServiceLayout?.layoutParams as LinearLayout.LayoutParams
+    linearParams.setMargins(0, 0, 0, mardBottom)
+    mBinding?.recyclerCenterServiceLayout?.layoutParams = linearParams
+    val linearParams2 = mBinding?.recyclerCenterService?.layoutParams
+    linearParams2?.width = ViewGroup.LayoutParams.MATCH_PARENT
+    linearParams2?.height = SizeUtils.dp2px(if(serviceDatas.size > 4) 128f else 64f)
+    mBinding?.recyclerCenterServiceLayout?.layoutParams = linearParams2
+
+    val mLayoutManager = PagerGridLayoutManager(
+      if(serviceDatas.size > 4) 2 else 1,
+      4,
+      PagerGridLayoutManager.HORIZONTAL
+    )
+    mLayoutManager.setPageListener(object : PagerGridLayoutManager.PageListener {
+      override fun onPageSelect(pageIndex: Int) {
+        //todo  这里是第几页 +1
+        if(servicePageSize <= 1) {
+          return
+        }
+        when(pageIndex) {
+          0 -> {
+            mBinding?.ivFrist?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
+            mBinding?.ivSecond?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
+
+          }
+          1 -> {
+            mBinding?.ivFrist?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
+            mBinding?.ivSecond?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
+          }
+        }
+      }
+
+      override fun onPageSizeChanged(pageSize: Int) {
+        servicePageSize = pageSize
+
+      }
+    })
+    if(serviceDatas.size > 8) {
+
+      mBinding?.rlController?.visibility = View.VISIBLE
+    } else {
+      mBinding?.rlController?.visibility = View.INVISIBLE
+    }
+    val snapHelper = PagerGridSnapHelper()
+    if(mBinding?.recyclerCenterService?.onFlingListener == null) {
+      snapHelper.attachToRecyclerView(mBinding?.recyclerCenterService?: return)
+    }
+    mBinding?.recyclerCenterService?.layoutManager = mLayoutManager
+
+
+    serviceAdapter = NewHomePageServiceAdapter(serviceDatas)
+    serviceAdapter?.setOnItemClickListener { adapter, view, position ->
+
+      val obj = serviceDatas.get(position)
+      val httpUrl = obj.optString("httpUrl")
+      val nativeUrl = obj.optString("nativeUrl")
+
+      LogUtil.d(TAG, "httpUrl is $httpUrl , nativeUrl is $nativeUrl")
+      if(TextUtils.isEmpty(httpUrl)) {
+        if(StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
+          enter2Activity(nativeUrl.split("?"))
+        }
+      } else {
+        if(httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
+          forUdeskWebView()
+        } else {
+          forwardWeb(obj)
+        }
+      }
+    }
+
+    mBinding?.recyclerCenterService?.adapter = serviceAdapter
+  }
+
+
+  /**
+   * 对应的服务
+   */
+  private fun enter2Activity(temp: List<String>?) {
+
+    if(null == temp || temp.size <= 0)
+      return
+
+    when(temp[0]) {
+      "coinmap_market" -> {
+        /**
+         * 行情
+         */
+        var tabType = HomeTabMap.maps[HomeTabMap.marketTab]
+        homeTabSwitch(tabType)
+      }
+      "coinmap_trading" -> {
+        /**
+         * 币对交易页
+         */
+        var tabType = HomeTabMap.maps[HomeTabMap.coinTradeTab]
+        homeTabSwitch(tabType, temp[1])
+      }
+      "coinmap_details" -> {
+        /**
+         * 币对详情页
+         * MarketDetailActivity
+         */
+        if(!TextUtils.isEmpty(temp[1])) {
+          ArouterUtil.forwardKLine(temp[1])
+        } else {
+          NToastUtil.showTopToastNet(
+            this.mActivity,
+            false,
+            LanguageUtil.getString(context, "common_tip_hasNoCoinPair")
+          )
+        }
+      }
+      "otc_buy" -> {
+        /**
+         *场外交易-购买
+         */
+        /*if (LoginManager.checkLogin(activity, true)) {
+        }*/
+        if(otcOpen) {
+          var bundle = Bundle()
+          bundle.putInt("tag", 0)
+          ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
+        } else {
+          NToastUtil.showTopToastNet(
+            this.mActivity,
+            false,
+            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+          )
+        }
+      }
+      "otc_sell" -> {
+        /**
+         * 场外交易-出售
+         */
+        if(otcOpen) {
+          var bundle = Bundle()
+          bundle.putInt("tag", 1)
+          ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
+        } else {
+          NToastUtil.showTopToastNet(
+            this.mActivity,
+            false,
+            LanguageUtil.getString(context, "common_tip_notSupportOTC")
+          )
+        }
+      }
+
+      "order_record" -> {
+        /**
+         *订单记录
+         */
+
+        if(LoginManager.checkLogin(activity, true)) {
+          if(otcOpen) {
+            ArouterUtil.greenChannel(RoutePath.NewOTCOrdersActivity, null)
+          } else {
+            NToastUtil.showTopToastNet(
+              this.mActivity,
+              false,
+              LanguageUtil.getString(context, "common_tip_notSupportOTC")
+            )
+          }
+        }
+      }
+      "account_transfer" -> {
+        /**
+         * 账户划转
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, "BTC")
+        }
+      }
+      "otc_account" -> {
+        /**
+         *资产-场外账户
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+
+          if(otcOpen) {
+            if(contractOpen) {
+              forwardAssetsActivity(1)
+            } else {
+              homeAssetstab_switch(1)
+            }
+
+          } else {
+            NToastUtil.showTopToastNet(
+              this.mActivity,
+              false,
+              LanguageUtil.getString(context, "common_tip_notSupportOTC")
+            )
+          }
+        }
+      }
+      "contract_follow_order" -> {
+        /**
+         * 跟单页面
+         */
+
+      }
+
+      "coin_account" -> {
+        /**
+         * 资产-币币账户
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          if(contractOpen && otcOpen) {
+            forwardAssetsActivity(0)
+          } else {
+            homeAssetstab_switch(0)
+          }
+
+        }
+
+      }
+      "safe_set" -> {
+        /**
+         *安全设置
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
+        }
+      }
+      "safe_money" -> {
+        /**
+         * 安全设置-资金密码
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          if(UserDataService.getInstance()?.authLevel != 1) {
+            NToastUtil.showTopToastNet(
+              this.mActivity,
+              false,
+              LanguageUtil.getString(context, "otc_please_cert")
+            )
+            return
+          }
+          if(UserDataService.getInstance().isCapitalPwordSet == 0) {
+            ArouterUtil.forwardModifyPwdPage(ParamConstant.SET_PWD, ParamConstant.FROM_OTC)
+          } else {
+            ArouterUtil.forwardModifyPwdPage(ParamConstant.RESET_PWD, ParamConstant.FROM_OTC)
+          }
+        }
+      }
+      "personal_information" -> {
+        /**
+         *个人资料
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          ArouterUtil.greenChannel(RoutePath.PersonalInfoActivity, null)
+        }
+
+      }
+      "personal_invitation" -> {
+        /**
+         *个人资料-邀请码
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+        }
+
+      }
+      "collection_way" -> {
+        /**
+         *收款方式
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          ArouterUtil.greenChannel(RoutePath.PaymentMethodActivity, null)
+        }
+      }
+      "real_name" -> {
+        /**
+         *实名认证
+         */
+        if(LoginManager.checkLogin(activity, true)) {
+          when(UserDataService.getInstance().authLevel) {
+            0 -> {
+              NToastUtil.showTopToastNet(
+                this.mActivity,
+                false,
+                LanguageUtil.getString(context, "noun_login_pending")
+              )
+            }
+            1 -> {
+              ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+            }
+            /**
+             * 审核未通过
+             */
+            2 -> {
+              ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+            }
+
+            3 -> {
+              ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+            }
+          }
+        }
+      }
+      "contract_transaction" -> {
+        /**
+         * 去合约交易页面
+         */
+        forwardContractTab()
+      }
+
+      "market_etf" -> {
+        /**
+         * ETF列表
+         */
+        forwardMarketTab("ETF")
+      }
+
+      /**
+       * 合约经纪人
+       * TODO 这里需要确定key
+       */
+      "config_contract_agent_key" -> {
+        if(!LoginManager.checkLogin(context, true)) {
+          return
+        }
+        ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+      }
+
+      "account_freeStaking" -> {
+        if(!LoginManager.checkLogin(context, true)) {
+          return
+        }
+        /**
+         * FreeStaking首页
+         */
+        ArouterUtil.greenChannel(RoutePath.FreeStakingActivity, null)
+      }
+
+
+    }
+  }
+
+  private fun forwardContractTab() {
+    var messageEvent = MessageEvent(MessageEvent.contract_switch_type)
+    EventBusUtil.post(messageEvent)
+  }
+
+  private fun forwardMarketTab(coin: String) {
+    var messageEvent = MessageEvent(MessageEvent.market_switch_type)
+    messageEvent.msg_content = coin
+    EventBusUtil.post(messageEvent)
+  }
+
+  /**
+   * 获取账户信息
+   */
+  var accountBalance = ""
+
+
+  override fun onWsMessage(json: String) {
+    handleData(json)
+  }
+
+  fun handleData(data: String) {
+    try {
+      val json = JSONObject(data)
+      if(!json.isNull("tick")) {
+        doAsync {
+          val channel = json.optString("channel")
+          val temp = homeCoins.filter {
+            channel.contains(it)
+          }
+          if(temp.isNotEmpty()) {
+            val dataDiff = callDataDiff(json)
+            if(dataDiff != null) {
+              val items = dataDiff.second
+              if(bottomCoins.size != homeCoins.size) {
+                showWsData(items)
+              }
+              if(fragments.size == 0) {
+                return@doAsync
+              }
+              val fragment = fragments[selectPostion]
+              if(fragment is NewHomeDetailFragmentItem) {
+                val tempMap = HashMap<String, JSONObject>()
+                for(item in items) {
+                  val channelNew = item.value.optString("channel").split("_")[1]
+                  val tempBottom = bottomCoins.filter {
+                    channelNew.contains(it)
+                  }
+                  if(tempBottom.isNotEmpty()) {
+                    tempMap.put(item.key, item.value)
+                  }
+                }
+                if(tempMap.isEmpty()) {
+                  return@doAsync
+                }
+                fragment.dropListsAdapter(tempMap)
+              }
+              wsArrayTempList.clear()
+              wsArrayMap.clear()
+            }
+          }
+        }
+      }
+    } catch(e: Exception) {
+      e.printStackTrace()
+    }
+  }
+
+  private fun showWsData(items: HashMap<String, JSONObject>) {
+    if(0 == selectTopSymbol?.size)
+      return
+    val dates = selectTopSymbol
+    var isLoad = 0
+    for(item in items) {
+      val channel = item.value.optString("channel").split("_")[1]
+      val temp = dates?.filter {
+        channel.contains(it.optString("symbol"))
+      }
+      if(temp != null && temp.isNotEmpty()) {
+        val jsonObject = temp[0]
+        val data = item.value
+        val tick = data.optJSONObject("tick")
+        tick?.apply {
+          jsonObject.put("rose", this.optString("rose"))
+          jsonObject.put("close", this.optString("close"))
+          jsonObject.put("vol", this.optString("vol"))
+          val index = dates.indexOf(jsonObject)
+          dates[index] = jsonObject
+          isLoad++
+        }
+      }
+    }
+    if(isLoad != 0) {
+      activity?.runOnUiThread {
+        topSymbolAdapter?.setList(dates)
+      }
+    }
+
+  }
+
+  override fun onVisibleChanged(isVisible: Boolean) {
+    super.onVisibleChanged(isVisible)
+    if(isVisible) {
+      Handler().postDelayed({
+        isRoseHttp()
+        initSocket()
+        if(fragments.size == 0) {
+          return@postDelayed
+        }
+        val fragment = fragments[selectPostion]
+        if(fragment is NewHomeDetailFragmentItem) {
+          fragment.startInit()
+        }
+      }, 100)
+    } else {
+      if(selectTopSymbol != null) {
+        WsAgentManager.instance.unbind(this)
+      }
+      clearToolHttp()
+    }
+  }
+
+  private var bottomCoins = arrayListOf<String>()
+  private var homeCoins = arrayListOf<String>()
+
+  @Subscribe(threadMode = ThreadMode.POSTING)
+  override fun onMessageEvent(event: MessageEvent) {
+    super.onMessageEvent(event)
+    if(MessageEvent.home_event_page_symbol_type == event.msg_type) {
+      val mainActivity = activity
+      if(mainActivity is NewMainActivity) {
+        if(mainActivity.curPosition != 0) {
+          return
+        }
+      }
+      val map = event.msg_content as HashMap<String, Array<String>>
+      val curIndex = map.get("curIndex") as Int
+      if(selectPostion != curIndex) {
+        return
+      }
+      bottomCoins.clear()
+      val array = map.get("symbols") as Array<String>
+      for(item in array) {
+        bottomCoins.add(item)
+      }
+      initSocket()
+    }
+
+  }
+
+  private var isRose = true
+  private fun loopData() {
+    LogUtil.e(TAG, "tradeList value loopData  ${mIsVisibleToUser} ")
+    if(!mIsVisibleToUser)
+      return
+    clearToolHttp()
+    if(subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
+      subscribeCoin = Observable.interval(
+        10L,
+        CommonConstant.homeLoopTime,
+        TimeUnit.SECONDS
+      )//按时间间隔发送整数的Observable
+        .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+        .subscribe {
+          getVPTab()
         }
     }
+  }
 
-    inner class MyNDisposableObserver(type: Int) : NDisposableObserver() {
+  override fun onResume() {
+    super.onResume()
+    LogUtil.e(TAG, "onResume() ")
+  }
 
-        var req_type = type
+  private fun isRoseHttp() {
+    if(!isRose) {
+      return
+    }
+    isRose = false
+    loopData()
+  }
+
+  /**
+   * 获取数据
+   */
+  private fun getVPTab() {
+    if(chooseType.size == 0) {
+      return
+    }
+    val type = chooseType[selectPostion]
+    var disposable =
+      getMainModel().trade_list_v4(type, object : NDisposableObserver(null, false, type) {
         override fun onResponseSuccess(jsonObject: JSONObject) {
-            when {
-                getTopDataReqType == req_type -> {
-                    recycler_top_24?.visibility = View.VISIBLE
-                    showTopSymbolsData(jsonObject.optJSONArray("data"))
-                }
-                homepageReqType == req_type -> {
-                    showHomepageData(jsonObject.optJSONObject("data"))
-                }
-                homeData == req_type -> {
-                    closeLoadingDialog()
-                    showHomepageData(jsonObject.optJSONObject("data"))
-                    advertTime()
-                }
+          isRose = true
+          val fragment = fragments[selectPostion]
+          if(fragment is NewHomeDetailFragmentItem) {
+            if(type == this.getHomeTabType()) {
+              fragment.initV(jsonObject.optJSONArray("data"))
             }
+          }
+          this.mapParams
         }
 
         override fun onResponseFailure(code: Int, msg: String?) {
-            super.onResponseFailure(code, msg)
-            if (getTopDataReqType == req_type) {
-                recycler_top_24?.visibility = View.GONE
-            }
-            if (req_type == homeData) {
-                initSocket()
-                advertTime(true)
-            }
-            closeLoadingDialog()
+          super.onResponseFailure(code, msg)
+          isRose = true
         }
+      })
+    addDisposable(disposable)
+  }
+
+  private fun clearToolHttp() {
+    if(subscribeCoin != null) {
+      subscribeCoin?.dispose()
     }
+  }
 
-
-    var homepageData: JSONObject? = null
-
-
-    /*
-     * 首页数据展示
-     */
-    private fun showHomepageData(data: JSONObject?, isCache: Boolean = false) {
-        if (null == data)
-            return
-        if (!isCache) {
-            homepageData = data
-            val jsonObjects = JSONObject(data.toString())
-            if (jsonObjects != null) {
-                CommonService.instance.saveHomeData(jsonObjects)
-            }
-            val arrayGuide = arrayOf(mBinding?.homeHeader!!.layoutSearch, iv_nation_more, layout_top_24, recycler_center_service_layout)
-            showGuideHomepage(mActivity, arrayGuide, data)
-        }
-        var noticeInfoList = data.optJSONArray("noticeInfoList")
-        var cmsAppAdvertList = data.optJSONArray("cmsAppAdvertList")
-        var cmsAppDataList = data.optJSONArray("cmsAppDataList")
-        var cmsAppNoteDataList = data.optJSONArray("cmsAppDataListOther")
-        var cmsSymbolList = data.optJSONArray("header_symbol")
-        var homeRecommendList = data.optJSONArray("home_recommend_list") ?: JSONArray()
-
-            showTopSymbolsData(cmsSymbolList)
-            /*
-             *涨幅榜等数据 显示
-             */
-            showBottomVp(homeRecommendList)
-
-        newNoticeInfoList = noticeInfoList
-        showGuanggao(noticeInfoList)
-        showBannerData(cmsAppAdvertList)
-        initNoteBanner(cmsAppNoteDataList)
-        setServiceData(cmsAppDataList)
-
+  override fun appBackGroundChange(isVisible: Boolean) {
+    super.appBackGroundChange(isVisible)
+    mIsVisibleToUser = isVisible
+    if(isVisible) {
+      isRoseHttp()
+    } else {
+      clearToolHttp()
     }
+  }
 
-
-    var newNoticeInfoList = JSONArray()
-
-    /*
-     * 展示顶部轮播图
-     */
-    var bannerImgUrls = arrayListOf<String>()
-    var bannerNoteUrls: ArrayList<String> = arrayListOf()
-
-    private fun showBannerData(cmsAppAdvertList: JSONArray?) {
-
-        if (null == cmsAppAdvertList || cmsAppAdvertList.length() <= 0)
-            return
-
-        bannerImgUrls.clear()
-        mViewModel?.bannerImgUrls?.clear()
-        for (i in 0 until cmsAppAdvertList.length()) {
-            var obj = cmsAppAdvertList.optJSONObject(i)
-            var imageUrl = obj.optString("imageUrl")
-            if (StringUtil.isHttpUrl(imageUrl)) {
-                bannerImgUrls.add(imageUrl)
-                mViewModel?.bannerImgUrls?.add(imageUrl)
-            }
+  private fun initNoteBanner(cmsAppDataList: JSONArray?) {
+    if(cmsAppDataList != null && cmsAppDataList.length() != 0) {
+      mBinding?.rlCustomConfig?.visibility = View.VISIBLE
+      val serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
+      val arrayBanner = arrayListOf<String>()
+      serviceDatas.forEach {
+        val imageUrl = it.optString("imageUrl")
+        if(StringUtil.isHttpUrl(imageUrl)) {
+          arrayBanner.add(imageUrl)
         }
-        banner_looper?.apply {
-            //设置图片集合
-            val mAdapter = ImageNetAdapter(bannerImgUrls)
-            adapter = mAdapter
-            //设置轮播时间
-            setLoopTime(3000)
-            indicator = RectangleIndicator(context)
-            //设置指示器位置（当banner模式中有指示器时）
-            setIndicatorGravity(IndicatorConfig.Direction.CENTER)
-        }
-        banner_looper?.setOnBannerListener { data, position ->
-            var obj = cmsAppAdvertList.optJSONObject(position)
-            var httpUrl = obj?.optString("httpUrl") ?: ""
-            var nativeUrl = obj?.optString("nativeUrl") ?: ""
+      }
+      bannerNoteUrls.clear()
+      bannerNoteUrls.addAll(arrayBanner)
 
-            //TODO 需要一个标题
-            if (TextUtils.isEmpty(httpUrl)) {
-                if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                    enter2Activity(nativeUrl.split("?"))
-                }
-            } else {
-                forwardWeb(obj)
-            }
-        }
-       // banner设置方法全部调用完毕时最后调用
-        banner_looper?.start()
+      mBinding?.bannerLooperCustom?.let {
 
+        val mAdapter = ImageNetAdapter(bannerNoteUrls)
+        it.adapter = mAdapter
+      }
+      mBinding?.bannerLooperCustom?.start()
+      mBinding?.bannerLooperCustom?.setOnBannerListener { data, position ->
+        val obj = cmsAppDataList.optJSONObject(position)
+        routeApp(obj)
+      }
+    } else {
+      mBinding?.rlCustomConfig?.visibility = View.GONE
+      bannerNoteUrls.clear()
     }
+  }
 
-
-
-    private fun showAdvertising(isShow: Boolean) {
-        if (null != vtc_advertising?.textList && vtc_advertising?.textList!!.size > 0) {
-            if (isShow) {
-                vtc_advertising?.startAutoScroll()
-            } else {
-                vtc_advertising?.stopAutoScroll()
-            }
-        }
+  private fun routeApp(obj: JSONObject?) {
+    val httpUrl = obj?.optString("httpUrl") ?: ""
+    val nativeUrl = obj?.optString("nativeUrl") ?: ""
+    if(TextUtils.isEmpty(httpUrl)) {
+      if(StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
+        enter2Activity(nativeUrl.split("?"))
+      }
+    } else {
+      forwardWeb(obj)
     }
+  }
 
-    private fun showBanner(isShow: Boolean) {
-        if (null != bannerImgUrls && bannerImgUrls!!.size > 0) {
-            if (isShow) {
-                banner_looper?.start()
-            } else {
-                banner_looper?.stop()
-            }
-        }
+  /**
+   * 获取顶部symbol 24小时行情
+   */
+  fun getTopData() {
+    var disposable = getMainModel().header_symbol(MyNDisposableObserver(getTopDataReqType))
+    addDisposable(disposable)
+  }
 
-        if (bannerNoteUrls.size > 0) {
-            if (isShow) {
-                banner_looper_custom?.start()
-            } else {
-                banner_looper_custom?.stop()
-            }
-        }
-    }
-
-
-    private fun getAllAccounts() {
-        isLogined = UserDataService.getInstance().isLogined
-
-        if (null == homepageData) {
-            getHomeData()
-        }
-    }
-
-
-
-
-    /*
-     * 资产tab跳转
-     */
-    private fun homeAssetstab_switch(type: Int) {
-        var msgEvent = MessageEvent(MessageEvent.hometab_switch_type)
-        var bundle = Bundle()
-        var homeTabType = HomeTabMap.maps.get(HomeTabMap.assetsTab)
-        bundle.putInt(ParamConstant.homeTabType, homeTabType ?: 4)
-        bundle.putInt(ParamConstant.assetTabType, type)
-        msgEvent.msg_content = bundle
-        EventBusUtil.post(msgEvent)
-    }
-
-    /*
-     * 首页底部tab跳转的处理
-     */
-    private fun homeTabSwitch(tabType: Int?, symbol: String? = "") {
-        var msgEvent = MessageEvent(MessageEvent.hometab_switch_type)
-        var bundle = Bundle()
-        bundle.putInt(ParamConstant.homeTabType, tabType ?: 0)
-        if (symbol != null) {
-            bundle.putString(ParamConstant.symbol, symbol)
-        }
-        msgEvent.msg_content = bundle
-        EventBusUtil.post(msgEvent)
-    }
-
-    /*
-     * 跳转至 NewVersionMyAssetActivity
-     */
-    private fun forwardAssetsActivity(type: Int) {
-        var bundle = Bundle()
-        bundle.putInt(ParamConstant.assetTabType, type)//跳转到币币交易页面
-        ArouterUtil.navigation(RoutePath.NewVersionMyAssetActivity, bundle)
-    }
-
-
-    fun setOnClick() {
-        iv_nation_more?.setOnClickListener {
-            startActivity(Intent(mActivity, NoticeActivity::class.java))
-        }
-
-        if (SystemUtils.isZh()) {
-            rl_red_envelope_entrance.setImageResource(R.drawable.redenvelope)
+  var klineTime = 0L
+  private fun advertTime(isError: Boolean = false) {
+    klineTime = System.currentTimeMillis() - klineTime
+    val temp = if(isError) {
+      4
+    } else {
+      val market = PublicInfoDataService.getInstance().getMarket(null)
+      if(market == null) {
+        5
+      } else {
+        if(fragments.isNotEmpty()) {
+          0
         } else {
-            rl_red_envelope_entrance.setImageResource(R.drawable.redenvelope_english)
+          3
         }
 
-        /**
-         * 点击红包 跳转
-         */
-        rl_red_envelope_entrance?.setOnClickListener {
-            if (!LoginManager.checkLogin(activity, true)) {
-                return@setOnClickListener
-            }
-
-            var isEnforceGoogleAuth = PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)
-
-            var authLevel = UserDataService.getInstance().authLevel
-            var googleStatus = UserDataService.getInstance().googleStatus
-            var isOpenMobileCheck = UserDataService.getInstance().isOpenMobileCheck
-
-            if (isEnforceGoogleAuth) {
-                if (authLevel != 1 || googleStatus != 1) {
-                    NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
-                    return@setOnClickListener
-                }
-            } else {
-                if (authLevel != 1 || (googleStatus != 1 && isOpenMobileCheck != 1)) {
-                    NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
-                    return@setOnClickListener
-                }
-            }
-            ArouterUtil.navigation(RoutePath.CreateRedPackageActivity, null)
-        }
-
-        /**
-         * 点击关闭红包
-         */
-        iv_close_red_envelope?.setOnClickListener {
-            showRedPacket(false)
-        }
-
-        /**
-         * 此处刷新
-         */
-        swipe_refresh?.setOnRefreshListener {
-            isScrollStatus = true
-            /**
-             * 刷新数据操作
-             */
-            if (homepageData == null || fragments.size == 0 || selectTopSymbol == null) {
-                getHomeData()
-            } else {
-                getVPTab()
-            }
-            swipe_refresh?.isRefreshing = false
-        }
-        net_wrong?.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_SETTINGS))
-        }
-        no_network_check?.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_SETTINGS))
-        }
-        no_network_retry_btn?.setOnClickListener {
-            getHomeData()
-        }
-    }
-
-
-    private fun showRedPacket(isVisibile: Boolean) {
-        if (isVisibile) {
-            rl_red_envelope_entranc_layout?.visibility = View.VISIBLE
-        } else {
-            rl_red_envelope_entranc_layout?.visibility = View.GONE
-        }
-    }
-
-    /*
-     * 首页顶部symbol 24小时行情展示
-     */
-    var selectTopSymbol: ArrayList<JSONObject>? = null
-    var selectTopSymbol4Contract: ArrayList<ContractTicker> = arrayListOf()
-
-
-
-
-    private fun showTopSymbolsData(topSymbol: JSONArray?) {
-        selectTopSymbol = NCoinManager.getSymbols(topSymbol)
-        if (null == selectTopSymbol || selectTopSymbol?.size!! <= 0) {
-            setTopViewVisible(false)
-            return
-        }
-        setTopViewVisible(true)
-        topSymbolAdapter?.setList(selectTopSymbol)
-    }
-
-
-    private fun initSocket() {
-        if (selectTopSymbol == null) {
-            return
-        }
-        var arrays = arrayListOf<String>()
-        for (item in selectTopSymbol!!) {
-            arrays.add(item.getString("symbol"))
-        }
-        var json = ""
-        homeCoins.clear()
-        if (bottomCoins.isNotEmpty()) {
-            val temp = bottomCoins union arrays
-            homeCoins.addAll(temp)
-            json = JsonUtils.gson.toJson(temp)
-        } else {
-            homeCoins.addAll(arrays)
-            json = JsonUtils.gson.toJson(arrays)
-        }
-        WsAgentManager.instance.sendMessage(hashMapOf("bind" to true, "symbols" to json), this)
-    }
-
-    override fun fragmentVisibile(isVisible: Boolean) {
-        super.fragmentVisibile(isVisible)
-        var mainActivity = activity
-        if (mainActivity != null) {
-            if (mainActivity is NewMainActivity) {
-                if (isVisible && mainActivity.curPosition == 0) {
-                    getAllAccounts()
-                    showAdvertising(true)
-                    showBanner(true)
-                } else {
-                    showAdvertising(false)
-                    showBanner(false)
-                }
-
-            }
-        }
+      }
 
     }
+    sendWsHomepage(
+      mIsVisibleToUser,
+      temp,
+      NetworkDataService.KEY_PAGE_HOME,
+      NetworkDataService.KEY_HTTP_HOME,
+      klineTime
+    )
+  }
 
 
-    /**
-     * 是否显示24小时行情
-     */
-    fun setTopViewVisible(isShow: Boolean) {
-        if (isShow) {
-            recycler_top_24?.visibility = View.VISIBLE
-            if (selectTopSymbol != null && selectTopSymbol!!.size > 3) {
-                layout_item?.visibility = View.VISIBLE
-            } else {
-                layout_item?.visibility = View.GONE
-            }
-        } else {
-            recycler_top_24?.visibility = View.GONE
-            layout_item?.visibility = View.GONE
-        }
+  private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()
+  private val wsArrayMap = hashMapOf<String, JSONObject>()
+  private var wsTimeFirst: Long = 0L
+
+  @Synchronized
+  private fun callDataDiff(jsonObject: JSONObject): Pair<ArrayList<JSONObject>, HashMap<String, JSONObject>>? {
+    if(System.currentTimeMillis() - wsTimeFirst >= 1000L && wsTimeFirst != 0L) {
+      // 大于一秒
+      wsTimeFirst = 0L
+      if(wsArrayMap.size != 0) {
+        return Pair(wsArrayTempList, wsArrayMap)
+      }
+    } else {
+      if(wsTimeFirst == 0L) {
+        wsTimeFirst = System.currentTimeMillis()
+      }
+      wsArrayTempList.add(jsonObject)
+      wsArrayMap.put(jsonObject.optString("channel", ""), jsonObject)
     }
-
-    /**
-     * 获取顶部symbol 24小时行情
-     */
-    fun getHomeData() {
-        showLoadingDialog()
-        var type = "1"
-        klineTime = System.currentTimeMillis()
-        var disposable = getMainModel().getHomeData(type, MyNDisposableObserver(homeData))
-        addDisposable(disposable)
-
-    }
-
-    override fun refreshOkhttp(position: Int) {
-        if (position == 0) {
-            getTopData()
-        }
-    }
-
-    val fragments = arrayListOf<Fragment>()
-    var selectPostion = 0
-    val chooseType = arrayListOf<String>()
-
-
-
-
-    fun showBottomVp(data: JSONArray) {
-        var titles = arrayListOf<String>()
-        var serviceDatas = JSONUtil.arrayToList(data)
-        if (serviceDatas == null) {
-            if (!NetUtil.isNetConnected(mActivity!!)) {
-                no_network_bottom_vp?.visibility = View.VISIBLE
-                bottom_vp_linearlayout?.visibility = View.GONE
-            }
-            return
-        }
-        no_network_bottom_vp?.visibility = View.GONE
-        bottom_vp_linearlayout?.visibility = View.VISIBLE
-        for (item in serviceDatas) {
-            titles.add(item.getString("title"))
-            chooseType.add(item.getString("key"))
-        }
-        fragments.clear()
-        if (titles.isEmpty())
-            return
-
-        for (i in titles.indices) {
-            fragments.add(
-                NewHomeDetailFragmentItem.newInstance(
-                    titles[i],
-                    i,
-                    chooseType[i],
-                    fragment_market,
-                    serviceDatas.get(i).getJSONArray("list").toString()
-                )
-            )
-        }
-
-        var marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
-        fragment_market?.adapter = marketPageAdapter
-        fragment_market?.offscreenPageLimit = fragments.size
-        fragment_market?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                selectPostion = position
-                WsAgentManager.instance.unbind(this@NewVersionHomepageFragment)
-                loopData()
-                fragment_market?.resetHeight(selectPostion)
-            }
-        })
-        loopData()
-        try {
-            stl_homepage_list?.setViewPager(fragment_market, titles.toTypedArray())
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    /**
-     * 获取滚动的广告
-     */
-    fun getNoticeInfoList(notcieList: JSONArray): ArrayList<String> {
-        var noticeList4String: ArrayList<String> = arrayListOf()
-        for (i in 0 until notcieList.length()) {
-            var obj = notcieList.optJSONObject(i)
-            var title = obj.optString("title")
-            if (null != title) {
-                noticeList4String.add(title)
-            }
-        }
-        return noticeList4String
-    }
-
-    /**
-     * 广告根据数据加载
-     * 有数据显示，无数据隐藏
-     */
-    private fun showGuanggao(noticeInfoList: JSONArray?) {
-        if (null != noticeInfoList && noticeInfoList.length() > 0) {
-            ll_advertising_layout?.visibility = View.VISIBLE
-            if (null == vtc_advertising?.textList || vtc_advertising?.textList!!.size == 0) {
-                vtc_advertising?.setText(12f, 0, ContextCompat.getColor(context!!, R.color.text_color), true)
-                vtc_advertising?.setTextStillTime(4000)//设置停留时长间隔
-                vtc_advertising?.setAnimTime(400)//设置进入和退出的时间间隔
-                vtc_advertising?.setOnItemClickListener(object : VerticalTextview4ChainUp.OnItemClickListener {
-                    override fun onItemClick(pos: Int) {
-                        var obj = newNoticeInfoList.optJSONObject(pos)
-                        forwardWeb(obj)
-                    }
-                })
-            }
-            vtc_advertising?.setTextList(getNoticeInfoList(noticeInfoList))
-            vtc_advertising?.startAutoScroll()
-        } else {
-            ll_advertising_layout?.visibility = View.GONE
-        }
-    }
-
-    private fun forwardWeb(jsonObject: JSONObject?) {
-        var id = jsonObject?.optString("id")
-        var title = jsonObject?.optString("title")
-        var httpUrl = jsonObject?.optString("httpUrl")
-
-        var bundle = Bundle()
-        bundle.putString(ParamConstant.head_title, title)
-        if (StringUtil.isHttpUrl(httpUrl)) {
-            bundle.putString(ParamConstant.web_url, httpUrl)
-        } else {
-            bundle.putString(ParamConstant.web_url, id)
-            bundle.putInt(ParamConstant.web_type, WebTypeEnum.Notice.value)
-        }
-        ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, bundle)
-    }
-
-
-    private fun forUdeskWebView() {
-        var bundle = Bundle()
-        bundle.putString(ParamConstant.URL_4_SERVICE, PublicInfoDataService.getInstance().getOnlineService(null))
-        ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
-    }
-
-    /**
-     * 如果服务器没有返回服务数据
-     * 服务功能这里整体GONE
-     */
-    private fun setServiceView() {
-        recycler_center_service_layout?.visibility = View.GONE
-    }
-
-    private fun setServiceShowView() {
-        recycler_center_service_layout?.visibility = View.VISIBLE
-    }
-
-    private var servicePageSize = 0
-
-    /**
-     *
-     *  从服务器获取功能服务数据后填充
-     */
-
-    private fun setServiceData(appData: JSONArray?, viewType: Int = 0) {
-        if (null == appData || appData.length() <= 0) {
-            setServiceView()
-            return
-        }
-        setServiceShowView()
-        val serviceDatas = JSONUtil.arrayToList(appData)
-        val mardBottom = if (bannerNoteUrls.size != 0) DisplayUtil.dip2px(2) else DisplayUtil.dip2px(12)
-        val linearParams = recycler_center_service_layout?.layoutParams as LinearLayout.LayoutParams
-        linearParams.setMargins(0, 0, 0, mardBottom)
-        recycler_center_service_layout?.layoutParams = linearParams
-        val linearParams2 = recycler_center_service?.layoutParams
-        linearParams2?.width = ViewGroup.LayoutParams.MATCH_PARENT
-        linearParams2?.height = SizeUtils.dp2px(if (serviceDatas.size > 4) 128f else 64f)
-        recycler_center_service?.layoutParams = linearParams2
-
-        val mLayoutManager = PagerGridLayoutManager(if (serviceDatas.size > 4) 2 else 1, 4, PagerGridLayoutManager.HORIZONTAL)
-        mLayoutManager.setPageListener(object : PagerGridLayoutManager.PageListener {
-            override fun onPageSelect(pageIndex: Int) {
-                //todo  这里是第几页 +1
-                if (servicePageSize <= 1) {
-                    return
-                }
-                when (pageIndex) {
-                    0 -> {
-                        iv_frist?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
-                        iv_second?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
-
-                    }
-                    1 -> {
-                        iv_frist?.setBackgroundResource(R.drawable.item_bg_4_homepage_unselect)
-                        iv_second?.setBackgroundResource(R.drawable.item_bg_4_homepage_select)
-                    }
-                }
-            }
-
-            override fun onPageSizeChanged(pageSize: Int) {
-                servicePageSize = pageSize
-
-            }
-        })
-        if (serviceDatas.size > 8) {
-            rl_controller?.visibility = View.VISIBLE
-        } else {
-            rl_controller?.visibility = View.INVISIBLE
-        }
-        val snapHelper = PagerGridSnapHelper()
-        if (recycler_center_service?.onFlingListener == null) {
-            snapHelper.attachToRecyclerView(recycler_center_service ?: return)
-        }
-        recycler_center_service?.layoutManager = mLayoutManager
-
-
-        serviceAdapter = NewHomePageServiceAdapter(serviceDatas)
-        serviceAdapter?.setOnItemClickListener { adapter, view, position ->
-
-            var obj = serviceDatas.get(position)
-            var httpUrl = obj.optString("httpUrl")
-            var nativeUrl = obj.optString("nativeUrl")
-
-            LogUtil.d(TAG, "httpUrl is $httpUrl , nativeUrl is $nativeUrl")
-            if (TextUtils.isEmpty(httpUrl)) {
-                if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                    enter2Activity(nativeUrl?.split("?"))
-                }
-            } else {
-                if (httpUrl == PublicInfoDataService.getInstance().getOnlineService(null)) {
-                    forUdeskWebView()
-                } else {
-                    forwardWeb(obj)
-                }
-            }
-        }
-
-        recycler_center_service?.adapter = serviceAdapter
-    }
-
-
-    /**
-     * 对应的服务
-     */
-    private fun enter2Activity(temp: List<String>?) {
-
-        if (null == temp || temp.size <= 0)
-            return
-
-        when (temp[0]) {
-            "coinmap_market" -> {
-                /**
-                 * 行情
-                 */
-                var tabType = HomeTabMap.maps[HomeTabMap.marketTab]
-                homeTabSwitch(tabType)
-            }
-            "coinmap_trading" -> {
-                /**
-                 * 币对交易页
-                 */
-                var tabType = HomeTabMap.maps[HomeTabMap.coinTradeTab]
-                homeTabSwitch(tabType, temp[1])
-            }
-            "coinmap_details" -> {
-                /**
-                 * 币对详情页
-                 * MarketDetailActivity
-                 */
-                if (!TextUtils.isEmpty(temp[1])) {
-                    ArouterUtil.forwardKLine(temp[1])
-                } else {
-                    NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_hasNoCoinPair"))
-                }
-            }
-            "otc_buy" -> {
-                /**
-                 *场外交易-购买
-                 */
-                /*if (LoginManager.checkLogin(activity, true)) {
-                }*/
-                if (otcOpen) {
-                    var bundle = Bundle()
-                    bundle.putInt("tag", 0)
-                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
-                } else {
-                    NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
-                }
-            }
-            "otc_sell" -> {
-                /**
-                 * 场外交易-出售
-                 */
-                if (otcOpen) {
-                    var bundle = Bundle()
-                    bundle.putInt("tag", 1)
-                    ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, bundle)
-                } else {
-                    NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "common_tip_notSupportOTC"))
-                }
-            }
-
-            "order_record" -> {
-                /**
-                 *订单记录
-                 */
-
-                if (LoginManager.checkLogin(activity, true)) {
-                    if (otcOpen) {
-                        ArouterUtil.greenChannel(RoutePath.NewOTCOrdersActivity, null)
-                    } else {
-                        NToastUtil.showTopToastNet(
-                            this.mActivity,
-                            false,
-                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
-                        )
-                    }
-                }
-            }
-            "account_transfer" -> {
-                /**
-                 * 账户划转
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, "BTC")
-                }
-            }
-            "otc_account" -> {
-                /**
-                 *资产-场外账户
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-
-                    if (otcOpen) {
-                            if (contractOpen) {
-                                forwardAssetsActivity(1)
-                            } else {
-                                homeAssetstab_switch(1)
-                            }
-
-                    } else {
-                        NToastUtil.showTopToastNet(
-                            this.mActivity,
-                            false,
-                            LanguageUtil.getString(context, "common_tip_notSupportOTC")
-                        )
-                    }
-                }
-            }
-            "contract_follow_order" -> {
-                /**
-                 * 跟单页面
-                 */
-
-            }
-
-            "coin_account" -> {
-                /**
-                 * 资产-币币账户
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                        if (contractOpen && otcOpen) {
-                            forwardAssetsActivity(0)
-                        } else {
-                            homeAssetstab_switch(0)
-                        }
-
-                }
-
-            }
-            "safe_set" -> {
-                /**
-                 *安全设置
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
-                }
-            }
-            "safe_money" -> {
-                /**
-                 * 安全设置-资金密码
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    if (UserDataService.getInstance()?.authLevel != 1) {
-                        NToastUtil.showTopToastNet(this.mActivity, false, LanguageUtil.getString(context, "otc_please_cert"))
-                        return
-                    }
-                    if (UserDataService.getInstance().isCapitalPwordSet == 0) {
-                        ArouterUtil.forwardModifyPwdPage(ParamConstant.SET_PWD, ParamConstant.FROM_OTC)
-                    } else {
-                        ArouterUtil.forwardModifyPwdPage(ParamConstant.RESET_PWD, ParamConstant.FROM_OTC)
-                    }
-                }
-            }
-            "personal_information" -> {
-                /**
-                 *个人资料
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    ArouterUtil.greenChannel(RoutePath.PersonalInfoActivity, null)
-                }
-
-            }
-            "personal_invitation" -> {
-                /**
-                 *个人资料-邀请码
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
-                }
-
-            }
-            "collection_way" -> {
-                /**
-                 *收款方式
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    ArouterUtil.greenChannel(RoutePath.PaymentMethodActivity, null)
-                }
-            }
-            "real_name" -> {
-                /**
-                 *实名认证
-                 */
-                if (LoginManager.checkLogin(activity, true)) {
-                    when (UserDataService.getInstance().authLevel) {
-                        0 -> {
-                            NToastUtil.showTopToastNet(
-                                this.mActivity,
-                                false,
-                                LanguageUtil.getString(context, "noun_login_pending")
-                            )
-                        }
-                        1 -> {
-                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                        }
-                        /**
-                         * 审核未通过
-                         */
-                        2 -> {
-                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                        }
-
-                        3 -> {
-                            ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
-                        }
-                    }
-                }
-            }
-            "contract_transaction" -> {
-                /**
-                 * 去合约交易页面
-                 */
-                forwardContractTab()
-            }
-
-            "market_etf" -> {
-                /**
-                 * ETF列表
-                 */
-                forwardMarketTab("ETF")
-            }
-
-            /**
-             * 合约经纪人
-             * TODO 这里需要确定key
-             */
-            "config_contract_agent_key" -> {
-                if (!LoginManager.checkLogin(context, true)) {
-                    return
-                }
-                ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
-            }
-
-            "account_freeStaking" -> {
-                if (!LoginManager.checkLogin(context, true)) {
-                    return
-                }
-                /**
-                 * FreeStaking首页
-                 */
-                ArouterUtil.greenChannel(RoutePath.FreeStakingActivity, null)
-            }
-
-
-        }
-    }
-
-    private fun forwardContractTab() {
-        var messageEvent = MessageEvent(MessageEvent.contract_switch_type)
-        EventBusUtil.post(messageEvent)
-    }
-
-    private fun forwardMarketTab(coin: String) {
-        var messageEvent = MessageEvent(MessageEvent.market_switch_type)
-        messageEvent.msg_content = coin
-        EventBusUtil.post(messageEvent)
-    }
-
-    /**
-     * 获取账户信息
-     */
-    var accountBalance = ""
-
-
-    override fun onWsMessage(json: String) {
-        handleData(json)
-    }
-
-    fun handleData(data: String) {
-        try {
-            val json = JSONObject(data)
-            if (!json.isNull("tick")) {
-                doAsync {
-                    val channel = json.optString("channel")
-                    val temp = homeCoins.filter {
-                        channel.contains(it)
-                    }
-                    if (temp.isNotEmpty()) {
-                        val dataDiff = callDataDiff(json)
-                        if (dataDiff != null) {
-                            val items = dataDiff.second
-                            if (bottomCoins.size != homeCoins.size) {
-                                showWsData(items)
-                            }
-                            if (fragments.size == 0) {
-                                return@doAsync
-                            }
-                            val fragment = fragments[selectPostion]
-                            if (fragment is NewHomeDetailFragmentItem) {
-                                val tempMap = HashMap<String, JSONObject>()
-                                for (item in items) {
-                                    val channelNew = item.value.optString("channel").split("_")[1]
-                                    val tempBottom = bottomCoins.filter {
-                                        channelNew.contains(it)
-                                    }
-                                    if (tempBottom.isNotEmpty()) {
-                                        tempMap.put(item.key, item.value)
-                                    }
-                                }
-                                if (tempMap.isEmpty()) {
-                                    return@doAsync
-                                }
-                                fragment.dropListsAdapter(tempMap)
-                            }
-                            wsArrayTempList.clear()
-                            wsArrayMap.clear()
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun showWsData(items: HashMap<String, JSONObject>) {
-        if (0 == selectTopSymbol?.size)
-            return
-        val dates = selectTopSymbol
-        var isLoad = 0
-        for (item in items) {
-            val channel = item.value.optString("channel").split("_")[1]
-            val temp = dates?.filter {
-                channel.contains(it.optString("symbol"))
-            }
-            if (temp != null && temp.isNotEmpty()) {
-                val jsonObject = temp[0]
-                val data = item.value
-                val tick = data.optJSONObject("tick")
-                tick?.apply {
-                    jsonObject.put("rose", this.optString("rose"))
-                    jsonObject.put("close", this.optString("close"))
-                    jsonObject.put("vol", this.optString("vol"))
-                    val index = dates.indexOf(jsonObject)
-                    dates[index] = jsonObject
-                    isLoad++
-                }
-            }
-        }
-        if (isLoad != 0) {
-            activity?.runOnUiThread {
-                topSymbolAdapter?.setList(dates)
-            }
-        }
-
-    }
-
-    override fun onVisibleChanged(isVisible: Boolean) {
-        super.onVisibleChanged(isVisible)
-        if (isVisible) {
-            Handler().postDelayed({
-                isRoseHttp()
-                initSocket()
-                if (fragments.size == 0) {
-                    return@postDelayed
-                }
-                val fragment = fragments[selectPostion]
-                if (fragment is NewHomeDetailFragmentItem) {
-                    fragment.startInit()
-                }
-            }, 100)
-        } else {
-            if (selectTopSymbol != null) {
-                WsAgentManager.instance.unbind(this)
-            }
-            clearToolHttp()
-        }
-    }
-
-    private var bottomCoins = arrayListOf<String>()
-    private var homeCoins = arrayListOf<String>()
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    override fun onMessageEvent(event: MessageEvent) {
-        super.onMessageEvent(event)
-        if (MessageEvent.home_event_page_symbol_type == event.msg_type) {
-            val mainActivity = activity
-            if (mainActivity is NewMainActivity) {
-                if (mainActivity.curPosition != 0) {
-                    return
-                }
-            }
-            val map = event.msg_content as HashMap<String, Array<String>>
-            val curIndex = map.get("curIndex") as Int
-            if (selectPostion != curIndex) {
-                return
-            }
-            bottomCoins.clear()
-            val array = map.get("symbols") as Array<String>
-            for (item in array) {
-                bottomCoins.add(item)
-            }
-            initSocket()
-        }
-        /*
-         *检测网络状态
-         */
-        if (MessageEvent.net_status_change == event.msg_type) {
-            if (mActivity?.let { NetUtil.isNetConnected(it) } == true) {
-                net_wrong?.visibility = View.GONE
-            } else {
-                net_wrong?.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private var isRose = true
-    private fun loopData() {
-        LogUtil.e(TAG, "tradeList value loopData  ${mIsVisibleToUser} ")
-        if (!mIsVisibleToUser)
-            return
-        clearToolHttp()
-        if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
-            subscribeCoin = Observable.interval(10L, CommonConstant.homeLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                .subscribe {
-                    getVPTab()
-                }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        LogUtil.e(TAG, "onResume() ")
-    }
-
-    private fun isRoseHttp() {
-        if (!isRose) {
-            return
-        }
-        isRose = false
-        loopData()
-    }
-
-    /**
-     * 获取数据
-     */
-    private fun getVPTab() {
-        if (chooseType.size == 0) {
-            return
-        }
-        val type = chooseType[selectPostion]
-        var disposable = getMainModel().trade_list_v4(type, object : NDisposableObserver(null, false, type) {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                isRose = true
-                val fragment = fragments[selectPostion]
-                if (fragment is NewHomeDetailFragmentItem) {
-                    if (type == this.getHomeTabType()) {
-                        fragment.initV(jsonObject.optJSONArray("data"))
-                    }
-                }
-                this.mapParams
-            }
-
-            override fun onResponseFailure(code: Int, msg: String?) {
-                super.onResponseFailure(code, msg)
-                isRose = true
-            }
-        })
-        addDisposable(disposable)
-    }
-
-    private fun clearToolHttp() {
-        if (subscribeCoin != null) {
-            subscribeCoin?.dispose()
-        }
-    }
-
-    override fun appBackGroundChange(isVisible: Boolean) {
-        super.appBackGroundChange(isVisible)
-        mIsVisibleToUser = isVisible
-        if (isVisible) {
-            isRoseHttp()
-        } else {
-            clearToolHttp()
-        }
-    }
-
-    private fun initNoteBanner(cmsAppDataList: JSONArray?) {
-        if (cmsAppDataList != null && cmsAppDataList.length() != 0) {
-            rl_custom_config?.visibility = View.VISIBLE
-            val serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
-            val arrayBanner = arrayListOf<String>()
-            serviceDatas.forEach {
-                val imageUrl = it.optString("imageUrl")
-                if (StringUtil.isHttpUrl(imageUrl)) {
-                    arrayBanner.add(imageUrl)
-                }
-            }
-            bannerNoteUrls.clear()
-            bannerNoteUrls.addAll(arrayBanner)
-            banner_looper_custom?.let {
-
-                val mAdapter = ImageNetAdapter(bannerNoteUrls)
-                it.adapter = mAdapter
-            }
-            banner_looper_custom?.start()
-            banner_looper_custom?.setOnBannerListener { data, position ->
-                val obj = cmsAppDataList.optJSONObject(position)
-                routeApp(obj)
-            }
-        } else {
-            rl_custom_config?.visibility = View.GONE
-            bannerNoteUrls.clear()
-        }
-    }
-
-    private fun routeApp(obj: JSONObject?) {
-        val httpUrl = obj?.optString("httpUrl") ?: ""
-        val nativeUrl = obj?.optString("nativeUrl") ?: ""
-        if (TextUtils.isEmpty(httpUrl)) {
-            if (StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-                enter2Activity(nativeUrl.split("?"))
-            }
-        } else {
-            forwardWeb(obj)
-        }
-    }
-
-    /**
-     * 获取顶部symbol 24小时行情
-     */
-    fun getTopData() {
-            var disposable = getMainModel().header_symbol(MyNDisposableObserver(getTopDataReqType))
-            addDisposable(disposable)
-    }
-
-    var klineTime = 0L
-    private fun advertTime(isError: Boolean = false) {
-        klineTime = System.currentTimeMillis() - klineTime
-        val temp = if (isError) {
-            4
-        } else {
-            val market = PublicInfoDataService.getInstance().getMarket(null)
-            if (market == null) {
-                5
-            } else {
-                if (fragments.isNotEmpty()) {
-                    0
-                } else {
-                    3
-                }
-
-            }
-
-        }
-        sendWsHomepage(mIsVisibleToUser, temp, NetworkDataService.KEY_PAGE_HOME, NetworkDataService.KEY_HTTP_HOME, klineTime)
-    }
-
-
-    private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()
-    private val wsArrayMap = hashMapOf<String, JSONObject>()
-    private var wsTimeFirst: Long = 0L
-
-    @Synchronized
-    private fun callDataDiff(jsonObject: JSONObject): Pair<ArrayList<JSONObject>, HashMap<String, JSONObject>>? {
-        if (System.currentTimeMillis() - wsTimeFirst >= 1000L && wsTimeFirst != 0L) {
-            // 大于一秒
-            wsTimeFirst = 0L
-            if (wsArrayMap.size != 0) {
-                return Pair(wsArrayTempList, wsArrayMap)
-            }
-        } else {
-            if (wsTimeFirst == 0L) {
-                wsTimeFirst = System.currentTimeMillis()
-            }
-            wsArrayTempList.add(jsonObject)
-            wsArrayMap.put(jsonObject.optString("channel", ""), jsonObject)
-        }
-        return null
-    }
+    return null
+  }
 
 
 }

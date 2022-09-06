@@ -233,11 +233,6 @@
 
 
 
-                    <include
-                        android:id="@+id/no_network_bottom_vp"
-                        layout="@layout/no_network_remind"
-                        android:visibility="gone" />
-
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
