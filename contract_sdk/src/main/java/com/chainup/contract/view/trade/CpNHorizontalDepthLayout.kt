@@ -660,8 +660,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                                         positionValueBuff
                                 )
                     }
-                    LogUtils.e("canCloseVolumeBuy:" + canCloseVolumeBuy)
-                    LogUtils.e("canCloseVolumeSell:" + canCloseVolumeSell)
                 }
                 positionValue =
                         positionValueBuff.setScale(multiplierPrecision, BigDecimal.ROUND_HALF_DOWN)
