@@ -162,6 +162,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     private class MyJavascriptInterface1 {
@@ -201,7 +202,7 @@ public class ChatWebViewActivity extends AppCompatActivity {
         udeskWebChromeClient.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x1111) {
-                String res = data.getStringExtra(CaptureActivity.SCAN_RESULT);
+                String res =data.getStringExtra(CaptureActivity.SCAN_RESULT);
                 this.runOnUiThread(() -> mwebView.evaluateJavascript("javascript:getQRcodeValue('" + res + "')", s -> mwebView.reload()));
 //                if (res!=null&&!res.isEmpty()){
 //                    if (res.startsWith("M")) {
@@ -343,3 +344,4 @@ public class ChatWebViewActivity extends AppCompatActivity {
     }
 
 }
+

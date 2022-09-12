@@ -267,18 +267,19 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         var orderStatus = when(item.status) {
           "2" -> context.getString(R.string.cp_extra_text1)//完全成交
           "3" -> context.getString(R.string.cp_status_text5)//"部分成交"
-          "4" -> context.getString(R.string.cp_status_text2)//"已撤销"
+          "4" ->{
+            if(!item.dealVolume.isNullOrEmpty() && item.dealVolume.toDouble() > 0) {
+              context.getString(R.string.cp_status_text5)
+            } else {
+              context.getString(R.string.cp_status_text2)
+            }
+
+          }
           "5" -> context.getString(R.string.cp_status_text4)//"待撤销"
           "6" -> context.getString(R.string.cp_status_text3)//"异常订单"
           else -> "error"
         }
-        if(item.status == "4") {
-          if(!item.dealVolume.isNullOrEmpty() && item.dealVolume.toDouble() > 0) {
-            orderStatus = context.getString(R.string.cp_status_text5)
-          } else {
-            context.getString(R.string.cp_status_text2)
-          }
-        }
+
 
 
 
