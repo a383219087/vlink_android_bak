@@ -19,9 +19,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class MyTradersModel : BaseViewModel() {
 
-    //  1是我的交易员2是别人的交易员
-//  1是跟单2是带单
-    var type = MutableLiveData(1)
 
 
 
@@ -83,7 +80,6 @@ class MyTradersModel : BaseViewModel() {
                 for (i in it.data.indices) {
                     val item = Item()
                     item.bean1.value = it.data[i]
-                    item.type.value = type.value
                     item.isMe.value = isMe.value
                     items.add(item)
                 }
@@ -104,7 +100,6 @@ class MyTradersModel : BaseViewModel() {
                 for (i in it.data.indices) {
                     val item = Item()
                     item.bean.value = it.data[i]
-                    item.type.value = type.value
                     item.isMe.value = isMe.value
                     items.add(item)
                 }

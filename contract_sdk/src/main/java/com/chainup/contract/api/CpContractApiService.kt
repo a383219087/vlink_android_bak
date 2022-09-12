@@ -141,8 +141,6 @@ interface CpContractApiService {
     fun getPositionAssetsList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
 
-
-
     /**
      *  获取杠杆阶梯配置
      */

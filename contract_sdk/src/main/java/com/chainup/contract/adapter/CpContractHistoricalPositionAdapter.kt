@@ -38,23 +38,14 @@ class CpContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             setText(R.id.tv_coin_name, item.optString("symbol"))
             setText(R.id.tv_level_value, (if (item.optInt("positionType") == 1) context.getString(R.string.cp_contract_setting_text1) else  context.getString(R.string.cp_contract_setting_text2)) + item.optString("leverageLevel") + "X")
             setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.optString("mtime").toLong(), "yyyy-MM-dd  HH:mm:ss"))
-
-            val profitLossColor = if (CpBigDecimalUtils.compareTo(CpBigDecimalUtils.showSNormal(item.optString("historyRealizedAmount"), mMarginCoinPrecision), "0") == 1) {
-                R.color.main_green
-            } else {
-                R.color.main_red
-            }
-
             val positionVolume = if (CpClLogicContractSetting.getContractUint(context) == 0) CpBigDecimalUtils.showSNormal(item.optString("positionVolume"),0) else CpBigDecimalUtils.mulStr(item.optString("positionVolume"), mMultiplier, mMultiplierPrecision)
-      //            setTextColor(R.id.tv_pl_price, context.resources.getColor(profitLossColor))
             setText(R.id.tv_pl_price, CpBigDecimalUtils.showSNormal(item.optString("profitRealizedAmount"), mMarginCoinPrecision)) //已实现盈亏
             setText(R.id.tv_open_average_price, CpBigDecimalUtils.showSNormal(item.optString("openPrice"), mSymbolPricePrecision))//开仓均价
             setText(R.id.tv_position_amount, positionVolume)//仓位数量
             setText(R.id.tv_position_amount_key, if (CpClLogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cp_calculator_text38) + "("+context.getString(R.string.cp_overview_text9)+")" else context.getString(R.string.cp_calculator_text38) + "(" + mMultiplierCoin + ")" )//仓位数量
-      //            setText(R.id.tv_key1, context.getString(R.string.cl_realized_profit_and_loss_str) + "(" + mMarginCoin + ")")
-      //            setText(R.id.tv_key2, context.getString(R.string.cl_open_price_str) + "(" + mMarginCoin + ")")
-      //            setText(R.id.tv_key3, context.getString(R.string.sl_str_avg_close_px)+ "(" + mMarginCoin + ")")
-      //            setText(R.id.tv_key4, if (CpClLogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cp_calculator_text38) + "("+context.getString(R.string.cp_overview_text9)+")" else context.getString(R.string.cp_calculator_text38) + "(" + mMultiplierCoin + ")"+"）")
+            setText(R.id.tv_key3, context.getString(R.string.cp_content_text25) + "(" + mMarginCoin + ")")//sl_str_avg_close_px
+            setText(R.id.tv_value3, CpBigDecimalUtils.showSNormal(item.optString("closePrice"), mMarginCoinPrecision))//平仓均价
+
         }
     }
 }

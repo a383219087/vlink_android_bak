@@ -189,24 +189,6 @@ interface ContractApiService {
     fun createContract(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
-     *  修改保证金模式
-     */
-    @POST("user/margin_model_edit")
-    fun modifyMarginModel(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     *  修改交易喜好设置
-     */
-    @POST("user/edit_user_page_config")
-    fun modifyTransactionLike(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
-     *  修改杠杆
-     */
-    @POST("user/level_edit")
-    fun modifyLevel(@Body requestBody: RequestBody): Observable<ResponseBody>
-
-    /**
      *  获取合约公共信息
      */
     @POST("common/public_info")

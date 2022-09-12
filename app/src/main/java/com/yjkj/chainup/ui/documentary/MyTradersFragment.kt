@@ -15,10 +15,9 @@ class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBindi
 
     companion object {
         @JvmStatic
-        fun newInstance(status: Int,uid:String,isMe:Boolean): MyTradersFragment {
+        fun newInstance(uid:String,isMe:Boolean): MyTradersFragment {
             val fg = MyTradersFragment()
             val bundle = Bundle()
-            bundle.putInt(ParamConstant.CUR_INDEX, status)
             bundle.putString(ParamConstant.MARKET_NAME, uid)
             bundle.putBoolean(ParamConstant.AREA_CODE, isMe)
             fg.arguments = bundle
@@ -31,7 +30,6 @@ class MyTradersFragment : BaseMVFragment<MyTradersModel?, FragmentMyTradersBindi
     override fun setContentView(): Int = R.layout.fragment_my_traders
     override fun initView() {
         mViewModel?.activity?.value=mActivity
-        mViewModel?.type?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
         mViewModel?.isMe?.value=arguments?.getBoolean(ParamConstant.AREA_CODE)
 

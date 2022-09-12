@@ -249,6 +249,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         addDisposable(
                 getContractModel().getPositionAssetsList(
                         consumer = object : CpNDisposableObserver(true) {
+                            @SuppressLint("SetTextI18n")
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data")?.run {
                                     tab_order.getTitleView(0).text = getString(R.string.cp_order_text1) + " " + this.optJSONArray("positionList").length()
