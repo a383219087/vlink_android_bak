@@ -134,23 +134,6 @@ class NewVersionForgetPwdActivity : NBaseActivity() {
                         closeLoadingDialog()
                         var json = jsonObject.optJSONObject("data")
                         token = json?.optString("token") ?: ""
-//                if (StringUtils.checkEmail(registerCode)) {
-//                    var bundle = Bundle()
-//                    bundle.putString("send_account", accountText)
-//                    bundle.putString("send_token", token)
-//                    bundle.putString("send_countryCode", "")
-//                    bundle.putInt("send_position", 2)
-//                    bundle.putInt("send_islogin", 2)
-//                    ArouterUtil.navigation("/login/newphoneverificationactivity", bundle)
-//                } else if (StringUtils.isNumeric(registerCode)) {
-//                    var bundle = Bundle()
-//                    bundle.putString("send_account", accountText)
-//                    bundle.putString("send_token", token)
-//                    bundle.putString("send_countryCode", "")
-//                    bundle.putInt("send_position", 1)
-//                    bundle.putInt("send_islogin", 2)
-//                    ArouterUtil.navigation("/login/newphoneverificationactivity", bundle)
-//                }
 //                finish() // 否则出现Token过期就尴尬....
 
                         var isCertificateNumber = json?.optString("isCertificateNumber").equals("1") //下一步是否身份证验证，0表示不需要

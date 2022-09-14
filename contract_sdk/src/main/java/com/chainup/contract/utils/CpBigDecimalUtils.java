@@ -584,13 +584,16 @@ public class CpBigDecimalUtils {
         BigDecimal priceBig = new BigDecimal(price);
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
-        BigDecimal rateBig = new BigDecimal(rate);
 
+        BigDecimal rateBig = new BigDecimal(rate);
+         if (rateBig.doubleValue()==0){
+             rateBig=new BigDecimal("1");
+         }
 
         if (isForward) {
-            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
+            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
         } else {
-            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
+            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             scale = 0;
@@ -682,54 +685,6 @@ public class CpBigDecimalUtils {
     }
 
 
-    /**
-     * 计算持仓价值
-     * 正向：持仓价值 = 持仓均价*持仓数量*合约面值*汇率
-     * 反向：持仓价值 =持仓数量*合约面值/持仓均价
-     *
-     * @return
-     */
-    public static String calcPositionValue(boolean isForward, String positionNum, String positionAveragePrice, String parValue, String rate, int scale) {
-        if (TextUtils.isEmpty(positionNum)) positionNum = "0";
-        if (TextUtils.isEmpty(positionAveragePrice)) positionAveragePrice = "0";
-        if (TextUtils.isEmpty(parValue)) parValue = "0";
-        BigDecimal positionNumBig = new BigDecimal(positionNum);
-        BigDecimal parValueBig = new BigDecimal(parValue);
-        BigDecimal positionAveragePriceBig = new BigDecimal(positionAveragePrice);
-        BigDecimal rateBig = new BigDecimal(rate);
-
-        if (isForward) {
-            //持仓价值 = 持仓均价*持仓数量*合约面值*汇率
-            return positionAveragePriceBig.multiply(positionNumBig).multiply(parValueBig).multiply(rateBig).setScale(scale, BigDecimal.ROUND_HALF_DOWN).toPlainString();
-        } else {
-            //反向：持仓价值 =持仓数量*合约面值/持仓均价
-            return positionNumBig.multiply(parValueBig).divide(positionAveragePriceBig, scale, BigDecimal.ROUND_HALF_DOWN).toPlainString();
-        }
-    }
-
-    /**
-     * 计算委托价值
-     * 正向：委托价值 = 委托价格 *开仓委托数量*合约面值*汇率
-     * 反向：委托价值 = 开仓委托数量*合约面值/委托价格
-     *
-     * @return
-     */
-    public static String calcEntrustedValue(boolean isForward, String entrustedPrice, String openEntrustedNum, String parValue, String rate, int scale) {
-        if (TextUtils.isEmpty(entrustedPrice)) entrustedPrice = "0";
-        if (TextUtils.isEmpty(parValue)) parValue = "0";
-        if (TextUtils.isEmpty(openEntrustedNum)) openEntrustedNum = "0";
-        BigDecimal entrustedPriceBig = new BigDecimal(entrustedPrice);
-        BigDecimal parValueBig = new BigDecimal(parValue);
-        BigDecimal openEntrustedNumBig = new BigDecimal(openEntrustedNum);
-        BigDecimal rateBig = new BigDecimal(rate);
-        if (isForward) {
-            //委托价值 = 委托价格 *开仓委托数量*合约面值*汇率
-            return entrustedPriceBig.multiply(openEntrustedNumBig).multiply(parValueBig).multiply(rateBig).setScale(scale, BigDecimal.ROUND_HALF_DOWN).toPlainString();
-        } else {
-            //委托价值 = 开仓委托数量*合约面值/委托价格
-            return openEntrustedNumBig.multiply(parValueBig).divide(entrustedPriceBig, scale, BigDecimal.ROUND_HALF_DOWN).toPlainString();
-        }
-    }
 
 
     /**

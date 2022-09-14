@@ -65,14 +65,7 @@ public class LogicContractSetting {
     private static int s_pnl_calculate = 0;
     private static boolean s_pnl_calculate_first = true;
 
-    //0 合理价格 1 最新   成交价
-    public static int getPnlCalculate(Context context) {
-        if (s_pnl_calculate_first) {
-            s_pnl_calculate = PreferenceManager.getInstance(context).getSharedInt(PreferenceManager.PREF_CONTRACT_PNL_CALCULATE, 1);
-            s_pnl_calculate_first = false;
-        }
-        return s_pnl_calculate;
-    }
+
 
 
     private static int s_execution = 0;

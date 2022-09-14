@@ -193,7 +193,13 @@ var cp_overview_text9 = ""
             var orderStatus = when (item.status) {
                 "2" -> context.getString(R.string.cp_status_text1)//完全成交
                 "3" -> context.getString(R.string.cp_order_text55)//"部分成交"
-                "4" -> context.getString(R.string.cp_status_text2)//"已撤销"
+                "4" -> {
+                    if (!item.dealVolume.isNullOrEmpty() && item.dealVolume.toDouble() > 0) {
+                        context.getString(R.string.cp_status_text5)
+                    } else {
+                        context.getString(R.string.cp_status_text2)
+                    }
+                }
                 "5" -> context.getString(R.string.cp_status_text4)//"待撤销"
                 "6" -> context.getString(R.string.cp_status_text3)//"异常订单"
                 else -> "error"
@@ -201,7 +207,7 @@ var cp_overview_text9 = ""
             helper.setText(R.id.tv_type_common, typeStr)
             helper.setText(R.id.tv_contract_name_common, symbolName)
             helper.setText(R.id.tv_time_common, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
-            if (item.type.equals("6")) {
+            if (item.type == "6") {
                 //如果 强制减仓 则显示"--"
                 helper.getView<CpContractUpDownItemLayout>(R.id.item_entrust_price_common).content = "--"
             } else {
@@ -289,7 +295,7 @@ var cp_overview_text9 = ""
                 else -> "error"
             }
 
-            helper?.run {
+            helper.run {
                 setText(R.id.tv_order_type_plan, orderTypeStr)
                 setText(R.id.tv_type_plan, typeStr)
                 setText(R.id.tv_contract_name_plan, symbolName)

@@ -41,11 +41,15 @@ class FirstFragment : BaseMVFragment<FirstViewModel?, FragmentFirstBinding>() {
         })
 
 
-
-
-
     }
 
+    override fun fragmentVisibile(isVisibleToUser: Boolean) {
+        super.fragmentVisibile(isVisibleToUser)
+        if (isVisibleToUser) {
+            mViewModel?.getList(1)
+            mViewModel?.getData()
+        }
+    }
 
 }
 

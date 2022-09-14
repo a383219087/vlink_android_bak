@@ -46,17 +46,14 @@ class PositionRecordActivity : NewBaseActivity() {
         setContentView(R.layout.activity_positionpos_record)
         projectType = intent.getIntExtra(PROJECT_TYPE, 0)
         setSupportActionBar(anim_toolbar)
-        ly_appbar.addOnOffsetChangedListener(object :AppBarLayout.OnOffsetChangedListener{
-            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                if (Math.abs(verticalOffset) >= 140) {
-                    tv_title?.visibility = View.VISIBLE
-                    tv_sub_title?.visibility = View.GONE
-                } else {
-                    tv_title?.visibility = View.GONE
-                    tv_sub_title?.visibility = View.VISIBLE
-                }
+        ly_appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (Math.abs(verticalOffset) >= 140) {
+                tv_title?.visibility = View.VISIBLE
+                tv_sub_title?.visibility = View.GONE
+            } else {
+                tv_title?.visibility = View.GONE
+                tv_sub_title?.visibility = View.VISIBLE
             }
-
         })
 
         initRefresh()

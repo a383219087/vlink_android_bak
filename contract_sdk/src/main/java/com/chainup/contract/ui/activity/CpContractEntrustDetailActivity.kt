@@ -168,7 +168,13 @@ class CpContractEntrustDetailActivity : CpNBaseActivity() {
             tv_status.text = when (it.status) {
                 "2" -> getString(R.string.cp_extra_text1)//完全成交
                 "3" -> getString(R.string.cp_order_text55)//"部分成交"
-                "4" -> getString(R.string.cp_status_text2)//"已撤销"
+                "4" -> {
+                    if (!it.dealVolume.isNullOrEmpty() && it.dealVolume.toDouble() > 0) {
+                        getString(R.string.cp_status_text5)
+                    } else {
+                        getString(R.string.cp_status_text2)
+                    }
+                }
                 "5" -> getString(R.string.cp_status_text4)//"待撤销"
                 "6" -> getString(R.string.cp_status_text3)//"异常订单"
                 else -> "error"
