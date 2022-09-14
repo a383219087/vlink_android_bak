@@ -132,7 +132,6 @@ class CpContractEntrustActivity : CpNBaseActivity() {
         mClContractPriceEntrustNewAdapter?.setEmptyView(
             CpEmptyForAdapterView(
                 this@CpContractEntrustActivity
-                    ?: return
             )
         )
         mClContractPriceEntrustNewAdapter?.setOnItemChildClickListener { adapter, view, position ->

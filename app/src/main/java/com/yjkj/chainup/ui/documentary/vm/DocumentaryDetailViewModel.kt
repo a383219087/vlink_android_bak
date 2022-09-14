@@ -71,6 +71,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
             for (i in 0 until it.data.size) {
                 val item = Item()
                 item.bean.value = it.data[i]
+                item.type.value=1
                 item.tradeTime.value = it.data[i].tradeTime.replace("T", " ")
                 if (it.data[i].transaction != null) {
                     it.data[i].transaction?.let { it1 ->
@@ -90,6 +91,7 @@ class DocumentaryDetailViewModel : BaseViewModel() {
                             context?.getString(R.string.journalAccount_text_amount)
                     }
                 } else {
+                    item.type.value=2
                     it.data[i].coOrder?.let { it1 ->
                         item.title.value = when (it1.status) {
                             "2" -> context?.getString(com.chainup.contract.R.string.cp_extra_text1)//完全成交
