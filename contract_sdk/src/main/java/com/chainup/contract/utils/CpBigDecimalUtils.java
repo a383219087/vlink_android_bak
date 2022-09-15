@@ -876,6 +876,7 @@ public class CpBigDecimalUtils {
          * 反向合约
          * ≈ 开仓价值 * 本交易所最新价格 / 面值 {张}
          */
+        //openValueBig=0.001(输入的)
         BigDecimal openValueBig = new BigDecimal(openValue);
         BigDecimal priceBig = new BigDecimal(price);
         BigDecimal parValueBig = new BigDecimal(parValue);
@@ -892,7 +893,7 @@ public class CpBigDecimalUtils {
             return a.intValue()>=1;
 
         } else {
-            //a/buff a=输入的币币，buff等于1张的币币
+            //a=0.0001(单张合约面值)
             BigDecimal a= buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN);
 
             return  openValueBig.doubleValue()>=a.doubleValue();
