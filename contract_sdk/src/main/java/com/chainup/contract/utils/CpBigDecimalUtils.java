@@ -886,15 +886,16 @@ public class CpBigDecimalUtils {
             buff = openValueBig.multiply(priceBig);
         }
 
+
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             BigDecimal a=buff.setScale(scale, RoundingMode.HALF_DOWN);
             return a.intValue()>=1;
 
         } else {
-            BigDecimal a= buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN);
             //a/buff a=输入的币币，buff等于1张的币币
-            BigDecimal b= a.divide(buff, 0, RoundingMode.HALF_DOWN);
-            return  b.intValue()>=1;
+            BigDecimal a= buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN);
+
+            return  openValueBig.doubleValue()>=a.doubleValue();
         }
     }
 
