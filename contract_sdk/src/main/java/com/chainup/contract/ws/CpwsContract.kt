@@ -72,11 +72,7 @@ class CpWsContractAgentManager private constructor() {
             initWS()
         }
     }
-    fun connectionSocket(){
-        if (!isConnection()) {
-            initWS()
-        }
-    }
+
 
     fun sendMessage(message: HashMap<String, Any>, callback: WsResultCallback?) {
         if (!isConnection()) {
@@ -84,7 +80,6 @@ class CpWsContractAgentManager private constructor() {
         }
         if (callback != null) {
             val key = callback.javaClass.simpleName
-//            Log.e(TAG, "sendMessage ${key} 是否存在数据 ${mapSubCallbacks.containsKey(key)}")
             if (mapSubCallbacks.containsKey(key)) {
                 lastNew = key
                 when (key) {
@@ -125,7 +120,7 @@ class CpWsContractAgentManager private constructor() {
                             }
                         }
                     }
-                    "CpContractCoinSearchDialog" -> {
+                    "CpContractCoinSearchDialog","MarketContractFragment" -> {
                         val symbol = message.get("symbols") as String
                         val bind = message.get("bind") as Boolean
                         val type = JsonWSUtils.gson.fromJson<Array<String>>(symbol, object : TypeToken<Array<String>>() {}.type)
@@ -447,7 +442,7 @@ class CpWsContractAgentManager private constructor() {
                                     }
                                 }
                             }
-                            if (key.equals("CpContractStopRateLossActivity")){
+                            if (key == "CpContractStopRateLossActivity"){
                                 callValue.onWsMessage(data)
                             }
                         }
@@ -456,9 +451,9 @@ class CpWsContractAgentManager private constructor() {
                             val channel = jsonObj.optString("channel")
                             val key = channel.contains("kline") || channel.contains("trade")
                             if (key) {
-                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks.get(keyLine)!!, data)
+                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks[keyLine]!!, data)
                             } else {
-                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks.get("SlContractFragment")!!, data)
+                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks["SlContractFragment"]!!, data)
                             }
 
                         }

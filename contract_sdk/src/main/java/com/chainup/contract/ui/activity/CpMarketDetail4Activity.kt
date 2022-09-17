@@ -509,28 +509,13 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     *  币对参数数据初始化
     * */
     private var jsonObject: JSONObject? = null
-    private var showName: String? = null
-    private var coinName: String? = null
-    private var marketName: String? = null
-    private var realMarketName = ""
-    private var multiple = ""
-    private var isSymbolProfile = false
-    private var isCoinIntroduce = false
+
 
     /**
      * 初始化币对数据
      */
     private fun initCoinData() {
-//        jsonObject = NCoinManager.getSymbolObj(symbol)
-//        /* 杠杆倍数 */
-//        multiple = jsonObject?.optString("multiple", "") ?: ""
-//        showName = NCoinManager.showAnoterName(jsonObject)
-//        realMarketName = NCoinManager.getMarketName(jsonObject?.optString("name", "") ?: "")
-//        if (StringUtil.checkStr(showName) && showName!!.contains("/")) {
-//            var split = showName!!.split("/")
-//            coinName = split[0]
-//            marketName = split[1]
-//        }
+
 
         symbol = intent.getStringExtra(CpParamConstant.symbol).toString()
         contractId = intent.getIntExtra("contractId", 0)
@@ -653,6 +638,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onMessageEvent(event: CpMessageEvent) {
         super.onMessageEvent(event)
         if (event.msg_type == CpMessageEvent.market_switch_curTime) {
@@ -668,13 +654,13 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 LogUtils.e("position-----" + position)
                 if (position != -1) {
                     val childView: View = rv_kline_ctrl.getChildAt(position)
-                    childView?.apply {
+                    childView.apply {
                         val tvSale = this.findViewById<TextView>(R.id.tv_time)
                         tvSale?.let { textClickTab(it, null) }
                     }
                 } else {
                     val childView: View = rv_kline_ctrl.getChildAt(4)
-                    childView?.apply {
+                    childView.apply {
                         val tvSale = this.findViewById<TextView>(R.id.tv_scale)
                         tvSale?.let { textClickTab(it, null) }
                     }
@@ -711,12 +697,12 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
         if (event.msg_type == CpMessageEvent.sl_contract_change_tagPrice_event) {
             val obj = event.msg_content as JSONObject
-            tv_mark_price.setText(obj.optString("tagPrice"))
-            tv_index_price.setText(obj.optString("indexPrice"))
+            tv_mark_price.text = obj.optString("tagPrice")
+            tv_index_price.text = obj.optString("indexPrice")
         }
         if (event.msg_type == CpMessageEvent.sl_contract_rate_countdown_event) {
             val obj = event.msg_content as String
-            tv_time.setText(obj)
+            tv_time.text = obj
         }
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
             val ticker = event.msg_content as JSONObject
@@ -748,12 +734,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             getSymbol(symbol)
             showCoinName()
 
-//            symbol = event.msg_content as String
-//            setTagView(NCoinManager.getNameForSymbol(symbol))
-//            isFrist = true
-//            klineData.clear()
-//            getSymbol(symbol)
-//            showCoinName()
         }
 
     }
@@ -798,28 +778,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
      * 更新深度数据。liveData方式，是否更新修改为其他方式
      */
     private fun setDepthSymbol() {
-//        if (jsonObject?.optInt("etfOpen", 0) == 1) {
-//            ll_clean_tag?.visibility = View.VISIBLE
-//            loopETFData()
-//            tv_fund_rate?.visibility = View.VISIBLE
-//            if (!TextUtils.isEmpty(PublicInfoDataService.getInstance().getfundRate(null))) {
-//                tv_fund_rate?.text = LanguageUtil.getString(this, "sl_str_funds_rate") + "${PublicInfoDataService.getInstance().getfundRate(null)}%"
-//            } else {
-//                tv_fund_rate?.text = "${LanguageUtil.getString(this, "sl_str_funds_rate")} --"
-//            }
-//
-//        } else {
-//            ll_clean_tag?.visibility = View.GONE
-//            tv_fund_rate?.visibility = View.GONE
-//            disposable?.clear()
-//        }
-
-//        var symbol = jsonObject?.optString("symbol")
-        var price = jsonObject?.optInt("price")
-        var volume = jsonObject?.optInt("volume")
-
-//        if (null == symbol || null == price || null == volume || null == coinName || null == marketName)
-//            return
 
         CpDepthFragment.liveData.value = CpFlagBean(
                 isContract = true,
@@ -1785,19 +1743,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 buyList.get(buyList.size - 1).sum.toFloat(),
                 sellList.get(sellList.size - 1).sum.toFloat()
         )
-//        maxVolume = if (flagBean?.isContract == true) {
-//            if (!flagBean?.mMultiplier.equals("0")) {
-//                if (flagBean?.coUnit == 0) maxVolume else CpBigDecimalUtils.mulStr(
-//                        maxVolume.toString(),
-//                        flagBean?.mMultiplier,
-//                        flagBean?.volumePrecision!!
-//                ).toFloat()
-//            } else {
-//                maxVolume
-//            }
-//        } else {
-//            maxVolume
-//        }
+
 
         depth_chart ?: return
         var xAxis = depth_chart.xAxis
@@ -1815,9 +1761,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         depth_chart.data = lineData
         depth_chart.invalidate()
 
-//        tv_buy_price?.text = DecimalUtil.cutValueByPrecision(boundaryValue4Buy, pricePrecision)
-//        tv_close_price?.text = DecimalUtil.cutValueByPrecision(closePrice, pricePrecision)
-//        tv_sell_price?.text = DecimalUtil.cutValueByPrecision(boundaryValue4Sell, pricePrecision)
     }
 
     /**

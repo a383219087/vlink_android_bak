@@ -75,10 +75,7 @@ public class CpMessageEvent {
     public static final int market_switch_type = 38;   //合约tab切换事件
     public static final int login_bind_type = 40;   //登录操作事件
     public static final int market_switch_curTime = 399;   //合约tab切换事件
-    public static final int webview_refresh_type = 41;   //从h5页面跳转登录 刷新
-    public static final int market_event_page_symbol_type = 42;   // 币对tab 切换
-    public static final int home_event_page_symbol_type = 43;   //
-    public static final int home_event_page_market_type = 44;   //
+
     public static final int sl_contract_select_leverage_event = 400;   //合约切换杠杆
     public static final int sl_contract_left_coin_type = 401;//切换合约币种
     public static final int sl_contract_switch_time_type = 402;//切换K线区间

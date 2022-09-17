@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/bg_card_color">
+
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tl_market_aa"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:clickable="true"
+            app:tl_indicator_color="@color/main_blue"
+            app:tl_indicator_corner_radius="@dimen/dp_2"
+            app:tl_indicator_height="@dimen/dp_2"
+            app:tl_indicator_width="@dimen/dp_16"
+            app:tl_indicator_width_equal_title="false"
+            app:tl_textBold="SELECT"
+            app:tl_textSelectColor="@color/main_blue"
+            app:tl_textUnSelectColor="@color/text_color"
+            app:tl_textSize="@dimen/sp_14" />
+
+        <View
+            style="@style/common_horizon_line_style" />
+
+        <View
+            style="@style/common_horizon_line_style" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_market_contract"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+    </LinearLayout>
+</LinearLayout>

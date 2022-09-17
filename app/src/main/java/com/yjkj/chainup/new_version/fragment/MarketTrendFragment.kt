@@ -125,10 +125,7 @@ class MarketTrendFragment : NBaseFragment() {
 
     private var marketName = ""
     private var curIndex = 1
-    var selectIndex = 1
-        set(value) {
-            field = value
-        }
+
     private var symbols = arrayListOf<JSONObject>()
 
 

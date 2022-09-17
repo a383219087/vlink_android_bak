@@ -99,7 +99,7 @@ class MarketDetailAdapter : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layou
                 setGoneV3(R.id.ctv_content, true)
             }
         } else {
-            helper?.apply {
+            helper.apply {
                 setGoneV3(R.id.ctv_content, false)
             }
         }

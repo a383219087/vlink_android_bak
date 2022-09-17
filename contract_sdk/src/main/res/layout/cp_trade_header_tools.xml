@@ -15,10 +15,10 @@
         android:gravity="center"
         android:maxLines="1"
         android:singleLine="true"
+        android:text="BTC-USDT"
         android:textColor="@color/text_color"
         android:textSize="@dimen/sp_18"
         android:textStyle="bold"
-        android:text="BTC-USDT"
         tools:text="BTCUSDT永续合约" />
 
     <ImageView

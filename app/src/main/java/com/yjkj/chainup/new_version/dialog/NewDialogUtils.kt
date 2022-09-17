@@ -34,6 +34,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.common.sdk.LibCore
 import com.coorchice.library.SuperTextView
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
@@ -412,6 +413,7 @@ class NewDialogUtils {
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText("simple text", imageUrl)
                         clipboard.setPrimaryClip(clip)
+                        ToastUtils.showToast(context.getString(R.string.copy_success))
                     }
                     viewHolder?.getView<TextView>(R.id.tvShare)?.setOnClickListener {
                             when (item) {

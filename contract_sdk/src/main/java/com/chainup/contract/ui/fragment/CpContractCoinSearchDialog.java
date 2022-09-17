@@ -156,7 +156,6 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
         showTitles.clear();
         fragments.clear();
         boolean isHasU = false; //正向合约
-        boolean isHasB = false;//币本位
         boolean isHasH = false;//混合合约
         boolean isHasM = false;//模拟合约
         String[] arrays = new String[mContractList.length()];
@@ -168,7 +167,6 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             String contractType="E";
             try {
                 // (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
-                int contractSide = mContractList.getJSONObject(i).getInt("contractSide");
                  contractType = mContractList.getJSONObject(i).getString("contractType");
                 //E,USDT合约 2,币本位合约 H,混合合约 S,模拟合约
                 switch (contractType) {
@@ -202,11 +200,7 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text13"));
             fragments.add(CpCoinSearchItemFragment.newInstance(1, contractListJson));
         }
-//        //币本位
-//        if (isHasB) {
-//            showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text10"));
-//            fragments.add(CpCoinSearchItemFragment.newInstance(0, contractListJson));
-//        }
+//
         //混合
         if (isHasH) {
             showTitles.add(CpLanguageUtil.getString(getContext(), "cp_contract_data_text12"));
@@ -248,7 +242,6 @@ public class CpContractCoinSearchDialog extends CpNBaseDialogFragment implements
             }
         });
     }
-    final Handler handler = new Handler();
 
     @Override
     protected void dismissDialog() {

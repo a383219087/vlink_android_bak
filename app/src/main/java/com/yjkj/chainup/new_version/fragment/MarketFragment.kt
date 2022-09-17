@@ -106,7 +106,12 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             if (bind) {
                 initReq()
                 wsNetworkChange(viewpagePosotion)
-                WsAgentManager.instance.sendMessage(hashMapOf("bind" to bind, "symbols" to JsonUtils.gson.toJson(map.get("symbols"))), this)
+                WsAgentManager.instance.sendMessage(
+                    hashMapOf(
+                        "bind" to bind,
+                        "symbols" to JsonUtils.gson.toJson(map.get("symbols"))
+                    ), this
+                )
             }
         }
     }
@@ -120,18 +125,15 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         titles.add(LanguageUtil.getString(context, "market_text_customZone"))
         titles.add(LanguageUtil.getString(context, "trade_bb_titile"))
         val like = LikesFragment()
-        var bundle = Bundle()
+        val bundle = Bundle()
         bundle.putInt("cur_index", 0)
         like.arguments = bundle
         fragments.add(like)
         fragments.add(NewVersionMarketFragment())
 
         if (isContract) {
-            val isNewContract = PublicInfoDataService.getInstance().isNewOldContract
-            if (!isNewContract) {
-                titles.add(LanguageUtil.getString(context, "trade_contract_title"))
-                fragments.add(MarketContractFragment())
-            }
+            titles.add(LanguageUtil.getString(context, "trade_contract_title"))
+            fragments.add(MarketContractFragment())
         }
 
         var collecData = LikeDataService.getInstance().getCollecData(false)
@@ -242,21 +244,25 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         iv_edit?.visibility = (viewpagePosotion == 0).getVisibleIN()
         iv_search?.visibility = (viewpagePosotion <= 1).getVisibleIN()
         var fragment = fragments[viewpagePosotion]
-        if (fragment is NewVersionMarketFragment) {
-            fragment.clickTabItem()
-        } else if (fragment is LikesFragment) {
-            fragment.startInit()
-            homeMarketEdit(mActivity, iv_edit)
-        } else if (fragment is MarketContractFragment) {
-            WsAgentManager.instance.unbind(this, true)
+        when (fragment) {
+            is NewVersionMarketFragment -> {
+                fragment.clickTabItem()
+            }
+            is LikesFragment -> {
+                fragment.startInit()
+                homeMarketEdit(mActivity, iv_edit)
+            }
+            is MarketContractFragment -> {
+                WsAgentManager.instance.unbind(this, true)
+            }
         }
     }
 
     var isSending = false
 
     private fun wsNetworkChange(currentItem: Int = 0) {
-        if(isSending){
-           return
+        if (isSending) {
+            return
         }
         GlobalScope.launch {
             isSending = true
@@ -266,7 +272,13 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             val isCurrent = currentItem == viewpagePosotion && mIsVisibleToUser
             val time = WsAgentManager.instance.pageSubWsTime(this@MarketFragment)
             val statusType = marketCoins.getKlineByType(WsAgentManager.instance.pageSubWs(this@MarketFragment))
-            sendWsHomepage(isCurrent, statusType, NetworkDataService.KEY_PAGE_MARKET, NetworkDataService.KEY_SUB_MARKET_BATCH, time)
+            sendWsHomepage(
+                isCurrent,
+                statusType,
+                NetworkDataService.KEY_PAGE_MARKET,
+                NetworkDataService.KEY_SUB_MARKET_BATCH,
+                time
+            )
             isSending = false
         }
     }

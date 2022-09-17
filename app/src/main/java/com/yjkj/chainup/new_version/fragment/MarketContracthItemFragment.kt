@@ -1,9 +1,8 @@
-package com.yjkj.chainup.new_contract.fragment
+package com.yjkj.chainup.new_version.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chainup.contract.R
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -12,39 +11,36 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpStringUtil
 import com.chainup.contract.utils.CpSymbolWsData
 import com.chainup.contract.view.CpSearchCoinEmptyForAdapterView
-import com.chainup.contract.ws.CpWsContractAgentManager
-import com.yjkj.chainup.new_contract.adapter.CpContractDropAdapter
-import kotlinx.android.synthetic.main.cp_fragment_sl_search_coin.*
+import com.yjkj.chainup.R
+import com.yjkj.chainup.new_version.adapter.MarketContractDropAdapter
+import kotlinx.android.synthetic.main.fragment_sl_contra_child.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.doAsync
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsResultCallback {
+class MarketContracthItemFragment : CpNBaseFragment(){
     ///  (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
     private var index = 0
-    private var contractDropAdapter: CpContractDropAdapter? = null
+    private var contractDropAdapter: MarketContractDropAdapter? = null
     private var tickers: ArrayList<JSONObject> = ArrayList()
     private val localTickers: ArrayList<JSONObject> = ArrayList()
 
     private lateinit var mContractList: JSONArray
     private var contractListJson: String? = null
     override fun setContentView(): Int {
-        return R.layout.cp_fragment_sl_search_coin
+        return R.layout.fragment_sl_contra_child
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
-
-
-        contractDropAdapter = CpContractDropAdapter(tickers)
+        contractDropAdapter = MarketContractDropAdapter(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
         rv_search_coin.adapter = contractDropAdapter
         contractDropAdapter?.setEmptyView(CpSearchCoinEmptyForAdapterView(context ?: return))
         rv_search_coin.adapter = contractDropAdapter
-        CpNLiveDataUtil.observeData(this, androidx.lifecycle.Observer {
+        CpNLiveDataUtil.observeData(this) {
             val content = it?.msg_content
             if (content is String) {
                 if (CpStringUtil.checkStr(content)) {
@@ -61,7 +57,7 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
                     contractDropAdapter?.notifyDataSetChanged()
                 }
             }
-        })
+        }
     }
 
     override fun loadData() {
@@ -111,8 +107,8 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
 
     companion object {
         @JvmStatic
-        fun newInstance(index: Int, contractListJson: String): CpCoinSearchItemFragment {
-            val fg = CpCoinSearchItemFragment()
+        fun newInstance(index: Int, contractListJson: String): MarketContracthItemFragment {
+            val fg = MarketContracthItemFragment()
             val bundle = Bundle()
             bundle.putInt(CpParamConstant.CUR_INDEX, index)
             bundle.putString("contractList", contractListJson)
@@ -121,23 +117,6 @@ class CpCoinSearchItemFragment : CpNBaseFragment(), CpWsContractAgentManager.WsR
         }
     }
 
-    override fun onWsMessage(json: String) {
-        handleData(json)
-    }
-
-    fun handleData(data: String) {
-        try {
-            val json = JSONObject(data)
-            if (!json.isNull("tick")) {
-                doAsync {
-                    val quotesData = json
-                    showWsData(quotesData)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     private fun showWsData(jsonObject: JSONObject) {
         val obj = CpSymbolWsData().getNewSymbolObjContract(tickers, jsonObject)
