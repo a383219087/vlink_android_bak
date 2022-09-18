@@ -192,9 +192,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
           context.getString(R.string.cp_order_text66) + showDealUnit
         )
 
-        helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
-        val takerProfitTrigger = item.otoOrder?.takerProfitTrigger
-        val stopLossTrigger = item.otoOrder?.stopLossTrigger
+        helper.setVisible(R.id.tv_only_reduce_position, openStr == "CLOSE")
+        val takerProfitTrigger = item.otoOrder?.takerProfitTrigger?:"-"
+        val stopLossTrigger = item.otoOrder?.stopLossTrigger?:"-"
         helper.setText(R.id.tv_deal, "$takerProfitTrigger/$stopLossTrigger")
         val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
         pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()

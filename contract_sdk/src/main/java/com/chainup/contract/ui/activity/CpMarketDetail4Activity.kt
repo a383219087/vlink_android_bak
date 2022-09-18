@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -46,6 +46,7 @@ import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.bean.kline.cp.DepthItem
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
+import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.yjkj.chainup.new_contract.fragment.CpDealtRecordFragment
@@ -59,14 +60,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
-import kotlinx.android.synthetic.main.cp_item_kline_time_more.*
 import kotlinx.android.synthetic.main.cp_market_info_kline_panel.*
-import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -91,7 +87,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     override fun setContentView(): Int = R.layout.cp_activity_market_detail4
     var subscribe: Disposable? = null//保存订阅者
     var isFrist = true
-    var disposable: CompositeDisposable = CompositeDisposable()
     var baseSymbol = ""
     var quoteSymbol = ""
     var symbol = ""
@@ -324,10 +319,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }, 300)
     }
 
-    private fun switchKlineTab() {
 
-
-    }
 
 
     var aG = true
@@ -532,7 +524,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     private var cur_time_index = 0;
     private var klineScale = ArrayList<String>()
     private var themeMode = 0
-    private var kLineLogo = ""
     private fun initKLineData() {
         main_index = CpKLineUtil.getMainIndex()
         vice_index = CpKLineUtil.getViceIndex()
@@ -542,7 +533,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         klineScale = CpKLineUtil.getKLineScale()
 
         themeMode = 0
-//        kLineLogo = PublicInfoDataService.getInstance().getKline_background_logo_img(null, themeMode == PublicInfoDataService.THEME_MODE_DAYTIME)
 
     }
 
@@ -1071,9 +1061,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }
     }
 
-    private fun initDepthView() {
-        setData4DepthChart()
-    }
 
     /**
      * 切换K线刻度
@@ -1419,7 +1406,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable.clear()
         CpWsContractAgentManager.instance.removeWsCallback(this)
         loopStop()
     }
@@ -1472,34 +1458,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     }
 
 
-    /**
-     * 每5s调用一次接口
-     */
-    private fun loopETFData() {
-        disposable.add(
-                (Observable.interval(0, 5, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()))
-        )
-    }
 
-    private fun getObserver(): DisposableObserver<Long> {
-        return object : DisposableObserver<Long>() {
-            override fun onComplete() {
-            }
-
-            override fun onNext(t: Long) {
-            }
-
-            override fun onError(e: Throwable) {
-            }
-        }
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        // 兼容 华为 奇怪的生命周期
-    }
 
 
     override fun onWsMessage(json: String) {

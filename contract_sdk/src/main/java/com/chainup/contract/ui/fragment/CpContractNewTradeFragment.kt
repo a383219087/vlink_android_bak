@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.app.CpParamConstant
@@ -21,10 +20,9 @@ import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.chainup.contract.view.CpSlDialogHelper
 import com.chainup.contract.ws.CpWsContractAgentManager
-import com.coorchice.library.utils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

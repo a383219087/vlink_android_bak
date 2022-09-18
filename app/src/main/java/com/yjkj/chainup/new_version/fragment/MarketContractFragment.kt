@@ -44,7 +44,12 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
         super.loadData()
         instance.addWsCallback(this)
         contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
-        mContractList = JSONArray(contractListJson)
+        try {
+            mContractList = JSONArray(contractListJson)
+        }catch (e:Exception){
+
+        }
+
 
 
     }
@@ -109,12 +114,12 @@ private fun initTab() {
     vp_market_contract.offscreenPageLimit = fragments.size
     val showTitlesArray = arrayOfNulls<String>(showTitles.size)
     for (j in showTitles.indices) {
-        showTitlesArray[j] = showTitles.get(j)
+        showTitlesArray[j] = showTitles[j]
     }
     tl_market_aa.setViewPager(vp_market_contract, showTitlesArray)
     tl_market_aa.setOnTabSelectListener(object : OnTabSelectListener {
         override fun onTabSelect(position: Int) {
-            if (showTitles.get(position) == getString(context, "cl_market_text7")) {
+            if (showTitles[position] == getString(context, "cl_market_text7")) {
                 CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_receive_coupon))
             }
         }

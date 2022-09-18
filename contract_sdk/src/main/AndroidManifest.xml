@@ -61,7 +61,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity"
+            android:name=".ui.activity.CpMarketDetail4Activity"
             android:screenOrientation="portrait" />
 
 

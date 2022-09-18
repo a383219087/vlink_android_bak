@@ -3408,7 +3408,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="traders_apply_text3">not apply</string>
     <string name="traders_apply_text4">The information is under review</string>
     <string name="traders_apply_text5">You are already a trader</string>
-    <string name="traders_apply_text6">Refused </string>
+    <string name="traders_apply_text6">Refused，Apply again?</string>
     <string name="traders_apply_text7">Apply to become a trader?</string>
     <string name="traders_apply_text8">successful</string>
 

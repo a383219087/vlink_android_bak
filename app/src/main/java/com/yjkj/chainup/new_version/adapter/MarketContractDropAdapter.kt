@@ -8,17 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.app.CpParamConstant
-import com.chainup.contract.ui.activity.CpContractEntrustNewActivity.Companion.mContractId
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpChainUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
-import com.yjkj.chainup.new_contract.activity.CpMarketDetail4Activity
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
-import kotlin.text.Typography.quote
 
 /**
  * Created by zj on 2018/3/7.
@@ -74,15 +72,15 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
             }
             helper.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
                 if (!CpChainUtil.isFastClick()) {
-//                  val  mContractId = ticker.optInt("id")
-//                    val mIntent = Intent(context, CpMarketDetail4Activity::class.java)
-//                    mIntent.putExtra(CpParamConstant.symbol, ticker.optString("symbol"))
-//                    mIntent.putExtra("contractId", mContractId)
-//                    mIntent.putExtra("baseSymbol",  ticker.optString("base"))
-//                    mIntent.putExtra("quoteSymbol",ticker.optString("quote") )
-//                    mIntent.putExtra("pricePrecision",  CpClLogicContractSetting.getContractSymbolPricePrecisionById(context,mContractId))
-//                    mIntent.putExtra(CpParamConstant.TYPE, CpParamConstant.BIBI_INDEX)
-//                    context.startActivity(mIntent)
+                  val  mContractId = ticker.optInt("id")
+                    val mIntent = Intent(context, CpMarketDetail4Activity::class.java)
+                    mIntent.putExtra(CpParamConstant.symbol, ticker.optString("contractName"))
+                    mIntent.putExtra("contractId", mContractId)
+                    mIntent.putExtra("baseSymbol",  ticker.optString("base"))
+                    mIntent.putExtra("quoteSymbol",ticker.optString("quote") )
+                    mIntent.putExtra("pricePrecision",  CpClLogicContractSetting.getContractSymbolPricePrecisionById(context,mContractId))
+                    mIntent.putExtra(CpParamConstant.TYPE, CpParamConstant.BIBI_INDEX)
+                    context.startActivity(mIntent)
                 }
             }
         }

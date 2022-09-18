@@ -63,7 +63,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         iv_edit?.setOnClickListener {
             ArouterUtil.greenChannel(RoutePath.LikeEditActivity, Bundle())
         }
-        NLiveDataUtil.observeData(this, Observer<MessageEvent> {
+        NLiveDataUtil.observeData(this) {
             if (null != it) {
                 if (MessageEvent.home_event_page_market_type == it.msg_type) {
                     LogUtil.v(TAG, "MessageEvent 处理market ${it}")
@@ -72,7 +72,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     }
                 }
             }
-        })
+        }
         showVP()
         WsAgentManager.instance.addWsCallback(this)
         tv_market_title?.text = LanguageUtil.getString(context, "mainTab_text_market")
