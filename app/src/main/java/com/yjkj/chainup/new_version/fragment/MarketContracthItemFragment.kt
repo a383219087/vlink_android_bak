@@ -65,7 +65,7 @@ class MarketContracthItemFragment : CpNBaseFragment(){
 
         index = arguments!!.getInt(CpParamConstant.CUR_INDEX)
         try {
-            contractListJson= CpClLogicContractSetting.getContractJsonListStr(mActivity)
+            contractListJson=CpClLogicContractSetting.getContractJsonListStr(activity)
             mContractList = JSONArray(contractListJson)
             updateData()
         } catch (e: JSONException) {

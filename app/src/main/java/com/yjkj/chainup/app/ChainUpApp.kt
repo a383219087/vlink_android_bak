@@ -74,7 +74,6 @@ class ChainUpApp : CpMyApp() {
             // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
             PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
         }
-        webViewSetPath(this)
 
     }
 
@@ -185,13 +184,6 @@ class ChainUpApp : CpMyApp() {
         }
     }
 
-    private fun webViewSetPath(context: Context?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            if (!SystemUtil().isMainProcessFun(this)) {//判断不等于默认进程名称
-                WebView.setDataDirectorySuffix(SystemV2Utils.getProcessName(context) ?: "")
-            }
-        }
-    }
 
 
 

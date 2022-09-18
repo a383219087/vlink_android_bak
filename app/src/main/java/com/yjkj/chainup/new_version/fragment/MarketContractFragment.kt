@@ -7,7 +7,7 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpJsonUtils
 import com.chainup.contract.ws.CpWsContractAgentManager
-import com.chainup.contract.ws.CpWsContractAgentManager.Companion.instance
+
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -42,7 +42,7 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
 
     override fun loadData() {
         super.loadData()
-        instance.addWsCallback(this)
+        CpWsContractAgentManager.instance.addWsCallback(this)
         contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
         try {
             mContractList = JSONArray(contractListJson)
@@ -91,7 +91,7 @@ private fun initTab() {
     val rmap = HashMap<String, Any>()
     rmap["bind"] = true
     rmap["symbols"] = CpJsonUtils.gson.toJson(arrays)
-    instance.sendMessage(rmap, this)
+    CpWsContractAgentManager.instance.sendMessage(rmap, this)
 
     //USDT
     if (isHasU) {

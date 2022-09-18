@@ -513,6 +513,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         contractId = intent.getIntExtra("contractId", 0)
         baseSymbol = intent.getStringExtra("baseSymbol").toString()
         quoteSymbol = intent.getStringExtra("quoteSymbol").toString()
+        Log.e("我是传的参数","symbol===$symbol,,,,contractId===$contractId,,,,baseSymbol===$baseSymbol,,,,quoteSymbol===$quoteSymbol,,,,")
     }
 
     /*
@@ -612,17 +613,11 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         action4KLineIndex()
 
         initDepthChart()
-//        if (getString(R.string.applicationId) == "com.chainup.exchange.DAKINGS") {
-//            iv_logo?.setImageResource(R.drawable.king_logo)
-//        } else {
-//            GlideUtils.load(this, kLineLogo, iv_logo, RequestOptions())
-//        }
+
     }
 
     private fun showCoinName() {
         if (contractId != -1) {
-            val mContractJson =
-                    CpClLogicContractSetting.getContractJsonStrById(mActivity, contractId)
             tv_coin_map?.text =
                     CpClLogicContractSetting.getContractShowNameById(mActivity, contractId)
         }
@@ -690,10 +685,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             tv_mark_price.text = obj.optString("tagPrice")
             tv_index_price.text = obj.optString("indexPrice")
         }
-        if (event.msg_type == CpMessageEvent.sl_contract_rate_countdown_event) {
-            val obj = event.msg_content as String
-            tv_time.text = obj
-        }
+
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
             val ticker = event.msg_content as JSONObject
             contractId = ticker.getInt("id")

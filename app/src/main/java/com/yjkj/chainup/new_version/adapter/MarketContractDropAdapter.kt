@@ -15,6 +15,7 @@ import com.chainup.contract.utils.CpNumberUtil
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
 
@@ -73,8 +74,10 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
             helper.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
                 if (!CpChainUtil.isFastClick()) {
                   val  mContractId = ticker.optInt("id")
+                  val   currentSymbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
+                      .replace("-", "")).toLowerCase()
                     val mIntent = Intent(context, CpMarketDetail4Activity::class.java)
-                    mIntent.putExtra(CpParamConstant.symbol, ticker.optString("contractName"))
+                    mIntent.putExtra(CpParamConstant.symbol, currentSymbol)
                     mIntent.putExtra("contractId", mContractId)
                     mIntent.putExtra("baseSymbol",  ticker.optString("base"))
                     mIntent.putExtra("quoteSymbol",ticker.optString("quote") )

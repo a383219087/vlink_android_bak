@@ -81,11 +81,7 @@ class MarketTrendFragment : NBaseFragment() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (ParamConstant.ONSCROLLSTATECHANGED == newState) {
-                    adapterScroll = true
-                } else {
-                    adapterScroll = false
-                }
+                adapterScroll = ParamConstant.ONSCROLLSTATECHANGED == newState
             }
         })
     }
@@ -106,7 +102,7 @@ class MarketTrendFragment : NBaseFragment() {
         adapter?.setList(normalTickList)
         initReq()
         adapter?.setOnItemClickListener { adapter, _, position ->
-            adapter?.apply {
+            adapter.apply {
                 val model = (data.get(position) as JSONObject)
                 ArouterUtil.forwardKLine(model.optString("symbol"))
             }
