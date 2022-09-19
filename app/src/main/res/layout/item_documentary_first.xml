@@ -271,14 +271,15 @@
                 android:text="@{(item.bean.totalRatio)+`%`}"
                 android:textSize="12sp"
                 android:textColor="@color/text_color" />
+
             <TextView
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@{item.bean.orderCount+``}"
-                android:textSize="12sp"
-                android:textColor="@color/text_color" />
+                android:textColor="@color/text_color"
+                android:textSize="12sp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"

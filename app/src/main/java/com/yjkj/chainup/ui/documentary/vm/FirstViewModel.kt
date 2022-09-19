@@ -106,16 +106,16 @@ class FirstViewModel : BaseViewModel() {
     fun appTraders() {
         val map = HashMap<String, Any>()
         map["traderUid"] = UserDataService.getInstance().userInfo4UserId
-        startTask(contractApiService.checkFuturesUser(map), Consumer {
-            if (it.data.result=="1"){
+        startTask(contractApiService.checkFuturesUser(map)) {
+            if(it.data.result == "1") {
                 ApplyTradersDialog().showDialog(context.value?.supportFragmentManager, "")
 
 
-            }else{
+            } else {
                 toLaunchSingle()
             }
 
-        })
+        }
 
     }
 
