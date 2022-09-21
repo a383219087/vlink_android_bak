@@ -37,18 +37,19 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
     }
 
     override fun initView() {
-        initTab()
-    }
-
-    override fun loadData() {
-        super.loadData()
-        CpWsContractAgentManager.instance.addWsCallback(this)
         contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
         try {
             mContractList = JSONArray(contractListJson)
         }catch (e:Exception){
 
         }
+        initTab()
+    }
+
+    override fun loadData() {
+        super.loadData()
+        CpWsContractAgentManager.instance.addWsCallback(this)
+
 
 
 
@@ -63,7 +64,7 @@ private fun initTab() {
     var isHasM = false //模拟合约
     val arrays = arrayOfNulls<String>(mContractList?.length() ?: 0)
     ContractCodeList.clear()
-    if (mContractList?.length() == 0) {
+    if (mContractList==null||mContractList?.length() == 0) {
         return
     }
     for (i in 0 until mContractList!!.length()) {
