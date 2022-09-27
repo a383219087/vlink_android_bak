@@ -96,8 +96,10 @@ class SplashActivity : AppCompatActivity() {
 //        if(linkData.isNotEmpty()){
 //            liksArray.addAll(linkData.split(","))
 //        }
-      liksArray.add("http://8.219.64.81:8091")
-      liksArray.add("http://8.219.72.62:8091")
+//      liksArray.add("http://8.219.64.81:8091")
+//      liksArray.add("http://8.219.72.62:8091")
+      liksArray.add("http://119.23.59.211:8091")
+      liksArray.add("http://120.77.40.245:8091")
 //            liksArray.add("http://www.qyrx.me/gate")
       checkNetworkLine(liksArray[currentCheckIndex])
     }
