@@ -96,10 +96,12 @@ class SplashActivity : AppCompatActivity() {
 //        if(linkData.isNotEmpty()){
 //            liksArray.addAll(linkData.split(","))
 //        }
-//      liksArray.add("http://8.219.64.81:8091")
-//      liksArray.add("http://8.219.72.62:8091")
-      liksArray.add("http://119.23.59.211:8091")
-      liksArray.add("http://120.77.40.245:8091")
+      liksArray.add("http://8.219.64.81:8091")
+      liksArray.add("http://8.219.72.62:8091")
+
+      ///其他服务的节点
+//      liksArray.add("http://119.23.59.211:8091")
+//      liksArray.add("http://120.77.40.245:8091")
 //            liksArray.add("http://www.qyrx.me/gate")
       checkNetworkLine(liksArray[currentCheckIndex])
     }
@@ -114,6 +116,7 @@ class SplashActivity : AppCompatActivity() {
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe({
+        LogUtil.d("我是SplashActivity", it.toString())
         goToMain(it)
       }, {
         LogUtil.d("我是SplashActivity", it.toString())

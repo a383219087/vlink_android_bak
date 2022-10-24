@@ -175,8 +175,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_10"
-                        tool:visibility="gone"
-                        android:paddingTop="@dimen/dp_8">
+                        android:paddingTop="@dimen/dp_8"
+                        tool:visibility="gone">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_center_service"
@@ -211,8 +211,8 @@
                     <RelativeLayout
                         android:id="@+id/rl_custom_config"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/dp_10"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:paddingLeft="@dimen/dp_16"
                         android:paddingRight="@dimen/dp_16"
                         android:visibility="gone">
@@ -229,9 +229,6 @@
                             app:banner_radius="@dimen/dp_4" />
 
                     </RelativeLayout>
-
-
-
 
 
                     <androidx.recyclerview.widget.RecyclerView

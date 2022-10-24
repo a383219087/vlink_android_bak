@@ -648,13 +648,10 @@ class NewVersionHomepageFragment :
         )
         mBinding?.vtcAdvertising?.setTextStillTime(4000)//设置停留时长间隔
         mBinding?.vtcAdvertising?.setAnimTime(400)//设置进入和退出的时间间隔
-        mBinding?.vtcAdvertising?.setOnItemClickListener(object :
-          VerticalTextview4ChainUp.OnItemClickListener {
-          override fun onItemClick(pos: Int) {
-            val obj = newNoticeInfoList.optJSONObject(pos)
-            forwardWeb(obj)
-          }
-        })
+        mBinding?.vtcAdvertising?.setOnItemClickListener { pos ->
+          val obj = newNoticeInfoList.optJSONObject(pos)
+          forwardWeb(obj)
+        }
       }
       mBinding?.vtcAdvertising?.setTextList(getNoticeInfoList(noticeInfoList))
       mBinding?.vtcAdvertising?.startAutoScroll()

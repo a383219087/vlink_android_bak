@@ -228,31 +228,6 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
         EventBusUtil.post(messageEvent)
     }
 
-    fun showWsData(jsonObject: JSONObject) {
-        if (curIndex == 2) {
-            return
-        }
-        if (bottomMarketAdapter?.data == null) {
-            return
-        }
-        if (0 == bottomMarketAdapter?.data?.size)
-            return
-        val channel = jsonObject.optString("channel")
-        val data = bottomMarketAdapter?.data
-        val temp = data?.filter {
-            channel.contains(it.optString("symbol"))
-        }
-        if (temp != null && temp.isNotEmpty()) {
-            val dataDiff = callDataDiff(jsonObject)
-            if (dataDiff != null) {
-                val items = dataDiff.second
-                dropListsAdapter(items)
-                wsArrayTempList.clear()
-                wsArrayMap.clear()
-            }
-        }
-
-    }
 
     private fun isMaineTabSort(): Boolean {
         if (activity is NewMainActivity) {
@@ -264,23 +239,7 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
     private val wsArrayMap = hashMapOf<String, JSONObject>()
     private var wsTimeFirst: Long = 0L
 
-    @Synchronized
-    private fun callDataDiff(jsonObject: JSONObject): Pair<ArrayList<JSONObject>, HashMap<String, JSONObject>>? {
-        if (System.currentTimeMillis() - wsTimeFirst >= 1000L && wsTimeFirst != 0L) {
-            // 大于一秒
-            wsTimeFirst = 0L
-            if (wsArrayMap.size != 0) {
-                return Pair(wsArrayTempList, wsArrayMap)
-            }
-        } else {
-            if (wsTimeFirst == 0L) {
-                wsTimeFirst = System.currentTimeMillis()
-            }
-            wsArrayTempList.add(jsonObject)
-            wsArrayMap.put(jsonObject.optString("channel", ""), jsonObject)
-        }
-        return null
-    }
+
 
     @Synchronized
     fun dropListsAdapter(items: HashMap<String, JSONObject>) {

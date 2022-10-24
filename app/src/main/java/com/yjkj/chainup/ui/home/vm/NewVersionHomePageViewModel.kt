@@ -156,12 +156,12 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     if (!LoginManager.checkLogin(mActivity.value, true)) {
                         return
                     }
-                    startTask(apiService.level(),Consumer{
+                    startTask(apiService.level(), {
                         val bundle = Bundle()
                         bundle.putString(ParamConstant.URL_4_SERVICE, ChainUpApp.url?.chatUrl)
                         bundle.putString(ParamConstant.homeTabType, it.data)
                         ArouterUtil.greenChannel(RoutePath.ChatWebViewActivity, bundle)
-                    }, Consumer {
+                    }, {
                         val bundle = Bundle()
                         bundle.putString(ParamConstant.URL_4_SERVICE, ChainUpApp.url?.chatUrl)
                         bundle.putString(ParamConstant.homeTabType, "0")
