@@ -74,15 +74,15 @@ class SplashActivity : AppCompatActivity() {
     if(UtilSystem.getVersionName1() == "version_1") {
       goToMain(
         HttpResultUrlData(
-          baseUrl = "http://47.243.240.168/base/appapi",
-          contractSocketAddress = "ws://47.243.240.168/contract/kline/ws",
-          contractUrl = "http://47.243.240.168/contract/appapi",
-          httpHostUrlContractV2 = "http://47.243.240.168/contract/appapi",
-          otcBaseUrl = "http://47.243.240.168/otc/appapi",
-          otcSocketAddress = "ws://47.243.240.168/otc/chat/ws",
+          baseUrl = "http://47.242.41.181/base/appapi",
+          contractSocketAddress = "ws://47.242.41.181/contract/kline/ws",
+          contractUrl = "http://47.242.41.181/contract/appapi",
+          httpHostUrlContractV2 = "http://47.242.41.181/contract/appapi",
+          otcBaseUrl = "http://47.242.41.181/otc/appapi",
+          otcSocketAddress = "ws://47.242.41.181/otc/chat/ws",
           redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-          socketAddress = "ws://47.243.240.168/base/kline/ws",
-          wssHostContractV2 = "ws://47.243.240.168/contract/kline/ws",
+          socketAddress = "ws://47.242.41.181/base/kline/ws",
+          wssHostContractV2 = "ws://47.242.41.181/contract/kline/ws",
           optionUrl = "",
           blocksUrl = "",
           chatUrl = "",
@@ -96,8 +96,9 @@ class SplashActivity : AppCompatActivity() {
 //        if(linkData.isNotEmpty()){
 //            liksArray.addAll(linkData.split(","))
 //        }
-      liksArray.add("http://8.219.64.81:8091")
-      liksArray.add("http://8.219.72.62:8091")
+      liksArray.add("http://8.219.206.92:8091")
+      liksArray.add("http://8.219.215.188:8091")
+      liksArray.add("http://8.219.217.227:8091")
 
       ///其他服务的节点
 //      liksArray.add("http://119.23.59.211:8091")
@@ -225,21 +226,6 @@ class SplashActivity : AppCompatActivity() {
     return
   }
 
-  data class TestData(
-    val baseUrl: String = "http://47.243.240.168/base/appapi",
-    val contractSocketAddress: String = "ws://47.243.240.168/contract/kline/ws",
-    val contractUrl: String = "http://47.243.240.168/contract/appapi",
-    val httpHostUrlContractV2: String = "http://47.243.240.168/contract/appapi",
-    val otcBaseUrl: String = "http://47.243.240.168/otc/appapi",
-    val otcSocketAddress: String = "ws://47.243.240.168/otc/chat/ws",
-    val redPackageUrl: String = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-    val socketAddress: String = "ws://47.243.240.168/base/kline/ws",
-    val wssHostContractV2: String = "ws://47.243.240.168/contract/kline/ws",
-    val optionUrl: String,
-    val blocksUrl: String,
-    val crazyUrl: String,
-    val chatUrl: String,
-    val chatApiUrl: String
-  )
+  
 
 }

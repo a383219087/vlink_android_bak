@@ -179,7 +179,25 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                     }
                     ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
                 }
+                /**
+                 * 客服
+                 */
+                9 -> {
+                    if (!LoginManager.checkLogin(mActivity.value, true)) {
+                        return
+                    }
+                    val lang = NLanguageUtil.getLanguage()
+                    val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
+                    val url = "http://47.250.37.185/index/index/home?theme=7571f9&visiter_id=${UserDataService.getInstance().userInfo4UserId}" +
+                            "&visiter_name=${UserDataService.getInstance().nickName}&avatar=&business_id=1&groupid=0" +
+                            "&style=${style}&lan =${lang}"
 
+                    val bundle = Bundle()
+                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
+                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, false)
+                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+
+                }
 
 
             }
@@ -387,6 +405,14 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                 item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text9")
                 items.add(item)
             }
+            /**
+             * 客服
+             */
+                val item = Item()
+                item.index.value = 9
+                item.resImg.value = R.mipmap.kefu
+                item.title.value = LanguageUtil.getString(context, "NewVersionHomePageViewModel_text114")
+                items.add(item)
 
         })
 
