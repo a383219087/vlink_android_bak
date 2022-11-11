@@ -338,7 +338,7 @@ class ItemDetailActivity : NBaseActivity() {
                     return
                 }
                 //html标签加载完成之后在加载图片内容
-                web_view.settings.blockNetworkImage = false
+//                web_view.settings.blockNetworkImage = false
                 runOnUiThread {
                     activity_new_video_loading_image.visibility = View.GONE
                 }
@@ -504,14 +504,6 @@ class ItemDetailActivity : NBaseActivity() {
             val cookieVersionCode = "haveCallback=" + PackageUtil.getVersionCode() + cookieDomain
             cookieManager.setCookie(domain, cookieVersionCode)
 
-            if (speedWsApi.isNotEmpty()) {
-                val cookieWsApi = "WsSpeed=" + speedWsApi + cookieDomain
-                cookieManager.setCookie(domain, cookieWsApi)
-            }
-            if (speedWebApi.isNotEmpty()) {
-                val cookieWebApi = "ApiSpeed=" + speedWebApi + cookieDomain
-                cookieManager.setCookie(domain, cookieWebApi)
-            }
 
 
         } catch (e: Exception) {
@@ -618,22 +610,29 @@ class ItemDetailActivity : NBaseActivity() {
     }
 
     private fun clearWebview() {
-        if (web_view != null) {
-            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
-            // destory()
-            val parent = web_view.getParent()
-            if (parent != null) {
-                (parent as ViewGroup).removeView(web_view)
-            }
+        try {
+            if (web_view != null) {
+                // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
+                // destory()
+                val parent = web_view.getParent()
+                if (parent != null) {
+                    (parent as ViewGroup).removeView(web_view)
+                }
+                  if(web_view!=null){
+//                      web_view.stopLoading()
+//                      // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+//                      web_view.settings.javaScriptEnabled = false
+//                      web_view.clearHistory()
+//                      web_view.clearView()
+//                      web_view.removeAllViews()
+                      web_view.destroy()
+                  }
 
-            web_view.stopLoading()
-            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
-            web_view.getSettings().setJavaScriptEnabled(false)
-            web_view.clearHistory()
-            web_view.clearView()
-            web_view.removeAllViews()
-            web_view.destroy()
+            }
+        }finally {
+
         }
+
     }
 
 

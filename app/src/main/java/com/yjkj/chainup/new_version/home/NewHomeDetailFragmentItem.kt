@@ -235,9 +235,6 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
         }
         return false
     }
-    private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()
-    private val wsArrayMap = hashMapOf<String, JSONObject>()
-    private var wsTimeFirst: Long = 0L
 
 
 

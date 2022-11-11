@@ -69,7 +69,8 @@
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/net_wrong">
+            android:layout_below="@id/net_wrong"
+            android:layout_marginTop="47dp">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/ns_layout"

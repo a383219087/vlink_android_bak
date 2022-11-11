@@ -571,14 +571,14 @@
             <TextView
                 android:id="@+id/tv_short_value"
                 style="@style/textStyle_title_bold"
-                android:textColor="@color/normal_text_color"
-                android:textSize="@dimen/sp_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_short_title"
                 android:maxLines="3"
                 android:paddingLeft="@dimen/dp_5"
                 android:text="--"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
                 tools:text="807.0008 张" />
         </RelativeLayout>
 
