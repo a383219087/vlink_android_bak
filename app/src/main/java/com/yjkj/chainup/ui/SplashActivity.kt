@@ -72,6 +72,7 @@ class SplashActivity : AppCompatActivity() {
       }
     }
     if(UtilSystem.getVersionName1() == "version_1") {
+
       goToMain(
         HttpResultUrlData(
           baseUrl = "http://47.242.41.181/base/appapi",
@@ -96,9 +97,12 @@ class SplashActivity : AppCompatActivity() {
 //        if(linkData.isNotEmpty()){
 //            liksArray.addAll(linkData.split(","))
 //        }
-      liksArray.add("http://8.219.206.92:8091")
-      liksArray.add("http://8.219.215.188:8091")
-      liksArray.add("http://8.219.217.227:8091")
+//      liksArray.add("http://8.219.206.92:8091")
+//      liksArray.add("http://8.219.215.188:8091")
+//      liksArray.add("http://8.219.217.227:8091")
+
+      liksArray.add("http://120.78.198.245:8091")
+      liksArray.add("http://120.79.19.80:8091")
 
       ///其他服务的节点
 //      liksArray.add("http://119.23.59.211:8091")
