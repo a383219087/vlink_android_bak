@@ -454,25 +454,17 @@ class NewMainActivity : NBaseActivity() {
 
   override fun loadData() {
     super.loadData()
-
     val catchObj = PublicInfoDataService.getInstance().getData(null)
     if (null != catchObj && catchObj.length() > 0) {
-      LogUtil.e(TAG, "走缓存渲染底部tab菜单")
       initTabsData(catchObj)
     } else {
-      LogUtil.e(TAG, "无缓存渲染底部tab菜单")
       addDisposable(getMainModel().public_info_v4(MyNDisposableObserver(mActivity)))
     }
     contractOpen = PublicInfoDataService.getInstance().contractOpen(catchObj)
-
-
     WsContractAgentManager.instance.connectionSocket()
-
     if (LoginManager.isLogin(this)) {
       getMainModel().saveUserInfo()
     }
-
-
   }
 
   private fun loopStart() {
@@ -483,6 +475,8 @@ class NewMainActivity : NBaseActivity() {
         getLimitIpLogin()
       }
   }
+
+
 
   private fun getLimitIpLogin() {
     addDisposable(getMainModel().limit_ip_login(object : NDisposableObserver() {

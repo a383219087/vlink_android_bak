@@ -501,54 +501,6 @@ class DialogUtil {
         }
 
 
-        fun showAuthorizationDialog(context: Context, gameID: String, gameName: String, gameToken: String) {
-            TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.dialog_auth)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.8f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        val tv_account = viewHolder?.getView<TextView>(R.id.tv_account)
-                        tv_account?.text = UserDataService.getInstance().userAccount
-
-                        val tv_game_name = viewHolder?.getView<TextView>(R.id.tv_game_name)
-                        tv_game_name?.text = gameName
-                    }
-                    .addOnClickListener(R.id.btn_cancel, R.id.btn_confirm, R.id.iv_delete)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.btn_confirm -> {
-                                HttpClient.instance
-                                        .getGameAuth(gameId = gameID, gameToken = gameToken)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(object : NetObserver<Any>() {
-                                            override fun onHandleSuccess(bean: Any?) {
-                                                tDialog.dismiss()
-                                                context.finish()
-                                            }
-
-                                            override fun onHandleError(code: Int, msg: String?) {
-                                                super.onHandleError(code, msg)
-                                                NToastUtil.showToast(msg, false)
-                                            }
-                                        })
-                                MMKV.defaultMMKV().putString("gameId", "")
-                            }
-                            R.id.btn_cancel, R.id.iv_delete -> {
-                                tDialog.dismiss()
-                                MMKV.defaultMMKV().putString("gameId", "")
-                            }
-                        }
-
-                    }.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, _ ->
-                        if (keyCode == KeyEvent.KEYCODE_BACK) {
-                            return@OnKeyListener true
-                        }
-                        false  //默认返回值
-                    }).create().show()
-        }
 
 
         /**
