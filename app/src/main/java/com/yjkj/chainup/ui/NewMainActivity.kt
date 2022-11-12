@@ -82,13 +82,8 @@ class NewMainActivity : NBaseActivity() {
 
   private var assetsTab = -1
 
-  /**
-   * 游戏弹窗
-   */
-  var gameID = ""
-  var gameName = ""
-  var gameToken = ""
-  var pushUrl = ""
+
+
 
   private var marketFragment = MarketFragment()
   private var tradeFragment = TradeFragment()
@@ -106,8 +101,6 @@ class NewMainActivity : NBaseActivity() {
 //    val intent = Intent(this, MyFirebaseMessagingService::class.java)
 //    startService(intent)
     loadData()
-    getIntentData()
-    RouteApp.getInstance().execApp(pushUrl, this)
     DoraemonKit.disableUpload()
     DoraemonKit.install(application, "cb190f56cf")
     DoraemonKit.setAwaysShowMainIcon(false)
@@ -159,23 +152,7 @@ class NewMainActivity : NBaseActivity() {
 
   }
 
-  private fun getIntentData() {
-    /**
-     * 游戏弹窗
-     */
-    gameID = intent?.getStringExtra("gameId") ?: ""
-    gameName = intent?.getStringExtra("gameName") ?: ""
-    gameToken = intent?.getStringExtra("gameToken") ?: ""
-    pushUrl = intent?.getStringExtra("pushUrl") ?: ""
 
-    if (!TextUtils.isEmpty(gameID)) {
-      if (LoginManager.checkLogin(this, true)) {
-        DialogUtil.showAuthorizationDialog(this, gameID, gameName, gameToken)
-      }
-    }
-
-    MMKV.defaultMMKV().putString("gameId", gameID)
-  }
 
 
   private var fragmentList = arrayListOf<Fragment>()
@@ -202,7 +179,11 @@ class NewMainActivity : NBaseActivity() {
     mTextviewList.add(LanguageUtil.getString(this, "assets_action_transaction"))
 
     if (contractOpen) {
-      initContract()
+      fragmentList.add(slCoContractFragment)
+      UserDataService.getInstance().token
+      UserDataService.getInstance().notifyContractLoginStatusListener()
+      mImageViewList.add(R.drawable.bg_contract_tab)
+      mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_contract"))
     }
     fragmentList.add(assetFragment)
     mImageViewList.add(R.drawable.bg_asset_tab)
@@ -353,7 +334,6 @@ class NewMainActivity : NBaseActivity() {
       if (connectCount == 11) {
         wsConnectCount()
       }
-//            changeNetworkError()
     } else if (event.msg_type == MessageEvent.refresh_ws_open_change) {
       LogUtil.e("LogUtils", "ws 建立链接")
       connectCount = 0
@@ -458,7 +438,7 @@ class NewMainActivity : NBaseActivity() {
     }
     for (i in 0 until fragmentList.size) {
       val transaction = fragmentManager?.beginTransaction()
-      var fg = fragmentList[i]
+      val fg = fragmentList[i]
       if (i == curPosition) {
         mActivity.runOnUiThread {
           transaction?.show(fg)?.commitAllowingStateLoss()
@@ -542,10 +522,6 @@ class NewMainActivity : NBaseActivity() {
   }
 
 
-  override fun onStart() {
-    super.onStart()
-    LogUtil.e("ForegroundCallbacks", "MainActivity onStart")
-  }
 
   override fun onResume() {
     super.onResume()
@@ -587,13 +563,6 @@ class NewMainActivity : NBaseActivity() {
 
   private var contractIndex = -1
 
-  private fun initContract() {
-    fragmentList.add(slCoContractFragment)
-    UserDataService.getInstance().token
-    UserDataService.getInstance().notifyContractLoginStatusListener()
-    mImageViewList.add(R.drawable.bg_contract_tab)
-    mTextviewList.add(LanguageUtil.getString(this, "mainTab_text_contract"))
-  }
 
 
   /**

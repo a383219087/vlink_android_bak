@@ -266,75 +266,77 @@ public class ChatWebViewActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (response.isSuccessful()) {
+            if (response != null) {
+                if (response.isSuccessful()) {
 
-                String jsonString = null;
-                try {
-                    jsonString = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    String jsonString = null;
+                    try {
+                        jsonString = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(jsonString);
+                    JSONObject jsonObject = JSONObject.parseObject(jsonString);
+                    String user_id = jsonObject.getJSONObject("Data").getString("user_id");
+                    String key = jsonObject.getJSONObject("Data").getString("key");
+                    Timestamp d = new Timestamp(System.currentTimeMillis());
+                    String timestamp = String.valueOf(d.getTime());
+
+                    System.out.println(timestamp);
+
+
+                    String code = user_id + key + timestamp;
+                    ArrayList<Character> list = new ArrayList<Character>(code.length());
+                    for (int i = 0; i < code.length(); i++) {
+                        list.add(code.charAt(i));
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        list.sort(Character::compare);
+                    }
+                    code = "";
+                    for (Character ch : list) {
+                        code += ch;
+                    }
+                    code = MD5Util.getMD5(code);
+                    JSONObject object1 = new JSONObject();
+                    object1.put("user_id", user_id);
+                    object1.put("code", code);
+                    object1.put("timestamp", timestamp);
+                    object1.put("token", UserDataService.getInstance().getToken());
+                    JSONObject data1 = new JSONObject();
+                    data1.put("Data", object1);
+
+                    MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
+                    RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
+                    request = new Request.Builder()
+                            .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostIMLoginCode")//访问连接
+                            .post(body1).build();
+
+
+                    call = client.newCall(request);
+
+                    try {
+                        response = call.execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    JSONObject mine = null;
+                    try {
+                        mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    String js = "window.localStorage.setItem('USERS_KEY','" + mine.toJSONString() + "');";
+
+                    this.runOnUiThread(() -> mwebView.evaluateJavascript(js, s -> mwebView.reload()));
+
+
+                } else {
+                    Log.e("-------------------------", "shib");
                 }
-                System.out.println(jsonString);
-                JSONObject jsonObject = JSONObject.parseObject(jsonString);
-                String user_id = jsonObject.getJSONObject("Data").getString("user_id");
-                String key = jsonObject.getJSONObject("Data").getString("key");
-                Timestamp d = new Timestamp(System.currentTimeMillis());
-                String timestamp = String.valueOf(d.getTime());
-
-                System.out.println(timestamp);
-
-
-                String code = user_id + key + timestamp;
-                ArrayList<Character> list = new ArrayList<Character>(code.length());
-                for (int i = 0; i < code.length(); i++) {
-                    list.add(code.charAt(i));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    list.sort(Character::compare);
-                }
-                code = "";
-                for (Character ch : list) {
-                    code += ch;
-                }
-                code = MD5Util.getMD5(code);
-                JSONObject object1 = new JSONObject();
-                object1.put("user_id", user_id);
-                object1.put("code", code);
-                object1.put("timestamp", timestamp);
-                object1.put("token", UserDataService.getInstance().getToken());
-                JSONObject data1 = new JSONObject();
-                data1.put("Data", object1);
-
-                MediaType JSON1 = MediaType.parse("application/json; charset=utf-8");
-                RequestBody body1 = RequestBody.create(JSON1, data1.toJSONString());
-                request = new Request.Builder()
-                        .url(ChainUpApp.Companion.getUrl().getChatApiUrl() + "/api/lottery/PostIMLoginCode")//访问连接
-                        .post(body1).build();
-
-
-                call = client.newCall(request);
-
-                try {
-                    response = call.execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                JSONObject mine = null;
-                try {
-                    mine = JSONObject.parseObject(response.body().string()).getJSONObject("Data").getJSONObject("mine");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                String js = "window.localStorage.setItem('USERS_KEY','" + mine.toJSONString() + "');";
-
-                this.runOnUiThread(() -> mwebView.evaluateJavascript(js, s -> mwebView.reload()));
-
-
-            } else {
-                Log.e("-------------------------", "shib");
             }
 //            } catch (Exception e) {
 //                e.printStackTrace();
