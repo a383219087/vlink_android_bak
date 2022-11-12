@@ -388,7 +388,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
             /**
              * 密聊
              */
-            if (chat == 1) {
+            if (chat == 1&&false) {
                 val item = Item()
                 item.index.value = 7
                 item.resImg.value = R.mipmap.miliao

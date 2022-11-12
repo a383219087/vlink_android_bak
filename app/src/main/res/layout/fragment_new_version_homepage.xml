@@ -16,61 +16,25 @@
 
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/v_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/bg_color">
 
+        <!--    顶部搜索页   -->
         <include
             android:id="@+id/home_header"
             layout="@layout/activity_home_title"
             app:vm="@{_all}" />
 
-        <RelativeLayout
-            android:id="@+id/net_wrong"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:layout_below="@id/home_header"
-            android:background="@color/main_red"
-            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/no_network_remind"
-                android:layout_width="@dimen/dp_14"
-                android:layout_height="@dimen/dp_14"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_5"
-                android:src="@mipmap/remind" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/no_network_enter"
-                android:layout_toRightOf="@+id/no_network_remind"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/check_network_error_settings"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:id="@+id/no_network_enter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_18"
-                android:src="@mipmap/nonetwork_enter" />
-        </RelativeLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/net_wrong"
-            android:layout_marginTop="47dp">
+            android:layout_height="match_parent">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/ns_layout"
@@ -245,9 +209,13 @@
                         app:radius="@{10}"
                         app:spanCount="4" />
 
+
+                    <!--    快捷买币，p2p买币   -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
+                        android:visibility="gone"
+                        tool:visibility="visible"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
@@ -368,32 +336,6 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <FrameLayout
-            android:id="@+id/rl_red_envelope_entranc_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_50">
-
-
-            <ImageView
-                android:id="@+id/rl_red_envelope_entrance"
-                android:layout_width="50dp"
-                android:layout_height="62.5dp"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_8"
-                android:src="@drawable/redenvelope" />
-
-            <ImageView
-                android:id="@+id/iv_close_red_envelope"
-                android:layout_width="21.33dp"
-                android:layout_height="22.67dp"
-                android:layout_gravity="right"
-                android:src="@drawable/delete" />
-        </FrameLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>

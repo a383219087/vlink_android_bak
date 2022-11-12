@@ -84,13 +84,13 @@ class NewMainActivity : NBaseActivity() {
 
 
 
-
+   //行情
   private var marketFragment = MarketFragment()
+  //交易
   private var tradeFragment = TradeFragment()
-
-
+  //合约
   private var slCoContractFragment = CpContractNewTradeFragment()
-
+  //资产
   private var assetFragment = NewVersionMyAssetFragment()
 
   private var fragmentManager: FragmentManager? = null

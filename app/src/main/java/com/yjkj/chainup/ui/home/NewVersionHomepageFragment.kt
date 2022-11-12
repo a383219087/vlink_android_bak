@@ -117,7 +117,6 @@ class NewVersionHomepageFragment :
 
     initTop24HourView()
 
-    initRedPacketView()
     setOnClick()
     mViewModel?.getPublicInfo(context!!)
     defaultBanner = R.drawable.banner_king
@@ -130,13 +129,6 @@ class NewVersionHomepageFragment :
   }
 
 
-  /*
-   * 初始化红包view
-   */
-  private fun initRedPacketView() {
-    val isRedPacketOpen = PublicInfoDataService.getInstance().isRedPacketOpen(null)
-    showRedPacket(isRedPacketOpen)
-  }
 
   /**
    * 顶部 24小时涨幅榜(推荐币种)
@@ -398,48 +390,7 @@ class NewVersionHomepageFragment :
       startActivity(Intent(mActivity, NoticeActivity::class.java))
     }
 
-    if(SystemUtils.isZh()) {
-      mBinding?.rlRedEnvelopeEntrance?.setImageResource(R.drawable.redenvelope)
-    } else {
-      mBinding?.rlRedEnvelopeEntrance?.setImageResource(R.drawable.redenvelope_english)
-    }
 
-    /**
-     * 点击红包 跳转
-     */
-
-    mBinding?.rlRedEnvelopeEntrance?.setOnClickListener {
-      if(!LoginManager.checkLogin(activity, true)) {
-        return@setOnClickListener
-      }
-
-      val isEnforceGoogleAuth = PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)
-
-      val authLevel = UserDataService.getInstance().authLevel
-      val googleStatus = UserDataService.getInstance().googleStatus
-      val isOpenMobileCheck = UserDataService.getInstance().isOpenMobileCheck
-
-      if(isEnforceGoogleAuth) {
-        if(authLevel != 1 || googleStatus != 1) {
-          NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
-          return@setOnClickListener
-        }
-      } else {
-        if(authLevel != 1 || (googleStatus != 1 && isOpenMobileCheck != 1)) {
-          NewDialogUtils.redPackageCondition(context ?: return@setOnClickListener)
-          return@setOnClickListener
-        }
-      }
-      ArouterUtil.navigation(RoutePath.CreateRedPackageActivity, null)
-    }
-
-    /**
-     * 点击关闭红包
-     */
-
-    mBinding?.ivCloseRedEnvelope?.setOnClickListener {
-      showRedPacket(false)
-    }
 
     /**
      * 此处刷新
@@ -459,13 +410,6 @@ class NewVersionHomepageFragment :
   }
 
 
-  private fun showRedPacket(isVisibile: Boolean) {
-    if(isVisibile) {
-      mBinding?.rlRedEnvelopeEntrancLayout?.visibility = View.VISIBLE
-    } else {
-      mBinding?.rlRedEnvelopeEntrancLayout?.visibility = View.GONE
-    }
-  }
 
   /*
    * 首页顶部symbol 24小时行情展示
