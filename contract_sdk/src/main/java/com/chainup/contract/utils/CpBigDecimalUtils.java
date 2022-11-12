@@ -3,13 +3,17 @@ package com.chainup.contract.utils;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chainup.contract.app.CpMyApp;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CpBigDecimalUtils {
 
@@ -121,6 +125,23 @@ public class CpBigDecimalUtils {
             scale = 0;
         return new BigDecimal(v1).multiply(new BigDecimal(v2)).setScale(scale, BigDecimal.ROUND_UP).toPlainString();
 
+    }
+
+
+    /**
+     * 提取字符串的数字
+     *
+     */
+    public static int stringToNum(String v1 ){
+        String regEx="[^0-9]";
+        Pattern  pattern=Pattern.compile(regEx);
+        Matcher m=pattern.matcher(v1);
+        String str= m.replaceAll("").trim();
+         if(str.isEmpty()){
+             return  0;
+         }
+        LogUtils.e("我是"+ Integer.parseInt(str));
+      return  Integer.parseInt(str);
     }
 
     /**

@@ -25,7 +25,7 @@ public class CpChainUtil {
      *
      * @return
      */
-    private static final int FAST_CLICK_DELAY_TIME = 1000;
+    private static final int FAST_CLICK_DELAY_TIME = 500;
     private static long lastClickTime;
 
 

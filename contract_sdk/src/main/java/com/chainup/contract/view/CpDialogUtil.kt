@@ -44,95 +44,99 @@ class CpDialogUtil {
 
     companion object {
 
-        fun showNewsingleDialog2(context: Context,
-                                 content: String,
-                                 listener: CpNewDialogUtils.DialogBottomListener?,
-                                 cancelTitle: String = "",
-                                 returnListener: Boolean = false) {
+        fun showNewsingleDialog2(
+            context: Context,
+            content: String,
+            listener: CpNewDialogUtils.DialogBottomListener?,
+            cancelTitle: String = "",
+            returnListener: Boolean = false
+        ) {
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_new_normal_dialog2)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                .setLayoutRes(R.layout.item_new_normal_dialog2)
+                .setScreenWidthAspect(context, 0.8f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
 
-                        if (!TextUtils.isEmpty(cancelTitle)) {
-                            viewHolder?.setText(R.id.tv_confirm_btn, cancelTitle)
-                        } else {
-                            viewHolder?.setText(R.id.tv_confirm_btn, CpLanguageUtil.getString(context, "cp_calculator_text16"))
-                        }
-                        viewHolder?.setText(R.id.tv_content, content)
-
+                    if (!TextUtils.isEmpty(cancelTitle)) {
+                        viewHolder?.setText(R.id.tv_confirm_btn, cancelTitle)
+                    } else {
+                        viewHolder?.setText(R.id.tv_confirm_btn, CpLanguageUtil.getString(context, "cp_calculator_text16"))
                     }
-                    .addOnClickListener(R.id.tv_confirm_btn)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_confirm_btn -> {
-                                if (listener != null && returnListener) {
-                                    listener.sendConfirm()
-                                }
-                                tDialog.dismiss()
+                    viewHolder?.setText(R.id.tv_content, content)
+
+                }
+                .addOnClickListener(R.id.tv_confirm_btn)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_confirm_btn -> {
+                            if (listener != null && returnListener) {
+                                listener.sendConfirm()
                             }
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
         }
 
         /**
          * 两个按钮新dialog
          */
-        fun showNewDoubleDialog(context: Context,
-                                content: String,
-                                listener: CpNewDialogUtils.DialogBottomListener?,
-                                title: String = "",
-                                cancelTitle: String = "",
-                                confrimTitle: String = "") {
+        fun showNewDoubleDialog(
+            context: Context,
+            content: String,
+            listener: CpNewDialogUtils.DialogBottomListener?,
+            title: String = "",
+            cancelTitle: String = "",
+            confrimTitle: String = ""
+        ) {
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_new_double_normal_dialog)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                .setLayoutRes(R.layout.item_new_double_normal_dialog)
+                .setScreenWidthAspect(context, 0.8f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
 
-                        if (!TextUtils.isEmpty(title)) {
-                            viewHolder?.setGone(R.id.tv_title, true)
-                            viewHolder?.setText(R.id.tv_title, title)
-                        } else {
-                            viewHolder?.getView<TextView>(R.id.tv_content)?.textSize = context.resources.getDimension(R.dimen.sp_16)
-                            viewHolder?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.text_color))
-
-                        }
-                        viewHolder?.setText(R.id.tv_cancel_btn, CpLanguageUtil.getString(context, "cp_overview_text56"))
-                        if (confrimTitle.isNotEmpty()) {
-                            viewHolder?.setText(R.id.tv_cancel_btn, cancelTitle)
-                        }
-                        if (!TextUtils.isEmpty(cancelTitle)) {
-                            viewHolder?.setText(R.id.tv_confirm_btn, confrimTitle)
-                        } else {
-                            viewHolder?.setText(R.id.tv_confirm_btn, CpLanguageUtil.getString(context, "cp_calculator_text16"))
-                        }
-                        viewHolder?.setText(R.id.tv_content, content)
+                    if (!TextUtils.isEmpty(title)) {
+                        viewHolder?.setGone(R.id.tv_title, true)
+                        viewHolder?.setText(R.id.tv_title, title)
+                    } else {
+                        viewHolder?.getView<TextView>(R.id.tv_content)?.textSize = context.resources.getDimension(R.dimen.sp_16)
+                        viewHolder?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.text_color))
 
                     }
-                    .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel_btn -> {
-                                tDialog.dismiss()
+                    viewHolder?.setText(R.id.tv_cancel_btn, CpLanguageUtil.getString(context, "cp_overview_text56"))
+                    if (confrimTitle.isNotEmpty()) {
+                        viewHolder?.setText(R.id.tv_cancel_btn, cancelTitle)
+                    }
+                    if (!TextUtils.isEmpty(cancelTitle)) {
+                        viewHolder?.setText(R.id.tv_confirm_btn, confrimTitle)
+                    } else {
+                        viewHolder?.setText(R.id.tv_confirm_btn, CpLanguageUtil.getString(context, "cp_calculator_text16"))
+                    }
+                    viewHolder?.setText(R.id.tv_content, content)
+
+                }
+                .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel_btn -> {
+                            tDialog.dismiss()
+                        }
+                        R.id.tv_confirm_btn -> {
+                            if (listener != null) {
+                                listener.sendConfirm()
                             }
-                            R.id.tv_confirm_btn -> {
-                                if (listener != null) {
-                                    listener.sendConfirm()
-                                }
-                                tDialog.dismiss()
-                            }
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
         }
 
         /**
@@ -148,64 +152,72 @@ class CpDialogUtil {
             var img_share: ImageView? = null
             var ll_share: View? = null
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_dialog_share_market)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setScreenHeightAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.3f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                .setLayoutRes(R.layout.cp_dialog_share_market)
+                .setScreenWidthAspect(context, 1.0f)
+                .setScreenHeightAspect(context, 1.0f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.3f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
 //                        val iv_qrcode = viewHolder?.getView<ImageView>(R.id.iv_qrcode)
-                        ll_share = viewHolder?.getView<View>(R.id.ll_share)
+                    ll_share = viewHolder?.getView<View>(R.id.ll_share)
 //                        viewHolder?.setText(R.id.tv_title, CpLanguageUtil.getString(context, "cp_overview_text56"))
-                        viewHolder?.setText(R.id.btn_share, CpLanguageUtil.getString(context, "common_share_confirm"))
-                        var imgUrl = CpClLogicContractSetting.getInviteUrl()
-                        if (TextUtils.isEmpty(imgUrl)) {
-                            imgUrl = "error!"
-                        }
-                        val bmp: Bitmap? = CpBitmapUtils.Create2DCode(imgUrl, 500, 500)
-                        viewHolder?.setImageBitmap(R.id.iv_qr_code, bmp)
-                        viewHolder?.setImageResource(R.id.iv_app_icon, AppUtils.getAppIconId())
+                    viewHolder?.setText(R.id.btn_share, CpLanguageUtil.getString(context, "common_share_confirm"))
+                    var imgUrl = CpClLogicContractSetting.getInviteUrl()
+                    if (TextUtils.isEmpty(imgUrl)) {
+                        imgUrl = "error!"
+                    }
+                    val bmp: Bitmap? = CpBitmapUtils.Create2DCode(imgUrl, 500, 500)
+                    viewHolder?.setImageBitmap(R.id.iv_qr_code, bmp)
+                    viewHolder?.setImageResource(R.id.iv_app_icon, AppUtils.getAppIconId())
 //                        GlideUtils.loadImageQr(context, iv_qrcode)
-                        if (screenshotBitmap != null) {
-                            // 获得状态栏高度
-                            val resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android")
-                            val mStatusBarHeight = context.getResources().getDimensionPixelSize(resourceId)
-                            screenshotBitmap = Bitmap.createBitmap(screenshotBitmap!!, 0, mStatusBarHeight, screenshotBitmap!!.getWidth(),
-                                    screenshotBitmap!!.getHeight() - mStatusBarHeight, null, true);
-                            img_share = viewHolder?.getView<ImageView>(R.id.img_share)
-                            img_share?.setImageDrawable(BitmapDrawable(context.resources, screenshotBitmap))
+                    if (screenshotBitmap != null) {
+                        // 获得状态栏高度
+                        val resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android")
+                        val mStatusBarHeight = context.getResources().getDimensionPixelSize(resourceId)
+                        screenshotBitmap = Bitmap.createBitmap(
+                            screenshotBitmap!!, 0, mStatusBarHeight, screenshotBitmap!!.getWidth(),
+                            screenshotBitmap!!.getHeight() - mStatusBarHeight, null, true
+                        );
+                        img_share = viewHolder?.getView<ImageView>(R.id.img_share)
+                        img_share?.setImageDrawable(BitmapDrawable(context.resources, screenshotBitmap))
+                    }
+                }
+                .addOnClickListener(R.id.btn_share, R.id.tv_cancel_btn, R.id.ll_bg)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.btn_share -> {
+                            if (ll_share != null) {
+                                var bitmap: Bitmap? = CpScreenShotUtil.getScreenshotBitmap(ll_share)
+                                CpZXingUtils.shareImageToWechat(bitmap, context.getString(R.string.cp_extra_text116), context)
+                                tDialog.dismiss()
+                            }
+                        }
+                        R.id.ll_bg -> {
+                            tDialog.dismiss()
+                        }
+                        R.id.tv_cancel_btn -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .addOnClickListener(R.id.btn_share, R.id.tv_cancel_btn, R.id.ll_bg)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.btn_share -> {
-                                if (ll_share != null) {
-                                    var bitmap: Bitmap? = CpScreenShotUtil.getScreenshotBitmap(ll_share)
-                                    CpZXingUtils.shareImageToWechat(bitmap, context.getString(R.string.cp_extra_text116), context)
-                                    tDialog.dismiss()
-                                }
-                            }
-                            R.id.ll_bg -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_cancel_btn -> {
-                                tDialog.dismiss()
-                            }
-                        }
 
-                    }.create().show()
+                }.create().show()
         }
 
-        fun createCVCOrderPop(context: Context?, index: Int = 0, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createCVCOrderPop(
+            context: Context?,
+            index: Int = 0,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_new_pop)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(targetView.width)
-                    .setDimValue(0.3f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(targetView.width)
+                .setDimValue(0.3f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
                 var list = ArrayList<CpTabInfo>()
@@ -233,15 +245,22 @@ class CpDialogUtil {
             }
         }
 
-        fun createModifyPositionPop(context: Context?, marginModelCanSwitch: Int = 0, mMarginModel: Int = 0, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createModifyPositionPop(
+            context: Context?,
+            marginModelCanSwitch: Int = 0,
+            mMarginModel: Int = 0,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             var isShowPositionDesc = false
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_modify_position_dialog)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val llDissmiss = findViewById<LinearLayout>(R.id.ll_dissmiss)
                 val tvNoSwitchPosition = findViewById<TextView>(R.id.tv_no_switch_position)
@@ -256,7 +275,11 @@ class CpDialogUtil {
                 tvTabFull.setBackgroundResource(if (mMarginModel == 1) R.drawable.cp_btn_linear_blue_bg else R.drawable.cp_btn_linear_grey_bg)
                 tvTabGradually.setBackgroundResource(if (mMarginModel == 2) R.drawable.cp_btn_linear_blue_bg else R.drawable.cp_btn_linear_grey_bg)
                 tvTabFull.setTextColor(if (mMarginModel == 1) CpColorUtil.getColor(R.color.main_blue) else CpColorUtil.getColor(R.color.normal_text_color))
-                tvTabGradually.setTextColor(if (mMarginModel == 2) CpColorUtil.getColor(R.color.main_blue) else CpColorUtil.getColor(R.color.normal_text_color))
+                tvTabGradually.setTextColor(
+                    if (mMarginModel == 2) CpColorUtil.getColor(R.color.main_blue) else CpColorUtil.getColor(
+                        R.color.normal_text_color
+                    )
+                )
                 if (marginModelCanSwitch == 0) {
                     tvTabFull.setTextColor(CpColorUtil.getColor(R.color.hint_color))
                     tvTabGradually.setTextColor(CpColorUtil.getColor(R.color.hint_color))
@@ -301,14 +324,21 @@ class CpDialogUtil {
             }
         }
 
-        fun createTopListPop(context: Context?, index: Int = 1, data:  ArrayList<CpTabInfo>, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createTopListPop(
+            context: Context?,
+            index: Int = 1,
+            data: ArrayList<CpTabInfo>,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_new_top_pop)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val llDissmiss = findViewById<LinearLayout>(R.id.ll_dissmiss)
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
@@ -333,14 +363,20 @@ class CpDialogUtil {
         }
 
 
-        fun createOrderTypePop(context: Context?, index: Int = 1, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createOrderTypePop(
+            context: Context?,
+            index: Int = 1,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_new_pop)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(targetView.width)
-                    .setDimValue(0.3f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(targetView.width)
+                .setDimValue(0.3f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
                 var list = ArrayList<CpTabInfo>()
@@ -364,14 +400,20 @@ class CpDialogUtil {
             }
         }
 
-        fun createRivalPricePop(context: Context?, mCpContractBuyOrSellHelper: CpContractBuyOrSellHelper, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createRivalPricePop(
+            context: Context?,
+            mCpContractBuyOrSellHelper: CpContractBuyOrSellHelper,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_new_pop)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(targetView.width)
-                    .setDimValue(0.3f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(targetView.width)
+                .setDimValue(0.3f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
                 var list = ArrayList<CpTabInfo>()
@@ -399,388 +441,415 @@ class CpDialogUtil {
         }
 
 
-
-
         /**
          * 切换杠杆对话框
          */
-        fun showSelectLeverDialog(context: Context,
-                                  view: ImageView,
-                                  listener: OnCpBindViewListener
+        fun showSelectLeverDialog(
+            context: Context,
+            view: ImageView,
+            listener: OnCpBindViewListener
         ): CpTDialog {
             view.animate().setDuration(200).rotation(180f).start()
             return CpTDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_modify_lever_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.BOTTOM)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener(listener)
-                    .setDialogAnimationRes(R.style.dialogBottomAnim)
-                    .addOnClickListener(R.id.tv_cancel)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_modify_lever_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener(listener)
+                .setDialogAnimationRes(R.style.dialogBottomAnim)
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .setOnDismissListener {
-                        if (KeyboardUtils.isSoftInputVisible(context)) {
-                            KeyboardUtils.toggleSoftInput()
-                        }
-                        view.animate().setDuration(200).rotation(0f).start()
+                }
+                .setOnDismissListener {
+                    if (KeyboardUtils.isSoftInputVisible(context)) {
+                        KeyboardUtils.toggleSoftInput()
                     }
-                    .create()
-                    .show()
+                    view.animate().setDuration(200).rotation(0f).start()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 闪电平仓对话框
          */
-        fun showQuickClosePositionDialog(context: Context,
-                                         listener: OnBindViewListener
+        fun showQuickClosePositionDialog(
+            context: Context,
+            listener: OnBindViewListener
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_quick_close_position_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.BOTTOM)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener(listener)
-                    .setDialogAnimationRes(R.style.dialogBottomAnim)
-                    .addOnClickListener(R.id.tv_cancel)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_quick_close_position_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener(listener)
+                .setDialogAnimationRes(R.style.dialogBottomAnim)
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 平仓对话框
          */
-        fun showClosePositionDialog(context: Context,
-                                    listener: OnBindViewListener
+        fun showClosePositionDialog(
+            context: Context,
+            listener: OnBindViewListener
         ): TDialog {
             val view = LayoutInflater.from(context).inflate(R.layout.cp_item_close_position_new_dialog, null)
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setDialogView(view)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.BOTTOM)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener(listener)
-                    .setDialogAnimationRes(R.style.dialogBottomAnim)
-                    .addOnClickListener(R.id.tv_cancel)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
+                .setDialogView(view)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener(listener)
+                .setDialogAnimationRes(R.style.dialogBottomAnim)
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .setOnDismissListener {
-                        if (KeyboardUtils.isSoftInputVisible(context)) {
-                            KeyboardUtils.toggleSoftInput()
-                        }
+                }
+                .setOnDismissListener {
+                    if (KeyboardUtils.isSoftInputVisible(context)) {
+                        KeyboardUtils.toggleSoftInput()
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 调整保证金对话框
          */
-        fun showAdjustMarginDialog(context: Context,
-                                   listener: OnBindViewListener
+        fun showAdjustMarginDialog(
+            context: Context,
+            listener: OnBindViewListener
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_adjust_margin_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.BOTTOM)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(true)
-                    .setOnBindViewListener(listener)
-                    .setDialogAnimationRes(R.style.dialogBottomAnim)
-                    .addOnClickListener(R.id.tv_cancel)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_cancel -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_adjust_margin_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener(listener)
+                .setDialogAnimationRes(R.style.dialogBottomAnim)
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .setOnDismissListener {
-                        if (KeyboardUtils.isSoftInputVisible(context)) {
-                            KeyboardUtils.toggleSoftInput()
-                        }
+                }
+                .setOnDismissListener {
+                    if (KeyboardUtils.isSoftInputVisible(context)) {
+                        KeyboardUtils.toggleSoftInput()
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 展示资金费率对话框
          */
-        fun showCapitalRateDialog(context: Context,
-                                  listener: OnBindViewListener?
+        fun showCapitalRateDialog(
+            context: Context,
+            listener: OnBindViewListener?
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_capital_rate_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener(listener)
-                    .addOnClickListener(R.id.tv_confirm_btn)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_confirm_btn -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_capital_rate_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener(listener)
+                .addOnClickListener(R.id.tv_confirm_btn)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_confirm_btn -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 展示标记价格对话框
          */
-        fun showIndexPriceDialog(context: Context,
-                                 listener: OnBindViewListener?
+        fun showIndexPriceDialog(
+            context: Context,
+            listener: OnBindViewListener?
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_index_price_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener(listener)
-                    .addOnClickListener(R.id.tv_confirm_btn)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_confirm_btn -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_index_price_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener(listener)
+                .addOnClickListener(R.id.tv_confirm_btn)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_confirm_btn -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         /**
          * 开通合约风险告知对话框
          */
-        fun showCreateContractDialog(context: Context,
-                                     listener: CpNewDialogUtils.DialogBottomListener
+        fun showCreateContractDialog(
+            context: Context,
+            listener: CpNewDialogUtils.DialogBottomListener
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.cp_item_open_contract_dialog)
-                    .setScreenWidthAspect(context, 1.0f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener {
-                        it.setText(R.id.tv_vontract_info, context.getString(R.string.cp_extra_text117))
-                    }
-                    .addOnClickListener(R.id.tv_confirm_btn, R.id.tv_close)
-                    .setOnViewClickListener { _, view, tDialog ->
-                        when (view.id) {
-                            R.id.tv_confirm_btn -> {
-                                tDialog.dismiss()
-                                listener.sendConfirm()
-                            }
-                            R.id.tv_close -> {
-                                tDialog.dismiss()
-                            }
+                .setLayoutRes(R.layout.cp_item_open_contract_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener {
+                    it.setText(R.id.tv_vontract_info, context.getString(R.string.cp_extra_text117))
+                }
+                .addOnClickListener(R.id.tv_confirm_btn, R.id.tv_close)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_confirm_btn -> {
+                            tDialog.dismiss()
+                            listener.sendConfirm()
+                        }
+                        R.id.tv_close -> {
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
 
         }
 
         //下单确认提示框
-        fun showCreateOrderDialog(context: Context,
-                                  titleColor: Int,
-                                  dialogTitle: String,
-                                  contractName: String,
-                                  price: String,
-                                  triggerPrice: String,
-                                  costPrice: String,
-                                  amountValue: String,
-                                  orderType: Int,
-                                  profitTriggerPrice: String,
-                                  lossTriggerPrice: String,
-                                  quote: String,
-                                  showTag: String,
-                                  listener: CpNewDialogUtils.DialogBottomListener?) {
+        fun showCreateOrderDialog(
+            context: Context,
+            titleColor: Int,
+            dialogTitle: String,
+            contractName: String,
+            price: String,
+            triggerPrice: String,
+            costPrice: String,
+            amountValue: String,
+            orderType: Int,
+            profitTriggerPrice: String,
+            lossTriggerPrice: String,
+            quote: String,
+            showTag: String,
+            listener: CpNewDialogUtils.DialogBottomListener?
+        ) {
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_create_order_dialog)
-                    .setScreenWidthAspect(context, 0.85f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.setTextColor(R.id.tv_title, titleColor)
-                        viewHolder?.setText(R.id.tv_title, dialogTitle)
-                        viewHolder?.setText(R.id.tv_contract_name, contractName)
-                        //价格
-                        viewHolder?.setText(R.id.tv_price_value, price)
-                        //委托价格
-                        viewHolder?.setText(R.id.tv_commission_price_value, price)
-                        //触发价格
-                        viewHolder?.setText(R.id.tv_trigger_price_value, triggerPrice)
-                        //成本
-                        viewHolder?.setText(R.id.tv_cost_value, costPrice)
-                        //数量
-                        viewHolder?.setText(R.id.tv_number_value, amountValue)
-                        //止盈触发价
-                        viewHolder?.setText(R.id.tv_stop_profit_entrust_price_value, profitTriggerPrice + " " + quote)
-                        //止损触发价
-                        viewHolder?.setText(R.id.tv_stop_loss_trigger_price_value, lossTriggerPrice + " " + quote)
+                .setLayoutRes(R.layout.item_create_order_dialog)
+                .setScreenWidthAspect(context, 0.85f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                    viewHolder?.setTextColor(R.id.tv_title, titleColor)
+                    viewHolder?.setText(R.id.tv_title, dialogTitle)
+                    viewHolder?.setText(R.id.tv_contract_name, contractName)
+                    //价格
+                    viewHolder?.setText(R.id.tv_price_value, price)
+                    //委托价格
+                    viewHolder?.setText(R.id.tv_commission_price_value, price)
+                    //触发价格
+                    viewHolder?.setText(R.id.tv_trigger_price_value, triggerPrice)
+                    //成本
+                    viewHolder?.setText(R.id.tv_cost_value, costPrice)
+                    //数量
+                    viewHolder?.setText(R.id.tv_number_value, amountValue)
+                    //止盈触发价
+                    viewHolder?.setText(R.id.tv_stop_profit_entrust_price_value, profitTriggerPrice + " " + quote)
+                    //止损触发价
+                    viewHolder?.setText(R.id.tv_stop_loss_trigger_price_value, lossTriggerPrice + " " + quote)
 
-                        viewHolder?.setVisibility(R.id.ll_stop_profit, if (TextUtils.isEmpty(profitTriggerPrice)) View.GONE else View.VISIBLE)
-                        viewHolder?.setVisibility(R.id.ll_stop_loss, if (TextUtils.isEmpty(lossTriggerPrice)) View.GONE else View.VISIBLE)
-                        viewHolder?.setText(R.id.tv_open_type, showTag)
+                    viewHolder?.setVisibility(
+                        R.id.ll_stop_profit,
+                        if (TextUtils.isEmpty(profitTriggerPrice)) View.GONE else View.VISIBLE
+                    )
+                    viewHolder?.setVisibility(
+                        R.id.ll_stop_loss,
+                        if (TextUtils.isEmpty(lossTriggerPrice)) View.GONE else View.VISIBLE
+                    )
+                    viewHolder?.setText(R.id.tv_open_type, showTag)
 
-                        when (orderType) {
-                            1, 2, 4, 5, 6 -> {
-                                viewHolder?.setVisibility(R.id.ll_price, View.VISIBLE)
-                                viewHolder?.setVisibility(R.id.ll_cost, View.VISIBLE)
+                    when (orderType) {
+                        1, 2, 4, 5, 6 -> {
+                            viewHolder?.setVisibility(R.id.ll_price, View.VISIBLE)
+                            viewHolder?.setVisibility(R.id.ll_cost, View.VISIBLE)
 
-                                viewHolder?.setVisibility(R.id.ll_trigger_price, View.GONE)
-                                viewHolder?.setVisibility(R.id.ll_commission_price, View.GONE)
-                            }
-                            else -> {
-                                viewHolder?.setVisibility(R.id.ll_price, View.GONE)
-                                viewHolder?.setVisibility(R.id.ll_cost, View.GONE)
-                                viewHolder?.setText(R.id.tv_title, context.getString(R.string.cp_overview_text55) + dialogTitle)
-                                viewHolder?.setVisibility(R.id.ll_trigger_price, View.VISIBLE)
-                                viewHolder?.setVisibility(R.id.ll_commission_price, View.VISIBLE)
-                            }
+                            viewHolder?.setVisibility(R.id.ll_trigger_price, View.GONE)
+                            viewHolder?.setVisibility(R.id.ll_commission_price, View.GONE)
                         }
-                        viewHolder?.setVisibility(R.id.ll_cost, View.GONE)
+                        else -> {
+                            viewHolder?.setVisibility(R.id.ll_price, View.GONE)
+                            viewHolder?.setVisibility(R.id.ll_cost, View.GONE)
+                            viewHolder?.setText(R.id.tv_title, context.getString(R.string.cp_overview_text55) + dialogTitle)
+                            viewHolder?.setVisibility(R.id.ll_trigger_price, View.VISIBLE)
+                            viewHolder?.setVisibility(R.id.ll_commission_price, View.VISIBLE)
+                        }
                     }
-                    .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn, R.id.ll_not_again)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.ll_not_again -> {
-                                val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
-                                cbNotAgain.isChecked = !cbNotAgain.isChecked
-                            }
-                            R.id.tv_cancel_btn -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_confirm_btn -> {
-                                val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
-                                CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
-                                        CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotAgain.isChecked)
-                                if (listener != null) {
-                                    if (!CpChainUtil.isFastClick()) {
-                                        listener.sendConfirm()
-                                    }
-
-
+                    viewHolder?.setVisibility(R.id.ll_cost, View.GONE)
+                }
+                .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn, R.id.ll_not_again)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.ll_not_again -> {
+                            val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
+                            cbNotAgain.isChecked = !cbNotAgain.isChecked
+                        }
+                        R.id.tv_cancel_btn -> {
+                            tDialog.dismiss()
+                        }
+                        R.id.tv_confirm_btn -> {
+                            val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
+                            CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
+                                CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotAgain.isChecked
+                            )
+                            if (listener != null) {
+                                if (!CpChainUtil.isFastClick()) {
+                                    listener.sendConfirm()
+                                    tDialog.dismiss()
                                 }
-                                tDialog.dismiss()
                             }
+
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
         }
 
         //平仓确定框
-        fun showCloseOrderDialog(context: Context,
-                                 titleColor: Int,
-                                 dialogTitle: String,
-                                 contractName: String,
-                                 price: String,
-                                 triggerPrice: String,
-                                 costPrice: String,
-                                 amountValue: String,
-                                 orderType: Int,
-                                 profitTriggerPrice: String,
-                                 lossTriggerPrice: String,
-                                 showTag: String,
-                                 listener: CpNewDialogUtils.DialogBottomListener?) {
+        fun showCloseOrderDialog(
+            context: Context,
+            titleColor: Int,
+            dialogTitle: String,
+            contractName: String,
+            price: String,
+            triggerPrice: String,
+            costPrice: String,
+            amountValue: String,
+            orderType: Int,
+            profitTriggerPrice: String,
+            lossTriggerPrice: String,
+            showTag: String,
+            listener: CpNewDialogUtils.DialogBottomListener?
+        ) {
             TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                    .setLayoutRes(R.layout.item_close_order_dialog)
-                    .setScreenWidthAspect(context, 0.8f)
-                    .setGravity(Gravity.CENTER)
-                    .setDimAmount(0.5f)
-                    .setCancelableOutside(false)
-                    .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                        viewHolder?.setTextColor(R.id.tv_title, titleColor)
-                        viewHolder?.setText(R.id.tv_title, dialogTitle)
-                        viewHolder?.setText(R.id.tv_contract_name, contractName)
-                        //价格
-                        viewHolder?.setText(R.id.tv_price_value, price)
-                        //委托价格
-                        viewHolder?.setText(R.id.tv_commission_price_value, price)
-                        //触发价格
-                        viewHolder?.setText(R.id.tv_trigger_price_value, triggerPrice)
-                        //成本
-                        viewHolder?.setText(R.id.tv_cost_value, costPrice)
-                        //数量
-                        viewHolder?.setText(R.id.tv_number_value, amountValue)
-                        //止盈触发价
-                        viewHolder?.setText(R.id.tv_stop_profit_entrust_price_value, profitTriggerPrice)
-                        //止损触发价
-                        viewHolder?.setText(R.id.tv_stop_loss_trigger_price_value, lossTriggerPrice)
+                .setLayoutRes(R.layout.item_close_order_dialog)
+                .setScreenWidthAspect(context, 0.8f)
+                .setGravity(Gravity.CENTER)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(false)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                    viewHolder?.setTextColor(R.id.tv_title, titleColor)
+                    viewHolder?.setText(R.id.tv_title, dialogTitle)
+                    viewHolder?.setText(R.id.tv_contract_name, contractName)
+                    //价格
+                    viewHolder?.setText(R.id.tv_price_value, price)
+                    //委托价格
+                    viewHolder?.setText(R.id.tv_commission_price_value, price)
+                    //触发价格
+                    viewHolder?.setText(R.id.tv_trigger_price_value, triggerPrice)
+                    //成本
+                    viewHolder?.setText(R.id.tv_cost_value, costPrice)
+                    //数量
+                    viewHolder?.setText(R.id.tv_number_value, amountValue)
+                    //止盈触发价
+                    viewHolder?.setText(R.id.tv_stop_profit_entrust_price_value, profitTriggerPrice)
+                    //止损触发价
+                    viewHolder?.setText(R.id.tv_stop_loss_trigger_price_value, lossTriggerPrice)
 
-                        viewHolder?.setVisibility(R.id.ll_stop_profit, if (TextUtils.isEmpty(profitTriggerPrice)) View.GONE else View.VISIBLE)
-                        viewHolder?.setVisibility(R.id.ll_stop_loss, if (TextUtils.isEmpty(lossTriggerPrice)) View.GONE else View.VISIBLE)
+                    viewHolder?.setVisibility(
+                        R.id.ll_stop_profit,
+                        if (TextUtils.isEmpty(profitTriggerPrice)) View.GONE else View.VISIBLE
+                    )
+                    viewHolder?.setVisibility(
+                        R.id.ll_stop_loss,
+                        if (TextUtils.isEmpty(lossTriggerPrice)) View.GONE else View.VISIBLE
+                    )
 
-                        viewHolder?.setText(R.id.tv_open_type, showTag)
-                    }
-                    .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn, R.id.ll_not_again)
-                    .setOnViewClickListener { viewHolder, view, tDialog ->
-                        when (view.id) {
-                            R.id.ll_not_again -> {
-                                val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
-                                cbNotAgain.isChecked = !cbNotAgain.isChecked
+                    viewHolder?.setText(R.id.tv_open_type, showTag)
+                }
+                .addOnClickListener(R.id.tv_cancel_btn, R.id.tv_confirm_btn, R.id.ll_not_again)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.ll_not_again -> {
+                            val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
+                            cbNotAgain.isChecked = !cbNotAgain.isChecked
+                        }
+                        R.id.tv_cancel_btn -> {
+                            tDialog.dismiss()
+                        }
+                        R.id.tv_confirm_btn -> {
+                            val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
+                            CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
+                                CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotAgain.isChecked
+                            )
+                            if (listener != null) {
+                                listener.sendConfirm()
                             }
-                            R.id.tv_cancel_btn -> {
-                                tDialog.dismiss()
-                            }
-                            R.id.tv_confirm_btn -> {
-                                val cbNotAgain = viewHolder.getView<CheckBox>(R.id.cb_not_again)
-                                CpPreferenceManager.getInstance(CpMyApp.instance()).putSharedBoolean(
-                                        CpPreferenceManager.PREF_TRADE_CONFIRM, !cbNotAgain.isChecked)
-                                if (listener != null) {
-                                    listener.sendConfirm()
-                                }
-                                tDialog.dismiss()
-                            }
+                            tDialog.dismiss()
                         }
                     }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
         }
 
 
-        fun createSelectCoinsPop(context: Context?, mContractId: Int = 0, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?) {
+        fun createSelectCoinsPop(
+            context: Context?,
+            mContractId: Int = 0,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_select_coins)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rLeftView = findViewById<RecyclerView>(R.id.rv_left)
                 val rRightView = findViewById<RecyclerView>(R.id.rv_right)
@@ -878,15 +947,21 @@ class CpDialogUtil {
         }
 
 
-        fun createCommonTopPop(context: Context?, list: ArrayList<CpTabInfo>,
-                               position: Int, targetView: View, dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createCommonTopPop(
+            context: Context?,
+            list: ArrayList<CpTabInfo>,
+            position: Int,
+            targetView: View,
+            dialogItemClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_select_list)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rView = findViewById<RecyclerView>(R.id.recycler_view)
                 val llDissmiss = findViewById<LinearLayout>(R.id.ll_dissmiss)
@@ -909,14 +984,19 @@ class CpDialogUtil {
             }
         }
 
-        fun createMoreTimeKlinePop(context: Context?, targetView: View, dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createMoreTimeKlinePop(
+            context: Context?,
+            targetView: View,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_kline_time_more)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rvKlineCtrlMore = findViewById<RecyclerView>(R.id.rv_kline_ctrl_more)
                 val llDissmiss = findViewById<LinearLayout>(R.id.ll_dissmiss)
@@ -945,15 +1025,20 @@ class CpDialogUtil {
             cvcEasyPopup?.showAtAnchorView(targetView, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, 10)
         }
 
-        fun createMoreTargetKlinePop(context: Context?, targetView: View, dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?, mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?) {
+        fun createMoreTargetKlinePop(
+            context: Context?,
+            targetView: View,
+            dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
+            mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+        ) {
             var isShowPositionDesc = false
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_kline_target_more)
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setDimValue(0f)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply()
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setDimValue(0f)
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply()
             cvcEasyPopup?.run {
                 val rvKlineCtrlMain = findViewById<RecyclerView>(R.id.rv_kline_ctrl_main)
                 val rvKlineCtrlVice = findViewById<RecyclerView>(R.id.rv_kline_ctrl_vice)

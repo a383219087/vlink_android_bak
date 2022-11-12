@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.app.CpParamConstant
@@ -453,6 +454,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
             CpMessageEvent.sl_contract_create_order_event -> {
 //                ToastUtils.showShort("发起下单请求")
+                LogUtils.e("我是二次弹窗--接收")
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(getContractModel().createOrder(obj,
                         consumer = object : CpNDisposableObserver(mActivity, true) {
