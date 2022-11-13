@@ -25,7 +25,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpPreferenceManager
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
-import com.yjkj.chainup.new_contract.activity.CpContractAssetRecordActivity
+import com.chainup.contract.ui.activity.CpContractAssetRecordActivity
 import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
 import com.yjkj.chainup.new_contract.activity.CpContractDetailActivity
 import com.yjkj.chainup.new_contract.activity.CpContractHistoricalPositionActivity

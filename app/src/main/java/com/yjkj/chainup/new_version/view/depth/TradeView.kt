@@ -65,7 +65,6 @@ class TradeView @JvmOverloads constructor(
     val TAG = "我是交易量的View"
 
 
-
     //交易类型
     var transactionType = TYPE_BUY
     var isLever = false
@@ -90,7 +89,8 @@ class TradeView @JvmOverloads constructor(
     var mainModel: MainModel? = null
 
     var dialog: TDialog? = null
-    var coinMapData: JSONObject? = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
+    var coinMapData: JSONObject? =
+        NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         set(value) {
             field = value
             synchronized(this) {
@@ -293,24 +293,29 @@ class TradeView @JvmOverloads constructor(
                     if (TradeFragment.currentIndex == LEVER_INDEX_TAB) PublicInfoDataService.getInstance().leverTradeKycOpen else PublicInfoDataService.getInstance().exchangeTradeKycOpen
 
                 if (status && UserDataService.getInstance().authLevel != 1) {
-                    NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_trading)
-                        ?: "", object : NewDialogUtils.DialogBottomListener {
-                        override fun sendConfirm() {
-                            when (UserDataService.getInstance().authLevel) {
-                                0 -> {
-                                    NToastUtil.showTopToastNet(
-                                        getActivity(),
-                                        false,
-                                        context?.getString(R.string.noun_login_pending)
-                                    )
-                                }
+                    NewDialogUtils.KycSecurityDialog(context!!,
+                        context?.getString(R.string.common_kyc_trading)
+                            ?: "",
+                        object : NewDialogUtils.DialogBottomListener {
+                            override fun sendConfirm() {
+                                when (UserDataService.getInstance().authLevel) {
+                                    0 -> {
+                                        NToastUtil.showTopToastNet(
+                                            getActivity(),
+                                            false,
+                                            context?.getString(R.string.noun_login_pending)
+                                        )
+                                    }
 
-                                2, 3 -> {
-                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                    2, 3 -> {
+                                        ArouterUtil.greenChannel(
+                                            RoutePath.RealNameCertificationActivity,
+                                            null
+                                        )
+                                    }
                                 }
                             }
-                        }
-                    })
+                        })
                     return
                 }
 
@@ -325,13 +330,22 @@ class TradeView @JvmOverloads constructor(
                  * 限价交易
                  */
                 if (priceType == TYPE_LIMIT) {
+
+
                     if (TextUtils.isEmpty(inputPrice)) {
-                        NToastUtil.showTopToastNet(
-                            getActivity(),
-                            false,
-                            LanguageUtil.getString(context, "contract_tip_pleaseInputPrice")
-                        )
-                        return
+
+                        if (et_price.text.isNotEmpty()) {
+                            inputPrice = et_price.text.toString()
+                        } else {
+                            NToastUtil.showTopToastNet(
+                                getActivity(),
+                                false,
+                                LanguageUtil.getString(context, "contract_tip_pleaseInputPrice")
+                            )
+                            return
+                        }
+
+
                     }
 
                     if (TextUtils.isEmpty(inputQuantity)) {
@@ -347,7 +361,10 @@ class TradeView @JvmOverloads constructor(
                     val limitPriceMin = coinMapData?.optString("limitPriceMin")
                     if (BigDecimalUtils.compareTo(inputPrice, limitPriceMin) < 0) {
                         val msg =
-                            LanguageUtil.getString(context, "common_tip_limitMinTransactionPrice") + BigDecimalUtils.showSNormal(
+                            LanguageUtil.getString(
+                                context,
+                                "common_tip_limitMinTransactionPrice"
+                            ) + BigDecimalUtils.showSNormal(
                                 limitPriceMin
                             )
                         NToastUtil.showTopToastNet(getActivity(), false, msg)
@@ -357,7 +374,10 @@ class TradeView @JvmOverloads constructor(
                     val limitVolumeMin = coinMapData?.optString("limitVolumeMin")
                     if (BigDecimalUtils.compareTo(inputQuantity, limitVolumeMin) < 0) {
                         val msg =
-                            LanguageUtil.getString(context, "common_tip_limitMaxTransactionVolume") + BigDecimalUtils.showSNormal(
+                            LanguageUtil.getString(
+                                context,
+                                "common_tip_limitMaxTransactionVolume"
+                            ) + BigDecimalUtils.showSNormal(
                                 limitVolumeMin
                             )
                         NToastUtil.showTopToastNet(getActivity(), false, msg)
@@ -541,16 +561,19 @@ class TradeView @JvmOverloads constructor(
                 if (transactionType == TYPE_BUY) {
                     val consume = BigDecimalUtils.mul(canUseMoney, radio, priceScale).toString()
                     if (!TextUtils.isEmpty(price)) {
-                        val volume = BigDecimalUtils.div(consume, price, volumeScale).toPlainString()
+                        val volume =
+                            BigDecimalUtils.div(consume, price, volumeScale).toPlainString()
                         et_volume?.setText(volume)
                     }
                     if (TextUtils.isEmpty(inputPrice) || inputPrice == "0") {
                         tv_transaction_money?.text = "--"
                     } else {
-                        tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
+                        tv_transaction_money?.text =
+                            "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
                     }
                 } else {
-                    val volume = BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
+                    val volume =
+                        BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
                     et_volume?.setText(volume)
                     val consume = if (TextUtils.isEmpty(price)) {
                         BigDecimalUtils.mul(volume, "0", priceScale).toString()
@@ -558,7 +581,8 @@ class TradeView @JvmOverloads constructor(
                         BigDecimalUtils.mul(volume, price, priceScale).toString()
                     }
 
-                    tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
+                    tv_transaction_money?.text =
+                        "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
                 }
             }
 
@@ -567,13 +591,17 @@ class TradeView @JvmOverloads constructor(
              */
             TYPE_MARKET -> {
                 if (transactionType == TYPE_BUY) {
-                    val consume = BigDecimalUtils.mul(canUseMoney, radio, priceScale).toPlainString()
+                    val consume =
+                        BigDecimalUtils.mul(canUseMoney, radio, priceScale).toPlainString()
                     et_volume?.setText(consume)
-                    tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
+                    tv_transaction_money?.text =
+                        "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
                 } else {
-                    val volume = BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
+                    val volume =
+                        BigDecimalUtils.mul(canUseMoney, radio, volumeScale).toPlainString()
                     et_volume?.setText(volume)
-                    tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(volume) + showCoinName()}"
+                    tv_transaction_money?.text =
+                        "${BigDecimalUtils.showSNormal(volume) + showCoinName()}"
 
                 }
             }
@@ -591,16 +619,17 @@ class TradeView @JvmOverloads constructor(
         /**
          * 价格 （-）
          */
-        tv_sub?.setOnClickListener {priceSub() }
-        iv_sub?.setOnClickListener {priceSub() }
+        tv_sub?.setOnClickListener { priceSub() }
+        iv_sub?.setOnClickListener { priceSub() }
         /**
          * 价格 （+）
          */
-        tv_add?.setOnClickListener {priceAdd() }
-        iv_add?.setOnClickListener {priceAdd() }
+        tv_add?.setOnClickListener { priceAdd() }
+        iv_add?.setOnClickListener { priceAdd() }
     }
+
     private fun priceAdd() {
-        if (Utils.isFastClick(300)){
+        if (Utils.isFastClick(300)) {
             return
         }
         if (!LoginManager.checkLogin(context, true)) return
@@ -614,31 +643,34 @@ class TradeView @JvmOverloads constructor(
         if (TextUtils.isEmpty(unit)) return
         if (BigDecimal(inputPrice).toFloat() > 0f) {
             inputPrice =
-                BigDecimalUtils.divForDown(BigDecimalUtils.add(inputPrice, unit).toPlainString(), scale).toPlainString()
+                BigDecimalUtils.divForDown(
+                    BigDecimalUtils.add(inputPrice, unit).toPlainString(),
+                    scale
+                ).toPlainString()
             //这边必须要这样不然字段会改变
-            val inputPrice1= inputPrice
-            if (inputPrice1.isNotEmpty()){
+            val inputPrice1 = inputPrice
+            if (inputPrice1.isNotEmpty()) {
                 et_price?.setText(BigDecimalUtils.subAndDot(inputPrice1))
-                inputPrice=inputPrice1
-                Log.d("我是入口","${inputPrice}==3")
+                inputPrice = inputPrice1
+                Log.d("我是入口", "${inputPrice}==3")
                 tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
             }
 
         } else {
-            Log.d("我是入口","0.0==2")
+            Log.d("我是入口", "0.0==2")
             et_price?.setText("0.0")
-            inputPrice="0.0"
+            inputPrice = "0.0"
             tv_convert_price?.text = "0.0"
             return
         }
     }
 
 
-    private  fun priceSub(){
-        if (Utils.isFastClick(300)){
+    private fun priceSub() {
+        if (Utils.isFastClick(300)) {
             return
         }
-        if (!LoginManager.checkLogin(context, true)){
+        if (!LoginManager.checkLogin(context, true)) {
             return
         }
         val scale = if (transactionType == TYPE_SELL && priceType == TYPE_MARKET) {
@@ -647,35 +679,37 @@ class TradeView @JvmOverloads constructor(
             priceScale
         }
         val unit = (1 / 10.0.pow(scale.toDouble())).toString()
-        if (TextUtils.isEmpty(unit)){
+        if (TextUtils.isEmpty(unit)) {
             return
         }
         if (inputPrice.isEmpty()) {
-            Log.d("我是入口","==7")
+            Log.d("我是入口", "==7")
             et_price?.setText("")
             tv_convert_price?.text = ""
             return
         }
         if (BigDecimal(inputPrice).toFloat() > 0f) {
             inputPrice =
-                BigDecimalUtils.divForDown(BigDecimalUtils.sub(inputPrice, unit).toPlainString(), scale).toPlainString()
+                BigDecimalUtils.divForDown(
+                    BigDecimalUtils.sub(inputPrice, unit).toPlainString(),
+                    scale
+                ).toPlainString()
             //这边必须要这样不然字段会改变
-            val inputPrice1= inputPrice
-            if (inputPrice1.isNotEmpty()){
+            val inputPrice1 = inputPrice
+            if (inputPrice1.isNotEmpty()) {
                 et_price?.setText(BigDecimalUtils.subAndDot(inputPrice1))
-                inputPrice=inputPrice1
-                Log.d("我是入口","${inputPrice}==3")
+                inputPrice = inputPrice1
+                Log.d("我是入口", "${inputPrice}==3")
                 tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, inputPrice)
             }
         } else {
-            Log.d("我是入口","0.0==5")
+            Log.d("我是入口", "0.0==5")
             et_price?.setText("0.0")
             tv_convert_price?.text = "0.0"
             return
         }
 
     }
-
 
 
     private var beforlong = 0
@@ -705,8 +739,8 @@ class TradeView @JvmOverloads constructor(
                     et_price?.text?.clear()
                     Log.d(TAG, "=======1===========")
                 }
-                if(s.isNullOrEmpty()&&inputPrice.isNotEmpty()){
-                    et_price.text=inputPrice.editable()
+                if (s.isNullOrEmpty() && inputPrice.isNotEmpty()) {
+                    et_price.text = inputPrice.editable()
                 }
 
                 if (inputPrice.isEmpty()) {
@@ -722,10 +756,12 @@ class TradeView @JvmOverloads constructor(
                             tv_transaction_money?.text = "--"
                         } else {
                             //计算总金额
-                            var money = BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
+                            var money =
+                                BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
                             money = DecimalUtil.cutValueByPrecision(money, priceScale)
 
-                            tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(money) + showMarket()}"
+                            tv_transaction_money?.text =
+                                "${BigDecimalUtils.showSNormal(money) + showMarket()}"
                         }
                     } else {
                         //买入且市价交易状态下，价格未知,交易额不显示
@@ -737,10 +773,12 @@ class TradeView @JvmOverloads constructor(
                         if (TextUtils.isEmpty(inputPrice) || TextUtils.isEmpty(inputQuantity)) {
                             tv_transaction_money?.text = "--"
                         } else {
-                            var money = BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
+                            var money =
+                                BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
                             money = DecimalUtil.cutValueByPrecision(money, priceScale)
 
-                            tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(money) + showMarket()}"
+                            tv_transaction_money?.text =
+                                "${BigDecimalUtils.showSNormal(money) + showMarket()}"
                         }
 
                     }
@@ -801,9 +839,11 @@ class TradeView @JvmOverloads constructor(
                         if (TextUtils.isEmpty(inputPrice) || TextUtils.isEmpty(inputQuantity)) {
                             tv_transaction_money?.text = "--"
                         } else {
-                            var money = BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
+                            var money =
+                                BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
                             money = DecimalUtil.cutValueByPrecision(money, priceScale)
-                            tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(money) + showMarket()}"
+                            tv_transaction_money?.text =
+                                "${BigDecimalUtils.showSNormal(money) + showMarket()}"
                         }
                     }
                 } else {
@@ -812,9 +852,11 @@ class TradeView @JvmOverloads constructor(
                             tv_transaction_money?.text = "--"
                         } else {
                             //交易额
-                            var money = BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
+                            var money =
+                                BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
                             money = DecimalUtil.cutValueByPrecision(money, priceScale)
-                            tv_transaction_money?.text = "${BigDecimalUtils.showSNormal(money) + showMarket()}"
+                            tv_transaction_money?.text =
+                                "${BigDecimalUtils.showSNormal(money) + showMarket()}"
                         }
 
                     }
@@ -870,7 +912,11 @@ class TradeView @JvmOverloads constructor(
                             LanguageUtil.getString(context, "contract_tip_submitSuccess")
                         )
                         val event =
-                            MessageEvent(MessageEvent.CREATE_ORDER_TYPE, true, TradeFragment.currentIndex == LEVER_INDEX_TAB)
+                            MessageEvent(
+                                MessageEvent.CREATE_ORDER_TYPE,
+                                true,
+                                TradeFragment.currentIndex == LEVER_INDEX_TAB
+                            )
                         try {
                             val item = data.getJSONObject("data")
                             event.msg_content_data = item
@@ -1021,9 +1067,11 @@ class TradeView @JvmOverloads constructor(
         }
         if (transferType == TYPE_BUY) {
             if (UserDataService.getInstance().isLogined) {
-                cbtn_create_order?.textContent = LanguageUtil.getString(context, "contract_action_buy") + " " + showCoinName()
+                cbtn_create_order?.textContent =
+                    LanguageUtil.getString(context, "contract_action_buy") + " " + showCoinName()
             } else {
-                cbtn_create_order?.textContent = LanguageUtil.getString(context, "login_action_login")
+                cbtn_create_order?.textContent =
+                    LanguageUtil.getString(context, "login_action_login")
             }
             cbtn_create_order?.normalBgColor = ColorUtil.getMainColorType()
 
@@ -1053,9 +1101,11 @@ class TradeView @JvmOverloads constructor(
 
         } else {
             if (UserDataService.getInstance().isLogined) {
-                cbtn_create_order?.textContent = LanguageUtil.getString(context, "contract_action_sell") + " " + showCoinName()
+                cbtn_create_order?.textContent =
+                    LanguageUtil.getString(context, "contract_action_sell") + " " + showCoinName()
             } else {
-                cbtn_create_order?.textContent = LanguageUtil.getString(context, "login_action_login")
+                cbtn_create_order?.textContent =
+                    LanguageUtil.getString(context, "login_action_login")
             }
 
             cbtn_create_order?.normalBgColor = ColorUtil.getMainColorType(false)
@@ -1098,7 +1148,8 @@ class TradeView @JvmOverloads constructor(
             NCoinManager.getMarketByName(showCoinName())
             tv_available_balance?.text = "$canUseMoney ${showMarket()}"
 
-            tv_coin_name?.text = if (priceType == TYPE_LIMIT) "${showCoinName()}" else "${showMarket()}"
+            tv_coin_name?.text =
+                if (priceType == TYPE_LIMIT) "${showCoinName()}" else "${showMarket()}"
         } else {
             canUseMoney = baseCoinBalance.getTradeCoinBalance(coinMapData)
             tv_coin_name?.text = "${showCoinName()}"
@@ -1143,8 +1194,6 @@ class TradeView @JvmOverloads constructor(
     }
 
 
-
-
     fun editPriceIsNull(): Boolean {
         if (et_price.text.isNullOrEmpty() && !isClear) {
             return true
@@ -1153,16 +1202,15 @@ class TradeView @JvmOverloads constructor(
     }
 
 
-    fun initTick(tick: JSONArray, depthLevel: Int = 2,type: Int) {
-        if(inputPrice.isEmpty()){
-            et_price.text  = tick.getPriceTick(depthLevel).editable()
-            Log.d("我是入口","${tick.getPriceTick(depthLevel)}==8")
-            inputPrice= tick.getPriceTick(depthLevel)
+    fun initTick(tick: JSONArray, depthLevel: Int = 2, type: Int) {
+        if (inputPrice.isEmpty()) {
+            et_price.text = tick.getPriceTick(depthLevel).editable()
+            Log.d("我是入口", "${tick.getPriceTick(depthLevel)}==8")
+            inputPrice = tick.getPriceTick(depthLevel)
         }
 
 
     }
-
 
 
     fun verticalDepth(isVertical: Boolean = false, isBuy: Boolean = true, isLever: Boolean = true) {
@@ -1191,7 +1239,8 @@ class TradeView @JvmOverloads constructor(
     }
 
     fun changePriceType(item: Int) {
-        var showCoinName = NCoinManager.getMarketShowCoinName(coinMapData?.optString("showName", ""))
+        var showCoinName =
+            NCoinManager.getMarketShowCoinName(coinMapData?.optString("showName", ""))
         when (item) {
             0 -> {
                 priceType = TYPE_LIMIT
@@ -1227,12 +1276,10 @@ class TradeView @JvmOverloads constructor(
 
     var isClear = false
     fun resetPrice() {
-        inputPrice=""
+        inputPrice = ""
         et_price?.text?.clear()
         isClear = false
     }
-
-
 
 
     fun changeEtfLayout(isVerticalOrGone: Boolean = false) {

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.LogUtils
-import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseActivity
 import com.chainup.contract.bean.CpTabInfo
@@ -17,12 +16,10 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpNewDialogUtils
-import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.adapter.CpContractAssetRecordAdapter
 import kotlinx.android.synthetic.main.cp_activity_asset_record.*
 import kotlinx.android.synthetic.main.cp_activity_asset_record.img_back
-import kotlinx.android.synthetic.main.cp_activity_stop_rate_loss.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -34,17 +31,14 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
     override fun setContentView(): Int {
         return R.layout.cp_activity_asset_record
     }
-
     internal class PageInfo {
         var page = 1
         fun nextPage() {
             page++
         }
-
         fun reset() {
             page = 1
         }
-
         val isFirstPage: Boolean
             get() = page == 1
     }
@@ -84,7 +78,7 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
             for (i in 0 until jsonArray.length()) {
                 val mJSONObject = jsonArray[i] as String
                 contractList.add(CpTabInfo(mJSONObject, i,i))
-                if (symbol.equals(mJSONObject)) {
+                if (symbol == mJSONObject) {
                     mCurrContractInfo = CpTabInfo(mJSONObject, i,extras = i)
                 }
             }
@@ -173,22 +167,15 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
     }
 
     private fun showSelectTypeDialog(view: View) {
-
-
         img_tab_type.animate().setDuration(300).rotation(180f).start()
         LogUtils.e("createTopListPop","|||||"+ mCurrTypeInfo!!.extrasNum)
-        CpDialogUtil.createTopListPop(this, mCurrTypeInfo!!.extrasNum!!, typeList, view, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-            override fun clickItem(position: Int, text: String) {
+        CpDialogUtil.showNewListDialog(this, typeList,  mCurrTypeInfo!!.extrasNum!!, object : CpNewDialogUtils.DialogOnItemClickListener {
+
+            override fun clickItem(position: Int) {
                 mCurrTypeInfo = typeList[position]
-                LogUtils.e("createTopListPop",position.toString()+"|||||||"+text+"|||||"+ mCurrTypeInfo!!.extrasNum)
                 updateTypeUI()
                 pageInfo.reset()
                 loadDataFromNet()
-
-            }
-        }, object : CpNewDialogUtils.DialogOnDismissClickListener {
-            override fun clickItem() {
-                img_tab_type.animate().setDuration(300).rotation(0f).start()
             }
         })
 

@@ -48,7 +48,9 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
             mFragments?.add(MySingleMoneyFragment.newInstance())
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
         } else {
+            //首页
             mFragments?.add(FirstFragment.newInstance(status))
+            //我的跟单
             mFragments?.add(ARouter.getInstance().build(RoutePath.MineFragment).navigation() as Fragment)
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
         }

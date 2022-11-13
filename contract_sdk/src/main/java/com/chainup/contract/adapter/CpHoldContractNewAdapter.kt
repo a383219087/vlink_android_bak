@@ -5,10 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
 import com.chainup.contract.bean.CpContractPositionBean
-import com.chainup.contract.utils.CpBigDecimalUtils
-import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.utils.CpMathHelper
-import com.chainup.contract.utils.CpNumberUtil
+import com.chainup.contract.utils.*
 
 class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_position, data) {
@@ -112,7 +109,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             //保证金Key
             setText(R.id.tv_margins_key, context.getString(R.string.cp_order_text12) + "(" + CpClLogicContractSetting.getContractMarginCoinById(context, item.contractId) + ")")
             //可平
-            setText(R.id.tv_gains_balance_value, if (CpClLogicContractSetting.getContractUint(context) == 0) item.canCloseVolume else CpBigDecimalUtils.mulStr(item.canCloseVolume, mMultiplier, mMultiplierPrecision))
+            setText(R.id.tv_gains_balance_value, if (CpClLogicContractSetting.getContractUint(context) == 0) CpDecimalUtil.cutValueByPrecision(item.canCloseVolume,0)  else CpBigDecimalUtils.mulStr(item.canCloseVolume, mMultiplier, mMultiplierPrecision))
             //可平Key
             setText(R.id.tv_gains_balance_key, if (CpClLogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cp_order_text35) + "("+context.getString(R.string.cp_overview_text9)+")" else context.getString(R.string.cp_order_text35) + "(" + mMultiplierCoin + ")")
             //保证金率

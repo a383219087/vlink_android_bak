@@ -81,6 +81,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         img_top.setOnClickListener {
             appbarlayout.setExpanded(true, true)
         }
+        //去k线图页面
         ib_kline.setOnClickListener {
             if (!CpChainUtil.isFastClick()) {
                 val mIntent = Intent(mActivity!!, CpMarketDetail4Activity::class.java)
@@ -93,6 +94,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 startActivity(mIntent)
             }
         }
+        //合约上面的三个点
         iv_more.setOnClickListener {
             CpSlDialogHelper.createContractSettingNew(
                     activity,

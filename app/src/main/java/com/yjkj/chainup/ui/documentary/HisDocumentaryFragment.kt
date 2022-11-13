@@ -52,11 +52,18 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         rv_hold_contract.adapter = adapter
         adapter?.setOnItemClickListener { adapter, view, position ->
             if (mViewModel?.uid?.value.isNullOrEmpty()) {
-                val item = adapter.data[position] as JSONObject
-                ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
-                    .withString("id", item.optString("id") )
-                    .withInt("contractId", item.optInt("contractId") )
-                    .navigation()
+                try {
+                    if(adapter.data.size-1>position){
+                        val item = adapter.data[position] as JSONObject
+                        ARouter.getInstance().build(RoutePath.DocumentaryDetailActivity)
+                            .withString("id", item.optString("id") )
+                            .withInt("contractId", item.optInt("contractId") )
+                            .navigation()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
             }
         }
 

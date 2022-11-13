@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{item.entrustPrice}"
+                android:text="@{DecimalUtil.cutValueByPrecision(item.entrustPrice ,2)}"
                 android:textColor="@color/text_color"
                 android:textSize="11sp" />
 

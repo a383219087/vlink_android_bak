@@ -324,6 +324,44 @@ class CpDialogUtil {
             }
         }
 
+
+        /**
+         * string 底部dialog
+         *
+         */
+        fun showNewListDialog(context: Context,
+                              list: ArrayList<CpTabInfo>,
+                              position: Int,
+                              listener: CpNewDialogUtils.DialogOnItemClickListener
+        ): TDialog {
+            return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+                .setLayoutRes(R.layout.cp_item_new_dialog)
+                .setScreenWidthAspect(context, 1f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.8f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                    var adapter = CpTopPopAdapter(list, position)
+                    var listView = viewHolder?.getView<RecyclerView>(R.id.recycler_view)
+                    listView?.layoutManager = LinearLayoutManager(context)
+                    listView?.adapter = adapter
+                    listView?.setHasFixedSize(true)
+                    adapter.setOnItemClickListener { adapter, view, position ->
+                        listener.clickItem(position)
+                    }
+                }
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { viewHolder, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
+                        }
+                    }
+                }
+                .create()
+                .show()
+        }
+
         fun createTopListPop(
             context: Context?,
             index: Int = 1,

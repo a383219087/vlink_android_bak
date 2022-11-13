@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chainup.contract.ui.activity.CpContractAssetRecordActivity
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -23,7 +24,6 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.activity.ClContractAssetRecordActivity
 import com.yjkj.chainup.new_version.adapter.ClContractAssetAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
@@ -80,12 +80,12 @@ class ClContractAssetFragment : NBaseFragment() {
                 })
             }
         }
-        //资金明细
+        //资金明细，这是合约下面的合约账单
         assetHeadView?.ll_contract_layout?.setOnClickListener {
             if (openContract == 0) {
                 showOpenContractDialog()
             } else {
-                ClContractAssetRecordActivity.show(context as Activity)
+                CpContractAssetRecordActivity.show(context as Activity)
             }
         }
         //合约赠金

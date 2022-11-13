@@ -37,7 +37,7 @@ class MyTradersModel : BaseViewModel() {
 
     var onItemListener: OnItemListener = object : OnItemListener {
         override fun onClick(item:Item) {
-            if (item.type.value==1){
+            if (!item.isMe.value!!){
                 return
             }
             CreateTradersDialog().apply {

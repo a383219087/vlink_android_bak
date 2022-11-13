@@ -618,6 +618,7 @@ public class CpBigDecimalUtils {
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             scale = 0;
+            //BigDecimal.ROUND_DOWN向下取整
             buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
         }
         return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;

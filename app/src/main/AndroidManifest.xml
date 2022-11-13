@@ -235,7 +235,6 @@
 
 
         <activity android:name=".new_version.activity.ClCoinDetailActivity" />
-        <activity android:name=".new_version.activity.ClContractAssetRecordActivity" />
         <activity android:name=".new_version.activity.personalCenter.contract.ContractChangeActivity" />
         <activity android:name=".new_version.activity.otcTrading.NewVersionOtcActivity" />
         <activity android:name=".new_version.activity.grid.HistoryGridActivity" />

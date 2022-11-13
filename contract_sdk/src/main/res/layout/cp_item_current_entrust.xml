@@ -94,25 +94,7 @@
                 app:stv_solid="@color/list_item_select"
                 app:stv_corner="2dp"/>
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_only_reduce_position"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:paddingLeft="4dp"
-                android:paddingTop="1dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="1dp"
-                android:text="只减仓"
-                android:textColor="@color/normal_text_color"
-                android:textSize="@dimen/sp_10"
-                android:textStyle="bold"
-                app:stv_corner="2dp"
-                app:stv_solid="@color/list_item_select" />
+
         </LinearLayout>
 
 

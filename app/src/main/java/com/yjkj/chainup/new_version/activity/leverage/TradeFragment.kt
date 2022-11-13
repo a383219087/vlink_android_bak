@@ -173,6 +173,7 @@ class TradeFragment : NBaseFragment() {
 
      //币币
     private val cvcTradeFragment = NCVCTradeFragment()
+    //杠杆
     private val leverFragment = NLeverFragment.newInstance("", "")
     private val gridFragment = NGridFragment()
     private fun switchFragment(targetFragment: Fragment) {

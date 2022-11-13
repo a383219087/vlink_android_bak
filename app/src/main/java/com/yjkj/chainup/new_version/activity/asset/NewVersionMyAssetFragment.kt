@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.activity.asset
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -226,6 +227,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun initView() {
         setSelectClick()
 

@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.chainup.contract.ui.activity.CpContractAssetRecordActivity
 import com.google.gson.JsonObject
 import com.jaeger.library.StatusBarUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -816,7 +817,7 @@ class ItemDetailActivity : NBaseActivity() {
                  * 合约资金记录
                  */
                 if (PublicInfoDataService.getInstance().isNewOldContract) {
-                    ClContractAssetRecordActivity.show(this, symbol, type)
+                    CpContractAssetRecordActivity.show(this)
                 } else {
                     SlContractAssetRecordActivity.show(this, symbol, type)
                 }

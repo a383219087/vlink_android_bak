@@ -30,7 +30,7 @@
             android:name=".ui.activity.CpCoinDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yjkj.chainup.new_contract.activity.CpContractAssetRecordActivity"
+            android:name=".ui.activity.CpContractAssetRecordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity"
