@@ -33,10 +33,16 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 
+
+/**
+ * 当前持仓
+ */
 class CpContractHoldNewFragment : CpNBaseFragment() {
 
     private var adapter: CpHoldContractNewAdapter? = null
     private var mList = ArrayList<CpContractPositionBean>()
+
+
 
     override fun setContentView(): Int {
         return R.layout.cp_fragment_cl_contract_hold
@@ -718,14 +724,16 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 mPositionObj?.apply {
                     if (!isNull("positionList")) {
                         val mOrderListJson = optJSONArray("positionList")
-                        for (i in 0..(mOrderListJson.length() - 1)) {
-                            var obj = mOrderListJson.getString(i)
-                            mListBuffer.add(
-                                    Gson().fromJson<CpContractPositionBean>(
-                                            obj,
-                                            CpContractPositionBean::class.java
+                        if (mOrderListJson != null) {
+                            for (i in 0 until mOrderListJson.length()) {
+                                var obj = mOrderListJson.getString(i)
+                                mListBuffer.add(
+                                    Gson().fromJson(
+                                        obj,
+                                        CpContractPositionBean::class.java
                                     )
-                            )
+                                )
+                            }
                         }
                         val msgEvent =
                                 CpMessageEvent(

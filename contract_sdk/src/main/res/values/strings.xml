@@ -3866,5 +3866,8 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_trade_text2">The current contract</string>
     <string name="cp_trade_text3">Please enter the number of contracts</string>
     <string name="cp_trade_text4">less than 1</string>
+
+    <string name="cp_extra_text_hold1">All</string>
+    <string name="cp_extra_text_hold2">Close All</string>
 </resources>
 

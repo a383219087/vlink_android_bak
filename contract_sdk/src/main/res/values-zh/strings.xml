@@ -3866,5 +3866,8 @@
     <string name="cp_trade_text2">当前合约</string>
     <string name="cp_trade_text3">请输入合约数量</string>
     <string name="cp_trade_text4">小于1张</string>
+
+    <string name="cp_extra_text_hold1">显示全部</string>
+    <string name="cp_extra_text_hold2">一键平仓</string>
 </resources>
 

@@ -140,6 +140,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     private var mFragments: ArrayList<Fragment>? = null
     private fun initTabInfo() {
         mFragments = ArrayList()
+        /**
+         * 当前持仓
+         */
         mFragments?.add(CpContractHoldNewFragment())
         mFragments?.add(CpContractCurrentEntrustNewFragment())
         mFragments?.add(CpContractPlanEntrustNewFragment())
