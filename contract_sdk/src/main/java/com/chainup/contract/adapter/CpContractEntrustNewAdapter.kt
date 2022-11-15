@@ -269,9 +269,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
           "3" -> context.getString(R.string.cp_status_text5)//"部分成交"
           "4" ->{
             if(!item.dealVolume.isNullOrEmpty() && item.dealVolume.toDouble() > 0) {
-              context.getString(R.string.cp_status_text5)
+              context.getString(R.string.cp_status_text5)//部分成交
             } else {
-              context.getString(R.string.cp_status_text2)
+              context.getString(R.string.cp_status_text2)//已撤销
             }
 
           }

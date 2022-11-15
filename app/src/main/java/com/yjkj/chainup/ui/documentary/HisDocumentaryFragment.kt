@@ -17,6 +17,7 @@ import com.yjkj.chainup.new_version.adapter.ClContractHistoricalPositionAdapter
 import com.yjkj.chainup.ui.documentary.vm.NowDocumentViewModel
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.fragment_now_documentary.*
+import okhttp3.internal.notify
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -69,16 +70,17 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
     }
 
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
-        if (isVisibleToUser) {
-            getList()
-        }
+
+    override fun onResume() {
+        super.onResume()
+        getList()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
+
+
     private fun getList() {
-        mList.clear()
+
         if (mViewModel?.status?.value == 1) {
             mViewModel?.startTask(mViewModel?.contractApiService!!.findHisSingleList(), Consumer {
                 val jsonObject = JSONUtil.parse(it, true)
@@ -86,6 +88,7 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                     val mPositionList = optJSONArray("positionList")
                     if (mPositionList!=null&&mPositionList.length() != 0) {
                         tv_em.visibility = View.GONE
+                        mList.clear()
                         for (i in 0 until mPositionList.length()) {
                             var obj: JSONObject = mPositionList.get(i) as JSONObject
                             mList.add(obj)
@@ -114,8 +117,9 @@ class HisDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                     val mPositionList = optJSONArray("positionList")
                     if (mPositionList!=null&&mPositionList.length() != 0) {
                         tv_em.visibility = View.GONE
+                        mList.clear()
                         for (i in 0 until mPositionList.length()) {
-                            var obj: JSONObject = mPositionList.get(i) as JSONObject
+                            val obj: JSONObject = mPositionList.get(i) as JSONObject
                             mList.add(obj)
                         }
                         adapter?.notifyDataSetChanged()

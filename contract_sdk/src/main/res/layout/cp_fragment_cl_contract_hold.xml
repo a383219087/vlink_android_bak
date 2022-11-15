@@ -1,5 +1,16 @@
-<androidx.recyclerview.widget.RecyclerView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/v_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    >
+
+
+
+
+<androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rv_hold_contract"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,3 +18,4 @@
     android:minHeight="@dimen/dp_200"
     android:overScrollMode="never" />
 
+</LinearLayout>

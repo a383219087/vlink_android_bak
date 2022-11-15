@@ -134,7 +134,6 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
             helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) + "(" + volumePercentStr + ")")
             helper.setText(R.id.tv_totalvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
-            helper.setVisible(R.id.tv_only_reduce_position, openStr == "CLOSE")
             if (item.otoOrder != null) {
                 val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString() == "null") "--" else item.otoOrder.takerProfitTrigger.toString()
                 val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString() == "null") "--" else item.otoOrder.stopLossTrigger.toString()
