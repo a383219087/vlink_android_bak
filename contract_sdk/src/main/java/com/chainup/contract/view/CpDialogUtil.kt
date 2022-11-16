@@ -41,7 +41,9 @@ class CpDialogUtil {
     interface ConfirmListener {
         fun click(pos: Int = 0)
     }
-
+    interface DialogBottomListener {
+        fun sendConfirm()
+    }
     companion object {
 
         fun showNewsingleDialog2(
@@ -88,7 +90,7 @@ class CpDialogUtil {
         fun showNewDoubleDialog(
             context: Context,
             content: String,
-            listener: CpNewDialogUtils.DialogBottomListener?,
+            listener: DialogBottomListener?,
             title: String = "",
             cancelTitle: String = "",
             confrimTitle: String = ""

@@ -54,6 +54,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     //合约id
     var mContractId = -1
 
+    //一键平仓成功数量
+    var num = 0
 
 
 
@@ -672,15 +674,18 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             CpPreferenceManager.putBoolean(activity!!,CpPreferenceManager.isShowAllContract,true)
             showSwitch()
         }
+
+
         //一键平仓
         tv_confirm_btn.setOnClickListener {
             CpDialogUtil.showNewDoubleDialog(
                 context!!,context!!.getString(R.string.cp_extra_text_hold3),
-                object :CpNewDialogUtils.DialogBottomListener{
+                object :CpDialogUtil.DialogBottomListener{
                     override fun sendConfirm() {
                         if (mList.isEmpty()){
                             return
                         }
+                        num=0
                         for (i in 0 until mList.size){
                            val clickData=mList[i]
                             quickClosePosition(clickData.contractId.toString(), "CLOSE", clickData.orderSide, clickData.positionType.toString(), showToast = false)
@@ -703,6 +708,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     private  fun  updateAdapter(){
          if(mAllList.isEmpty()){
              mList.clear()
+             adapter?.setList(null)
              adapter?.notifyDataSetChanged()
              return
          }
@@ -774,7 +780,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 getContractModel().lightClose(contractId, open, side, positionType,
                         consumer = object : CpNDisposableObserver(true) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
-                                 if (showToast){
+                                 if (showToast|| num==mList.size){
                                      CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text109))
                                  }
                                 LogUtils.e("quickClosePosition :success")
@@ -839,8 +845,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         msgEvent.msg_content = mOrderListJson.length()
                         CpEventBusUtil.post(msgEvent)
                     }
-                    updateAdapter()
                 }
+                updateAdapter()
             }
             CpMessageEvent.sl_contract_logout_event -> {
                 mAllList.clear()
