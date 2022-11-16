@@ -9,6 +9,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityDocumentaryBinding
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
@@ -27,37 +28,44 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
     override fun setContentView() = R.layout.activity_documentary
     override fun initData() {
         getContractPublicInfo()
-        mViewModel?.startTask( mViewModel?.apiService!!.currentStatus(), Consumer {
-            currentStatus(it.data.status)
+        val map = HashMap<String, Any>()
+        map["uid"] = UserDataService.getInstance().userInfo4UserId
+        mViewModel?.startTask(mViewModel?.apiService!!.queryTrader(map), Consumer {
+            if (it.data == null) {
+                currentStatus(-1)
+            } else {
+                currentStatus(1)
+            }
+
         })
-        mViewModel?.index?.observe(this , Observer {
-            mBinding?.vpOrder?.setCurrentItem(it,true)
+        mViewModel?.index?.observe(this, Observer {
+            mBinding?.vpOrder?.setCurrentItem(it, true)
         })
 
 
     }
 
 
-
-    private fun  currentStatus(status:Int){
-        mViewModel?.status?.value=status
+    private fun currentStatus(status: Int) {
+        mViewModel?.status?.value = status
         mFragments?.clear()
         if (status == 1) {
+            //交易员页面
             mFragments?.add(FirstFragment.newInstance(status))
-            mFragments?.add(MySingleFragment.newInstance(2,""))
+            mFragments?.add(MySingleFragment.newInstance(2, ""))
             mFragments?.add(MySingleMoneyFragment.newInstance())
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
         } else {
             //首页
             mFragments?.add(FirstFragment.newInstance(status))
             //我的跟单
-            mFragments?.add(ARouter.getInstance().build(RoutePath.MineFragment).navigation() as Fragment)
+            mFragments?.add(
+                ARouter.getInstance().build(RoutePath.MineFragment).navigation() as Fragment
+            )
             mBinding?.vpOrder?.adapter = FmPagerAdapter(mFragments, supportFragmentManager)
         }
-        mViewModel?.index?.value=0
+        mViewModel?.index?.value = 0
     }
-
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -70,7 +78,7 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
             }
             MessageEvent.DocumentaryActivity_index -> {
                 mViewModel?.setIndex(1)
-                mBinding?.vpOrder?.setCurrentItem(1,true)
+                mBinding?.vpOrder?.setCurrentItem(1, true)
 
 
             }
@@ -80,20 +88,25 @@ class DocumentaryActivity : BaseMVActivity<DocumentaryViewModel?, ActivityDocume
 
 
     private fun getContractPublicInfo() {
-        addDisposable(getContractModel().getPublicInfo(
-            consumer = object : CpNDisposableObserver(mActivity, true) {
-                override fun onResponseSuccess(jsonObject: JSONObject) {
-                    saveContractPublicInfo(jsonObject)
-                }
-            })
+        addDisposable(
+            getContractModel().getPublicInfo(
+                consumer = object : CpNDisposableObserver(mActivity, true) {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        saveContractPublicInfo(jsonObject)
+                    }
+                })
         )
     }
+
     private fun saveContractPublicInfo(jsonObject: JSONObject) {
         jsonObject.optJSONObject("data").run {
             val contractList = optJSONArray("contractList")
             val marginCoinList = optJSONArray("marginCoinList")
             CpClLogicContractSetting.setContractJsonListStr(mActivity, contractList.toString())
-            CpClLogicContractSetting.setContractMarginCoinListStr(mActivity, marginCoinList.toString())
+            CpClLogicContractSetting.setContractMarginCoinListStr(
+                mActivity,
+                marginCoinList.toString()
+            )
 
         }
     }

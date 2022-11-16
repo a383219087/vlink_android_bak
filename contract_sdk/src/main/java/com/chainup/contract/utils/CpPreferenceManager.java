@@ -34,6 +34,8 @@ public final class CpPreferenceManager {
 
 	public static final String CONTRACT_INVITE_URL = "contract_invite_url";
 
+	public static final String isShowAllContract = "isShowAllContract";
+
 	private CpPreferenceManager(Context context) {
 		mPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
 	}

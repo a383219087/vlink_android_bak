@@ -104,10 +104,6 @@ class CpDialogUtil {
                     if (!TextUtils.isEmpty(title)) {
                         viewHolder?.setGone(R.id.tv_title, true)
                         viewHolder?.setText(R.id.tv_title, title)
-                    } else {
-                        viewHolder?.getView<TextView>(R.id.tv_content)?.textSize = context.resources.getDimension(R.dimen.sp_16)
-                        viewHolder?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.text_color))
-
                     }
                     viewHolder?.setText(R.id.tv_cancel_btn, CpLanguageUtil.getString(context, "cp_overview_text56"))
                     if (confrimTitle.isNotEmpty()) {
@@ -128,9 +124,7 @@ class CpDialogUtil {
                             tDialog.dismiss()
                         }
                         R.id.tv_confirm_btn -> {
-                            if (listener != null) {
-                                listener.sendConfirm()
-                            }
+                            listener?.sendConfirm()
                             tDialog.dismiss()
                         }
                     }

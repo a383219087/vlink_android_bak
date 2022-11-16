@@ -1,6 +1,8 @@
 package com.chainup.contract.ui.fragment
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.text.TextUtils
 import android.view.View
@@ -27,6 +29,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -41,11 +45,22 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
 
     private var adapter: CpHoldContractNewAdapter? = null
     private var mList = ArrayList<CpContractPositionBean>()
+    private var mAllList = ArrayList<CpContractPositionBean>()
+
+
+    //是否显示全部合约
+    private var showAll=true
+
+    //合约id
+    var mContractId = -1
+
+
+
 
 
 
     override fun setContentView(): Int {
-        return R.layout.cp_fragment_cl_contract_hold
+        return R.layout.cp_fragment_cl_contract_hold_new
     }
 
     var mAdjustMarginDialog: TDialog? = null
@@ -53,6 +68,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     var mClosePositionDialog: TDialog? = null
     var mPositionObj: JSONObject? = null
     override fun initView() {
+        initOnClick()
+        showSwitch()
         adapter = CpHoldContractNewAdapter(mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
@@ -628,6 +645,84 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     }
 
 
+
+
+    //更新是否显示全部的是UI
+    private  fun  showSwitch(){
+        showAll=CpPreferenceManager.getBoolean(activity!!,CpPreferenceManager.isShowAllContract,true)
+        if (showAll){
+            img_switch.visibility= View.VISIBLE
+            img_not_switch.visibility= View.GONE
+        }else{
+            img_switch.visibility= View.GONE
+            img_not_switch.visibility= View.VISIBLE
+        }
+        updateAdapter()
+
+    }
+
+    private  fun  initOnClick(){
+        //选中切换成未选中
+        img_switch.setOnClickListener {
+            CpPreferenceManager.putBoolean(activity!!,CpPreferenceManager.isShowAllContract,false)
+            showSwitch()
+        }
+        //未选中切换成选中
+        img_not_switch.setOnClickListener {
+            CpPreferenceManager.putBoolean(activity!!,CpPreferenceManager.isShowAllContract,true)
+            showSwitch()
+        }
+        //一键平仓
+        tv_confirm_btn.setOnClickListener {
+            CpDialogUtil.showNewDoubleDialog(
+                context!!,context!!.getString(R.string.cp_extra_text_hold3),
+                object :CpNewDialogUtils.DialogBottomListener{
+                    override fun sendConfirm() {
+                        if (mList.isEmpty()){
+                            return
+                        }
+                        for (i in 0 until mList.size){
+                           val clickData=mList[i]
+                            quickClosePosition(clickData.contractId.toString(), "CLOSE", clickData.orderSide, clickData.positionType.toString(), showToast = false)
+                        }
+
+
+                    }
+
+                }
+
+            )
+
+
+
+        }
+    }
+
+    //更新列表
+    @SuppressLint("NotifyDataSetChanged")
+    private  fun  updateAdapter(){
+         if(mAllList.isEmpty()){
+             mList.clear()
+             adapter?.notifyDataSetChanged()
+             return
+         }
+        if (showAll){
+            mList=mAllList
+        }else{
+            mList.clear()
+            for (i in 0 until mAllList.size){
+                if (mAllList[i].contractId==mContractId){
+                    mList.add(mAllList[i])
+                }
+            }
+        }
+        adapter?.setList(mList)
+    }
+
+
+
+
+
     private fun closePosition(data: CpContractPositionBean, type: Int, priceType: String, price: String, vol: String) {
         var contractId = data.contractId
         var positionType = data.positionType.toString()
@@ -673,13 +768,15 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         )
     }
 
-    private fun quickClosePosition(contractId: String, open: String, side: String, positionType: String) {
+    private fun quickClosePosition(contractId: String, open: String, side: String, positionType: String,showToast:Boolean=true ) {
         var side = if (side.equals("BUY")) "SELL" else "BUY"
         addDisposable(
                 getContractModel().lightClose(contractId, open, side, positionType,
                         consumer = object : CpNDisposableObserver(true) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
-                                CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text109))
+                                 if (showToast){
+                                     CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text109))
+                                 }
                                 LogUtils.e("quickClosePosition :success")
                             }
                         })
@@ -720,14 +817,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         when (event.msg_type) {
             CpMessageEvent.sl_contract_refresh_position_list_event -> {
                 mPositionObj = event.msg_content as JSONObject
-                val mListBuffer = ArrayList<CpContractPositionBean>()
+                 mAllList = ArrayList()
                 mPositionObj?.apply {
                     if (!isNull("positionList")) {
                         val mOrderListJson = optJSONArray("positionList")
                         if (mOrderListJson != null) {
                             for (i in 0 until mOrderListJson.length()) {
-                                var obj = mOrderListJson.getString(i)
-                                mListBuffer.add(
+                                val obj = mOrderListJson.getString(i)
+                                mAllList.add(
                                     Gson().fromJson(
                                         obj,
                                         CpContractPositionBean::class.java
@@ -742,12 +839,22 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         msgEvent.msg_content = mOrderListJson.length()
                         CpEventBusUtil.post(msgEvent)
                     }
-                    adapter?.setList(mListBuffer)
+                    updateAdapter()
                 }
             }
             CpMessageEvent.sl_contract_logout_event -> {
-                mList.clear()
-                adapter?.notifyDataSetChanged()
+                mAllList.clear()
+                updateAdapter()
+            }
+
+            //合约id有更新要重新筛选数组列表
+            CpMessageEvent.sl_contract_calc_switch_contract_id -> {
+              val id = event.msg_content as Int
+                 if (mContractId!=id){
+                     mContractId=id
+                   updateAdapter()
+                 }
+
             }
         }
     }

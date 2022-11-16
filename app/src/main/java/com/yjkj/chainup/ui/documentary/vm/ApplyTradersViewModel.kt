@@ -23,7 +23,7 @@ class ApplyTradersViewModel : BaseViewModel() {
             status.value=it.data.status
             statusString.value=when(it.data.status)  {
                 0->context.getString(R.string.traders_apply_text4)
-                1->context.getString(R.string.traders_apply_text5)
+//                1->context.getString(R.string.traders_apply_text5)
                 2->context.getString(R.string.traders_apply_text6)
                 else->context.getString(R.string.traders_apply_text7)
             }
@@ -35,7 +35,7 @@ class ApplyTradersViewModel : BaseViewModel() {
 
 
     fun applyCurrentStatus() {
-        if (status.value==-1||status.value==-2||status.value==2){
+        if (status.value==-1||status.value==1||status.value==-2||status.value==2){
             startTask(apiService.applyBecomeTrader(), Consumer {
                 ToastUtils.showToast(context.getString(R.string.common_tip_cerSubmitSuccess))
                 finish()

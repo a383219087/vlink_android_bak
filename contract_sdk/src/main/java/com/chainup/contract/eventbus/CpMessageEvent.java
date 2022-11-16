@@ -127,6 +127,7 @@ public class CpMessageEvent {
     public static final int sl_contract_modify_depth_event = 93;
     public static final int sl_contract_go_kyc_page = 94;
     public static final int sl_contract_calc_switch_margin_coin_event = 95;//合约保证金切换
+    public static final int sl_contract_calc_switch_contract_id = 96;//选中合约的通知
 
     private CpMessageEvent() {
     }

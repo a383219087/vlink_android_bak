@@ -393,6 +393,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, mContractId)
                 var isExitId = false;
                 val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
+
+                //通知子页面更新合约id
+                val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
+                event.msg_content = mContractId
+                CpEventBusUtil.post(event)
+
+
                 if (id == -1 && contractList.length() != 0) {
                     isExitId = true
                     showTabInfo(contractList[0] as JSONObject)
@@ -546,20 +553,17 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         v_horizontal_depth.setContractJsonInfo(obj)
         var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
         CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+        //通知子页面更新合约id
+        val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
+        event.msg_content = mContractId
+        CpEventBusUtil.post(event)
+
+
         loopStart()
     }
 
 
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
-//        ChainUpLogUtil.e(TAG, "合约展示" + isVisibleToUser)
-//        if (isVisibleToUser&& TAG.equals("CpContractNewTradeFragment")) {
-//            loopStart()
-//            v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
-//        } else {
-//            loopStop()
-//        }
-    }
+
 
 
 

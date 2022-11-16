@@ -3869,5 +3869,6 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
 
     <string name="cp_extra_text_hold1">All</string>
     <string name="cp_extra_text_hold2">Close All</string>
+    <string name="cp_extra_text_hold3">Close All will cancel all pending orders under the U-margin contract, and close all positions under the U-margin contract by way of market order. \nPlease confirm whether to close the position with one click</string>
 </resources>
 
