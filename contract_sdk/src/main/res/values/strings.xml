@@ -3473,6 +3473,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text27">Actual Leverage</string>
     <string name="cp_order_text28">Margin</string>
     <string name="cp_order_text29">TP/SL</string>
+    <string name="cp_order_text291">Reverse Open</string>
     <string name="cp_order_text30">Entry Price</string>
     <string name="cp_order_text31">Market Price</string>
     <string name="cp_order_text32">Liq. Price</string>

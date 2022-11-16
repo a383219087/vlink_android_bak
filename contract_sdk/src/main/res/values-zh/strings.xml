@@ -3473,6 +3473,7 @@
     <string name="cp_order_text27">实际杠杆</string>
     <string name="cp_order_text28">保证金</string>
     <string name="cp_order_text29">止盈止损</string>
+    <string name="cp_order_text291">反向开仓</string>
     <string name="cp_order_text30">开仓均价</string>
     <string name="cp_order_text31">最新价格</string>
     <string name="cp_order_text32">强平价格</string>

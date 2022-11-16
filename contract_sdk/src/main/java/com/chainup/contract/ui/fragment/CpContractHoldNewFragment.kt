@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
 import com.chainup.contract.app.CpMyApp
@@ -76,11 +77,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
         adapter?.setEmptyView(CpEmptyOrderForAdapterView(context ?: return))
-        adapter?.addChildClickViewIds(R.id.tv_quick_close_position, R.id.tv_close_position, R.id.tv_forced_close_price_key, R.id.tv_adjust_margins, R.id.tv_profit_loss, R.id.iv_share, R.id.tv_tag_price, R.id.tv_settled_profit_loss_key)
+        adapter?.addChildClickViewIds(R.id.tv_reverse_opem,R.id.tv_quick_close_position,  R.id.tv_close_position, R.id.tv_forced_close_price_key, R.id.tv_adjust_margins, R.id.tv_profit_loss, R.id.iv_share, R.id.tv_tag_price, R.id.tv_settled_profit_loss_key)
         adapter?.setOnItemChildClickListener { adapter, view, position ->
             if (CpClickUtil.isFastDoubleClick()) return@setOnItemChildClickListener
             val clickData = adapter.data[position] as CpContractPositionBean
             when (view.id) {
+                R.id.tv_reverse_opem -> {
+                    ToastUtils.showLong("反向开仓")
+                }
                 R.id.tv_close_position -> {
                     mClosePositionDialog = CpDialogUtil.showClosePositionDialog(this.activity!!, OnBindViewListener {
                         it.setText(R.id.tv_type, if (clickData.orderSide.equals("BUY")) getString(R.string.cp_order_text6) else getString(R.string.cp_order_text15))

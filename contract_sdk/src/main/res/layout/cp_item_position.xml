@@ -459,6 +459,18 @@
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />
             <Button
+                android:id="@+id/tv_reverse_opem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_linear_blue_bg"
+                android:text="@string/cp_order_text291"
+                android:textAllCaps="false"
+                android:textColor="@color/main_blue"
+                android:textSize="12sp" />
+            <Button
                 android:id="@+id/tv_close_position"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
