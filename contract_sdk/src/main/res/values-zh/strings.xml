@@ -3326,6 +3326,8 @@
     <string name="cp_overview_text18">可平空</string>
     <string name="cp_overview_text19">可用</string>
     <string name="cp_overview_text20">标记价格</string>
+    <string name="cp_overview_text201">反向开仓数量</string>
+    <string name="cp_overview_text202">*反向开仓将以市价平掉当前仓位，同时以相同掉数量和价格反向开仓。保证金不足掉情况可能会出现当前仓位平掉新开仓失败。</string>
     <string name="cp_overview_text21">指数价格</string>
     <string name="cp_overview_text22">登录/注册</string>
     <string name="cp_overview_text23">未登陆，登陆后开始交易</string>
@@ -3449,6 +3451,7 @@
     <string name="cp_order_text4">全部</string>
     <string name="cp_order_text5">显示全部</string>
     <string name="cp_order_text6">多头</string>
+    <string name="cp_order_text61">卖出/做空</string>
     <string name="cp_order_text7">开仓均价</string>
     <string name="cp_order_text8">盈亏</string>
     <string name="cp_order_text9">预计强平价格</string>
@@ -3459,6 +3462,7 @@
     <string name="cp_order_text13">标记价格</string>
     <string name="cp_order_text14">已结算盈亏</string>
     <string name="cp_order_text15">空头</string>
+    <string name="cp_order_text151">买入/做多</string>
     <string name="cp_order_text16">调整保证金</string>
     <string name="cp_order_text17">平仓</string>
     <string name="cp_order_text18">闪电平仓</string>
@@ -3486,6 +3490,7 @@
     <string name="cp_order_text39">超过最大可平张数</string>
     <string name="cp_order_text40">平仓</string>
     <string name="cp_order_text41">闪电平仓</string>
+    <string name="cp_order_text411">反向开仓</string>
     <string name="cp_order_text42">价格</string>
     <string name="cp_order_text43">数量</string>
     <string name="cp_order_text44">本方最优</string>

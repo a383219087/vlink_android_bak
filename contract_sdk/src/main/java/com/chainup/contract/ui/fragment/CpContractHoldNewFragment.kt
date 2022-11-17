@@ -69,6 +69,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     var mAdjustMarginDialog: TDialog? = null
     var mQuickClosePositionDialog: TDialog? = null
     var mClosePositionDialog: TDialog? = null
+    var mReverseOpenDialog: TDialog? = null
     var mPositionObj: JSONObject? = null
     override fun initView() {
         initOnClick()
@@ -83,7 +84,58 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             val clickData = adapter.data[position] as CpContractPositionBean
             when (view.id) {
                 R.id.tv_reverse_opem -> {
-                    ToastUtils.showLong("反向开仓")
+                    mReverseOpenDialog=  CpDialogUtil.showReverseOpeningDialog(this.activity!!) {
+                        it.setText(
+                            R.id.tv_type,
+                            if (clickData.orderSide == "BUY") getString(R.string.cp_order_text6) else getString(R.string.cp_order_text15)
+                        )
+                        it.setTextColor(
+                            R.id.tv_type,
+                            if (clickData.orderSide == "BUY") activity?.resources?.getColor(R.color.main_green)!! else activity?.resources?.getColor(
+                                R.color.main_red
+                            )!!
+                        )
+                        it.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, clickData.contractId))
+                        it.setText(R.id.tv_level_value, (if (clickData.positionType == 1) getString(R.string.cp_contract_setting_text1) else getString(R.string.cp_contract_setting_text2)) + " " + clickData.leverageLevel + "X")
+                        //标记价格
+                        val mPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, clickData.contractId)
+                        it.setText(R.id.tv_holdings_value, CpBigDecimalUtils.showSNormal(clickData.indexPrice, mPricePrecision))
+                        //可平
+                         var num=""
+                         var unit=""
+                        val mMultiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, clickData.contractId)
+                        val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, clickData.contractId)
+                        val mMultiplierCoin = CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(context, clickData.contractId)
+                        if (CpClLogicContractSetting.getContractUint(context) == 0){
+                            num=CpDecimalUtil.cutValueByPrecision(clickData.canCloseVolume,0)
+                            unit="("+context?.getString(R.string.cp_overview_text9)+")"
+                        }else{
+                            num=CpBigDecimalUtils.mulStr(clickData.canCloseVolume, mMultiplier, mMultiplierPrecision)
+                            unit=mMultiplierCoin
+                        }
+                        it.setText(R.id.tv_gains_balance_value,num+unit )
+                        //反向开仓
+                        var orderType=""
+                        if (clickData.orderSide == "BUY") {
+                            //卖出做空
+                            orderType= getString(R.string.cp_order_text61)
+                            it.setTextColor(R.id.tv_type, activity?.resources?.getColor(R.color.main_red)!!)
+                        }else {
+                            //买入做多
+                            orderType= getString(R.string.cp_order_text151)
+                            it.setTextColor(R.id.tv_type, activity?.resources?.getColor(R.color.main_green)!!)
+                        }
+                        it.setText(R.id.tv_reverse_open_value, orderType+num+unit )
+                        val btn_close_position = it.getView<CpCommonlyUsedButton>(R.id.btn_close_position)
+                        btn_close_position.listener = object : CpCommonlyUsedButton.OnBottonListener {
+                            override fun bottonOnClick() {
+                                mQuickClosePositionDialog?.dismiss()
+                                ToastUtils.showShort("反向开仓")
+                            }
+                        }
+
+
+                    }
                 }
                 R.id.tv_close_position -> {
                     mClosePositionDialog = CpDialogUtil.showClosePositionDialog(this.activity!!, OnBindViewListener {
@@ -291,26 +343,21 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 if (type == 1 && TextUtils.isEmpty(priceType)) {
                                     if (TextUtils.isEmpty(priceStr)) {
                                         mClosePositionDialog?.dismiss()
-                                        CpNToastUtil.showTopToastNet(getActivity(), false, getString(R.string.cp_extra_text33))
+                                        CpNToastUtil.showTopToastNet(activity, false, getString(R.string.cp_extra_text33))
                                         return
                                     }
                                 }
                                 if (TextUtils.isEmpty(volStr)) {
                                     mClosePositionDialog?.dismiss()
-                                    CpNToastUtil.showTopToastNet(getActivity(), false, getString(R.string.cp_extra_text34))
+                                    CpNToastUtil.showTopToastNet(activity, false, getString(R.string.cp_extra_text34))
                                     return
                                 }
                                 var dialogTitle = ""
-//                                if (type==1){
-//                                    dialogTitle= context?.getString(R.string.contract_action_limitPrice).toString()
-//                                }else{
-//                                    dialogTitle= context?.getString(R.string.cp_overview_text53).toString()
-//                                }
-                                val titleColor = if (clickData.orderSide.equals("BUY")) {
-                                    dialogTitle = dialogTitle + context?.getString(R.string.cp_extra_text5)
+                                val titleColor = if (clickData.orderSide == "BUY") {
+                                    dialogTitle += context?.getString(R.string.cp_extra_text5)
                                     resources.getColor(R.color.main_red)
                                 } else {
-                                    dialogTitle = dialogTitle + context?.getString(R.string.cp_extra_text4)
+                                    dialogTitle += context?.getString(R.string.cp_extra_text4)
                                     resources.getColor(R.color.main_green)
                                 }
                                 val showTag = when (clickData.positionType) {
@@ -388,10 +435,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         val imgTransfer = it.getView<ImageView>(R.id.img_transfer)
                         val etVolume = it.getView<EditText>(R.id.et_volume)
                         val rg_trade = it.getView<RadioGroup>(R.id.rg_trade)
-                        val rb_1st = it.getView<RadioButton>(R.id.rb_1st)
-                        val rb_2nd = it.getView<RadioButton>(R.id.rb_2nd)
-                        val rb_3rd = it.getView<RadioButton>(R.id.rb_3rd)
-                        val rb_4th = it.getView<RadioButton>(R.id.rb_4th)
                         val marginCoin = CpClLogicContractSetting.getContractMarginCoinById(activity, clickData.contractId)
                         val marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(activity, clickData.contractId)
                         val currentPositionMargin = clickData?.holdAmount.toString()

@@ -510,6 +510,33 @@ class CpDialogUtil {
                 .show()
 
         }
+        /**
+         * 反向开仓对话框
+         */
+        fun showReverseOpeningDialog(
+            context: Context,
+            listener: OnBindViewListener
+        ): TDialog {
+            return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+                .setLayoutRes(R.layout.cp_item_reverse_open_dialog)
+                .setScreenWidthAspect(context, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setDimAmount(0.5f)
+                .setCancelableOutside(true)
+                .setOnBindViewListener(listener)
+                .setDialogAnimationRes(R.style.dialogBottomAnim)
+                .addOnClickListener(R.id.tv_cancel)
+                .setOnViewClickListener { _, view, tDialog ->
+                    when (view.id) {
+                        R.id.tv_cancel -> {
+                            tDialog.dismiss()
+                        }
+                    }
+                }
+                .create()
+                .show()
+
+        }
 
         /**
          * 闪电平仓对话框
