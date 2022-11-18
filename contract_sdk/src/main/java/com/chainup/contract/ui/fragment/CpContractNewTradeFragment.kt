@@ -24,7 +24,7 @@ import com.chainup.contract.ws.CpWsContractAgentManager
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
-import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
+import com.chainup.contract.bean.CpCreateOrderBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

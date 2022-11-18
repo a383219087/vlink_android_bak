@@ -3451,7 +3451,7 @@
     <string name="cp_order_text4">全部</string>
     <string name="cp_order_text5">显示全部</string>
     <string name="cp_order_text6">多头</string>
-    <string name="cp_order_text61">卖出/做空</string>
+    <string name="cp_order_text611">卖出/做空</string>
     <string name="cp_order_text7">开仓均价</string>
     <string name="cp_order_text8">盈亏</string>
     <string name="cp_order_text9">预计强平价格</string>

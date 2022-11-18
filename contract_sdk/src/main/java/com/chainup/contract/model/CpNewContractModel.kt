@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON
 import com.chainup.contract.api.CpContractApiService
 import com.chainup.contract.bean.CpTpslOrderBean
 import com.google.gson.Gson
-import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
+import com.chainup.contract.bean.CpCreateOrderBean
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.ResponseBody

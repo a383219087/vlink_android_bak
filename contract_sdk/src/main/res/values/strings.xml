@@ -3451,7 +3451,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text4">All</string>
     <string name="cp_order_text5">Display All</string>
     <string name="cp_order_text6">Open Long</string>
-    <string name="cp_order_text61">Sell/Short</string>
+    <string name="cp_order_text611">Sell/Short</string>
     <string name="cp_order_text7">Entry Price</string>
     <string name="cp_order_text8">PNL</string>
     <string name="cp_order_text9">Liq. Price</string>

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.bean
+package com.chainup.contract.bean
 
 import java.io.Serializable
 

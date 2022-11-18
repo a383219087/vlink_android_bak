@@ -25,7 +25,7 @@ import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
-import com.yjkj.chainup.new_contract.bean.CpCreateOrderBean
+import com.chainup.contract.bean.CpCreateOrderBean
 import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
