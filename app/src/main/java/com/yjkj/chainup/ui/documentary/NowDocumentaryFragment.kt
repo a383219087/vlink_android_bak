@@ -10,8 +10,10 @@ import android.widget.*
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
+import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.bean.CpContractPositionBean
+import com.chainup.contract.bean.CpCreateOrderBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.listener.CpDoListener
@@ -39,6 +41,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_now_documentary.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -62,6 +65,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     var mAdjustMarginDialog: TDialog? = null
     var mQuickClosePositionDialog: TDialog? = null
     var mClosePositionDialog: TDialog? = null
+    var mReverseOpenDialog: TDialog? = null
 
 
     override fun setContentView(): Int = R.layout.fragment_now_documentary
@@ -76,11 +80,219 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         adapter!!.setMySelf( mViewModel?.uid?.value.isNullOrEmpty())
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
-        adapter?.addChildClickViewIds(com.chainup.contract.R.id.tv_quick_close_position, com.chainup.contract.R.id.tv_close_position, com.chainup.contract.R.id.tv_forced_close_price_key, com.chainup.contract.R.id.tv_adjust_margins, com.chainup.contract.R.id.tv_profit_loss, com.chainup.contract.R.id.iv_share, com.chainup.contract.R.id.tv_tag_price, com.chainup.contract.R.id.tv_settled_profit_loss_key)
+        adapter?.addChildClickViewIds(com.chainup.contract.R.id.tv_quick_close_position,
+            com.chainup.contract.R.id.tv_close_position,
+            com.chainup.contract.R.id.tv_reverse_opem,
+            com.chainup.contract.R.id.tv_forced_close_price_key,
+            com.chainup.contract.R.id.tv_adjust_margins,
+            com.chainup.contract.R.id.tv_profit_loss,
+            com.chainup.contract.R.id.iv_share,
+            com.chainup.contract.R.id.tv_tag_price,
+            com.chainup.contract.R.id.tv_settled_profit_loss_key)
         adapter?.setOnItemChildClickListener { adapter, view, position ->
             if (CpClickUtil.isFastDoubleClick()) return@setOnItemChildClickListener
             val clickData = adapter.data[position] as CpContractPositionBean
             when (view.id) {
+                com.chainup.contract.R.id.tv_reverse_opem-> {
+                    mReverseOpenDialog = CpDialogUtil.showReverseOpeningDialog(this.activity!!) {
+                        it.setText(
+                            com.chainup.contract.R.id.tv_type,
+                            if (clickData.orderSide == "BUY") getString(com.chainup.contract.R.string.cp_order_text6) else getString(
+                                com.chainup.contract.R.string.cp_order_text15
+                            )
+                        )
+                        it.setTextColor(
+                            com.chainup.contract.R.id.tv_type,
+                            if (clickData.orderSide == "BUY") activity?.resources?.getColor(com.chainup.contract.R.color.main_green)!! else activity?.resources?.getColor(
+                                com.chainup.contract.R.color.main_red
+                            )!!
+                        )
+                        it.setText(
+                            com.chainup.contract.R.id.tv_contract_name,
+                            CpClLogicContractSetting.getContractShowNameById(
+                                context,
+                                clickData.contractId
+                            )
+                        )
+                        it.setText(
+                            com.chainup.contract.R.id.tv_level_value,
+                            (if (clickData.positionType == 1) getString(com.chainup.contract.R.string.cp_contract_setting_text1) else getString(
+                                com.chainup.contract.R.string.cp_contract_setting_text2
+                            )) + " " + clickData.leverageLevel + "X"
+                        )
+                        //标记价格
+                        val mPricePrecision =
+                            CpClLogicContractSetting.getContractSymbolPricePrecisionById(
+                                context,
+                                clickData.contractId
+                            )
+                        it.setText(
+                            com.chainup.contract.R.id.tv_holdings_value,
+                            CpBigDecimalUtils.showSNormal(clickData.indexPrice, mPricePrecision)
+                        )
+                        //可平
+                        var num = ""
+                        var unit = ""
+                        val mMultiplierPrecision =
+                            CpClLogicContractSetting.getContractMultiplierPrecisionById(
+                                context,
+                                clickData.contractId
+                            )
+                        val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(
+                            context,
+                            clickData.contractId
+                        )
+                        val mMultiplierCoin =
+                            CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(
+                                context,
+                                clickData.contractId
+                            )
+                        if (CpClLogicContractSetting.getContractUint(context) == 0) {
+                            num = CpDecimalUtil.cutValueByPrecision(clickData.canCloseVolume, 0)
+                            unit = "(" + context?.getString(com.chainup.contract.R.string.cp_overview_text9) + ")"
+                        } else {
+                            num = CpBigDecimalUtils.mulStr(
+                                clickData.canCloseVolume,
+                                mMultiplier,
+                                mMultiplierPrecision
+                            )
+                            unit = mMultiplierCoin
+                        }
+                        it.setText(com.chainup.contract.R.id.tv_gains_balance_value, num + unit)
+                        //反向开仓
+                        var orderType = ""
+                        if (clickData.orderSide == "BUY") {
+                            //卖出做空
+                            orderType = getString(com.chainup.contract.R.string.cp_order_text611)
+                            it.setTextColor(
+                                com.chainup.contract.R.id.tv_reverse_open_value,
+                                activity?.resources?.getColor(com.chainup.contract.R.color.main_red)!!
+                            )
+                        } else {
+                            //买入做多
+                            orderType = getString(com.chainup.contract.R.string.cp_order_text151)
+                            it.setTextColor(
+                                com.chainup.contract.R.id.tv_reverse_open_value,
+                                activity?.resources?.getColor(com.chainup.contract.R.color.main_green)!!
+                            )
+                        }
+                        it.setText(com.chainup.contract.R.id.tv_reverse_open_value, orderType + num + unit)
+                        val btn_close_position =
+                            it.getView<CpCommonlyUsedButton>(com.chainup.contract.R.id.btn_close_position)
+                        btn_close_position.listener =
+                            object : CpCommonlyUsedButton.OnBottonListener {
+                                override fun bottonOnClick() {
+
+                                    LogUtils.e("我是创建订单1${clickData.toString()}")
+                                    val side = if (clickData.orderSide == "BUY") "SELL" else "BUY"
+                                    val obj = CpCreateOrderBean(
+                                        contractId = clickData.contractId,
+                                        positionType = clickData.positionType.toString(),
+                                        open = "OPEN",
+                                        side = side,
+                                        leverageLevel = clickData.leverageLevel,
+                                        price = "0",
+                                        volume = CpBigDecimalUtils.getOrderNum(true, clickData.canCloseVolume, mMultiplier, 2),
+                                        type = 2,
+                                        isConditionOrder = false,
+                                        triggerPrice = "",
+                                        isOto = false,
+                                        takerProfitTrigger = "",
+                                        stopLossTrigger = "",
+                                        expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
+                                    )
+                                    //闪电平仓
+                                    addDisposable(
+                                        CpNewContractModel().lightClose(clickData.contractId.toString(),
+                                            "CLOSE",
+                                            side,
+                                            clickData.positionType.toString(),
+                                            consumer = object : CpNDisposableObserver(true) {
+                                                override fun onResponseSuccess(jsonObject: JSONObject) {
+                                                    mReverseOpenDialog?.dismiss()
+                                                    ///遍历合约列表查到现在的合约信息
+                                                    val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(context))
+                                                    var objj:JSONObject?=null
+                                                    if (clickData.contractId == -1 && mContractList.length() != 0) {
+                                                        objj = (mContractList[0] as JSONObject)
+                                                    } else {
+                                                        for (i in 0 until mContractList.length()) {
+                                                            val o: JSONObject = mContractList.get(i) as JSONObject
+                                                            if (clickData.contractId == o.optInt("id")) {
+                                                                objj = o
+                                                            }
+                                                        }
+                                                    }
+                                                    //下单限制判断
+                                                    val coinResultVo = objj?.optString("coinResultVo").let { JSONObject(it) }
+                                                    val minOrderVolume = coinResultVo.optString("minOrderVolume")//最小下单量
+                                                    val minOrderMoney = coinResultVo.optString("minOrderMoney")//最小下单金额
+                                                    val maxMarketVolume = coinResultVo.optString("maxMarketVolume")//市价单最大下单数量
+                                                    val maxMarketMoney = coinResultVo.optString("maxMarketMoney")//市价最大下单金额
+                                                    val maxLimitVolume = coinResultVo.optString("maxLimitVolume")//限价单最大下单数量
+
+                                                    //最小下单金额  < x < 市价最大下单金额
+                                                    if (CpBigDecimalUtils.orderMoneyMinCheck(
+                                                            clickData.canCloseVolume,
+                                                            minOrderMoney,
+                                                            mMultiplier
+                                                        )
+                                                    ) {
+                                                        CpNToastUtil.showTopToastNet(
+                                                            activity,
+                                                            false,
+                                                            context?.getString(com.chainup.contract.R.string.cp_tip_text7) + minOrderMoney + objj?.optString(
+                                                                "quote"
+                                                            )
+                                                        )
+                                                        return
+                                                    }
+                                                    if (CpBigDecimalUtils.orderMoneyMaxCheck(
+                                                            clickData.canCloseVolume,
+                                                            maxMarketMoney,
+                                                            mMultiplier
+                                                        )
+                                                    ) {
+                                                        CpNToastUtil.showTopToastNet(
+                                                            activity,
+                                                            false,
+                                                            context?.getString(com.chainup.contract.R.string.cp_tip_text8) + maxMarketMoney + objj?.optString(
+                                                                "quote"
+                                                            )
+                                                        )
+                                                        return
+                                                    }
+
+                                                    //开仓接口
+                                                    addDisposable(
+                                                        CpNewContractModel().createOrder(obj,
+                                                            consumer = object :
+                                                                CpNDisposableObserver(
+                                                                    mActivity,
+                                                                    true
+                                                                ) {
+                                                                override fun onResponseSuccess(
+                                                                    jsonObject: JSONObject
+                                                                ) {
+                                                                    CpNToastUtil.showTopToastNet(
+                                                                        this.mActivity,
+                                                                        true,
+                                                                        getString(com.chainup.contract.R.string.cp_extra_text53)
+                                                                    )
+
+                                                                }
+                                                            })
+                                                    )
+                                                }
+                                            })
+                                    )
+
+                                }
+                            }
+
+
+                    }
+                }
                 com.chainup.contract.R.id.tv_close_position -> {
                     mClosePositionDialog = CpDialogUtil.showClosePositionDialog(this.activity!!, OnBindViewListener {
                         it.setText(

@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
+import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpContractPositionBean
@@ -29,6 +30,7 @@ import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
@@ -58,6 +60,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
 
     //一键平仓成功数量
     var num = 0
+
+    var subscribe: Disposable? = null
 
 
     override fun setContentView(): Int {
@@ -93,6 +97,24 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             when (view.id) {
                 R.id.tv_reverse_opem -> {
                     mReverseOpenDialog = CpDialogUtil.showReverseOpeningDialog(this.activity!!) {
+                        subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {it1->
+                                for (i in 0 until mAllList.size) {
+                                    if (mAllList[i].contractId ==  clickData.contractId) {
+                                        //标记价格
+                                        val mPricePrecision =
+                                            CpClLogicContractSetting.getContractSymbolPricePrecisionById(
+                                                context,
+                                                clickData.contractId
+                                            )
+                                        it.setText(
+                                            R.id.tv_holdings_value,
+                                            CpBigDecimalUtils.showSNormal(clickData.indexPrice, mPricePrecision)
+                                        )
+                                    }
+                                }
+                            }
                         it.setText(
                             R.id.tv_type,
                             if (clickData.orderSide == "BUY") getString(R.string.cp_order_text6) else getString(
@@ -207,7 +229,9 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             clickData.positionType.toString(),
                                             consumer = object : CpNDisposableObserver(true) {
                                                 override fun onResponseSuccess(jsonObject: JSONObject) {
-
+                                                    if (subscribe != null) {
+                                                        subscribe?.dispose()
+                                                    }
                                                     mReverseOpenDialog?.dismiss()
                                                     ///遍历合约列表查到现在的合约信息
                                                     val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(context))
