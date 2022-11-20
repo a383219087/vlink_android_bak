@@ -525,6 +525,7 @@ class CpTradeView @JvmOverloads constructor(
         }
 
         when (buyOrSellHelper.orderType) {
+            //限价单
             1 -> {
                 orderType = 1
                 if (isRivalPriceModel) {
@@ -567,6 +568,7 @@ class CpTradeView @JvmOverloads constructor(
                     }
                 }
             }
+            //市价单
             2 -> {
                 orderType = 2
                 price = CpBigDecimalUtils.median(

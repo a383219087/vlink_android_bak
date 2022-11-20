@@ -104,6 +104,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     openContract
             )
         }
+        //全部
         ll_all_entrust_order.setSafeListener {
             if (!CpClLogicContractSetting.isLogin()) {
                 CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))

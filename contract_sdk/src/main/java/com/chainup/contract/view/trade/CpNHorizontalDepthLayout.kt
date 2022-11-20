@@ -1152,21 +1152,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
     }
 
 
-    fun initCoinSymbol(symbols: String?, isLevel: Boolean = false) {
-        if (symbols != null && symbols.isNotEmpty()) {
-            var symbol = ""
-            if (isLevel) {
-                symbol = symbols.split(" ")[0]
-            } else {
-                symbol = symbols
-            }
-            val result = symbol.split("/")
-            if (result.size == 2) {
-                tv_cp_overview_text6.text = coinBySplit(true, result[1])
-            }
-        }
-    }
-
     private fun coinBySplit(isPrice: Boolean, value: String): String {
         val first = CpLanguageUtil.getString(context, if (isPrice) "cp_overview_text6" else "cp_overview_text8")
         val message = StringBuffer(first)
@@ -1240,20 +1225,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 multiplierPrecision,
                 base
         )
-        //通过保证金计算的可开数
-        val sellbuff1 = CpBigDecimalUtils.canBuyStr(
-                isOpen,
-                CpContractBuyOrSellHelper().orderType == 2,
-                contractSide.equals("1"),
-                sellPrice,
-                multiplier,
-                canUseAmount,
-                canCloseVolumeSell,
-                level.toString(),
-                marginRate,
-                multiplierPrecision,
-                base
-        )
+
 
         //通过风险限额计算的可开数
         val buybuff2 = CpBigDecimalUtils.canOpenStr(
@@ -1268,19 +1240,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 multiplierPrecision,
                 base
         )
-        //通过风险限额计算的可开数
-        val sellbuff2 = CpBigDecimalUtils.canOpenStr(
-                contractSide.equals("1"),
-                CpContractBuyOrSellHelper().orderType == 2,
-                sellPrice,
-                maxOpenLimit,
-                positionValue,
-                entrustedValue,
-                multiplier,
-                marginRate,
-                multiplierPrecision,
-                base
-        )
+
         return (CpBigDecimalUtils.min(buybuff1.split(" ")[0], buybuff2.split(" ")[0]))
     }
 

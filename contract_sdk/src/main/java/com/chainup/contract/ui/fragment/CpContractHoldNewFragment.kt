@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contr
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -179,7 +180,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         btn_close_position.listener =
                             object : CpCommonlyUsedButton.OnBottonListener {
                                 override fun bottonOnClick() {
-                                    LogUtils.e("我是反向开单${clickData.toString()}")
+
+                                    LogUtils.e("我是创建订单1${clickData.toString()}")
                                     val side = if (clickData.orderSide == "BUY") "SELL" else "BUY"
                                     val obj = CpCreateOrderBean(
                                         contractId = clickData.contractId,
@@ -188,18 +190,15 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         side = side,
                                         leverageLevel = clickData.leverageLevel,
                                         price = "0",
-                                        volume = clickData.canCloseVolume,
-                                        expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(
-                                            context
-                                        ),
+                                        volume = CpBigDecimalUtils.getOrderNum(true, clickData.canCloseVolume, mMultiplier, 2),
                                         type = 2,
                                         isConditionOrder = false,
                                         triggerPrice = "",
                                         isOto = false,
                                         takerProfitTrigger = "",
                                         stopLossTrigger = "",
-
-                                        )
+                                        expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
+                                    )
                                     //闪电平仓
                                     addDisposable(
                                         getContractModel().lightClose(clickData.contractId.toString(),
@@ -208,8 +207,62 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             clickData.positionType.toString(),
                                             consumer = object : CpNDisposableObserver(true) {
                                                 override fun onResponseSuccess(jsonObject: JSONObject) {
-                                                    //一键开仓
+
                                                     mReverseOpenDialog?.dismiss()
+                                                    ///遍历合约列表查到现在的合约信息
+                                                    val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(context))
+                                                    var objj:JSONObject?=null
+                                                    if (clickData.contractId == -1 && mContractList.length() != 0) {
+                                                        objj = (mContractList[0] as JSONObject)
+                                                    } else {
+                                                        for (i in 0 until mContractList.length()) {
+                                                            val o: JSONObject = mContractList.get(i) as JSONObject
+                                                            if (clickData.contractId == o.optInt("id")) {
+                                                                objj = o
+                                                            }
+                                                        }
+                                                    }
+                                                    //下单限制判断
+                                                    val coinResultVo = objj?.optString("coinResultVo").let { JSONObject(it) }
+                                                    val minOrderVolume = coinResultVo.optString("minOrderVolume")//最小下单量
+                                                    val minOrderMoney = coinResultVo.optString("minOrderMoney")//最小下单金额
+                                                    val maxMarketVolume = coinResultVo.optString("maxMarketVolume")//市价单最大下单数量
+                                                    val maxMarketMoney = coinResultVo.optString("maxMarketMoney")//市价最大下单金额
+                                                    val maxLimitVolume = coinResultVo.optString("maxLimitVolume")//限价单最大下单数量
+
+                                                    //最小下单金额  < x < 市价最大下单金额
+                                                    if (CpBigDecimalUtils.orderMoneyMinCheck(
+                                                            clickData.canCloseVolume,
+                                                            minOrderMoney,
+                                                            mMultiplier
+                                                        )
+                                                    ) {
+                                                        CpNToastUtil.showTopToastNet(
+                                                            activity,
+                                                            false,
+                                                            context?.getString(R.string.cp_tip_text7) + minOrderMoney + objj?.optString(
+                                                                "quote"
+                                                            )
+                                                        )
+                                                        return
+                                                    }
+                                                    if (CpBigDecimalUtils.orderMoneyMaxCheck(
+                                                            clickData.canCloseVolume,
+                                                            maxMarketMoney,
+                                                            mMultiplier
+                                                        )
+                                                    ) {
+                                                        CpNToastUtil.showTopToastNet(
+                                                            activity,
+                                                            false,
+                                                            context?.getString(R.string.cp_tip_text8) + maxMarketMoney + objj?.optString(
+                                                                "quote"
+                                                            )
+                                                        )
+                                                        return
+                                                    }
+
+                                                    //开仓接口
                                                     addDisposable(
                                                         getContractModel().createOrder(obj,
                                                             consumer = object :
