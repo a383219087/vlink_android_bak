@@ -203,6 +203,9 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             object : CpCommonlyUsedButton.OnBottonListener {
                                 override fun bottonOnClick() {
 
+                                  var num1= CpBigDecimalUtils.mulStr(clickData.canCloseVolume, mMultiplier, mMultiplierPrecision)
+                                  var num2= clickData.indexPrice
+
                                     LogUtils.e("我是创建订单1${clickData.toString()}")
                                     val side = if (clickData.orderSide == "BUY") "SELL" else "BUY"
                                     val obj = CpCreateOrderBean(
@@ -212,7 +215,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         side = side,
                                         leverageLevel = clickData.leverageLevel,
                                         price = "0",
-                                        volume = CpBigDecimalUtils.getOrderNum(true, clickData.canCloseVolume, mMultiplier, 2),
+                                        volume = CpBigDecimalUtils.mulStr(num1,num2,mMultiplierPrecision),
                                         type = 2,
                                         isConditionOrder = false,
                                         triggerPrice = "",
@@ -1239,6 +1242,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 object : CpDialogUtil.DialogBottomListener {
                     override fun sendConfirm() {
                         if (mList.isEmpty()) {
+                            CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
                             return
                         }
                         num = 0
@@ -1401,14 +1405,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         when (event.msg_type) {
             CpMessageEvent.sl_contract_refresh_position_list_event -> {
                 mPositionObj = event.msg_content as JSONObject
-                mAllList = ArrayList()
+              var  lidt = ArrayList<CpContractPositionBean>()
                 mPositionObj?.apply {
                     if (!isNull("positionList")) {
                         val mOrderListJson = optJSONArray("positionList")
                         if (mOrderListJson != null) {
                             for (i in 0 until mOrderListJson.length()) {
                                 val obj = mOrderListJson.getString(i)
-                                mAllList.add(
+                                lidt.add(
                                     Gson().fromJson(
                                         obj,
                                         CpContractPositionBean::class.java
@@ -1416,6 +1420,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 )
                             }
                         }
+                        mAllList=lidt
                         val msgEvent =
                             CpMessageEvent(
                                 CpMessageEvent.sl_contract_position_num_event

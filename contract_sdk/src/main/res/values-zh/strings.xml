@@ -3587,6 +3587,7 @@
     <string name="cp_tip_text5">最小下单量</string>
     <string name="cp_tip_text6">超出单次最大下单量</string>
     <string name="cp_tip_text7">最小下单金额</string>
+    <string name="cp_tip_text711">暂无仓位可平</string>
     <string name="cp_tip_text8">超出单次最大下单金额</string>
     <string name="cp_tip_text9">限价平仓</string>
     <string name="cp_tip_text10">已过期</string>
