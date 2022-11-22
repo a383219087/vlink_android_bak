@@ -80,24 +80,16 @@ public class CpMessageEvent {
     public static final int sl_contract_left_coin_type = 401;//切换合约币种
     public static final int sl_contract_switch_time_type = 402;//切换K线区间
 
-    public static final int hide_safety_advice = 403;//隐藏安全建议
 
     public static final int sl_contract_modify_margin_event = 50;//修改保证金
     public static final int sl_contract_modify_leverage_event = 52;//修改杠杆
     public static final int sl_contract_change_tagPrice_event = 53;//标记价格改变、指数价格改变
-    public static final int sl_contract_user_config_event = 54;//合约用户设置用于提交委托
-    public static final int sl_contract_cancel_order_event = 55;//撤单
-    public static final int sl_contract_rate_countdown_event = 56;//资金费率倒计时
-    public static final int sl_contract_position_num_event = 57;//持仓数量变化
-    public static final int sl_contract_cancel_last_price_event = 58;//最新价格变化
-    public static final int sl_contract_change_coin_list_type = 59;//最新价格变化
     public static final int sl_contract_modify_position_margin_event = 60;//调整保证金
     public static final int sl_contract_refresh_position_list_event = 61;//刷新持仓列表
     public static final int sl_contract_create_account_event = 62;//弹出开通合约对话框
     public static final int sl_contract_calc_switch_contract_event = 63;//合约计算器切换合约通知
     public static final int sl_contract_sidebar_market_event = 64;//侧边栏行情
     public static final int sl_contract_first_show_info_event = 65;//首次加载合约信息
-    public static final int sl_contract_change_position_list_event = 66;//改变仓位列表数据
     public static final int sl_contract_change_position_model_event = 67;//改变持仓模式
     public static final int sl_contract_change_unit_event = 68;//改变仓位展示单位
     public static final int sl_contract_login_status_event = 69;//未登录状态改变合约按钮

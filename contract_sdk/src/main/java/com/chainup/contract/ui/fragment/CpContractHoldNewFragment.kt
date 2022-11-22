@@ -201,10 +201,11 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             it.getView<CpCommonlyUsedButton>(R.id.btn_close_position)
                         btn_close_position.listener =
                             object : CpCommonlyUsedButton.OnBottonListener {
+                                @SuppressLint("SuspiciousIndentation")
                                 override fun bottonOnClick() {
 
                                   var num1= CpBigDecimalUtils.mulStr(clickData.canCloseVolume, mMultiplier, mMultiplierPrecision)
-                                  var num2= clickData.indexPrice
+                                  var num3= clickData.indexPrice
 
                                     LogUtils.e("我是创建订单1${clickData.toString()}")
                                     val side = if (clickData.orderSide == "BUY") "SELL" else "BUY"
@@ -215,7 +216,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         side = side,
                                         leverageLevel = clickData.leverageLevel,
                                         price = "0",
-                                        volume = CpBigDecimalUtils.mulStr(num1,num2,mMultiplierPrecision),
+                                        volume = CpBigDecimalUtils.mulStr(num1,num3,mMultiplierPrecision),
                                         type = 2,
                                         isConditionOrder = false,
                                         triggerPrice = "",
@@ -1421,12 +1422,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             }
                         }
                         mAllList=lidt
-                        val msgEvent =
-                            CpMessageEvent(
-                                CpMessageEvent.sl_contract_position_num_event
-                            )
-                        msgEvent.msg_content = mOrderListJson.length()
-                        CpEventBusUtil.post(msgEvent)
+
                     }
                 }
                 updateAdapter()
