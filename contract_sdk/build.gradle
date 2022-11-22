@@ -124,5 +124,5 @@ dependencies {
     implementation 'com.github.chenBingX:SuperTextView:v3.1.1'
     implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'
+    implementation 'com.github.wendux:DSBridge-Android:3.0.0'
 }

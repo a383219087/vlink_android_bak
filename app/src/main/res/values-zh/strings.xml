@@ -1670,6 +1670,10 @@
     <string name="personal_text_isAuth">已通过认证</string>
     <string name="personal_text_mailCode">邮箱验证码</string>
     <string name="personal_text_message">站内信</string>
+    <string name="personal_text_message1">合伙人</string>
+    <string name="personal_text_message2">已邀请</string>
+    <string name="personal_text_message3">已交易</string>
+    <string name="personal_text_message4">最新返利</string>
     <string name="personal_text_newPwd">新密码</string>
     <string name="personal_text_notice">公告</string>
     <string name="personal_text_phoneCode">手机验证码</string>

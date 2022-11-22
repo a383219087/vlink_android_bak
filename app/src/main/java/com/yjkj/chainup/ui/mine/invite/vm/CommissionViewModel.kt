@@ -1,4 +1,4 @@
-package com.yjkj.chainup.ui.invite.vm
+package com.yjkj.chainup.ui.mine.invite.vm
 
 
 import androidx.databinding.ObservableArrayList

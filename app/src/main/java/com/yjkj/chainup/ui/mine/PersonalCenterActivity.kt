@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.activity.personalCenter
+package com.yjkj.chainup.ui.mine
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +18,7 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.BlackListActivity
+import com.yjkj.chainup.new_version.activity.personalCenter.*
 import com.yjkj.chainup.new_version.bean.ReadMessageCountBean
 import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.util.LanguageUtil
@@ -44,11 +45,9 @@ class PersonalCenterActivity : NBaseActivity() {
 
     override fun initView() {
         setOnClick()
-
         if (!TextUtils.isEmpty(PublicInfoDataService.getInstance().getOnlineService(null))) {
             aiv_service?.visibility = View.VISIBLE
         }
-
         if (PublicInfoDataService.getInstance().otcOpen(null)) {
             aiv_mine_black_list?.visibility = View.VISIBLE
         } else {

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.ui.invite
+package com.yjkj.chainup.ui.mine.invite
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -16,7 +16,7 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.ui.invite.vm.ContractAgentViewModel
+import com.yjkj.chainup.ui.mine.invite.vm.ContractAgentViewModel
 import com.yjkj.chainup.util.ToastUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

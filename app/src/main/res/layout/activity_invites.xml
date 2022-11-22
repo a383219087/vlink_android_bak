@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.ui.invite.vm.MyInviteViewModel" />
+            type="com.yjkj.chainup.ui.mine.invite.vm.MyInviteViewModel" />
 
         <import type="android.view.View" />
 

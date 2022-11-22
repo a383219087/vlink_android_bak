@@ -1,4 +1,4 @@
-package com.yjkj.chainup.ui.invite
+package com.yjkj.chainup.ui.mine.invite
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -8,7 +8,7 @@ import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.databinding.ActivityInvitesCodeBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.ui.invite.vm.MyInviteCodesViewModel
+import com.yjkj.chainup.ui.mine.invite.vm.MyInviteCodesViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

@@ -158,7 +158,7 @@
         <activity android:name=".new_version.activity.WebviewActivity" />
         <activity android:name=".new_version.activity.personalCenter.NewSettingActivity" />
         <activity
-            android:name=".new_version.activity.personalCenter.PersonalCenterActivity"
+            android:name=".ui.mine.PersonalCenterActivity"
             android:launchMode="singleTop" />
         <activity android:name=".new_version.activity.personalCenter.BindMobileOrEmailActivity" />
         <activity android:name=".new_version.activity.personalCenter.NewVerifyActivity" />
@@ -225,7 +225,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".contract.activity.SlContractAssetRecordActivity" />
 
-        <activity android:name="com.yjkj.chainup.ui.invite.ContractAgentActivity1" />
+        <activity android:name="com.yjkj.chainup.ui.mine.invite.ContractAgentActivity1" />
         <activity android:name=".new_version.activity.like.LikeEditActivity" />
 
 
@@ -268,9 +268,9 @@
         <activity android:name=".new_version.activity.personalCenter.push.PushSettingsActivity" />
         <activity android:name=".new_version.activity.leverage.list.LeverActivity" />
         <activity android:name=".new_version.activity.leverage.TradeETFQuestionActivity" />
-        <activity android:name="com.yjkj.chainup.ui.invite.MyInviteCodesActivity" /> <!-- <activity android:name=".new_version.activity.invite.EditInviteCodesActivity" -->
+        <activity android:name="com.yjkj.chainup.ui.mine.invite.MyInviteCodesActivity" /> <!-- <activity android:name=".new_version.activity.invite.EditInviteCodesActivity" -->
         <!-- android:theme="@style/dialogTheme"/> -->
-        <activity android:name="com.yjkj.chainup.ui.invite.MyInviteActivity" />
+        <activity android:name="com.yjkj.chainup.ui.mine.invite.MyInviteActivity" />
         <activity android:name="com.yjkj.chainup.ui.documentary.DocumentaryActivity" />
         <activity android:name="com.yjkj.chainup.ui.financial.FinancialActivity" />
         <activity android:name="com.yjkj.chainup.ui.documentary.TradersActivity" />

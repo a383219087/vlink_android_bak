@@ -1,10 +1,10 @@
-package com.yjkj.chainup.ui.invite
+package com.yjkj.chainup.ui.mine.invite
 
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseDialogMVFragment
 import com.yjkj.chainup.bean.AgentCodeBean
 import com.yjkj.chainup.databinding.DialogNewInviteCodeBinding
-import com.yjkj.chainup.ui.invite.vm.EditInviteCodesViewModel
+import com.yjkj.chainup.ui.mine.invite.vm.EditInviteCodesViewModel
 
 
 class EditInviteCodesDialog : BaseDialogMVFragment<EditInviteCodesViewModel?, DialogNewInviteCodeBinding?>() {

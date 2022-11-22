@@ -13,7 +13,7 @@
         <import type="android.view.View" />
         <variable
             name="onItemListener"
-            type="com.yjkj.chainup.ui.invite.vm.MyInviteCodesViewModel.OnItemListener" />
+            type="com.yjkj.chainup.ui.mine.invite.vm.MyInviteCodesViewModel.OnItemListener" />
     </data>
 
     <LinearLayout

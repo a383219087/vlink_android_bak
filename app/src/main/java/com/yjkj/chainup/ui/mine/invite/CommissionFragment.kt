@@ -1,18 +1,18 @@
-package com.yjkj.chainup.ui.invite
+package com.yjkj.chainup.ui.mine.invite
 
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.yjkj.chainup.R
 
 import com.yjkj.chainup.base.BaseMVFragment
-import com.yjkj.chainup.databinding.FragmentFriendsBinding
+import com.yjkj.chainup.databinding.FragmentCommissionBinding
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.ui.invite.vm.MyFriendsViewModel
+import com.yjkj.chainup.ui.mine.invite.vm.CommissionViewModel
 
 
-@Route(path = RoutePath.FriendsFragment)
-class FriendsFragment : BaseMVFragment<MyFriendsViewModel?, FragmentFriendsBinding>() {
-    override fun setContentView(): Int = R.layout.fragment_friends
+@Route(path = RoutePath.CommissionFragment)
+class CommissionFragment : BaseMVFragment<CommissionViewModel?, FragmentCommissionBinding>() {
+    override fun setContentView(): Int = R.layout.fragment_commission
 
     override fun initView() {
         mViewModel?.getList(1)

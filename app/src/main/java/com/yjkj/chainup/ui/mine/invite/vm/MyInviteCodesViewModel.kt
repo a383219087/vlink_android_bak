@@ -1,4 +1,4 @@
-package com.yjkj.chainup.ui.invite.vm
+package com.yjkj.chainup.ui.mine.invite.vm
 
 
 import android.graphics.Bitmap
@@ -20,8 +20,7 @@ import com.yjkj.chainup.common.binding.command.BindingCommand
 import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.ui.invite.EditInviteCodesDialog
-import com.yjkj.chainup.util.ContextUtil
+import com.yjkj.chainup.ui.mine.invite.EditInviteCodesDialog
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
