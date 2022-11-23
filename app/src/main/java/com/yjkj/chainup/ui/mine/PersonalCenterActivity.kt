@@ -189,6 +189,15 @@ class PersonalCenterActivity : NBaseActivity() {
             }
             startActivity(Intent(this, SafetySettingActivity::class.java))
         }
+        /**
+         * 合伙人
+         */
+        aiv_partner?.setOnClickListener {
+            if (!LoginManager.checkLogin(this, true)) {
+                return@setOnClickListener
+            }
+            ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+        }
 
 
 
