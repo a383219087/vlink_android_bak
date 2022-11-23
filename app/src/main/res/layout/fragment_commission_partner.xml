@@ -7,7 +7,7 @@
 
         <variable
             name="_all"
-            type="com.yjkj.chainup.ui.mine.partner.vm.PartnerMyFriendsViewModel" />
+            type="com.yjkj.chainup.ui.mine.partner.vm.PartnerCommissionViewModel" />
 
         <import type="android.view.View" />
 
@@ -34,14 +34,10 @@
                 app:itemBinding="@{_all.itemBinding}"
                 app:items="@{_all.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
         <include
             layout="@layout/em_view"
             app:visibility="@{_all.items.size()==0}"/>
-
-
 
     </LinearLayout>
 

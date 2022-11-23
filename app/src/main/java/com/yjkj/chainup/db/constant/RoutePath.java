@@ -41,7 +41,9 @@ public class RoutePath {
     public static final String ContractAgentActivity = "/personalCenter/ContractAgentActivity1";
     public static final String PartnerActivity = "/personalCenter/PartnerActivity";
     public static final String MyInviteCodesActivity = "/personalCenter/MyInviteCodesActivity";
+    public static final String PartnerMyInviteCodesActivity = "/personalCenter/PartnerMyInviteCodesActivity";
     public static final String MyInviteActivity = "/personalCenter/MyInviteActivity";
+    public static final String PartnerMyInviteActivity = "/personalCenter/MoreActivity";
     public static final String FriendsFragment = "/personalCenter/FriendsFragment";
     public static final String CommissionFragment = "/personalCenter/CommissionFragment";
 

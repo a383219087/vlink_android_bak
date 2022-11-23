@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="_all"
+            type="com.yjkj.chainup.ui.mine.partner.vm.MoreViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.R" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bg_color">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="@color/bg_card_color"
+            android:paddingTop="30dp">
+
+            <ImageView
+                style="@style/left_back_img_style"
+                android:layout_gravity="center|left"
+                android:onClick="@{()->_all.finish()}"
+                android:src="@drawable/ic_return" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_15"
+                android:text="@string/share_text201"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
+
+
+
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@color/bg_card_color"
+            app:layout_scrollFlags="noScroll"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:onClick="@{()->_all.setIndex(0)}"
+                    android:text="@string/share_text40"
+                    android:textColor="@{_all.index==0?@color/main_blue:@color/text_color_99}"
+                    android:textSize="15sp" />
+
+
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:onClick="@{()->_all.setIndex(1)}"
+                    android:text="@string/share_text41"
+                    android:textColor="@{_all.index==1?@color/main_blue:@color/text_color_99}"
+                    android:textSize="15sp" />
+
+
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/bg_card_color"
+            app:layout_scrollFlags="noScroll"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"
+                        android:background="@{_all.index==0?@color/main_blue:@color/new_home_page_tab_color}"
+                        android:layout_height="2dp"/>
+
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"
+                        android:background="@{_all.index==1?@color/main_blue:@color/new_home_page_tab_color}"
+                        android:layout_height="2dp"/>
+
+
+
+                </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:select="@{_all.index}"
+            app:addOnPageChangeListener="@{_all.onPageChangeListener}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+    </LinearLayout>
+
+
+</layout>

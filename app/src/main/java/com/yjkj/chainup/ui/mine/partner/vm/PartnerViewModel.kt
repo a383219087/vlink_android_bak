@@ -35,14 +35,14 @@ class PartnerViewModel : BaseViewModel() {
 
 
     fun myInviteCodes() {
-        startTask(apiService.myInviteCodes(), Consumer {
+        startTask(apiService.myInviteCodes()) { it ->
             codeList.clear()
             codeList.addAll(it.data)
             bean.value = it.data.first { it.isDefault == "1" }
             bean.value!!.rateInt = bean.value!!.rate.toDouble().toInt()
             rate.value = bean.value!!.rate.toDouble().toInt()
             code.value = bean.value!!.inviteCode
-        })
+        }
 
     }
 
@@ -68,11 +68,11 @@ class PartnerViewModel : BaseViewModel() {
 
 
     fun toMyInviteCodesActivity() {
-        ArouterUtil.navigation(RoutePath.MyInviteCodesActivity, null)
+        ArouterUtil.navigation(RoutePath.PartnerMyInviteCodesActivity, null)
     }
 
     fun toMoreNextInvite() {
-        ArouterUtil.navigation(RoutePath.MyInviteActivity, null)
+        ArouterUtil.navigation(RoutePath.PartnerMyInviteActivity, null)
     }
 
     fun onEditClick(view: View) {
@@ -80,12 +80,5 @@ class PartnerViewModel : BaseViewModel() {
     }
 
 
-    fun onShareClick(view: View) {
-//        InvitationPostersDialog().apply {
-//            val bundle = Bundle()
-//            bundle.putString("code",bean.value!!.inviteCode)
-//            this.arguments = bundle
-//        }.showDialog(activity.value?.supportFragmentManager,"")
 
-    }
 }

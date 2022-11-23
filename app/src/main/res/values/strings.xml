@@ -3416,6 +3416,8 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="traders_apply_text6">Refused，Apply again?</string>
     <string name="traders_apply_text7">Apply to become a trader?</string>
     <string name="traders_apply_text8">successful</string>
+    <string name="traders_apply_text81">Please enter the rebate ratio</string>
+    <string name="traders_apply_text82">The rebate ratio ranges from 0 to 100</string>
 
     <string name="dialog_close_text1">average open</string>
     <string name="dialog_close_text2">exit price</string>
@@ -3575,6 +3577,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text5">completed</string>
     <string name="share_text6">rebate</string>
     <string name="share_text7">polite</string>
+    <string name="share_text711">partner</string>
     <string name="share_text8">rules</string>
     <string name="share_text9">Many invite many</string>
     <string name="share_text10">INVITE FRIENDS TOGETHER</string>
@@ -3582,11 +3585,13 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text12">rebate</string>
     <string name="share_text13">Default</string>
     <string name="share_text15">My rebate/Friend rebate</string>
+    <string name="share_text151">Rebate</string>
     <string name="share_text16">Invite code</string>
     <string name="share_text17">Invitation link</string>
     <string name="share_text18">Immediately invited</string>
     <string name="share_text19">more</string>
     <string name="share_text20">My invitation statistics</string>
+    <string name="share_text201">Statistics</string>
     <string name="share_text21">more</string>
     <string name="share_text22">Invite the number</string>
     <string name="share_text23">Number of transactions completed</string>
@@ -3601,6 +3606,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text32">Friends rebate ratio</string>
     <string name="share_text33">My rebate percentage</string>
     <string name="share_text34">remark</string>
+    <string name="share_text341">edit</string>
     <string name="share_text35">remark</string>
     <string name="share_text36">default</string>
     <string name="share_text37">more</string>

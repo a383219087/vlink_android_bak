@@ -12,6 +12,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.BaseMVActivity
 import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.databinding.ActivityContractAgent1Binding
+import com.yjkj.chainup.databinding.ActivityPsrtnerBinding
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
@@ -30,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @description
  */
 @Route(path = RoutePath.PartnerActivity)
-class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityContractAgent1Binding?>() {
+class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityPsrtnerBinding?>() {
 
     var dialog: TDialog? = null
     override fun setContentView() = R.layout.activity_psrtner
