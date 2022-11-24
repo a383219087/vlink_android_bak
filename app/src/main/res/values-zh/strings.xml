@@ -1671,7 +1671,11 @@
     <string name="personal_text_mailCode">邮箱验证码</string>
     <string name="personal_text_message">站内信</string>
     <string name="personal_text_message1">合伙人</string>
+    <string name="personal_text_message111">邀请好友 共同赚币</string>
     <string name="personal_text_message2">已邀请</string>
+    <string name="personal_text_message21">入金</string>
+    <string name="personal_text_message22">邀请人数</string>
+    <string name="personal_text_message23">日交易人数</string>
     <string name="personal_text_message3">已交易</string>
     <string name="personal_text_message4">最新返利</string>
     <string name="personal_text_newPwd">新密码</string>
@@ -3697,6 +3701,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text26">排行</string>
     <string name="share_text27">用户昵称</string>
     <string name="share_text28">邀请人数</string>
+    <string name="share_text281">比例</string>
     <string name="share_text29">返利金额</string>
     <string name="share_text30">生成新邀请码</string>
     <string name="share_text31">修改邀请码</string>
@@ -3704,6 +3709,8 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text33">我的返利比例</string>
     <string name="share_text34">备注</string>
     <string name="share_text341">点击输入</string>
+    <string name="share_text342">详情</string>
+    <string name="share_text343">收起</string>
     <string name="share_text35">备注信息</string>
     <string name="share_text36">设为默认邀请码</string>
     <string name="share_text37">更多分享</string>

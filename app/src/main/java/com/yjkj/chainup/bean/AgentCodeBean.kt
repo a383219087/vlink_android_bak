@@ -20,11 +20,21 @@ data class AgentCodeBean(
 data class InviteBean(
     val amount: Double,
     val uid: String,
+    val nickName: String?,
+    val rate: String?="",
     val userCount: Int,
     val txCount: Int,
     var index: Int
 
- 
+):Serializable
+
+
+data class RebateBean(
+    val depositAmount: String,
+    val userCount: String?,
+    val txCount: String,
+    val count: String?,
+    val txAmount: String,
 
 
 ):Serializable

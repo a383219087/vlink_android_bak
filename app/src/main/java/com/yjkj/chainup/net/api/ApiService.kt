@@ -353,6 +353,12 @@ interface ApiService {
     fun getReadMessageCount(@Body requestBody: RequestBody): Observable<HttpResult<ReadMessageCountBean>>
 
     /**
+     * 获取当前是否合伙人
+     */
+    @POST("invite_code/currentStatus")
+    fun currentStatus(@Body requestBody: RequestBody): Observable<HttpResult<String>>
+
+    /**
      * 确定已读
      */
     @POST("message/message_update_status")
@@ -425,12 +431,6 @@ interface ApiService {
      */
     @POST("common/depth_map")
     fun getCoinDepth(@Body requestBody: RequestBody): Observable<HttpResult<DepthItem>>
-
-    /**
-     * 获取接口是否通
-     */
-    @GET("health_check")
-    fun getHealth(@QueryMap map: Map<String, String>): Observable<HttpResult<Any>>
 
     /**
      * 获取接口是否通
@@ -545,6 +545,12 @@ interface ApiService {
     @FormUrlEncoded
     @POST("invite_code/myNextAgentUsers")
     fun myNextAgentUsers(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<InviteBean>>>>
+    /**
+     * 下级详情
+     */
+    @FormUrlEncoded
+    @POST("invite_code/stats")
+    fun stats(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<RebateBean>>
     /**
      * 我的返佣
      */

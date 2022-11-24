@@ -43,7 +43,7 @@ class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityPsrtnerBinding
             if (it == 0) {
                 return@Observer
             }
-            EditInviteCodesDialog().apply {
+            PartnerEditInviteCodesDialog().apply {
                 val bundle = Bundle()
                 bundle.putInt("type", 2)
                 bundle.putSerializable("bean", mViewModel?.bean?.value)

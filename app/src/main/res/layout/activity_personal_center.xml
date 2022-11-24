@@ -50,17 +50,29 @@
                     android:background="@color/bg_color" />
 
                 <LinearLayout
+                    android:id="@+id/ll_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <!--合伙人-->
                     <com.yjkj.chainup.new_version.view.AccountItemView
                         android:id="@+id/aiv_partner"
                         android:layout_width="match_parent"
                         android:layout_height="46.5dp"
+                        android:visibility="gone"
                         android:background="@color/bg_card_color"
                         app:icon="@drawable/hehuoren"
                         app:itemTitle="@string/personal_text_message1"
+                        app:showLine="true" />
+                    <com.yjkj.chainup.new_version.view.AccountItemView
+                        android:id="@+id/aiv_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="46.5dp"
+                        android:visibility="gone"
+                        android:background="@color/bg_card_color"
+                        app:icon="@drawable/yaoqing"
+                        app:itemTitle="@string/personal_text_message111"
                         app:showLine="true" />
 
                     <LinearLayout
@@ -80,6 +92,7 @@
                                  android:gravity="center"
                                  android:orientation="vertical">
                                  <TextView
+                                     android:id="@+id/tv_share_data1"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                      android:text="10"
@@ -113,6 +126,7 @@
                                  android:gravity="center"
                                  android:orientation="vertical">
                                  <TextView
+                                     android:id="@+id/tv_share_data2"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                      android:text="10"
@@ -146,6 +160,7 @@
                                  android:gravity="center"
                                  android:orientation="vertical">
                                  <TextView
+                                     android:id="@+id/tv_share_data3"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                      android:text="10"

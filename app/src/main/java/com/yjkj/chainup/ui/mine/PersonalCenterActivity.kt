@@ -15,15 +15,19 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.net.retrofit.NetObserver
 import com.yjkj.chainup.new_version.activity.BlackListActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.*
 import com.yjkj.chainup.new_version.bean.ReadMessageCountBean
 import com.yjkj.chainup.new_version.view.PersonalCenterView
+import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.StringUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_personal_center.*
 import kotlinx.android.synthetic.main.item_personal_center_title.*
@@ -125,6 +129,9 @@ class PersonalCenterActivity : NBaseActivity() {
     fun setOnClick() {
         if (!UserDataService.getInstance().isLogined) {
             title_layout?.setNoLogin()
+            ll_share.visibility=View.GONE
+        }else{
+            ll_share.visibility=View.VISIBLE
         }
 
         if (PublicInfoDataService.getInstance().isUserRoleLevel(null)) {
@@ -299,6 +306,34 @@ class PersonalCenterActivity : NBaseActivity() {
                     }
 
                 })
+
+        HttpClient.instance.getInviteStatus()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetObserver<String>() {
+                override fun onHandleSuccess(t: String?) {
+                    if (t=="1"||t=="0"){
+                        aiv_partner.visibility=View.VISIBLE
+                        aiv_share.visibility=View.GONE
+                    }else{
+                        aiv_partner.visibility=View.GONE
+                        aiv_share.visibility=View.VISIBLE
+                    }
+
+                }
+
+            })
+
+        val map = HashMap<String, Any>()
+        startTask(HttpHelper.instance.getBaseUrlService(ApiService::class.java).stats(map), Consumer {
+            tv_share_data1.text=it.data.userCount
+            tv_share_data2.text=it.data.count
+            tv_share_data3.text= DecimalUtil.cutValueByPrecision(it.data.txAmount,2)
+
+
+        }) {
+
+        }
     }
 
 

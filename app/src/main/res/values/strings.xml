@@ -1563,7 +1563,11 @@ Mark Price: This is the current mark price.</string>
     <string name="personal_text_mailCode">Email Verification Code</string>
     <string name="personal_text_message">Notifications</string>
     <string name="personal_text_message1">Partner</string>
+    <string name="personal_text_message111">Share</string>
     <string name="personal_text_message2">Invited</string>
+    <string name="personal_text_message21">Payment</string>
+    <string name="personal_text_message22">Invitees</string>
+    <string name="personal_text_message23">Number daily</string>
     <string name="personal_text_message3">Traded</string>
     <string name="personal_text_message4">Latest Rebate</string>
     <string name="personal_text_newPwd">New password</string>
@@ -3600,6 +3604,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text26">rank</string>
     <string name="share_text27">nickName</string>
     <string name="share_text28">Invite the number</string>
+    <string name="share_text281">Rate</string>
     <string name="share_text29">rebate amount</string>
     <string name="share_text30">New invitation cod</string>
     <string name="share_text31">edit</string>
@@ -3607,6 +3612,8 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text33">My rebate percentage</string>
     <string name="share_text34">remark</string>
     <string name="share_text341">edit</string>
+    <string name="share_text342">detail</string>
+    <string name="share_text343">close</string>
     <string name="share_text35">remark</string>
     <string name="share_text36">default</string>
     <string name="share_text37">more</string>

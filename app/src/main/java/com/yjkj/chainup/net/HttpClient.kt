@@ -1400,6 +1400,14 @@ class HttpClient private constructor() {
         val map = getBaseMap()
         return apiService.getReadMessageCount(toRequestBody(DataHandler.encryptParams(map)))
     }
+    /**
+     * 获取当前是否合伙人
+     */
+    fun getInviteStatus(): Observable<HttpResult<String>> {
+        val map = getBaseMap()
+        return apiService.currentStatus(toRequestBody(DataHandler.encryptParams(map)))
+    }
+
 
     /**
      * 更新查看所有站内信

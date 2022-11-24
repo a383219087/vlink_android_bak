@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yjkj.chainup.bean.AgentCodeBean" />
+
+        <import type="com.yjkj.chainup.R" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onItemListener"
+            type="com.yjkj.chainup.ui.mine.partner.vm.PartnerMyInviteCodesViewModel.OnItemListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:ResColor="@{R.color.bg_card_color}"
+        app:radius="@{10}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:ResColor="@{R.color.main_blue_15}"
+            app:radius="@{5}"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:onClick="@{()->onItemListener.onEditClick(item)}"
+                android:text="@{item.remark}"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="right|center"
+                android:text="@string/contract_text_defaultMarket"
+                android:button="@drawable/cp_trade_check_selector"
+                android:checked="@{item.isDefault().equals(`1`)}"
+                app:onClick="@{()->onItemListener.onDefault(item)}"
+                android:textColor="@color/text_color_99"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/share_text32"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{(item.rateInt)+`%`}"
+                android:textColor="#d26e4a"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share_text16"
+                android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.inviteCode}"
+                android:textColor="@color/text_color"
+                android:textSize="13sp"
+                app:copyText="@{item.inviteCode}" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share_text17"
+                android:textColor="@color/text_color"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="10dp"
+                android:maxLines="2"
+                android:text="@{item.inviteUrl+item.inviteCode}"
+                android:textColor="@color/text_color"
+                android:textSize="13sp"
+                app:copyText="@{item.inviteUrl+item.inviteCode}" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/share_text18"
+            android:onClick="@{(v)->onItemListener.onClick(item,v)}"
+            android:textColor="@color/white"
+            app:ResColor="@{R.color.main_blue}"
+            app:radius="@{5}"/>
+
+    </LinearLayout>
+
+
+</layout>

@@ -21,6 +21,7 @@ import com.yjkj.chainup.contract.utils.ShareToolUtil
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.mine.invite.EditInviteCodesDialog
+import com.yjkj.chainup.ui.mine.partner.PartnerEditInviteCodesDialog
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -102,7 +103,7 @@ class PartnerMyInviteCodesViewModel : BaseViewModel() {
         return bitmap
     }
     fun onclickRightIcon() {
-        EditInviteCodesDialog().apply {
+        PartnerEditInviteCodesDialog().apply {
             val bundle = Bundle()
             bundle.putInt("type", 1)
             this.arguments = bundle
@@ -112,7 +113,7 @@ class PartnerMyInviteCodesViewModel : BaseViewModel() {
     }
 
     val itemBinding =
-        ItemBinding.of<AgentCodeBean>(BR.item, R.layout.item_invite_code).bindExtra(BR.onItemListener, onItemListener)
+        ItemBinding.of<AgentCodeBean>(BR.item, R.layout.item_invite_code_partner).bindExtra(BR.onItemListener, onItemListener)
     val items: ObservableList<AgentCodeBean> = ObservableArrayList()
 
     var onRefreshCommand = BindingCommand<Any>(BindingAction {
