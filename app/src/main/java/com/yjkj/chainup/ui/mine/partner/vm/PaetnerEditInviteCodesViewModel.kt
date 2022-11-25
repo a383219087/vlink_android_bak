@@ -43,7 +43,7 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
 
     fun initData() {
         remark.value = bean.value?.remark
-        rate.value = bean.value?.rate
+        rate.value = bean.value?.rate?.toDoubleOrNull()?.toInt().toString()
         inviteCode.value = bean.value?.inviteCode
         isCheck.value = bean.value?.isDefault == "1"
     }
@@ -54,14 +54,14 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
              return
          }
 
-         if(rate.value?.toInt()!!<=0||rate.value?.toInt()!!>=100){
+         if(rate.value?.toDoubleOrNull()?.toInt()!!<=0||rate.value?.toDoubleOrNull()?.toInt()!!>=100){
              ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text82))
              return
          }
 
         if (inviteCode.value?.isEmpty()!!) {
             val map = HashMap<String, Any>()
-            map["rate"] = rate.value.toString()
+            map["rate"] = rate.value!!.toInt().toString()
             map["remark"] = remark.value.toString()
             map["isDefault"] = if (isCheck.value == true) "1" else "0"
             startTask(apiService.createInviteCode(map), Consumer {
