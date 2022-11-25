@@ -64,7 +64,7 @@ class CashFlow4Activity : NewBaseActivity() {
             sceneList.add(CashFlowSceneBean.Scene(ParamConstant.OTC_TRANSFER_RECORD, LanguageUtil.getString(this, "transfer_text_otc")))
             spw_layout?.initLineAdaptiveLayout(sceneList)
         } else {
-            sceneType = "deposit"
+            sceneType = ""
             getCashFlowScene()
         }
         adapter = CashFlow4Adapter(status)
@@ -173,6 +173,7 @@ class CashFlow4Activity : NewBaseActivity() {
                          * TODO 选择场景发送对应的值
                          */
                         sceneList.clear()
+                        sceneList.add(CashFlowSceneBean.Scene(key = "all",keyText = context.getString(R.string.otc_order_all)))
                         sceneList.addAll(t.sceneList)
                         spw_layout?.initLineAdaptiveLayout(t.sceneList)
                     }
@@ -201,6 +202,10 @@ class CashFlow4Activity : NewBaseActivity() {
         if (!UserDataService.getInstance().isLogined) {
             return
         }
+        if (transactionScene=="all"){
+            this@CashFlow4Activity.transactionScene =""
+        }
+
         HttpClient.instance.getCashFlowList(
                 symbol = NCoinManager.setShowNameGetName(symbol),
                 transactionScene = transactionScene,

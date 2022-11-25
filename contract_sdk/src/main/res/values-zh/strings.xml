@@ -3327,7 +3327,7 @@
     <string name="cp_overview_text19">可用</string>
     <string name="cp_overview_text20">标记价格</string>
     <string name="cp_overview_text201">反向开仓数量</string>
-    <string name="cp_overview_text202">*反向开仓将以市价平掉当前仓位，同时以相同掉数量和价格反向开仓。保证金不足掉情况可能会出现当前仓位平掉新开仓失败。</string>
+    <string name="cp_overview_text202">*反向开仓将以市价平掉当前仓位，同时以相同的数量和价格反向开仓。保证金不足的情况可能会出现当前仓位平掉，新开仓失败。</string>
     <string name="cp_overview_text21">指数价格</string>
     <string name="cp_overview_text22">登录/注册</string>
     <string name="cp_overview_text23">未登陆，登陆后开始交易</string>
@@ -3516,6 +3516,7 @@
     <string name="cp_order_text64">只减仓</string>
     <string name="cp_order_text65">委托价格</string>
     <string name="cp_order_text66">委托数量</string>
+    <string name="cp_order_text661">委托价值</string>
     <string name="cp_order_text67">到期时间</string>
     <string name="cp_order_text68">撤单</string>
     <string name="cp_order_text69">条件单</string>

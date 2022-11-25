@@ -222,10 +222,10 @@ class CpContractEntrustDetailActivity : CpNBaseActivity() {
             }
             //手续费
             if (it.open.equals("OPEN") && it.type.equals("2")) {
-                tv_entrust_amount_key.setText(getString(R.string.cp_order_text66) + "(" + (if (contractSide == 1) it.quote else it.base) + ")")
+                tv_entrust_amount_key.setText(getString(R.string.cp_order_text661) + "(" + (if (contractSide == 1) it.quote else it.base) + ")")
                 tv_entrust_amount.setText(it.volume)
             } else {
-                tv_entrust_amount_key.setText(getString(R.string.cp_order_text66) + if (mContractUint == 0) "(" + getString(R.string.cp_overview_text9) + ")" else "(" + mMultiplierCoin + ")")
+                tv_entrust_amount_key.setText(getString(R.string.cp_order_text661) + if (mContractUint == 0) "(" + getString(R.string.cp_overview_text9) + ")" else "(" + mMultiplierCoin + ")")
                 tv_entrust_amount.setText(if (mContractUint == 0) it.volume else CpBigDecimalUtils.mulStr(it.volume, mMultiplier, mMultiplierPrecision))
             }
 
@@ -285,10 +285,10 @@ class CpContractEntrustDetailActivity : CpNBaseActivity() {
                                     //手续费
                                     tv_fee_value.text = buffFee.setScale(feeCoinPrecision, BigDecimal.ROUND_HALF_DOWN).toPlainString()
                                     if (it.open.equals("OPEN") && it.type.equals("2")) {
-                                        tv_entrust_amount_key.setText(getString(R.string.cp_order_text66) + "(" + (if (contractSide == 1) it.quote else it.base) + ")")
+                                        tv_entrust_amount_key.setText(getString(R.string.cp_order_text661) + "(" + (if (contractSide == 1) it.quote else it.base) + ")")
                                         tv_entrust_amount.setText(it.volume)
                                     } else {
-                                        tv_entrust_amount_key.setText(getString(R.string.cp_order_text66) + if (mContractUint == 0) "(" + getString(R.string.cp_overview_text9) + ")" else "(" + mMultiplierCoin + ")")
+                                        tv_entrust_amount_key.setText(getString(R.string.cp_order_text661) + if (mContractUint == 0) "(" + getString(R.string.cp_overview_text9) + ")" else "(" + mMultiplierCoin + ")")
                                         tv_entrust_amount.setText(if (mContractUint == 0) it.volume else CpBigDecimalUtils.mulStr(it.volume, mMultiplier, mMultiplierPrecision))
                                     }
                                     if (it.type.equals("6")){

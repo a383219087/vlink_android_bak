@@ -3516,6 +3516,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text64">Reduce Only</string>
     <string name="cp_order_text65">Order Price</string>
     <string name="cp_order_text66">Order Quantity</string>
+    <string name="cp_order_text661">Order Quantity</string>
     <string name="cp_order_text67">Expiration Date</string>
     <string name="cp_order_text68">Cancel</string>
     <string name="cp_order_text69">Trigger Order</string>

@@ -78,9 +78,6 @@ class PersonalCenterActivity : NBaseActivity() {
     override fun onResume() {
         super.onResume()
         getDealerInfo()
-        if (UserDataService.getInstance().isLogined) {
-            getMessageCount()
-        }
 
     }
 
@@ -280,6 +277,7 @@ class PersonalCenterActivity : NBaseActivity() {
                     val json = jsonObject.optJSONObject("data")
                     initView(json)
                     UserDataService.getInstance().saveData(json)
+                    getMessageCount()
                 }
 
             }))

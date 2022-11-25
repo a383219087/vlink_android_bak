@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.text.TextUtils
+import android.text.format.DateUtils
 import android.view.View
 import android.widget.*
 import com.blankj.utilcode.util.LogUtils
@@ -39,7 +40,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 
 /**
@@ -100,6 +103,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {it1->
+
                                 for (i in 0 until mAllList.size) {
                                     if (mAllList[i].contractId ==  clickData.contractId) {
                                         //标记价格
@@ -110,7 +114,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                             )
                                         it.setText(
                                             R.id.tv_holdings_value,
-                                            CpBigDecimalUtils.showSNormal(clickData.indexPrice, mPricePrecision)
+                                            CpBigDecimalUtils.showSNormal(mAllList[i].indexPrice, mPricePrecision)
                                         )
                                     }
                                 }
