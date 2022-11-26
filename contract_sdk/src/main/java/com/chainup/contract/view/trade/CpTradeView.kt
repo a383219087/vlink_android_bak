@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
@@ -26,7 +25,7 @@ import com.chainup.contract.view.CpNewDialogUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import com.chainup.contract.bean.CpCreateOrderBean
-import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
@@ -913,7 +912,7 @@ class CpTradeView @JvmOverloads constructor(
     fun setContractJsonInfo(json: JSONObject) {
         mContractJson = json
         mContractJson?.let {
-            contractSide = it.optString("contractSide")
+                contractSide = it.optString("contractSide")
             marginRate = it.optString("marginRate")
             marginCoin = it.optString("marginCoin")
             multiplier = it.optString("multiplier")
@@ -1193,7 +1192,6 @@ class CpTradeView @JvmOverloads constructor(
 
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
                 contractSide == "1",
-                marginRate,
                 multiplier,
                 positionAmount,
                 price,
@@ -1206,7 +1204,6 @@ class CpTradeView @JvmOverloads constructor(
         if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
             tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
                 contractSide == "1",
-                marginRate,
                 multiplier,
                 positionAmount,
                 price,

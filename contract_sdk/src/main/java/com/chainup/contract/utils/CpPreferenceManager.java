@@ -36,6 +36,10 @@ public final class CpPreferenceManager {
 
 	public static final String isShowAllContract = "isShowAllContract";
 
+	public static final String isShowAllContractEntrust = "isShowAllContractEntrust";
+
+	public static final String isShowAllContractPlan = "isShowAllContractPlan";
+
 	private CpPreferenceManager(Context context) {
 		mPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
 	}

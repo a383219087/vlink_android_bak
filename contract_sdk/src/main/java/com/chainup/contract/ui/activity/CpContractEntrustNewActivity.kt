@@ -9,7 +9,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
-import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
 import com.chainup.contract.adapter.CpCoinSelectLeftAdapter
 import com.chainup.contract.adapter.CpCoinSelectRightAdapter
@@ -25,7 +24,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.setSafeListener
 import com.chainup.contract.view.CpNewDialogUtils
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust.*
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust_new.*
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust_new.ic_close

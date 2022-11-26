@@ -1188,6 +1188,8 @@
     <string name="charge_text_state">状态</string>
     <string name="charge_text_tagAddress">标签(Memo)</string>
     <string name="charge_text_volume">买入量</string>
+    <string name="charge_text_volume1">数量</string>
+    <string name="charge_text_volume2">卖出量</string>
     <string name="charge_tip_addressWarning">请勿向上述地址充币任何非本币种资产，否则资产不可找回</string>
     <string name="charge_tip_notavailable">当前无可充币币种</string>
     <string name="charge_tip_tagWarning">充币时必须要填写充币地址和标签(Memo)，这是您账户的唯一标识，不填或填写错误将导致您的资产丢失。</string>

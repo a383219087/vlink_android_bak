@@ -102,7 +102,7 @@ class DealtRecordFragment : Fragment() {
             } else {
                 "(${flagBean?.baseSymbol})"
             }
-            tv_amount_title?.text = context?.getString(R.string.charge_text_volume) + amountUnit
+            tv_amount_title?.text = context?.getString(R.string.charge_text_volume1) + amountUnit
 
             initSocket(URI(""))
 

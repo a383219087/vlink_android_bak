@@ -826,25 +826,18 @@ public class CpBigDecimalUtils {
      * @param scale      精度
      * @param unit       单位
      * @param isForward  是否输入正向合约
-     * @param marginRate 保证金汇率
      * @return
      */
-    public static String canPositionMarketStr(boolean isForward, String marginRate, String parValue, String openValue, String price, int scale, String unit) {
+    public static String canPositionMarketStr(boolean isForward,  String parValue, String openValue, String price, int scale, String unit) {
         String defaultStr = "";
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance())  != 0) {
             defaultStr = "0.00" + " " + unit;
         } else {
             defaultStr = "0" + " " + unit;
         }
-        if (TextUtils.isEmpty(openValue)) {
+        if (TextUtils.isEmpty(openValue)||TextUtils.isEmpty(price)) {
             return defaultStr;
         }
-        if (TextUtils.isEmpty(price)) {
-            return defaultStr;
-        }
-
-
-
         /**
          * 正向合约
          * ≈ 开仓价值 / 本交易所最新价格 {币}
@@ -854,73 +847,32 @@ public class CpBigDecimalUtils {
          * ≈ 开仓价值 * 本交易所最新价格  {币}
          * ≈ 开仓价值 * 本交易所最新价格 / 面值 {张}
          */
+        //开仓价格 就是输入的价格
         BigDecimal openValueBig = new BigDecimal(openValue);
+        //最新价格
         BigDecimal priceBig = new BigDecimal(price);
-        BigDecimal marginRateBig = new BigDecimal(marginRate);
+        //合约面值
         BigDecimal parValueBig = new BigDecimal(parValue);
          if (priceBig.doubleValue()==0){
              return defaultStr;
          }
         BigDecimal buff;
         if (isForward) {
-            buff = openValueBig.divide(priceBig, scale, RoundingMode.HALF_DOWN);
+            //开仓价格/最新价格  精度是scale
+            buff = openValueBig.divide(priceBig, scale, RoundingMode.DOWN);
         } else {
+            //开仓价格*最新价格
             buff = openValueBig.multiply(priceBig);
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            return buff.setScale(scale, RoundingMode.HALF_DOWN).toPlainString() + " " + unit;
+            //显示bi  转换精度
+            return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
         } else {
-            return buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN).toPlainString() + " " + unit;
+            //显示张 再处除合约面值
+            return buff.divide(parValueBig, 0, RoundingMode.DOWN).toPlainString() + " " + unit;
         }
     }
-    /**
-     * 计算市价单/条件市价单的数据展示
-     *
-     * @param openValue  开仓价值
-     * @param price      本交易所最新价格
-     * @param scale      精度
-     * @param isForward  是否输入正向合约
-     * @return判断是否大于1张
-     */
-    public static Boolean canPositionMarketBoolean(boolean isForward, String openValue,String parValue, String price, int scale, String unit) {
 
-        if (TextUtils.isEmpty(openValue)) {
-            return false;
-        }
-        if (TextUtils.isEmpty(price)) {
-            return false;
-        }
-
-        /**
-         * 正向合约
-         * ≈ 开仓价值 / 本交易所最新价格 / 面值 {张}
-         *
-         * 反向合约
-         * ≈ 开仓价值 * 本交易所最新价格 / 面值 {张}
-         */
-        //openValueBig=0.001(输入的)
-        BigDecimal openValueBig = new BigDecimal(openValue);
-        BigDecimal priceBig = new BigDecimal(price);
-        BigDecimal parValueBig = new BigDecimal(parValue);
-        BigDecimal buff;
-        if (isForward) {
-            buff = openValueBig.divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN);
-        } else {
-            buff = openValueBig.multiply(priceBig);
-        }
-
-
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            BigDecimal a=buff.setScale(scale, RoundingMode.HALF_DOWN);
-            return a.intValue()>=1;
-
-        } else {
-            //a=0.0001(单张合约面值)
-            BigDecimal a= buff.divide(parValueBig, 0, RoundingMode.HALF_DOWN);
-
-            return  openValueBig.doubleValue()>=a.doubleValue();
-        }
-    }
 
     /**
      * 计算中位数

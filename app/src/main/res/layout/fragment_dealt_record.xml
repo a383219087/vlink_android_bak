@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:text="@string/charge_text_volume"
+            android:text="@string/charge_text_volume1"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/sp_12"
             android:layout_marginRight="@dimen/dp_15"

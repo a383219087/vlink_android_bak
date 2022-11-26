@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="@string/charge_text_volume"
+            android:text="@string/charge_text_volume2"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/sp_12" />
 

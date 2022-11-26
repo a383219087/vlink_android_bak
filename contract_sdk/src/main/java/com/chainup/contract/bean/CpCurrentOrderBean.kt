@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.bean
+package com.chainup.contract.bean
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import java.io.Serializable

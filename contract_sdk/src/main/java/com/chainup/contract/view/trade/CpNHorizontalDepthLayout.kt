@@ -33,7 +33,7 @@ import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.manager.CpLanguageUtil
-import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_depth_horizontal_layout.view.*

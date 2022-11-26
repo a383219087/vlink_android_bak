@@ -16,6 +16,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpNewDialogUtils
+import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.adapter.CpContractAssetRecordAdapter
 import kotlinx.android.synthetic.main.cp_activity_asset_record.*
@@ -166,16 +167,20 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
         }
     }
 
+    var showTDialog:  TDialog?  =null
+
     private fun showSelectTypeDialog(view: View) {
         img_tab_type.animate().setDuration(300).rotation(180f).start()
         LogUtils.e("createTopListPop","|||||"+ mCurrTypeInfo!!.extrasNum)
-        CpDialogUtil.showNewListDialog(this, typeList,  mCurrTypeInfo!!.extrasNum!!, object : CpNewDialogUtils.DialogOnItemClickListener {
-
+        showTDialog?.dismiss()
+        showTDialog=  CpDialogUtil.showNewListDialog(this, typeList,  mCurrTypeInfo!!.extrasNum!!, object : CpNewDialogUtils.DialogOnItemClickListener {
             override fun clickItem(position: Int) {
+                showTDialog?.dismiss()
                 mCurrTypeInfo = typeList[position]
                 updateTypeUI()
                 pageInfo.reset()
                 loadDataFromNet()
+
             }
         })
 

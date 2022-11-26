@@ -49,7 +49,7 @@ import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
-import com.yjkj.chainup.new_contract.fragment.CpDealtRecordFragment
+import com.chainup.contract.ui.fragment.CpDealtRecordFragment
 import com.yjkj.chainup.new_contract.fragment.CpDepthFragment
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import com.yjkj.chainup.new_version.kline.data.CpDataManager
@@ -58,7 +58,6 @@ import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*

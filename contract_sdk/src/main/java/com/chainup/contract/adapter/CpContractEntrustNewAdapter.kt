@@ -10,8 +10,7 @@ import com.chainup.contract.R
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
-import com.chainup.contract.view.CpNLoadingDialog
-import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -371,6 +370,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         }
       }
 
+
+
+      //历史委托下的计划委托
       4 -> {
         var orderStatus = when(item.status) {
           "0" -> contract_text_orderWaitInHandicap //"初始"

@@ -152,7 +152,7 @@ class DepthFragment : Fragment() {
                 "(${flagBean?.baseSymbol})"
             }
             tv_buy_volume_title?.text = context?.getString(R.string.charge_text_volume) + amountUnit
-            tv_sell_volume_title?.text = context?.getString(R.string.charge_text_volume) + amountUnit
+            tv_sell_volume_title?.text = context?.getString(R.string.charge_text_volume2) + amountUnit
 
 
             if (flagBean?.isContract == true) {

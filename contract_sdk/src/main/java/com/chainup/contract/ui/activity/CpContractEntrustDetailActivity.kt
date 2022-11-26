@@ -2,12 +2,9 @@ package com.yjkj.chainup.new_contract.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -19,7 +16,7 @@ import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpNewDialogUtils
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.bean.CpCurrentOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust_detail.*
 import org.json.JSONObject
 import java.math.BigDecimal

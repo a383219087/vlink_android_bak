@@ -33,9 +33,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONArray
@@ -43,6 +40,7 @@ import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 
 
 /**
