@@ -19,7 +19,10 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.new_version.adapter.AreaAdapter
 import com.yjkj.chainup.wedegit.SectionDecoration
+import kotlinx.android.synthetic.main.activity_search_coin.*
 import kotlinx.android.synthetic.main.activity_select_area.*
+import kotlinx.android.synthetic.main.activity_select_area.et_search
+import kotlinx.android.synthetic.main.activity_select_area.tv_cancel
 import org.greenrobot.eventbus.EventBus
 import java.io.InputStream
 import java.nio.charset.Charset
@@ -45,8 +48,8 @@ class SelectAreaActivity : NewBaseActivity() {
 
         tv_cancel.setOnClickListener { finish() }
         getAreaData()
-        et_search?.hint = LanguageUtil.getString(this,"filter_fold_country")
-        tv_cancel?.text = LanguageUtil.getString(this,"common_text_btnCancel")
+        et_search?.hint = LanguageUtil.getString(this, "filter_fold_country")
+        tv_cancel?.text = LanguageUtil.getString(this, "common_text_btnCancel")
 
     }
 
@@ -67,6 +70,7 @@ class SelectAreaActivity : NewBaseActivity() {
 
     private fun handleData(data: JsonObject) {
         area_side_bar.visibility = View.VISIBLE
+
         var allCountry = arrayListOf<CountryInfo>()
         var limtCountry = PublicInfoDataService.getInstance().getLimitCountryList(null)
         if (data.get("countryList").isJsonArray) {

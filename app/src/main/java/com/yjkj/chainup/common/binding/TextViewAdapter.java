@@ -2,6 +2,7 @@ package com.yjkj.chainup.common.binding;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -32,6 +33,18 @@ public class TextViewAdapter {
         drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                 drawable.getMinimumHeight());
         view.setCompoundDrawables(drawable, null, null, null);
+
+    }
+
+    /**
+     * 设置Html
+     */
+    @BindingAdapter(value = {"htmlText"}, requireAll = false)
+    public static void html(TextView view, String htmlText) {
+        if (htmlText == null || htmlText.isEmpty()) {
+            return;
+        }
+        view.setText(Html.fromHtml(htmlText));
 
     }
 

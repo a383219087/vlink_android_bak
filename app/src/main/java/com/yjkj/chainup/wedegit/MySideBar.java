@@ -29,7 +29,7 @@ public class MySideBar extends View {
     // 监听面板是否点击接口
     OnTouchingLetterChangedListener onTouchingLetterChangedListener;
     // 26个字母
-    public static String[] b = {"A", "B", "C", "D", "E", "F", "G", "H",
+    private  String[] b = {"A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
             "V", "W", "X", "Y", "Z"};
     // 选择的值
@@ -57,12 +57,13 @@ public class MySideBar extends View {
     public void updateCoin(ArrayList<String> coins, Activity activity) {
         String[] list = coins.toArray(new String[coins.size()]);
         b = list;
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                invalidate();
-            }
-        });
+        activity.runOnUiThread(() -> invalidate());
+    }
+    public void updateCoin(Activity activity) {
+        b = new String[]{"A", "B", "C", "D", "E", "F", "G", "H",
+                "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                "V", "W", "X", "Y", "Z"};
+        activity.runOnUiThread(() -> invalidate());
     }
 
     /**

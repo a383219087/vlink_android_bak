@@ -50,7 +50,7 @@ class TradeFragment : NBaseFragment() {
         btn_otc?.text = LanguageUtil.getString(context, "mainTab_text_otc")
         btn_grid?.text = LanguageUtil.getString(context, "quant_grid_title")
 
-        NLiveDataUtil.observeData(this, Observer<MessageEvent> {
+        NLiveDataUtil.observeData(this) {
             if (null != it) {
                 if (MessageEvent.home_event_page_market_type == it.msg_type) {
                     LogUtil.v(TAG, "MessageEvent 处理market ${it}")
@@ -68,7 +68,7 @@ class TradeFragment : NBaseFragment() {
                     setGrdiView()
                 }
             }
-        })
+        }
 
         initViewData()
 

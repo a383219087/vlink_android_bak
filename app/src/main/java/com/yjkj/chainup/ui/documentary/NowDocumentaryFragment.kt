@@ -36,6 +36,7 @@ import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.ui.documentary.vm.NowDocumentViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_now_documentary.*
@@ -67,10 +68,17 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
     var mClosePositionDialog: TDialog? = null
     var mReverseOpenDialog: TDialog? = null
 
+    var subscribe: Disposable? = null
+
 
     override fun setContentView(): Int = R.layout.fragment_now_documentary
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {it1->
+                getList()
+            }
         mViewModel?.activity?.value=mActivity
         mViewModel?.status?.value=arguments?.getInt(ParamConstant.CUR_INDEX)
         mViewModel?.uid?.value=arguments?.getString(ParamConstant.MARKET_NAME)
@@ -861,19 +869,19 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
 
     }
 
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
-        if (isVisibleToUser) {
-            getList()
-        }
+
+
+    override fun onDestroy() {
+        subscribe?.dispose()
+        super.onDestroy()
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private  fun getList() {
-        mList.clear()
-
        if(mViewModel?.status?.value==1){
            mViewModel?.startTask(mViewModel?.contractApiService!!.findCurrentSingleList(), Consumer {
+               mList.clear()
                it.data?.positionList?.let { it1 -> mList.addAll(it1) }
                adapter?.notifyDataSetChanged()
                if (it.data?.positionList.isNullOrEmpty()){
@@ -886,22 +894,22 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
        }else{
            val map = HashMap<String, Any>()
            map["status"] =  "1"
-
            if ( mViewModel?.uid?.value.isNullOrEmpty()) {
                map["traderUid"] = UserDataService.getInstance().userInfo4UserId
            } else {
                map["traderUid"] =  mViewModel?.uid?.value.toString()
            }
-           mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList(map), Consumer {
+           mViewModel?.startTask(mViewModel?.contractApiService!!.traderPositionList(map)) {
+               mList.clear()
                it.data?.positionList?.let { it1 -> mList.addAll(it1) }
                adapter?.notifyDataSetChanged()
-               if (it.data?.positionList.isNullOrEmpty()){
-                   tv_em.visibility=View.VISIBLE
-               }else{
-                   tv_em.visibility=View.GONE
+               if (it.data?.positionList.isNullOrEmpty()) {
+                   tv_em.visibility = View.VISIBLE
+               } else {
+                   tv_em.visibility = View.GONE
                }
 
-           })
+           }
 
        }
 
