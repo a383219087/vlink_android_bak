@@ -1,67 +1,8 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rv_hold_contract"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never">
-
-    <LinearLayout
-        android:id="@+id/v_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:overScrollMode="never">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            android:padding="@dimen/dp_15">
-
-            <ImageView
-                android:id="@+id/img_not_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/switch_off"
-                android:visibility="gone" />
-
-
-            <ImageView
-                android:id="@+id/img_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/switch_on" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:maxLines="1"
-                android:text="@string/cp_extra_text_hold1"
-                android:textColor="@color/normal_text_color"
-                android:textSize="@dimen/sp_13" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-
-
-        </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_hold_contract"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_card_color"
-            android:minHeight="@dimen/dp_200"
-            android:overScrollMode="never" />
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    android:background="@color/bg_card_color"
+    android:minHeight="@dimen/dp_200"
+    android:overScrollMode="never" />

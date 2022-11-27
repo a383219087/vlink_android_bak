@@ -29,19 +29,11 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
   private var isCurrentEntrust = true
 
 
-  var cl_order_volume_str = ""
 
-  var contract_text_orderWaitInHandicap = ""
-  var statusText2 = ""
-  var statusText3 = ""
-  var statusText4 = ""
-  var statusText5 = ""
-  var statusText6 = ""
   var statusText7 = ""
   var statusText8 = ""
   var statusText9 = ""
 
-  var transaction_text_dealNum = ""
   var coUnit = 0
 
   init {
@@ -375,11 +367,11 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
       //历史委托下的计划委托
       4 -> {
         var orderStatus = when(item.status) {
-          "0" -> contract_text_orderWaitInHandicap //"初始"
-          "1" -> statusText2//"已过期"
-          "2" -> statusText3//"已完成"
-          "3" -> statusText5//"触发失败"
-          "4" -> statusText6//"已撤销"
+          "0" ->context.getString(R.string.contract_text_orderWaitInHandicap)//"初始"
+          "1" -> context.getString(R.string.cp_tip_text10)//"已过期"
+          "2" -> context.getString(R.string.cp_tip_text11)//"已完成"
+          "3" ->  context.getString(R.string.cp_tip_text12)//"触发失败"
+          "4" ->        context.getString(R.string.cp_status_text2)//已撤销
           else -> "error"
         }
         var orderTypeNewStr = when(item.timeInForce) {

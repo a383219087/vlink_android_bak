@@ -160,6 +160,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 context,
                                 clickData.contractId
                             )
+
                         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(
                             context,
                             clickData.contractId
@@ -218,7 +219,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         side = side,
                                         leverageLevel = clickData.leverageLevel,
                                         price = "0",
-                                        volume = CpBigDecimalUtils.mulStr(num1,num3,mMultiplierPrecision),
+                                        volume = CpBigDecimalUtils.mulStr(num1,num3,mPricePrecision),
                                         type = 2,
                                         isConditionOrder = false,
                                         triggerPrice = "",

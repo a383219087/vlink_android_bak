@@ -3476,6 +3476,7 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_tip_text8">Exceeds the maximum single order amount</string>
     <string name="cp_tip_text9">Limit price closing</string>
     <string name="cp_tip_text10">Expired</string>
+    <string name="contract_text_orderWaitInHandicap">Initial orders</string>
     <string name="cp_tip_text11">Completed</string>
     <string name="cp_tip_text12">Trigger Failed</string>
     <string name="cp_tip_text13">Fill in at least one of the take profit/stop loss trigger price before submitting</string>

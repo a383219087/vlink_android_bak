@@ -172,10 +172,10 @@ class CashFlow4Activity : NewBaseActivity() {
                         /**
                          * TODO 选择场景发送对应的值
                          */
-                        sceneList.clear()
+                        sceneList.clear(    )
                         sceneList.add(CashFlowSceneBean.Scene(key = "all",keyText = context.getString(R.string.otc_order_all)))
                         sceneList.addAll(t.sceneList)
-                        spw_layout?.initLineAdaptiveLayout(t.sceneList)
+                        spw_layout?.initLineAdaptiveLayout(sceneList)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {

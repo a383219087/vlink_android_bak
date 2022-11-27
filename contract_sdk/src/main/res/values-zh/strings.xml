@@ -3592,6 +3592,7 @@
     <string name="cp_tip_text8">超出单次最大下单金额</string>
     <string name="cp_tip_text9">限价平仓</string>
     <string name="cp_tip_text10">已过期</string>
+    <string name="contract_text_orderWaitInHandicap">初始订单</string>
     <string name="cp_tip_text11">已完成</string>
     <string name="cp_tip_text12">触发失败</string>
     <string name="cp_tip_text13">至少填写止盈/止损触发价中的一个方可提交</string>
