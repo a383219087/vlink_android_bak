@@ -202,6 +202,15 @@ class PersonalCenterActivity : NBaseActivity() {
             }
             ArouterUtil.navigation(RoutePath.PartnerActivity, null)
         }
+        /**
+         * 邀请好友
+         */
+        aiv_share?.setOnClickListener {
+            if (!LoginManager.checkLogin(this, true)) {
+                return@setOnClickListener
+            }
+            ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
+        }
 
 
 
