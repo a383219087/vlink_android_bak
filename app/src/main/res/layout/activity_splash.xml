@@ -2,20 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
-<RelativeLayout
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_splash"
+    android:background="#000000"
     android:fitsSystemWindows="true">
 
     <ImageView
         android:id="@+id/iv_splash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="102dp"
+        android:layout_height="@dimen/dp_78"
+        android:layout_gravity="center"
         android:background="@drawable/bg_splash"
         android:scaleType="centerCrop" />
 
 
-</RelativeLayout>
+</FrameLayout>
 
 </layout>
