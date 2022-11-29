@@ -1,8 +1,10 @@
 package com.yjkj.chainup.ui.mine.partner.vm
 
 
+import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.yjkj.chainup.BR
 import com.yjkj.chainup.R
@@ -11,11 +13,17 @@ import com.yjkj.chainup.bean.InviteBean
 import com.yjkj.chainup.bean.RebateBean
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.ui.mine.partner.PartnerEditInviteCodesDialog
+import com.yjkj.chainup.ui.mine.partner.PartnerEditInviteRateDialog
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 
 class PartnerMyFriendsViewModel : BaseViewModel() {
+
+
+    var activity = MutableLiveData<FragmentActivity>()
+
 
 
     class Item {
@@ -29,6 +37,7 @@ class PartnerMyFriendsViewModel : BaseViewModel() {
     interface OnItemListener {
         fun onClickOpen(index: Int)
         fun onClickClose(index: Int)
+        fun onClickEdit(index: Int)
 
     }
 
@@ -51,6 +60,17 @@ class PartnerMyFriendsViewModel : BaseViewModel() {
 
         override fun onClickClose(index: Int) {
             items[index].show.value = false
+        }
+
+        override fun onClickEdit(index: Int) {
+
+            PartnerEditInviteRateDialog().apply {
+                val bundle = Bundle()
+                bundle.putSerializable("bean",items[index].bean.value)
+                this.arguments = bundle
+            }.showDialog(activity.value?.supportFragmentManager,"")
+
+
         }
     }
 

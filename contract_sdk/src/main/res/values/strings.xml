@@ -3326,7 +3326,7 @@
     <string name="cp_overview_text19">Avail.</string>
     <string name="cp_overview_text20">Mark Price</string>
     <string name="cp_overview_text201">Reverse Opening quantity</string>
-    <string name="cp_overview_text202">*反向开仓将以市价平掉当前仓位，同时以相同掉数量和价格反向开仓。保证金不足掉情况可能会出现当前仓位平掉新开仓失败。</string>
+    <string name="cp_overview_text202">*Reverse-open will close current position at the market price, and reverse-open will be conducted at the same quantity and market price. In case of insufficient margin, the current position may be closed but new opening failure may occur.</string>
     <string name="cp_overview_text21">Index Price</string>
     <string name="cp_overview_text22">Log In /Register</string>
     <string name="cp_overview_text23">Log in to trade</string>

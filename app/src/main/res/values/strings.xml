@@ -3424,6 +3424,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="traders_apply_text8">successful</string>
     <string name="traders_apply_text81">Please enter the rebate ratio</string>
     <string name="traders_apply_text82">The rebate ratio ranges from 0 to 100</string>
+    <string name="traders_apply_text83">Only increase the ratio</string>
 
     <string name="dialog_close_text1">average open</string>
     <string name="dialog_close_text2">exit price</string>
@@ -3610,9 +3611,11 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text29">rebate amount</string>
     <string name="share_text30">New invitation cod</string>
     <string name="share_text31">edit</string>
+    <string name="share_text311">Modify the rebate ratio</string>
     <string name="share_text32">Friends rebate ratio</string>
     <string name="share_text33">My rebate percentage</string>
     <string name="share_text34">remark</string>
+    <string name="share_text3411">Tip: The current ratio can only be adjusted up, not down. If you need to lower the ratio, please contact the administrator!</string>
     <string name="share_text341">edit</string>
     <string name="share_text342">detail</string>
     <string name="share_text343">close</string>

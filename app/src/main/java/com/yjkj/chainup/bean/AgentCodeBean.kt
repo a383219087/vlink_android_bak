@@ -21,7 +21,9 @@ data class InviteBean(
     val amount: Double,
     val uid: String,
     val nickName: String?,
+    val remark: String?,
     val rate: String?="",
+    val inviteCode: String?="",
     val userCount: Int,
     val txCount: Int,
     var index: Int
