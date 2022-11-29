@@ -10,6 +10,7 @@ import com.yjkj.chainup.base.BaseViewModel
 import com.yjkj.chainup.bean.MyNextInvite
 import com.yjkj.chainup.common.binding.command.BindingAction
 import com.yjkj.chainup.common.binding.command.BindingCommand
+import com.yjkj.chainup.util.DateUtil
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -18,6 +19,10 @@ class PartnerCommissionViewModel : BaseViewModel() {
 
     val itemBinding = ItemBinding.of<MyNextInvite>(BR.item, R.layout.item_invite_partner)
     val items: ObservableList<MyNextInvite> = ObservableArrayList()
+
+
+
+    var time = MutableLiveData(DateUtil.timestampToStringNextDay())
 
 
     var isRefreshing = MutableLiveData(false)

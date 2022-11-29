@@ -31,7 +31,7 @@ class PaetnerEditRateViewModel : BaseViewModel() {
 
 
     fun agentRoles() {
-
+        initData()
 
     }
 

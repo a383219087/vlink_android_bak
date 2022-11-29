@@ -36,4 +36,10 @@ object DateUtil {
     }
 
 
+    fun timestampToStringNextDay(): String {
+        var time = dateToString("yyyy-MM-dd", Date(System.currentTimeMillis()+24*3600000))
+        return  "$time 00:00:00"
+    }
+
+
 }
