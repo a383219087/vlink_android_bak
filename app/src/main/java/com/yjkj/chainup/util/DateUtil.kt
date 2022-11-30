@@ -22,6 +22,15 @@ object DateUtil {
     fun longToString(format: String, date: Long): String {
         return dateToString(format, Date(date))
     }
+    @JvmStatic
+    fun longToStringDef( date: Long): String {
+        return longToString("yyyy-MM-dd HH:mm:ss",date)
+    }
+    @JvmStatic
+    fun longToStringDef( date: String): String {
+        var  da : Long? =date.toLongOrNull()
+        return longToString("yyyy-MM-dd HH:mm:ss",da?.or(0)!!)
+    }
 
     fun NewTimeReturn(): String {
         var time = dateToString("HH:mm", Date(System.currentTimeMillis()))

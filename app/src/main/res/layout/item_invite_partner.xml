@@ -11,9 +11,13 @@
         <import type="com.yjkj.chainup.R" />
 
         <import type="android.view.View" />
+
+        <import type="com.yjkj.chainup.util.DateUtil" />
         <variable
             name="onItemListener"
             type="com.yjkj.chainup.ui.mine.partner.vm.PartnerMyInviteCodesViewModel.OnItemListener" />
+
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
     </data>
 
     <LinearLayout
@@ -39,110 +43,17 @@
                 android:layout_weight="1"
                 android:text="@string/share_text1"
                 android:textColor="@color/text_color"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.id+``}"
+                android:text="@{item.uid+``}"
                 android:textColor="@color/text_color"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/share_text2"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.inviteCode}"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/share_text3"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.auditTime+``}"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/share_text4"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.childRoleName}"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/share_text5"
-                android:textColor="@color/text_color"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{item.childRoleName}"
-                android:textColor="#d26e4a"
-                android:textSize="11sp" />
-
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,17 +66,43 @@
                 android:layout_weight="1"
                 android:text="@string/share_text6"
                 android:textColor="@color/text_color"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.childRoleName}"
-                android:textColor="#d26e4a"
-                android:textSize="11sp" />
+                android:text="@{DecimalUtil.cutValueByPrecision(item.amount+``,2)+item.symbol}"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/share_text311"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{DateUtil.longToStringDef(item.ctime)}"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>

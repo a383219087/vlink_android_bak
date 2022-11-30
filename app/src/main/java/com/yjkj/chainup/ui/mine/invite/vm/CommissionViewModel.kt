@@ -44,10 +44,10 @@ class CommissionViewModel : BaseViewModel() {
             } else {
                 isLoadMore.value = !isLoadMore.value!!
             }
-            if (it.data.data.isNullOrEmpty()) {
+            if (it.data.isNullOrEmpty()) {
                 return@Consumer
             }
-            items.addAll(it.data.data)
+            items.addAll(it.data)
 
         })
 

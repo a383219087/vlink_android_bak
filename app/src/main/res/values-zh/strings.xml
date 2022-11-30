@@ -2504,7 +2504,7 @@
     <string name="sl_str_stop_rate_low_tips">止盈价格需要低于当前%s</string>
     <string name="sl_str_stop_loss_low_tips">止损价格需要低于当前%s</string>
     <string name="sl_str_stop_loss_high_tips">止损价格需要高于当前%s</string>
-<!--    <string name="sl_str_safety_advice_tips">不要透露密码或短信、邮件、谷歌验证码给任何人，包括平台的工作人员。\n不要打任何声称是平台客服的电话。\n不要给任何声称是平台的工作人员转账。</string>-->
+    <!--    <string name="sl_str_safety_advice_tips">不要透露密码或短信、邮件、谷歌验证码给任何人，包括平台的工作人员。\n不要打任何声称是平台客服的电话。\n不要给任何声称是平台的工作人员转账。</string>-->
     <!--合约New end-->
     <string name="kline_text_changeValue">涨跌额</string>
     <string name="kline_text_changeRate">涨跌幅</string>
@@ -2778,7 +2778,7 @@
     <string name="cl_str_sell_close">卖出平多</string>
     <string name="cl_str_hold_sell_open0">开空</string>
     <string name="cl_str_hold_buy_open0">开多</string>
-<!--    <string name="cl_typeStatus4">强制减仓</string>-->
+    <!--    <string name="cl_typeStatus4">强制减仓</string>-->
     <string name="statusText2">已过期</string>
     <string name="statusText3">已完成</string>
     <string name="statusText4">触发失败</string>
@@ -2894,7 +2894,7 @@
     <string name="cl_tradeform_text12">触发价</string>
     <string name="cl_tradeform_text13">当该合约的最新成交价达到该价格时系统将按照你设置的下单价格和下单数量为你下单。</string>
     <string name="cl_tradeform_text14">开仓价值</string>
-<!--    <string name="cl_tradeform_text15">需要开的仓位的价值仓位价值 = 仓位数量 * 成交价格实际成交的仓位数量与成交时的成交价格有关。</string>-->
+    <!--    <string name="cl_tradeform_text15">需要开的仓位的价值仓位价值 = 仓位数量 * 成交价格实际成交的仓位数量与成交时的成交价格有关。</string>-->
     <string name="cl_tradeform_text16">24H后自动取消</string>
     <string name="cl_tradeform_text17">7天后自动取消</string>
     <string name="cl_tradeform_text18">14天后自动取消</string>
@@ -3006,9 +3006,9 @@
     <string name="cl_positionlis_text8">标记价格用于结算盈亏和触发强制减仓。标记价格可能会偏离市场最新价格以防因市场被恶意操纵造成损失。</string>
     <string name="cl_positionlis_text9">当标记价格达到这个值达到时候你的仓位会被强仓平。</string>
     <string name="cl_positionlis_text10">用于担保此仓位的资产。逐仓为此仓位的实际担保资产。全仓为当前杠杆下所需的担保资产。</string>
-<!--    <string name="cl_positionlis_text11">此仓位的担保资产对仓位价值的比值。当保证金率降到0时此仓位将被强制平仓。</string>-->
-<!--    <string name="cl_positionlis_text12">未平仓位自开仓到现在的盈亏。盈亏 =（标记价格-开仓均价）* 仓位。<br /> 占用保证金的平均回报率。回报率 = 盈亏 / 占用保证金。</string>-->
-<!--    <string name="cl_positionlis_text13">止盈止损订单是指预先设置触发价、委托价和下单数量最新价达到触发价会按委托价挂单帮助您保住利润或减少损失。</string>-->
+    <!--    <string name="cl_positionlis_text11">此仓位的担保资产对仓位价值的比值。当保证金率降到0时此仓位将被强制平仓。</string>-->
+    <!--    <string name="cl_positionlis_text12">未平仓位自开仓到现在的盈亏。盈亏 =（标记价格-开仓均价）* 仓位。<br /> 占用保证金的平均回报率。回报率 = 盈亏 / 占用保证金。</string>-->
+    <!--    <string name="cl_positionlis_text13">止盈止损订单是指预先设置触发价、委托价和下单数量最新价达到触发价会按委托价挂单帮助您保住利润或减少损失。</string>-->
     <string name="cl_positionlis_text14">全仓</string>
     <string name="cl_positionlis_text15">逐仓</string>
     <string name="cl_positionlis_text16">空</string>
@@ -3677,6 +3677,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text1">被邀请人ID</string>
     <string name="share_text2">邀请码</string>
     <string name="share_text3">注册时间</string>
+    <string name="share_text3111">上次结算时间</string>
     <string name="share_text4">团队人数</string>
     <string name="share_text5">已交易人数</string>
     <string name="share_text6">获得返利收入</string>

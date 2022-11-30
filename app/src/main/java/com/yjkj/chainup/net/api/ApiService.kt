@@ -555,7 +555,7 @@ interface ApiService {
      * 我的返佣
      */
     @GET("invite_code/bonusList")
-    fun bonusList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<HttpResult<List<MyNextInvite>>>>
+    fun bonusList(@QueryMap map: HashMap<String, Any>): Observable<HttpResult<List<MyNextInvite>>>
     /**
      * 交易员列表
      */

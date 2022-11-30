@@ -3580,6 +3580,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text1">ID of invitee</string>
     <string name="share_text2">code</string>
     <string name="share_text3">join date</string>
+    <string name="share_text3111">Last billing time</string>
     <string name="share_text4">team</string>
     <string name="share_text5">completed</string>
     <string name="share_text6">rebate</string>
