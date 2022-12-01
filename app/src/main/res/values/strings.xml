@@ -1564,6 +1564,7 @@ Mark Price: This is the current mark price.</string>
     <string name="personal_text_isAuth">Certified</string>
     <string name="personal_text_mailCode">Email Verification Code</string>
     <string name="personal_text_message">Notifications</string>
+    <string name="personal_text_message11111">UserInfo</string>
     <string name="personal_text_message1">Partner</string>
     <string name="personal_text_message111">Share</string>
     <string name="personal_text_message2">Invited</string>
@@ -1574,6 +1575,7 @@ Mark Price: This is the current mark price.</string>
     <string name="personal_text_message4">Latest Rebate</string>
     <string name="personal_text_newPwd">New password</string>
     <string name="personal_text_notice">Notice</string>
+    <string name="personal_text_notice1">Authentication</string>
     <string name="personal_text_phoneCode">SMS verification code</string>
     <string name="personal_text_phoneNumber">Mobile phone number</string>
     <string name="personal_text_safeSettingOff">Not enabled</string>

@@ -469,6 +469,9 @@ public class VerificationCodeView extends LinearLayout implements TextWatcher, V
      * 填充验证码
      */
     public void setFillCode(String code) {
+        if (code.isEmpty()){
+            return;
+        }
         EditText editText;
         for (int i = code.length() - 1; i >= 0; i--) {
             editText = (EditText) getChildAt(i);
