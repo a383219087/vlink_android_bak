@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--设置冷启动背景色-->
+     <item>
+         <shape android:shape="rectangle">
+             <gradient
+                 android:startColor="@color/colorBlack"
+                 android:endColor="@color/colorBlack"/>
+         </shape>
+     </item>
+
+    <!--单独的logo图片 并且设置居中显示  冷启动原生需要白屏处理-->
+    <item android:gravity="center">
+        <bitmap
+            android:gravity="center|top"
+            android:src="@drawable/bg_splash"
+            />
+    </item>
+
+</layer-list>

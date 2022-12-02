@@ -20,7 +20,7 @@
 
     <!--<item name="android:windowBackground">@drawable/splash_bg_theme</item>-->
     <style name="AppTheme.Splash" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:windowBackground">@drawable/layer_splash</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowActionBar">false</item>
@@ -757,8 +757,8 @@
     </style>
 
     <style name="textStyle_value_c5_12" parent="textStyle_title_14">
-        <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:textColor">@color/edit_hint_color</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/colorCDCDCD</item>
         <item name="android:layout_marginTop">@dimen/dp_zero</item>
     </style>
 

@@ -3644,7 +3644,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="buy_text10">Buy </string>
     <string name="buy_text11">The exchange rate has not been obtained</string>
     <string name="buy_text12">You will get about </string>
-
+    <string name="hoem_recharge">Recharge/Collection</string>
+    <string name="withdrawal_transfer">Withdrawal/Transfer</string>
+    <string name="contract">Contract</string>
+    <string name="customer_service">Customer/Service</string>
 
 </resources>
 

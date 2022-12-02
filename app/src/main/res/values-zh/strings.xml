@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ZWW</string>
 
     <!--底部Tab-->
@@ -3741,6 +3741,10 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="buy_text10">购买</string>
     <string name="buy_text11">暂未获取到汇率</string>
     <string name="buy_text12">您将获取约</string>
+    <string name="hoem_recharge" tools:ignore="ExtraTranslation">充值/收款</string>
+    <string name="withdrawal_transfer" tools:ignore="ExtraTranslation">提现/转账</string>
+    <string name="contract" tools:ignore="ExtraTranslation">合约</string>
+    <string name="customer_service" tools:ignore="ExtraTranslation">客服</string>
 
 </resources>
 

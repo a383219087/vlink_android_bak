@@ -49,65 +49,18 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                  * 充值收款
                  */
                 0 -> {
-                    if (!LoginManager.checkLogin(mActivity.value, true)) {
-                        return
-                    }
-                    if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                        NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value!!.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
-                            override fun sendConfirm() {
-                                when (UserDataService.getInstance().authLevel) {
-                                    0 -> {
-                                        NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value!!.getString(R.string.noun_login_pending))
-                                    }
-
-                                    2, 3 -> {
-                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
-                                    }
-                                }
-                            }
-                        })
-                        return
-                    }
-                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
-                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
-                        putBoolean(ParamConstant.COIN_FROM, true)
-                    })
+                    homeRecharge()
                 }
                 /**
                  * 提现转账
                  */
                 1 -> {
-                    if (!LoginManager.checkLogin(mActivity.value, true)) {
-                        return
-                    }
-                    if (phoneCertification()) return
-                    if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
-                        NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value?.getString(R.string.common_kyc_chargeAndwithdraw)
-                            ?: "", object : NewDialogUtils.DialogBottomListener {
-                            override fun sendConfirm() {
-                                when (UserDataService.getInstance().authLevel) {
-                                    0 -> {
-                                        NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value?.getString(R.string.noun_login_pending))
-                                    }
-
-                                    2, 3 -> {
-                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
-                                    }
-                                }
-                            }
-                        })
-                        return
-                    }
-
-                    ArouterUtil.navigation(RoutePath.WithdrawSelectCoinActivity, Bundle().apply {
-                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
-                        putBoolean(ParamConstant.COIN_FROM, true)
-                    })
+                    withdrawalTransfer()
                 }
                 /**
                  * 合约
                  */
-                2 -> EventBusUtil.post(MessageEvent(MessageEvent.contract_switch_type))
+                2 -> contractClick()
                 /**
                  * 期权
                  */
@@ -183,20 +136,7 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
                  * 客服
                  */
                 9 -> {
-                    if (!LoginManager.checkLogin(mActivity.value, true)) {
-                        return
-                    }
-                    val lang = NLanguageUtil.getLanguage()
-                    val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
-                    val url = "http://47.250.37.185/index/index/home?theme=7571f9&visiter_id=${UserDataService.getInstance().userInfo4UserId}" +
-                            "&visiter_name=${UserDataService.getInstance().nickName}&avatar=&business_id=1&groupid=0" +
-                            "&style=${style}&lan =${lang}"
-
-                    val bundle = Bundle()
-                    bundle.putString(ParamConstant.URL_4_SERVICE, url)
-                    bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, false)
-                    ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
-
+                    customerService()
                 }
 
 
@@ -435,8 +375,86 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
         ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
     }
 
+    /**
+     * 代码抽出   与RecyclerView item点击公用
+     */
+    //充值
+    fun homeRecharge(){
+        if (!LoginManager.checkLogin(mActivity.value, true)) {
+            return
+        }
+        if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
+            NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value!!.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
+                override fun sendConfirm() {
+                    when (UserDataService.getInstance().authLevel) {
+                        0 -> {
+                            NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value!!.getString(R.string.noun_login_pending))
+                        }
 
+                        2, 3 -> {
+                            ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                        }
+                    }
+                }
+            })
+            return
+        }
+        ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
+            putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
+            putBoolean(ParamConstant.COIN_FROM, true)
+        })
+    }
 
+    //提现/转账
+    fun withdrawalTransfer(){
+        if (!LoginManager.checkLogin(mActivity.value, true)) {
+            return
+        }
+        if (phoneCertification()) return
+        if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
+            NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value?.getString(R.string.common_kyc_chargeAndwithdraw)
+                ?: "", object : NewDialogUtils.DialogBottomListener {
+                override fun sendConfirm() {
+                    when (UserDataService.getInstance().authLevel) {
+                        0 -> {
+                            NToastUtil.showTopToastNet(mActivity.value, false, mActivity.value?.getString(R.string.noun_login_pending))
+                        }
 
+                        2, 3 -> {
+                            ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                        }
+                    }
+                }
+            })
+            return
+        }
+
+        ArouterUtil.navigation(RoutePath.WithdrawSelectCoinActivity, Bundle().apply {
+            putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
+            putBoolean(ParamConstant.COIN_FROM, true)
+        })
+    }
+
+    //合约
+    fun contractClick(){
+        EventBusUtil.post(MessageEvent(MessageEvent.contract_switch_type))
+    }
+
+    //客服
+    fun customerService(){
+        if (!LoginManager.checkLogin(mActivity.value, true)) {
+            return
+        }
+        val lang = NLanguageUtil.getLanguage()
+        val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
+        val url = "http://47.250.37.185/index/index/home?theme=7571f9&visiter_id=${UserDataService.getInstance().userInfo4UserId}" +
+                "&visiter_name=${UserDataService.getInstance().nickName}&avatar=&business_id=1&groupid=0" +
+                "&style=${style}&lan =${lang}"
+
+        val bundle = Bundle()
+        bundle.putString(ParamConstant.URL_4_SERVICE, url)
+        bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, false)
+        ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+    }
 
 }

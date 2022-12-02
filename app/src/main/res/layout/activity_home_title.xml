@@ -19,6 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/page_head_height_44"
+        android:background="@color/white"
         android:gravity="center_vertical">
 
 
@@ -42,7 +43,7 @@
                 android:layout_height="@dimen/dp_30"
                 android:layout_weight="1"
                 android:onClick="@{()->vm.onClickSearch()}"
-                app:ResColor="@{R.color.bg_card_color}"
+                app:ResColor="@{R.color.colorF6F7FC}"
                 app:radius="@{24}"
                 android:clickable="true"
                 android:descendantFocusability="blocksDescendants"
@@ -50,8 +51,8 @@
                 android:paddingLeft="@dimen/dp_12">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
                     android:src="@mipmap/home_search" />
 
                 <TextView
@@ -66,7 +67,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_32"
                 android:onClick="@{()->vm.onClickMarket()}"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_32"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginRight="@dimen/dp_12"
                 android:src="@mipmap/home_letter" />

@@ -4,6 +4,10 @@
     <color name="colorAccent">#21B9F0</color>
     <color name="colorBgListItem">#2a3d6f</color>
 
+    <color name="colorBlack">#000000</color>
+    <color name="colorA2A9BD">#A2A9BD</color>
+    <color name="colorCDCDCD">#CDCDCD</color>
+    <color name="colorF6F7FC">#F6F7FC</color>
 
     <!-- text-->
     <color name="text_color_33">#333333</color>
