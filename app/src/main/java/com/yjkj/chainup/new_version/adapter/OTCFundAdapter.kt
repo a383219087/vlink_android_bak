@@ -107,7 +107,6 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
             }
             // 刷新数据源显示
             notifyDataSetChanged()
-            notifyItemRangeChanged(0, data.size)
         }
     }
 

@@ -41,7 +41,7 @@ import org.json.JSONObject
  */
 
 @Route(path = RoutePath.PersonalCenterActivity)
-class PersonalCenterActivity : NBaseActivity() {
+class  PersonalCenterActivity : NBaseActivity() {
     override fun setContentView(): Int {
         return R.layout.activity_personal_center
     }
@@ -52,11 +52,7 @@ class PersonalCenterActivity : NBaseActivity() {
         if (!TextUtils.isEmpty(PublicInfoDataService.getInstance().getOnlineService(null))) {
             aiv_service?.visibility = View.VISIBLE
         }
-        if (PublicInfoDataService.getInstance().otcOpen(null)) {
-            aiv_mine_black_list?.visibility = View.VISIBLE
-        } else {
-            aiv_mine_black_list?.visibility = View.GONE
-        }
+
 
     }
 
@@ -64,8 +60,6 @@ class PersonalCenterActivity : NBaseActivity() {
         super.onInit(savedInstanceState)
         initView()
         aiv_level_rate?.setTitle(LanguageUtil.getString(this, "transfer_text_gradeRate"))
-        aiv_mail?.setTitle(LanguageUtil.getString(this, "personal_text_message"))
-        aiv_announcement?.setTitle(LanguageUtil.getString(this, "personal_text_notice"))
         aiv_service?.setTitle(LanguageUtil.getString(this, "personal_text_onlineservice"))
         aiv_help_center?.setTitle(LanguageUtil.getString(this, "personal_text_helpcenter"))
         aiv_safe_enter?.setTitle(LanguageUtil.getString(this, "personal_text_safetycenter"))
@@ -101,23 +95,24 @@ class PersonalCenterActivity : NBaseActivity() {
         }
         title_layout?.setContentTitle(LanguageUtil.getString(this, "userinfo_text_data"))
 
-        title_layout?.setUserName("ID:${t.optString("id")}")
+        title_layout?.setUserName("UID:${t.optString("id")}")
         title_layout?.setAccountContent(t.optString("userAccount"))
         when (t.optInt("authLevel")) {
             /**
              * 认证状态 0、未审核，1、通过，2、未通过  3未认证
              */
             0 -> {
-                title_layout?.setCertification(1)
+                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_verified"))
             }
             1 -> {
-                title_layout?.setCertification(2)
+                aiv_announcement.setShowArrow(false)
+                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_verified"))
             }
             2 -> {
-                title_layout?.setCertification(0)
+                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_unverified"))
             }
             3 -> {
-                title_layout?.setCertification(0)
+                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_unverified"))
             }
         }
 
@@ -196,21 +191,13 @@ class PersonalCenterActivity : NBaseActivity() {
         /**
          * 合伙人
          */
-        aiv_partner?.setOnClickListener {
+        ll_share?.setOnClickListener {
             if (!LoginManager.checkLogin(this, true)) {
                 return@setOnClickListener
             }
             ArouterUtil.navigation(RoutePath.PartnerActivity, null)
         }
-        /**
-         * 邀请好友
-         */
-        aiv_share?.setOnClickListener {
-            if (!LoginManager.checkLogin(this, true)) {
-                return@setOnClickListener
-            }
-            ArouterUtil.navigation(RoutePath.ContractAgentActivity, null)
-        }
+
 
 
 
@@ -224,11 +211,11 @@ class PersonalCenterActivity : NBaseActivity() {
 
 
         /**
-         * 站内信
+         * 用户信息
          */
         aiv_mail?.setOnClickListener {
-            if (LoginManager.checkLogin(this, true)) {
-                startActivity(Intent(this, MailActivity::class.java))
+            if (LoginManager.checkLogin(this@PersonalCenterActivity, true)) {
+                ArouterUtil.greenChannel(RoutePath.PersonalInfoActivity, null)
             }
 
         }
@@ -267,10 +254,17 @@ class PersonalCenterActivity : NBaseActivity() {
         }
 
         /**
-         * 公告
+         * 身份验证
          */
         aiv_announcement?.setOnClickListener {
-            startActivity(Intent(this@PersonalCenterActivity, NoticeActivity::class.java))
+            when (UserDataService.getInstance()?.authLevel) {
+                0 -> {
+                    ArouterUtil.greenChannel(RoutePath.RealNameCertificaionSuccessActivity, null)
+                }
+                2, 3 -> {
+                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                }
+            }
         }
 
     }
@@ -320,11 +314,9 @@ class PersonalCenterActivity : NBaseActivity() {
             .subscribe(object : NetObserver<String>() {
                 override fun onHandleSuccess(t: String?) {
                     if (t=="1"||t=="0"){
-                        aiv_partner.visibility=View.VISIBLE
-                        aiv_share.visibility=View.GONE
+                        ll_share.visibility=View.VISIBLE
                     }else{
-                        aiv_partner.visibility=View.GONE
-                        aiv_share.visibility=View.VISIBLE
+                        ll_share.visibility=View.GONE
                     }
 
                 }

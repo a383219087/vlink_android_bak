@@ -1672,6 +1672,7 @@
     <string name="personal_text_isAuth">已通过认证</string>
     <string name="personal_text_mailCode">邮箱验证码</string>
     <string name="personal_text_message">站内信</string>
+    <string name="personal_text_message11111">用户信息</string>
     <string name="personal_text_message1">合伙人</string>
     <string name="personal_text_message111">邀请好友 共同赚币</string>
     <string name="personal_text_message2">已邀请</string>
@@ -1682,6 +1683,7 @@
     <string name="personal_text_message4">最新返利</string>
     <string name="personal_text_newPwd">新密码</string>
     <string name="personal_text_notice">公告</string>
+    <string name="personal_text_notice1">身份验证</string>
     <string name="personal_text_phoneCode">手机验证码</string>
     <string name="personal_text_phoneNumber">手机号码</string>
     <string name="personal_text_safeSettingOff">未开启</string>

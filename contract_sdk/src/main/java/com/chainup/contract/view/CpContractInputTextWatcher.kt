@@ -37,22 +37,22 @@ class CpContractInputTextWatcher(private val editText: EditText, var decimal: In
                 return
             }
             val split = text.split(".")
-            if (split[0].length > integer) {
-                editText.setText(beforeText)
-                editText.setSelection(beforeText.length - 1)
-                return
-            }
+//            if (split[0].length > integer) {
+//                editText.setText(beforeText)
+//                editText.setSelection(beforeText.length - 1)
+//                return
+//            }
             if (split.size == 2 && split[1].length > decimal) {
                 editText.setText(beforeText)
                 editText.setSelection(beforeText.length - 1)
                 return
             }
         } else {
-            if (text.length > integer) {
-                editText.setText(beforeText)
-                editText.setSelection(beforeText.length - 1)
-                return
-            }
+//            if (text.length > integer) {
+//                editText.setText(beforeText)
+//                editText.setSelection(beforeText.length - 1)
+//                return
+//            }
         }
         otherFilter?.doThing(editText)
     }

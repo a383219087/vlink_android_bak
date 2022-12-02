@@ -127,21 +127,19 @@ public class CpBigDecimalUtils {
 
     }
 
-
     /**
      * 提取字符串的数字
      *
      */
-    public static int stringToNum(String v1 ){
+    public static long stringToNum(String v1 ){
         String regEx="[^0-9]";
         Pattern  pattern=Pattern.compile(regEx);
         Matcher m=pattern.matcher(v1);
         String str= m.replaceAll("").trim();
-         if(str.isEmpty()){
-             return  0;
-         }
-        LogUtils.e("我是"+ Integer.parseInt(str));
-      return  Integer.parseInt(str);
+        if(str.isEmpty()){
+            return  0;
+        }
+        return  Long.parseLong(str);
     }
 
     /**
@@ -297,6 +295,13 @@ public class CpBigDecimalUtils {
         if (!CpStringUtil.isNumeric(v2)) {
             v2 = "0";
         }
+        if(Double.parseDouble(v1)==0){
+            return 0;
+        }
+        if(Double.parseDouble(v2)==0){
+            return 0;
+        }
+
         return new BigDecimal(v1).compareTo(new BigDecimal(v2));
 
     }

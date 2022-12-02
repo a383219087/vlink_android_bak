@@ -58,11 +58,14 @@ class SplashActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
     initRetrofit()
+<<<<<<< HEAD
 
 //    if(Utils.checkDeviceHasNavigationBar2(this)) {
 //      mBinding?.ivSplash?.visibility = View.GONE
 //      mBinding?.rlSplash?.setBackgroundResource(R.drawable.bg_splash)
 //    }
+=======
+>>>>>>> 7c502cb7a6101326463a5a2360b59062340875c0
 
     if(!this.isTaskRoot) {
       if(intent?.action != null) {

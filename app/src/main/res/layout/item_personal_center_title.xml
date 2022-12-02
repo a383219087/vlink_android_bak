@@ -64,25 +64,29 @@
     </RelativeLayout>
 
 
+
+
+
+
     <RelativeLayout
         android:id="@+id/rl_personal_layoyt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="92dp"
+        android:background="@color/bg_card_color"
         android:layout_below="@+id/rl_back_layout"
-        android:layout_marginLeft="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_9"
         android:visibility="visible">
 
+        <!--用户等级-->
         <ImageView
             android:id="@+id/iv_personal_head"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_35"
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_43"
             android:src="@drawable/personal_headportrait" />
 
-        <!--用户等级-->
         <LinearLayout
             android:id="@+id/ll_user_level"
             android:layout_width="@dimen/dp_55"
@@ -151,8 +155,8 @@
             android:id="@+id/ll_certification"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_18"
-            android:layout_below="@+id/tv_name"
             android:layout_marginTop="@dimen/dp_10"
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/dp_43"
             android:background="@drawable/bg_personal_unauthorized"
             android:gravity="center"
@@ -180,28 +184,46 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_phone"
-            android:layout_marginTop="@dimen/dp_3"
-            android:textColor="@color/normal_text_color"
-            android:textSize="@dimen/dp_12"
-            tools:text="Night" />
 
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_124"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/sp_22"
-            android:textStyle="bold"
-            tools:text="130****9382" />
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/dp_86">
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                tools:text="130****9382" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_phone"
+                android:drawableRight="@mipmap/ic_copy"
+                android:drawablePadding="4dp"
+                android:layout_marginTop="@dimen/dp_3"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/dp_14"
+                tools:text="Night" />
+
+
+        </LinearLayout>
+
+
+
     </RelativeLayout>
 
 

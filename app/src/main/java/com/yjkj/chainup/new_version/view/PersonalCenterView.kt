@@ -1,17 +1,15 @@
 package com.yjkj.chainup.new_version.view
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.yjkj.chainup.R
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.GlideUtils
-import com.yjkj.chainup.util.SoftKeyboardUtil
-import com.yjkj.chainup.util.Utils
+import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.item_personal_center_title.view.*
 
 /**
@@ -115,7 +113,16 @@ class PersonalCenterView @JvmOverloads constructor(
 
 
         }
-        tv_name?.setOnClickListener { if (listener != null) listener?.onclickName() }
+        tv_name?.setOnClickListener {
+            if(tv_name.text.toString().isNotEmpty()){
+                val clipboard = getContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("simple text", tv_name.text.toString().replace("UID:",""))
+                clipboard.setPrimaryClip(clip)
+                ToastUtils.showToast("复制成功")
+            }
+
+
+        }
         tv_phone?.setOnClickListener { if (listener != null) listener?.onclickName() }
         tv_right_title?.setOnClickListener { if (listener != null) listener?.onclickRightIcon() }
         ll_certification?.setOnClickListener {
@@ -212,7 +219,7 @@ class PersonalCenterView @JvmOverloads constructor(
                 tv_certification?.text = LanguageUtil.getString(context, "personal_text_unverified")
                 ll_certification?.setBackgroundResource(R.drawable.bg_personal_unauthorized)
                 tv_certification?.setTextColor(ColorUtil.getColor(R.color.real_unauthorize_color))
-                ll_certification?.visibility = View.VISIBLE
+                ll_certification?.visibility = View.GONE
                 ll_certificationing?.visibility = View.GONE
             }
             1 -> {
@@ -220,7 +227,7 @@ class PersonalCenterView @JvmOverloads constructor(
                 tv_certification?.text = LanguageUtil.getString(context, "personal_text_verified")
                 ll_certification?.setBackgroundResource(R.drawable.bg_personal_unauthorized)
                 tv_certification?.setTextColor(ColorUtil.getColor(R.color.real_unauthorize_color))
-                ll_certificationing?.visibility = View.VISIBLE
+                ll_certificationing?.visibility = View.GONE
                 ll_certification?.visibility = View.GONE
             }
             2 -> {
@@ -228,7 +235,7 @@ class PersonalCenterView @JvmOverloads constructor(
                 tv_certification?.text = LanguageUtil.getString(context, "personal_text_verified")
                 ll_certification?.setBackgroundResource(R.drawable.bg_personal_authorized)
                 tv_certification?.setTextColor(ColorUtil.getColor(R.color.main_blue))
-                ll_certification?.visibility = View.VISIBLE
+                ll_certification?.visibility = View.GONE
                 ll_certificationing?.visibility = View.GONE
             }
         }
