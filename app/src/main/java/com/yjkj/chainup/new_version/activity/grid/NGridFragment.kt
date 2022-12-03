@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.SPUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -84,6 +85,10 @@ class NGridFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
          * 入口
          */
         iv_more?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             DialogUtil.createGridPop(context, iv_more, this)
         }
         RxView.clicks(iv_gedui).throttleFirst(1f.toLong(),TimeUnit.SECONDS).subscribe {

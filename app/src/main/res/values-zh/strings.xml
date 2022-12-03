@@ -1682,6 +1682,7 @@
     <string name="personal_text_message3">已交易</string>
     <string name="personal_text_message4">最新返利</string>
     <string name="personal_text_newPwd">新密码</string>
+    <string name="important_hint1">请登陆正式账号</string>
     <string name="personal_text_notice">公告</string>
     <string name="personal_text_notice1">身份验证</string>
     <string name="personal_text_phoneCode">手机验证码</string>

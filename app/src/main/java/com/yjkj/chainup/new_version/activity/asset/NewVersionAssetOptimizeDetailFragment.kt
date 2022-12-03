@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.activity.asset
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.SPUtils
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
@@ -159,13 +161,13 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         @JvmStatic
         fun newInstance(param1: String, param2: Int, index: String) =
-                NewVersionAssetOptimizeDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_INDEX, index)
-                        putInt(ARG_PARAM2, param2)
-                    }
+            NewVersionAssetOptimizeDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_INDEX, index)
+                    putInt(ARG_PARAM2, param2)
                 }
+            }
     }
 
 
@@ -188,8 +190,8 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
          */
         liveDataCleanForEditText.observe(this, Observer<String> {
             if (it == param_index) {
-                adapter4Asset?.filter?.filter("")
-                adapter4Fund?.filter?.filter("")
+                adapter4Asset.filter.filter("")
+                adapter4Fund.filter.filter("")
                 clearData()
                 et_search?.setText("")
             }
@@ -248,7 +250,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     if (isFrist) {
                         initOTCView()
                     } else {
-                        adapter4Asset?.setList(list4OTC)
+                        adapter4Asset.setList(list4OTC)
                     }
                     total_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"), isOnlyResult = true)
                     totalBalance = jsonObject?.optString("totalBalance")
@@ -406,7 +408,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                             if (phoneCertification()) return
                             if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
                                 NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                        ?: "", object : NewDialogUtils.DialogBottomListener {
+                                    ?: "", object : NewDialogUtils.DialogBottomListener {
                                     override fun sendConfirm() {
                                         when (UserDataService.getInstance().authLevel) {
                                             0 -> {
@@ -618,31 +620,30 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             }
         }
 
-        adapter4Fund?.setListener(object : OTCFundAdapter.FilterListener {
+        adapter4Fund.setListener(object : OTCFundAdapter.FilterListener {
             override fun getFilterData(list: List<JSONObject>) {
-                if (list == null) return
                 listFund.clear()
                 listFund.addAll(list)
-                adapter4Fund?.notifyDataSetChanged()
+                adapter4Fund.notifyDataSetChanged()
 
             }
         })
-        adapter4Asset?.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
             override fun getFilterData(list: ArrayList<JSONObject>) {
-                if (list == null) return
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset?.notifyDataSetChanged()
+                adapter4Asset.notifyDataSetChanged()
             }
         })
 
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun refreshViewData() {
-        isLittleAssetsShow = UserDataService.getInstance().getAssetState()
-        adapter4Asset?.notifyDataSetChanged()
-        adapter4Fund?.notifyDataSetChanged()
+        isLittleAssetsShow = UserDataService.getInstance().assetState
+        adapter4Asset.notifyDataSetChanged()
+        adapter4Fund.notifyDataSetChanged()
         adapterHoldContract?.notifyDataSetChanged()
         when (param_index) {
             ParamConstant.CONTRACT_INDEX -> {
@@ -727,7 +728,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
     var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
     var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
-     var buffJson: JSONObject?=null
+    var buffJson: JSONObject?=null
 
 
     /**
@@ -759,7 +760,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         rc_contract?.adapter = adapter4Asset
         rc_contract?.itemAnimator = null
 
-        adapter4Asset?.setOnItemClickListener { adapter, view, position ->
+        adapter4Asset.setOnItemClickListener { adapter, view, position ->
 
             tDialog = NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
                 override fun clickItem(data: ArrayList<String>, item: Int) {
@@ -786,6 +787,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 交易
                          */
                         1 -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
                             assetsActivityFinish()
                         }
@@ -837,7 +842,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
             ArouterUtil.navigation(RoutePath.CurrencyLendingRecordsActivity, Bundle().apply {
                 putString(ParamConstant.symbol, list4OTC[position]?.optString("symbol", "")
-                        ?: "")
+                    ?: "")
             })
         }
 
@@ -897,6 +902,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 充币
                          */
                         LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             if (list4OTC[position].optInt("depositOpen") == 1) {
                                 /* 这里b2c充币 */
                                 PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
@@ -909,6 +918,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 提币
                          */
                         LanguageUtil.getString(context, "assets_action_withdraw") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             if (list4OTC[position].optInt("withdrawOpen") == 1) {
                                 if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
                                     if (UserDataService.getInstance().googleStatus != 1) {
@@ -1062,6 +1075,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 充币
                          */
                         LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             if (listFund[position]?.optInt("depositOpen") == 1) {
                                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
                                     NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
@@ -1090,6 +1107,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 提币
                          */
                         LanguageUtil.getString(context, "assets_action_withdraw") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             if (listFund[position].optInt("withdrawOpen") == 1) {
                                 if (phoneCertification()) return
                                 if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
@@ -1141,6 +1162,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 交易
                          */
                         LanguageUtil.getString(context, "assets_action_transaction") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             var existMarket: String? = ""
                             if (null != listFund[position].optString("exchange_symbol")) {
                                 existMarket = NCoinManager.returnExistMarket(listFund[position].optString("exchange_symbol", "")!!)
@@ -1169,6 +1194,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                          * 站内直转
                          */
                         LanguageUtil.getString(context, "assets_action_internalTransfer") -> {
+                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                return
+                            }
                             if (phoneCertification()) return
                             ArouterUtil.navigation(RoutePath.DirectlyWithdrawActivity, Bundle().apply {
                                 putString(ParamConstant.JSON_BEAN, listFund[position].toString())

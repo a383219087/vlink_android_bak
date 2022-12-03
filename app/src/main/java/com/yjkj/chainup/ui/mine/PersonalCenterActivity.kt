@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -26,6 +27,7 @@ import com.yjkj.chainup.new_version.view.PersonalCenterView
 import com.yjkj.chainup.util.DecimalUtil
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.StringUtils
+import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -186,6 +188,10 @@ class  PersonalCenterActivity : NBaseActivity() {
             if (!LoginManager.checkLogin(this, true)) {
                 return@setOnClickListener
             }
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(this.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             startActivity(Intent(this, SafetySettingActivity::class.java))
         }
         /**
@@ -193,6 +199,10 @@ class  PersonalCenterActivity : NBaseActivity() {
          */
         ll_share?.setOnClickListener {
             if (!LoginManager.checkLogin(this, true)) {
+                return@setOnClickListener
+            }
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(this.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
             ArouterUtil.navigation(RoutePath.PartnerActivity, null)
@@ -257,6 +267,10 @@ class  PersonalCenterActivity : NBaseActivity() {
          * 身份验证
          */
         aiv_announcement?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(this.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             when (UserDataService.getInstance()?.authLevel) {
                 0 -> {
                     ArouterUtil.greenChannel(RoutePath.RealNameCertificaionSuccessActivity, null)

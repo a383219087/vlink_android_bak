@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import com.blankj.utilcode.util.SPUtils
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
@@ -21,15 +22,12 @@ import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.Contract2PublicInfoManager
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.activity.CashFlow4Activity
 import com.yjkj.chainup.new_version.activity.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.new_version.activity.asset.NewVersionContractBillActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.util.BigDecimalUtils
-import com.yjkj.chainup.util.NToastUtil
-import com.yjkj.chainup.util.Utils
+import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -41,9 +39,9 @@ import org.json.JSONObject
  * @description
  */
 class NewAssetTopView @JvmOverloads constructor(
-        context: Activity,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Activity,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     /**
@@ -136,6 +134,10 @@ class NewAssetTopView @JvmOverloads constructor(
          *  充币
          */
         ll_top_up_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             if (Utils.isFastClick()) return@setOnClickListener
             if (param_index == ParamConstant.BIBI_INDEX) {
                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
@@ -174,6 +176,10 @@ class NewAssetTopView @JvmOverloads constructor(
          *  提币
          */
         ll_otc_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             if (Utils.isFastClick()) return@setOnClickListener
             if (param_index == ParamConstant.BIBI_INDEX) {
                 if (null != listener) {
@@ -194,6 +200,10 @@ class NewAssetTopView @JvmOverloads constructor(
          * 借贷
          */
         ll_loan_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             if (Utils.isFastClick()) return@setOnClickListener
             if (PublicInfoDataService.getInstance().hasShownLeverStatusDialog()) {
                 skipCoinMap4Lever()
@@ -213,6 +223,10 @@ class NewAssetTopView @JvmOverloads constructor(
          *  收款方式
          */
         ll_payment_methods_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             if (Utils.isFastClick()) return@setOnClickListener
             ArouterUtil.greenChannel(RoutePath.PaymentMethodActivity, null)
         }
@@ -220,6 +234,7 @@ class NewAssetTopView @JvmOverloads constructor(
          *  划转
          */
         ll_transfer_layout?.setOnClickListener {
+
             if (Utils.isFastClick()) return@setOnClickListener
             if (null != listener) {
                 /**
@@ -230,15 +245,15 @@ class NewAssetTopView @JvmOverloads constructor(
                         listener?.selectTransfer(param_index)
                     } else {
                         NewDialogUtils.showLeverDialog(context,
-                                listener = object : NewDialogUtils.DialogTransferBottomListener {
-                                    override fun sendConfirm() {
-                                        listener?.selectTransfer(param_index)
-                                    }
+                            listener = object : NewDialogUtils.DialogTransferBottomListener {
+                                override fun sendConfirm() {
+                                    listener?.selectTransfer(param_index)
+                                }
 
-                                    override fun showCancel() {
+                                override fun showCancel() {
 
-                                    }
-                                })
+                                }
+                            })
 
                     }
                 } else {
@@ -250,6 +265,7 @@ class NewAssetTopView @JvmOverloads constructor(
          *  资金流水
          */
         ll_funds_layout?.setOnClickListener {
+
             if (Utils.isFastClick()) return@setOnClickListener
             when (param_index) {
                 ParamConstant.BIBI_INDEX -> {
@@ -277,6 +293,10 @@ class NewAssetTopView @JvmOverloads constructor(
          *  红包
          */
         ll_red_envelope_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             if (Utils.isFastClick()) return@setOnClickListener
             if (null != listener) {
                 listener?.selectRedEnvelope(param_index)

@@ -16,6 +16,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.utils.UtilSystem
 import com.yjkj.chainup.databinding.ActivitySplashBinding
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
@@ -58,14 +59,7 @@ class SplashActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
     initRetrofit()
-<<<<<<< HEAD
-
-//    if(Utils.checkDeviceHasNavigationBar2(this)) {
-//      mBinding?.ivSplash?.visibility = View.GONE
-//      mBinding?.rlSplash?.setBackgroundResource(R.drawable.bg_splash)
-//    }
-=======
->>>>>>> 7c502cb7a6101326463a5a2360b59062340875c0
+    SPUtils.getInstance().put(ParamConstant.simulate,true)
 
     if(!this.isTaskRoot) {
       if(intent?.action != null) {

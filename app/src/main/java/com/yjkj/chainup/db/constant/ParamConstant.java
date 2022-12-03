@@ -13,6 +13,7 @@ public class ParamConstant {
     public static final String ADD_COIN_MAP = "add_coin_map";
 
     public static final String TYPE = "type";
+    public static final String simulate = "simulate";
 
     public static final String SEARCH_COIN_MAP = "search_coin_map";
 

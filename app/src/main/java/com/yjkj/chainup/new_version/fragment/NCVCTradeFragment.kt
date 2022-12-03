@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.SPUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
@@ -157,15 +158,19 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
          * 入口
          */
         iv_more?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             DialogUtil.createCVCPop(context, iv_more, this)
         }
         RxView.clicks(iv_more_coin)
-                .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { x ->
-                    val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), false)
-                    DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.COIN_TRADE.value)
-                }
+            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { x ->
+                val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), false)
+                DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.COIN_TRADE.value)
+            }
         /**
          * 切换币种
          */
@@ -610,10 +615,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             return
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
             subscribeCoin = Observable.interval(0L, CommonConstant.coinLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                    .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                    .subscribe {
-                        getEachEntrust(status)
-                    }
+                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+                .subscribe {
+                    getEachEntrust(status)
+                }
         }
 
     }
@@ -716,35 +721,35 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
         hasShowDialog = true
         return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-                .setLayoutRes(R.layout.item_normal_dialog)
-                .setScreenWidthAspect(context, 0.8f)
-                .setGravity(Gravity.CENTER)
-                .setDimAmount(0.8f)
-                .setCancelableOutside(false)
-                .setOnBindViewListener { viewHolder: BindViewHolder? ->
-                    viewHolder?.run {
-                        setGone(R.id.tv_title, true)
-                        setText(R.id.tv_title, LanguageUtil.getString(context, "tradeLimit_text_instructions"))
-                        setGone(R.id.tv_cancel, false)
-                        setText(R.id.tv_confirm_btn, LanguageUtil.getString(context, "alert_common_iknow"))
-                        setText(R.id.tv_content, content)
-                    }
+            .setLayoutRes(R.layout.item_normal_dialog)
+            .setScreenWidthAspect(context, 0.8f)
+            .setGravity(Gravity.CENTER)
+            .setDimAmount(0.8f)
+            .setCancelableOutside(false)
+            .setOnBindViewListener { viewHolder: BindViewHolder? ->
+                viewHolder?.run {
+                    setGone(R.id.tv_title, true)
+                    setText(R.id.tv_title, LanguageUtil.getString(context, "tradeLimit_text_instructions"))
+                    setGone(R.id.tv_cancel, false)
+                    setText(R.id.tv_confirm_btn, LanguageUtil.getString(context, "alert_common_iknow"))
+                    setText(R.id.tv_content, content)
+                }
 
-                }
-                .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
-                .setOnViewClickListener { _, view, tDialog ->
-                    when (view.id) {
-                        R.id.tv_cancel -> {
-                            tDialog.dismiss()
-                            hasShowDialog = false
-                        }
-                        R.id.tv_confirm_btn -> {
-                            tDialog.dismiss()
-                            hasShowDialog = false
-                        }
+            }
+            .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
+            .setOnViewClickListener { _, view, tDialog ->
+                when (view.id) {
+                    R.id.tv_cancel -> {
+                        tDialog.dismiss()
+                        hasShowDialog = false
+                    }
+                    R.id.tv_confirm_btn -> {
+                        tDialog.dismiss()
+                        hasShowDialog = false
                     }
                 }
-                .create().show()
+            }
+            .create().show()
 
     }
 
@@ -899,8 +904,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     private fun loopPriceRiskPosition() {
         subscribe?.dispose()
         subscribe = Observable.interval(0,CommonConstant.etfLoopTime, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getObserver())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(getObserver())
     }
 
     private fun getObserver(): DisposableObserver<Long> {
@@ -913,7 +918,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 val base = NCoinManager.getMarketCoinName(name)
                 val quote = NCoinManager.getMarketName(name)
                 (netValueDisposable
-                        ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base, quote = quote, consumer = object : NDisposableObserver() {
+                    ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base, quote = quote, consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(data: JSONObject) {
 
                         v_vertical_depth?.changeEtf(data)
@@ -1004,3 +1009,4 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 }
+

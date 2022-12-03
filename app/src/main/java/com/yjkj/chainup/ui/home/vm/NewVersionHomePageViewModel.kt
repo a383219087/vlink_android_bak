@@ -24,6 +24,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.NLanguageUtil
 import com.yjkj.chainup.util.NToastUtil
+import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import java.util.*
@@ -383,6 +384,10 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
         if (!LoginManager.checkLogin(mActivity.value, true)) {
             return
         }
+        if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            ToastUtils.showToast(mActivity.value?.getString(R.string.important_hint1))
+            return
+        }
         if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
             NewDialogUtils.KycSecurityDialog(mActivity.value!!, mActivity.value!!.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
                 override fun sendConfirm() {
@@ -408,6 +413,10 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
     //提现/转账
     fun withdrawalTransfer(){
         if (!LoginManager.checkLogin(mActivity.value, true)) {
+            return
+        }
+        if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            ToastUtils.showToast(mActivity.value?.getString(R.string.important_hint1))
             return
         }
         if (phoneCertification()) return

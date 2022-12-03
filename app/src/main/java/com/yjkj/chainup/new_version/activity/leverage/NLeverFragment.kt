@@ -87,12 +87,12 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                NLeverFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            NLeverFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
 
         var curDepthIndex = 0
         var tradeOrientation = ParamConstant.TYPE_BUY
@@ -110,7 +110,7 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
                     return
                 }
                 dialog = NewDialogUtils.leverAccountDialog(context
-                        ?: return, symbol, riskRateData, object : NewDialogUtils.DialogOnItemClickListener {
+                    ?: return, symbol, riskRateData, object : NewDialogUtils.DialogOnItemClickListener {
                     override fun clickItem(position: Int) {
                         if (!LoginManager.checkLogin(context, true)) return
                         when (position) {
@@ -187,13 +187,13 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
          * 更多币种
          */
         RxView.clicks(iv_more_coin)
-                .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ x ->
-                    val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), true)
-                    LogUtil.e(TAG, "coinList $coinList")
-                    DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.LEVER_TRADE.value)
-                })
+            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ x ->
+                val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), true)
+                LogUtil.e(TAG, "coinList $coinList")
+                DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.LEVER_TRADE.value)
+            })
         /**
          * 切换币种
          */
@@ -494,7 +494,7 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
                     var burstPrice = optString("burstPrice", "")
                     val precision = v_horizontal_depth_lever?.getPrecision() ?: 4
                     burstPrice = DecimalUtil.cutValueByPrecision(burstPrice
-                            ?: "0", precision)
+                        ?: "0", precision)
 
                     tv_burst_price?.text = burstPrice
 
@@ -516,11 +516,11 @@ class NLeverFragment : NBaseFragment(), View.OnClickListener {
             return
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
             subscribeCoin = Observable.interval(0L, CommonConstant.coinLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                    .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                    .subscribe {
-                        getEachEntrust()
-                        getRiskRate()
-                    }
+                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+                .subscribe {
+                    getEachEntrust()
+                    getRiskRate()
+                }
         }
     }
 
