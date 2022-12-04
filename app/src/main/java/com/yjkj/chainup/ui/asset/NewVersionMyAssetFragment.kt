@@ -1,15 +1,18 @@
-package com.yjkj.chainup.new_version.activity.asset
+package com.yjkj.chainup.ui.asset
 
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.contract.sdk.impl.ContractAccountListener
@@ -22,8 +25,10 @@ import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.RateManager
@@ -33,6 +38,7 @@ import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.util.*
+import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
 
@@ -114,6 +120,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getTotalAccountBalance()
         retainInstance = true
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -145,6 +152,21 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         })
 
 
+    }
+
+    private fun getTotalAccountBalance() {
+        if (!UserDataService.getInstance().isLogined) return
+        addDisposable(getMainModel().contractTotalAccountBalanceV2(
+            consumer = object : NDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    jsonObject.optJSONObject("data")?.run {
+                        val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
+                        val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
+                        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi2, assets_btc_balance+"(BTC)")
+                        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
+                    }
+                }
+            }))
     }
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
@@ -220,7 +242,103 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         }
 
         rl_safety_advice.visibility = if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
+        /**
+         *  充币
+         */
+        ll_top_up_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
+            if (Utils.isFastClick()) return@setOnClickListener
+            if (param_index == ParamConstant.BIBI_INDEX) {
+                if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
+                    NewDialogUtils.KycSecurityDialog(context, context.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
+                        override fun sendConfirm() {
+                            when (UserDataService.getInstance().authLevel) {
+                                0 -> {
+                                    NToastUtil.showTopToastNet(context, false, context.getString(R.string.noun_login_pending))
+                                }
 
+                                2, 3 -> {
+                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                }
+                            }
+                        }
+                    })
+                    return@setOnClickListener
+                }
+                ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
+                    putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
+                    putBoolean(ParamConstant.COIN_FROM, true)
+                })
+            } else {
+                if (realNameCertification()) {
+                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
+                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
+                        putString(ParamConstant.ASSET_ACCOUNT_TYPE, ParamConstant.B2C_ACCOUNT)
+                        putBoolean(ParamConstant.COIN_FROM, true)
+                    })
+                }
+
+            }
+
+        }
+        /**
+         *  提币
+         */
+        ll_otc_layout?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
+            if (Utils.isFastClick()) return@setOnClickListener
+            if (param_index == ParamConstant.BIBI_INDEX) {
+                if (null != listener) {
+                    listener?.selectWithdrawal(param_index)
+                }
+            } else {
+                if (realNameCertification()) {
+                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
+                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
+                        putString(ParamConstant.ASSET_ACCOUNT_TYPE, ParamConstant.B2C_ACCOUNT)
+                        putBoolean(ParamConstant.COIN_FROM, true)
+                    })
+                }
+
+            }
+        }
+        /**
+         *  划转
+         */
+        ll_transfer_layout?.setOnClickListener {
+
+            if (Utils.isFastClick()) return@setOnClickListener
+            if (null != listener) {
+                /**
+                 * 杠杆
+                 */
+                if (ParamConstant.LEVER_INDEX == param_index) {
+                    if (PublicInfoDataService.getInstance().hasShownLeverStatusDialog()) {
+                        listener?.selectTransfer(param_index)
+                    } else {
+                        NewDialogUtils.showLeverDialog(context,
+                            listener = object : NewDialogUtils.DialogTransferBottomListener {
+                                override fun sendConfirm() {
+                                    listener?.selectTransfer(param_index)
+                                }
+
+                                override fun showCancel() {
+
+                                }
+                            })
+
+                    }
+                } else {
+                    listener.selectTransfer(param_index)
+                }
+            }
+        }
     }
 
     fun refresh() {
@@ -281,6 +399,12 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         addDisposable(getMainModel().otc_account_list(object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var t = jsonObject.optJSONObject("data")
+                jsonObject.optJSONObject("data")?.run {
+                    val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
+                    val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
+                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi3, assets_btc_balance+"(BTC)")
+                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi3, assets_legal_currency_balance)
+                }
                 if (leverOpen && b2cOpen) {
                     if (assetlist.size > 3) {
                         assetlist[3].put("totalBalance", t.optString("totalBalance") ?: "")
@@ -331,6 +455,12 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 isFristRequest = false
 
                 var json = jsonObject.optJSONObject("data")
+                jsonObject.optJSONObject("data")?.run {
+                    val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
+                    val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
+                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi1, assets_btc_balance+"(BTC)")
+                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi1, assets_legal_currency_balance)
+                }
                 accountBean = json
                 assetlist[0].put("totalBalance", json.optString("totalBalance") ?: "")
                 assetlist[0].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")

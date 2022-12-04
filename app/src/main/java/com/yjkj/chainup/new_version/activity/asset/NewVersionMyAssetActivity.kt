@@ -14,6 +14,7 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
+import com.yjkj.chainup.ui.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.util.Utils
 import kotlinx.android.synthetic.main.activity_version_my_asset.*

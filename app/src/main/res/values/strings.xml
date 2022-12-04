@@ -1057,6 +1057,7 @@ Mark Price: This is the current mark price.</string>
     <string name="assets_action_search">Search</string>
     <string name="assets_action_transaction">Trade</string>
     <string name="assets_action_transfer">Transfer</string>
+    <string name="assets_action_transfer1">Asset Portfolio</string>
     <string name="assets_action_withdraw">Withdraw</string>
     <string name="assets_text_available">Avail.</string>
     <string name="assets_text_contract">Contracts Account</string>

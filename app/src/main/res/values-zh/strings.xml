@@ -1167,6 +1167,7 @@
     <string name="assets_action_search">搜索</string>
     <string name="assets_action_transaction">交易</string>
     <string name="assets_action_transfer">划转</string>
+    <string name="assets_action_transfer1">资产组合</string>
     <string name="assets_action_withdraw">提币</string>
     <string name="assets_text_available">可用</string>
     <string name="assets_text_contract">合约账户</string>
