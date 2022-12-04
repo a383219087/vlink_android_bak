@@ -8,7 +8,6 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.new_version.activity.asset.NewVersionMyAssetFragment
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
 import com.yjkj.chainup.util.*

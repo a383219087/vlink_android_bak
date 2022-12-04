@@ -1,22 +1,15 @@
 package com.yjkj.chainup.ui.asset
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.View
-import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.contract.sdk.impl.ContractAccountListener
-import com.google.android.material.appbar.AppBarLayout
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -33,12 +26,9 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
-import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
+import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
 import com.yjkj.chainup.util.*
-import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
 
@@ -247,17 +237,16 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
          */
         ll_top_up_layout?.setOnClickListener {
             if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                NToastUtil.showTopToastNet(mActivity,false, context!!.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
             if (Utils.isFastClick()) return@setOnClickListener
-            if (param_index == ParamConstant.BIBI_INDEX) {
                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                    NewDialogUtils.KycSecurityDialog(context, context.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
+                    NewDialogUtils.KycSecurityDialog(mActivity!!, context!!.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
                         override fun sendConfirm() {
                             when (UserDataService.getInstance().authLevel) {
                                 0 -> {
-                                    NToastUtil.showTopToastNet(context, false, context.getString(R.string.noun_login_pending))
+                                    NToastUtil.showTopToastNet(mActivity, false, context?.getString(R.string.noun_login_pending))
                                 }
 
                                 2, 3 -> {
@@ -272,16 +261,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                     putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
                     putBoolean(ParamConstant.COIN_FROM, true)
                 })
-            } else {
-                if (realNameCertification()) {
-                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
-                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.RECHARGE)
-                        putString(ParamConstant.ASSET_ACCOUNT_TYPE, ParamConstant.B2C_ACCOUNT)
-                        putBoolean(ParamConstant.COIN_FROM, true)
-                    })
-                }
 
-            }
 
         }
         /**
@@ -289,24 +269,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
          */
         ll_otc_layout?.setOnClickListener {
             if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                ToastUtils.showToast(context.getString(R.string.important_hint1))
+                ToastUtils.showToast(context?.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
             if (Utils.isFastClick()) return@setOnClickListener
-            if (param_index == ParamConstant.BIBI_INDEX) {
-                if (null != listener) {
-                    listener?.selectWithdrawal(param_index)
-                }
-            } else {
-                if (realNameCertification()) {
-                    ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
-                        putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
-                        putString(ParamConstant.ASSET_ACCOUNT_TYPE, ParamConstant.B2C_ACCOUNT)
-                        putBoolean(ParamConstant.COIN_FROM, true)
-                    })
-                }
 
-            }
         }
         /**
          *  划转
@@ -314,30 +281,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         ll_transfer_layout?.setOnClickListener {
 
             if (Utils.isFastClick()) return@setOnClickListener
-            if (null != listener) {
-                /**
-                 * 杠杆
-                 */
-                if (ParamConstant.LEVER_INDEX == param_index) {
-                    if (PublicInfoDataService.getInstance().hasShownLeverStatusDialog()) {
-                        listener?.selectTransfer(param_index)
-                    } else {
-                        NewDialogUtils.showLeverDialog(context,
-                            listener = object : NewDialogUtils.DialogTransferBottomListener {
-                                override fun sendConfirm() {
-                                    listener?.selectTransfer(param_index)
-                                }
-
-                                override fun showCancel() {
-
-                                }
-                            })
-
-                    }
-                } else {
-                    listener.selectTransfer(param_index)
-                }
-            }
         }
     }
 
