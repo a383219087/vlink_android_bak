@@ -21,12 +21,11 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
-import com.yjkj.chainup.manager.Contract2PublicInfoManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.new_version.activity.CashFlow4Activity
-import com.yjkj.chainup.new_version.activity.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.new_version.activity.asset.NewVersionContractBillActivity
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import org.json.JSONArray

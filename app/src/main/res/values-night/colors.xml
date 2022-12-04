@@ -174,6 +174,10 @@
 
     <color name="edit_hint_color">#313E55</color>
     <color name="assets_safety_color">#192438</color>
+
+    <color name="item_color">#1E2A40</color>
+
+
     <color name="code_color">#111C30</color>
     <color name="code_line_color">#334662</color>
     <color name="new_line_color">#334662</color>

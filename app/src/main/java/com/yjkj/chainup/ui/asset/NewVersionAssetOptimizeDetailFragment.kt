@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.activity.asset
+package com.yjkj.chainup.ui.asset
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +32,9 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.manager.*
 import com.yjkj.chainup.net.api.ApiConstants
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.new_version.activity.asset.AssetsPieChartFragment
+import com.yjkj.chainup.new_version.activity.asset.DepositActivity
+import com.yjkj.chainup.new_version.activity.asset.WithdrawActivity
 import com.yjkj.chainup.new_version.adapter.OTCAssetAdapter
 import com.yjkj.chainup.new_version.adapter.OTCFundAdapter
 import com.yjkj.chainup.new_version.contract.ContractFragment
@@ -60,7 +63,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param_index = it.getString(ARG_INDEX)
-            param2 = it.getInt(ARG_PARAM2)
         }
         when (param_index) {
             ParamConstant.FABI_INDEX -> {
@@ -136,7 +138,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
      */
     private var param_index: String? = null
 
-    private var param2: Int = 0
 
     /**
      * 隐藏小额资产
@@ -160,12 +161,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
 
         @JvmStatic
-        fun newInstance(param1: String, param2: Int, index: String) =
+        fun newInstance(param1: String,  index: String) =
             NewVersionAssetOptimizeDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_INDEX, index)
-                    putInt(ARG_PARAM2, param2)
                 }
             }
     }

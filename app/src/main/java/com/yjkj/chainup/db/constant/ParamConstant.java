@@ -41,6 +41,7 @@ public class ParamConstant {
     public static final String advertID = "advertID";
 
     public static final String BIBI_INDEX = "bibi";
+    public static final String All_INDEX = "all";
     public static final String FABI_INDEX = "fabi";
     public static final String B2C_INDEX = "b2c";
     public static final String LONA_INDEX = "lona_index";

@@ -31,6 +31,7 @@ import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
@@ -231,161 +232,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     override fun initView() {
         setSelectClick()
 
-        appBarLayout.outlineProvider = null
-        collapsingToolbarLayout.outlineProvider = ViewOutlineProvider.BOUNDS
-        otcOpen = PublicInfoDataService.getInstance().otcOpen(null)
-        contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
-        b2cOpen = PublicInfoDataService.getInstance().getB2CSwitchOpen(null)
-        leverOpen = PublicInfoDataService.getInstance().isLeverOpen(null)
-
-        val jsonObject = JSONObject()
-        jsonObject.put("title", LanguageUtil.getString(context, "otc_bibi_account"))
-        jsonObject.put("totalBalanceSymbol", "BTC")
-        jsonObject.put("totalBalance", "0")
-        jsonObject.put("balanceType", ParamConstant.BIBI_INDEX)
-        assetlist.add(jsonObject)
-        val otcText = if (PublicInfoDataService.getInstance().getB2CSwitchOpen(null)) {
-            LanguageUtil.getString(context, "assets_text_otc_forotc")
-        } else {
-            LanguageUtil.getString(context, "assets_text_otc")
-        }
-
-            if (leverOpen) {
-                val jsonObject = JSONObject()
-                jsonObject.put("title", LanguageUtil.getString(context, "leverage_asset"))
-                jsonObject.put("totalBalanceSymbol", "BTC")
-                jsonObject.put("totalBalance", "0")
-                jsonObject.put("balanceType", ParamConstant.LEVER_INDEX)
-                assetlist.add(jsonObject)
-            }
-
-            if (b2cOpen) {
-                val jsonObject = JSONObject()
-                jsonObject.put("title", LanguageUtil.getString(context, "assets_text_otc"))
-                jsonObject.put("totalBalanceSymbol", "BTC")
-                jsonObject.put("totalBalance", "0")
-                jsonObject.put("balanceType", ParamConstant.B2C_INDEX)
-
-                assetlist.add(jsonObject)
-            }
-
-        if (otcOpen) {
-            val jsonObject = JSONObject()
-            jsonObject.put("title", otcText)
-            jsonObject.put("totalBalanceSymbol", "BTC")
-            jsonObject.put("totalBalance", "0")
-            jsonObject.put("balanceType", ParamConstant.FABI_INDEX)
-            assetlist.add(jsonObject)
-        }
-        if (contractOpen) {
-            val jsonObject = JSONObject()
-            jsonObject.put("title", LanguageUtil.getString(context, "assets_text_contract"))
-            jsonObject.put("totalBalanceSymbol", "USDT")
-            jsonObject.put("totalBalance", "0")
-            jsonObject.put("balanceType", ParamConstant.CONTRACT_INDEX)
-            assetlist.add(jsonObject)
-        }
 
 
-        if (titleStatus) {
-            rl_title_layout?.visibility = View.GONE
-        }
-
-
-            tabTitles.add(LanguageUtil.getString(context, "assets_text_exchange"))
-            indexList.add(ParamConstant.BIBI_INDEX)
-            showTitles.add(LanguageUtil.getString(context, "trade_bb_titile"))
-
-            if (contractOpen) {
-                tabTitles.add(LanguageUtil.getString(context, "assets_text_contract"))
-                indexList.add(ParamConstant.CONTRACT_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "mainTab_text_contract"))
-            }
-
-            if (otcOpen) {
-                tabTitles.add(otcText)
-                indexList.add(ParamConstant.FABI_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "mainTab_text_otc"))
-            }
-
-            if (leverOpen) {
-                tabTitles.add(LanguageUtil.getString(context, "leverage_asset"))
-                indexList.add(ParamConstant.LEVER_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "contract_action_lever"))
-
-            }
-            if (b2cOpen) {
-                tabTitles.add(LanguageUtil.getString(context, "assets_text_otc"))
-                indexList.add(ParamConstant.B2C_INDEX)
-                showTitles.add(LanguageUtil.getString(context, "mainTab_text_otc"))
-            }
-
-
-
-        tv_title?.text = tabTitles[0]
-        for (i in 0 until tabTitles.size) {
-            if (indexList[i] == ParamConstant.CONTRACT_INDEX) {
-                contractAssetFragment = ClContractAssetFragment()
-                    fragments.add(contractAssetFragment!!)
-
-                updateContractAccount()
-            } else {
-                fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[i], i, indexList[i]))
-            }
-        }
-
-
-        val marketPageAdapter = NVPagerAdapter(childFragmentManager, tabTitles.toMutableList(), fragments)
-        vp_otc_asset?.adapter = marketPageAdapter
-        vp_otc_asset?.offscreenPageLimit = tabTitles.size
-        vp_otc_asset?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                viewpagePosotion = position
-                tv_title?.text = tabTitles[position]
-            }
-        })
-        try {
-            stl_assets_type.setViewPager(vp_otc_asset, showTitles.toTypedArray())
-        }catch(e :Exception){
-
-        }
-
-
-
-        appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            var scrollRange = -1
-            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.totalScrollRange;
-                }
-
-                if (-verticalOffset >= 150) {
-                    tv_title_top.setTextColor(Color.argb(255, 255, 255, 255))
-                } else {
-                    tv_title_top.setTextColor(Color.argb(-verticalOffset, 255, 255, 255))
-                }
-
-            }
-
-        })
-        appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
-            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
-                if (state == State.COLLAPSED) {
-                    img_line.visibility = View.VISIBLE
-                } else {
-                    img_line.visibility = View.GONE
-                }
-            }
-        })
     }
 
     override fun onMessageEvent(event: MessageEvent) {
@@ -483,12 +331,10 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 isFristRequest = false
 
                 var json = jsonObject.optJSONObject("data")
-                vp_otc_asset ?: return
                 accountBean = json
-                assetlist.get(0).put("totalBalance", json.optString("totalBalance") ?: "")
-                assetlist.get(0).put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
+                assetlist[0].put("totalBalance", json.optString("totalBalance") ?: "")
+                assetlist[0].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: "")
-                vp_otc_asset?.currentItem = viewpagePosotion
                     when {
                         leverOpen -> {
                             getLeverData()
@@ -640,13 +486,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     fun hideTitle(status: Boolean) {
         titleStatus = status
-        rl_title_layout?.visibility = View.GONE
     }
 
     fun setViewPagePosition(position: Int) {
         chooseIndex = position
         viewpagePosotion = position
-        vp_otc_asset?.currentItem = viewpagePosotion
     }
 
     /**

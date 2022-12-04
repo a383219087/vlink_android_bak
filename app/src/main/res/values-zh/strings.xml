@@ -842,6 +842,7 @@
     <string name="moving_too_fast">移动太快,导致传感器没有读取到指纹</string>
     <string name="cannot_read_fingerprint">传感器无法读取当前指纹</string>
     <string name="open_suc">指纹识别成功</string>
+    <string name="my_assets">我的资产</string>
     <string name="open_failure">指纹识别失败</string>
     <string name="authorization_suc">授权失败</string>
     <string name="authorization_help">授权帮助</string>
@@ -855,6 +856,7 @@
     <string name="staff_service">客服</string>
     <string name="name_dif_realname">姓名与实名认证信息不一致</string>
     <string name="trade_bb_titile">币币</string>
+    <string name="trade_all_titile">总资产</string>
     <string name="trade_otc_title">场外</string>
     <string name="trade_contract_title">合约</string>
     <string name="title_entrust_deal_treaty">委托交易</string>
@@ -2623,6 +2625,9 @@
 
     <string name="assets_asset_allocation">资产分布</string>
     <string name="assets_security_advice">安全建议</string>
+    <string name="assets_security_advice1">收益分析</string>
+    <string name="assets_security_advice2">今日收益率</string>
+    <string name="assets_security_advice4">今日收益（USDT）</string>
     <string name="assets_crypto_asset_value">币币账户资产折合</string>
     <string name="assets_contract_value">合约账户资产折合</string>
     <string name="assets_fiat_account_value">法币账户资产折合</string>

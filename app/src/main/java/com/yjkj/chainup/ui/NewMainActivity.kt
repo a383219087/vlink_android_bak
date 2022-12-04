@@ -51,6 +51,7 @@ import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
 import com.yjkj.chainup.new_version.home.*
+import com.yjkj.chainup.ui.asset.AssetFragment
 import com.yjkj.chainup.ui.home.NewVersionHomepageFragment
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
@@ -91,7 +92,7 @@ class NewMainActivity : NBaseActivity() {
   //合约
   private var slCoContractFragment = CpContractNewTradeFragment()
   //资产
-  private var assetFragment = NewVersionMyAssetFragment()
+  private var assetFragment = AssetFragment()
 
   private var fragmentManager: FragmentManager? = null
   var subscribe: Disposable? = null
@@ -432,7 +433,7 @@ class NewMainActivity : NBaseActivity() {
       bottomtab_group?.showCurTabView(curPosition)
     }
     if (mTextviewList[curPosition].equals(LanguageUtil.getString(this, "mainTab_text_assets"))) {
-      StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.asset_status_bar_color_day), 0)
+      StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.bg_card_color), 0)
     } else {
       StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.market_status_bar_color_day), 0)
     }
