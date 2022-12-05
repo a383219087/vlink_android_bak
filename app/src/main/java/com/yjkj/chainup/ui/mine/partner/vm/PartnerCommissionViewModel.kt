@@ -40,7 +40,7 @@ class PartnerCommissionViewModel : BaseViewModel() {
 
     fun getList(page :Int) {
         val map = HashMap<String, Any>()
-        map["pages"] = page.toString()
+        map["page"] = page.toString()
         map["pageSize"] ="20"
         startTask(apiService.bonusList(map), Consumer {
             if (page == 1) {

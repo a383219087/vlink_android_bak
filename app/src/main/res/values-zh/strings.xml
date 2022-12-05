@@ -3686,7 +3686,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text1">被邀请人ID</string>
     <string name="share_text2">邀请码</string>
     <string name="share_text3">注册时间</string>
-    <string name="share_text3111">上次结算时间</string>
+    <string name="share_text3111">返佣结算时间</string>
     <string name="share_text4">团队人数</string>
     <string name="share_text5">已交易人数</string>
     <string name="share_text6">获得返利收入</string>
