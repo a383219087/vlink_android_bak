@@ -62,7 +62,7 @@
     <color name="main_font_color">#CBD3E4</color>
 
     <!--新加颜色-->
-    <color name="new_text_color">#6e7b98</color>
+    <color name="new_text_color">#4B5687</color>
 
 
     <!--kline info -->
@@ -79,7 +79,7 @@
 
 
     <!--新版4.0的颜色-->
-    <color name="main_blue">#3078FF</color>
+    <color name="main_blue">#2B4DE7</color>
     <!--50%透明度-->
     <color name="main_blue_50">#803078FF</color>
 
@@ -130,13 +130,13 @@
 
 
     <!--字体颜色-->
-    <color name="text_color">#131D32</color>
+    <color name="text_color">#4B5687</color>
     <color name="text_color_kline_night">#D8E1F0</color>
 
     <color name="hint_color">#C5C9D5</color>
     <color name="hint_color_kline_night">#313E55</color>
 
-    <color name="normal_text_color">#8391A8</color>
+    <color name="normal_text_color">#A2A9BD</color>
     <color name="normal_text_color_kline_night">#5D6D89</color>
     <color name="new_line">#EDEFF2</color>
     <!--合约-->
@@ -208,6 +208,8 @@
     <color name="coin_border">#EDEFF2</color>
 
     <color name="assets_safety_color">#F6F8FB</color>
+
+    <color name="item_color">#E7EBFE</color>
 
     <color name="code_color">#ffffff</color>
     <color name="code_line_color">#EDEFF2</color>

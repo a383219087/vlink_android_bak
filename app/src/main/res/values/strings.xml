@@ -861,6 +861,7 @@
     <string name="moving_too_fast">Input is too fast, the sensor cannot read the fingerprint</string>
     <string name="cannot_read_fingerprint">sensor can not read the current fingerprint</string>
     <string name="open_suc">Successful fingerprint recognition</string>
+    <string name="my_assets">My Assets</string>
     <string name="open_failure">Fingerprint recognition failed</string>
     <string name="authorization_suc">authorization failed</string>
     <string name="authorization_help">authorization help</string>
@@ -879,6 +880,7 @@ Please be sure to follow the correct recharge steps and enter complete informati
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="trade_bb_titile">Exchange</string>
+    <string name="trade_all_titile">Total assets</string>
     <string name="trade_otc_title">C2C</string>
     <string name="trade_contract_title">Contract</string>
     <string name="title_entrust_deal_treaty">Place order</string>
@@ -1055,6 +1057,7 @@ Mark Price: This is the current mark price.</string>
     <string name="assets_action_search">Search</string>
     <string name="assets_action_transaction">Trade</string>
     <string name="assets_action_transfer">Transfer</string>
+    <string name="assets_action_transfer1">Asset Portfolio</string>
     <string name="assets_action_withdraw">Withdraw</string>
     <string name="assets_text_available">Avail.</string>
     <string name="assets_text_contract">Contracts Account</string>
@@ -2524,6 +2527,10 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
 
     <string name="assets_asset_allocation">Asset Allocation</string>
     <string name="assets_security_advice">Security Advice</string>
+    <string name="assets_security_advice1">Income Analysis</string>
+    <string name="assets_security_advice2">Yield Today</string>
+    <string name="assets_security_advice4">Today\'s Earnings（USDT）</string>
+
     <string name="assets_crypto_asset_value">Crypto Asset Value</string>
     <string name="assets_contract_value">Contract Value</string>
     <string name="assets_fiat_account_value">Fiat Account Value</string>

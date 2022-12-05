@@ -1,6 +1,6 @@
 ext {
     change = [
-            applicationId :"com.zww.exchange",
+            applicationId :"com.taucoin.exchange",
 
 
             baseUrl:"http://8.219.64.81/base/appapi/",

@@ -337,11 +337,10 @@ class  PersonalCenterActivity : NBaseActivity() {
 
             })
 
-        val map = HashMap<String, Any>()
-        startTask(HttpHelper.instance.getBaseUrlService(ApiService::class.java).stats(map), Consumer {
-            tv_share_data1.text=it.data.userCount
-            tv_share_data2.text=it.data.count
-            tv_share_data3.text= DecimalUtil.cutValueByPrecision(it.data.txAmount,2)
+        startTask(HttpHelper.instance.getBaseUrlService(ApiService::class.java).myBonus(), Consumer {
+            tv_share_data1.text=it.data.userCount.toString()
+            tv_share_data2.text=it.data.txCount.toString()
+            tv_share_data3.text= DecimalUtil.cutValueByPrecision(it.data.amount.toString(),2)
 
 
         }) {

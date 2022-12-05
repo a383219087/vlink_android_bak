@@ -340,15 +340,12 @@ abstract class NBaseFragment : Fragment() {
 
     fun isVisibleOnScreen(): Boolean {
         if (isCanShowing && userVisibleHint && isVisible) {
-            val parentFragment = parentFragment
-            if (parentFragment == null) {
-                return true
-            }
+            val parentFragment = parentFragment ?: return true
 
-            if (parentFragment is NBaseFragment) {
-                return parentFragment.isVisibleOnScreen()
+            return if (parentFragment is NBaseFragment) {
+                parentFragment.isVisibleOnScreen()
             } else {
-                return parentFragment.isVisible
+                parentFragment.isVisible
             }
         }
         return false

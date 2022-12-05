@@ -110,7 +110,7 @@ class TradeFragment : NBaseFragment() {
 
     private fun setGrdiView() {
         if (PublicInfoDataService.getInstance().isGridTradSwitch(null)) {
-            var gridList = NCoinManager.getGridCroupList(null)
+            val gridList = NCoinManager.getGridCroupList(null)
             if (gridList == null || gridList.size == 0) {
                 btn_grid.visibility = View.GONE
                 switchFragment(cvcTradeFragment)
@@ -309,21 +309,25 @@ class TradeFragment : NBaseFragment() {
         } else {
             btn_grid.visibility = View.GONE
         }
-        if (currentIndex == ParamConstant.CVC_INDEX_TAB) {
-            switchFragment(cvcTradeFragment)
-            action4Selected(btn_bb)
-            action4Selected(btn_lever, false)
-            action4Selected(btn_grid, false)
-        } else if (currentIndex == ParamConstant.LEVER_INDEX_TAB) {
-            switchFragment(leverFragment)
-            action4Selected(btn_bb, false)
-            action4Selected(btn_grid, false)
-            action4Selected(btn_lever)
-        } else if (currentIndex == ParamConstant.GRID_INDEX_TAB) {
-            switchFragment(gridFragment)
-            action4Selected(btn_bb, false)
-            action4Selected(btn_lever, false)
-            action4Selected(btn_grid)
+        when (currentIndex) {
+            ParamConstant.CVC_INDEX_TAB -> {
+                switchFragment(cvcTradeFragment)
+                action4Selected(btn_bb)
+                action4Selected(btn_lever, false)
+                action4Selected(btn_grid, false)
+            }
+            ParamConstant.LEVER_INDEX_TAB -> {
+                switchFragment(leverFragment)
+                action4Selected(btn_bb, false)
+                action4Selected(btn_grid, false)
+                action4Selected(btn_lever)
+            }
+            ParamConstant.GRID_INDEX_TAB -> {
+                switchFragment(gridFragment)
+                action4Selected(btn_bb, false)
+                action4Selected(btn_lever, false)
+                action4Selected(btn_grid)
+            }
         }
         action4Selected(btn_otc, false)
     }

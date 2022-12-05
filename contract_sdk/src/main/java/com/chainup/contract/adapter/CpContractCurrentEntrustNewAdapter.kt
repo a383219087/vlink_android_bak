@@ -129,7 +129,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             helper.setText(R.id.tv_coin_name, symbolName)
             helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
             helper.setText(R.id.tv_order_type, orderType)
-            helper.setText(R.id.tv_price, item.price)
+            helper.setText(R.id.tv_price,  CpBigDecimalUtils.showSNormal(item.price))
             helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
             helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) + "(" + volumePercentStr + ")")
             helper.setText(R.id.tv_totalvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))

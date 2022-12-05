@@ -59,7 +59,7 @@ class SplashActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
     initRetrofit()
-    SPUtils.getInstance().put(ParamConstant.simulate,true)
+    SPUtils.getInstance().put(ParamConstant.simulate,false)
 
     if(!this.isTaskRoot) {
       if(intent?.action != null) {
