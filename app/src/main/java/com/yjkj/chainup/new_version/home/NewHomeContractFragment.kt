@@ -19,7 +19,7 @@ import com.flyco.tablayout.SlidingTabLayout
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
-import com.yjkj.chainup.new_contract.fragment.CpCoinSearchItemFragment.Companion.newInstance
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.fragment.CpCoinSearchItemFragment2.Companion.newInstance2
 import kotlinx.android.synthetic.main.fragment_home_contract.*
 import org.json.JSONArray
@@ -41,18 +41,37 @@ class NewHomeContractFragment : CpNBaseFragment(), CpWsContractAgentManager.WsRe
     private val fragments = ArrayList<Fragment>()
 
     override fun initView() {
-        initTab()
+        addDisposable(getContractModel().getPublicInfo(
+            consumer = object : CpNDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    saveContractPublicInfo(jsonObject)
+                }
+            })
+        )
     }
 
 
 
     override fun loadData() {
+
+    }
+
+    private fun saveContractPublicInfo(jsonObject: JSONObject) {
+        jsonObject.optJSONObject("data").run {
+            var contractList = optJSONArray("contractList")
+            CpClLogicContractSetting.setContractJsonListStr(context, contractList.toString())
+            showData()
+        }
+    }
+
+    private fun showData(){
         val mContractListData = CpClLogicContractSetting.getContractJsonListStr(activity)
         instance.addWsCallback(this)
         if (!TextUtils.isEmpty(mContractListData)) {
             contractListJson = mContractListData
             try {
                 mContractList = JSONArray(contractListJson)
+                initTab()
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
