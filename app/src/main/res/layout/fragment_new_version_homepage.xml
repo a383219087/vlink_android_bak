@@ -408,6 +408,7 @@
                         <com.flyco.tablayout.SlidingTabLayout
                             android:id="@+id/stl_homepage_list"
                             style="@style/ToolbarType_bar_home_tab"
+                            app:tl_tab_space_equal="false"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_44"
                             android:background="@color/bg_card_color"
@@ -416,7 +417,10 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
-                            android:background="@color/line_color" />
+                            android:background="@color/line_color"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            />
 
                         <com.yjkj.chainup.wedegit.WrapContentViewPager
                             android:id="@+id/fragment_market"

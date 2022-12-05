@@ -84,6 +84,29 @@ object CpColorUtil {
      *获取主要颜色(红绿)
      * @param isRise 是否是上涨状态
      */
+    fun getHomeColorType(isRise: Boolean = true): Int {
+        var colorSelect = getColorType()
+        val mainGreen = getColor(R.color.white)
+        val mainRed = getColor(R.color.main_red)
+
+        if (colorSelect == GREEN_RISE) {
+            if (isRise) {
+                return mainGreen
+            }
+            return mainRed
+        } else {
+            if (isRise) {
+                return mainRed
+            }
+            return mainGreen
+        }
+
+    }
+
+    /**
+     *获取主要颜色(红绿)
+     * @param isRise 是否是上涨状态
+     */
     fun getMainColorType(colorSelect: Int, isRise: Boolean = true): Int {
         val mainGreen =
                 getColor(R.color.main_green)

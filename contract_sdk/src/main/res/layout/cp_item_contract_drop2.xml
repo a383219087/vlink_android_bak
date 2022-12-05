@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/item_layout_bg"
-    android:layout_height="@dimen/dp_56">
+    android:layout_height="@dimen/dp_55">
 
 
     <LinearLayout
-        android:id="@+id/content_ll"
+        android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/dp_16"
@@ -25,20 +25,20 @@
 
 
             <TextView
-                android:id="@+id/tv_coin_name"
+                android:id="@+id/tv_contract_name"
+                style="@style/textStyle_title_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/textStyle_title_16"
                 tools:text="LTC" />
 
 
-            <com.yjkj.chainup.new_version.view.CustomTagView
-                android:id="@+id/ctv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_coin_name"
-                android:layout_marginTop="@dimen/dp_4" />
+<!--            <com.chainup.contract.utils.CustomTagView-->
+<!--                android:id="@+id/ctv_content"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/tv_contract_name"-->
+<!--                android:layout_marginTop="@dimen/dp_4" />-->
         </RelativeLayout>
 
         <LinearLayout
@@ -50,9 +50,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_close_price"
-                android:textColor="@color/main_green"
-                android:textSize="@dimen/sp_16"
+                android:id="@+id/tv_last_price"
+                style="@style/textStyle_title_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -70,7 +69,7 @@
             android:orientation="vertical">
 
             <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_rose"
+                android:id="@+id/tv_contract_chg"
                 android:layout_width="@dimen/dp_78"
                 android:layout_height="@dimen/dp_32"
                 android:gravity="center"
@@ -79,7 +78,7 @@
                 android:textColor="@color/main_blue"
                 style="@style/textStyle_while_14"
                 app:stv_corner="@dimen/dp_4"
-                app:stv_solid="@color/main_blue_15" />
+                app:stv_solid="@color/main_green" />
         </LinearLayout>
     </LinearLayout>
     <View

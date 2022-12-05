@@ -36,11 +36,8 @@ import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.new_version.home.NetworkDataService
-import com.yjkj.chainup.new_version.home.NewHomeDetailFragmentItem
+import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
-import com.yjkj.chainup.new_version.home.sendWsHomepage
-import com.yjkj.chainup.new_version.home.showGuideHomepage
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
@@ -518,24 +515,40 @@ class NewVersionHomepageFragment :
     }
     mBinding?.bottomVpLinearlayout?.visibility = View.VISIBLE
     for(item in serviceDatas) {
-      titles.add(item.getString("title"))
-      chooseType.add(item.getString("key"))
+//      titles.add(item.getString("title"))
+//      chooseType.add(item.getString("key"))
+      LogUtil.e("首页tab数据", serviceDatas.toString())
     }
+    titles.add("合约")
+    titles.add("币币")
+    chooseType.add("rasing")
     fragments.clear()
     if(titles.isEmpty())
       return
 
-    for(i in titles.indices) {
-      fragments.add(
-        NewHomeDetailFragmentItem.newInstance(
-          titles[i],
-          i,
-          chooseType[i],
-          mBinding?.fragmentMarket!!,
-          serviceDatas[i].getJSONArray("list").toString()
-        )
+//    for(i in titles.indices) {
+//      fragments.add(
+//        NewHomeDetailFragmentItem.newInstance(
+//          titles[i],
+//          i,
+//          chooseType[i],
+//          mBinding?.fragmentMarket!!,
+//          serviceDatas[i].getJSONArray("list").toString()
+//        )
+//      )
+//    }
+
+    fragments.add(NewHomeContractFragment())
+
+    fragments.add(
+      NewHomeDetailFragmentItem.newInstance(
+        titles[1],
+        0,
+        chooseType[0],
+        mBinding?.fragmentMarket!!,
+        serviceDatas[0].getJSONArray("list").toString()
       )
-    }
+    )
 
     val marketPageAdapter = NVPagerAdapter(childFragmentManager, titles, fragments)
     mBinding?.fragmentMarket?.adapter = marketPageAdapter
@@ -1184,7 +1197,8 @@ class NewVersionHomepageFragment :
     if(chooseType.size == 0) {
       return
     }
-    val type = chooseType[selectPostion]
+//    val type = chooseType[selectPostion]
+    val type = chooseType[0]
     var disposable =
       getMainModel().trade_list_v4(type, object : NDisposableObserver(null, false, type) {
         override fun onResponseSuccess(jsonObject: JSONObject) {
