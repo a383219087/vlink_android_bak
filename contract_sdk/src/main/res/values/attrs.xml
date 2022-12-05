@@ -27,6 +27,11 @@
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
 
+    <!-- 自己画的tag-->
+    <declare-styleable name="CustomTagView">
+        <attr name="showCircular" format="boolean" />
+    </declare-styleable>
+
 
     <!--登录注册相关的View-->
     <declare-styleable name="PwdSetView">
@@ -284,10 +289,10 @@
         <attr name="bgHeight" format="dimension" />
     </declare-styleable>
 
-    <!-- 自己画的tag-->
-    <declare-styleable name="CpCustomTagView">
-        <attr name="showCircular" format="boolean" />
-    </declare-styleable>
+<!--    &lt;!&ndash; 自己画的tag&ndash;&gt;-->
+<!--    <declare-styleable name="CpCustomTagView">-->
+<!--        <attr name="showCircular" format="boolean" />-->
+<!--    </declare-styleable>-->
 
     <!-- 个人页面自定义title-->
     <declare-styleable name="CustomPersonalTitle">
