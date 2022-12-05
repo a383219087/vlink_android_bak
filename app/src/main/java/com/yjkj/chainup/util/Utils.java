@@ -426,7 +426,7 @@ public class Utils {
             if (StringUtil.checkStr(content1) && StringUtil.checkStr(content2)) {
                 SpannableString spannableString = new SpannableString(builder.toString());
 
-                ForegroundColorSpan span = new ForegroundColorSpan(Color.WHITE);
+                ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor("#4B5687"));
                 spannableString.setSpan(span, 0, content1.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
                 AbsoluteSizeSpan relativeSizeSpanleft = new AbsoluteSizeSpan(28, true);

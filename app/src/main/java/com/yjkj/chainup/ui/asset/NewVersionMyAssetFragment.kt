@@ -46,7 +46,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     override fun setContentView() = R.layout.fragment_new_version_my_asset
 
     val assetlist = ArrayList<JSONObject>()
-    var fragments = ArrayList<Fragment>()
     var tabTitles = arrayListOf<String>()
 
 
@@ -56,6 +55,9 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var bibiObject: JSONObject?=null
+    private var fabiObject: JSONObject?=null
+    private var heyueObject: JSONObject?=null
 
 
     private var totalBalance: String? = null
@@ -68,7 +70,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     /**
      * 场外
      */
-    var otcOpen = false
+    var otcOpen = true
 
     /**
      * 合约
@@ -144,17 +146,15 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     }
 
+    // 合约
     private fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
         addDisposable(getMainModel().contractTotalAccountBalanceV2(
             consumer = object : NDisposableObserver(mActivity, true) {
                 override fun onResponseSuccess(jsonObject: JSONObject) {
-                    jsonObject.optJSONObject("data")?.run {
-                        val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
-                        val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
-                        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi2, assets_btc_balance+"(BTC)")
-                        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
-                    }
+                    heyueObject=jsonObject
+                    refresh()
+
                 }
             }))
     }
@@ -166,11 +166,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             if (isLogined) {
                 setAssetViewVisible()
                 getAccountBalance()
-                for (fragment in fragments) {
-                    if(fragment is NewVersionAssetOptimizeDetailFragment){
-                        fragment.clearViewing()
-                    }
-                }
+                getTotalAccountBalance()
+
             }
         }
     }
@@ -192,7 +189,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     var isShowAssets = true
     private fun setAssetViewVisible() {
         isShowAssets = UserDataService.getInstance().isShowAssets
-        Utils.showAssetsNewSwitch(isShowAssets, iv_hide_asset)
+        Utils.showAssetsSwitch(isShowAssets, iv_hide_asset)
     }
 
     fun setSelectClick() {
@@ -203,14 +200,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             isShowAssets = !isShowAssets
             UserDataService.getInstance().setShowAssetStatus(isShowAssets)
             setAssetViewVisible()
-            for (fragment in fragments) {
-                if (fragment is ClContractAssetFragment) {
-                        contractAssetFragment?.setRefreshAdapter()
-
-                } else {
-                    (fragment as NewVersionAssetOptimizeDetailFragment).setRefreshAdapter()
-                }
-            }
             refresh()
         }
 
@@ -285,15 +274,94 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     }
 
     fun refresh() {
-        if (null == totalBalance) return
-        Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
+        if (null != totalBalance) {
+            Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
+        }
+        if (fabiObject!=null){
+            fabiObject!!.optJSONObject("data")?.run {
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
+                val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi3, assets_btc_balance+"(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi3, assets_legal_currency_balance)
+            }
+        }
+        if (bibiObject!=null){
+            bibiObject!!.optJSONObject("data")?.run {
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
+                val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi1, assets_btc_balance+"(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi1, assets_legal_currency_balance)
+            }
+        }
+        if (heyueObject!=null){
+            heyueObject!!.optJSONObject("data")?.run {
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("futuresTotalBalance"))
+                val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("futuresTotalBalance"), 8).toPlainString(), 8)
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi2, assets_btc_balance+"(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
+            }
+        }
+
+
+
     }
 
     @SuppressLint("SuspiciousIndentation")
     override fun initView() {
         setSelectClick()
+        val jsonObject = JSONObject()
+        jsonObject.put("title", LanguageUtil.getString(context, "otc_bibi_account"))
+        jsonObject.put("totalBalanceSymbol", "BTC")
+        jsonObject.put("totalBalance", "0")
+        jsonObject.put("balanceType", ParamConstant.BIBI_INDEX)
+        assetlist.add(jsonObject)
+        val otcText = if (PublicInfoDataService.getInstance().getB2CSwitchOpen(null)) {
+            LanguageUtil.getString(context, "assets_text_otc_forotc")
+        } else {
+            LanguageUtil.getString(context, "assets_text_otc")
+        }
 
+        if (leverOpen) {
+            val jsonObject = JSONObject()
+            jsonObject.put("title", LanguageUtil.getString(context, "leverage_asset"))
+            jsonObject.put("totalBalanceSymbol", "BTC")
+            jsonObject.put("totalBalance", "0")
+            jsonObject.put("balanceType", ParamConstant.LEVER_INDEX)
+            assetlist.add(jsonObject)
+        }
 
+        if (b2cOpen) {
+            val jsonObject = JSONObject()
+            jsonObject.put("title", LanguageUtil.getString(context, "assets_text_otc"))
+            jsonObject.put("totalBalanceSymbol", "BTC")
+            jsonObject.put("totalBalance", "0")
+            jsonObject.put("balanceType", ParamConstant.B2C_INDEX)
+
+            assetlist.add(jsonObject)
+        }
+
+        if (otcOpen) {
+            val jsonObject = JSONObject()
+            jsonObject.put("title", otcText)
+            jsonObject.put("totalBalanceSymbol", "BTC")
+            jsonObject.put("totalBalance", "0")
+            jsonObject.put("balanceType", ParamConstant.FABI_INDEX)
+            assetlist.add(jsonObject)
+        }
+        if (contractOpen) {
+            val jsonObject = JSONObject()
+            jsonObject.put("title", LanguageUtil.getString(context, "assets_text_contract"))
+            jsonObject.put("totalBalanceSymbol", "USDT")
+            jsonObject.put("totalBalance", "0")
+            jsonObject.put("balanceType", ParamConstant.CONTRACT_INDEX)
+            assetlist.add(jsonObject)
+        }
+        isLogined = UserDataService.getInstance().isLogined
+        if (isLogined) {
+            setAssetViewVisible()
+            getAccountBalance()
+
+        }
 
     }
 
@@ -342,12 +410,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         addDisposable(getMainModel().otc_account_list(object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var t = jsonObject.optJSONObject("data")
-                jsonObject.optJSONObject("data")?.run {
-                    val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
-                    val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
-                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi3, assets_btc_balance+"(BTC)")
-                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi3, assets_legal_currency_balance)
-                }
+                 fabiObject=jsonObject
+                refresh()
                 if (leverOpen && b2cOpen) {
                     if (assetlist.size > 3) {
                         assetlist[3].put("totalBalance", t.optString("totalBalance") ?: "")
@@ -398,12 +462,9 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 isFristRequest = false
 
                 var json = jsonObject.optJSONObject("data")
-                jsonObject.optJSONObject("data")?.run {
-                    val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
-                    val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
-                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi1, assets_btc_balance+"(BTC)")
-                    Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi1, assets_legal_currency_balance)
-                }
+                  bibiObject=jsonObject
+                refresh()
+
                 accountBean = json
                 assetlist[0].put("totalBalance", json.optString("totalBalance") ?: "")
                 assetlist[0].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
