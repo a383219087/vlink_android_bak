@@ -81,23 +81,14 @@ class ClContractAssetFragment : NBaseFragment() {
             }
         }
         //资金明细，这是合约下面的合约账单
-        assetHeadView?.ll_contract_layout?.setOnClickListener {
+        assetHeadView?.ll_transfer_layout2?.setOnClickListener {
             if (openContract == 0) {
                 showOpenContractDialog()
             } else {
                 CpContractAssetRecordActivity.show(context as Activity)
             }
         }
-        //合约赠金
-        assetHeadView?.ll_contract_coupon_layout?.setOnClickListener {
-            val httpUrl = PublicInfoDataService.getInstance().getContractCouponUrl(null)
-            if (!TextUtils.isEmpty(httpUrl)) {
-                var bundle = Bundle()
-                bundle.putString(ParamConstant.head_title, getLineText("contract_swap_gift"))
-                bundle.putString(ParamConstant.web_url, httpUrl)
-                ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, bundle)
-            }
-        }
+
         swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
         /**
          * 此处刷新

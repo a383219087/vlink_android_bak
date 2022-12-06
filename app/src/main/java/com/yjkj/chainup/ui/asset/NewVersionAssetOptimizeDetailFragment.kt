@@ -66,16 +66,38 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
         when (param_index) {
             ParamConstant.FABI_INDEX -> {
-                otcDialogList.addAll(arrayListOf(LanguageUtil.getString(context, "assets_action_transfer"), LanguageUtil.getString(context, "assets_action_transaction")))
+                otcDialogList.addAll(
+                    arrayListOf(
+                        LanguageUtil.getString(context, "assets_action_transfer"),
+                        LanguageUtil.getString(context, "assets_action_transaction")
+                    )
+                )
             }
             ParamConstant.B2C_INDEX -> {
-                otcDialogList.addAll(arrayListOf(LanguageUtil.getString(context, "assets_action_chargeCoin"), LanguageUtil.getString(context, "assets_action_withdraw")))
+                otcDialogList.addAll(
+                    arrayListOf(
+                        LanguageUtil.getString(context, "assets_action_chargeCoin"),
+                        LanguageUtil.getString(context, "assets_action_withdraw")
+                    )
+                )
             }
             ParamConstant.LEVER_INDEX -> {
-                otcDialogList.addAll(arrayListOf(LanguageUtil.getString(context, "leverage_borrow"), LanguageUtil.getString(context, "assets_action_transfer")))
+                otcDialogList.addAll(
+                    arrayListOf(
+                        LanguageUtil.getString(context, "leverage_borrow"),
+                        LanguageUtil.getString(context, "assets_action_transfer")
+                    )
+                )
             }
         }
-        bibiDialogList.addAll(arrayListOf(LanguageUtil.getString(context, "assets_action_chargeCoin"), LanguageUtil.getString(context, "assets_action_transfer"), LanguageUtil.getString(context, "assets_action_transaction"), LanguageUtil.getString(context, "assets_action_withdraw")))
+        bibiDialogList.addAll(
+            arrayListOf(
+                LanguageUtil.getString(context, "assets_action_chargeCoin"),
+                LanguageUtil.getString(context, "assets_action_transfer"),
+                LanguageUtil.getString(context, "assets_action_transaction"),
+                LanguageUtil.getString(context, "assets_action_withdraw")
+            )
+        )
 
         contractDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
         assetHeadView = NewAssetTopView(activity!!, null, 0)
@@ -123,7 +145,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             var messageEvent = MessageEvent(MessageEvent.refresh_local_coin_trans_type)
             messageEvent.setMsg_content(arguments)
             EventBusUtil.post(messageEvent)
-            swipe_refresh?.isRefreshing =false
+            swipe_refresh?.isRefreshing = false
         }
     }
 
@@ -161,7 +183,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
 
         @JvmStatic
-        fun newInstance(param1: String,  index: String) =
+        fun newInstance(param1: String, index: String) =
             NewVersionAssetOptimizeDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
@@ -252,53 +274,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     } else {
                         adapter4Asset.setList(list4OTC)
                     }
-                    total_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"), isOnlyResult = true)
-                    totalBalance = jsonObject?.optString("totalBalance")
-                    buffJson = jsonObject
-                    assetHeadView?.setHeadData(jsonObject)
-                }
-            }
-        })
-
-        /**
-         * 杠杆接收数据
-         */
-        NLiveDataUtil.observeData(this, Observer {
-            if (MessageEvent.refresh_local_lever_type == it?.msg_type && param_index == ParamConstant.LEVER_INDEX) {
-                //TODO  这里 先按照法币的来写，后期需要该数据
-                if (null != it?.msg_content) {
-                    var jsonObject = it.msg_content as JSONObject
-                    jsonObject.putOpt("totalBalance", jsonObject.optString("netAssetBalance"))
-                    var jsonLever = jsonObject?.getJSONObject("leverMap")
-                    var leverList = NCoinManager.getLeverMapList(jsonLever)
-                    leverList.sortBy { it?.optInt("sort") }
-                    balanceList4OTC.clear()
-                    nolittleBalanceList4OTC.clear()
-
-
-                    leverList?.forEach {
-                        if (null != it) {
-                            balanceList4OTC.add(it)
-                            if (it.optString("symbolBalance") != null && it.optDouble("symbolBalance") > 0.0001) {
-                                nolittleBalanceList4OTC.add(it)
-                            }
-                        }
-                    }
-
-                    list4OTC.clear()
-                    if (isLittleAssetsShow) {
-                        list4OTC.addAll(nolittleBalanceList4OTC)
-                    } else {
-                        list4OTC.addAll(balanceList4OTC)
-                    }
-//                    if (isFrist) {
-//                        initLever()
-//                    } else {
-//                        adapter4Asset?.setList(list4OTC)
-//                    }
-                    adapter4Asset?.notifyDataSetChanged()
-                    LogUtil.e(TAG, "initLeverView() 刷新 ${list4OTC}")
-                    total_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"), isOnlyResult = true)
+                    total_balance = RateManager.getCNYByCoinName(
+                        jsonObject?.optString("totalBalanceSymbol"),
+                        jsonObject?.optString("totalBalance"),
+                        isOnlyResult = true
+                    )
                     totalBalance = jsonObject?.optString("totalBalance")
                     buffJson = jsonObject
                     assetHeadView?.setHeadData(jsonObject)
@@ -307,48 +287,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         })
 
 
-        /**
-         * b2c
-         */
-        NLiveDataUtil.observeData(this, Observer {
-            if (MessageEvent.refresh_local_b2c_coin_trans_type == it?.msg_type && param_index == ParamConstant.B2C_INDEX) {
-                if (null != it?.msg_content) {
-                    var jsonObject = it.msg_content as JSONObject
-                    val allCoinMap = jsonObject?.optJSONArray("allCoinMap")
-
-                    balanceList4OTC.clear()
-                    nolittleBalanceList4OTC.clear()
-
-                    for (item in 0 until (allCoinMap?.length() ?: 0)) {
-                        var json = allCoinMap?.optJSONObject(item)
-                        if (json != null) {
-                            balanceList4OTC.add(json)
-                            if (json.optString("btcValue") != null && json.optDouble("btcValue") > 0.0001) {
-                                nolittleBalanceList4OTC.add(json)
-                            }
-                        }
-                    }
-
-
-                    list4OTC.clear()
-                    if (isLittleAssetsShow) {
-                        list4OTC.addAll(nolittleBalanceList4OTC)
-                    } else {
-                        list4OTC.addAll(balanceList4OTC)
-                    }
-                    if (isFrist) {
-                        initB2CView()
-                    } else {
-                        adapter4Asset?.setList(list4OTC)
-                    }
-                    total_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"), isOnlyResult = true)
-                    totalBalance = jsonObject?.optString("totalBalance")
-                    buffJson = jsonObject
-                    assetHeadView?.setHeadData(jsonObject)
-                }
-
-            }
-        })
 
 
         /**
@@ -384,7 +322,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     }
                     LogUtil.e(TAG, "initBiBiView() 刷新 ${listFund}")
                     adapter4Fund?.setList(listFund)
-                    total_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"), isOnlyResult = true)
+                    total_balance = RateManager.getCNYByCoinName(
+                        jsonObject?.optString("totalBalanceSymbol"),
+                        jsonObject?.optString("totalBalance"),
+                        isOnlyResult = true
+                    )
                     totalBalance = jsonObject?.optString("totalBalance")
                     buffJson = jsonObject
                     assetHeadView?.setHeadData(jsonObject)
@@ -407,20 +349,26 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                         if (it?.optInt("withdrawOpen") == 1) {
                             if (phoneCertification()) return
                             if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
-                                NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                    ?: "", object : NewDialogUtils.DialogBottomListener {
-                                    override fun sendConfirm() {
-                                        when (UserDataService.getInstance().authLevel) {
-                                            0 -> {
-                                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, context?.getString(R.string.noun_login_pending))
-                                            }
+                                NewDialogUtils.KycSecurityDialog(context!!,
+                                    context?.getString(R.string.common_kyc_chargeAndwithdraw)
+                                        ?: "",
+                                    object : NewDialogUtils.DialogBottomListener {
+                                        override fun sendConfirm() {
+                                            when (UserDataService.getInstance().authLevel) {
+                                                0 -> {
+                                                    NToastUtil.showTopToastNet(
+                                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                                        false,
+                                                        context?.getString(R.string.noun_login_pending)
+                                                    )
+                                                }
 
-                                            2, 3 -> {
-                                                ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                                2, 3 -> {
+                                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                                }
                                             }
                                         }
-                                    }
-                                })
+                                    })
                                 return
                             }
 
@@ -431,7 +379,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                             return
                         }
                     }
-                    NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "withdraw_tip_notavailable"))
+                    NToastUtil.showTopToastNet(
+                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                        false,
+                        LanguageUtil.getString(context, "withdraw_tip_notavailable")
+                    )
                 }
             }
 
@@ -454,12 +406,26 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 }
             }
 
+            override fun isShowAssets() {
+                if (buffJson != null) {
+                    assetHeadView?.setHeadData(buffJson!!)
+                }
+            }
+
             override fun clickAssetsPieChart() {
                 if (nolittleBalanceList.size == 0) {
-                    NewDialogUtils.showDialog(context!!, LanguageUtil.getString(context, "assets_balance_zero_tips"), true, object : NewDialogUtils.DialogBottomListener {
-                        override fun sendConfirm() {
-                        }
-                    }, "", LanguageUtil.getString(context, "alert_common_i_understand"), "")
+                    NewDialogUtils.showDialog(
+                        context!!,
+                        LanguageUtil.getString(context, "assets_balance_zero_tips"),
+                        true,
+                        object : NewDialogUtils.DialogBottomListener {
+                            override fun sendConfirm() {
+                            }
+                        },
+                        "",
+                        LanguageUtil.getString(context, "alert_common_i_understand"),
+                        ""
+                    )
                     return
                 }
                 AssetsPieChartFragment.instance.apply {
@@ -497,7 +463,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                             if (PublicInfoDataService.getInstance().otcOpen(null)) {
                                 var list = DataManager.getCoinsFromDB(true)
                                 if (list.size == 0) {
-                                    NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "otc_not_open_transfer"))
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "otc_not_open_transfer")
+                                    )
                                     return
                                 }
                                 list.sortBy { it.sort }
@@ -563,10 +533,15 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         }
     }
+
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
-         clearViewing()
+            clearViewing()
+            if (buffJson != null) {
+                assetHeadView?.setHeadData(buffJson!!)
+            }
+
         }
     }
 
@@ -596,7 +571,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 listFund.addAll(nolittleBalanceList)
                 adapter4Fund.setList(listFund)
             } else {
-                if (param_index == ParamConstant.LEVER_INDEX||param_index == ParamConstant.FABI_INDEX) {
+                if (param_index == ParamConstant.LEVER_INDEX || param_index == ParamConstant.FABI_INDEX) {
                     list4OTC.clear()
                     list4OTC.addAll(nolittleBalanceList4OTC)
 //                    adapter4Asset?.notifyDataSetChanged()
@@ -610,7 +585,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 adapter4Fund?.setList(listFund)
                 LogUtil.e(TAG, "hideLittleAssets  ${balancelist.size}  ${balanceList4OTC.size} ")
             } else {
-                if (param_index == ParamConstant.LEVER_INDEX||param_index == ParamConstant.FABI_INDEX) {
+                if (param_index == ParamConstant.LEVER_INDEX || param_index == ParamConstant.FABI_INDEX) {
                     list4OTC.clear()
                     list4OTC.addAll(balanceList4OTC)
 //                    adapter4Asset?.notifyDataSetChanged()
@@ -685,11 +660,19 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             }
         }
         img_small_assets_tip.setOnClickListener {
-            NewDialogUtils.showDialog(context!!, LanguageUtil.getString(context, "assets_less_than_0.0001BTC"), true, object : NewDialogUtils.DialogBottomListener {
-                override fun sendConfirm() {
+            NewDialogUtils.showDialog(
+                context!!,
+                LanguageUtil.getString(context, "assets_less_than_0.0001BTC"),
+                true,
+                object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
 
-                }
-            }, "", LanguageUtil.getString(context, "alert_common_i_understand"), "")
+                    }
+                },
+                "",
+                LanguageUtil.getString(context, "alert_common_i_understand"),
+                ""
+            )
         }
         fragment_my_asset_order_hide?.setOnClickListener {
             var message = MessageEvent(MessageEvent.refresh_trans_type)
@@ -728,7 +711,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
     var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
     var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
-    var buffJson: JSONObject?=null
+    var buffJson: JSONObject? = null
 
 
     /**
@@ -762,41 +745,42 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         adapter4Asset.setOnItemClickListener { _, _, position ->
 
-            tDialog = NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun clickItem(data: ArrayList<String>, item: Int) {
-                    //越界
-                    if (position >= list4OTC.size) {
-                        tDialog?.dismiss()
-                        adapter4Asset.notifyDataSetChanged()
-                        return
-                    }
-                    when (item) {
-                        /**
-                         * 划转
-                         */
-                        0 -> {
-
-                            var aa: String? = ""
-                            aa = NCoinManager.getShowMarket(list4OTC[position].optString("coinSymbol"))
-                            ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_OTC, aa)
-
+            tDialog =
+                NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
+                    @SuppressLint("NotifyDataSetChanged")
+                    override fun clickItem(data: ArrayList<String>, item: Int) {
+                        //越界
+                        if (position >= list4OTC.size) {
+                            tDialog?.dismiss()
+                            adapter4Asset.notifyDataSetChanged()
+                            return
                         }
-                        /**
-                         * 交易
-                         */
-                        1 -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
+                        when (item) {
+                            /**
+                             * 划转
+                             */
+                            0 -> {
+
+                                var aa: String? = ""
+                                aa = NCoinManager.getShowMarket(list4OTC[position].optString("coinSymbol"))
+                                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_OTC, aa)
+
                             }
-                            ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
-                            assetsActivityFinish()
+                            /**
+                             * 交易
+                             */
+                            1 -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                    return
+                                }
+                                ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
+                                assetsActivityFinish()
+                            }
                         }
+                        tDialog?.dismiss()
                     }
-                    tDialog?.dismiss()
-                }
-            })
+                })
         }
 
         adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
@@ -862,7 +846,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             return
         }
         isFrist = false
-        val b = if(isLittleAssetsShow) {
+        val b = if (isLittleAssetsShow) {
             list4OTC.addAll(nolittleBalanceList4OTC)
         } else {
             list4OTC.addAll(balanceList4OTC)
@@ -892,99 +876,130 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             if (list4OTC[position].optInt("withdrawOpen") == 1) {
                 otcDialogList.add(LanguageUtil.getString(context, "assets_action_withdraw"))
             }
-            tDialog = NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
-                override fun clickItem(data: ArrayList<String>, item: Int) {
-                    when (data[item]) {
-                        /**
-                         * 充币
-                         */
-                        LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            if (list4OTC[position].optInt("depositOpen") == 1) {
-                                /* 这里b2c充币 */
-                                PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
-                                ArouterUtil.navigation(RoutePath.B2CRechargeActivity, null)
-                            } else {
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "warn_no_support_recharge"))
-                            }
-                        }
-                        /**
-                         * 提币
-                         */
-                        LanguageUtil.getString(context, "assets_action_withdraw") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            if (list4OTC[position].optInt("withdrawOpen") == 1) {
-                                if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
-                                    if (UserDataService.getInstance().googleStatus != 1) {
-                                        NewDialogUtils.OTCTradingMustPermissionsDialog(context!!, object : NewDialogUtils.DialogBottomListener {
-                                            override fun sendConfirm() {
-                                                if (UserDataService.getInstance().nickName.isEmpty()) {
-                                                    //认证状态 0、审核中，1、通过，2、未通过  3未认证
-                                                    ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                                                } else if (UserDataService.getInstance().authLevel != 1) {
-                                                    when (UserDataService.getInstance().authLevel) {
-                                                        0 -> {
-                                                            ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
-                                                        }
-
-                                                        2, 3 -> {
-                                                            ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
-                                                        }
-                                                    }
-                                                } else {
-                                                    ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
-
-                                                }
-
-                                            }
-                                        }, type = 2, title = LanguageUtil.getString(context, "withdraw_tip_bindGoogleFirst"))
-                                        return
-                                    }
-                                } else {
-                                    if (UserDataService.getInstance().isOpenMobileCheck != 1 && UserDataService.getInstance().googleStatus != 1) {
-                                        NewDialogUtils.OTCTradingPermissionsDialog(context!!, object : NewDialogUtils.DialogBottomListener {
-                                            override fun sendConfirm() {
-                                                if (UserDataService.getInstance().nickName.isEmpty()) {
-                                                    //认证状态 0、审核中，1、通过，2、未通过  3未认证
-                                                    ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                                                } else if (UserDataService.getInstance().authLevel != 1) {
-                                                    when (UserDataService.getInstance().authLevel) {
-                                                        0 -> {
-                                                            ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
-                                                        }
-
-                                                        2, 3 -> {
-                                                            ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
-                                                        }
-                                                    }
-                                                } else {
-                                                    ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
-
-                                                }
-                                            }
-
-                                        }, type = 2, title = LanguageUtil.getString(context, "otcSafeAlert_action_bindphoneOrGoogle"))
-                                        return
-                                    }
+            tDialog =
+                NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
+                    override fun clickItem(data: ArrayList<String>, item: Int) {
+                        when (data[item]) {
+                            /**
+                             * 充币
+                             */
+                            LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                    return
                                 }
-                                /* 这里b2c提币 */
-                                PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
-                                ArouterUtil.navigation(RoutePath.B2CWithdrawActivity, null)
-                            } else {
-                                //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_withdraw), isSuc = false)
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "warn_no_support_withdraw"))
+                                if (list4OTC[position].optInt("depositOpen") == 1) {
+                                    /* 这里b2c充币 */
+                                    PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
+                                    ArouterUtil.navigation(RoutePath.B2CRechargeActivity, null)
+                                } else {
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "warn_no_support_recharge")
+                                    )
+                                }
+                            }
+                            /**
+                             * 提币
+                             */
+                            LanguageUtil.getString(context, "assets_action_withdraw") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                    return
+                                }
+                                if (list4OTC[position].optInt("withdrawOpen") == 1) {
+                                    if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
+                                        if (UserDataService.getInstance().googleStatus != 1) {
+                                            NewDialogUtils.OTCTradingMustPermissionsDialog(
+                                                context!!,
+                                                object : NewDialogUtils.DialogBottomListener {
+                                                    override fun sendConfirm() {
+                                                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                                                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                                                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                                                        } else if (UserDataService.getInstance().authLevel != 1) {
+                                                            when (UserDataService.getInstance().authLevel) {
+                                                                0 -> {
+                                                                    ArouterUtil.navigation(
+                                                                        RoutePath.RealNameCertificaionSuccessActivity,
+                                                                        null
+                                                                    )
+                                                                }
+
+                                                                2, 3 -> {
+                                                                    ArouterUtil.navigation(
+                                                                        RoutePath.RealNameCertificationActivity,
+                                                                        null
+                                                                    )
+                                                                }
+                                                            }
+                                                        } else {
+                                                            ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
+
+                                                        }
+
+                                                    }
+                                                },
+                                                type = 2,
+                                                title = LanguageUtil.getString(context, "withdraw_tip_bindGoogleFirst")
+                                            )
+                                            return
+                                        }
+                                    } else {
+                                        if (UserDataService.getInstance().isOpenMobileCheck != 1 && UserDataService.getInstance().googleStatus != 1) {
+                                            NewDialogUtils.OTCTradingPermissionsDialog(
+                                                context!!,
+                                                object : NewDialogUtils.DialogBottomListener {
+                                                    override fun sendConfirm() {
+                                                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                                                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                                                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                                                        } else if (UserDataService.getInstance().authLevel != 1) {
+                                                            when (UserDataService.getInstance().authLevel) {
+                                                                0 -> {
+                                                                    ArouterUtil.navigation(
+                                                                        RoutePath.RealNameCertificaionSuccessActivity,
+                                                                        null
+                                                                    )
+                                                                }
+
+                                                                2, 3 -> {
+                                                                    ArouterUtil.navigation(
+                                                                        RoutePath.RealNameCertificationActivity,
+                                                                        null
+                                                                    )
+                                                                }
+                                                            }
+                                                        } else {
+                                                            ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
+
+                                                        }
+                                                    }
+
+                                                },
+                                                type = 2,
+                                                title = LanguageUtil.getString(context, "otcSafeAlert_action_bindphoneOrGoogle")
+                                            )
+                                            return
+                                        }
+                                    }
+                                    /* 这里b2c提币 */
+                                    PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
+                                    ArouterUtil.navigation(RoutePath.B2CWithdrawActivity, null)
+                                } else {
+                                    //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_withdraw), isSuc = false)
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "warn_no_support_withdraw")
+                                    )
+                                }
                             }
                         }
+                        tDialog?.dismiss()
                     }
-                    tDialog?.dismiss()
-                }
-            })
+                })
         }
 
         adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
@@ -1033,7 +1048,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         rc_contract?.itemAnimator = null
 
         adapter4Fund.setOnItemClickListener { adapter, view, position ->
-            bibiDialogList = arrayListOf(LanguageUtil.getString(context, "assets_action_chargeCoin"), LanguageUtil.getString(context, "assets_action_transfer"), LanguageUtil.getString(context, "assets_action_transaction"), LanguageUtil.getString(context, "otc_withdraw"))
+            bibiDialogList = arrayListOf(
+                LanguageUtil.getString(context, "assets_action_chargeCoin"),
+                LanguageUtil.getString(context, "assets_action_transfer"),
+                LanguageUtil.getString(context, "assets_action_transaction"),
+                LanguageUtil.getString(context, "otc_withdraw")
+            )
 
             val coin = PublicInfoDataService.getInstance().getCoinByName(listFund[position].optString("coinName", ""))
             var existMarket: String? = null
@@ -1060,152 +1080,196 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 return@setOnItemClickListener
             }
 
-            tDialog = NewDialogUtils.showBottomListDialog(context!!, bibiDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
-                override fun clickItem(data: ArrayList<String>, item: Int) {
-                    //当列表最后一个资产被卖出或者提币成功时，弹出操作弹框已经显示，再去操作此数据引起数组越界
-                    if (position >= listFund.size) {
-                        tDialog?.dismiss()
-                        adapter4Fund?.notifyDataSetChanged()
-                        return
-                    }
-                    when (data[item]) {
-                        /**
-                         * 充币
-                         */
-                        LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            if (listFund[position]?.optInt("depositOpen") == 1) {
-                                if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                                    NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                        ?: "", object : NewDialogUtils.DialogBottomListener {
-                                        override fun sendConfirm() {
-                                            when (UserDataService.getInstance().authLevel) {
-                                                0 -> {
-                                                    NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, context?.getString(R.string.noun_login_pending))
-                                                }
-
-                                                2, 3 -> {
-                                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
-                                                }
-                                            }
-                                        }
-                                    })
+            tDialog =
+                NewDialogUtils.showBottomListDialog(context!!, bibiDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
+                    override fun clickItem(data: ArrayList<String>, item: Int) {
+                        //当列表最后一个资产被卖出或者提币成功时，弹出操作弹框已经显示，再去操作此数据引起数组越界
+                        if (position >= listFund.size) {
+                            tDialog?.dismiss()
+                            adapter4Fund?.notifyDataSetChanged()
+                            return
+                        }
+                        when (data[item]) {
+                            /**
+                             * 充币
+                             */
+                            LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
                                     return
                                 }
-                                DepositActivity.enter2(context!!, listFund[position].optString("coinName", ""))
-                            } else {
-                                //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_recharge), isSuc = false)
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "warn_no_support_recharge"))
-                            }
-                        }
-                        /**
-                         * 提币
-                         */
-                        LanguageUtil.getString(context, "assets_action_withdraw") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            if (listFund[position].optInt("withdrawOpen") == 1) {
-                                if (phoneCertification()) return
-                                if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
-                                    NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                        ?: "", object : NewDialogUtils.DialogBottomListener {
-                                        override fun sendConfirm() {
-                                            when (UserDataService.getInstance().authLevel) {
-                                                0 -> {
-                                                    NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, context?.getString(R.string.noun_login_pending))
-                                                }
+                                if (listFund[position]?.optInt("depositOpen") == 1) {
+                                    if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
+                                        NewDialogUtils.KycSecurityDialog(context!!,
+                                            context?.getString(R.string.common_kyc_chargeAndwithdraw)
+                                                ?: "",
+                                            object : NewDialogUtils.DialogBottomListener {
+                                                override fun sendConfirm() {
+                                                    when (UserDataService.getInstance().authLevel) {
+                                                        0 -> {
+                                                            NToastUtil.showTopToastNet(
+                                                                this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                                                false,
+                                                                context?.getString(R.string.noun_login_pending)
+                                                            )
+                                                        }
 
-                                                2, 3 -> {
-                                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                                        2, 3 -> {
+                                                            ArouterUtil.greenChannel(
+                                                                RoutePath.RealNameCertificationActivity,
+                                                                null
+                                                            )
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
-                                    })
+                                            })
+                                        return
+                                    }
+                                    DepositActivity.enter2(context!!, listFund[position].optString("coinName", ""))
+                                } else {
+                                    //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_recharge), isSuc = false)
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "warn_no_support_recharge")
+                                    )
+                                }
+                            }
+                            /**
+                             * 提币
+                             */
+                            LanguageUtil.getString(context, "assets_action_withdraw") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
                                     return
                                 }
-                                WithdrawActivity.enter2(context!!, listFund[position].toString())
-                            } else {
-                                //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_withdraw), isSuc = false)
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "warn_no_support_withdraw"))
+                                if (listFund[position].optInt("withdrawOpen") == 1) {
+                                    if (phoneCertification()) return
+                                    if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
+                                        NewDialogUtils.KycSecurityDialog(context!!,
+                                            context?.getString(R.string.common_kyc_chargeAndwithdraw)
+                                                ?: "",
+                                            object : NewDialogUtils.DialogBottomListener {
+                                                override fun sendConfirm() {
+                                                    when (UserDataService.getInstance().authLevel) {
+                                                        0 -> {
+                                                            NToastUtil.showTopToastNet(
+                                                                this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                                                false,
+                                                                context?.getString(R.string.noun_login_pending)
+                                                            )
+                                                        }
+
+                                                        2, 3 -> {
+                                                            ArouterUtil.greenChannel(
+                                                                RoutePath.RealNameCertificationActivity,
+                                                                null
+                                                            )
+                                                        }
+                                                    }
+                                                }
+                                            })
+                                        return
+                                    }
+                                    WithdrawActivity.enter2(context!!, listFund[position].toString())
+                                } else {
+                                    //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_withdraw), isSuc = false)
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "warn_no_support_withdraw")
+                                    )
+                                }
                             }
-                        }
-                        /**
-                         * 划转
-                         */
-                        LanguageUtil.getString(context, "assets_action_transfer") -> {
-                            if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                                var coin = PublicInfoDataService.getInstance().getCoinByName(listFund[position].optString("coinName", ""))
-                                if (coin != null && coin.optInt("otcOpen") == 1) {
-                                    ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, listFund[position].optString("coinName", ""))
+                            /**
+                             * 划转
+                             */
+                            LanguageUtil.getString(context, "assets_action_transfer") -> {
+                                if (PublicInfoDataService.getInstance().otcOpen(null)) {
+                                    var coin = PublicInfoDataService.getInstance()
+                                        .getCoinByName(listFund[position].optString("coinName", ""))
+                                    if (coin != null && coin.optInt("otcOpen") == 1) {
+                                        ArouterUtil.forwardTransfer(
+                                            ParamConstant.TRANSFER_BIBI,
+                                            listFund[position].optString("coinName", "")
+                                        )
+
+                                    } else {
+                                        NToastUtil.showTopToastNet(
+                                            this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                            false,
+                                            LanguageUtil.getString(context, "otc_not_open_transfer")
+                                        )
+
+                                    }
+                                } else if (PublicInfoDataService.getInstance().contractOpen(null)) {
+                                    ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_CONTRACT, "BTC")
 
                                 } else {
-                                    NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "otc_not_open_transfer"))
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "otc_not_open_transfer")
+                                    )
+                                }
+
+
+                            }
+                            /**
+                             * 交易
+                             */
+                            LanguageUtil.getString(context, "assets_action_transaction") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                    return
+                                }
+                                var existMarket: String? = ""
+                                if (null != listFund[position].optString("exchange_symbol")) {
+                                    existMarket =
+                                        NCoinManager.returnExistMarket(listFund[position].optString("exchange_symbol", "")!!)
 
                                 }
-                            } else if (PublicInfoDataService.getInstance().contractOpen(null)) {
-                                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_CONTRACT, "BTC")
 
-                            } else {
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "otc_not_open_transfer"))
+                                if (!StringUtil.checkStr(existMarket)) {
+                                    NToastUtil.showTopToastNet(
+                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
+                                        false,
+                                        LanguageUtil.getString(context, "warn_no_support_trade")
+                                    )
+                                    return
+                                }
+
+                                setEvent(ParamConstant.TYPE_COIN, "TradingBean")
+                                SymbolManager.instance.saveTradeSymbol(existMarket, 0)
+
+
+                                var messageEvent = MessageEvent(MessageEvent.symbol_switch_type)
+                                messageEvent.msg_content = existMarket
+                                messageEvent.isLever = false
+                                EventBusUtil.post(messageEvent)
+
+
+                                forwardCoinTradeTab(existMarket)
+                                assetsActivityFinish()
                             }
+                            /**
+                             * 站内直转
+                             */
+                            LanguageUtil.getString(context, "assets_action_internalTransfer") -> {
+                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                                    return
+                                }
+                                if (phoneCertification()) return
+                                ArouterUtil.navigation(RoutePath.DirectlyWithdrawActivity, Bundle().apply {
+                                    putString(ParamConstant.JSON_BEAN, listFund[position].toString())
+                                })
 
-
+                            }
                         }
-                        /**
-                         * 交易
-                         */
-                        LanguageUtil.getString(context, "assets_action_transaction") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            var existMarket: String? = ""
-                            if (null != listFund[position].optString("exchange_symbol")) {
-                                existMarket = NCoinManager.returnExistMarket(listFund[position].optString("exchange_symbol", "")!!)
-
-                            }
-
-                            if (!StringUtil.checkStr(existMarket)) {
-                                NToastUtil.showTopToastNet(this@NewVersionAssetOptimizeDetailFragment.mActivity, false, LanguageUtil.getString(context, "warn_no_support_trade"))
-                                return
-                            }
-
-                            setEvent(ParamConstant.TYPE_COIN, "TradingBean")
-                            SymbolManager.instance.saveTradeSymbol(existMarket, 0)
-
-
-                            var messageEvent = MessageEvent(MessageEvent.symbol_switch_type)
-                            messageEvent.msg_content = existMarket
-                            messageEvent.isLever = false
-                            EventBusUtil.post(messageEvent)
-
-
-                            forwardCoinTradeTab(existMarket)
-                            assetsActivityFinish()
-                        }
-                        /**
-                         * 站内直转
-                         */
-                        LanguageUtil.getString(context, "assets_action_internalTransfer") -> {
-                            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                                ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                return
-                            }
-                            if (phoneCertification()) return
-                            ArouterUtil.navigation(RoutePath.DirectlyWithdrawActivity, Bundle().apply {
-                                putString(ParamConstant.JSON_BEAN, listFund[position].toString())
-                            })
-
-                        }
+                        tDialog?.dismiss()
                     }
-                    tDialog?.dismiss()
-                }
-            })
+                })
 
         }
         adapter4Fund.setOnItemChildClickListener { adapter, view, position ->
@@ -1263,23 +1327,27 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         rc_contract?.adapter = adapterHoldContract
         adapterHoldContract?.setOnItemClickListener { adapter, view, position ->
 
-            tDialog = NewDialogUtils.showBottomListDialog(context!!, contractDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
-                override fun clickItem(data: ArrayList<String>, item: Int) {
-                    /*NewMainActivity.liveData4Position.postValue(
-                            if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                                4
-                            } else {
-                                3
-                            }
-                    )*/
-                    hometab_switch()
+            tDialog = NewDialogUtils.showBottomListDialog(
+                context!!,
+                contractDialogList,
+                0,
+                object : NewDialogUtils.DialogOnclickListener {
+                    override fun clickItem(data: ArrayList<String>, item: Int) {
+                        /*NewMainActivity.liveData4Position.postValue(
+                                if (PublicInfoDataService.getInstance().otcOpen(null)) {
+                                    4
+                                } else {
+                                    3
+                                }
+                        )*/
+                        hometab_switch()
 
-                    Contract2PublicInfoManager.currentContractId(contractList[position]?.optInt("contractId"), true)
-                    ContractFragment.liveData4Contract.postValue(Contract2PublicInfoManager.currentContract())
+                        Contract2PublicInfoManager.currentContractId(contractList[position]?.optInt("contractId"), true)
+                        ContractFragment.liveData4Contract.postValue(Contract2PublicInfoManager.currentContract())
 
-                    tDialog?.dismiss()
-                }
-            })
+                        tDialog?.dismiss()
+                    }
+                })
         }
     }
 

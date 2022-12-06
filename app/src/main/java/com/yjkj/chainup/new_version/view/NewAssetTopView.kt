@@ -9,11 +9,14 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
+import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
 import com.yjkj.chainup.contract.utils.onLineText
+import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.PublicInfoDataService
@@ -28,6 +31,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
+import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -74,6 +78,7 @@ class NewAssetTopView @JvmOverloads constructor(
         fun b2cFilter(temp: String)
         fun selectWithdrawal(temp: String)
         fun selectRedEnvelope(temp: String)
+        fun isShowAssets()
 
         fun clickAssetsPieChart()
     }
@@ -83,20 +88,14 @@ class NewAssetTopView @JvmOverloads constructor(
         setRefreshViewData()
         setSelectClick(context)
         tv_contract_text_orderMargin?.text = LanguageUtil.getString(context, "contract_text_orderMargin")
-        tv_assets_action_chargeCoin?.text = LanguageUtil.getString(context, "assets_action_chargeCoin")
-        tv_assets_action_withdraw?.text = LanguageUtil.getString(context, "assets_action_withdraw")
         tv_noun_order_paymentTerm?.text = LanguageUtil.getString(context, "noun_order_paymentTerm")
         tv_assets_action_transfer?.text = LanguageUtil.getString(context, "assets_action_transfer")
-        tv_redpacket_redpacket?.text = LanguageUtil.getString(context, "redpacket_redpacket")
         tv_assets_action_journalaccount?.text = LanguageUtil.getString(context, "assets_action_journalaccount")
-        tv_assets_action_contractNote?.text = LanguageUtil.getString(context, "assets_action_contractNote")
         tv_withdraw_text_available?.text = LanguageUtil.getString(context, "withdraw_text_available")
         tv_contract_text_positionMargin?.text = LanguageUtil.getString(context, "contract_text_positionMargin")
         tv_contract_text_orderMargin?.text = LanguageUtil.getString(context, "contract_text_orderMargin")
-        tv_leverage_borrow?.text = LanguageUtil.getString(context, "leverage_borrow")
         fragment_my_asset_order_hide?.text = LanguageUtil.getString(context, "assets_action_privacy")
         et_search?.hint = LanguageUtil.getString(context, "assets_action_search")
-        tv_contract_coupon.onLineText("contract_swap_gift")
     }
 
     fun setAssetOrderHide(status: Boolean) {
@@ -109,6 +108,8 @@ class NewAssetTopView @JvmOverloads constructor(
         isLittleAssetsShow = UserDataService.getInstance().assetState
         fragment_my_asset_order_hide?.isChecked = isLittleAssetsShow
         et_search?.setText("")
+        val isShowAssets = UserDataService.getInstance().isShowAssets
+        Utils.showAssetsSwitch(isShowAssets, iv_hide_asset)
     }
 
     fun clearEdittext() {
@@ -120,7 +121,42 @@ class NewAssetTopView @JvmOverloads constructor(
     }
 
     fun setSelectClick(context: Activity) {
+        /**
+         *  今日盈亏
+         */
+        tv_today_pl.setOnClickListener {
+            SlDialogHelper.showIncomeDialog(context)
+        }
+        /**
+         * 显示或者隐藏资产
+         */
+        iv_hide_asset.setOnClickListener {
+            val isShowAssets = UserDataService.getInstance().isShowAssets
+            UserDataService.getInstance().setShowAssetStatus(!isShowAssets)
+            Utils.showAssetsSwitch(!isShowAssets, iv_hide_asset)
+            if (null != listener) {
+                listener?.isShowAssets()
+            }
+        }
+        /**
+         * 查看安全建议
+         */
+        rl_safety_advice.setOnClickListener {
+            SlDialogHelper.showSimpleSafetyAdviceDialog(context!!, OnBindViewListener { viewHolder ->
+                viewHolder?.let {
+                    it.getView<TextView>(R.id.tv_cancel_btn).onLineText("common_text_btnCancel")
+                    it.setImageResource(R.id.iv_logo, R.drawable.sl_create_contract)
+                    it.setText(R.id.tv_text, LanguageUtil.getString(context, "assets_security_advice_tips"))
+                    it.setText(R.id.tv_confirm_btn, LanguageUtil.getString(context, "alert_common_i_understand"))
+                }
 
+            }, object : NewDialogUtils.DialogBottomListener {
+                override fun sendConfirm() {
+                    var messageEvent = MessageEvent(MessageEvent.hide_safety_advice)
+                    NLiveDataUtil.postValue(messageEvent)
+                }
+            })
+        }
         /**
          * 是否隐藏小额资产
          */
@@ -133,26 +169,29 @@ class NewAssetTopView @JvmOverloads constructor(
          *  充币
          */
         ll_top_up_layout?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(context.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
             if (Utils.isFastClick()) return@setOnClickListener
             if (param_index == ParamConstant.BIBI_INDEX) {
                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                    NewDialogUtils.KycSecurityDialog(context, context.getString(R.string.common_kyc_chargeAndwithdraw), object : NewDialogUtils.DialogBottomListener {
-                        override fun sendConfirm() {
-                            when (UserDataService.getInstance().authLevel) {
-                                0 -> {
-                                    NToastUtil.showTopToastNet(context, false, context.getString(R.string.noun_login_pending))
-                                }
+                    NewDialogUtils.KycSecurityDialog(
+                        context,
+                        context.getString(R.string.common_kyc_chargeAndwithdraw),
+                        object : NewDialogUtils.DialogBottomListener {
+                            override fun sendConfirm() {
+                                when (UserDataService.getInstance().authLevel) {
+                                    0 -> {
+                                        NToastUtil.showTopToastNet(context, false, context.getString(R.string.noun_login_pending))
+                                    }
 
-                                2, 3 -> {
-                                    ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                    2, 3 -> {
+                                        ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                    }
                                 }
                             }
-                        }
-                    })
+                        })
                     return@setOnClickListener
                 }
                 ArouterUtil.navigation(RoutePath.SelectCoinActivity, Bundle().apply {
@@ -175,7 +214,7 @@ class NewAssetTopView @JvmOverloads constructor(
          *  提币
          */
         ll_otc_layout?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(context.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
@@ -195,34 +234,13 @@ class NewAssetTopView @JvmOverloads constructor(
 
             }
         }
-        /**
-         * 借贷
-         */
-        ll_loan_layout?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                ToastUtils.showToast(context.getString(R.string.important_hint1))
-                return@setOnClickListener
-            }
-            if (Utils.isFastClick()) return@setOnClickListener
-            if (PublicInfoDataService.getInstance().hasShownLeverStatusDialog()) {
-                skipCoinMap4Lever()
-            } else {
-                NewDialogUtils.showLeverDialog(context, listener = object : NewDialogUtils.DialogTransferBottomListener {
-                    override fun sendConfirm() {
-                        skipCoinMap4Lever()
-                    }
 
-                    override fun showCancel() {
-                    }
-                })
-            }
-        }
 
         /**
          *  收款方式
          */
         ll_payment_methods_layout?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(context.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
@@ -230,41 +248,27 @@ class NewAssetTopView @JvmOverloads constructor(
             ArouterUtil.greenChannel(RoutePath.PaymentMethodActivity, null)
         }
         /**
-         *  划转
+         *  划转(币币)
          */
         ll_transfer_layout?.setOnClickListener {
-
             if (Utils.isFastClick()) return@setOnClickListener
             if (null != listener) {
-                /**
-                 * 杠杆
-                 */
-                if (ParamConstant.LEVER_INDEX == param_index) {
-                    if (PublicInfoDataService.getInstance().hasShownLeverStatusDialog()) {
-                        listener?.selectTransfer(param_index)
-                    } else {
-                        NewDialogUtils.showLeverDialog(context,
-                            listener = object : NewDialogUtils.DialogTransferBottomListener {
-                                override fun sendConfirm() {
-                                    listener?.selectTransfer(param_index)
-                                }
-
-                                override fun showCancel() {
-
-                                }
-                            })
-
-                    }
-                } else {
-                    listener?.selectTransfer(param_index)
-                }
+                listener?.selectTransfer(param_index)
+            }
+        }
+        /**
+         *  划转(合约)
+         */
+        ll_transfer_layout1.setOnClickListener {
+            if (Utils.isFastClick()) return@setOnClickListener
+            if (null != listener) {
+                listener?.selectTransfer(param_index)
             }
         }
         /**
          *  资金流水
          */
         ll_funds_layout?.setOnClickListener {
-
             if (Utils.isFastClick()) return@setOnClickListener
             when (param_index) {
                 ParamConstant.BIBI_INDEX -> {
@@ -282,25 +286,13 @@ class NewAssetTopView @JvmOverloads constructor(
             }
         }
         /**
-         *  合约
+         *  合约账单
          */
-        ll_contract_layout?.setOnClickListener {
+        ll_transfer_layout2?.setOnClickListener {
             if (Utils.isFastClick()) return@setOnClickListener
             NewVersionContractBillActivity.enter2(context)
         }
-        /**
-         *  红包
-         */
-        ll_red_envelope_layout?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                ToastUtils.showToast(context.getString(R.string.important_hint1))
-                return@setOnClickListener
-            }
-            if (Utils.isFastClick()) return@setOnClickListener
-            if (null != listener) {
-                listener?.selectRedEnvelope(param_index)
-            }
-        }
+
         /**
          * 饼状图
          */
@@ -354,11 +346,19 @@ class NewAssetTopView @JvmOverloads constructor(
 //        }
 
         img_small_assets_tip.setOnClickListener {
-            NewDialogUtils.showDialog(context!!, LanguageUtil.getString(context, "assets_less_than_0.0001BTC"), true, object : NewDialogUtils.DialogBottomListener {
-                override fun sendConfirm() {
+            NewDialogUtils.showDialog(
+                context!!,
+                LanguageUtil.getString(context, "assets_less_than_0.0001BTC"),
+                true,
+                object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
 
-                }
-            }, "", LanguageUtil.getString(context, "alert_common_i_understand"), "")
+                    }
+                },
+                "",
+                LanguageUtil.getString(context, "alert_common_i_understand"),
+                ""
+            )
         }
 
 
@@ -370,31 +370,30 @@ class NewAssetTopView @JvmOverloads constructor(
     fun initNorMalView(index: String?) {
         param_index = index ?: ""
         assetScreen.index4Asset = param_index
+        ll_bibi.visibility = View.GONE
+        ll_heyue.visibility = View.GONE
+        ll_fabi.visibility = View.GONE
         when (param_index) {
             ParamConstant.BIBI_INDEX -> {
-
+                ll_bibi.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
                 img_assets_pie_chart?.visibility = View.VISIBLE
-                ll_contract_layout?.visibility = View.GONE
-//                if (PublicInfoDataService.getInstance().isRedPacketOpen(null)) {
-//                    ll_red_envelope_layout?.visibility = View.VISIBLE
-//                } else {
-//                    ll_red_envelope_layout?.visibility = View.GONE
-//                }
+
                 assetsTitle = LanguageUtil.getString(context, "assets_crypto_asset_value")
             }
             ParamConstant.FABI_INDEX -> {
+                ll_income.visibility=View.GONE
+                ll_fabi.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE
                 ll_top_up_layout?.visibility = View.GONE
-                ll_contract_layout?.visibility = View.GONE
 
                 assetsTitle = LanguageUtil.getString(context, "assets_fiat_account_value")
             }
             ParamConstant.CONTRACT_INDEX -> {
+                ll_heyue.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
-                ll_contract_layout?.visibility = View.VISIBLE
-                ll_contract_coupon_layout?.visibility = if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
+                    if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
                 v_top_line?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE
                 ll_top_up_layout?.visibility = View.GONE
@@ -405,7 +404,6 @@ class NewAssetTopView @JvmOverloads constructor(
             }
             ParamConstant.B2C_INDEX -> {
                 ll_payment_methods_layout?.visibility = View.GONE
-                ll_contract_layout?.visibility = View.GONE
                 v_top_line?.visibility = View.GONE
                 // 划转
                 ll_transfer_layout?.visibility = View.GONE
@@ -417,7 +415,6 @@ class NewAssetTopView @JvmOverloads constructor(
                 assetsTitle = LanguageUtil.getString(context, "assets_fiat_account_value")
             }
             ParamConstant.LEVER_INDEX -> {
-                ll_loan_layout?.visibility = View.VISIBLE
                 ll_top_up_layout?.visibility = View.GONE
                 ll_otc_layout?.visibility = View.GONE
 
@@ -441,19 +438,34 @@ class NewAssetTopView @JvmOverloads constructor(
     }
 
     fun setContractHeadData(jsonObject: JSONObject) {
-        val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
-        val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
+        val assets_legal_currency_balance = RateManager.getCNYByCoinName(
+            jsonObject?.optString("totalBalanceSymbol"),
+            jsonObject?.optString("futuresTotalBalance")
+        )
+        val assets_btc_balance = BigDecimalUtils.showSNormal(
+            BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8
+        )
         tv_assets_title.setText(LanguageUtil.getString(context, "assets_contract_value") + "(BTC)")
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, assets_btc_balance)
-        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
+        Utils.assetsHideShow(
+            UserDataService.getInstance().isShowAssets,
+            tv_assets_legal_currency_balance,
+            assets_legal_currency_balance
+        )
     }
 
     fun setHeadData(jsonObject: JSONObject) {
-        val assets_legal_currency_balance = RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"))
-        val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalBalance"), 8).toPlainString(), 8)
+        val assets_legal_currency_balance =
+            RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"))
+        val assets_btc_balance =
+            BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalBalance"), 8).toPlainString(), 8)
         tv_assets_title.setText(assetsTitle + "(BTC)")
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, assets_btc_balance)
-        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
+        Utils.assetsHideShow(
+            UserDataService.getInstance().isShowAssets,
+            tv_assets_legal_currency_balance,
+            assets_legal_currency_balance
+        )
     }
 
     var symbol4Contract: JSONObject = JSONObject()
