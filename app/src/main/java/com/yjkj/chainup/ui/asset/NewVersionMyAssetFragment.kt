@@ -205,6 +205,19 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             refresh()
         }
 
+        /**
+         *  总资产信息
+         */
+        tv_assets_title.setOnClickListener {
+            SlDialogHelper.showAllAssetDialog(context!!)
+        }
+        /**
+         *  今日盈亏
+         */
+        tv_today_pl.setOnClickListener {
+            SlDialogHelper.showIncomeDialog(context!!)
+        }
+
         rl_safety_advice.setOnClickListener {
             SlDialogHelper.showSimpleSafetyAdviceDialog(context!!, OnBindViewListener { viewHolder ->
                 viewHolder?.let {
@@ -222,7 +235,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             })
         }
 
-        rl_safety_advice.visibility = if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
         /**
          *  充币
          */

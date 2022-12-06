@@ -566,7 +566,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
-            LogUtil.d("我是fragmentVisibile",param_index.toString())
+         clearViewing()
         }
     }
 

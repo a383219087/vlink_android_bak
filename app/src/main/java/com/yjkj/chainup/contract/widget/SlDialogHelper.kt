@@ -118,7 +118,58 @@ object SlDialogHelper {
 
     }
 
+    /**
+     * 资产页面--总资产信息
+     */
+    fun showAllAssetDialog(context: Context): TDialog {
+        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+            .setLayoutRes(R.layout.sl_item_all_asset_dialog)
+            .setScreenWidthAspect(context, 0.8f)
+            .setGravity(Gravity.CENTER)
+            .setDimAmount(0.8f)
+            .setScreenWidthAspect(context, 0.89f)
+            .setCancelableOutside(false)
+            .setOnBindViewListener { viewHolder ->
+            }
+            .addOnClickListener(R.id.tv_confirm_btn)
+            .setOnViewClickListener { _, view, tDialog ->
+                when (view.id) {
+                    R.id.tv_confirm_btn -> {
+                        tDialog.dismiss()
+                    }
 
+                }
+            }
+            .create()
+            .show()
+
+    }
+    /**
+     * 资产页面--收益分析
+     */
+    fun showIncomeDialog(context: Context): TDialog {
+        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
+            .setLayoutRes(R.layout.sl_item_income_dialog)
+            .setScreenWidthAspect(context, 0.8f)
+            .setGravity(Gravity.CENTER)
+            .setDimAmount(0.8f)
+            .setScreenWidthAspect(context, 0.89f)
+            .setCancelableOutside(false)
+            .setOnBindViewListener { viewHolder ->
+            }
+            .addOnClickListener(R.id.tv_confirm_btn)
+            .setOnViewClickListener { _, view, tDialog ->
+                when (view.id) {
+                    R.id.tv_confirm_btn -> {
+                        tDialog.dismiss()
+                    }
+
+                }
+            }
+            .create()
+            .show()
+
+    }
 
 
 }

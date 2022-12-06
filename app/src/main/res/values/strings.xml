@@ -2543,6 +2543,9 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="assets_less_than_0.0001BTC">Less than 0.0001BTC</string>
     <string name="assets_security_advice_tips">DONT send your credential, SMS, email, or google authenticator code to anyone including our customer support staff. Anyone who declares to be our exchange’s stuff member is FRAUDULENT. DONT transfers any amount of your digital asset to anyone who claims to be our exchange’s staff member.</string>
     <string name="alert_common_i_understand">I understand</string>
+    <string name="alert_common_i_understand2">Today P/L</string>
+    <string name="alert_common_i_understand1">Total asset information</string>
+
     <string name="assets_balance_zero_tips">Your balance is zero, make deposits or trade through the OTC market to obtain cryptocurrencies.</string>
     <string name="assets_total_balances">Total Balances (BTC)</string>
 
@@ -2556,6 +2559,10 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="assets_security_advice_tips1">DONT send your credential, SMS, email, or google authenticator code to anyone including our customer support staff.</string>
     <string name="assets_security_advice_tips2">Anyone who declares to be our exchange’s stuff member is FRAUDULENT.</string>
     <string name="assets_security_advice_tips3">DONT transfers any amount of your digital asset to anyone who claims to be our exchange’s staff member.</string>
+    <string name="assets_security_advice_tips4">1.Total assets (BTC) are the assets you hold on the platform</string>
+    <string name="assets_security_advice_tips5">2.Due to the delay in the statistics of each asset account, the account assets are not the latest balance. If you need an accurate balance, please go to the relevant account page to check。</string>
+    <string name="assets_security_advice_tips6">3.The daily assets in the table below are estimated at the total value of 0 points (UTC) per day。</string>
+    <string name="assets_security_advice_tips7">Today profit and loss = current total account assets - today zero point total</string>
     <string name="account_action_token_expire_tip">Token has expired, please try again.</string>
     <string name="tag_warning_tips">Please carefully check and fill in the address tag, if the tag is omitted, it will result in the loss of funds!</string>
     <string name="recharge_warning_tips">Please do not recharge any non- %s assets to the above address, otherwise the assets will not be retrieved. After you recharge to the above address, you need to confirm the entire network node, and %s times network confirmation can be credited to your account. The top-up address will not change frequently, and you can repeat the top-up; if you change, we will try our best to notify you through website announcements or emails. Please make sure that your computer and browser are safe to prevent information from being tampered with or leaked.</string>

@@ -2640,6 +2640,8 @@
     <string name="assets_less_than_0.0001BTC">小于0.0001BTC的金额</string>
     <string name="assets_security_advice_tips">不要透露密码或短信、邮件、谷歌验证码给任何人，包括平台的工作人员。不要打任何声称是平台客服的电话。不要给任何声称是平台的工作人员转账。</string>
     <string name="alert_common_i_understand">我知道了</string>
+    <string name="alert_common_i_understand1">总资产信息</string>
+    <string name="alert_common_i_understand2">今日盈亏</string>
     <string name="assets_balance_zero_tips">您的账户暂无任何数字货币资产，您可以通过充值或法币交易购买获得数字资产。</string>
     <string name="assets_total_balances">总账户资产折合 (BTC)</string>
 
@@ -2652,6 +2654,10 @@
     <string name="assets_security_advice_tips1">不要透露密码或短信、邮件、谷歌验证码给任何人，包括平台的工作人员。</string>
     <string name="assets_security_advice_tips2">不要打任何声称是平台客服的电话。</string>
     <string name="assets_security_advice_tips3">不要给任何声称是平台的工作人员转账。</string>
+    <string name="assets_security_advice_tips4">1.总资产（BTC）是您在平台持有的资产</string>
+    <string name="assets_security_advice_tips5">2.由于各资产账户统计存在延迟，账户资产并非最新余额，如需准确余额请到相关账户页面查看。</string>
+    <string name="assets_security_advice_tips6">3.下表中的每日资产以每日0点（UTC）的总值估算。</string>
+    <string name="assets_security_advice_tips7">今日盈亏=当前全部账户资产-今日零点全部</string>
     <string name="contract_asset_account">资产账户</string>
     <string name="account_action_token_expire_tip">Token已失效,请重试.</string>
     <string name="tag_warning_tips">请认真核对并填写地址标签，若遗漏标签将导致资金丢失！</string>
