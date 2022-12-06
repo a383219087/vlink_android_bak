@@ -35,7 +35,7 @@ class PaetnerEditRateViewModel : BaseViewModel() {
         initData()
         startTask(apiService.parentRate()) {
             if (it.data != null)
-                myRate.value = it.data
+                myRate.value = it.data?.toDoubleOrNull()?.toInt().toString()
         }
     }
 
