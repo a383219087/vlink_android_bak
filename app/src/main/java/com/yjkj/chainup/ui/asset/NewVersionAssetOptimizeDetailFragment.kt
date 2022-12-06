@@ -542,22 +542,22 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 if (isLittleAssetsShow) {
                     listFund.clear()
                     listFund.addAll(nolittleBalanceList)
-                    adapter4Fund?.notifyDataSetChanged()
+                    adapter4Fund.notifyDataSetChanged()
                 } else {
                     listFund.clear()
                     listFund.addAll(balancelist)
-                    adapter4Fund?.notifyDataSetChanged()
+                    adapter4Fund.notifyDataSetChanged()
                 }
             }
             ParamConstant.FABI_INDEX, ParamConstant.B2C_INDEX, ParamConstant.LEVER_INDEX -> {
                 if (isLittleAssetsShow) {
                     list4OTC.clear()
                     list4OTC.addAll(nolittleBalanceList4OTC)
-                    adapter4Asset?.notifyDataSetChanged()
+                    adapter4Asset.notifyDataSetChanged()
                 } else {
                     list4OTC.clear()
                     list4OTC.addAll(balanceList4OTC)
-                    adapter4Asset?.notifyDataSetChanged()
+                    adapter4Asset.notifyDataSetChanged()
                 }
             }
 
@@ -734,7 +734,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     /**
      * 法币交易adapter
      */
-    fun initOTCView() {
+    private fun initOTCView() {
         if (activity?.isFinishing ?: return || activity?.isDestroyed ?: return || !isAdded) {
             return
         }
@@ -746,28 +746,29 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             list4OTC.addAll(balanceList4OTC)
         }
 
-        var parent = assetHeadView?.parent
+        val parent = assetHeadView?.parent
         if (null != parent) {
             (parent as ViewGroup).removeAllViews()
         }
-        adapter4Asset?.setType(ParamConstant.FABI_INDEX)
-        adapter4Asset?.setHeaderView(assetHeadView!!)
-        adapter4Asset?.setHasStableIds(true)
+        adapter4Asset.setType(ParamConstant.FABI_INDEX)
+        adapter4Asset.setHeaderView(assetHeadView!!)
+        adapter4Asset.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
-        adapter4Asset?.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset?.headerWithEmptyEnable = true
+        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Asset.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Asset
         rc_contract?.itemAnimator = null
 
-        adapter4Asset.setOnItemClickListener { adapter, view, position ->
+        adapter4Asset.setOnItemClickListener { _, _, position ->
 
             tDialog = NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
+                @SuppressLint("NotifyDataSetChanged")
                 override fun clickItem(data: ArrayList<String>, item: Int) {
                     //越界
                     if (position >= list4OTC.size) {
                         tDialog?.dismiss()
-                        adapter4Asset?.notifyDataSetChanged()
+                        adapter4Asset.notifyDataSetChanged()
                         return
                     }
                     when (item) {
@@ -777,9 +778,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                         0 -> {
 
                             var aa: String? = ""
-                            if (null != list4OTC[position]?.optString("coinSymbol")) {
-                                aa = NCoinManager.getShowMarket(list4OTC[position]?.optString("coinSymbol"))
-                            }
+                            aa = NCoinManager.getShowMarket(list4OTC[position].optString("coinSymbol"))
                             ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_OTC, aa)
 
                         }
@@ -800,12 +799,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             })
         }
 
-        adapter4Asset?.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun getFilterData(list: ArrayList<JSONObject>) {
-                if (list == null) return
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset?.notifyDataSetChanged()
+                adapter4Asset.notifyDataSetChanged()
             }
         })
     }
@@ -823,35 +822,33 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         } else {
             list4OTC.addAll(balanceList4OTC)
         }
-        var parent = assetHeadView?.parent
+        val parent = assetHeadView?.parent
         if (null != parent) {
             (parent as ViewGroup).removeAllViews()
         }
         LogUtil.e(TAG, "initLever()  ${rc_contract == null}")
-        adapter4Asset?.setType(ParamConstant.LEVER_INDEX)
-        adapter4Asset?.setHeaderView(assetHeadView!!)
-        adapter4Asset?.setHasStableIds(true)
+        adapter4Asset.setType(ParamConstant.LEVER_INDEX)
+        adapter4Asset.setHeaderView(assetHeadView!!)
+        adapter4Asset.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
-        adapter4Asset?.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset?.headerWithEmptyEnable = true
+        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Asset.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Asset
         rc_contract?.itemAnimator = null
-        adapter4Asset?.setOnItemClickListener { adapter, view, position ->
+        adapter4Asset.setOnItemClickListener { adapter, view, position ->
 
 
             ArouterUtil.navigation(RoutePath.CurrencyLendingRecordsActivity, Bundle().apply {
-                putString(ParamConstant.symbol, list4OTC[position]?.optString("symbol", "")
-                    ?: "")
+                putString(ParamConstant.symbol, list4OTC[position].optString("symbol", "") ?: "")
             })
         }
 
-        adapter4Asset?.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
             override fun getFilterData(list: ArrayList<JSONObject>) {
-                if (list == null) return
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset?.notifyDataSetChanged()
+                adapter4Asset.notifyDataSetChanged()
             }
         })
     }
@@ -991,18 +988,19 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
 
         adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun getFilterData(list: ArrayList<JSONObject>) {
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset?.notifyDataSetChanged()
+                adapter4Asset.notifyDataSetChanged()
             }
         })
     }
 
 
     fun setEvent(position: Int, content: String) {
-        var message = MessageEvent(MessageEvent.coin_payment)
-        var jsonObject = JSONObject()
+        val message = MessageEvent(MessageEvent.coin_payment)
+        val jsonObject = JSONObject()
         jsonObject.put("position", position)
         jsonObject.put("content", content)
         message.msg_content = jsonObject

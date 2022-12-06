@@ -24,6 +24,7 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
+import com.yjkj.chainup.manager.DataManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
@@ -192,6 +193,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         Utils.showAssetsSwitch(isShowAssets, iv_hide_asset)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun setSelectClick() {
         /**
          * 点击隐藏或者显示资金
@@ -263,14 +265,142 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
             if (Utils.isFastClick()) return@setOnClickListener
 
+            bibiObject!!.optJSONObject("data")?.run {
+                val json = this.optJSONObject("allCoinMap")
+                val keys: Iterator<String> = json?.keys() as Iterator<String>
+                var balancelist = arrayListOf<JSONObject>()
+                while (keys.hasNext()) {
+                    val coinMap = json.optJSONObject(keys.next())
+                    balancelist.add(coinMap ?: JSONObject())
+
+                }
+                balancelist = DecimalUtil.sortByMultiOptions(balancelist, option2 = "coinName")
+                balancelist.forEach { it ->
+                    if (it.optInt("withdrawOpen") == 1) {
+                        if (phoneCertification()) return@setOnClickListener
+                        if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
+                            NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
+                                ?: "", object : NewDialogUtils.DialogBottomListener {
+                                override fun sendConfirm() {
+                                    when (UserDataService.getInstance().authLevel) {
+                                        0 -> {
+                                            NToastUtil.showTopToastNet(mActivity, false, context?.getString(R.string.noun_login_pending))
+                                        }
+
+                                        2, 3 -> {
+                                            ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                        }
+                                    }
+                                }
+                            })
+                            return@setOnClickListener
+                        }
+
+                        ArouterUtil.navigation(RoutePath.WithdrawSelectCoinActivity, Bundle().apply {
+                            putInt(ParamConstant.OPTION_TYPE, ParamConstant.WITHDRAW)
+                            putBoolean(ParamConstant.COIN_FROM, true)
+                        })
+                        return@setOnClickListener
+                    }
+                }
+                NToastUtil.showTopToastNet(mActivity, false, LanguageUtil.getString(context, "withdraw_tip_notavailable"))
+
+            }
+
+
+
         }
         /**
          *  划转
          */
         ll_transfer_layout?.setOnClickListener {
-
             if (Utils.isFastClick()) return@setOnClickListener
+            if (PublicInfoDataService.getInstance().otcOpen(null)) {
+                var list = DataManager.getCoinsFromDB(true)
+                if (list.size == 0) {
+                    NToastUtil.showTopToastNet(mActivity, false, LanguageUtil.getString(context, "otc_not_open_transfer"))
+                    return@setOnClickListener
+                }
+                list.sortBy { it.sort }
+                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, list[0].name)
+
+            } else if (PublicInfoDataService.getInstance().contractOpen(null)) {
+                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_CONTRACT, "USDT")
+                return@setOnClickListener
+            }
         }
+    }
+
+
+    fun phoneCertification(type: Int = 2): Boolean {
+        if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
+            if (UserDataService.getInstance().googleStatus != 1) {
+                NewDialogUtils.OTCTradingMustPermissionsDialog(context!!, object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
+                        if (UserDataService.getInstance().googleStatus != 1) {
+                            ArouterUtil.greenChannel(RoutePath.SafetySettingActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().authLevel != 1) {
+                            when (UserDataService.getInstance().authLevel) {
+                                0 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
+                                }
+
+                                2, 3 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+                                }
+                            }
+                            return
+                        }
+
+                    }
+                }, type = type, title = LanguageUtil.getString(context, "withdraw_tip_bindGoogleFirst"))
+                return true
+            }
+        } else {
+            if (UserDataService.getInstance().isOpenMobileCheck != 1 && UserDataService.getInstance().googleStatus != 1) {
+                NewDialogUtils.OTCTradingPermissionsDialog(context!!, object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
+                        if (UserDataService.getInstance().googleStatus != 1) {
+                            ArouterUtil.greenChannel(RoutePath.SafetySettingActivity, null)
+                            return
+                        }
+
+                        if (UserDataService.getInstance().nickName.isEmpty()) {
+                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                            //.enter2(context!!)
+                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
+                            return
+                        }
+                        if (UserDataService.getInstance().authLevel != 1) {
+                            when (UserDataService.getInstance().authLevel) {
+                                0 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificaionSuccessActivity, null)
+                                }
+
+                                2, 3 -> {
+                                    ArouterUtil.navigation(RoutePath.RealNameCertificationActivity, null)
+                                }
+                            }
+                            return
+                        }
+
+                    }
+
+                }, type = 2, title = LanguageUtil.getString(context, "otcSafeAlert_action_bindphoneOrGoogle"))
+                return true
+            }
+        }
+
+        return false
     }
 
     fun refresh() {

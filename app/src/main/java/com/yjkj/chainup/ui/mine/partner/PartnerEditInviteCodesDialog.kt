@@ -15,6 +15,7 @@ class PartnerEditInviteCodesDialog : BaseDialogMVFragment<PaetnerEditInviteCodes
 
     override fun setContentView() = R.layout.dialog_new_invite_code_paetner
     override fun initView() {
+        mViewModel?.conetxt?.value=context
         mViewModel?.type?.value= arguments?.getInt("type")?.or(0)!!
         mViewModel?.bean?.value= arguments?.getSerializable("bean") as AgentCodeBean?
         mViewModel?.agentRoles()

@@ -18,6 +18,7 @@ class PartnerEditInviteRateDialog : BaseDialogMVFragment<PaetnerEditRateViewMode
 
     override fun setContentView() = R.layout.dialog_new_ratr_paetner
     override fun initView() {
+        mViewModel?.conetxt?.value=context
         mViewModel?.bean?.value= arguments?.getSerializable("bean") as InviteBean?
         mViewModel?.agentRoles()
 

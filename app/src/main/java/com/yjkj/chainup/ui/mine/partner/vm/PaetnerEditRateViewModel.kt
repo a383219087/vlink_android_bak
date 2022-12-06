@@ -2,6 +2,7 @@ package com.yjkj.chainup.ui.mine.partner.vm
 
 
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
 import com.common.sdk.LibCore
@@ -23,16 +24,19 @@ class PaetnerEditRateViewModel : BaseViewModel() {
 
     var rate = MutableLiveData("0")
 
-
+    var conetxt = MutableLiveData<Context>()
 
     var inviteCode = MutableLiveData("")
 
-
+    var myRate = MutableLiveData("0")
 
 
     fun agentRoles() {
         initData()
-
+        startTask(apiService.parentRate()) {
+            if (it.data != null)
+                myRate.value = it.data
+        }
     }
 
 
@@ -44,19 +48,19 @@ class PaetnerEditRateViewModel : BaseViewModel() {
     }
 
     fun onSure() {
-         if (rate.value==null||rate.value!!.isEmpty()){
-             ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text81))
-             return
-         }
-         if (bean.value?.rate?.toDoubleOrNull()!! > rate.value!!.toDoubleOrNull()!!){
-             ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text83))
-             return
-         }
+        if (rate.value==null||rate.value!!.isEmpty()){
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text81))
+            return
+        }
+        if (bean.value?.rate?.toDoubleOrNull()!! > rate.value!!.toDoubleOrNull()!!){
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text83))
+            return
+        }
 
-         if(rate.value?.toDoubleOrNull()?.toInt()!!<=0||rate.value?.toDoubleOrNull()?.toInt()!!>=100){
-             ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text82))
-             return
-         }
+        if(rate.value?.toDoubleOrNull()?.toInt()!!<=0||rate.value?.toDoubleOrNull()?.toInt()!!>=100){
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text82))
+            return
+        }
 
         val map = HashMap<String, Any>()
         map["rate"] = rate.value.toString()

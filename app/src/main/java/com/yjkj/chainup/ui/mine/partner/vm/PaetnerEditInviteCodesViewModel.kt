@@ -2,6 +2,7 @@ package com.yjkj.chainup.ui.mine.partner.vm
 
 
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
 import com.common.sdk.LibCore
@@ -14,6 +15,8 @@ import io.reactivex.functions.Consumer
 
 
 class PaetnerEditInviteCodesViewModel : BaseViewModel() {
+    var conetxt = MutableLiveData<Context>()
+
 
     var type = MutableLiveData(1)
     var bean = MutableLiveData<AgentCodeBean>()
@@ -28,14 +31,16 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
 
     var inviteCode = MutableLiveData("")
 
-
-
-
+    var myRate = MutableLiveData("0")
 
 
     fun agentRoles() {
         if (type.value == 2) {
             initData()
+        }
+        startTask(apiService.parentRate()) {
+            if (it.data != null)
+                myRate.value = it.data
         }
 
     }
@@ -49,15 +54,17 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
     }
 
     fun onSure() {
-         if (rate.value==null||rate.value!!.isEmpty()){
-             ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text81))
-             return
-         }
+        if (rate.value == null || rate.value!!.isEmpty()) {
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text81))
+            return
+        }
 
-         if(rate.value?.toDoubleOrNull()?.toInt()!!<=0||rate.value?.toDoubleOrNull()?.toInt()!!>=100){
-             ToastUtils.showShort(LibCore.context.getString(R.string.traders_apply_text82))
-             return
-         }
+        if (rate.value?.toDoubleOrNull()?.toInt()!! <= 0 || rate.value?.toDoubleOrNull()
+                ?.toInt()!! >= myRate.value?.toDoubleOrNull()?.toInt()!!
+        ) {
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text82))
+            return
+        }
 
         if (inviteCode.value?.isEmpty()!!) {
             val map = HashMap<String, Any>()

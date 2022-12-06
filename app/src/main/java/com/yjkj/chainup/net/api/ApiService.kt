@@ -529,6 +529,11 @@ interface ApiService {
     @POST("invite_code/update")
     fun updateDefaultCode(@FieldMap map: HashMap<String, Any>): Observable<HttpResult<String>>
     /**
+     * 我的上级比例
+     */
+    @POST("invite_code/parentRate")
+    fun parentRate(): Observable<HttpResult<String?>>
+    /**
      * 我的邀请统计
      */
     @GET("invite_code/myBonus")
