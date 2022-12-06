@@ -13,6 +13,8 @@
 
         <import type="com.yjkj.chainup.R" />
 
+        <import type="com.yjkj.chainup.util.DecimalUtil" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -323,9 +325,9 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="51dp"
                             android:layout_gravity="center"
-                            android:text="@{_all.myBonusBean.amount+``}"
+                            android:text="@{DecimalUtil.cutValueByPrecision(_all.myBonusBean.amount+``,2)+``}"
                             android:textColor="#d26e4a"
                             android:textSize="13sp" />
 
