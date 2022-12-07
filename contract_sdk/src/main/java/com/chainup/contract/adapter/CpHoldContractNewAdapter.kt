@@ -22,6 +22,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
 
 
 
+
     override fun convert(helper: BaseViewHolder, item: CpContractPositionBean) {
 
 

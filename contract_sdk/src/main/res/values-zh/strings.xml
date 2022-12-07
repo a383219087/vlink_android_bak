@@ -3445,6 +3445,7 @@
     <string name="cp_calculator_text40">计算</string>
     <string name="cp_calculator_text41">确认</string>
     <string name="cp_order_text1">当前持仓</string>
+    <string name="cp_order_text111">全部资产</string>
     <string name="cp_order_text2">当前委托</string>
     <string name="cp_order_text3">计划委托</string>
     <string name="cp_order_text4">全部</string>

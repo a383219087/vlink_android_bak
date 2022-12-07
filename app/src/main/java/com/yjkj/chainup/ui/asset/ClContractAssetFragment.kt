@@ -5,7 +5,9 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.chainup.contract.ui.activity.CpContractAssetRecordActivity
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
@@ -23,12 +25,15 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.adapter.ClContractAssetAdapter
+import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.util.ContextUtil
+import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.LogUtil
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.*
+
 import org.json.JSONObject
 
 /**
@@ -52,6 +57,10 @@ class ClContractAssetFragment : NBaseFragment() {
     //是否展示合约购买对话框
     var isShowContractBuyDialog = false
     var isScrollStatus = false
+
+    var fragments = ArrayList<Fragment>()
+
+    val showTitles = arrayListOf<String>()
     override fun initView() {
         isShowContractBuyDialog = PreferenceManager.getBoolean(mActivity, "isShowContractBuyDialog", true)
         assetHeadView = NewAssetTopView(activity!!, null, 0)
@@ -87,15 +96,40 @@ class ClContractAssetFragment : NBaseFragment() {
             }
         }
 
-        swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
-        /**
-         * 此处刷新
-         */
-        swipe_refresh?.setOnRefreshListener {
-            /**
-             * 刷新数据操作
-             */
-            getPositionList()
+//        swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
+//        /**
+//         * 此处刷新
+//         */
+//        swipe_refresh?.setOnRefreshListener {
+//            /**
+//             * 刷新数据操作
+//             */
+//            getPositionList()
+//        }
+        showTitles.add(LanguageUtil.getString(context, "cp_order_text1"))
+        showTitles.add(LanguageUtil.getString(context, "cp_order_text111"))
+        fragments.add( ContractHoldFragment())
+        fragments.add(ClContractAssetFragmentChild())
+        val marketPageAdapter = NVPagerAdapter(childFragmentManager, showTitles.toMutableList(), fragments)
+        vp_otc_asset?.adapter = marketPageAdapter
+        vp_otc_asset?.offscreenPageLimit = showTitles.size
+        vp_otc_asset?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+            }
+        })
+        try {
+            stl_assets_type.setViewPager(vp_otc_asset, showTitles.toTypedArray())
+        }catch(e :Exception){
+
         }
     }
 
@@ -140,7 +174,7 @@ class ClContractAssetFragment : NBaseFragment() {
                             }
                             adapterHoldContract?.notifyDataSetChanged()
                         }
-                        swipe_refresh?.isRefreshing =false
+//                        swipe_refresh?.isRefreshing =false
                     }
                 }))
     }
@@ -212,17 +246,18 @@ class ClContractAssetFragment : NBaseFragment() {
      * 合约未平仓合约
      */
     private fun initHoldContractAdapter() {
-        adapterHoldContract = ClContractAssetAdapter(context!!, mList)
-        if (assetHeadView?.parent != null) {
-            (assetHeadView?.parent as ViewGroup).removeAllViews()
-        }
-        adapterHoldContract?.setHeaderView(assetHeadView!!)
-
-        rc_contract?.layoutManager = LinearLayoutManager(context)
-        rc_contract.adapter = adapterHoldContract
-        adapterHoldContract?.setEmptyView(R.layout.item_new_empty_assets)
-        adapterHoldContract?.headerWithEmptyEnable = true
-        rc_contract?.adapter = adapterHoldContract
+        fl_c.addView(assetHeadView!!)
+//        adapterHoldContract = ClContractAssetAdapter(context!!, mList)
+//        if (assetHeadView?.parent != null) {
+//            (assetHeadView?.parent as ViewGroup).removeAllViews()
+//        }
+//        adapterHoldContract?.setHeaderView(assetHeadView!!)
+//
+//        rc_contract?.layoutManager = LinearLayoutManager(context)
+//        rc_contract.adapter = adapterHoldContract
+//        adapterHoldContract?.setEmptyView(R.layout.item_new_empty_assets)
+//        adapterHoldContract?.headerWithEmptyEnable = true
+//        rc_contract?.adapter = adapterHoldContract
     }
 
 }
