@@ -2283,6 +2283,9 @@ Mark Price: This is the current mark price.</string>
     <string name="sl_str_share_explain">- The final interpretation right belongs to %s -</string>
     <string name="sl_str_wallet_balance">Wallet balance</string>
     <string name="sl_str_margin_balance">Margin Balance</string>
+    <string name="sl_str_margin_balance1">Margin Balance(USD)</string>
+    <string name="sl_str_margin_balance2">Balance(USD)</string>
+    <string name="sl_str_margin_balance3">Unrealized P/L(USD)</string>
     <string name="sl_str_asset_record">Funding Record</string>
     <string name="sl_tv_floating_gains">Unrlz</string>
     <string name="sl_str_balance">Balance</string>

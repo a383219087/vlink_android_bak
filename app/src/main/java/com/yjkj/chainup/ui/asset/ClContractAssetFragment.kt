@@ -1,9 +1,8 @@
-package com.yjkj.chainup.new_version.fragment
+package com.yjkj.chainup.ui.asset
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,6 @@ import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil

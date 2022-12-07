@@ -59,6 +59,66 @@ private const val ARG_INDEX = "param_index"
  */
 class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
+
+
+    override fun setContentView() = R.layout.fragment_bibi_asset
+
+    private var param1: String? = null
+
+    /**
+     * bibi 是币币
+     * bibao 是币宝
+     * fabi 是otc
+     */
+    private var param_index: String? = null
+
+
+    /**
+     * 隐藏小额资产
+     */
+    private var isLittleAssetsShow = false
+    private var searchIsFocus = false
+    var assetHeadView: NewAssetTopView? = null
+
+    private var total_balance: String = ""
+    private var totalBalance: String = ""
+
+    var fragments = ArrayList<Fragment>(2)
+    var bibiDialogList = arrayListOf<String>()
+    var otcDialogList = arrayListOf<String>()
+    var contractDialogList = arrayListOf<String>()
+    var isScrollStatus = false
+    var tDialog: TDialog? = null
+
+    var adapterHoldContract: HoldContractAssterAdapter? = null
+    var nolittleBalanceList4OTC = arrayListOf<JSONObject>()
+    var balanceList4OTC = arrayListOf<JSONObject>()
+    var nolittleBalanceList = arrayListOf<JSONObject>()
+    var balancelist = arrayListOf<JSONObject>()
+    var list4OTC = arrayListOf<JSONObject>()
+    var listFund = arrayListOf<JSONObject>()
+
+
+    //法币
+    var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
+    //币币
+    var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
+    var buffJson: JSONObject? = null
+    companion object {
+        var liveDataFilterForEditText: MutableLiveData<AssetScreenBean> = MutableLiveData()
+        var liveDataCleanForEditText: MutableLiveData<String> = MutableLiveData()
+
+
+        @JvmStatic
+        fun newInstance(param1: String, index: String) =
+            NewVersionAssetOptimizeDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_INDEX, index)
+                }
+            }
+    }
+
     override fun initView() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -148,51 +208,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             swipe_refresh?.isRefreshing = false
         }
     }
-
-    override fun setContentView() = R.layout.fragment_bibi_asset
-
-    private var param1: String? = null
-
-    /**
-     * bibi 是币币
-     * bibao 是币宝
-     * fabi 是otc
-     */
-    private var param_index: String? = null
-
-
-    /**
-     * 隐藏小额资产
-     */
-    private var isLittleAssetsShow = false
-    private var searchIsFocus = false
-    var assetHeadView: NewAssetTopView? = null
-
-    private var total_balance: String = ""
-    private var totalBalance: String = ""
-
-    var fragments = ArrayList<Fragment>(2)
-    var bibiDialogList = arrayListOf<String>()
-    var otcDialogList = arrayListOf<String>()
-    var contractDialogList = arrayListOf<String>()
-    var isScrollStatus = false
-
-    companion object {
-        var liveDataFilterForEditText: MutableLiveData<AssetScreenBean> = MutableLiveData()
-        var liveDataCleanForEditText: MutableLiveData<String> = MutableLiveData()
-
-
-        @JvmStatic
-        fun newInstance(param1: String, index: String) =
-            NewVersionAssetOptimizeDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_INDEX, index)
-                }
-            }
-    }
-
-
     var isFrist = true
 
 
@@ -646,12 +661,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 ParamConstant.FABI_INDEX -> {
                     initOTCView()
                 }
-                ParamConstant.B2C_INDEX -> {
-                    initB2CView()
-                }
-                ParamConstant.LEVER_INDEX -> {
-                    initLever()
-                }
                 ParamConstant.CONTRACT_INDEX -> {
                     getContractAccount()
                     holdContractList4Contract()
@@ -699,19 +708,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
 
-    var tDialog: TDialog? = null
 
-    var adapterHoldContract: HoldContractAssterAdapter? = null
-    var nolittleBalanceList4OTC = arrayListOf<JSONObject>()
-    var balanceList4OTC = arrayListOf<JSONObject>()
-    var nolittleBalanceList = arrayListOf<JSONObject>()
-    var balancelist = arrayListOf<JSONObject>()
-    var list4OTC = arrayListOf<JSONObject>()
-    var listFund = arrayListOf<JSONObject>()
-
-    var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
-    var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
-    var buffJson: JSONObject? = null
 
 
     /**
@@ -793,224 +790,9 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         })
     }
 
-    /**
-     * lever交易
-     */
-    fun initLever() {
-        if (activity?.isFinishing ?: return || activity?.isDestroyed ?: return || !isAdded) {
-            return
-        }
-        isFrist = false
-        if (isLittleAssetsShow) {
-            list4OTC.addAll(nolittleBalanceList4OTC)
-        } else {
-            list4OTC.addAll(balanceList4OTC)
-        }
-        val parent = assetHeadView?.parent
-        if (null != parent) {
-            (parent as ViewGroup).removeAllViews()
-        }
-        LogUtil.e(TAG, "initLever()  ${rc_contract == null}")
-        adapter4Asset.setType(ParamConstant.LEVER_INDEX)
-        adapter4Asset.setHeaderView(assetHeadView!!)
-        adapter4Asset.setHasStableIds(true)
-        if (rc_contract == null) return
-        rc_contract?.layoutManager = LinearLayoutManager(context)
-        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset.headerWithEmptyEnable = true
-        rc_contract?.adapter = adapter4Asset
-        rc_contract?.itemAnimator = null
-        adapter4Asset.setOnItemClickListener { adapter, view, position ->
-
-
-            ArouterUtil.navigation(RoutePath.CurrencyLendingRecordsActivity, Bundle().apply {
-                putString(ParamConstant.symbol, list4OTC[position].optString("symbol", "") ?: "")
-            })
-        }
-
-        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
-            override fun getFilterData(list: ArrayList<JSONObject>) {
-                list4OTC.clear()
-                list4OTC.addAll(list)
-                adapter4Asset.notifyDataSetChanged()
-            }
-        })
-    }
-
-
-    /**
-     * B2C交易adapter
-     */
-    fun initB2CView() {
-        if (activity?.isFinishing ?: return || activity?.isDestroyed ?: return || !isAdded) {
-            return
-        }
-        isFrist = false
-        val b = if (isLittleAssetsShow) {
-            list4OTC.addAll(nolittleBalanceList4OTC)
-        } else {
-            list4OTC.addAll(balanceList4OTC)
-        }
-        adapter4Asset.setType(ParamConstant.B2C_INDEX)
-        adapter4Asset.setHeaderView(assetHeadView!!)
-        adapter4Asset.setHasStableIds(true)
-        if (rc_contract == null) return
-        rc_contract?.layoutManager = LinearLayoutManager(context)
-//        adapter4Asset?.setEmptyView(R.layout.item_new_empty)
-        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset.headerWithEmptyEnable = true
-        rc_contract?.adapter = adapter4Asset
-        rc_contract?.itemAnimator = null
 
 
 
-
-
-        adapter4Asset.setOnItemClickListener { adapter, view, position ->
-
-            otcDialogList.clear()
-            if (list4OTC[position].optInt("depositOpen") == 1) {
-                otcDialogList.add(LanguageUtil.getString(context, "assets_action_chargeCoin"))
-            }
-
-            if (list4OTC[position].optInt("withdrawOpen") == 1) {
-                otcDialogList.add(LanguageUtil.getString(context, "assets_action_withdraw"))
-            }
-            tDialog =
-                NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
-                    override fun clickItem(data: ArrayList<String>, item: Int) {
-                        when (data[item]) {
-                            /**
-                             * 充币
-                             */
-                            LanguageUtil.getString(context, "assets_action_chargeCoin") -> {
-                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
-                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                    return
-                                }
-                                if (list4OTC[position].optInt("depositOpen") == 1) {
-                                    /* 这里b2c充币 */
-                                    PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
-                                    ArouterUtil.navigation(RoutePath.B2CRechargeActivity, null)
-                                } else {
-                                    NToastUtil.showTopToastNet(
-                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
-                                        false,
-                                        LanguageUtil.getString(context, "warn_no_support_recharge")
-                                    )
-                                }
-                            }
-                            /**
-                             * 提币
-                             */
-                            LanguageUtil.getString(context, "assets_action_withdraw") -> {
-                                if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
-                                    ToastUtils.showToast(context?.getString(R.string.important_hint1))
-                                    return
-                                }
-                                if (list4OTC[position].optInt("withdrawOpen") == 1) {
-                                    if (PublicInfoDataService.getInstance().isEnforceGoogleAuth(null)) {
-                                        if (UserDataService.getInstance().googleStatus != 1) {
-                                            NewDialogUtils.OTCTradingMustPermissionsDialog(
-                                                context!!,
-                                                object : NewDialogUtils.DialogBottomListener {
-                                                    override fun sendConfirm() {
-                                                        if (UserDataService.getInstance().nickName.isEmpty()) {
-                                                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
-                                                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                                                        } else if (UserDataService.getInstance().authLevel != 1) {
-                                                            when (UserDataService.getInstance().authLevel) {
-                                                                0 -> {
-                                                                    ArouterUtil.navigation(
-                                                                        RoutePath.RealNameCertificaionSuccessActivity,
-                                                                        null
-                                                                    )
-                                                                }
-
-                                                                2, 3 -> {
-                                                                    ArouterUtil.navigation(
-                                                                        RoutePath.RealNameCertificationActivity,
-                                                                        null
-                                                                    )
-                                                                }
-                                                            }
-                                                        } else {
-                                                            ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
-
-                                                        }
-
-                                                    }
-                                                },
-                                                type = 2,
-                                                title = LanguageUtil.getString(context, "withdraw_tip_bindGoogleFirst")
-                                            )
-                                            return
-                                        }
-                                    } else {
-                                        if (UserDataService.getInstance().isOpenMobileCheck != 1 && UserDataService.getInstance().googleStatus != 1) {
-                                            NewDialogUtils.OTCTradingPermissionsDialog(
-                                                context!!,
-                                                object : NewDialogUtils.DialogBottomListener {
-                                                    override fun sendConfirm() {
-                                                        if (UserDataService.getInstance().nickName.isEmpty()) {
-                                                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
-                                                            ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
-                                                        } else if (UserDataService.getInstance().authLevel != 1) {
-                                                            when (UserDataService.getInstance().authLevel) {
-                                                                0 -> {
-                                                                    ArouterUtil.navigation(
-                                                                        RoutePath.RealNameCertificaionSuccessActivity,
-                                                                        null
-                                                                    )
-                                                                }
-
-                                                                2, 3 -> {
-                                                                    ArouterUtil.navigation(
-                                                                        RoutePath.RealNameCertificationActivity,
-                                                                        null
-                                                                    )
-                                                                }
-                                                            }
-                                                        } else {
-                                                            ArouterUtil.navigation(RoutePath.SafetySettingActivity, null)
-
-                                                        }
-                                                    }
-
-                                                },
-                                                type = 2,
-                                                title = LanguageUtil.getString(context, "otcSafeAlert_action_bindphoneOrGoogle")
-                                            )
-                                            return
-                                        }
-                                    }
-                                    /* 这里b2c提币 */
-                                    PublicInfoDataService.getInstance().saveCoinInfo4B2C(list4OTC[position]?.optString("symbol"))
-                                    ArouterUtil.navigation(RoutePath.B2CWithdrawActivity, null)
-                                } else {
-                                    //DisplayUtil.showSnackBar(activity?.window?.decorView, LanguageUtil.getString(context,warn_no_support_withdraw), isSuc = false)
-                                    NToastUtil.showTopToastNet(
-                                        this@NewVersionAssetOptimizeDetailFragment.mActivity,
-                                        false,
-                                        LanguageUtil.getString(context, "warn_no_support_withdraw")
-                                    )
-                                }
-                            }
-                        }
-                        tDialog?.dismiss()
-                    }
-                })
-        }
-
-        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun getFilterData(list: ArrayList<JSONObject>) {
-                list4OTC.clear()
-                list4OTC.addAll(list)
-                adapter4Asset.notifyDataSetChanged()
-            }
-        })
-    }
 
 
     fun setEvent(position: Int, content: String) {

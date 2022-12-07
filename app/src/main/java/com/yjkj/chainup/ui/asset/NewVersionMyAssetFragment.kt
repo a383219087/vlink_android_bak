@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.SPUtils
 import com.contract.sdk.ContractUserDataAgent
@@ -28,7 +27,6 @@ import com.yjkj.chainup.manager.DataManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
-import com.yjkj.chainup.new_version.fragment.ClContractAssetFragment
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject

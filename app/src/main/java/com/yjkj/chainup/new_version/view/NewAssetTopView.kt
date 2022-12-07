@@ -391,6 +391,7 @@ class NewAssetTopView @JvmOverloads constructor(
                 assetsTitle = LanguageUtil.getString(context, "assets_fiat_account_value")
             }
             ParamConstant.CONTRACT_INDEX -> {
+                ll_heyue_balance.visibility= View.VISIBLE
                 ll_heyue.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
                     if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE

@@ -73,19 +73,19 @@ class SplashActivity : AppCompatActivity() {
 
       goToMain(
         HttpResultUrlData(
-          baseUrl = "http://47.242.41.181/base/appapi",
-          contractSocketAddress = "ws://47.242.41.181/contract/kline/ws",
-          contractUrl = "http://47.242.41.181/contract/appapi",
-          httpHostUrlContractV2 = "http://47.242.41.181/contract/appapi",
-          otcBaseUrl = "http://47.242.41.181/otc/appapi",
-          otcSocketAddress = "ws://47.242.41.181/otc/chat/ws",
-          redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-          socketAddress = "ws://47.242.41.181/base/kline/ws",
-          wssHostContractV2 = "ws://47.242.41.181/contract/kline/ws",
-          optionUrl = "",
-          blocksUrl = "",
+          baseUrl = "http://120.78.198.245/base/appapi",
+          contractSocketAddress ="ws://120.78.198.245/contract/kline/ws",
+          contractUrl = "http://120.78.198.245/contract/appapi",
+          httpHostUrlContractV2 = "http://120.78.198.245/contract/appapi",
+          otcBaseUrl = "http://120.78.198.245/otc/appapi",
+          otcSocketAddress = "ws://120.78.198.245/otc/chat/ws",
+          redPackageUrl =  "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+          socketAddress =  "ws://120.78.198.245/base/kline/ws",
+          wssHostContractV2 = "ws://120.78.198.245/contract/kline/ws",
+          optionUrl = "http://option.zwwbit.com/wallet/#/pages/index/index",
+          blocksUrl ="http://blocks.zwwbit.com/block/#/pages/index/index_one",
           chatUrl = "",
-          chatApiUrl = ""
+          chatApiUrl = "http://47.254.214.243:8011",
 
         )
       )

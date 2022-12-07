@@ -111,21 +111,29 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
     }
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
+//
+//        {"walletTransactionOpen":0,"innerTransferFee":0,"allBalance":"2.0638339701","exchange_symbol":"BTC\/USDT",
+//            "present_coin_balance":0,"lock_position_balance":"0.0000000000","innerTransferOpen":0,"depositOpen":1,
+//            "otcOpen":0,"depositMin":0,"checked":"true","allBtcValuatin":"2.0638339701","lock_position_v2_amount":"0.0000000000",
+//            "withdrawOpen":1,"lock_increment_amount":"0.0000000000","isFiat":0,"normal_balance":"2.0638339701",
+//            "btcValuatin":"2.0638339701","sort":1,"lock_grant_divided_balance":"0.0000000000","total_balance":"2.0638339701",
+//            "nc_lock_balance":"0.0000000000","coinName":"BTC","lock_balance":"0.0000000000","overcharge_balance":""}
+
         /**
          * 币种
          */
-        helper?.setText(R.id.tv_coin_name, NCoinManager.getShowMarket(item?.optString("coinName")
-                ?: ""))
+        helper.setText(R.id.tv_coin_name, NCoinManager.getShowMarket(item?.optString("coinName")
+            ?: ""))
 
-        helper?.setText(R.id.tv_4th_title,  LanguageUtil.getString(context, "assets_text_equivalence") + "(${RateManager.getCurrencySign()})")
+        helper.setText(R.id.tv_4th_title,  LanguageUtil.getString(context, "assets_text_equivalence") + "(${RateManager.getCurrencySign()})")
 
         var bean = NCoinManager.getCoinObj(item?.optString("coinName"))
 
-        helper?.setText(R.id.tv_1st_title, LanguageUtil.getString(context,"assets_text_available"))
-        helper?.setText(R.id.tv_2nd_title, LanguageUtil.getString(context,"assets_text_freeze"))
-        helper?.setText(R.id.tv_3rd_title, LanguageUtil.getString(context,"assets_text_lockup"))
-        helper?.setText(R.id.tv_4th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
-        helper?.setText(R.id.tv_5th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
+        helper.setText(R.id.tv_1st_title, LanguageUtil.getString(context,"assets_text_available"))
+        helper.setText(R.id.tv_2nd_title, LanguageUtil.getString(context,"assets_text_freeze"))
+        helper.setText(R.id.tv_3rd_title, LanguageUtil.getString(context,"assets_text_lockup"))
+        helper.setText(R.id.tv_4th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
+        helper.setText(R.id.tv_5th_title, LanguageUtil.getString(context,"assets_text_equivalence"))
 
 
         /**
@@ -152,7 +160,7 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
          * 折合
          */
         val result = RateManager.getCNYByCoinName("BTC", item?.optString("allBtcValuatin")
-                ?: "0", isOnlyResult = true)
+                ?: "0")
 
         val convertBTCTitle =  LanguageUtil.getString(context, "assets_text_equivalence")
 
@@ -203,10 +211,7 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
             Utils.assetsHideShow(isShowAssets, helper?.getView(R.id.tv_5th_value), result)
         }
 
-        val imgCoinTip = helper?.getView<ImageView>(R.id.img_coin_tip)
-        val isDeposit = (item?.optInt("depositOpen") == 1)
-        val isWithdraw = (item?.optInt("withdrawOpen") == 1)
-        imgCoinTip?.visibility=if(!isDeposit||!isWithdraw) View.VISIBLE else View.GONE
+
         addChildClickViewIds(R.id.img_coin_tip)
     }
 
