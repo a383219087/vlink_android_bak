@@ -1,6 +1,7 @@
 package com.yjkj.chainup.model.model
 
 import android.text.TextUtils
+import com.igexin.sdk.PushManager
 import com.yjkj.chainup.app.AppConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -13,10 +14,7 @@ import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.HttpResult
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.util.StringUtil
-import com.yjkj.chainup.util.StringUtils
-import com.yjkj.chainup.util.verfitionTypeCheck
+import com.yjkj.chainup.util.*
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -50,16 +48,7 @@ class MainModel : BaseDataManager() {
     }
 
 
-    /**
-     * 获取用户信息
-     * @param consumer
-     * @return
-     */
-    fun user_info(consumer: DisposableObserver<ResponseBody>): Disposable? {
 
-        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).user_info(getBaseReqBody()), consumer)
-
-    }
 
     /**
      * 获取 public_info_v4
@@ -465,8 +454,17 @@ class MainModel : BaseDataManager() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var json = jsonObject.optJSONObject("data")
                 UserDataService.getInstance().saveData(json)
+                changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).testUser(getBaseReqBody()), object :NDisposableObserver(){
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        LogUtil.e("LogUtils", "登录监听 ${jsonObject}")
+
+
+                    }
+
+                })
             }
         }
+
         changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).user_info(getBaseReqBody()), consumer)
     }
     /**

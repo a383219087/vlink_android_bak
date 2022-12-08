@@ -299,6 +299,7 @@ class  PersonalCenterActivity : NBaseActivity() {
 
             }))
         } else {
+            ll_share.visibility=View.GONE
             title_layout?.setNoLogin()
         }
 

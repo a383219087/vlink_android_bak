@@ -171,7 +171,7 @@
     <!--新版4.0的颜色-->
     <color name="main_blue">#3078FF</color>
     <!--50%透明度-->
-    <color name="main_blue_50">#803078FF</color>
+    <color name="main_blue_50">#D0D9FF</color>
     <!--25%透明度-->
     <color name="main_blue_25">#BF3078FF</color>
 

@@ -38,6 +38,12 @@ interface MainApiService {
     @POST("common/user_info")
     fun user_info(@Body requestBody: RequestBody): Observable<ResponseBody>
 
+    /**
+     * 是否模拟账号
+     */
+    @POST("user/testUser")
+    fun testUser(@Body requestBody: RequestBody): Observable<ResponseBody>
+
 
     @GET("traderUser/description")
     fun getDescriptionUsing(): Observable<HttpResult<String?>>

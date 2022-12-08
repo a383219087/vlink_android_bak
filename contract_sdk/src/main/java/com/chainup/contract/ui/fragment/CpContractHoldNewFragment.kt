@@ -1408,6 +1408,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     override fun onMessageEvent(event: CpMessageEvent) {
         when (event.msg_type) {
             CpMessageEvent.sl_contract_refresh_position_list_event -> {
+                LogUtils.e("我是合约更新111111")
                 mPositionObj = event.msg_content as JSONObject
               var  lidt = ArrayList<CpContractPositionBean>()
                 mPositionObj?.apply {

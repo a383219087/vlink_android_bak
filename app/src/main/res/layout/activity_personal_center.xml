@@ -89,7 +89,7 @@
                                 android:drawableRight="@mipmap/ic_white_next"
                                 android:drawablePadding="8dp"
                                 android:gravity="center"
-                                android:paddingLeft="@dimen/dk_dp_10"
+                                android:paddingLeft="@dimen/dp_10"
                                 android:paddingRight="@dimen/dp_10"
                                 android:text="去邀请"
                                 android:textColor="#FFFFFF"

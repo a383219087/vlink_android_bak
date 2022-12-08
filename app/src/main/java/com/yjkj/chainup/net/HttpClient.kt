@@ -637,12 +637,6 @@ class HttpClient private constructor() {
         return apiService.closeHandPwd(toRequestBody(DataHandler.encryptParams(map)))
     }
 
-    /**common/emailValidCode
-     * 获取用户信息
-     */
-    fun getUserInfo(): Observable<HttpResult<UserInfoData>> {
-        return apiService.getUserInfo(toRequestBody(DataHandler.encryptParams(getBaseMap())))
-    }
 
 
     /**

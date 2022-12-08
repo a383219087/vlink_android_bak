@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.utils.*
+import com.coorchice.library.SuperTextView
 
 class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQuickAdapter<CpContractPositionBean, BaseViewHolder>(
     R.layout.cp_item_position, data) {
@@ -47,13 +48,11 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             when (item.orderSide) {
                 "BUY" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text6))
-                    setTextColor(R.id.tv_type, context.resources.getColor(R.color.main_green))
                     setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_green))
                     setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_green))
                 }
                 "SELL" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text15))
-                    setTextColor(R.id.tv_type, context.resources.getColor(R.color.main_red))
 
                     setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_red))
                     setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_red))
@@ -65,9 +64,11 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
                     CpBigDecimalUtils.showSNormal(item.openRealizedAmount, mMarginCoinPrecision),"0")==1){
                 setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_green))
                 setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_green))
+                getView<SuperTextView>(R.id.tv_open_type).solid = context.resources.getColor(R.color.main_green)
             }else{
                 setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_red))
                 setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_red))
+                getView<SuperTextView>(R.id.tv_open_type).solid = context.resources.getColor(R.color.main_red)
             }
 
             //只有逐仓才有调整保证金，全仓没有调整保证金

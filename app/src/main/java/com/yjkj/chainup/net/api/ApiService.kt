@@ -198,11 +198,7 @@ interface ApiService {
     @POST("auth/app/user/close_hand")
     fun closeHandPwd(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
-    /**
-     * 获取用户信息
-     */
-    @POST("common/user_info")
-    fun getUserInfo(@Body requestBody: RequestBody): Observable<HttpResult<UserInfoData>>
+
     /**
      *  获取合约公共信息
      */
@@ -538,6 +534,7 @@ interface ApiService {
      */
     @GET("invite_code/myBonus")
     fun myBonus(): Observable<HttpResult<InviteBean>>
+
     /**
      * 返佣前10
      */

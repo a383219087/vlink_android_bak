@@ -44,7 +44,9 @@ import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.extra_service.push.RouteApp
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.HttpClient
+import com.yjkj.chainup.net.HttpHelper
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net.api.ApiService
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
@@ -57,6 +59,7 @@ import com.yjkj.chainup.ws.WsContractAgentManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_main.*
 import kotlinx.android.synthetic.main.check_visit_status.*
@@ -321,9 +324,6 @@ class NewMainActivity : NBaseActivity() {
         curPosition = 1
         setCurrentItem()
       }
-    } else if (MessageEvent.login_bind_type == event.msg_type) {
-      CpClLogicContractSetting.setToken(UserDataService.getInstance().token)
-
     } else if (MessageEvent.sl_contract_force_event == event.msg_type) {
       LogUtil.e("LogUtils", "重新配置新合约")
       showLogoutDialog()
@@ -355,6 +355,7 @@ class NewMainActivity : NBaseActivity() {
         }, {
           it.printStackTrace()
         })
+
     }
   }
 
