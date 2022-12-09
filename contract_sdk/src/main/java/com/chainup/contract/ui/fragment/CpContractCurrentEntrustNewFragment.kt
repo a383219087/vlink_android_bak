@@ -12,8 +12,13 @@ import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.google.gson.Gson
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.utils.CpPreferenceManager
+import com.chainup.contract.view.CpDialogUtil
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.rv_hold_contract
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.tv_confirm_btn
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -56,27 +61,35 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
     private fun showSwitch() {
         showAll =
             CpPreferenceManager.getBoolean(activity!!, CpPreferenceManager.isShowAllContractEntrust, true)
-        if (showAll) {
-            img_switch.visibility = View.VISIBLE
-            img_not_switch.visibility = View.GONE
-        } else {
-            img_switch.visibility = View.GONE
-            img_not_switch.visibility = View.VISIBLE
-        }
+
         updateAdapter()
 
     }
 
     private fun initOnClick() {
-        //选中切换成未选中
-        img_switch.setOnClickListener {
-            CpPreferenceManager.putBoolean(activity!!, CpPreferenceManager.isShowAllContractEntrust, false)
-            showSwitch()
-        }
-        //未选中切换成选中
-        img_not_switch.setOnClickListener {
-            CpPreferenceManager.putBoolean(activity!!, CpPreferenceManager.isShowAllContractEntrust, true)
-            showSwitch()
+        //一键撤销
+        tv_confirm_btn.setOnClickListener {
+            CpDialogUtil.showNewDoubleDialog(
+                context!!, context!!.getString(R.string.cp_extra_text_hold4),
+                object : CpDialogUtil.DialogBottomListener {
+                    override fun sendConfirm() {
+                        if (mList.isEmpty()) {
+                            CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
+                            return
+                        }
+                        for (i in 0 until mList.size) {
+                            val item = mList[i]
+                            cancelOrder(item.contractId, item.id, false)
+                        }
+
+
+                    }
+
+                }
+
+            )
+
+
         }
 
     }

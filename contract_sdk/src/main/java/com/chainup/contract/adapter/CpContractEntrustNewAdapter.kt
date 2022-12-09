@@ -11,6 +11,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.coorchice.library.SuperTextView
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -113,10 +114,10 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 //            //普通
     when(sideStr) {
       "BUY" -> {
-        helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+        helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
       }
       "SELL" -> {
-        helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+        helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
       }
       else -> {
       }
@@ -145,18 +146,11 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
         helper.setText(R.id.tv_side, typeStr)
         helper.setText(R.id.tv_coin_name, symbolName)
-        helper.setText(
-          R.id.tv_date,
-          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss")
-        )
+        helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm:ss"))
         helper.setText(R.id.tv_order_type, orderType)
         helper.setText(
           R.id.tv_price,
           CpBigDecimalUtils.showSNormal(item.price, item.pricePrecision)
-        )
-        helper.setText(
-          R.id.tv_volume,
-          if(CpBigDecimalUtils.compareTo(item.avgPrice, "0") == 0) "--" else item.avgPrice
         )
         helper.setText(
           R.id.tv_dealvolume,
@@ -164,7 +158,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
             item.dealVolume,
             multiplier,
             multiplierPrecision
-          )) + "(" + volumePercentStr + ")"
+          ))
         )
         helper.setText(
           R.id.tv_totalvolume,
@@ -186,8 +180,8 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         val takerProfitTrigger = item.otoOrder?.takerProfitTrigger?:"-"
         val stopLossTrigger = item.otoOrder?.stopLossTrigger?:"-"
         helper.setText(R.id.tv_deal, "$takerProfitTrigger/$stopLossTrigger")
-        val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
-        pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
+//        val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
+//        pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
         if(!item.traderName.isNullOrEmpty()) {
           helper.setGone(R.id.tv_tradle_name, false)
           helper.setText(

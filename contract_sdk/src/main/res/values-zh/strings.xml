@@ -3522,7 +3522,8 @@
     <string name="cp_order_text66">委托数量</string>
     <string name="cp_order_text661">委托价值</string>
     <string name="cp_order_text67">到期时间</string>
-    <string name="cp_order_text68">撤单</string>
+    <string name="cp_order_text68">撤销</string>
+    <string name="cp_order_text681">全部撤销</string>
     <string name="cp_order_text69">条件单</string>
     <string name="cp_order_text70">触发价格</string>
     <string name="cp_order_text71">当前委托</string>
@@ -3885,5 +3886,6 @@
     <string name="cp_extra_text_hold12">显示空仓</string>
     <string name="cp_extra_text_hold2">一键平仓</string>
     <string name="cp_extra_text_hold3">一键平仓将会撤销U本位合约下所有挂单，并以市价委托方式平仓U本位合约下所有仓位。\n请确认是否一键平仓?</string>
+    <string name="cp_extra_text_hold4">全部撤销会撤掉当前列表的所有委托。\n请确认是否全部撤销?</string>
 </resources>
 

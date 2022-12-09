@@ -10,6 +10,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.coorchice.library.SuperTextView
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -115,10 +116,10 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
             when (sideStr) {
                 "BUY" -> {
-                    helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                    helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
                 }
                 "SELL" -> {
-                    helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                    helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
                 }
                 else -> {
                 }
@@ -127,11 +128,11 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
             helper.setText(R.id.tv_side, typeStr)
             helper.setText(R.id.tv_coin_name, symbolName)
-            helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss"))
+            helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm:ss"))
             helper.setText(R.id.tv_order_type, orderType)
             helper.setText(R.id.tv_price,  CpBigDecimalUtils.showSNormal(item.price))
-            helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
-            helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) + "(" + volumePercentStr + ")")
+//            helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
+            helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) )
             helper.setText(R.id.tv_totalvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
             if (item.otoOrder != null) {
                 val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString() == "null") "--" else item.otoOrder.takerProfitTrigger.toString()
@@ -140,8 +141,8 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             }
             helper.setText(R.id.tv_dealvolume_key,  showDealUnit)
             helper.setText(R.id.tv_totalvolume_key, showEntrustUnit)
-            val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
-            pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
+//            val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
+//            pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
         }
     }
 
