@@ -117,7 +117,7 @@
     <color name="credentials_type_line">#e5e5e5</color>
 
     <!--新加颜色-->
-    <color name="new_text_color">#6e7b98</color>
+    <color name="new_text_color">#4B5B82</color>
     <color name="fun_edittext_bg">#050f29</color>
     <color name="new_bg">#2D4787</color>
     <color name="new_main_bg">#081432</color>
@@ -169,7 +169,7 @@
 
 
     <!--新版4.0的颜色-->
-    <color name="main_blue">#3078FF</color>
+    <color name="main_blue">#2B4DE7</color>
     <!--50%透明度-->
     <color name="main_blue_50">#D0D9FF</color>
     <!--25%透明度-->

@@ -3325,6 +3325,8 @@
     <string name="cp_overview_text18">Avail.</string>
     <string name="cp_overview_text19">Avail.</string>
     <string name="cp_overview_text20">Mark Price</string>
+    <string name="cp_quant_stop_high_price">TP</string>
+    <string name="cp_quant_stop_low_price">SL</string>
     <string name="cp_overview_text201">Reverse Opening quantity</string>
     <string name="cp_overview_text202">*Reverse-open will close current position at the market price, and reverse-open will be conducted at the same quantity and market price. In case of insufficient margin, the current position may be closed but new opening failure may occur.</string>
     <string name="cp_overview_text21">Index Price</string>
@@ -3452,6 +3454,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text4">All</string>
     <string name="cp_order_text5">Display All</string>
     <string name="cp_order_text6">Open Long</string>
+    <string name="cp_order_text6111">Open Long</string>
     <string name="cp_order_text611">Sell/Short</string>
     <string name="cp_order_text7">Entry Price</string>
     <string name="cp_order_text8">PNL</string>
@@ -3463,6 +3466,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text13">Mark Price</string>
     <string name="cp_order_text14">Settled Profit And Loss</string>
     <string name="cp_order_text15">Open Short</string>
+    <string name="cp_order_text152">Open Short</string>
     <string name="cp_order_text151">Buy/Long</string>
     <string name="cp_order_text16">Adjust Margin</string>
     <string name="cp_order_text17">Close</string>
@@ -3878,6 +3882,8 @@ Including transaction fees, capital costs, liquidation profit and loss allocatio
     <string name="cp_trade_text4">less than 1</string>
 
     <string name="cp_extra_text_hold1">All</string>
+    <string name="cp_extra_text_hold11">Show Long</string>
+    <string name="cp_extra_text_hold12">Show Short</string>
     <string name="cp_extra_text_hold2">Close All</string>
     <string name="cp_extra_text_hold3">Close All will cancel all pending orders under the U-margin contract, and close all positions under the U-margin contract by way of market order. \nPlease confirm whether to close the position with one click</string>
 </resources>

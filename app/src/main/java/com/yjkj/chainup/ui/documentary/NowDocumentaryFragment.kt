@@ -88,7 +88,7 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
         adapter!!.setMySelf( mViewModel?.uid?.value.isNullOrEmpty())
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
-        adapter?.addChildClickViewIds(com.chainup.contract.R.id.tv_quick_close_position,
+        adapter?.addChildClickViewIds(
             com.chainup.contract.R.id.tv_close_position,
             com.chainup.contract.R.id.tv_reverse_opem,
             com.chainup.contract.R.id.tv_forced_close_price_key,
@@ -564,38 +564,6 @@ class NowDocumentaryFragment : BaseMVFragment<NowDocumentViewModel?, FragmentNow
                                 }
 //                                closePosition(clickData, type, priceType, priceStr, volStr)
                                 mClosePositionDialog?.dismiss()
-                            }
-                        }
-                    })
-                }
-                com.chainup.contract.R.id.tv_quick_close_position -> {
-                    mQuickClosePositionDialog = CpDialogUtil.showQuickClosePositionDialog(this.activity!!, OnBindViewListener {
-                        it.setText(
-                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide == "BUY") getString(com.chainup.contract.R.string.cp_order_text6) else getString(
-                                com.chainup.contract.R.string.cp_order_text15))
-                        it.setTextColor(
-                            com.chainup.contract.R.id.tv_type, if (clickData.orderSide == "BUY") activity?.resources?.getColor(
-                                com.chainup.contract.R.color.main_green)!! else activity?.resources?.getColor(com.chainup.contract.R.color.main_red)!!)
-                        it.setText(com.chainup.contract.R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, clickData.contractId))
-                        it.setText(
-                            com.chainup.contract.R.id.tv_level_value, (if (clickData.positionType == 1) getString(com.chainup.contract.R.string.cp_contract_setting_text1) else getString(
-                                com.chainup.contract.R.string.cp_contract_setting_text2)) + " " + clickData.leverageLevel + "X")
-                        val unit = if (CpClLogicContractSetting.getContractUint(context) == 0) getString(com.chainup.contract.R.string.cp_overview_text9) else CpClLogicContractSetting.getContractMultiplierCoinById(activity, clickData.contractId)
-                        if (CpClLogicContractSetting.getContractUint(context) == 0) {
-                            it.setText(com.chainup.contract.R.id.tv_position_amount, getString(com.chainup.contract.R.string.cp_order_text50) + "：" + clickData.positionVolume + unit)
-                        } else {
-                            it.setText(
-                                com.chainup.contract.R.id.tv_position_amount, getString(com.chainup.contract.R.string.cp_order_text50) + "：" + CpBigDecimalUtils.mulStr(
-                                clickData.positionVolume,
-                                CpClLogicContractSetting.getContractMultiplierById(activity, clickData.contractId),
-                                CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, clickData.contractId)
-                            ) + unit)
-                        }
-                        val btn_close_position = it.getView<CpCommonlyUsedButton>(com.chainup.contract.R.id.btn_close_position)
-                        btn_close_position.listener = object : CpCommonlyUsedButton.OnBottonListener {
-                            override fun bottonOnClick() {
-                                quickClosePosition(clickData.contractId.toString(), "CLOSE", clickData.orderSide, clickData.positionType.toString())
-                                mQuickClosePositionDialog?.dismiss()
                             }
                         }
                     })

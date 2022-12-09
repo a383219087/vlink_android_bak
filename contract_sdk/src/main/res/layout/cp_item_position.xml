@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_card_color"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/cp_btn_blue_4"
         android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_12">
-
-
-
-            <TextView
-                android:id="@+id/tv_tradle_name"
-                style="@style/textStyle_title_16"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/tv_type"
-                tools:text="LTC" />
-
+        android:background="@drawable/cp_btn_blue_4"
+        android:orientation="vertical">
 
 
         <RelativeLayout
@@ -37,25 +23,25 @@
             android:background="@drawable/cp_btn_blue_4_fill">
 
 
-
             <TextView
                 android:id="@+id/tv_contract_name"
                 style="@style/textStyle_title_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/main_blue"
-                android:layout_marginLeft="@dimen/dp_12"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/sp_14"
                 tools:text="LTC" />
+
             <TextView
                 android:id="@+id/tv_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:layout_toRightOf="@id/tv_contract_name"
-                android:layout_centerVertical="true"
                 android:textColor="@color/main_blue"
                 android:textSize="@dimen/sp_14"
                 tools:text="空头" />
@@ -82,237 +68,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:paddingRight="@dimen/dp_15"
                 android:layout_centerVertical="true"
+                android:paddingRight="@dimen/dp_15"
                 android:src="@drawable/cp_contract_share" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="12dp"
+            android:layout_marginRight="@dimen/dp_12"
             android:orientation="horizontal">
-            <!--价格-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_floating_gains_balance_key"
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:text="盈亏(USDT)" />
-
-                <TextView
-                    android:id="@+id/tv_profit_loss_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="+0.014450"
-
-                    android:textSize="16sp"
-                    android:textColor="@color/main_red" />
-
-            </LinearLayout>
-
-            <!--实际成交量-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_deal_title"
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:text="@string/cp_order_text10" />
-
-                <TextView
-                    android:id="@+id/tv_floating_gains_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="-21.23%" android:textSize="16sp"
-                    android:textColor="@color/main_red" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-            <!--价格-->
-
-            <!--实际成交量-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:orientation="vertical">
-
-                <TextView
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:text="@string/cp_order_text100" />
-
-                <TextView
-                    android:id="@+id/tv_open_price_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:ellipsize="end"
-                    android:singleLine="true" android:textSize="16sp"
-                    android:text="50293.1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_forced_close_price_key"
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:drawablePadding="@dimen/dp_3"  android:textSize="12sp"
-                    android:drawableRight="@drawable/cp_contract_prompt"
-                    android:text="@string/cp_order_text9" />
-
-                <TextView
-                    android:id="@+id/tv_forced_close_price_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:ellipsize="end"
-                    android:singleLine="true" android:textSize="16sp"
-                    android:text="50293.1" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_half"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="11dp"
-            android:background="@color/line_color" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--价格-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:orientation="vertical">
-
-                <TextView
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:text="@string/cp_overview_text20" />
-
-                <TextView
-                    android:id="@+id/tv_holdings_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="0.014450" />
-
-            </LinearLayout>
-
-
-            <!--数量-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_margins_key"
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"  android:textSize="12sp"
-                    android:singleLine="true"
-                    android:text="保证金(USDT)" />
-
-                <TextView
-                    android:id="@+id/tv_margins_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="0.014450" />
-
-            </LinearLayout>
-
-
-            <!--实际成交量-->
+            <!--总持仓-->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|left"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_total_position_key"
-                    android:textColor="@color/normal_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:text="总持仓(张)" />
+                    android:singleLine="true"
+                    android:text="总持仓(张)"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tv_total_position_value"
@@ -326,15 +111,7 @@
 
             </LinearLayout>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-            <!--价格-->
+            <!--开仓均价-->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -343,57 +120,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_settled_profit_loss_key"
-                    android:textColor="@color/normal_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:drawablePadding="@dimen/dp_3"
-                    android:drawableRight="@drawable/cp_contract_prompt"
-                    android:text="@string/cp_order_text14" />
+                    android:singleLine="true"
+                    android:text="@string/cp_order_text100"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_settled_profit_loss_value"
+                    android:id="@+id/tv_open_price_value"
                     style="@style/textStyle_select_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_4"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="0.014450" />
-
-            </LinearLayout>
-
-
-            <!--数量-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_tag_price"
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:drawablePadding="@dimen/dp_3"
-                    android:drawableRight="@drawable/cp_contract_prompt"
-                    android:text="@string/cp_extra_text135" />
-
-                <TextView
-                    android:id="@+id/tv_tag_price_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="0.014450" />
+                    android:text="50293.1" />
 
             </LinearLayout>
 
@@ -407,16 +150,188 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_gains_balance_key"
-                    android:textColor="@color/normal_text_color"
+                    android:id="@+id/tv_deal_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:text="可平(张)" />
+                    android:singleLine="true"
+                    android:text="@string/cp_order_text10"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_gains_balance_value"
+                    android:id="@+id/tv_floating_gains_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="-21.23%"
+                    android:textColor="@color/main_red" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="@dimen/dp_12"
+            android:orientation="horizontal">
+            <!--保证金-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_margins_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="保证金(USDT)"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_margins_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="0.014450" />
+
+            </LinearLayout>
+            <!--强平价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_forced_close_price_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/cp_contract_prompt"
+                    android:drawablePadding="@dimen/dp_3"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/cp_order_text9"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_forced_close_price_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="50293.1" />
+
+            </LinearLayout>
+            <!--价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_floating_gains_balance_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="盈亏(USDT)"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_profit_loss_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="+0.014450"
+                    android:textColor="@color/main_red"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal">
+            <!--价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/cp_quant_stop_high_price"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_holdings_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="0.014450" />
+
+            </LinearLayout>
+            <!--价格-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/cp_quant_stop_low_price"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_holdings_value1"
                     style="@style/textStyle_select_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -427,41 +342,38 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
 
         </LinearLayout>
 
+
         <LinearLayout
             android:id="@+id/ll_button"
-              android:visibility="gone"
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:orientation="horizontal">
+            android:layout_margin="12dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-            <Button
-                android:id="@+id/tv_adjust_margins"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/cp_order_text16"
-                android:layout_marginRight="5dp"
-                android:textColor="@color/main_blue"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:background="@drawable/cp_btn_linear_blue_bg"/>
+
 
             <Button
                 android:id="@+id/tv_profit_loss"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/cp_btn_linear_blue_bg"
+                android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:text="@string/cp_order_text29"
                 android:textAllCaps="false"
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />
+
             <Button
                 android:id="@+id/tv_reverse_opem"
                 android:layout_width="0dp"
@@ -469,40 +381,40 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/cp_btn_linear_blue_bg"
+                android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:text="@string/cp_order_text291"
                 android:textAllCaps="false"
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/tv_adjust_margins"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_linear_blue_bg_postion"
+                android:text="@string/cp_order_text16"
+                android:textAllCaps="false"
+                android:textColor="@color/main_blue"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/tv_close_position"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:textAllCaps="false"
-                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/cp_btn_main_blue_4_fill"
                 android:text="@string/cp_order_text40"
-                android:textSize="12sp"
-                android:textColor="@color/main_blue"
-                android:background="@drawable/cp_btn_linear_blue_bg"/>
-            <Button
-                android:id="@+id/tv_quick_close_position"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textColor="@color/main_blue"
                 android:textAllCaps="false"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:textSize="12sp"
-                android:text="@string/cp_order_text41"
-                android:background="@drawable/cp_btn_linear_blue_bg"/>
-
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
 
         </LinearLayout>
     </LinearLayout>
-
 
 
 </LinearLayout>

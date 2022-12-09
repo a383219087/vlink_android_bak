@@ -121,7 +121,7 @@
     <color name="credentials_type_line">#e5e5e5</color>
 
     <!--新加颜色-->
-    <color name="new_text_color">#6e7b98</color>
+    <color name="new_text_color">#4B5B82</color>
     <color name="fun_edittext_bg">#050f29</color>
     <color name="new_bg">#2D4787</color>
     <color name="new_main_bg">#081432</color>

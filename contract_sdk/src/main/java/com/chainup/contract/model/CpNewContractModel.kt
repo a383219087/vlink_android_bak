@@ -471,25 +471,6 @@ class CpNewContractModel : CpBaseDataManager() {
         )
     }
 
-    /**
-     * 历史计划委托所有合约
-     * @param status 订单状态：0 init，1 new，2 filled，3 part_filled，4 canceled，5 pending_cancel，6 expired (不传默认查询 2 和 4 类型)
-     */
-    fun getHistoryPlanOrderListAll(
-        status: Int,
-        page: Int,
-        consumer: DisposableObserver<ResponseBody>
-    ): Disposable? {
-        val map = getBaseMaps().apply {
-            if (status != 0) this["type"] = status.toString()
-            this["page"] = page.toString()
-            this["limit"] = "20"
-        }
-        return changeIOToMainThread(
-            httpHelper.getContractNewUrlService(CpContractApiService::class.java)
-                .getHistoryPlanOrderListAll(getBaseReqBody(map)), consumer
-        )
-    }
 
 
     /**

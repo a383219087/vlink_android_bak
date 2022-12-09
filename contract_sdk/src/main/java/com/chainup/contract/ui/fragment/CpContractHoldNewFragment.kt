@@ -17,6 +17,7 @@ import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpContractPositionBean
 import com.chainup.contract.bean.CpCreateOrderBean
+import com.chainup.contract.bean.CpTabInfo
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.listener.CpDoListener
@@ -53,8 +54,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     private var mAllList = ArrayList<CpContractPositionBean>()
 
 
-    //是否显示全部合约
-    private var showAll = true
+    //是否显示全部合约，1是多头2是空头
+    private var showAll = 0
 
     //合约id
     var mContractId = -1
@@ -70,7 +71,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     }
 
     var mAdjustMarginDialog: TDialog? = null
-    var mQuickClosePositionDialog: TDialog? = null
     var mClosePositionDialog: TDialog? = null
     var mReverseOpenDialog: TDialog? = null
     var mPositionObj: JSONObject? = null
@@ -83,7 +83,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         adapter?.setEmptyView(CpEmptyOrderForAdapterView(context ?: return))
         adapter?.addChildClickViewIds(
             R.id.tv_reverse_opem,
-            R.id.tv_quick_close_position,
             R.id.tv_close_position,
             R.id.tv_forced_close_price_key,
             R.id.tv_adjust_margins,
@@ -721,79 +720,6 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 }
                         })
                 }
-                R.id.tv_quick_close_position -> {
-                    mQuickClosePositionDialog = CpDialogUtil.showQuickClosePositionDialog(
-                        this.activity!!,
-                        OnBindViewListener {
-                            it.setText(
-                                R.id.tv_type,
-                                if (clickData.orderSide.equals("BUY")) getString(R.string.cp_order_text6) else getString(
-                                    R.string.cp_order_text15
-                                )
-                            )
-                            it.setTextColor(
-                                R.id.tv_type,
-                                if (clickData.orderSide.equals("BUY")) activity?.resources?.getColor(
-                                    R.color.main_green
-                                )!! else activity?.resources?.getColor(R.color.main_red)!!
-                            )
-                            it.setText(
-                                R.id.tv_contract_name,
-                                CpClLogicContractSetting.getContractShowNameById(
-                                    context,
-                                    clickData.contractId
-                                )
-                            )
-                            it.setText(
-                                R.id.tv_level_value,
-                                (if (clickData.positionType == 1) getString(R.string.cp_contract_setting_text1) else getString(
-                                    R.string.cp_contract_setting_text2
-                                )) + " " + clickData.leverageLevel + "X"
-                            )
-                            val unit =
-                                if (CpClLogicContractSetting.getContractUint(context) == 0) getString(
-                                    R.string.cp_overview_text9
-                                ) else CpClLogicContractSetting.getContractMultiplierCoinById(
-                                    activity,
-                                    clickData.contractId
-                                )
-                            if (CpClLogicContractSetting.getContractUint(context) == 0) {
-                                it.setText(
-                                    R.id.tv_position_amount,
-                                    getString(R.string.cp_order_text50) + "：" + clickData.positionVolume + unit
-                                )
-                            } else {
-                                it.setText(
-                                    R.id.tv_position_amount,
-                                    getString(R.string.cp_order_text50) + "：" + CpBigDecimalUtils.mulStr(
-                                        clickData.positionVolume,
-                                        CpClLogicContractSetting.getContractMultiplierById(
-                                            activity,
-                                            clickData.contractId
-                                        ),
-                                        CpClLogicContractSetting.getContractMultiplierPrecisionById(
-                                            activity,
-                                            clickData.contractId
-                                        )
-                                    ) + unit
-                                )
-                            }
-                            val btn_close_position =
-                                it.getView<CpCommonlyUsedButton>(R.id.btn_close_position)
-                            btn_close_position.listener =
-                                object : CpCommonlyUsedButton.OnBottonListener {
-                                    override fun bottonOnClick() {
-                                        quickClosePosition(
-                                            clickData.contractId.toString(),
-                                            "CLOSE",
-                                            clickData.orderSide,
-                                            clickData.positionType.toString()
-                                        )
-                                        mQuickClosePositionDialog?.dismiss()
-                                    }
-                                }
-                        })
-                }
                 R.id.tv_adjust_margins -> {
                     mAdjustMarginDialog =
                         CpDialogUtil.showAdjustMarginDialog(this.activity!!, OnBindViewListener {
@@ -1214,30 +1140,28 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     //更新是否显示全部的是UI
     private fun showSwitch() {
         showAll =
-            CpPreferenceManager.getBoolean(activity!!, CpPreferenceManager.isShowAllContract, true)
-        if (showAll) {
-            img_switch.visibility = View.VISIBLE
-            img_not_switch.visibility = View.GONE
-        } else {
-            img_switch.visibility = View.GONE
-            img_not_switch.visibility = View.VISIBLE
-        }
+            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContract, 0)
         updateAdapter()
 
     }
-
+    var showTDialog:  TDialog?  =null
     private fun initOnClick() {
-        //选中切换成未选中
-        img_switch.setOnClickListener {
-            CpPreferenceManager.putBoolean(activity!!, CpPreferenceManager.isShowAllContract, false)
-            showSwitch()
-        }
-        //未选中切换成选中
-        img_not_switch.setOnClickListener {
-            CpPreferenceManager.putBoolean(activity!!, CpPreferenceManager.isShowAllContract, true)
-            showSwitch()
-        }
+        //选择
+        tv_show_all.setOnClickListener {
+            val typeList = ArrayList<CpTabInfo>()
+            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
+            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
+            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
+            showTDialog?.dismiss()
+            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
+                override fun clickItem(position: Int) {
+                    showTDialog?.dismiss()
+                        CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, position)
+                    showSwitch()
+                }
+            })
 
+        }
 
         //一键平仓
         tv_confirm_btn.setOnClickListener {
@@ -1281,13 +1205,27 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             adapter?.notifyDataSetChanged()
             return
         }
-        if (showAll) {
-            mList = mAllList
-        } else {
-            mList.clear()
-            for (i in 0 until mAllList.size) {
-                if (mAllList[i].contractId == mContractId) {
-                    mList.add(mAllList[i])
+        when (showAll) {
+            0 -> {
+                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold1)
+                mList = mAllList
+            }
+            1 -> {
+                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold11)
+                mList.clear()
+                for (i in 0 until mAllList.size) {
+                    if (mAllList[i].orderSide == "BUY") {
+                        mList.add(mAllList[i])
+                    }
+                }
+            }
+            else -> {
+                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold12)
+                mList.clear()
+                for (i in 0 until mAllList.size) {
+                    if (mAllList[i].orderSide == "SELL") {
+                        mList.add(mAllList[i])
+                    }
                 }
             }
         }
@@ -1302,18 +1240,17 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         price: String,
         vol: String
     ) {
-        var contractId = data.contractId
-        var positionType = data.positionType.toString()
-        var open = "CLOSE"
-        var side = if (data.orderSide.equals("BUY")) "SELL" else "BUY"
-        var type = type
-        var leverageLevel = data.leverageLevel
-        var price = price
-        var volume = vol
-        var isConditionOrder = false
-        var triggerPrice = ""
-
-        var expireTime =
+        val contractId = data.contractId
+        val positionType = data.positionType.toString()
+        val open = "CLOSE"
+        val side = if (data.orderSide.equals("BUY")) "SELL" else "BUY"
+        val type = type
+        val leverageLevel = data.leverageLevel
+        val price = price
+        val volume = vol
+        val isConditionOrder = false
+        val triggerPrice = ""
+        val expireTime =
             CpClLogicContractSetting.getStrategyEffectTimeStr(mActivity)
         addDisposable(
             getContractModel().createOrder(contractId,
@@ -1333,6 +1270,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 priceType,
                 consumer = object :
                     CpNDisposableObserver(mActivity, true) {
+                    @SuppressLint("CheckResult")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         CpNToastUtil.showTopToastNet(
                             this.mActivity,
@@ -1375,6 +1313,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         )
     }
 
+    @SuppressLint("CheckResult")
     private fun doShare(shareBitmap: Bitmap) {
         val rxPermissions = activity?.let { RxPermissions(it) }
         rxPermissions?.request(
