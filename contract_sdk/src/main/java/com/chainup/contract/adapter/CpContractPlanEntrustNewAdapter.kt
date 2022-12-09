@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.adapter
+package com.chainup.contract.adapter
 
 import android.content.Context
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -9,6 +9,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.coorchice.library.SuperTextView
 import java.math.BigDecimal
 import java.util.*
 
@@ -99,10 +100,10 @@ class CpContractPlanEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrd
 
         when (sideStr) {
             "BUY" -> {
-                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+                helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
             }
             "SELL" -> {
-                helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+                helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
             }
             else -> {
             }
