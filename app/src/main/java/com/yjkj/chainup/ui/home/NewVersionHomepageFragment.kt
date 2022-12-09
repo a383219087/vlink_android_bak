@@ -107,10 +107,6 @@ class NewVersionHomepageFragment :
     contractOpen = PublicInfoDataService.getInstance().contractOpen(null)
     WsAgentManager.instance.addWsCallback(this)
     observeData()
-    //设置轮播时间
-    mBinding?.bannerLooperCustom?.setLoopTime(3000)
-    //设置指示器位置（当banner模式中有指示器时）
-    mBinding?.bannerLooperCustom?.setIndicatorGravity(IndicatorConfig.Direction.CENTER)
 
     initTop24HourView()
 
@@ -232,7 +228,6 @@ class NewVersionHomepageFragment :
     val noticeInfoList = data.optJSONArray("noticeInfoList")
     val cmsAppAdvertList = data.optJSONArray("cmsAppAdvertList")
     val cmsAppDataList = data.optJSONArray("cmsAppDataList")
-    val cmsAppNoteDataList = data.optJSONArray("cmsAppDataListOther")
     val cmsSymbolList = data.optJSONArray("header_symbol")
     val homeRecommendList = data.optJSONArray("home_recommend_list") ?: JSONArray()
 
@@ -247,7 +242,6 @@ class NewVersionHomepageFragment :
     }
     showGuanggao(noticeInfoList)
     showBannerData(cmsAppAdvertList)
-    initNoteBanner(cmsAppNoteDataList)
     setServiceData(cmsAppDataList)
 
   }
@@ -326,13 +320,7 @@ class NewVersionHomepageFragment :
       }
     }
 
-    if(bannerNoteUrls.size > 0) {
-      if(isShow) {
-        mBinding?.bannerLooperCustom?.start()
-      } else {
-        mBinding?.bannerLooperCustom?.stop()
-      }
-    }
+
   }
 
 
@@ -501,7 +489,6 @@ class NewVersionHomepageFragment :
 
   val fragments = arrayListOf<Fragment>()
   var selectPostion = 0
-  val chooseType = arrayListOf<String>()
 
 
   private fun showBottomVp(data: JSONArray) {
@@ -515,36 +502,18 @@ class NewVersionHomepageFragment :
     }
     mBinding?.bottomVpLinearlayout?.visibility = View.VISIBLE
     for(item in serviceDatas) {
-//      titles.add(item.getString("title"))
-//      chooseType.add(item.getString("key"))
       LogUtil.e("首页tab数据", serviceDatas.toString())
     }
     titles.add("合约")
     titles.add("币币")
-    chooseType.add("rasing")
     fragments.clear()
-    if(titles.isEmpty())
-      return
-
-//    for(i in titles.indices) {
-//      fragments.add(
-//        NewHomeDetailFragmentItem.newInstance(
-//          titles[i],
-//          i,
-//          chooseType[i],
-//          mBinding?.fragmentMarket!!,
-//          serviceDatas[i].getJSONArray("list").toString()
-//        )
-//      )
-//    }
 
     fragments.add(NewHomeContractFragment())
-
     fragments.add(
       NewHomeDetailFragmentItem.newInstance(
         titles[1],
         0,
-        chooseType[0],
+        "rasing",
         mBinding?.fragmentMarket!!,
         serviceDatas[0].getJSONArray("list").toString()
       )
@@ -1194,20 +1163,14 @@ class NewVersionHomepageFragment :
    * 获取数据
    */
   private fun getVPTab() {
-    if(chooseType.size == 0) {
-      return
-    }
-//    val type = chooseType[selectPostion]
-    val type = chooseType[0]
+
     var disposable =
-      getMainModel().trade_list_v4(type, object : NDisposableObserver(null, false, type) {
+      getMainModel().trade_list_v4("rasing", object : NDisposableObserver(null, false, "rasing") {
         override fun onResponseSuccess(jsonObject: JSONObject) {
           isRose = true
-          val fragment = fragments[selectPostion]
+          val fragment = fragments[1]
           if(fragment is NewHomeDetailFragmentItem) {
-            if(type == this.getHomeTabType()) {
               fragment.initV(jsonObject.optJSONArray("data"))
-            }
           }
           this.mapParams
         }
@@ -1236,47 +1199,8 @@ class NewVersionHomepageFragment :
     }
   }
 
-  private fun initNoteBanner(cmsAppDataList: JSONArray?) {
-    if(cmsAppDataList != null && cmsAppDataList.length() != 0) {
-      mBinding?.rlCustomConfig?.visibility = View.VISIBLE
-      val serviceDatas = JSONUtil.arrayToList(cmsAppDataList)
-      val arrayBanner = arrayListOf<String>()
-      serviceDatas.forEach {
-        val imageUrl = it.optString("imageUrl")
-        if(StringUtil.isHttpUrl(imageUrl)) {
-          arrayBanner.add(imageUrl)
-        }
-      }
-      bannerNoteUrls.clear()
-      bannerNoteUrls.addAll(arrayBanner)
 
-      mBinding?.bannerLooperCustom?.let {
 
-        val mAdapter = ImageNetAdapter(bannerNoteUrls)
-        it.adapter = mAdapter
-      }
-      mBinding?.bannerLooperCustom?.start()
-      mBinding?.bannerLooperCustom?.setOnBannerListener { data, position ->
-        val obj = cmsAppDataList.optJSONObject(position)
-        routeApp(obj)
-      }
-    } else {
-      mBinding?.rlCustomConfig?.visibility = View.GONE
-      bannerNoteUrls.clear()
-    }
-  }
-
-  private fun routeApp(obj: JSONObject?) {
-    val httpUrl = obj?.optString("httpUrl") ?: ""
-    val nativeUrl = obj?.optString("nativeUrl") ?: ""
-    if(TextUtils.isEmpty(httpUrl)) {
-      if(StringUtil.checkStr(nativeUrl) && nativeUrl.contains("?")) {
-        enter2Activity(nativeUrl.split("?"))
-      }
-    } else {
-      forwardWeb(obj)
-    }
-  }
 
   /**
    * 获取顶部symbol 24小时行情

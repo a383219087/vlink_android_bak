@@ -1,22 +1,16 @@
 package com.yjkj.chainup.new_version.home
 
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chainup.contract.adapter.CpPageAdapter
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.eventbus.CpNLiveDataUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpJsonUtils
 import com.chainup.contract.ws.CpWsContractAgentManager
 import com.chainup.contract.ws.CpWsContractAgentManager.Companion.instance
-import com.flyco.tablayout.SlidingTabLayout
-import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
