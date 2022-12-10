@@ -342,62 +342,21 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
             })
         }
 
-        //资金划转
-        ll_transfer.setSafeListener {
-            if (!CpClLogicContractSetting.isLogin()) {
-                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
-                return@setSafeListener
-            }
-            if (openContract == 0) {
-                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_open_contract_event))
-                return@setSafeListener
-            }
-            val mMessageEvent = CpMessageEvent(CpMessageEvent.sl_contract_go_fundsTransfer_page)
-            mMessageEvent.msg_content = marginCoin
-            CpEventBusUtil.post(mMessageEvent)
-        }
+//        //资金划转
+//        ll_transfer.setSafeListener {
+//            if (!CpClLogicContractSetting.isLogin()) {
+//                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
+//                return@setSafeListener
+//            }
+//            if (openContract == 0) {
+//                CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_open_contract_event))
+//                return@setSafeListener
+//            }
+//            val mMessageEvent = CpMessageEvent(CpMessageEvent.sl_contract_go_fundsTransfer_page)
+//            mMessageEvent.msg_content = marginCoin
+//            CpEventBusUtil.post(mMessageEvent)
+//        }
 
-        //资金费率
-        ll_rate.setSafeListener {
-            CpDialogUtil.showCapitalRateDialog(context, OnBindViewListener {
-                val tvCutOffTime = it.getView<TextView>(R.id.tv_cut_off_time)
-                val tvCurrentFundRate = it.getView<TextView>(R.id.tv_current_fund_rate)
-                val tvNextFundRate = it.getView<TextView>(R.id.tv_next_fund_rate)
-
-                tvCurrentFundRate.text = DecimalFormat("0.000000%").format(mMarkertInfoJson?.optDouble("currentFundRate"))
-                tvNextFundRate.text = DecimalFormat("0.000000%").format(mMarkertInfoJson?.optDouble("nextFundRate"))
-
-                var timeSlot = 24 / capitalFrequency
-                val currentDate = CpDateUtils.dateToString(CpDateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MIN_SECOND, Date())
-                currentTimeMillis = System.currentTimeMillis()
-                val startDate = currentDate.split(" ")[0] + " " + String.format("%02d", capitalStartTime) + ":00:00"
-                val startLong = SimpleDateFormat(CpDateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MIN_SECOND).parse(startDate).time
-                val c: Calendar = GregorianCalendar()
-                var timeMillisBuff = startLong
-                var timeDiff = 0L
-                for (index in 0..timeSlot) {
-                    c.timeInMillis = timeMillisBuff
-                    if (currentTimeMillis < timeMillisBuff) {
-                        timeDiff = timeMillisBuff - currentTimeMillis
-                        break
-                    }
-                    c.add(Calendar.HOUR, capitalFrequency)
-                    timeMillisBuff = c.timeInMillis
-                }
-
-                Observable.interval(0L, CpCommonConstant.currentTimeMillisLoopTime, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            currentTimeMillis = currentTimeMillis + 1000L
-                            timeDiff = timeDiff - 1000L
-
-                            var showCountDownTime = CpDateUtils.formatLongToTimeStr(timeDiff)
-                            showCountDownTime =
-                                    if (showCountDownTime.equals("00:00:00") || timeDiff <= 0) "00:00:00" else showCountDownTime
-                            tvCutOffTime?.setText(CpDateUtils.getHourMinNew(timeMillisBuff) + "(" + showCountDownTime + ")")
-                        }
-            })
-        }
         //标记价格
         tv_index_price.setSafeListener {
             CpDialogUtil.showIndexPriceDialog(context, OnBindViewListener {
@@ -458,7 +417,6 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
         mMarkertInfoJson?.apply {
             val tagPrice = CpBigDecimalUtils.scaleStr(optString("tagPrice"), symbolPricePrecision)
             tv_index_price.setText(tagPrice)
-            tv_rate.setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
             mBindViewHolder?.apply {
                 val tvTagPrice = this.getView<TextView>(R.id.tv_tag_price)
                 val tvIndexPrice = this.getView<TextView>(R.id.tv_index_price)
