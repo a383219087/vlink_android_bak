@@ -44,7 +44,8 @@ class CpContractDropAdapter2(data: ArrayList<JSONObject>) : BaseQuickAdapter<JSO
                 val tvContractChg = helper?.getView<TextView>(R.id.tv_contract_chg)
                 tvContractChg?.run {
                     text = if (chg >= 0) "+" + dfRate.format(chg) + "%" else dfRate.format(chg) + "%"
-                    setTextColor( CpColorUtil.getHomeColorType(chg >= 0))
+//                    setTextColor( CpColorUtil.getHomeColorType(chg >= 0))
+                    setBackgroundColor(CpColorUtil.getHomeColorType(chg >= 0))
                 }
             }
             if (!ticker.isNull("close")) {

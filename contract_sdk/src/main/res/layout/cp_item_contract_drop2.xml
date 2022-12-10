@@ -68,17 +68,17 @@
             android:gravity="center_vertical|right"
             android:orientation="vertical">
 
-            <com.coorchice.library.SuperTextView
+            <TextView
                 android:id="@+id/tv_contract_chg"
                 android:layout_width="@dimen/dp_78"
                 android:layout_height="@dimen/dp_32"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="-16.68%"
-                android:textColor="@color/white"
                 style="@style/textStyle_while_14"
-                app:stv_corner="@dimen/dp_4"
-                app:stv_solid="@color/main_green" />
+                app:bl_corners_radius="4dp"
+                android:background="@color/main_green"
+                />
         </LinearLayout>
     </LinearLayout>
     <View

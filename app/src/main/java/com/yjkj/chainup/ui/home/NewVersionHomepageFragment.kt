@@ -504,8 +504,8 @@ class NewVersionHomepageFragment :
     for(item in serviceDatas) {
       LogUtil.e("首页tab数据", serviceDatas.toString())
     }
-    titles.add("合约")
-    titles.add("币币")
+    titles.add(getString(R.string.trade_contract_title))
+    titles.add(getString(R.string.trade_bb_titile))
     fragments.clear()
 
     fragments.add(NewHomeContractFragment())
