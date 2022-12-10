@@ -33,7 +33,7 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
     private var mAllList = ArrayList<CpCurrentOrderBean>()
 
     //是否显示全部合约
-    private var showAll = true
+    private var showAll = 0
 
     //合约id
     var mContractId = "-1"
@@ -60,7 +60,7 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
     //更新是否显示全部的是UI
     private fun showSwitch() {
         showAll =
-            CpPreferenceManager.getBoolean(activity!!, CpPreferenceManager.isShowAllContractEntrust, true)
+            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, 0)
 
         updateAdapter()
 
@@ -103,7 +103,7 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
             adapter?.notifyDataSetChanged()
             return
         }
-        if (showAll) {
+        if (showAll==0) {
             mList = mAllList
         } else {
             mList.clear()
