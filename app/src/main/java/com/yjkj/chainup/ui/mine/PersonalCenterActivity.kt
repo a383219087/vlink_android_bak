@@ -299,6 +299,7 @@ class  PersonalCenterActivity : NBaseActivity() {
 
             }))
         } else {
+            SPUtils.getInstance().put(ParamConstant.simulate, false)
             ll_share.visibility=View.GONE
             title_layout?.setNoLogin()
         }
