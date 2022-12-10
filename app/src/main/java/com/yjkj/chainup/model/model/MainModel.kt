@@ -1,20 +1,31 @@
 package com.yjkj.chainup.model.model
 
+import android.content.Intent
 import android.text.TextUtils
+import com.blankj.utilcode.util.SPUtils
+import com.chainup.contract.net.CpHttpHelper
+import com.chainup.contract.ws.CpWsContractAgentManager
 import com.igexin.sdk.PushManager
 import com.yjkj.chainup.app.AppConstant
+import com.yjkj.chainup.app.ChainUpApp
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.extra_service.push.HandlePushIntentService
+import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.ContractApiService
+import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.model.api.MainApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
 import com.yjkj.chainup.net.DataHandler
+import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.HttpClient.Companion.LOGIN_PWORD
 import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.util.*
+import com.yjkj.chainup.ws.WsAgentManager
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -456,7 +467,35 @@ class MainModel : BaseDataManager() {
                 UserDataService.getInstance().saveData(json)
                 changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).testUser(getBaseReqBody()), object :NDisposableObserver(){
                     override fun onResponseSuccess(jsonObject: JSONObject) {
-                        LogUtil.e("LogUtils", "登录监听 ${jsonObject}")
+                        var json = jsonObject.optBoolean("data")
+                        /// 是模拟账号
+                         if(json&&!SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+                             ChainUpApp.url= HttpResultUrlData(
+                                     baseUrl = "http://8.219.93.19:8082/base/appapi",
+                                     contractSocketAddress = "ws://8.219.93.19:8082/contract/kline/ws",
+                                     contractUrl = "http://8.219.93.19:8082/contract/appapi",
+                                     httpHostUrlContractV2 = "http://8.219.93.19:8082/contract/appapi",
+                                     otcBaseUrl = "http://8.219.93.19:8082/otc/appapi",
+                                     otcSocketAddress = "ws://8.219.93.19:8082/otc/chat/ws",
+                                     redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+                                     socketAddress = "ws://8.219.93.19:8082/base/kline/ws",
+                                     wssHostContractV2 = "ws://8.219.93.19:8082/contract/kline/ws",
+                                     optionUrl = "",
+                                     blocksUrl = "",
+                                     chatUrl = "",
+                                     chatApiUrl = ""
+                                 )
+                             HttpClient.instance.changeNetwork("8.219.93.19:8082/base/appapi")
+                             PushManager.getInstance()
+                                 .registerPushIntentService(mActivity, HandlePushIntentService::class.java)
+                             WsAgentManager.instance.socketUrl(ChainUpApp.url!!.socketAddress, true)
+                             CpWsContractAgentManager.instance.socketUrl(ChainUpApp.url!!.contractSocketAddress, true)
+                             CpHttpHelper.instance.serviceUrl(ChainUpApp.url!!.contractUrl)
+                             SPUtils.getInstance().put(ParamConstant.simulate, true)
+                         }
+                        if(!json){
+                            SPUtils.getInstance().put(ParamConstant.simulate, false)
+                        }
 
 
                     }

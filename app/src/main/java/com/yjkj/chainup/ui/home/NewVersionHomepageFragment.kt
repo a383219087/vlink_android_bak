@@ -1026,7 +1026,7 @@ class NewVersionHomepageFragment :
                     channelNew.contains(it)
                   }
                   if(tempBottom.isNotEmpty()) {
-                    tempMap.put(item.key, item.value)
+                    tempMap[item.key] = item.value
                   }
                 }
                 if(tempMap.isEmpty()) {
