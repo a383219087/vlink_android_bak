@@ -86,7 +86,7 @@ object CpColorUtil {
      */
     fun getHomeColorType(isRise: Boolean = true): Int {
         var colorSelect = getColorType()
-        val mainGreen = getColor(R.color.white)
+        val mainGreen = getColor(R.color.main_green)
         val mainRed = getColor(R.color.main_red)
 
         if (colorSelect == GREEN_RISE) {
