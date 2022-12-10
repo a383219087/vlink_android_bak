@@ -96,16 +96,6 @@ class ClContractAssetFragment : NBaseFragment() {
             }
         }
 
-//        swipe_refresh.setColorSchemeColors(ContextUtil.getColor(R.color.colorPrimary))
-//        /**
-//         * 此处刷新
-//         */
-//        swipe_refresh?.setOnRefreshListener {
-//            /**
-//             * 刷新数据操作
-//             */
-//            getPositionList()
-//        }
         showTitles.add(LanguageUtil.getString(context, "cp_order_text1"))
         showTitles.add(LanguageUtil.getString(context, "cp_order_text111"))
         fragments.add( ContractHoldFragment())

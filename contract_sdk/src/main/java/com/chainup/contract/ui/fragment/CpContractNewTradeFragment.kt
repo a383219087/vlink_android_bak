@@ -257,7 +257,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             @SuppressLint("SetTextI18n")
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data")?.run {
-                                    tab_order.getTitleView(0).text = getString(R.string.cp_order_text1) + " " + this.optJSONArray("positionList").length()
+//                                    tab_order.getTitleView(0).text = getString(R.string.cp_order_text1) + " " + this.optJSONArray("positionList").length()
                                     val msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_refresh_position_list_event)
                                     msgEvent.msg_content = this
                                     CpEventBusUtil.post(msgEvent)
@@ -276,7 +276,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         consumer = object : CpNDisposableObserver(true) {
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data").run {
-                                    tab_order.getTitleView(1).text = getString(R.string.cp_order_text2) + " " + this.optString("count")
+//                                    tab_order.getTitleView(1).text = getString(R.string.cp_order_text2) + " " + this.optString("count")
                                     val msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_refresh_current_entrust_list_event)
                                     msgEvent.msg_content = this
                                     CpEventBusUtil.post(msgEvent)
@@ -296,7 +296,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             @SuppressLint("SetTextI18n")
                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                 jsonObject.optJSONObject("data").run {
-                                    tab_order.getTitleView(2).text = getString(R.string.cp_order_text3) + " " + this.optString("count")
+//                                    tab_order.getTitleView(2).text = getString(R.string.cp_order_text3) + " " + this.optString("count")
                                     val msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_refresh_plan_entrust_list_event)
                                     msgEvent.msg_content = this
                                     CpEventBusUtil.post(msgEvent)

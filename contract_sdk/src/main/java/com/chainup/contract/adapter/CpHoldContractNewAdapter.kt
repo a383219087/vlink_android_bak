@@ -104,11 +104,20 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             setText(R.id.tv_margins_value, CpBigDecimalUtils.showSNormal(item.holdAmount, CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, item.contractId)))
             //保证金Key
             setText(R.id.tv_margins_key, context.getString(R.string.cp_order_text12) + "(" + CpClLogicContractSetting.getContractMarginCoinById(context, item.contractId) + ")")
-            //止盈价格
-            setText(R.id.tv_holdings_value, "--")
-            //止损价格
-            setText(R.id.tv_holdings_value1, "--")
-
+            //可平
+            setText(R.id.tv_gains_balance_value, if (CpClLogicContractSetting.getContractUint(context) == 0) CpDecimalUtil.cutValueByPrecision(item.canCloseVolume,0)  else CpBigDecimalUtils.mulStr(item.canCloseVolume, mMultiplier, mMultiplierPrecision))
+            //可平Key
+            setText(R.id.tv_gains_balance_key, if (CpClLogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cp_order_text35) + "("+context.getString(R.string.cp_overview_text9)+")" else context.getString(R.string.cp_order_text35) + "(" + mMultiplierCoin + ")")
+            //保证金率
+            setText(R.id.tv_tag_price_value, CpNumberUtil().getDecimal(2).format(
+                CpMathHelper.round(
+                    CpMathHelper.mul(item.marginRate, "100"), 2)).toString() + "%")
+            //标记价格
+            setText(R.id.tv_holdings_value, CpBigDecimalUtils.showSNormal(item.indexPrice, mPricePrecision))
+            //杠杆
+            //            setText(R.id.tv_amount_can_be_liquidated_value, item.leverageLevel.toString() + "X")
+            //已结算盈亏
+            setText(R.id.tv_settled_profit_loss_value, CpBigDecimalUtils.showSNormal(item.profitRealizedAmount, mMarginCoinPrecision))
 
         }
     }

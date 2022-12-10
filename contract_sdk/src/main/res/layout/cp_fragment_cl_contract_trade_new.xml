@@ -70,11 +70,11 @@
                             app:tl_indicator_color="@color/main_blue"
                             app:tl_indicator_corner_radius="@dimen/dp_2"
                             app:tl_indicator_height="@dimen/dp_2"
-                            app:tl_indicator_width="@dimen/dp_48"
+                            app:tl_indicator_width="@dimen/dp_18"
                             app:tl_indicator_width_equal_title="false"
                             app:tl_tab_padding="10dp"
                             app:tl_textBold="BOTH"
-                            app:tl_textSelectColor="@color/main_color"
+                            app:tl_textSelectColor="@color/main_blue"
                             app:tl_textSize="@dimen/sp_14"
                             app:tl_textUnSelectColor="@color/normal_text_color" />
 
@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:drawableLeft="@drawable/cp_exchange_order"
+                            android:drawableRight="@drawable/cp_enter"
                             android:drawablePadding="@dimen/dp_5"
                             android:gravity="center"
                             android:paddingRight="@dimen/dp_15"
