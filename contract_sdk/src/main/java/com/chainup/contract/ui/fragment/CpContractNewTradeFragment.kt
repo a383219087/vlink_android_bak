@@ -2,6 +2,7 @@ package com.chainup.contract.ui.fragment
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -25,6 +26,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.bean.CpCreateOrderBean
+import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -103,6 +105,12 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     "",
                     openContract
             )
+        }
+        //合约计算器
+        ib_jisuan.setOnClickListener {
+            if (mContractId > 0) {
+                CpContractCalculateActivity.show(context as Activity, mContractId, "")
+            }
         }
         //全部
         ll_all_entrust_order.setSafeListener {

@@ -45,7 +45,7 @@
                         android:layout_width="match_parent"
                         app:title="TITLE"
                         app:layout_collapseMode="pin"
-                        android:background="@color/bg_card_color"
+                        android:background="@color/bg_color"
                         android:layout_height="50dp">
                         <include layout="@layout/cp_trade_header_tools" />
                     </androidx.appcompat.widget.Toolbar>
