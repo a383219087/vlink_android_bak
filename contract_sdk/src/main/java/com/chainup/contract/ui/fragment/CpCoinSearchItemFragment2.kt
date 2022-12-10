@@ -42,6 +42,7 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
         contractDropAdapter = CpContractDropAdapter2(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
         rv_search_coin.adapter = contractDropAdapter
+        rv_search_coin?.isNestedScrollingEnabled = false
         contractDropAdapter?.setEmptyView(CpSearchCoinEmptyForAdapterView(context ?: return))
         rv_search_coin.adapter = contractDropAdapter
         CpNLiveDataUtil.observeData(this, androidx.lifecycle.Observer {

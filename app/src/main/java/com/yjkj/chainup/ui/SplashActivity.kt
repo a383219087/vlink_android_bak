@@ -126,7 +126,7 @@ class SplashActivity : AppCompatActivity() {
 //            liksArray.add("http://www.qyrx.me/gate")
             checkNetworkLine(liksArray[currentCheckIndex])
 
-//
+
 //            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)&& UserDataService.getInstance().isLogined) {
 //                goToMain(
 //                    HttpResultUrlData(
