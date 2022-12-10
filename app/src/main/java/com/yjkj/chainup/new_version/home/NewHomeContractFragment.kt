@@ -14,7 +14,7 @@ import com.chainup.contract.ws.CpWsContractAgentManager.Companion.instance
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.fragment.CpCoinSearchItemFragment2.Companion.newInstance2
+import com.chainup.contract.ui.fragment.CpCoinSearchItemFragment2.Companion.newInstance2
 import kotlinx.android.synthetic.main.fragment_home_contract.*
 import org.json.JSONArray
 import org.json.JSONException

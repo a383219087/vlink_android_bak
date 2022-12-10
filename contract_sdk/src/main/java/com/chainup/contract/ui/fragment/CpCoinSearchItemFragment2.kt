@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.fragment
+package com.chainup.contract.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
