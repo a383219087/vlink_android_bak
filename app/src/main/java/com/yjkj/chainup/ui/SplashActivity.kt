@@ -17,6 +17,7 @@ import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.contract.utils.UtilSystem
 import com.yjkj.chainup.databinding.ActivitySplashBinding
 import com.yjkj.chainup.db.constant.ParamConstant
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
@@ -126,7 +127,7 @@ class SplashActivity : AppCompatActivity() {
             checkNetworkLine(liksArray[currentCheckIndex])
 
 
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)&& UserDataService.getInstance().isLogined) {
                 goToMain(
                     HttpResultUrlData(
                         baseUrl = "http://8.219.93.19:8082/base/appapi",

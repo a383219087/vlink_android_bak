@@ -500,6 +500,11 @@ class MainModel : BaseDataManager() {
 
                     }
 
+                    override fun onError(e: Throwable) {
+                        super.onError(e)
+                        SPUtils.getInstance().put(ParamConstant.simulate, false)
+                    }
+
                 })
             }
         }
