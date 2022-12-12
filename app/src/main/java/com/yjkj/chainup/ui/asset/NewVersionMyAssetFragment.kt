@@ -74,21 +74,17 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     /**
      * 合约
      */
-    var contractOpen = false
+    var contractOpen = true
     var chooseIndex = 0
 
     /**
      * b2c
      */
-    var b2cOpen = false
-
-    /**
-     * 杠杆
-     */
-    var leverOpen = false
+    var b2cOpen = true
 
 
-    var indexList = ArrayList<String>()
+
+
 
     /*
      *  是否已经登录
@@ -275,7 +271,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
             if (Utils.isFastClick()) return@setOnClickListener
 
-            bibiObject!!.optJSONObject("data")?.run {
+            bibiObject?.optJSONObject("data")?.run {
                 val json = this.optJSONObject("allCoinMap")
                 val keys: Iterator<String> = json?.keys() as Iterator<String>
                 var balancelist = arrayListOf<JSONObject>()
@@ -461,14 +457,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             LanguageUtil.getString(context, "assets_text_otc")
         }
 
-        if (leverOpen) {
-            val jsonObject = JSONObject()
-            jsonObject.put("title", LanguageUtil.getString(context, "leverage_asset"))
-            jsonObject.put("totalBalanceSymbol", "BTC")
-            jsonObject.put("totalBalance", "0")
-            jsonObject.put("balanceType", ParamConstant.LEVER_INDEX)
-            assetlist.add(jsonObject)
-        }
+
 
         if (b2cOpen) {
             val jsonObject = JSONObject()
@@ -527,10 +516,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                     ParamConstant.FABI_INDEX -> {
                         getAccountBalance4OTC()
                     }
-                    //杠杆
-                    ParamConstant.LEVER_INDEX -> {
-                        getLeverData()
-                    }
+
                     //B2C
                     ParamConstant.B2C_INDEX-> {
                         getB2CAccount()
@@ -552,13 +538,13 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 var t = jsonObject.optJSONObject("data")
                  fabiObject=jsonObject
                 refresh()
-                if (leverOpen && b2cOpen) {
+                if (b2cOpen) {
                     if (assetlist.size > 3) {
                         assetlist[3].put("totalBalance", t.optString("totalBalance") ?: "")
                         assetlist[3].put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
                                 ?: "")
                     }
-                } else if (leverOpen || b2cOpen) {
+                } else if ( b2cOpen) {
                     assetlist[2].put("totalBalance", t.optString("totalBalance") ?: "")
                     assetlist[2].put("totalBalanceSymbol", t.optString("totalBalanceSymbol")
                             ?: "")
@@ -610,9 +596,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 assetlist[0].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: "")
                     when {
-                        leverOpen -> {
-                            getLeverData()
-                        }
+
                         b2cOpen -> {
                             getB2CAccount()
                         }
@@ -655,21 +639,22 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     /**
      * 更新账户信息  合约
      */
+    @SuppressLint("SuspiciousIndentation")
     private fun updateContractAccount() {
         val totalBalanceSymbol = "BTC"
         val totalBalance = ContractUtils.calculateTotalBalance(totalBalanceSymbol)
 
-            if (leverOpen && b2cOpen && otcOpen) {
+            if ( b2cOpen && otcOpen) {
                 if (assetlist.size > 4) {
                     assetlist[4].put("totalBalance", totalBalance)
                     assetlist[4].put("totalBalanceSymbol", totalBalanceSymbol)
                 }
-            } else if ((b2cOpen && otcOpen) || (leverOpen && otcOpen) || (leverOpen && b2cOpen)) {
+            } else if ((b2cOpen && otcOpen) || ( otcOpen) || (b2cOpen)) {
                 if (assetlist.size > 3) {
                     assetlist[3].put("totalBalance", totalBalance)
                     assetlist[3].put("totalBalanceSymbol", totalBalanceSymbol)
                 }
-            } else if ((!leverOpen && !b2cOpen && otcOpen) || (!leverOpen && b2cOpen && !otcOpen) || (leverOpen && !b2cOpen && !b2cOpen)) {
+            } else if (( !b2cOpen && otcOpen) || ( b2cOpen && !otcOpen) || (!b2cOpen && !b2cOpen)) {
                 assetlist[2].put("totalBalance", totalBalance)
                 assetlist[2].put("totalBalanceSymbol", totalBalanceSymbol)
             } else {
@@ -693,17 +678,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         val data = jsonObject.optJSONObject("data")
-                        if (leverOpen) {
-                            assetlist[2].put("totalBalance", data.optString("totalBtcValue")
-                                    ?: "")
-                            assetlist[2].put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
-                                    ?: "")
-                        } else {
+
                             assetlist[1].put("totalBalance", data.optString("totalBtcValue")
                                     ?: "")
                             assetlist[1].put("totalBalanceSymbol", data.optString("totalBalanceSymbol")
                                     ?: "")
-                        }
                         val allCoinMap = data?.optJSONArray("allCoinMap")
                         if (allCoinMap != null && allCoinMap.length() > 0) {
                             val json = allCoinMap.optJSONObject(0)

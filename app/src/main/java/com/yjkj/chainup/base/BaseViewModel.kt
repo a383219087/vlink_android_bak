@@ -152,7 +152,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
  * 公共错误请求码，可在此处理
  */
     open fun onResponseFailure(code: Int, msg: String?) {
-
+        if (code==404){
+            return
+        }
         if (code == 10021 || code == 10002 || code == 3 || code == ParamConstant.QUICK_LOGIN_FAILURE) {
             UserDataService.getInstance().clearToken()
             val userinfo = UserDataService.getInstance().userData

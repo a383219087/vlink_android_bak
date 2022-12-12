@@ -23,7 +23,7 @@ class CpHttpHelper {
     public val mServiceMap = HashMap<String, Any>()//: HashMap<String, Any>?=null
 
     private var mOkHttpClient: OkHttpClient? = null
-    var serverUrl: String = ""
+    var serverUrl: String = "http://8.219.93.19:8081/contract/appapi"
 
     init {
         initOkHttpClient()

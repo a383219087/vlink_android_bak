@@ -348,13 +348,7 @@ class NewMainActivity : NBaseActivity() {
     } else if (MessageEvent.login_bind_type == event.msg_type) {
       LogUtil.e("LogUtils", "登录监听 ${UserDataService.getInstance().token}  [] ${PushManager.getInstance().getClientid(this)}")
       CpClLogicContractSetting.setToken(UserDataService.getInstance().token)
-      HttpClient.instance.bindToken(PushManager.getInstance().getClientid(this)).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
 
-        }, {
-          it.printStackTrace()
-        })
 
     }
   }

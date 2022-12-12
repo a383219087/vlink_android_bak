@@ -56,13 +56,7 @@ class HandlePushIntentService : GTIntentService() {
     @SuppressLint("CheckResult")
     override fun onReceiveClientId(context: Context, clientid: String) {
         Log.e(TAG, "HandlePush_onReceiveClientId -> clientid = $clientid")
-        HttpClient.instance.bindToken(clientid).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
 
-            }, {
-                it.printStackTrace()
-            })
     }
 
     override fun onReceiveOnlineState(context: Context, online: Boolean) {

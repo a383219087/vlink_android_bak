@@ -56,7 +56,21 @@ class ChainUpApp : CpMyApp() {
     companion object {
         lateinit var appContext: Context
         lateinit var app: Application
-         var url: HttpResultUrlData?=null
+         var url: HttpResultUrlData?=HttpResultUrlData(
+             baseUrl = "http://8.219.93.19:8081/base/appapi",
+             contractSocketAddress = "ws://8.219.93.19:8081/contract/kline/ws",
+             contractUrl = "http://8.219.93.19:8081/contract/appapi",
+             httpHostUrlContractV2 = "http://8.219.93.19:8081/contract/appapi",
+             otcBaseUrl = "http://8.219.93.19:8081/otc/appapi",
+             otcSocketAddress = "ws://8.219.93.19:8081/otc/chat/ws",
+             redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+             socketAddress = "ws://8.219.93.19:8081/base/kline/ws",
+             wssHostContractV2 = "ws://8.219.93.19:8081/contract/kline/ws",
+             optionUrl = "",
+             blocksUrl = "",
+             chatUrl = "",
+             chatApiUrl = ""
+         )
     }
 
     override fun onCreate() {
@@ -83,7 +97,7 @@ class ChainUpApp : CpMyApp() {
     }
 
      fun changeNetwork(simulate: Boolean){
-         if(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+         if(simulate){
               //模拟盘
              url= HttpResultUrlData(
                  baseUrl = "http://8.219.93.19:8082/base/appapi",

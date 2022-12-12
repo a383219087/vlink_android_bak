@@ -4,7 +4,6 @@ package com.yjkj.chainup.new_version.activity.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.timmy.tdialog.TDialog
@@ -18,11 +17,13 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.manager.ActivityManager
 import com.yjkj.chainup.manager.LoginManager
+import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
+import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.*
+import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_new_version_login.*
 import org.json.JSONObject
 
@@ -40,6 +41,11 @@ class NewVersionLoginActivity : NBaseActivity() {
         super.onInit(savedInstanceState)
         initView()
         ActivityManager.pushAct2Stack(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         ChainUpApp().changeNetwork(false)
     }
 
@@ -182,7 +188,28 @@ class NewVersionLoginActivity : NBaseActivity() {
          */
         cbtn_view?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
-                login(accountContent, pwdTextContent)
+                MainModel().testUser(accountContent,object : DisposableObserver<HttpResult<Boolean?>>() {
+
+
+                    override fun onNext(t: HttpResult<Boolean?>) {
+                        ChainUpApp().changeNetwork( t.data==true)
+                        login(accountContent, pwdTextContent)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        ChainUpApp().changeNetwork( false)
+                        login(accountContent, pwdTextContent)
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+
+                })
+
+
+
             }
         }
     }

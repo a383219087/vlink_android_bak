@@ -416,8 +416,6 @@ interface ApiService {
     @POST("appPush/userPushSwitch")
     fun getPush(@QueryMap map: Map<String, String>): Observable<HttpResult<PushItem>>
 
-    @POST("appPush/saveAppPushDevice")
-    fun bindToken(@Body requestBody: RequestBody): Observable<HttpResult<Any>>
 
     @POST("appPush/saveAppPushUser")
     fun saveAppPushU(@Body requestBody: RequestBody): Observable<HttpResult<Any>>

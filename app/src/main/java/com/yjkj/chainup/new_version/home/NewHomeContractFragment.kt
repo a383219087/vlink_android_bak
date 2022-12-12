@@ -53,8 +53,11 @@ class NewHomeContractFragment : CpNBaseFragment(), CpWsContractAgentManager.WsRe
     private fun saveContractPublicInfo(jsonObject: JSONObject) {
         jsonObject.optJSONObject("data").run {
             var contractList = optJSONArray("contractList")
-            CpClLogicContractSetting.setContractJsonListStr(context, contractList.toString())
-            showData()
+            if (contractList!=null){
+                CpClLogicContractSetting.setContractJsonListStr(context, contractList.toString())
+                showData()
+            }
+
         }
     }
 

@@ -30,7 +30,12 @@ object KeyBoardUtils {
 
     fun showKeyBoard(context: Context, editText: EditText) {
         // 关闭键盘
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.showSoftInput(editText,InputMethodManager.SHOW_FORCED)
+         try {
+             val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+             inputManager.showSoftInput(editText,InputMethodManager.SHOW_FORCED)
+         }catch (e:java.lang.Exception){
+
+         }
+
     }
 }

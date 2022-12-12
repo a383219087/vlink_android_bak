@@ -124,6 +124,9 @@ abstract class NDisposableObserver : DisposableObserver<ResponseBody> {
      * 公共错误请求码，可在此处理
      */
     open fun onResponseFailure(code: Int, msg: String?) {
+         if (code==404){
+             return
+         }
         if (isShowToast) {
             val app = ChainUpApp.app as ChainUpApp
             LogUtil.e(TAG, "code:" + code)

@@ -132,7 +132,20 @@ class SplashActivity : AppCompatActivity() {
              }else{
                  ChainUpApp().changeNetwork(false)
              }
-
+            if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
+                val intent = Intent(this, DataInitService::class.java)
+                intent.putExtra("isFirst", true)
+                startService(intent)
+                SPUtils.getInstance().put("SplashActivityIsFirst", false)
+            }
+            runBlocking {
+                Thread.sleep(200)
+                if (hasPermission()) {
+                    goHome()
+                } else {
+                    requestPermission()
+                }
+            }
 
 
 

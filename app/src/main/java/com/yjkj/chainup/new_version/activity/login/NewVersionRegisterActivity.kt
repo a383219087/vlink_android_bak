@@ -21,6 +21,7 @@ import com.google.gson.JsonParser
 import com.jaeger.library.StatusBarUtil
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.bean.CountryInfo
 import com.yjkj.chainup.bean.TitleBean
@@ -127,6 +128,10 @@ class NewVersionRegisterActivity : NBaseActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        ChainUpApp().changeNetwork(false)
+    }
     var selectRegisterNum = 0
 
     fun userRegTypeSetView(status: Boolean) {
