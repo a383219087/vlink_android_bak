@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_48"
+    android:paddingLeft="@dimen/dp_15">
+
+    <!--币种-->
+    <TextView
+        android:id="@+id/tv_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_14"
+        tools:text="LTC" />
+
+
+
+    <ImageView
+        android:id="@+id/ib_add"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@color/transparent"
+        android:padding="@dimen/dp_15"
+        android:focusable="true"
+        android:clickable="true"
+        android:src="@drawable/quotes_optional_default" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_half"
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_color"
+        android:visibility="visible" />
+
+</RelativeLayout>

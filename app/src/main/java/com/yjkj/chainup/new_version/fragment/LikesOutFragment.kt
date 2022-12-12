@@ -61,7 +61,7 @@ class LikesOutFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     ArouterUtil.greenChannel(RoutePath.LikeEditActivity, Bundle())
                 }
                 is LikesHeYueFragment -> {
-                    Toast.makeText(activity, "合约编辑", Toast.LENGTH_SHORT).show()
+                    ArouterUtil.greenChannel(RoutePath.LikeEditHeYueActivity, Bundle())
                 }
             }
 

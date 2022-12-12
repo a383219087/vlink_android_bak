@@ -177,8 +177,6 @@
                         android:id="@+id/home_constraint"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_85"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:layout_marginEnd="@dimen/dp_16"
                         android:layout_marginTop="@dimen/dp_12"
                         app:bl_corners_radius="@dimen/dp_4"
                         app:layout_constraintTop_toBottomOf="@+id/recycler_center_service_layout"
@@ -257,8 +255,6 @@
                         android:src="@mipmap/home_banner2"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp_12"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:layout_marginEnd="@dimen/dp_16"
                         app:layout_constraintTop_toBottomOf="@+id/home_constraint"
                         android:scaleType="fitXY"
                         android:onClick="@{()->_all.p2pBuy()}"
@@ -284,8 +280,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
                             android:background="@color/line_color"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:layout_marginEnd="@dimen/dp_16"
                             />
 
                         <com.yjkj.chainup.wedegit.WrapContentViewPager
