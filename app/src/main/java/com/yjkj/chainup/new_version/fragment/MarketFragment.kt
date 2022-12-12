@@ -18,7 +18,6 @@ import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.adapter.PageAdapter
 import com.yjkj.chainup.new_version.home.NetworkDataService
-import com.yjkj.chainup.new_version.home.homeMarketEdit
 import com.yjkj.chainup.new_version.home.sendWsHomepage
 import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.util.LogUtil
@@ -26,9 +25,7 @@ import com.yjkj.chainup.util.getKlineByType
 import com.yjkj.chainup.util.getVisibleIN
 import com.yjkj.chainup.ws.WsAgentManager
 import kotlinx.android.synthetic.main.fragment_market_type.*
-import kotlinx.android.synthetic.main.fragment_market_type.iv_edit
 import kotlinx.android.synthetic.main.fragment_market_type.iv_search
-import kotlinx.android.synthetic.main.fragment_market_type.tv_market_title
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,9 +57,6 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 putString("type", ParamConstant.ADD_COIN_MAP)
             })
         }
-        iv_edit?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.LikeEditActivity, Bundle())
-        }
         NLiveDataUtil.observeData(this) {
             if (null != it) {
                 if (MessageEvent.home_event_page_market_type == it.msg_type) {
@@ -75,7 +69,6 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
         showVP()
         WsAgentManager.instance.addWsCallback(this)
-        tv_market_title?.text = LanguageUtil.getString(context, "mainTab_text_market")
     }
 
     override fun onMessageEvent(event: MessageEvent) {
@@ -124,7 +117,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
         titles.add(LanguageUtil.getString(context, "market_text_customZone"))
         titles.add(LanguageUtil.getString(context, "trade_bb_titile"))
-        val like = LikesFragment()
+        val like = LikesOutFragment()
         val bundle = Bundle()
         bundle.putInt("cur_index", 0)
         like.arguments = bundle
@@ -215,7 +208,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 if (temp is NewVersionMarketFragment) {
                     temp.handleData(json)
                 }
-                if (temp is LikesFragment) {
+                if (temp is LikesOutFragment) {
                     temp.handleData(json)
                 }
             }
@@ -226,7 +219,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 var fragment = fragments[viewpagePosotion]
                 if (fragment is NewVersionMarketFragment) {
                     fragment.handleData(items)
-                } else if (fragment is LikesFragment) {
+                } else if (fragment is LikesOutFragment) {
                     fragment.handleData(items)
                 }
                 wsArrayTempList.clear()
@@ -241,17 +234,16 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         if (fragments.size == 0) {
             return
         }
-        iv_edit?.visibility = (viewpagePosotion == 0).getVisibleIN()
         iv_search?.visibility = (viewpagePosotion <= 1).getVisibleIN()
         var fragment = fragments[viewpagePosotion]
         when (fragment) {
             is NewVersionMarketFragment -> {
                 fragment.clickTabItem()
             }
-            is LikesFragment -> {
+            /*is LikesOutFragment -> {
                 fragment.startInit()
                 homeMarketEdit(mActivity, iv_edit)
-            }
+            }*/
             is MarketContractFragment -> {
                 WsAgentManager.instance.unbind(this, true)
             }
@@ -294,7 +286,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             if (marketCoin != null) {
                 lists.addAll(marketCoin)
             }
-        } else if (fragment is LikesFragment) {
+        } else if (fragment is LikesOutFragment) {
             lists.addAll(fragment.getCoins())
         }
         return lists
@@ -304,22 +296,6 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         if (repJson.isNotEmpty() && !adapterReq) {
             adapterReq = true
         }
-    }
-
-    private fun marketCoinsTime(): Long {
-        if (fragments.size == 0) {
-            return 0
-        }
-        val fragment = fragments[viewpagePosotion]
-        if (fragment is NewVersionMarketFragment) {
-            val marketCoin = fragment.getCoins()
-            if (marketCoin != null) {
-                return 0
-            }
-        } else if (fragment is LikesFragment) {
-            return 0
-        }
-        return 0
     }
 
     private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()

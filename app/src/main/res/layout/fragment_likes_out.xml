@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_bg_color"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/rg_buy_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_15"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_bibi"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_32"
+                android:background="@drawable/coins_exchange_buy_blue"
+                android:gravity="center"
+                android:text="@string/cp_assets_text2"
+                android:textColor="@color/btn_select_text_color"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tv_heyue"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_32"
+                android:background="@drawable/coins_exchange_sell_grey"
+                android:gravity="center"
+                android:text="@string/cp_assets_text3"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_16" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:src="@mipmap/ic_edit_black" />
+    </LinearLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_like"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+
+</LinearLayout>
