@@ -322,7 +322,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".ui.mine.partner.PartnerActivity" />
         <activity android:name=".ui.mine.partner.PartnerMyInviteCodesActivity" />
-        <activity android:name=".ui.mine.partner.MoreActivity" /> <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复 -->
+        <activity android:name=".ui.mine.partner.MoreActivity" />
+        <activity android:name=".new_version.activity.like.LikeHeYueEditActivity" /> <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复 -->
         <service
             android:name=".extra_service.push.HandlePushIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- 用户自定义服务名 -->

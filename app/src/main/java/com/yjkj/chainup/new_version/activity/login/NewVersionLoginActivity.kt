@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
@@ -39,6 +40,7 @@ class NewVersionLoginActivity : NBaseActivity() {
         super.onInit(savedInstanceState)
         initView()
         ActivityManager.pushAct2Stack(this)
+        ChainUpApp().changeNetwork(false)
     }
 
 

@@ -155,6 +155,7 @@ public class RoutePath {
 
 
     public static final String LikeEditActivity = "/search/EditActivity";
+    public static final String LikeEditHeYueActivity = "/search/EditHeYueActivity";
 
     public static final String LeverActivity = "/lever/LeverActivity";
     public static final String TradeETFQuestionActivity = "/lever/TradeETFQuestionActivity";

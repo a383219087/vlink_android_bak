@@ -469,40 +469,15 @@ class MainModel : BaseDataManager() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         var json = jsonObject.optBoolean("data")
                         /// 是模拟账号
-                         if(json&&!SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
-                             ChainUpApp.url= HttpResultUrlData(
-                                     baseUrl = "http://8.219.93.19:8082/base/appapi",
-                                     contractSocketAddress = "ws://8.219.93.19:8082/contract/kline/ws",
-                                     contractUrl = "http://8.219.93.19:8082/contract/appapi",
-                                     httpHostUrlContractV2 = "http://8.219.93.19:8082/contract/appapi",
-                                     otcBaseUrl = "http://8.219.93.19:8082/otc/appapi",
-                                     otcSocketAddress = "ws://8.219.93.19:8082/otc/chat/ws",
-                                     redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-                                     socketAddress = "ws://8.219.93.19:8082/base/kline/ws",
-                                     wssHostContractV2 = "ws://8.219.93.19:8082/contract/kline/ws",
-                                     optionUrl = "",
-                                     blocksUrl = "",
-                                     chatUrl = "",
-                                     chatApiUrl = ""
-                                 )
-                             HttpClient.instance.changeNetwork("8.219.93.19:8082/base/appapi")
-                             PushManager.getInstance()
-                                 .registerPushIntentService(mActivity, HandlePushIntentService::class.java)
-                             WsAgentManager.instance.socketUrl(ChainUpApp.url!!.socketAddress, true)
-                             CpWsContractAgentManager.instance.socketUrl(ChainUpApp.url!!.contractSocketAddress, true)
-                             CpHttpHelper.instance.serviceUrl(ChainUpApp.url!!.contractUrl)
-                             SPUtils.getInstance().put(ParamConstant.simulate, true)
-                         }
-                        if(!json){
-                            SPUtils.getInstance().put(ParamConstant.simulate, false)
-                        }
+                        ChainUpApp().changeNetwork(json)
+
 
 
                     }
 
                     override fun onError(e: Throwable) {
                         super.onError(e)
-                        SPUtils.getInstance().put(ParamConstant.simulate, false)
+                        ChainUpApp().changeNetwork(false)
                     }
 
                 })

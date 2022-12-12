@@ -17,15 +17,20 @@ import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpMyApp
+import com.chainup.contract.net.CpHttpHelper
 import com.chainup.contract.utils.CpLocalManageUtil
+import com.chainup.contract.ws.CpWsContractAgentManager
 import com.contract.sdk.ContractSDKAgent
 import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
 import com.yjkj.chainup.db.constant.CommonConstant
+import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.push.DemoPushService
+import com.yjkj.chainup.extra_service.push.HandlePushIntentService
 import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.HttpResultUrlData
+import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.new_version.activity.asset.BoxingGlideLoader
 import com.yjkj.chainup.new_version.activity.asset.BoxingUcrop
 import com.yjkj.chainup.new_version.view.ForegroundCallbacksObserver
@@ -76,6 +81,59 @@ class ChainUpApp : CpMyApp() {
         }
 
     }
+
+     fun changeNetwork(simulate: Boolean){
+         if(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+              //模拟盘
+             url= HttpResultUrlData(
+                 baseUrl = "http://8.219.93.19:8082/base/appapi",
+                 contractSocketAddress = "ws://8.219.93.19:8082/contract/kline/ws",
+                 contractUrl = "http://8.219.93.19:8082/contract/appapi",
+                 httpHostUrlContractV2 = "http://8.219.93.19:8082/contract/appapi",
+                 otcBaseUrl = "http://8.219.93.19:8082/otc/appapi",
+                 otcSocketAddress = "ws://8.219.93.19:8082/otc/chat/ws",
+                 redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+                 socketAddress = "ws://8.219.93.19:8082/base/kline/ws",
+                 wssHostContractV2 = "ws://8.219.93.19:8082/contract/kline/ws",
+                 optionUrl = "",
+                 blocksUrl = "",
+                 chatUrl = "",
+                 chatApiUrl = ""
+             )
+         }else{
+             //实盘
+             url= HttpResultUrlData(
+                 baseUrl = "http://8.219.93.19:8081/base/appapi",
+                 contractSocketAddress = "ws://8.219.93.19:8081/contract/kline/ws",
+                 contractUrl = "http://8.219.93.19:8081/contract/appapi",
+                 httpHostUrlContractV2 = "http://8.219.93.19:8081/contract/appapi",
+                 otcBaseUrl = "http://8.219.93.19:8081/otc/appapi",
+                 otcSocketAddress = "ws://8.219.93.19:8081/otc/chat/ws",
+                 redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+                 socketAddress = "ws://8.219.93.19:8081/base/kline/ws",
+                 wssHostContractV2 = "ws://8.219.93.19:8081/contract/kline/ws",
+                 optionUrl = "",
+                 blocksUrl = "",
+                 chatUrl = "",
+                 chatApiUrl = ""
+             )
+         }
+           if (simulate!=SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+               HttpClient.instance.changeNetwork(url!!.baseUrl.split("//")[1])
+               PushManager.getInstance()
+                   .registerPushIntentService(this, HandlePushIntentService::class.java)
+               WsAgentManager.instance.socketUrl(url!!.socketAddress, true)
+               CpWsContractAgentManager.instance.socketUrl(url!!.contractSocketAddress, true)
+               CpHttpHelper.instance.serviceUrl(url!!.contractUrl)
+               SPUtils.getInstance().put(ParamConstant.simulate, simulate)
+           }
+
+
+
+
+     }
+
+
 
 
     private fun initAppStatusListener() {

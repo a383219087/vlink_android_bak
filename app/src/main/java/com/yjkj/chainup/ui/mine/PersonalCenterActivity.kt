@@ -7,6 +7,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SPUtils
 import com.yjkj.chainup.R
+import com.yjkj.chainup.app.ChainUpApp
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
@@ -74,6 +75,11 @@ class  PersonalCenterActivity : NBaseActivity() {
     override fun onResume() {
         super.onResume()
         getDealerInfo()
+        if (UserDataService.getInstance().isLogined){
+            ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
+        }else{
+            ChainUpApp().changeNetwork(false)
+        }
 
     }
 
@@ -299,7 +305,7 @@ class  PersonalCenterActivity : NBaseActivity() {
 
             }))
         } else {
-            SPUtils.getInstance().put(ParamConstant.simulate, false)
+            ChainUpApp().changeNetwork(false)
             ll_share.visibility=View.GONE
             title_layout?.setNoLogin()
         }

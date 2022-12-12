@@ -151,13 +151,12 @@ class ClContractAssetFragment : NBaseFragment() {
                                 val mAccountListJson = optJSONArray("accountList")
                                 mList.clear()
                                 for (i in 0 until mAccountListJson.length()) {
-                                   val data: JSONObject=mAccountListJson.get(i) as JSONObject
+                                   val data: JSONObject= mAccountListJson?.get(i) as JSONObject
                                      if (data.optString("totalAmount").toDouble()>0){
                                          mList.add(0,data)
                                      }else{
                                          mList.add(data)
                                      }
-
 
                                     LogUtil.e(TAG, "------------------------------------")
                                 }

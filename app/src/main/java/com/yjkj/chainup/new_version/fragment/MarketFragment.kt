@@ -136,10 +136,10 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
          * 当自选无数据时,默认市场第一个
          * 否则-自选
          */
-        if (null == collecData || collecData.size <= 0) {
-            viewpagePosotion = 1
+        viewpagePosotion = if (null == collecData || collecData.size <= 0) {
+            1
         } else {
-            viewpagePosotion = 0
+            0
         }
         stl_market_type?.setTabData(titles.toTypedArray())
         stl_market_type.visibility = View.VISIBLE

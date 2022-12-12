@@ -30,8 +30,8 @@ import kotlin.collections.ArrayList
  * @Description:
  */
 
-class MarketEditAdapter(data: ArrayList<JSONObject>, var itemTouchHelperExtension: ItemTouchHelperExtension? = null) : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.item_market_edit, data) {
-    var editDragListener: EditDragListener? = null
+class MarketHeYueEditAdapter(data: ArrayList<JSONObject>, var itemTouchHelperExtension: ItemTouchHelperExtension? = null) : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.item_market_edit_heyue, data) {
+    var editDragListener: EditHeYueDragListener? = null
     var selectMap = hashMapOf<String, Boolean>()
     @SuppressLint("ClickableViewAccessibility")
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
@@ -50,7 +50,7 @@ class MarketEditAdapter(data: ArrayList<JSONObject>, var itemTouchHelperExtensio
                 val topIndex = 0
                 Collections.swap(data, itemIndex, topIndex)
                 notifyItemMoved(itemIndex, topIndex)
-                onDragListener()
+                onDragListener1()
             }
         }
         helper.getView<ImageView>(R.id.tv_drag).setOnTouchListener { v, event ->
@@ -125,11 +125,11 @@ class MarketEditAdapter(data: ArrayList<JSONObject>, var itemTouchHelperExtensio
 
 }
 
-interface EditDragListener {
-    fun onDragListener()
+interface EditHeYueDragListener {
+    fun onDragListener1()
 }
 
-class CoinsManageTouchHelperCallback constructor(var adapter: MarketEditAdapter) : ItemTouchHelperExtension.Callback() {
+class CoinsManageHeYueTouchHelperCallback constructor(var adapter: MarketHeYueEditAdapter) : ItemTouchHelperExtension.Callback() {
 
     override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
         return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.START or ItemTouchHelper.END)
@@ -171,7 +171,7 @@ class CoinsManageTouchHelperCallback constructor(var adapter: MarketEditAdapter)
             }
             adapter.apply {
                 editDragListener?.apply {
-                    onDragListener()
+                    onDragListener1()
                 }
             }
         }
