@@ -1238,7 +1238,7 @@
     <string name="common_text_phoneAuthNotOpen">未开启手机验证</string>
     <string name="common_text_phoneAuthOff">手机验证已关闭</string>
     <string name="common_text_phoneOrMail">手机或邮箱</string>
-    <string name="common_text_priceLimit">涨跌幅</string>
+    <string name="common_text_priceLimit">涨跌幅/24</string>
     <string name="common_text_refreshing">正在玩命加载中...</string>
     <string name="common_text_safetyAuth">安全认证</string>
     <string name="common_text_searchCountry">搜索国家或地区代码</string>
@@ -1414,7 +1414,7 @@
     <string name="home_text_assets">我的资产</string>
     <string name="home_text_contractTotal">合约账户资产估值</string>
     <string name="home_text_deal24hour">24H成交额</string>
-    <string name="home_text_dealLatestPrice">最新价</string>
+    <string name="home_text_dealLatestPrice">最新价格</string>
     <string name="home_text_dealRanking">成交榜</string>
     <string name="home_text_downRanking">跌幅榜</string>
     <string name="home_text_otcTotal">法币账户资产估值</string>

@@ -95,7 +95,7 @@ class NewVersionMarketFragment : NBaseFragment() {
             stl_market_loop.visibility = View.VISIBLE
         } else {
             stl_market?.setViewPager(vp_market, showTitles.toTypedArray())
-            stl_market.visibility = View.VISIBLE
+            stl_market.visibility = View.GONE
         }
         vp_market?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {

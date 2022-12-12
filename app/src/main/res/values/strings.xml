@@ -3669,6 +3669,6 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="withdrawal_transfer">Withdrawal/Transfer</string>
     <string name="contract">Contract</string>
     <string name="customer_service">Customer/Service</string>
-
+    <string name="u_benwei">U本位</string>
 </resources>
 

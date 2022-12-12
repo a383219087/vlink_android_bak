@@ -58,7 +58,7 @@ class MarketLayout @JvmOverloads constructor(context: Context,
             solid = ColorUtil.getColor(if (isSelected) R.color.transparent else R.color.transparent)
             //strokeColor = ColorUtil.getColor(if (isSelected) R.color.trade_main_blue else R.color.transparent)
             strokeColor = ColorUtil.getColor(if (isSelected) R.color.transparent else R.color.transparent)
-            textColor = ColorUtil.getColor(if (isSelected) R.color.trade_main_blue else R.color.normal_text_color)
+            textColor = ColorUtil.getColor(if (isSelected) R.color.main_blue else R.color.normal_text_color)
         }
     }
 

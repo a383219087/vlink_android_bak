@@ -8,6 +8,7 @@
     <color name="colorA2A9BD">#A2A9BD</color>
     <color name="colorCDCDCD">#CDCDCD</color>
     <color name="colorF6F7FC">#F6F7FC</color>
+    <color name="color323232">#323232</color>
 
     <!-- text-->
     <color name="text_color_33">#333333</color>
@@ -112,9 +113,11 @@
     <color name="bg_color">#F6F8FC</color>
     <color name="bg_color_kline_night">#0A1220</color>
     <color name="main_green">#00B595</color>
+    <color name="main_00A88B">#00A88B</color>
     <color name="main_green_15">#2600B595</color>
 
     <color name="main_red">#D1425E</color>
+    <color name="main_D8405A">#D8405A</color>
     <color name="main_red_15">#1AD1425E</color>
 
     <color name="warn_yellow">#EDBB7A</color>
