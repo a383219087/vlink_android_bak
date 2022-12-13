@@ -1,5 +1,7 @@
 package com.chainup.contract.net
 
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpAppConfig
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.utils.CpHttpsUtils
@@ -33,6 +35,7 @@ class CpHttpHelper {
         mServiceMap?.clear()
     }
     fun serviceUrl(socketUrl: String) {
+        LogUtils.e("我是切换地址我是切换地址1111",socketUrl)
         this.serverUrl = socketUrl
 
     }
@@ -59,21 +62,19 @@ class CpHttpHelper {
     * return contractUrl ApiService
     */
     fun <S> getContractNewUrlService(serviceClass: Class<S>): S {
+
+       if ( SPUtils.getInstance().getBoolean("simulate", false)){
+           this.serverUrl= "http://8.219.93.19:8082/contract/appapi"
+       }else{
+           this.serverUrl= "http://8.219.93.19:8081/contract/appapi"
+       }
         return createService(serverUrl, serviceClass)
     }
 
 
 
     private fun <S> createService(url: String, serviceClass: Class<S>): S {
-        return if (mServiceMap.containsKey(serviceClass.name)) {
-            mServiceMap[serviceClass.name] as S
-        } else {
-            var obj = createRetrofit(url).create(serviceClass) //as S//createService(baseUrl,serviceClass);
-            if (serviceClass.name != "com.yjkj.chainup.model.api.SpeedApiService") {
-                mServiceMap[serviceClass.name] = obj as Any
-            }
-            obj
-        }
+        return createRetrofit(url).create(serviceClass)
     }
 
 

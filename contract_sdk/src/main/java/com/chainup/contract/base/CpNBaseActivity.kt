@@ -208,8 +208,7 @@ abstract class CpNBaseActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private var contractModel: CpNewContractModel? = null
-    protected fun getContractModel() = contractModel ?: CpNewContractModel()
+    protected fun getContractModel() = CpNewContractModel()
 
 
 
