@@ -54,9 +54,9 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                  */
                 val side = optString("side")
                 if (side == "BUY") {
-                    setText(R.id.tv_side, LanguageUtil.getString(context, "otc_text_tradeObjectBuy"))
+                    setText(R.id.tv_side, LanguageUtil.getString(context, "contract_action_buy"))
                 } else {
-                    setText(R.id.tv_side, LanguageUtil.getString(context, "otc_text_tradeObjectSell"))
+                    setText(R.id.tv_side, LanguageUtil.getString(context, "contract_action_sell"))
                 }
                 setTextColor(R.id.tv_side, ColorUtil.getMainColorType(isRise = side == "BUY"))
 
