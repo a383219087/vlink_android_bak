@@ -426,8 +426,8 @@ object ColorUtil {
      */
     fun getMainColorV2Type(colorSelect: Int, isRise: Int = 0): Int {
         val mainGreen =
-                getColor(R.color.main_00A88B)
-        val mainRed = getColor(R.color.main_D8405A)
+                getColor(R.color.main_green)
+        val mainRed = getColor(R.color.main_red)
         val mainZero = getColorByMode(R.color.main_zero_day)
         return if (colorSelect == GREEN_RISE) {
             if (isRise > 0) {
