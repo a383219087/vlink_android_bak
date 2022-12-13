@@ -194,10 +194,7 @@ class  PersonalCenterActivity : NBaseActivity() {
             if (!LoginManager.checkLogin(this, true)) {
                 return@setOnClickListener
             }
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
-                ToastUtils.showToast(this.getString(R.string.important_hint1))
-                return@setOnClickListener
-            }
+
             startActivity(Intent(this, SafetySettingActivity::class.java))
         }
         /**
