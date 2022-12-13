@@ -35,7 +35,6 @@ import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
-import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
@@ -223,7 +222,7 @@ class NewVersionHomepageFragment :
         mBinding.layoutTop24,
         mBinding.recyclerCenterServiceLayout
       )
-      showGuideHomepage(mActivity, arrayGuide, data)
+//      showGuideHomepage(mActivity, arrayGuide, data)
     }
     val noticeInfoList = data.optJSONArray("noticeInfoList")
     val cmsAppAdvertList = data.optJSONArray("cmsAppAdvertList")
@@ -1002,7 +1001,6 @@ class NewVersionHomepageFragment :
     try {
       val json = JSONObject(data)
       if(!json.isNull("tick")) {
-        doAsync {
           val channel = json.optString("channel")
           val temp = homeCoins.filter {
             channel.contains(it)
@@ -1014,9 +1012,7 @@ class NewVersionHomepageFragment :
               if(bottomCoins.size != homeCoins.size) {
                 showWsData(items)
               }
-              if(fragments.size == 0) {
-                return@doAsync
-              }
+
               val fragment = fragments[selectPostion]
               if(fragment is NewHomeDetailFragmentItem) {
                 val tempMap = HashMap<String, JSONObject>()
@@ -1030,14 +1026,13 @@ class NewVersionHomepageFragment :
                   }
                 }
                 if(tempMap.isEmpty()) {
-                  return@doAsync
+                  return
                 }
                 fragment.dropListsAdapter(tempMap)
               }
               wsArrayTempList.clear()
               wsArrayMap.clear()
             }
-          }
         }
       }
     } catch(e: Exception) {
