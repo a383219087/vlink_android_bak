@@ -41,8 +41,8 @@ interface MainApiService {
     /**
      * 是否模拟账号
      */
-    @POST("user/testUser")
-    fun testUser(@Body requestBody: RequestBody): Observable<HttpResult<Boolean?>>
+    @POST("http://8.219.93.19:8082/base/appapi/user/testUser")
+    fun testUser(  @Body requestBody: RequestBody): Observable<HttpResult<Boolean?>>
 
 
     @GET("traderUser/description")
