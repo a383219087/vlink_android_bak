@@ -8,39 +8,38 @@
     android:paddingBottom="@dimen/dp_15">
 
     <LinearLayout
-            android:id="@+id/trade_top"
-            android:layout_height="@dimen/dp_28"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingRight="@dimen/dp_15"
-            android:visibility="gone"
-            >
+        android:id="@+id/trade_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_28"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/trade_topleft"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_28"
-            android:orientation="horizontal"
-            android:paddingRight="@dimen/dp_10"
             android:layout_width="wrap_content"
-            android:paddingLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_28"
+            android:layout_weight="1"
             android:background="@drawable/shape_hot_coin"
-            >
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/trade_topleft_coin"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/sp_12"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                />
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_12" />
+
             <TextView
                 android:id="@+id/trade_topleft_coinleve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/new_green"
                 android:layout_gravity="center_vertical"
+                android:textColor="@color/new_green"
                 android:textSize="@dimen/sp_12"
                 tools:ignore="DuplicateIds" />
 
@@ -48,48 +47,49 @@
                 android:id="@+id/trade_topleft_coin_ratio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
                 android:gravity="right"
                 android:textColor="@color/hint_color"
-                android:layout_gravity="right|center_vertical"
-                android:textSize="@dimen/sp_12"/>
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/trade_topright"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="@dimen/dp_28"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_weight="1"
+            android:background="@drawable/shape_hot_coin"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
-            android:background="@drawable/shape_hot_coin"
-            android:visibility="gone"
-            android:layout_marginLeft="@dimen/dp_5"
-            >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/trade_topright_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
                 android:layout_gravity="center_vertical"
-                android:textSize="@dimen/sp_12"/>
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/sp_12" />
+
             <TextView
                 android:id="@+id/trade_topright_coinleve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/new_red"
                 android:layout_gravity="center_vertical"
+                android:textColor="@color/new_red"
                 android:textSize="@dimen/sp_12"
                 tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/trade_topright_coin_ratio"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
                 android:gravity="right"
                 android:textColor="@color/hint_color"
-                android:layout_gravity="right|center_vertical"
-                android:textSize="@dimen/sp_12"/>
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
     </LinearLayout>
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:paddingLeft="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_10"/>
+            android:paddingTop="@dimen/dp_10" />
         <!--深度-->
         <LinearLayout
             android:layout_width="0dp"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:gravity="right"
-                    android:text="@string/charge_text_volume"
+                    android:text="@string/charge_text_volume1"
                     android:textColor="@color/hint_color"
                     android:textSize="@dimen/sp_10" />
             </LinearLayout>
@@ -171,9 +171,9 @@
                     style="@style/textStyle_text_nor_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:gravity="right|center_vertical"
                     android:lines="1"
-                    android:ellipsize="end"
                     tools:text="¥62.99" />
 
                 <LinearLayout
@@ -226,34 +226,35 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <!--改变盘口-->
+                <ImageButton
+                    android:id="@+id/ib_tape"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_24"
+                    android:background="@drawable/bg_price_type"
+                    android:padding="@dimen/dp_4"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:paddingLeft="@dimen/dp_6"
+                    android:paddingRight="@dimen/dp_6"
+                    android:src="@drawable/default_tape" />
+
                 <!--选择深度-->
                 <TextView
                     android:id="@+id/tv_change_depth"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:background="@drawable/bg_trade_et_unfocused"
                     android:drawableRight="@mipmap/coins_drop_down"
                     android:drawablePadding="@dimen/dp_4"
                     android:padding="@dimen/dp_4"
                     android:paddingLeft="@dimen/dp_8"
                     android:paddingRight="@dimen/dp_15"
-                    android:textColor="@color/normal_text_color"
+                    android:textColor="@color/new_text_color"
                     android:textSize="@dimen/sp_12"
                     tools:text="深度2" />
-
-                <!--改变盘口-->
-                <ImageButton
-                    android:id="@+id/ib_tape"
-                    android:layout_width="@dimen/dp_30"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:background="@drawable/bg_price_type"
-                    android:padding="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_6"
-                    android:paddingRight="@dimen/dp_6"
-                    android:src="@drawable/default_tape" />
 
             </LinearLayout>
 
@@ -262,16 +263,16 @@
     </LinearLayout>
 
     <LinearLayout
-        style="@style/trade_tips_style_15"
         android:id="@+id/trade_bottomInformationview"
-        android:orientation="horizontal"
+        style="@style/trade_tips_style_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        >
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
         <TextView
-            style="@style/textStyle_value_82_12"
             android:id="@+id/trade_bottomInformation"
+            style="@style/textStyle_value_82_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -279,9 +280,10 @@
             tools:ignore="DuplicateIds" />
 
     </LinearLayout>
+
     <include
         android:id="@+id/trade_etf"
-        android:visibility="gone"
-        layout="@layout/depth_etf_layout" />
+        layout="@layout/depth_etf_layout"
+        android:visibility="gone" />
 
 </LinearLayout>

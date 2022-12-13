@@ -123,6 +123,7 @@
 
     <!--TAB bar分割线-->
     <color name="tabbar_divide_color">#E0E8EF</color>
+    <color name="tabbar_divide_color2">#F6F7FC</color>
 
     <!--按钮不可点击颜色-->
     <color name="btn_unclickable_color">#D2DDE4</color>

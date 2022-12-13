@@ -108,6 +108,7 @@
 
     <!--TAB bar分割线-->
     <color name="tabbar_divide_color">#1E2A40</color>
+    <color name="tabbar_divide_color2">@color/tabbar_divide_color</color>
 
     <!--按钮不可点击颜色-->
     <color name="btn_unclickable_color">#334662</color>

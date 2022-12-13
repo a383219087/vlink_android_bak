@@ -102,7 +102,7 @@ class NHorizontalDepthLayout @JvmOverloads constructor(context: Context,
 
         setDepth(context)
         tv_contract_text_price?.text = LanguageUtil.getString(context, "contract_text_price")
-        tv_charge_text_volume?.text = LanguageUtil.getString(context, "charge_text_volume")
+        tv_charge_text_volume?.text = LanguageUtil.getString(context, "charge_text_volume1")
         TradeFragment.liveData4DepthData.observe((this.context as NewMainActivity), Observer<MessageEvent> {
             if (null == it) {
                 return@Observer

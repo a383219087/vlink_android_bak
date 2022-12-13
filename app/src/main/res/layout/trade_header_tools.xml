@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorF6F7FC"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorF6F7FC">
 
     <LinearLayout
         android:id="@+id/ll_coin_map"
@@ -25,13 +25,13 @@
 
         <TextView
             android:id="@+id/tv_coin_map"
+            style="@style/textStyle_title_20"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingLeft="@dimen/dp_2"
-            style="@style/textStyle_title_20"
-            app:layout_constraintLeft_toLeftOf="@id/img_coin_map"
             android:textColor="@color/text_black"
+            app:layout_constraintLeft_toLeftOf="@id/img_coin_map"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC/USDT" />
 
@@ -68,9 +68,10 @@
 
     <ImageView
         android:id="@+id/iv_more"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_11"
+        android:padding="@dimen/dp_4"
         android:src="@mipmap/coins_more"
         app:layout_constraintBottom_toBottomOf="@id/ll_coin_map"
         app:layout_constraintRight_toRightOf="parent"
@@ -79,10 +80,10 @@
     <!--KLIne-->
     <ImageView
         android:id="@+id/iv_more_coin"
-        android:layout_width="@dimen/dp_32"
+        android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:background="@color/transparent"
-        android:padding="@dimen/dp_6"
+        android:padding="@dimen/dp_4"
         android:src="@mipmap/coins_switch"
         app:layout_constraintBottom_toBottomOf="@id/ll_coin_map"
         app:layout_constraintRight_toLeftOf="@id/iv_more"
@@ -91,7 +92,7 @@
 
     <ImageView
         android:id="@+id/ib_kline"
-        android:layout_width="@dimen/dp_32"
+        android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:background="@color/transparent"
         android:padding="@dimen/dp_6"

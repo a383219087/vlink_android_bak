@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,11 +34,11 @@ import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.model.model.MainModel
 import com.yjkj.chainup.net.NDisposableObserver
-import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
+import com.yjkj.chainup.ui.NewMainActivity
 import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -118,6 +119,7 @@ class TradeView @JvmOverloads constructor(
 
             tv_transaction_money?.text = "--"
         }
+
     init {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.ComVerifyView, 0, 0)
@@ -179,13 +181,13 @@ class TradeView @JvmOverloads constructor(
          */
         if (priceType == TYPE_MARKET) {
             ll_transaction?.visibility = View.INVISIBLE
-            tv_convert_price?.visibility = View.INVISIBLE
+            tv_convert_price?.visibility = View.GONE
 
         } else {
             ll_transaction?.visibility = View.VISIBLE
             tv_transaction_money?.visibility = View.VISIBLE
             tv_transaction_money?.text = "--"
-            tv_convert_price?.visibility = View.VISIBLE
+            tv_convert_price?.visibility = View.GONE
         }
 
 
@@ -442,6 +444,26 @@ class TradeView @JvmOverloads constructor(
                 ArouterUtil.forwardTransfer(TRANSFER_BIBI, getCurrentCoin())
             }
         }
+        tv_sub_volume?.setOnClickListener {
+            var volume = 0
+            try {
+                volume = Integer.parseInt(et_volume.text.toString())
+            } catch (e: Exception) {
+            }
+            if (volume > 0) {
+                volume--
+                et_volume.setText(volume.toString())
+            }
+        }
+        tv_add_volume?.setOnClickListener {
+            var volume = 0
+            try {
+                volume = Integer.parseInt(et_volume.text.toString())
+            } catch (e: Exception) {
+            }
+            volume++
+            et_volume.setText(volume.toString())
+        }
     }
 
     fun initTick(tick: JSONArray, depthLevel: Int = 2, type: Int) {
@@ -499,7 +521,6 @@ class TradeView @JvmOverloads constructor(
     }
 
 
-
     /**
      * 处理price,volume的事件&登录状态的关系
      */
@@ -550,10 +571,10 @@ class TradeView @JvmOverloads constructor(
 
         if (priceType == TYPE_MARKET) {
             ll_transaction?.visibility = View.INVISIBLE
-            tv_convert_price?.visibility = View.INVISIBLE
+            tv_convert_price?.visibility = View.GONE
         } else {
             ll_transaction?.visibility = View.VISIBLE
-            tv_convert_price?.visibility = View.VISIBLE
+            tv_convert_price?.visibility = View.GONE
         }
     }
 
@@ -732,10 +753,10 @@ class TradeView @JvmOverloads constructor(
                 bhlong = s.toString().length
 
                 if (priceType == TYPE_MARKET || TextUtils.isEmpty(s) || s.toString() == "0.") {
-                    tv_convert_price?.visibility = View.INVISIBLE
+                    tv_convert_price?.visibility = View.GONE
                 } else {
                     Log.d(TAG, "=======可见===========")
-                    tv_convert_price?.visibility = View.VISIBLE
+                    tv_convert_price?.visibility = View.GONE
                     tv_convert_price?.text = RateManager.getCNYByCoinMap(coinMapData, s.toString())
                 }
 
@@ -1029,7 +1050,7 @@ class TradeView @JvmOverloads constructor(
         if (priceType == TYPE_LIMIT) {
             v_market_trade_tip?.visibility = View.GONE
             ll_price?.visibility = View.VISIBLE
-            tv_convert_price?.visibility = View.VISIBLE
+            tv_convert_price?.visibility = View.GONE
             tv_convert_price?.text = "--"
             ll_transaction?.visibility = View.VISIBLE
             tv_transaction_money?.text = "--"
@@ -1042,7 +1063,7 @@ class TradeView @JvmOverloads constructor(
         } else {
             v_market_trade_tip?.visibility = View.VISIBLE
             ll_price?.visibility = View.GONE
-            tv_convert_price?.visibility = View.INVISIBLE
+            tv_convert_price?.visibility = View.GONE
             ll_transaction?.visibility = View.INVISIBLE
             tv_transaction_money?.text = "--"
             if (transactionType == TYPE_BUY) {
@@ -1206,9 +1227,6 @@ class TradeView @JvmOverloads constructor(
     }
 
 
-
-
-
     fun verticalDepth(isVertical: Boolean = false, isBuy: Boolean = true, isLever: Boolean = true) {
         rg_buy_sell.visibility = (!isVertical).visiableOrGone()
         tv_order_type.visibility = (!isVertical).visiableOrGone()
@@ -1242,7 +1260,7 @@ class TradeView @JvmOverloads constructor(
                 priceType = TYPE_LIMIT
                 v_market_trade_tip?.visibility = View.GONE
                 ll_price?.visibility = View.VISIBLE
-                tv_convert_price?.visibility = View.VISIBLE
+                tv_convert_price?.visibility = View.GONE
                 ll_transaction?.visibility = View.VISIBLE
                 if (transactionType == TYPE_BUY) {
                     et_volume?.hint = LanguageUtil.getString(context, "charge_text_volume")
@@ -1256,7 +1274,7 @@ class TradeView @JvmOverloads constructor(
                 priceType = TYPE_MARKET
                 v_market_trade_tip?.visibility = View.VISIBLE
                 ll_price?.visibility = View.GONE
-                tv_convert_price?.visibility = View.INVISIBLE
+                tv_convert_price?.visibility = View.GONE
                 ll_transaction?.visibility = View.INVISIBLE
                 if (transactionType == TYPE_BUY) {
                     et_volume?.hint = LanguageUtil.getString(context, "transaction_text_tradeSum")
