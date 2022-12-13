@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorF6F7FC"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -19,10 +20,7 @@
             android:id="@+id/img_coin_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_15"
-            android:paddingBottom="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_15"
             android:src="@mipmap/coins_sidebar" />
 
         <TextView
@@ -33,6 +31,7 @@
             android:paddingLeft="@dimen/dp_2"
             style="@style/textStyle_title_20"
             app:layout_constraintLeft_toLeftOf="@id/img_coin_map"
+            android:textColor="@color/text_black"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC/USDT" />
 
@@ -49,7 +48,6 @@
             android:singleLine="true"
             android:textColor="@color/main_green"
             android:textSize="@dimen/sp_12"
-            android:visibility="visible"
             tools:text="+1.88%" />
 
         <TextView
@@ -70,10 +68,9 @@
 
     <ImageView
         android:id="@+id/iv_more"
-        android:layout_width="@dimen/dp_48"
-        android:layout_height="@dimen/dp_40"
-        android:padding="@dimen/dp_4"
-        android:paddingEnd="@dimen/dp_15"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_15"
         android:src="@mipmap/coins_more"
         app:layout_constraintBottom_toBottomOf="@id/ll_coin_map"
         app:layout_constraintRight_toRightOf="parent"

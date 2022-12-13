@@ -552,7 +552,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                             RateManager.getRoseText(tv_rose, rose)
                             val roseRes = ColorUtil.getMainColorBgType(RateManager.getRoseTrend(rose) >= 0)
                             tv_rose?.textColor = roseRes.first
-                            tv_rose?.backgroundResource = roseRes.second
+                            //tv_rose?.backgroundResource = roseRes.second
 
                         }
                     }
