@@ -42,14 +42,6 @@
                 android:clickable="false"
                 tools:text="LTC" />
 
-            <TextView
-                android:id="@+id/tv_market_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:textColor="@color/normal_text_color"
-                android:textSize="@dimen/sp_12"
-                tools:text="/ETH" />
         </LinearLayout>
 
 

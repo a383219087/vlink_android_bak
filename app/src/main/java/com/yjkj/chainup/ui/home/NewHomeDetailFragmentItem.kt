@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.home
+package com.yjkj.chainup.ui.home
 
 import androidx.lifecycle.Observer
 import android.os.Bundle
@@ -34,7 +34,7 @@ import org.json.JSONObject
  * @Email buptjinlong@163.com
  * @description 首页行情详细页面 rasing,falling,deal
  */
-class NewHomeDetailFragment : NBaseFragment() {
+class NewHomeDetailFragmentItem : NBaseFragment() {
 
     /**
      * 底部行情
@@ -49,17 +49,18 @@ class NewHomeDetailFragment : NBaseFragment() {
     private var marketName = ""
     private var viewPager: WrapContentViewPager? = null
     private var curIndex = 0
-
+    private var coins: JSONArray? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: Int, chooseType: String, viewPager: WrapContentViewPager) =
-                NewHomeDetailFragment().apply {
+        fun newInstance(param1: String, param2: Int, chooseType: String, viewPager: WrapContentViewPager, coins: String?) =
+                NewHomeDetailFragmentItem().apply {
                     this.viewPager = viewPager
                     arguments = Bundle().apply {
                         putString(ParamConstant.MARKET_NAME, param1)
                         putString(ParamConstant.TYPE, chooseType)
                         putInt(ParamConstant.CUR_INDEX, param2)
+                        putString(ParamConstant.CUR_HOME_COINS, coins)
                     }
                 }
     }
@@ -100,7 +101,6 @@ class NewHomeDetailFragment : NBaseFragment() {
         var dataList = JSONUtil.arrayToList(tempData)
         if (null == dataList || dataList.size <= 0)
             return
-
         if (dataList.size > 10) {
             dataList = ArrayList(dataList.subList(0, 10))
         }
@@ -167,6 +167,8 @@ class NewHomeDetailFragment : NBaseFragment() {
 
             curShowData = temp
             // 保证http数据 晚到达
+            val isMain = isMaineTabSort()
+            LogUtil.d(TAG, "isMaineTabSort is  ${curIndex}  ${marketName} $isMain")
             if (isMaineTabSort()) {
                 startInit()
             }
@@ -190,8 +192,9 @@ class NewHomeDetailFragment : NBaseFragment() {
             marketName = it.getString(ParamConstant.MARKET_NAME) ?: ""
             tradeType = it.getString(ParamConstant.TYPE) ?: ""
             curIndex = it.getInt(ParamConstant.CUR_INDEX)
+            coins = JSONArray(it.getString(ParamConstant.CUR_HOME_COINS))
         }
-
+        initV(coins)
         if (viewPager != null && null != root_ll) {
             viewPager?.setObjectForPosition(root_ll, curIndex)
         }
@@ -225,79 +228,6 @@ class NewHomeDetailFragment : NBaseFragment() {
         EventBusUtil.post(messageEvent)
     }
 
-    fun showWsData(jsonObject: JSONObject) {
-        if (curIndex == 2) {
-            return
-        }
-        if (bottomMarketAdapter?.data == null) {
-            return
-        }
-        if (0 == bottomMarketAdapter?.data?.size)
-            return
-        val channel = jsonObject.optString("channel")
-        val data = bottomMarketAdapter?.data
-        val temp = data?.filter {
-            channel.contains(it.optString("symbol"))
-        }
-        if (temp != null && temp.isNotEmpty()) {
-            val dataDiff = callDataDiff(jsonObject)
-            if (dataDiff != null) {
-                val items = dataDiff.second
-                dropListsAdapter(items)
-                wsArrayTempList.clear()
-                wsArrayMap.clear()
-            }
-        }
-
-    }
-
-    private val wsArrayTempList: ArrayList<JSONObject> = arrayListOf()
-    private val wsArrayMap = hashMapOf<String, JSONObject>()
-    private var wsTimeFirst: Long = 0L
-
-    private fun dropListAdapter(jsonObject: JSONObject) {
-        val channel = jsonObject.optString("channel")
-        val data = bottomMarketAdapter?.data
-        var tempData = 0
-        for ((index, item) in data?.withIndex()!!) {
-            if (channel.contains(item.optString("symbol"))) {
-                tempData = index
-                break
-            }
-        }
-        val message = Gson().toJson(data)
-        val jsonCopy = Utils.jsonToArrayList(message, JSONObject::class.java)
-        val tempNew = jsonCopy
-        val tick = jsonObject.optJSONObject("tick")
-
-        val item = tempNew.get(tempData)
-        item.put("rose", tick.optString("rose"))
-        item.put("close", tick.optString("close"))
-        item.put("vol", tick.optString("vol"))
-        tempNew.set(tempData, item)
-        if ("rasing" == tradeType) {
-            tempNew.sortByDescending { it.optString("rose") }
-        } else if ("falling" == tradeType) {
-            tempNew.sortByDescending { it.optString("rose") }
-        }
-        for ((index, item) in tempNew.withIndex()) {
-            item.put("Index", "|${(index + 1)}")
-            item.put("homeIndex", "${(index + 1)}")
-        }
-        val diffCallback = EmployeeDiffCallback(data, tempNew)
-        activity?.runOnUiThread {
-            bottomMarketAdapter?.setDiffData(diffCallback)
-        }
-
-    }
-
-    fun getRandom(): JSONObject? {
-        val item = bottomMarketAdapter?.data?.get((0..(bottomMarketAdapter?.data?.size!! - 1)).random())
-        val itemObj = JSONObject()
-        itemObj.put("tick", item)
-        itemObj.put("channel", "market_${item?.optString("symbol")}_ticker")
-        return itemObj
-    }
 
     private fun isMaineTabSort(): Boolean {
         if (activity is NewMainActivity) {
@@ -306,26 +236,10 @@ class NewHomeDetailFragment : NBaseFragment() {
         return false
     }
 
-    @Synchronized
-    private fun callDataDiff(jsonObject: JSONObject): Pair<ArrayList<JSONObject>, HashMap<String, JSONObject>>? {
-        if (System.currentTimeMillis() - wsTimeFirst >= 1000L && wsTimeFirst != 0L) {
-            // 大于一秒
-            wsTimeFirst = 0L
-            if (wsArrayMap.size != 0) {
-                return Pair(wsArrayTempList, wsArrayMap)
-            }
-        } else {
-            if (wsTimeFirst == 0L) {
-                wsTimeFirst = System.currentTimeMillis()
-            }
-            wsArrayTempList.add(jsonObject)
-            wsArrayMap.put(jsonObject.optString("channel", ""), jsonObject)
-        }
-        return null
-    }
+
 
     @Synchronized
-    private fun dropListsAdapter(items: HashMap<String, JSONObject>) {
+    fun dropListsAdapter(items: HashMap<String, JSONObject>) {
         val data = bottomMarketAdapter?.data
         if (data?.isEmpty()!!) {
             return
@@ -353,9 +267,9 @@ class NewHomeDetailFragment : NBaseFragment() {
 
         }
         if ("rasing" == tradeType) {
-            tempNew.sortByDescending { it.optString("rose") }
+            tempNew.sortByDescending { it.optDouble("rose", 0.0) }
         } else if ("falling" == tradeType) {
-            tempNew.sortByDescending { it.optString("rose") }
+            tempNew.sortBy { it.optDouble("rose", 0.0) }
         }
         for ((index, item) in tempNew.withIndex()) {
             item.put("Index", "|${(index + 1)}")

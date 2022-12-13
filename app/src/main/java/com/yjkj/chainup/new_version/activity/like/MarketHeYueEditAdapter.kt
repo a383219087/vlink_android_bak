@@ -35,10 +35,8 @@ class MarketHeYueEditAdapter(data: ArrayList<JSONObject>, var itemTouchHelperExt
     var selectMap = hashMapOf<String, Boolean>()
     @SuppressLint("ClickableViewAccessibility")
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
-        var name = NCoinManager.showAnoterName(item)
-        val split = name.split("/")
-        helper.setText(R.id.tv_coin_name, split[0])
-        helper.setText(R.id.tv_market_name, "/" + split[1])
+        var name = item?.getString("symbol")
+        helper.setText(R.id.tv_coin_name, name)
         val checkBox = helper.getView<CheckBox>(R.id.check_select)
         checkBox.isChecked = selectMap.containsKey(item?.getString("symbol"))
         helper.getView<ImageView>(R.id.iv_topping).onClick {

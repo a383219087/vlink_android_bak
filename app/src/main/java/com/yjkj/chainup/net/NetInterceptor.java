@@ -88,6 +88,10 @@ public class NetInterceptor implements Interceptor {
                 }
             }
         } else if (response.code() != 200) {
+             if(response.code() == 404){
+                 throw new AppException("404", "");
+             }
+
             XLog.e(printTime);
             if (!neworiUrl.contains("health_check")) {
                 LogUtil.e(TAG, "网络错误 需要切换网络 ");

@@ -10,7 +10,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
-import com.yjkj.chainup.db.service.LikeDataService
+import com.yjkj.chainup.db.service.HeYueLikeDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
@@ -52,9 +52,7 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
             finish()
         }
         iv_search.onClick {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString("type", ParamConstant.ADD_COIN_MAP)
-            })
+            ArouterUtil.greenChannel(RoutePath.HeYueMapActivity, Bundle())
         }
         ll_item_all.onClick {
             adapter?.apply {
@@ -106,9 +104,7 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
         val emptyForAdapterView = EmptyMarketForAdapterView(this)
         adapter?.setEmptyView(emptyForAdapterView)
         adapter?.emptyLayout?.findViewById<LinearLayout>(R.id.layout_add_like)?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString(ParamConstant.TYPE, ParamConstant.ADD_COIN_MAP)
-            })
+            ArouterUtil.greenChannel(RoutePath.HeYueMapActivity, Bundle())
         }
         adapter?.setOnItemChildClickListener { mAdapter, view, position ->
             adapter?.apply {
@@ -123,26 +119,17 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
         itemTouchHelper.attachToRecyclerView(rv_market_detail)
     }
 
-    private fun addOrDeleteSymbol(symbols: String?) {
-        if (symbols != null) {
 
-        }
-    }
-
-    private fun removeLocalCollect(symbol: String) {
-
-    }
 
     private fun getCollecData(): ArrayList<JSONObject>? {
-        return LikeDataService.getInstance().getCollecData(false)
+        return HeYueLikeDataService.getInstance().getCollecData(false)
     }
 
     override fun onDragListener1() {
         LogUtil.e(TAG, "onDrag()")
-        LikeDataService.getInstance().apply {
+        HeYueLikeDataService.getInstance().apply {
             clearAllCollect()
-            // 更新本地缓存
-            saveCollecData(normalTickList)
+
             upload()
         }
     }
@@ -166,18 +153,9 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
             true -> adapter?.getSelectSymbolsInvert()!!
             else -> normalTickList.getSymbols()
         }
+        delete(isDelete)
         showLoadingDialog()
-        MainModel().likesCoinsUpload(symbols, object : NDisposableObserver() {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                closeLoadingDialog()
-                delete(isDelete)
-            }
 
-            override fun onResponseFailure(code: Int, msg: String?) {
-                super.onResponseFailure(code, msg)
-                closeLoadingDialog()
-            }
-        })
     }
 
     private fun delete(isDelete: Boolean, isLogin: Boolean = true) {
@@ -187,9 +165,9 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
                 val newAll = getNewSymbolsInvert()
                 replaceData(newAll)
                 resetSelect()
-                LikeDataService.getInstance().clearAllCollect()
+                HeYueLikeDataService.getInstance().clearAllCollect()
                 if (newAll.size != 0) {
-                    LikeDataService.getInstance().saveCollecData(newAll)
+                    HeYueLikeDataService.getInstance().saveCollecData(newAll)
                 }
 
             }

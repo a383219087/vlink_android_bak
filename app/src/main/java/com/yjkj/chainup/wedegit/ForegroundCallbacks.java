@@ -17,7 +17,6 @@ import com.yjkj.chainup.new_version.fragment.MarketFragment;
 import com.yjkj.chainup.new_version.fragment.MarketTrendFragment;
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment;
 import com.yjkj.chainup.new_version.fragment.NewVersionMarketFragment;
-import com.yjkj.chainup.new_version.home.NewHomeDetailFragment;
 import com.yjkj.chainup.ui.home.NewVersionHomepageFragment;
 import com.yjkj.chainup.ws.WsAgentManager;
 
@@ -46,7 +45,6 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
     public final static String ACTIVITY_MARKET_TAB = MarketTrendFragment.class.getSimpleName();
     public final static String ACTIVITY_MARKET_HOME_TAB = MarketFragment.class.getSimpleName();
     public final static String ACTIVITY_MARKET_LIKE_TAB = LikesFragment.class.getSimpleName();
-    public final static String ACTIVITY_HOME_TAB = NewHomeDetailFragment.class.getSimpleName();
 
     private static String wsLastWindow = "";
 
@@ -196,10 +194,7 @@ public class ForegroundCallbacks implements Application.ActivityLifecycleCallbac
         if (wsLastWindow.equals(ACTIVITY_MARKET_TAB) || wsLastWindow.equals(ACTIVITY_MARKET_LIKE_TAB) || wsLastWindow.equals(ACTIVITY_MARKET)) {
             tempName = ACTIVITY_MARKET_HOME_TAB;
         }
-        if (wsLastWindow.equals(ACTIVITY_HOME_TAB)) {
-                tempName = ACTIVITY_HOME;
 
-        }
         if (wsLastWindow.equals(ACTIVITY_TRADE_DEFAULT)) {
             tempName = ACTIVITY_NCVC_DEFAULT;
         }

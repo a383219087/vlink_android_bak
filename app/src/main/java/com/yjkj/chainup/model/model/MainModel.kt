@@ -1,32 +1,18 @@
 package com.yjkj.chainup.model.model
 
-import android.content.Intent
 import android.text.TextUtils
-import com.blankj.utilcode.util.SPUtils
-import com.chainup.contract.net.CpHttpHelper
-import com.chainup.contract.ws.CpWsContractAgentManager
-import com.igexin.sdk.PushManager
-import com.yjkj.chainup.app.AppConstant
-import com.yjkj.chainup.app.ChainUpApp
-import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
-import com.yjkj.chainup.extra_service.push.HandlePushIntentService
-import com.yjkj.chainup.manager.DataInitService
 import com.yjkj.chainup.model.api.ContractApiService
-import com.yjkj.chainup.model.api.HttpResultUrlData
 import com.yjkj.chainup.model.api.MainApiService
 import com.yjkj.chainup.model.datamanager.BaseDataManager
 import com.yjkj.chainup.net.DataHandler
-import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.HttpClient.Companion.LOGIN_PWORD
 import com.yjkj.chainup.net.HttpClient.Companion.MOBILE_NUMBER
 import com.yjkj.chainup.net.HttpClient.Companion.VERIFICATION_TYPE
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net.api.HttpResult
 import com.yjkj.chainup.util.*
-import com.yjkj.chainup.ws.WsAgentManager
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.ResponseBody
@@ -465,22 +451,7 @@ class MainModel : BaseDataManager() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 var json = jsonObject.optJSONObject("data")
                 UserDataService.getInstance().saveData(json)
-                changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).testUser(getBaseReqBody()), object :NDisposableObserver(){
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        var json = jsonObject.optBoolean("data")
-                        /// 是模拟账号
-                        ChainUpApp().changeNetwork(json)
 
-
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        super.onError(e)
-                        ChainUpApp().changeNetwork(false)
-                    }
-
-                })
             }
         }
 
@@ -491,6 +462,17 @@ class MainModel : BaseDataManager() {
      */
     fun getSign(consumer: DisposableObserver<HttpResult<String?>>): Disposable? {
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).getDescriptionUsing(), consumer)
+    }
+
+
+    /**
+     * 获取是否模拟账号
+     */
+    fun testUser(userName: String, consumer: DisposableObserver<HttpResult<Boolean?>>): Disposable? {
+        val hashMap = getBaseMaps().apply {
+            this["username"] = userName
+        }
+        return   changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).testUser(getBaseReqBody(hashMap)),consumer)
     }
 
 

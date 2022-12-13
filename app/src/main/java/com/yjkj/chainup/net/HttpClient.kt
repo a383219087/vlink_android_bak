@@ -182,6 +182,7 @@ class HttpClient private constructor() {
      fun createApi(): ApiService {
         if (!StringUtil.isHttpUrl(BASE_URL))
             BASE_URL = AppConfig.default_host
+
         val retrofit = Retrofit.Builder()
                 .baseUrl(NetUrl.baseUrl())  // 设置服务器路径
                 .client(mOkHttpClient!!)  // 设置okhttp的网络请求
@@ -1578,11 +1579,7 @@ class HttpClient private constructor() {
         return apiService.getPush(DataHandler.encryptParams(map))
     }
 
-    fun bindToken(clientID: String): Observable<HttpResult<Any>> {
-        val map = getBaseMap()
-        map["cid"] = clientID
-        return apiService.bindToken(toRequestBody(DataHandler.encryptParams(map)))
-    }
+
 
     fun savePushType(pushType: String): Observable<HttpResult<Any>> {
         val map = getBaseMap()

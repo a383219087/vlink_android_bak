@@ -136,6 +136,7 @@ public class RoutePath {
      * 搜索模块
      */
     public static final String CoinMapActivity = "/search/CoinMapActivity";
+    public static final String HeYueMapActivity = "/search/HeYueMapActivity";
     public static final String NewCoinMapActivity = "/search/NewCoinMapActivity";
 
     /**

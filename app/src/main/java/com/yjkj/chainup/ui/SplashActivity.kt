@@ -89,24 +89,6 @@ class SplashActivity : AppCompatActivity() {
                     chatApiUrl = ""
                 )
             )
-//      goToMain(
-//        HttpResultUrlData(
-//          baseUrl = "http://120.78.198.245/base/appapi",
-//          contractSocketAddress ="ws://120.78.198.245/contract/kline/ws",
-//          contractUrl = "http://120.78.198.245/contract/appapi",
-//          httpHostUrlContractV2 = "http://120.78.198.245/contract/appapi",
-//          otcBaseUrl = "http://120.78.198.245/otc/appapi",
-//          otcSocketAddress = "ws://120.78.198.245/otc/chat/ws",
-//          redPackageUrl =  "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-//          socketAddress =  "ws://120.78.198.245/base/kline/ws",
-//          wssHostContractV2 = "ws://120.78.198.245/contract/kline/ws",
-//          optionUrl = "http://option.zwwbit.com/wallet/#/pages/index/index",
-//          blocksUrl ="http://blocks.zwwbit.com/block/#/pages/index/index_one",
-//          chatUrl = "",
-//          chatApiUrl = "http://47.254.214.243:8011",
-//
-//        )
-//      )
 
         } else {
 //      val linkData = SPUtils.getInstance().getString("links", "")
@@ -124,14 +106,30 @@ class SplashActivity : AppCompatActivity() {
 //      liksArray.add("http://119.23.59.211:8091")
 //      liksArray.add("http://120.77.40.245:8091")
 //            liksArray.add("http://www.qyrx.me/gate")
-            //ybc打开就行 start
             checkNetworkLine(liksArray[currentCheckIndex])
-            /* if (UserDataService.getInstance().isLogined){
-                 ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
-             }else{
-                 ChainUpApp().changeNetwork(false)
-             }*/
-            //ybc打开就行 end
+
+
+//             if (UserDataService.getInstance().isLogined){
+//                 ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
+//             }else{
+//                 ChainUpApp().changeNetwork(false)
+//             }
+//            if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
+//                val intent = Intent(this, DataInitService::class.java)
+//                intent.putExtra("isFirst", true)
+//                startService(intent)
+//                SPUtils.getInstance().put("SplashActivityIsFirst", false)
+//            }
+//            runBlocking {
+//                Thread.sleep(200)
+//                if (hasPermission()) {
+//                    goHome()
+//                } else {
+//                    requestPermission()
+//                }
+//            }
+
+
 
         }
 

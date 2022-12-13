@@ -12,6 +12,7 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.HeYueLikeDataService
 import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
@@ -270,7 +271,7 @@ class LikesHeYueFragment : NBaseFragment() {
 
 
     private fun getCollecData(): ArrayList<JSONObject>? {
-        return LikeDataService.getInstance().getCollecData(false)
+        return HeYueLikeDataService.getInstance().getCollecData(false)
     }
 
     /*
@@ -318,9 +319,7 @@ class LikesHeYueFragment : NBaseFragment() {
         val emptyForAdapterView = EmptyMarketForAdapterView(context ?: return)
         adapter?.setEmptyView(emptyForAdapterView)
         adapter?.emptyLayout?.findViewById<LinearLayout>(R.id.layout_add_like)?.setOnClickListener {
-            ArouterUtil.greenChannel(RoutePath.CoinMapActivity, Bundle().apply {
-                putString(ParamConstant.TYPE, ParamConstant.ADD_COIN_MAP)
-            })
+            ArouterUtil.greenChannel(RoutePath.HeYueMapActivity, Bundle())
         }
 
         adapter?.setOnItemClickListener { adapter, _, position ->
