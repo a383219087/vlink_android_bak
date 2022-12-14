@@ -1,13 +1,16 @@
 package com.chainup.contract.ui.fragment
 
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
@@ -26,11 +29,23 @@ import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.bean.CpCreateOrderBean
+import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
+import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
+import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
+import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
+import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.customize_depth_chart
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.kline_tab_indicator
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rl_kline_ctrl
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_ctrl
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
 import kotlinx.android.synthetic.main.cp_trade_header_tools.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -60,6 +75,36 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     var subscribe: Disposable? = null
     var isContractHidden:Boolean =true
     var isContractFirst:Boolean =false
+    //k线图start
+    private var mCpContractKlineCtrlAdapter: CpContractKlineCtrlAdapter? = null
+    private var mklineCtrlList = ArrayList<CpKlineCtrlBean>()
+    var isFrist = true
+    var aG = true
+    /*
+     * KLine参数数据初始化
+     */
+    private var main_index = 0
+    private var vice_index = 0
+    private var curTime: String? = ""
+    private var cur_time_index = 0;
+    private var klineScale = ArrayList<String>()
+    private var themeMode = 0
+    private fun initKLineData() {
+        main_index = CpKLineUtil.getMainIndex()
+        vice_index = CpKLineUtil.getViceIndex()
+        cur_time_index = CpKLineUtil.getCurTime4Index()
+
+        curTime = CpKLineUtil.getCurTime()
+        klineScale = CpKLineUtil.getKLineScale()
+
+        themeMode = 0
+
+    }
+    var klineData: ArrayList<CpKLineBean> = arrayListOf()
+    var symbol = ""
+    //k线图end
+
+
     override fun loadData() {
         super.loadData()
         CpWsContractAgentManager.instance.addWsCallback(this)
@@ -130,6 +175,159 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         swipeLayout.setOnRefreshListener {
             loopStart()
         }
+        setTextConetnt()
+    }
+
+    private fun setTextConetnt() {
+        mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("15min")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("60min")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("4h")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1day")), 1))
+
+        if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("line"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
+        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1min"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("1min", true, 2))
+        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("5min"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
+        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("30min"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
+        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1week"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
+        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1month"))) {
+            mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
+        } else {
+            mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cp_extra_text152"), false, 2))
+        }
+        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cp_extra_text153"), false, 3))
+        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cp_extra_text154"), false, 2))
+        mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
+        rv_kline_ctrl.layoutManager = GridLayoutManager(activity, 7)
+        rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
+        mCpContractKlineCtrlAdapter?.setOnItemClickListener { adapter, view, position ->
+            for (index in mklineCtrlList.indices) {
+                if (position == 6 && mklineCtrlList[index].isSelect) {
+
+                } else {
+                    if (position == 4 && index < 4 && mklineCtrlList[index].isSelect) {
+
+                    } else {
+                        if (position == 4 && mklineCtrlList[5].isSelect) {
+                            mklineCtrlList[index].isSelect
+                        } else {
+                            mklineCtrlList[index].isSelect = (index == position)
+                        }
+                    }
+                }
+            }
+            mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+            if (position != 6 && position != 4) {
+                customize_depth_chart.visibility = if (position == 5) View.VISIBLE else View.GONE
+            }
+            if (position < 4) {
+                v_kline?.setMainDrawLine(false)
+                CpKLineUtil.setCurTime(mklineCtrlList[position].time)
+                CpKLineUtil.setCurTime4KLine(klineScale.indexOf(mklineCtrlList[position].time))
+                switchKLineScale(mklineCtrlList[position].time)
+            }
+            if (position != 4 && position != 6) {
+                textClickTab(view.findViewById(R.id.tv_time), null)
+            }
+            if (position == 4) {
+                mklineCtrlList[6].isSelect = false
+                var isSel = false
+                CpDialogUtil.createMoreTimeKlinePop(activity, rl_kline_ctrl, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+                    override fun clickItem(position: Int, text: String) {
+                        mklineCtrlList[4].time = text
+                        for (index in mklineCtrlList.indices) {
+                            mklineCtrlList[index].isSelect = (index == 4)
+                        }
+                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+                        customize_depth_chart.visibility = View.GONE
+                        v_kline?.setMainDrawLine(position == 0)
+                        switchKLineScale(text)
+                        isSel = true
+                        textClickTab(view.findViewById(R.id.tv_scale), null)
+                    }
+                }, object : CpNewDialogUtils.DialogOnDismissClickListener {
+                    override fun clickItem() {
+                        if (isSel) {
+
+                        } else {
+                            mklineCtrlList[4].isSelect = false
+                        }
+                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+                    }
+                })
+            } else {
+                if (position != 6) {
+                    mklineCtrlList[4].time = CpLanguageUtil.getString(activity, "cp_extra_text152")
+                }
+            }
+            if (position == 6) {
+//                mklineCtrlList[4].isSelect = false
+                CpDialogUtil.createMoreTargetKlinePop(activity, rl_kline_ctrl, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+                    override fun clickItem(position: Int, text: String) {
+                        if (text.equals("main")) {
+                            when (position) {
+                                0 -> {
+                                    v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
+                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+                                }
+                                1 -> {
+                                    v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
+                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+                                }
+                            }
+                        } else {
+                            when (position) {
+                                0 -> {
+                                    v_kline?.setChildDraw(0)
+                                    CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+                                }
+                                1 -> {
+                                    v_kline?.setChildDraw(1)
+                                    CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+                                }
+                                2 -> {
+                                    v_kline?.setChildDraw(2)
+                                    CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+                                }
+                                3 -> {
+                                    v_kline?.setChildDraw(3)
+                                    CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+                                }
+                            }
+                        }
+                    }
+                }, object : CpNewDialogUtils.DialogOnDismissClickListener {
+                    override fun clickItem() {
+                        mklineCtrlList[6].isSelect = false
+                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+                    }
+                })
+            }
+        }
+
+        /*rv_kline_ctrl.postDelayed(Runnable {
+            LogUtils.e("positiongetCurTime-----+" + CpKLineUtil.getCurTime())
+            val position = CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
+            LogUtils.e("position-----+" + position)
+            if (position != -1) {
+                val childView: View = rv_kline_ctrl.getChildAt(position)
+                childView?.apply {
+                    val tvSale = this.findViewById<TextView>(R.id.tv_time)
+                    tvSale?.let { textClickTab(it, null) }
+                }
+            } else {
+                val childView: View = rv_kline_ctrl.getChildAt(4)
+                childView?.apply {
+                    val tvSale = this.findViewById<TextView>(R.id.tv_scale)
+                    tvSale?.let { textClickTab(it, null) }
+                }
+            }
+//            LogUtils.e("childView --- " + childView)
+        }, 300)*/
     }
 
     private fun showLeftCoinWindow() {
@@ -601,5 +799,94 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onPause()
         loopStop()
         CpWsContractAgentManager.instance.unbind(this, true)
+    }
+
+    /**
+     * 切换K线刻度
+     * @param kLineScale K线刻度
+     */
+    private fun switchKLineScale(kLineScale: String) {
+        if (curTime != kLineScale) {
+            isFrist = true
+            klineData.clear()
+            var scale = if (curTime == "line") "1min" else curTime
+            /**
+             * 取消订阅
+             */
+            sendMsg(WsLinkUtils.getKlineNewLink(symbol, scale, false).json)
+            curTime = kLineScale
+            var scale2 = if (curTime == "line") "1min" else curTime
+            /**
+             * 请求历史
+             */
+            sendMsg(WsLinkUtils.getKLineHistoryLink(symbol, scale2).json)
+            /**
+             * 订阅
+             */
+            sendMsg(WsLinkUtils.getKlineNewLink(symbol, scale2).json)
+            initSocket()
+        }
+
+    }
+
+    /**
+     * WebSocket 发送消息
+     */
+    private fun sendMsg(msg: String) {
+
+    }
+
+    //初次 和 切换币对时触发
+    private fun initSocket() {
+        if (isNotEmpty(symbol)) {
+            // sub ticker
+            val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
+            CpWsContractAgentManager.instance.sendMessage(
+                hashMapOf(
+                    "symbol" to symbol,
+                    "line" to scale
+                ), this
+            )
+        }
+    }
+
+    fun isNotEmpty(str: String?): Boolean {
+        return !isEmpty(str)
+    }
+
+    fun isEmpty(str: String?): Boolean {
+        return TextUtils.isEmpty(str)
+    }
+
+    fun textClickTab(textView: TextView, view: View?) {
+        val iArr = IntArray(2)
+        textView.getLocationInWindow(iArr)
+        if (!this.aG) {
+            this.aG = true
+            textView.post { changeTabIndicatorIng(textView, iArr) }
+            return
+        }
+        LogUtils.e(TAG, "textClickTab ${iArr[0]}")
+        this.kline_tab_indicator.animate().translationX(iArr[0].toFloat())
+        val ofInt = ValueAnimator.ofInt(this.kline_tab_indicator.width, textView.width / 2)
+        ofInt.addUpdateListener { valueAnimator -> changeTabIndicator(valueAnimator) }
+        ofInt.start()
+
+    }
+
+    fun changeTabIndicatorIng(textView: TextView, iArr: IntArray) {
+        textView.getLocationInWindow(iArr)
+        this.kline_tab_indicator.setTranslationX(iArr[0].toFloat())
+        val layoutParams = this.kline_tab_indicator.layoutParams
+        layoutParams.width = textView.width / 2
+        LogUtils.e(TAG, "changeTabIndicatorIng ${textView.width}")
+        this.kline_tab_indicator.layoutParams = layoutParams
+    }
+
+    fun changeTabIndicator(valueAnimator: ValueAnimator) {
+        val layoutParams = this.kline_tab_indicator.layoutParams
+        layoutParams.width = (valueAnimator.animatedValue as Int).toInt()
+        LogUtils.i(TAG, "changeTabIndicator ${valueAnimator.animatedValue}")
+        this.kline_tab_indicator.layoutParams = layoutParams
     }
 }
