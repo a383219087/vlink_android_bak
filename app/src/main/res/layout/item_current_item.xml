@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contract_action_buy"
+            android:text="@string/contract_action_limitPrice"
             android:textColor="@color/text_black"
             android:textSize="@dimen/sp_11" />
 
@@ -54,8 +54,8 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -72,37 +72,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginTop="@dimen/dp_5"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
+        <com.yjkj.chainup.wedegit.XCRoundProgressBar
+            android:id="@+id/pb_volume"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            app:innerRoundColor="@color/transparent"
+            app:max="100"
+            app:roundColor="@color/hint_color"
+            app:roundProgressColor="@color/main_blue"
+            app:roundWidth="@dimen/dp_5"
+            app:textColor2="@color/main_blue"
+            app:textSize2="@dimen/sp_13" />
 
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12">
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_status"
-            android:layout_width="@dimen/dp_72"
-            android:layout_height="@dimen/dp_32"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_23"
+            android:background="@drawable/bg_trade_et_unfocused"
             android:ellipsize="end"
             android:gravity="center"
             android:text="@string/common_action_orderCancel"
-            android:textColor="@color/main_blue"
+            android:textColor="@color/normal_text_color"
             android:textSize="@dimen/sp_14"
-            android:textStyle="bold"
-            app:stv_solid="@color/tabbar_color" />
+            android:textStyle="bold" />
 
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

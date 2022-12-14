@@ -7,12 +7,11 @@ import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.leverage.TradeFragment
 import com.yjkj.chainup.util.*
+import com.yjkj.chainup.wedegit.XCRoundProgressBar
 import org.json.JSONObject
-import java.util.ArrayList
 
 /**
  * @Author: Bertking
@@ -22,6 +21,7 @@ import java.util.ArrayList
 class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R.layout.item_current_item) {
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
+        var pb_volume = helper.getView<XCRoundProgressBar>(R.id.pb_volume)
         item?.run {
             val baseCoin = optString("baseCoin")
             val countCoin = optString("countCoin")
@@ -100,7 +100,6 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                 setText(R.id.tv_volume_title, LanguageUtil.getString(context, "charge_text_volume") + "(${NCoinManager.getShowMarket(baseCoin)})")
                 setText(R.id.tv_volume, volume.getTradeCoinVolume(coinMap))
 
-
                 /**
                  * 实际成交量
                  */
@@ -115,7 +114,10 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                     staText.solid = ContextCompat.getColor(context, R.color.tabbar_color)
                     staText.setTextColor(ContextCompat.getColor(context, R.color.main_blue))
                 }
-
+                val dealDouble = dealVolume.getTradeCoinVolume(coinMap).toDouble()
+                val volumeDouble = volume.getTradeCoinVolume(coinMap).toDouble()
+                var pro = dealDouble * 100 / volumeDouble
+                pb_volume.progress = pro.toInt()
             }
         }
 
