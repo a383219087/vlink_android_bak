@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.SPUtils
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
@@ -35,6 +36,7 @@ import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.asset.AssetsPieChartFragment
 import com.yjkj.chainup.new_version.activity.asset.DepositActivity
 import com.yjkj.chainup.new_version.activity.asset.WithdrawActivity
+import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.OTCAssetAdapter
 import com.yjkj.chainup.new_version.adapter.OTCFundAdapter
 import com.yjkj.chainup.new_version.contract.ContractFragment
@@ -43,6 +45,7 @@ import com.yjkj.chainup.new_version.home.homeAssetPieChart
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.treaty.adapter.HoldContractAssterAdapter
 import com.yjkj.chainup.util.*
+import kotlinx.android.synthetic.main.fragment_asset.*
 import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.fragment_bibi_asset.swipe_refresh
 import org.json.JSONObject
@@ -124,7 +127,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             param1 = it.getString(ARG_PARAM1)
             param_index = it.getString(ARG_INDEX)
         }
+
         when (param_index) {
+            ParamConstant.BIBI_INDEX -> {
+                bibiSHouyi()
+            }
             ParamConstant.FABI_INDEX -> {
                 otcDialogList.addAll(
                     arrayListOf(
@@ -208,6 +215,32 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             swipe_refresh?.isRefreshing = false
         }
     }
+    /**
+     * 币币收益
+     */
+    private fun bibiSHouyi(){
+
+        if (!UserDataService.getInstance().isLogined) return
+        addDisposable(
+            getContractModel().accountStats(
+                consumer = object : NDisposableObserver(true) {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        jsonObject.optJSONObject("data").run {
+                          var  rate = opt("rate").toString()
+                            var usdt = opt("usdt").toString()
+                            assetHeadView?.accountStats(rate,usdt)
+
+
+                        }
+                    }
+                })
+        )
+
+
+    }
+
+
+
     var isFrist = true
 
 
@@ -732,7 +765,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
         adapter4Asset.setType(ParamConstant.FABI_INDEX)
         adapter4Asset.setHeaderView(assetHeadView!!)
-        adapter4Asset.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
         adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
@@ -821,7 +853,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             (parent as ViewGroup).removeAllViews()
         }
         adapter4Fund.setHeaderView(assetHeadView!!)
-        adapter4Fund.setHasStableIds(true)
         rc_contract?.layoutManager = LinearLayoutManager(context)
 
         adapter4Fund.setEmptyView(R.layout.item_new_empty_assets)

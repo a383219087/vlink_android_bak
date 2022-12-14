@@ -124,7 +124,7 @@ class ClContractAssetFragment : NBaseFragment() {
     }
 
     override fun loadData() {
-        getPositionList()
+
     }
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {

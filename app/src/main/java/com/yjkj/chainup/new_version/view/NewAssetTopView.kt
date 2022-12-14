@@ -32,6 +32,7 @@ import com.yjkj.chainup.ui.asset.NewVersionAssetOptimizeDetailFragment
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
+import kotlinx.android.synthetic.main.sl_activity_contract_entrust_detail.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -102,6 +103,20 @@ class NewAssetTopView @JvmOverloads constructor(
         isLittleAssetsShow = status
         fragment_my_asset_order_hide?.isChecked = isLittleAssetsShow
         et_search?.setText("")
+    }
+
+    //收益分析
+    fun accountStats(rate: String,usdt: String) {
+        tv_rate.text=rate
+        tv_usdt.text=usdt
+        tv_cny.text=  RateManager.getCNYByCoinName("USDT",usdt)
+        if (rate.contains("-")){
+            tv_rate.setTextColor(resources.getColor(R.color.main_red))
+            tv_usdt.setTextColor(resources.getColor(R.color.main_red))
+        }else{
+            tv_rate.setTextColor(resources.getColor(R.color.main_green))
+            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+        }
     }
 
     fun setRefreshViewData() {
@@ -260,6 +275,15 @@ class NewAssetTopView @JvmOverloads constructor(
          *  划转(合约)
          */
         ll_transfer_layout1.setOnClickListener {
+            if (Utils.isFastClick()) return@setOnClickListener
+            if (null != listener) {
+                listener?.selectTransfer(param_index)
+            }
+        }
+        /**
+         *  划转(法币)
+         */
+        ll_transfer_layout3.setOnClickListener {
             if (Utils.isFastClick()) return@setOnClickListener
             if (null != listener) {
                 listener?.selectTransfer(param_index)

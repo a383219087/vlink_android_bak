@@ -106,10 +106,10 @@ class SplashActivity : AppCompatActivity() {
 //      liksArray.add("http://119.23.59.211:8091")
 //      liksArray.add("http://120.77.40.245:8091")
 //            liksArray.add("http://www.qyrx.me/gate")
-            checkNetworkLine(liksArray[currentCheckIndex])
+//            checkNetworkLine(liksArray[currentCheckIndex])
 
 
-             /*if (UserDataService.getInstance().isLogined){
+             if (UserDataService.getInstance().isLogined){
                  ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
              }else{
                  ChainUpApp().changeNetwork(false)
@@ -127,7 +127,7 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     requestPermission()
                 }
-            }*/
+            }
 
 
 

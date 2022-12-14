@@ -1211,14 +1211,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
                 return true
             }
-            if (openContract == 0) {
-                CpDialogUtil.showCreateContractDialog(context, object : CpNewDialogUtils.DialogBottomListener {
-                    override fun sendConfirm() {
-                        CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_open_contract_event))
-                    }
-                })
-                return true
-            }
+
         }
         return super.dispatchTouchEvent(ev)
     }

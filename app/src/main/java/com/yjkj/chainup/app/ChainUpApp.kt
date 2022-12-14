@@ -97,7 +97,7 @@ class ChainUpApp : CpMyApp() {
     }
 
      fun changeNetwork(simulate: Boolean){
-         /*if(simulate){
+         if(simulate){
               //模拟盘
              url= HttpResultUrlData(
                  baseUrl = "http://8.219.93.19:8082/base/appapi",
@@ -140,7 +140,7 @@ class ChainUpApp : CpMyApp() {
                CpWsContractAgentManager.instance.socketUrl(url!!.contractSocketAddress, true)
                CpHttpHelper.instance.serviceUrl(url!!.contractUrl)
                SPUtils.getInstance().put(ParamConstant.simulate, simulate)
-           }*/
+           }
 
 
 

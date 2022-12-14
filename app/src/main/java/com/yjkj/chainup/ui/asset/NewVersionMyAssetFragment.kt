@@ -107,7 +107,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getTotalAccountBalance()
         retainInstance = true
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -142,7 +141,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     }
 
     // 合约
-    private fun getTotalAccountBalance() {
+     fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
         addDisposable(getMainModel().contractTotalAccountBalanceV2(
             consumer = object : NDisposableObserver(mActivity, true) {
@@ -161,7 +160,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             if (isLogined) {
                 setAssetViewVisible()
                 getAccountBalance()
-                getTotalAccountBalance()
 
             }
         }
@@ -430,12 +428,16 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
         }
         if (heyueObject!=null){
+            ll_heyue_lay.visibility=View.VISIBLE
             heyueObject!!.optJSONObject("data")?.run {
                 val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("futuresTotalBalance"))
                 val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("futuresTotalBalance"), 8).toPlainString(), 8)
                 Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi2, assets_btc_balance+"(BTC)")
                 Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
             }
+        }else{
+            ll_heyue_lay.visibility=View.GONE
+
         }
 
 
@@ -676,6 +678,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     private fun getB2CAccount() {
         addDisposable(getMainModel().fiatBalance(symbol = "",
                 consumer = object : NDisposableObserver() {
+                    @SuppressLint("SuspiciousIndentation")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         val data = jsonObject.optJSONObject("data")
 
@@ -746,37 +749,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         viewpagePosotion = position
     }
 
-    /**
-     * 杠杆列表
-     */
 
-    fun getLeverData() {
-        addDisposable(getMainModel().getBalanceList(object : NDisposableObserver() {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                var json: JSONObject? = jsonObject.optJSONObject("data") ?: return
-                var jsonLeverMap: JSONObject? = json?.optJSONObject("leverMap") ?: return
-                assetlist[1].put("totalBalance", json.optString("totalBalance")
-                        ?: "")
-                assetlist[1].put("totalBalanceSymbol", json.optString("totalBalanceSymbol")
-                        ?: "")
-                when {
-                    b2cOpen -> {
-                        getB2CAccount()
-                    }
-                    otcOpen -> {
-                        getAccountBalance4OTC()
-                    }
-                    contractOpen -> {
-                        getContractAccount()
-                    }
-                }
-                refresh()
-                var message = MessageEvent(MessageEvent.refresh_local_lever_type)
-                message.msg_content = json
-                NLiveDataUtil.postValue(message)
-            }
-        }))
-    }
 
 }
 private const val ARG_PARAM2 = "param2"
