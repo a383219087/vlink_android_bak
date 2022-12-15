@@ -48,7 +48,6 @@ class ClContractAssetFragment : NBaseFragment() {
         return R.layout.sl_fragment_contract_asset
     }
 
-    var adapterHoldContract: ClContractAssetAdapter? = null
     val mList = ArrayList<JSONObject>()
 
     /**
@@ -151,6 +150,11 @@ class ClContractAssetFragment : NBaseFragment() {
                     if (!isNull("accountList")) {
                         val mAccountListJson = optJSONArray("accountList")
                         mList.clear()
+//                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
+//                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
+//                        钱包余额 用 totalAmount
+//                       lockAmount 保证金余额
+//                        unRealizedAmount 为实现盈亏
                         for (i in 0 until mAccountListJson.length()) {
                             val data: JSONObject = mAccountListJson?.get(i) as JSONObject
                             if (data.optString("totalAmount").toDouble() > 0) {
@@ -158,17 +162,22 @@ class ClContractAssetFragment : NBaseFragment() {
                             } else {
                                 mList.add(data)
                             }
+                             if (data.optString("symbol")=="USDT"){
+                                 buffJson1 = data
+                                 assetHeadView?.setContractHeadData1(data)
+                             }
+
 
                             LogUtil.e(TAG, "------------------------------------")
                         }
                     }
-                    adapterHoldContract?.notifyDataSetChanged()
                 } //                        swipe_refresh?.isRefreshing =false
             }
         }))
     }
 
     var buffJson: JSONObject? = null
+    var buffJson1: JSONObject? = null
     private fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
         addDisposable(getMainModel().contractTotalAccountBalanceV2(consumer = object : NDisposableObserver(mActivity, true) {
@@ -245,6 +254,9 @@ class ClContractAssetFragment : NBaseFragment() {
             override fun isShowAssets() {
                 if (buffJson != null) {
                     assetHeadView?.setContractHeadData(buffJson!!)
+                }
+                if (buffJson1 != null) {
+                    assetHeadView?.setContractHeadData1(buffJson1!!)
                 }
 
             }

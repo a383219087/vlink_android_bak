@@ -103,9 +103,9 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
 
     //法币
-    var adapter4Asset: OTCAssetAdapter = OTCAssetAdapter(list4OTC)
+    var adapter4Asset: OTCAssetAdapter? = null
     //币币
-    var adapter4Fund: OTCFundAdapter = OTCFundAdapter(listFund)
+    var adapter4Fund: OTCFundAdapter? =null
     var buffJson: JSONObject? = null
     companion object {
         var liveDataFilterForEditText: MutableLiveData<AssetScreenBean> = MutableLiveData()
@@ -258,8 +258,8 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
          */
         liveDataCleanForEditText.observe(this, Observer<String> {
             if (it == param_index) {
-                adapter4Asset.filter.filter("")
-                adapter4Fund.filter.filter("")
+                adapter4Asset?.filter?.filter("")
+                adapter4Fund?.filter?.filter("")
                 clearData()
                 et_search?.setText("")
             }
@@ -318,7 +318,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     if (isFrist) {
                         initOTCView()
                     } else {
-                        adapter4Asset.setList(list4OTC)
+                        adapter4Asset?.setList(list4OTC)
                     }
                     total_balance = RateManager.getCNYByCoinName(
                         jsonObject?.optString("totalBalanceSymbol"),
@@ -558,22 +558,22 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 if (isLittleAssetsShow) {
                     listFund.clear()
                     listFund.addAll(nolittleBalanceList)
-                    adapter4Fund.notifyDataSetChanged()
+                    adapter4Fund?.notifyDataSetChanged()
                 } else {
                     listFund.clear()
                     listFund.addAll(balancelist)
-                    adapter4Fund.notifyDataSetChanged()
+                    adapter4Fund?.notifyDataSetChanged()
                 }
             }
             ParamConstant.FABI_INDEX, ParamConstant.B2C_INDEX, ParamConstant.LEVER_INDEX -> {
                 if (isLittleAssetsShow) {
                     list4OTC.clear()
                     list4OTC.addAll(nolittleBalanceList4OTC)
-                    adapter4Asset.notifyDataSetChanged()
+                    adapter4Asset?.notifyDataSetChanged()
                 } else {
                     list4OTC.clear()
                     list4OTC.addAll(balanceList4OTC)
-                    adapter4Asset.notifyDataSetChanged()
+                    adapter4Asset?.notifyDataSetChanged()
                 }
             }
 
@@ -591,6 +591,14 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         }
     }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+
+
+        super.onHiddenChanged(hidden)
+    }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -615,13 +623,13 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             if (param_index == ParamConstant.BIBI_INDEX) {
                 listFund.clear()
                 listFund.addAll(nolittleBalanceList)
-                adapter4Fund.setList(listFund)
+                adapter4Fund?.setList(listFund)
             } else {
                 if (param_index == ParamConstant.LEVER_INDEX || param_index == ParamConstant.FABI_INDEX) {
                     list4OTC.clear()
                     list4OTC.addAll(nolittleBalanceList4OTC)
 //                    adapter4Asset?.notifyDataSetChanged()
-                    adapter4Asset.setList(list4OTC)
+                    adapter4Asset?.setList(list4OTC)
                 }
             }
         } else {
@@ -641,19 +649,19 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             }
         }
 
-        adapter4Fund.setListener(object : OTCFundAdapter.FilterListener {
+        adapter4Fund?.setListener(object : OTCFundAdapter.FilterListener {
             override fun getFilterData(list: List<JSONObject>) {
                 listFund.clear()
                 listFund.addAll(list)
-                adapter4Fund.notifyDataSetChanged()
+                adapter4Fund!!.notifyDataSetChanged()
 
             }
         })
-        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset?.setListener(object : OTCAssetAdapter.FilterListener {
             override fun getFilterData(list: ArrayList<JSONObject>) {
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset.notifyDataSetChanged()
+                adapter4Asset!!.notifyDataSetChanged()
             }
         })
 
@@ -663,8 +671,8 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     @SuppressLint("NotifyDataSetChanged")
     fun refreshViewData() {
         isLittleAssetsShow = UserDataService.getInstance().assetState
-        adapter4Asset.notifyDataSetChanged()
-        adapter4Fund.notifyDataSetChanged()
+        adapter4Asset?.notifyDataSetChanged()
+        adapter4Fund?.notifyDataSetChanged()
         adapterHoldContract?.notifyDataSetChanged()
         when (param_index) {
             ParamConstant.CONTRACT_INDEX -> {
@@ -761,17 +769,18 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         if (null != parent) {
             (parent as ViewGroup).removeAllViews()
         }
-        adapter4Asset.setType(ParamConstant.FABI_INDEX)
-        adapter4Asset.setHeaderView(assetHeadView!!)
-        adapter4Asset.setHasStableIds(true)
+        adapter4Asset= OTCAssetAdapter(list4OTC)
+        adapter4Asset!!.setType(ParamConstant.FABI_INDEX)
+        adapter4Asset!!.setHeaderView(assetHeadView!!)
+        adapter4Asset!!.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
-        adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Asset.headerWithEmptyEnable = true
+        adapter4Asset!!.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Asset!!.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Asset
         rc_contract?.itemAnimator = null
 
-        adapter4Asset.setOnItemClickListener { _, _, position ->
+        adapter4Asset!!.setOnItemClickListener { _, _, position ->
 
             tDialog =
                 NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
@@ -780,7 +789,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                         //越界
                         if (position >= list4OTC.size) {
                             tDialog?.dismiss()
-                            adapter4Asset.notifyDataSetChanged()
+                            adapter4Asset!!.notifyDataSetChanged()
                             return
                         }
                         when (item) {
@@ -811,12 +820,12 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 })
         }
 
-        adapter4Asset.setListener(object : OTCAssetAdapter.FilterListener {
+        adapter4Asset!!.setListener(object : OTCAssetAdapter.FilterListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun getFilterData(list: ArrayList<JSONObject>) {
                 list4OTC.clear()
                 list4OTC.addAll(list)
-                adapter4Asset.notifyDataSetChanged()
+                adapter4Asset!!.notifyDataSetChanged()
             }
         })
     }
@@ -840,7 +849,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
      * 币币交易 item
      */
     fun initBiBiView() {
-
+        rc_contract.removeAllViews()
         if (isLittleAssetsShow) {
             listFund.addAll(nolittleBalanceList)
         } else {
@@ -851,15 +860,16 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         if (null != parent) {
             (parent as ViewGroup).removeAllViews()
         }
-        adapter4Fund.setHeaderView(assetHeadView!!)
+        adapter4Fund=  OTCFundAdapter(listFund)
+        adapter4Fund!!.setHeaderView(assetHeadView!!)
         rc_contract?.layoutManager = LinearLayoutManager(context)
-        adapter4Fund.setHasStableIds(true)
-        adapter4Fund.setEmptyView(R.layout.item_new_empty_assets)
-        adapter4Fund.headerWithEmptyEnable = true
+        adapter4Fund!!.setHasStableIds(true)
+        adapter4Fund!!.setEmptyView(R.layout.item_new_empty_assets)
+        adapter4Fund!!.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Fund
         rc_contract?.itemAnimator = null
 
-        adapter4Fund.setOnItemClickListener { adapter, view, position ->
+        adapter4Fund!!.setOnItemClickListener { adapter, view, position ->
             bibiDialogList = arrayListOf(
                 LanguageUtil.getString(context, "assets_action_chargeCoin"),
                 LanguageUtil.getString(context, "assets_action_transfer"),
@@ -882,7 +892,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             if (coin?.optInt("otcOpen") == 1) {
                 bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transfer"))
             }
-            if (null != existMarket && existMarket.isNotEmpty()!!) {
+            if (null != existMarket && existMarket.isNotEmpty()) {
                 bibiDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
             }
             if (listFund[position].optInt("depositOpen") == 1) {
@@ -1084,14 +1094,14 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 })
 
         }
-        adapter4Fund.setOnItemChildClickListener { adapter, view, position ->
+        adapter4Fund!!.setOnItemChildClickListener { adapter, view, position ->
             val coinName = listFund[position].optString("coinName", "")
             val isDeposit = (listFund[position].optInt("depositOpen") == 1)
             val isWithdraw = (listFund[position].optInt("withdrawOpen") == 1)
             showSuspendRechargeWithdrawalDialog(coinName, isDeposit, isWithdraw)
 
         }
-        adapter4Fund.setListener(object : OTCFundAdapter.FilterListener {
+        adapter4Fund!!.setListener(object : OTCFundAdapter.FilterListener {
             override fun getFilterData(list: List<JSONObject>) {
                 if (list == null) return
                 listFund.clear()

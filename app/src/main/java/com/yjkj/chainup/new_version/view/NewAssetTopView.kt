@@ -42,11 +42,8 @@ import org.json.JSONObject
  * @Email buptjinlong@163.com
  * @description
  */
-class NewAssetTopView @JvmOverloads constructor(
-    context: Activity,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    LinearLayout(context, attrs, defStyleAttr) {
 
     /**
      * bibi 是币币
@@ -106,14 +103,14 @@ class NewAssetTopView @JvmOverloads constructor(
     }
 
     //收益分析
-    fun accountStats(rate: String,usdt: String) {
-        tv_rate.text=rate
-        tv_usdt.text=usdt
-        tv_cny.text=  RateManager.getCNYByCoinName("USDT",usdt)
-        if (rate.contains("-")){
+    fun accountStats(rate: String, usdt: String) {
+        tv_rate.text = rate
+        tv_usdt.text = usdt
+        tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+        if (rate.contains("-")) {
             tv_rate.setTextColor(resources.getColor(R.color.main_red))
             tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-        }else{
+        } else {
             tv_rate.setTextColor(resources.getColor(R.color.main_green))
             tv_usdt.setTextColor(resources.getColor(R.color.main_green))
         }
@@ -191,8 +188,7 @@ class NewAssetTopView @JvmOverloads constructor(
             if (Utils.isFastClick()) return@setOnClickListener
             if (param_index == ParamConstant.BIBI_INDEX) {
                 if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                    NewDialogUtils.KycSecurityDialog(
-                        context,
+                    NewDialogUtils.KycSecurityDialog(context,
                         context.getString(R.string.common_kyc_chargeAndwithdraw),
                         object : NewDialogUtils.DialogBottomListener {
                             override fun sendConfirm() {
@@ -338,8 +334,7 @@ class NewAssetTopView @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
                 if (TextUtils.isEmpty(s)) {
                     NewVersionAssetOptimizeDetailFragment.liveDataCleanForEditText.postValue(param_index)
                 } else {
@@ -363,15 +358,13 @@ class NewAssetTopView @JvmOverloads constructor(
                 et_search?.isFocusable = true
                 et_search?.isFocusableInTouchMode = true
             }
-        })
-//        et_search?.setOnFocusChangeListener { v, hasFocus ->
-//            et_search?.isFocusable = true
-//            et_search?.isFocusableInTouchMode = true
-//        }
+        }) //        et_search?.setOnFocusChangeListener { v, hasFocus ->
+        //            et_search?.isFocusable = true
+        //            et_search?.isFocusableInTouchMode = true
+        //        }
 
         img_small_assets_tip.setOnClickListener {
-            NewDialogUtils.showDialog(
-                context!!,
+            NewDialogUtils.showDialog(context!!,
                 LanguageUtil.getString(context, "assets_less_than_0.0001BTC"),
                 true,
                 object : NewDialogUtils.DialogBottomListener {
@@ -381,8 +374,7 @@ class NewAssetTopView @JvmOverloads constructor(
                 },
                 "",
                 LanguageUtil.getString(context, "alert_common_i_understand"),
-                ""
-            )
+                "")
         }
 
 
@@ -406,7 +398,7 @@ class NewAssetTopView @JvmOverloads constructor(
                 assetsTitle = LanguageUtil.getString(context, "assets_crypto_asset_value")
             }
             ParamConstant.FABI_INDEX -> {
-                ll_income.visibility=View.GONE
+                ll_income.visibility = View.GONE
                 ll_fabi.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE
@@ -415,10 +407,10 @@ class NewAssetTopView @JvmOverloads constructor(
                 assetsTitle = LanguageUtil.getString(context, "assets_fiat_account_value")
             }
             ParamConstant.CONTRACT_INDEX -> {
-                ll_heyue_balance.visibility= View.VISIBLE
+                ll_heyue_balance.visibility = View.VISIBLE
                 ll_heyue.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
-                    if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
+                if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
                 v_top_line?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE
                 ll_top_up_layout?.visibility = View.GONE
@@ -429,8 +421,7 @@ class NewAssetTopView @JvmOverloads constructor(
             }
             ParamConstant.B2C_INDEX -> {
                 ll_payment_methods_layout?.visibility = View.GONE
-                v_top_line?.visibility = View.GONE
-                // 划转
+                v_top_line?.visibility = View.GONE // 划转
                 ll_transfer_layout?.visibility = View.GONE
                 ll_otc_layout?.visibility = View.VISIBLE
                 ll_top_up_layout?.visibility = View.VISIBLE
@@ -461,35 +452,52 @@ class NewAssetTopView @JvmOverloads constructor(
         }
     }
 
+
+    /**
+     * 合约总资产
+     */
     fun setContractHeadData(jsonObject: JSONObject) {
-        val assets_legal_currency_balance = RateManager.getCNYByCoinName(
-            jsonObject?.optString("totalBalanceSymbol"),
-            jsonObject?.optString("futuresTotalBalance")
-        )
-        val assets_btc_balance = BigDecimalUtils.showSNormal(
-            BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8
-        )
+        val assets_legal_currency_balance =
+            RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
+        val assets_btc_balance =
+            BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
         tv_assets_title.setText(LanguageUtil.getString(context, "assets_contract_value") + "(BTC)")
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, assets_btc_balance)
-        Utils.assetsHideShow(
-            UserDataService.getInstance().isShowAssets,
-            tv_assets_legal_currency_balance,
-            assets_legal_currency_balance
-        )
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
+    }
+
+    /**
+     * 合约保证金余额
+     */
+    fun setContractHeadData1(jsonObject: JSONObject) { //                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
+        //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
+        //                        钱包余额 用 totalAmount
+        //                       lockAmount 保证金余额
+        //                        unRealizedAmount 为实现盈亏
+
+        val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("lockAmount"), 2).toPlainString(), 2)
+        val fabi1 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("lockAmount"))
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_1, bibi1)
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_1, fabi1)
+        val bibi2 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalAmount"), 2).toPlainString(), 2)
+        val fabi2 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("totalAmount"))
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_2, bibi2)
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_2, fabi2)
+        val bibi3 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("unRealizedAmount"), 2).toPlainString(), 2)
+        val fabi3 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("unRealizedAmount"))
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_3, bibi3)
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_3, fabi3)
+
+
     }
 
     fun setHeadData(jsonObject: JSONObject) {
         val assets_legal_currency_balance =
             RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("totalBalance"))
-        val assets_btc_balance =
-            BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalBalance"), 8).toPlainString(), 8)
+        val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalBalance"), 8).toPlainString(), 8)
         tv_assets_title.setText(assetsTitle + "(BTC)")
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, assets_btc_balance)
-        Utils.assetsHideShow(
-            UserDataService.getInstance().isShowAssets,
-            tv_assets_legal_currency_balance,
-            assets_legal_currency_balance
-        )
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
     }
 
     var symbol4Contract: JSONObject = JSONObject()

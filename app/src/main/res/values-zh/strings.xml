@@ -2401,9 +2401,9 @@
     <string name="sl_str_share_explain">- 最终解释权归%s所有 -</string>
     <string name="sl_str_wallet_balance">钱包余额</string>
     <string name="sl_str_margin_balance">保证金余额</string>
-    <string name="sl_str_margin_balance1">保证金余额(USD)</string>
-    <string name="sl_str_margin_balance2">钱包余额(USD)</string>
-    <string name="sl_str_margin_balance3">未实现盈亏(USD)</string>
+    <string name="sl_str_margin_balance1">保证金余额(USDT)</string>
+    <string name="sl_str_margin_balance2">钱包余额(USDT)</string>
+    <string name="sl_str_margin_balance3">未实现盈亏(USDT)</string>
     <string name="sl_str_asset_record">资金记录</string>
     <string name="sl_tv_floating_gains">未实现盈亏额</string>
     <string name="sl_str_balance">余额</string>

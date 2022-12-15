@@ -77,9 +77,6 @@ class ClContractAssetFragmentChild : NBaseFragment() {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
             loadContractUserConfig()
-
-
-
         }
     }
 
@@ -100,6 +97,7 @@ class ClContractAssetFragmentChild : NBaseFragment() {
                                         val data: JSONObject=mAccountListJson.get(i) as JSONObject
                                         if (data.optString("totalAmount").toDouble()>0){
                                             mList.add(0,data)
+
                                         }else{
                                             mList.add(data)
                                         }
