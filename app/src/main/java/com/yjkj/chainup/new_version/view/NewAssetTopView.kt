@@ -326,18 +326,20 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         /**
          * 监听搜索编辑框
          */
+
         et_search?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
-                if (TextUtils.isEmpty(s)) {
-                    NewVersionAssetOptimizeDetailFragment.liveDataCleanForEditText.postValue(param_index)
-                } else {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
+                et_search?.isFocusable = true
+                et_search?.isFocusableInTouchMode = true
                     if (null != listener) {
                         when (param_index) {
                             ParamConstant.BIBI_INDEX -> {
@@ -346,22 +348,13 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
                             ParamConstant.FABI_INDEX -> {
                                 listener?.fiatFilter(s.toString())
                             }
-                            ParamConstant.B2C_INDEX -> {
-                                listener?.b2cFilter(s.toString())
-                            }
-                            ParamConstant.LEVER_INDEX -> {
-                                listener?.leverageFilter(s.toString())
-                            }
+
                         }
                     }
-                }
-                et_search?.isFocusable = true
-                et_search?.isFocusableInTouchMode = true
+
             }
-        }) //        et_search?.setOnFocusChangeListener { v, hasFocus ->
-        //            et_search?.isFocusable = true
-        //            et_search?.isFocusableInTouchMode = true
-        //        }
+        })
+
 
         img_small_assets_tip.setOnClickListener {
             NewDialogUtils.showDialog(context!!,

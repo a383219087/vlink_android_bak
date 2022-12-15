@@ -176,8 +176,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 UserDataService.getInstance().saveAssetState(isLittleAssetsShow)
                 hideLittleAssets()
                 assetHeadView?.setAssetOrderHide(isLittleAssetsShow)
-                fragment_my_asset_order_hide?.isChecked = isLittleAssetsShow
-                et_search?.setText("")
+
             }
         })
 
@@ -190,16 +189,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 val mView = mLayoutManager?.findViewByPosition(1)
                 if (mView != null) {
                     LogUtil.e("mView.top", mView.top.toString())
-                    LogUtil.e("rl_search_layout_main.height", rl_search_layout_main.height.toString())
-                    if (mView.top <= rl_search_layout_main.height) {
-                        rl_search_layout_main.visibility = View.VISIBLE
-                        et_search?.isFocusable = true
-                        et_search?.isFocusableInTouchMode = true
-                    } else {
-                        rl_search_layout_main.visibility = View.INVISIBLE
-                        et_search?.isFocusable = false
-                        et_search?.isFocusableInTouchMode = false
-                    }
+
                 }
             }
         })
@@ -247,7 +237,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         adapter4Fund?.filter?.filter("")
         assetHeadView?.clearEdittext()
         clearData()
-        et_search?.setText("")
     }
 
 
@@ -261,7 +250,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 adapter4Asset?.filter?.filter("")
                 adapter4Fund?.filter?.filter("")
                 clearData()
-                et_search?.setText("")
             }
         })
 
@@ -484,22 +472,18 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             override fun leverageFilter(temp: String) {
                 LogUtil.e(TAG, "leverageFilter ${temp}")
                 adapter4Asset?.filter?.filter(temp)
-                if (!searchIsFocus) et_search?.setText(temp)
             }
 
             override fun fiatFilter(temp: String) {
                 adapter4Asset?.filter?.filter(temp)
-                if (!searchIsFocus) et_search?.setText(temp)
             }
 
             override fun bibiFilter(temp: String) {
                 adapter4Fund?.filter?.filter(temp)
-                if (!searchIsFocus) et_search?.setText(temp)
             }
 
             override fun b2cFilter(temp: String) {
                 adapter4Asset?.filter?.filter(temp)
-                if (!searchIsFocus) et_search?.setText(temp)
             }
 
             override fun selectTransfer(param: String) {
@@ -603,7 +587,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     override fun onResume() {
         super.onResume()
         assetHeadView?.clearEdittext()
-        et_search?.setText("")
     }
 
     private fun setRefreshAdapter() {
@@ -685,7 +668,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
     private fun initViewData() {
         isLittleAssetsShow = UserDataService.getInstance().getAssetState()
-        fragment_my_asset_order_hide?.isChecked = isLittleAssetsShow
         nolittleBalanceList4OTC.clear()
         balanceList4OTC.clear()
         nolittleBalanceList.clear()
@@ -707,43 +689,11 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
             }
         }
-        img_small_assets_tip.setOnClickListener {
-            NewDialogUtils.showDialog(
-                context!!,
-                LanguageUtil.getString(context, "assets_less_than_0.0001BTC"),
-                true,
-                object : NewDialogUtils.DialogBottomListener {
-                    override fun sendConfirm() {
 
-                    }
-                },
-                "",
-                LanguageUtil.getString(context, "alert_common_i_understand"),
-                ""
-            )
-        }
-        fragment_my_asset_order_hide?.setOnClickListener {
-            var message = MessageEvent(MessageEvent.refresh_trans_type)
-            NLiveDataUtil.postValue(message)
-        }
 
-        et_search?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (searchIsFocus) assetHeadView?.setEdittext(et_search.text.toString())
-            }
-        })
-        et_search?.setOnFocusChangeListener { v, hasFocus ->
-//            et_search?.isFocusable = true
-//            et_search?.isFocusableInTouchMode = true
-            searchIsFocus = hasFocus;
-            LogUtil.e("et_search.hasFocus", hasFocus.toString())
-        }
+
     }
 
 

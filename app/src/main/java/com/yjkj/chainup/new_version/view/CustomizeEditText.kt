@@ -72,6 +72,8 @@ class CustomizeEditText @JvmOverloads constructor(context: Context,
             val isClean = event.x > width - totalPaddingRight && event.x < width - paddingRight
             if (isClean) {
                 setText("")
+            }else{
+                isFocusable = true
             }
         }
         return super.onTouchEvent(event)
