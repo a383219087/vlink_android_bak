@@ -124,6 +124,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         arguments?.let {
             openContract = it.getInt(ARG_PARAM1)
         }
+        setAssetViewVisible()
+        getAccountBalance()
         if (openContract==1){
             getTotalAccountBalance()
         }

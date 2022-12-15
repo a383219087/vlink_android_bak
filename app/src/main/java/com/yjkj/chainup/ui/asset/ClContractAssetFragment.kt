@@ -79,8 +79,7 @@ class ClContractAssetFragment : NBaseFragment() {
                 LogUtil.d("DEBUG", "刷新合约资产列表2")
                 setRefreshAdapter()
             }
-        })
-        //划转
+        }) //划转
         assetHeadView?.ll_transfer_layout?.setOnClickListener {
             if (openContract == 0) {
                 showOpenContractDialog()
@@ -90,8 +89,7 @@ class ClContractAssetFragment : NBaseFragment() {
                     putString(ParamConstant.TRANSFERSYMBOL, "USDT")
                 })
             }
-        }
-        //资金明细，这是合约下面的合约账单
+        } //资金明细，这是合约下面的合约账单
         assetHeadView?.ll_transfer_layout2?.setOnClickListener {
             if (openContract == 0) {
                 showOpenContractDialog()
@@ -99,11 +97,11 @@ class ClContractAssetFragment : NBaseFragment() {
                 CpContractAssetRecordActivity.show(context as Activity)
             }
         }
-          showTitles.clear()
+        showTitles.clear()
         fragments.clear()
         showTitles.add(LanguageUtil.getString(context, "cp_order_text1"))
         showTitles.add(LanguageUtil.getString(context, "cp_order_text111"))
-        fragments.add( ContractHoldFragment())
+        fragments.add(ContractHoldFragment())
         fragments.add(ClContractAssetFragmentChild())
         val marketPageAdapter = NVPagerAdapter(childFragmentManager, showTitles.toMutableList(), fragments)
         vp_otc_asset?.adapter = marketPageAdapter
@@ -123,7 +121,7 @@ class ClContractAssetFragment : NBaseFragment() {
         })
         try {
             stl_assets_type.setViewPager(vp_otc_asset, showTitles.toTypedArray())
-        }catch(e :Exception){
+        } catch (e: Exception) {
 
         }
     }
@@ -139,7 +137,6 @@ class ClContractAssetFragment : NBaseFragment() {
             getTotalAccountBalance()
 
 
-
         }
     }
 
@@ -147,57 +144,53 @@ class ClContractAssetFragment : NBaseFragment() {
         if (!UserDataService.getInstance().isLogined) return
         if (openContract == 0) return
         mList.clear()
-        addDisposable(getContractModel().getPositionAssetsList(
-                consumer = object : NDisposableObserver(isScrollStatus) {
-                    @SuppressLint("NotifyDataSetChanged")
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data")?.run {
-                            if (!isNull("accountList")) {
-                                val mAccountListJson = optJSONArray("accountList")
-                                mList.clear()
-                                for (i in 0 until mAccountListJson.length()) {
-                                   val data: JSONObject= mAccountListJson?.get(i) as JSONObject
-                                     if (data.optString("totalAmount").toDouble()>0){
-                                         mList.add(0,data)
-                                     }else{
-                                         mList.add(data)
-                                     }
-
-                                    LogUtil.e(TAG, "------------------------------------")
-                                }
+        addDisposable(getContractModel().getPositionAssetsList(consumer = object : NDisposableObserver(isScrollStatus) {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                jsonObject.optJSONObject("data")?.run {
+                    if (!isNull("accountList")) {
+                        val mAccountListJson = optJSONArray("accountList")
+                        mList.clear()
+                        for (i in 0 until mAccountListJson.length()) {
+                            val data: JSONObject = mAccountListJson?.get(i) as JSONObject
+                            if (data.optString("totalAmount").toDouble() > 0) {
+                                mList.add(0, data)
+                            } else {
+                                mList.add(data)
                             }
-                            adapterHoldContract?.notifyDataSetChanged()
+
+                            LogUtil.e(TAG, "------------------------------------")
                         }
-//                        swipe_refresh?.isRefreshing =false
                     }
-                }))
+                    adapterHoldContract?.notifyDataSetChanged()
+                } //                        swipe_refresh?.isRefreshing =false
+            }
+        }))
     }
 
+    var buffJson: JSONObject? = null
     private fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
-        addDisposable(getMainModel().contractTotalAccountBalanceV2(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data")?.run {
-                            assetHeadView?.setContractHeadData(this)
-                        }
-                    }
-                }))
+        addDisposable(getMainModel().contractTotalAccountBalanceV2(consumer = object : NDisposableObserver(mActivity, true) {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                jsonObject.optJSONObject("data")?.run {
+                    buffJson = this
+                    assetHeadView?.setContractHeadData(this)
+                }
+            }
+        }))
     }
 
-    private fun loadContractUserConfig() {
-        //如果合约ID传0则获取默认的数据，此处主要就是获取是否开通合约
+    private fun loadContractUserConfig() { //如果合约ID传0则获取默认的数据，此处主要就是获取是否开通合约
         if (!UserDataService.getInstance().isLogined) return
-        addDisposable(getContractModel().getUserConfig("0",
-                consumer = object : NDisposableObserver(true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            //  1已开通, 0未开通
-                            openContract = optInt("openContract")
-                            getPositionList()
-                        }
-                    }
-                }))
+        addDisposable(getContractModel().getUserConfig("0", consumer = object : NDisposableObserver(true) {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                jsonObject.optJSONObject("data").run { //  1已开通, 0未开通
+                    openContract = optInt("openContract")
+                    getPositionList()
+                }
+            }
+        }))
     }
 
 
@@ -205,7 +198,7 @@ class ClContractAssetFragment : NBaseFragment() {
      * 开通合约对话框
      */
     private fun showOpenContractDialog() {
-        SlDialogHelper.showSimpleCreateContractDialog(mActivity!!, OnBindViewListener { viewHolder ->
+        SlDialogHelper.showSimpleCreateContractDialog(mActivity!!, { viewHolder ->
             viewHolder?.let {
                 it.getView<TextView>(R.id.tv_cancel_btn).onLineText("common_text_btnCancel")
                 it.setImageResource(R.id.iv_logo, R.drawable.sl_create_contract)
@@ -250,6 +243,9 @@ class ClContractAssetFragment : NBaseFragment() {
             }
 
             override fun isShowAssets() {
+                if (buffJson != null) {
+                    assetHeadView?.setContractHeadData(buffJson!!)
+                }
 
             }
 
@@ -273,7 +269,7 @@ class ClContractAssetFragment : NBaseFragment() {
             }
 
             override fun selectTransfer(param: String) {
-
+                ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_CONTRACT, "USDT")
             }
 
         }
