@@ -166,6 +166,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
 
         contractDialogList.add(LanguageUtil.getString(context, "assets_action_transaction"))
         assetHeadView = NewAssetTopView(activity!!, null, 0)
+
         assetHeadView?.initNorMalView(param_index)
         dataProcessing()
         initViewData()
@@ -585,6 +586,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
             clearViewing()
             if (buffJson != null) {
                 assetHeadView?.setHeadData(buffJson!!)
+                setRefreshAdapter()
             }
 
         }
@@ -596,11 +598,10 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         et_search?.setText("")
     }
 
-    fun setRefreshAdapter() {
-        assetHeadView?.setRefreshAdapter()
+    private fun setRefreshAdapter() {
+        assetHeadView?.setRefreshViewData()
         buffJson?.let { assetHeadView?.setHeadData(it) }
         //此处点击隐藏/显示金额   下面的列表会不显示
-        //assetHeadView?.setRefreshViewData()
         refreshViewData()
     }
 
@@ -762,6 +763,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
         adapter4Asset.setType(ParamConstant.FABI_INDEX)
         adapter4Asset.setHeaderView(assetHeadView!!)
+        adapter4Asset.setHasStableIds(true)
         if (rc_contract == null) return
         rc_contract?.layoutManager = LinearLayoutManager(context)
         adapter4Asset.setEmptyView(R.layout.item_new_empty_assets)
@@ -851,7 +853,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
         adapter4Fund.setHeaderView(assetHeadView!!)
         rc_contract?.layoutManager = LinearLayoutManager(context)
-
+        adapter4Fund.setHasStableIds(true)
         adapter4Fund.setEmptyView(R.layout.item_new_empty_assets)
         adapter4Fund.headerWithEmptyEnable = true
         rc_contract?.adapter = adapter4Fund
@@ -1201,18 +1203,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }))
     }
 
-    fun setContractBean(symbol4Contract: JSONObject) {
-        NLiveDataUtil.observeData(this, Observer {
-            if (MessageEvent.refresh_local_contract_type == it?.msg_type) {
-                if (null != it?.msg_content) {
-                    var json = it?.msg_content as JSONObject
-                    assetHeadView?.symbol4Contract = json
-                    setRefreshAdapter()
-                }
-            }
 
-        })
-    }
 
     var isFristRequest = true
 

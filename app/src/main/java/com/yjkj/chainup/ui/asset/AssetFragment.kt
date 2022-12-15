@@ -26,7 +26,6 @@ open class AssetFragment : NBaseFragment() {
     var fragments = ArrayList<Fragment>()
 
     val showTitles = arrayListOf<String>()
-    var indexList = ArrayList<String>()
     var tabTitles = arrayListOf<String>()
 
 
@@ -56,7 +55,6 @@ open class AssetFragment : NBaseFragment() {
                 jsonObject.optJSONObject("data").run { //  1已开通, 0未开通
                     openContract = optInt("openContract")
                     showTitles.clear()
-                    indexList.clear()
                     tabTitles.clear()
                     fragments.clear()
                     showTitles.add(LanguageUtil.getString(context, "trade_all_titile"))
@@ -65,10 +63,6 @@ open class AssetFragment : NBaseFragment() {
                         showTitles.add(LanguageUtil.getString(context, "mainTab_text_contract"))
                     }
                     showTitles.add(LanguageUtil.getString(context, "mainTab_text_otc"))
-                    indexList.add(ParamConstant.All_INDEX)
-                    indexList.add(ParamConstant.BIBI_INDEX)
-                    indexList.add(ParamConstant.CONTRACT_INDEX)
-                    indexList.add(ParamConstant.FABI_INDEX)
                     tabTitles.add(LanguageUtil.getString(context, "assets_text_exchange"))
                     tabTitles.add(LanguageUtil.getString(context, "assets_text_exchange"))
                     if (openContract == 1) {
@@ -81,12 +75,12 @@ open class AssetFragment : NBaseFragment() {
                     }
                     tabTitles.add(otcText)
                     fragments.add(NewVersionMyAssetFragment.newInstance(openContract))
-                    fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[1], indexList[1]))
+                    fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[1], ParamConstant.BIBI_INDEX))
                     if (openContract == 1) {
                         fragments.add(ClContractAssetFragment())
-                        fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[3], indexList[3]))
+                        fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[3], ParamConstant.FABI_INDEX))
                     } else {
-                        fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[2], indexList[3]))
+                        fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[2], ParamConstant.FABI_INDEX))
                     }
 
                     val marketPageAdapter = NVPagerAdapter(childFragmentManager, tabTitles.toMutableList(), fragments)

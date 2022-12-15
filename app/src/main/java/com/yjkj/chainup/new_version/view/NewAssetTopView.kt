@@ -450,7 +450,6 @@ class NewAssetTopView @JvmOverloads constructor(
 
     fun setRefreshAdapter() {
         if (param_index == "contract") {
-
             tv_assets_title.setText(assetsTitle + "(BTC)")
             val totalBalanceSymbol = "BTC"
             val totalBalance = ContractUtils.calculateTotalBalance(totalBalanceSymbol)
