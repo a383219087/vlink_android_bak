@@ -18,9 +18,9 @@ import org.json.JSONObject
 
 fun sendWsHomepage(context: Activity, errorType: Int = 0, page: String, action: String, duration: Long?) {
     // 默认处理首页数据  顶部搜索
-
-    val isActive = !context.isFinishing
-    sendWsHomepage(isActive, errorType, page, action, duration)
+//
+//    val isActive = !context.isFinishing
+//    sendWsHomepage(isActive, errorType, page, action, duration)
 }
 
 fun sendWsHomepage(isActive: Boolean, errorType: Int = 0, page: String, action: String, duration: Long?) {
