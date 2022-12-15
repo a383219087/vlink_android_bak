@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.SPUtils
 import com.contract.sdk.ContractUserDataAgent
@@ -12,6 +13,7 @@ import com.contract.sdk.impl.ContractAccountListener
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
 import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.onLineText
@@ -51,9 +53,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     val showTitles = arrayListOf<String>()
 
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private var bibiObject: JSONObject?=null
     private var fabiObject: JSONObject?=null
     private var heyueObject: JSONObject?=null
@@ -83,7 +83,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     var b2cOpen = true
 
 
-
+    var openContract = 0
 
 
     /*
@@ -101,6 +101,19 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     val ARG_INDEX = "param_index"
 
     private var isFromAssetsActivity = false
+
+    companion object {
+        @JvmStatic
+        fun newInstance(openContract: Int) =
+            NewVersionMyAssetFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_PARAM1, openContract)
+                }
+            }
+    }
+
+
+
     open fun setFromAssetsActivity(isFromAssetsActivity: Boolean) {
         this.isFromAssetsActivity = isFromAssetsActivity
     }
@@ -109,9 +122,10 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-            chooseIndex = it.getInt(ParamConstant.CHOOSE_INDEX, 0)
+            openContract = it.getInt(ARG_PARAM1)
+        }
+        if (openContract==1){
+            getTotalAccountBalance()
         }
 
         ContractUserDataAgent.registerContractAccountWsListener(this, object : ContractAccountListener() {
@@ -141,7 +155,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     }
 
     // 合约
-     fun getTotalAccountBalance() {
+    private fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
         addDisposable(getMainModel().contractTotalAccountBalanceV2(
             consumer = object : NDisposableObserver(mActivity, true) {
@@ -160,7 +174,9 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             if (isLogined) {
                 setAssetViewVisible()
                 getAccountBalance()
-
+                if (openContract==1){
+                    getTotalAccountBalance()
+                }
             }
         }
     }
@@ -428,7 +444,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
         }
         if (heyueObject!=null){
-            ll_heyue_lay.visibility=View.VISIBLE
+            ll_heyue.visibility=View.VISIBLE
             heyueObject!!.optJSONObject("data")?.run {
                 val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("futuresTotalBalance"))
                 val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("futuresTotalBalance"), 8).toPlainString(), 8)
@@ -436,7 +452,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
             }
         }else{
-            ll_heyue_lay.visibility=View.GONE
+            ll_heyue.visibility=View.GONE
 
         }
 

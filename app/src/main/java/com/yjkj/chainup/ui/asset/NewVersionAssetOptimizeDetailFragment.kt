@@ -219,8 +219,9 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
      * 币币收益
      */
     private fun bibiSHouyi(){
-
         if (!UserDataService.getInstance().isLogined) return
+
+
         addDisposable(
             getContractModel().accountStats(
                 consumer = object : NDisposableObserver(true) {

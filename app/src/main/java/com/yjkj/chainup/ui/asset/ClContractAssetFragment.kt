@@ -3,10 +3,8 @@ package com.yjkj.chainup.ui.asset
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.chainup.contract.ui.activity.CpContractAssetRecordActivity
 import com.timmy.tdialog.listener.OnBindViewListener
@@ -18,20 +16,26 @@ import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
+import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
+import com.yjkj.chainup.manager.DataManager
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.new_version.activity.asset.AssetsPieChartFragment
 import com.yjkj.chainup.new_version.adapter.ClContractAssetAdapter
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
-import com.yjkj.chainup.util.ContextUtil
+import com.yjkj.chainup.ui.contract.ContractHoldFragment
+import com.yjkj.chainup.util.JsonUtils
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.util.LogUtil
+import com.yjkj.chainup.util.NToastUtil
 import kotlinx.android.synthetic.main.accet_header_view.view.*
+import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.*
 
 import org.json.JSONObject
@@ -95,7 +99,8 @@ class ClContractAssetFragment : NBaseFragment() {
                 CpContractAssetRecordActivity.show(context as Activity)
             }
         }
-
+          showTitles.clear()
+        fragments.clear()
         showTitles.add(LanguageUtil.getString(context, "cp_order_text1"))
         showTitles.add(LanguageUtil.getString(context, "cp_order_text111"))
         fragments.add( ContractHoldFragment())
@@ -236,17 +241,42 @@ class ClContractAssetFragment : NBaseFragment() {
      */
     private fun initHoldContractAdapter() {
         fl_c.addView(assetHeadView!!)
-//        adapterHoldContract = ClContractAssetAdapter(context!!, mList)
-//        if (assetHeadView?.parent != null) {
-//            (assetHeadView?.parent as ViewGroup).removeAllViews()
-//        }
-//        adapterHoldContract?.setHeaderView(assetHeadView!!)
-//
-//        rc_contract?.layoutManager = LinearLayoutManager(context)
-//        rc_contract.adapter = adapterHoldContract
-//        adapterHoldContract?.setEmptyView(R.layout.item_new_empty_assets)
-//        adapterHoldContract?.headerWithEmptyEnable = true
-//        rc_contract?.adapter = adapterHoldContract
+        assetHeadView?.listener = object : NewAssetTopView.selecetTransferListener {
+
+            override fun selectWithdrawal(temp: String) {
+            }
+
+            override fun selectRedEnvelope(temp: String) {
+            }
+
+            override fun isShowAssets() {
+
+            }
+
+            override fun clickAssetsPieChart() {
+            }
+
+            override fun leverageFilter(temp: String) {
+
+            }
+
+            override fun fiatFilter(temp: String) {
+
+            }
+
+            override fun bibiFilter(temp: String) {
+
+            }
+
+            override fun b2cFilter(temp: String) {
+
+            }
+
+            override fun selectTransfer(param: String) {
+
+            }
+
+        }
     }
 
 }

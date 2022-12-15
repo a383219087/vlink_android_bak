@@ -41,21 +41,21 @@ open class AssetFragment : NBaseFragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            initView()
+            init()
         }
+    }
+
+    override fun initView() {
     }
 
 
     @SuppressLint("SuspiciousIndentation")
-    override fun initView() { //如果合约ID传0则获取默认的数据，此处主要就是获取是否开通合约
+    private fun init() { //如果合约ID传0则获取默认的数据，此处主要就是获取是否开通合约
         if (!UserDataService.getInstance().isLogined) return
         addDisposable(getContractModel().getUserConfig("0", consumer = object : NDisposableObserver(true) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 jsonObject.optJSONObject("data").run { //  1已开通, 0未开通
                     openContract = optInt("openContract")
-                    if (openContract == 1) {
-                        NewVersionMyAssetFragment().getTotalAccountBalance()
-                    }
                     showTitles.clear()
                     indexList.clear()
                     tabTitles.clear()
@@ -81,7 +81,7 @@ open class AssetFragment : NBaseFragment() {
                         LanguageUtil.getString(context, "assets_text_otc")
                     }
                     tabTitles.add(otcText)
-                    fragments.add(NewVersionMyAssetFragment())
+                    fragments.add(NewVersionMyAssetFragment.newInstance(openContract))
                     fragments.add(NewVersionAssetOptimizeDetailFragment.newInstance(tabTitles[1], indexList[1]))
                     if (openContract == 1) {
                         fragments.add(ClContractAssetFragment())
@@ -112,6 +112,7 @@ open class AssetFragment : NBaseFragment() {
 
                     }
                 }
+
             }
         }))
 

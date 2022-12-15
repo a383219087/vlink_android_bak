@@ -1,13 +1,10 @@
-package com.yjkj.chainup.ui.asset
+package com.yjkj.chainup.ui.contract
 
 import android.annotation.SuppressLint
-import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpContractPositionBean
-import com.chainup.contract.eventbus.CpEventBusUtil
-import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.view.CpEmptyOrderForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
