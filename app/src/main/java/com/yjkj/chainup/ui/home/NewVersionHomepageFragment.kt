@@ -1,5 +1,6 @@
 package com.yjkj.chainup.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -156,6 +157,7 @@ class NewVersionHomepageFragment :
 
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   private fun observeData() {
     NLiveDataUtil.observeData(this, Observer {
       if(null != it) {

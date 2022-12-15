@@ -1109,9 +1109,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                 adapter4Fund?.notifyDataSetChanged()
             }
         })
-        assetHeadView?.apply {
-            homeAssetPieChart(mActivity, getItemToastView())
-        }
+
     }
 
     /*

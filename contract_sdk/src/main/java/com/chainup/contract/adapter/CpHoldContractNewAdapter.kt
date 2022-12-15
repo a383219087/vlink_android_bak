@@ -92,7 +92,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             } else {
                 setText(R.id.tv_forced_close_price_value, "--")
             }
-            val  prefix=if (CpBigDecimalUtils.compareTo(item.returnRate.toString(),"0")==-1) "" else "+"
+            val  prefix=if (item.returnRate.toString().contains("-")) "" else "+"
             //回报率
             setText(R.id.tv_floating_gains_value, prefix+CpNumberUtil().getDecimal(2).format(
                 CpMathHelper.round(CpMathHelper.mul(item.returnRate.toString(), "100"), 2)).toString() + "%")

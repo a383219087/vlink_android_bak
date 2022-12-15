@@ -126,6 +126,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         }
         setAssetViewVisible()
         getAccountBalance()
+        getTotalAssets()
         if (openContract==1){
             getTotalAccountBalance()
         }
@@ -177,6 +178,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             if (isLogined) {
                 setAssetViewVisible()
                 getAccountBalance()
+                getTotalAssets()
                 if (openContract==1){
                     getTotalAccountBalance()
                 }
@@ -195,6 +197,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     fun refresh4Homepage() {
         if (UserDataService.getInstance().isLogined) {
             getAccountBalance()
+            getTotalAssets()
         }
     }
 
@@ -510,6 +513,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         if (isLogined) {
             setAssetViewVisible()
             getAccountBalance()
+            getTotalAssets()
 
         }
 
@@ -532,6 +536,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                     //币币
                     ParamConstant.BIBI_INDEX -> {
                         getAccountBalance()
+                        getTotalAssets()
                     }
                     //法币
                     ParamConstant.FABI_INDEX -> {
@@ -628,7 +633,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                             getContractAccount()
                         }
                     }
-                getTotalAssets()
+
 
                 refresh()
 
