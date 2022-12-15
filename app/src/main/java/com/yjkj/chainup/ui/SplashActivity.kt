@@ -43,12 +43,10 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         const val PERMISSION_REQUEST_CODE_STORAGE: Int = 101
-        val REQUEST_PERMISSIONS = arrayOf(
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        val REQUEST_PERMISSIONS = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.CAMERA,
             android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     private var mBinding: ActivitySplashBinding? = null
@@ -72,48 +70,42 @@ class SplashActivity : AppCompatActivity() {
         }
         if (UtilSystem.getVersionName1() == "version_1") {
 
-            goToMain(
-                HttpResultUrlData(
-                    baseUrl = "http://47.242.41.181/base/appapi",
-                    contractSocketAddress = "ws://47.242.41.181/contract/kline/ws",
-                    contractUrl = "http://47.242.41.181/contract/appapi",
-                    httpHostUrlContractV2 = "http://47.242.41.181/contract/appapi",
-                    otcBaseUrl = "http://47.242.41.181/otc/appapi",
-                    otcSocketAddress = "ws://47.242.41.181/otc/chat/ws",
-                    redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
-                    socketAddress = "ws://47.242.41.181/base/kline/ws",
-                    wssHostContractV2 = "ws://47.242.41.181/contract/kline/ws",
-                    optionUrl = "",
-                    blocksUrl = "",
-                    chatUrl = "",
-                    chatApiUrl = ""
-                )
-            )
+            goToMain(HttpResultUrlData(baseUrl = "http://47.242.41.181/base/appapi",
+                contractSocketAddress = "ws://47.242.41.181/contract/kline/ws",
+                contractUrl = "http://47.242.41.181/contract/appapi",
+                httpHostUrlContractV2 = "http://47.242.41.181/contract/appapi",
+                otcBaseUrl = "http://47.242.41.181/otc/appapi",
+                otcSocketAddress = "ws://47.242.41.181/otc/chat/ws",
+                redPackageUrl = "https://dev5redpacket.chaindown.com/app-redPacket-api/",
+                socketAddress = "ws://47.242.41.181/base/kline/ws",
+                wssHostContractV2 = "ws://47.242.41.181/contract/kline/ws",
+                optionUrl = "",
+                blocksUrl = "",
+                chatUrl = "",
+                chatApiUrl = ""))
 
-        } else {
-//      val linkData = SPUtils.getInstance().getString("links", "")
-//        if(linkData.isNotEmpty()){
-//            liksArray.addAll(linkData.split(","))
-//        }
-//      liksArray.add("http://8.219.206.92:8091")
-//      liksArray.add("http://8.219.215.188:8091")
-//      liksArray.add("http://8.219.217.227:8091")
+        } else if (UtilSystem.getVersionName1() == "dev") { //      val linkData = SPUtils.getInstance().getString("links", "")
+            //        if(linkData.isNotEmpty()){
+            //            liksArray.addAll(linkData.split(","))
+            //        }
+            //      liksArray.add("http://8.219.206.92:8091")
+            //      liksArray.add("http://8.219.215.188:8091")
+            //      liksArray.add("http://8.219.217.227:8091")
 
             liksArray.add("http://120.78.198.245:8091")
             liksArray.add("http://120.79.19.80:8091")
 
             ///其他服务的节点
-//      liksArray.add("http://119.23.59.211:8091")
-//      liksArray.add("http://120.77.40.245:8091")
-//            liksArray.add("http://www.qyrx.me/gate")
-//            checkNetworkLine(liksArray[currentCheckIndex])
-
-
-             if (UserDataService.getInstance().isLogined){
-                 ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
-             }else{
-                 ChainUpApp().changeNetwork(false)
-             }
+            //      liksArray.add("http://119.23.59.211:8091")
+            //      liksArray.add("http://120.77.40.245:8091")
+            //            liksArray.add("http://www.qyrx.me/gate")
+            checkNetworkLine(liksArray[currentCheckIndex])
+        } else {
+            if (UserDataService.getInstance().isLogined) {
+                ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
+            } else {
+                ChainUpApp().changeNetwork(false)
+            }
             if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
                 val intent = Intent(this, DataInitService::class.java)
                 intent.putExtra("isFirst", true)
@@ -128,9 +120,6 @@ class SplashActivity : AppCompatActivity() {
                     requestPermission()
                 }
             }
-
-
-
         }
 
 
@@ -139,10 +128,8 @@ class SplashActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     fun checkNetworkLine(baseUrl: String) {
-        mRetrofit!!.create(SpeedApiService::class.java).getHealth("$baseUrl/api/query/address")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+        mRetrofit!!.create(SpeedApiService::class.java).getHealth("$baseUrl/api/query/address").subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
                 LogUtil.d("我是SplashActivity", it.toString())
                 goToMain(it)
             }, {
@@ -166,16 +153,14 @@ class SplashActivity : AppCompatActivity() {
             HttpClient.instance.changeNetwork(it.baseUrl.split("//")[1])
         } else {
             HttpClient.instance.changeNetwork(it.baseUrl)
-        }
-//                links.remove(it.baseUrl.replace("/base/appapi",""))
-//                links.add(0,it.baseUrl.replace("/base/appapi",""))
-//                var linkData=""
-//                for(link in links){
-//                    linkData= "$linkData,$link"
-//                }
-//                SPUtils.getInstance().put("links",linkData.substring(1))
-        PushManager.getInstance()
-            .registerPushIntentService(this, HandlePushIntentService::class.java)
+        } //                links.remove(it.baseUrl.replace("/base/appapi",""))
+        //                links.add(0,it.baseUrl.replace("/base/appapi",""))
+        //                var linkData=""
+        //                for(link in links){
+        //                    linkData= "$linkData,$link"
+        //                }
+        //                SPUtils.getInstance().put("links",linkData.substring(1))
+        PushManager.getInstance().registerPushIntentService(this, HandlePushIntentService::class.java)
         WsAgentManager.instance.socketUrl(it.socketAddress, true)
         CpWsContractAgentManager.instance.socketUrl(it.contractSocketAddress, true)
         CpHttpHelper.instance.serviceUrl(it.contractUrl)
@@ -196,36 +181,27 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun initRetrofit() {
-        val retrofitBuilder = Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://47.242.7.76:9091")
-        val mBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .connectTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(5, TimeUnit.SECONDS)
-            .proxy(Proxy.NO_PROXY)
+        val retrofitBuilder =
+            Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://47.242.7.76:9091")
+        val mBuilder: OkHttpClient.Builder =
+            OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).proxy(Proxy.NO_PROXY)
         val client: OkHttpClient = mBuilder.build()
         mRetrofit = retrofitBuilder.client(client).build()
     }
 
 
     private fun goHome() {
-        startActivity(Intent(this@SplashActivity, NewMainActivity::class.java))//
+        startActivity(Intent(this@SplashActivity, NewMainActivity::class.java)) //
         finish()
     }
 
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (PERMISSION_REQUEST_CODE_STORAGE == requestCode) {
             if (permissions.isNotEmpty() && grantResults.permissionIsGranted()) {
                 goHome()
-            } else if (!ActivityCompat.shouldShowRequestPermissionRationale
-                    (this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            ) {
+            } else if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 /**
                  * 用户点击拒绝且不再询问   可在此操作
                  * 可直接跳转设置界面打开权限  也可弹出 Toast 提示用户开启权限
@@ -238,10 +214,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun hasPermission(): Boolean {
-        return checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-                && checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                && checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
-                && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        return checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(
+            android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission() {

@@ -89,22 +89,24 @@ class ClContractAssetFragmentChild : NBaseFragment() {
         mList.clear()
         addDisposable(getContractModel().getPositionAssetsList(
                 consumer = object : NDisposableObserver(isScrollStatus) {
-                    @SuppressLint("NotifyDataSetChanged")
+                    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data")?.run {
                             if (!isNull("accountList")) {
                                 val mAccountListJson = optJSONArray("accountList")
                                 mList.clear()
-                                for (i in 0 until mAccountListJson.length()) {
-                                   val data: JSONObject=mAccountListJson.get(i) as JSONObject
-                                     if (data.optString("totalAmount").toDouble()>0){
-                                         mList.add(0,data)
-                                     }else{
-                                         mList.add(data)
-                                     }
+                                if (mAccountListJson != null) {
+                                    for (i in 0 until mAccountListJson.length()) {
+                                        val data: JSONObject=mAccountListJson.get(i) as JSONObject
+                                        if (data.optString("totalAmount").toDouble()>0){
+                                            mList.add(0,data)
+                                        }else{
+                                            mList.add(data)
+                                        }
 
 
-                                    LogUtil.e(TAG, "------------------------------------")
+                                        LogUtil.e(TAG, "------------------------------------")
+                                    }
                                 }
                             }
                             adapterHoldContract?.notifyDataSetChanged()

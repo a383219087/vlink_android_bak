@@ -23,6 +23,7 @@ import com.chainup.contract.ws.CpWsContractAgentManager
 import com.contract.sdk.ContractSDKAgent
 import com.igexin.sdk.PushManager
 import com.yjkj.chainup.BuildConfig
+import com.yjkj.chainup.contract.utils.UtilSystem
 import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.PublicInfoDataService
@@ -97,6 +98,12 @@ class ChainUpApp : CpMyApp() {
     }
 
      fun changeNetwork(simulate: Boolean){
+         if (UtilSystem.getVersionName1() == "version_1"){
+             return
+         }
+         if (UtilSystem.getVersionName1() == "dev"){
+             return
+         }
          if(simulate){
               //模拟盘
              url= HttpResultUrlData(
