@@ -181,11 +181,7 @@ interface ContractApiService {
      */
     @POST("user/get_user_config")
     fun getUserConfig(@Body requestBody: RequestBody): Observable<ResponseBody>
-    /**
-     *  币币收益分析
-     */
-    @POST("finance/account_stats")
-    fun accountStats(@Body requestBody: RequestBody): Observable<ResponseBody>
+
 
     /**
      *  开通合约交易

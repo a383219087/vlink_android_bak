@@ -33,17 +33,16 @@ open class AssetFragment : NBaseFragment() {
     var openContract = 0
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
+    override fun onVisibleChanged(isVisible: Boolean) {
+        super.onVisibleChanged(isVisible)
+        if (isVisible){
             init()
         }
+
     }
+
+
 
     override fun initView() {
     }

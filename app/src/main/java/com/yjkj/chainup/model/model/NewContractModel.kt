@@ -31,13 +31,7 @@ class NewContractModel : BaseDataManager() {
         }
         return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).getUserConfig(getBaseReqBody(map)), consumer)
     }
-    /**
-     * 币币收益分析
-     */
-    fun accountStats( consumer: DisposableObserver<ResponseBody>): Disposable? {
 
-        return changeIOToMainThread(httpHelper.getContractNewUrlService(ContractApiService::class.java).accountStats(getBaseReqBody()), consumer)
-    }
 
 
 

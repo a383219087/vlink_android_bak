@@ -336,7 +336,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center|left"
-                    android:text="+ 0.80%"
+                    android:text="+0%"
                     android:textColor="@color/green"
                     android:textSize="20sp" />
 
@@ -370,7 +370,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:gravity="center|left"
-                        android:text="+ 0.80%"
+                        android:text="0.00"
                         android:textColor="@color/green"
                         android:textSize="20sp" />
 
@@ -380,7 +380,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:gravity="center|left"
-                        android:text="≈ ¥6529.60"
+                        android:text="≈ ¥0.00"
                         android:textColor="@color/normal_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>

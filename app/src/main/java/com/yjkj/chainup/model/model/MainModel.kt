@@ -45,7 +45,13 @@ class MainModel : BaseDataManager() {
     }
 
 
+    /**
+     * 币币收益分析
+     */
+    fun accountStats( consumer: DisposableObserver<ResponseBody>): Disposable? {
 
+        return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).accountStats(getBaseReqBody()), consumer)
+    }
 
     /**
      * 获取 public_info_v4

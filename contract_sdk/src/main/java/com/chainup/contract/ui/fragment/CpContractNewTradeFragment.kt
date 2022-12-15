@@ -764,9 +764,16 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
         event.msg_content = mContractId
         CpEventBusUtil.post(event)
+    }
 
-
-        loopStart()
+    override fun onVisibleChanged(isVisible: Boolean) {
+        super.onVisibleChanged(isVisible)
+        if (isVisible){
+            loopStart()
+            isContractFirst=true
+            getContractPublicInfo()
+            v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
+        }
     }
 
 
@@ -779,10 +786,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         isContractHidden=hidden
         if (hidden){
             loopStop()
-        }else{
-            isContractFirst=true
-            getContractPublicInfo()
-            v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
         }
     }
 

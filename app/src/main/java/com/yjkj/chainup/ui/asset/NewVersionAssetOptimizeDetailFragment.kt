@@ -218,10 +218,8 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
      */
     private fun bibiSHouyi(){
         if (!UserDataService.getInstance().isLogined) return
-
-
         addDisposable(
-            getContractModel().accountStats(
+            getMainModel().accountStats(
                 consumer = object : NDisposableObserver(true) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data").run {

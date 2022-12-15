@@ -24,6 +24,12 @@ import retrofit2.http.*
  */
 interface MainApiService {
 
+    /**
+     *  币币收益分析
+     */
+    @POST("finance/account_stats")
+    fun accountStats(@Body requestBody: RequestBody): Observable<ResponseBody>
+
     @POST("limit_ip_login")
     fun limit_ip_login(@Body requestBody: RequestBody): Observable<ResponseBody>
 
