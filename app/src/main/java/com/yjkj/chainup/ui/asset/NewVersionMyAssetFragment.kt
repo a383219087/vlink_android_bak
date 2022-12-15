@@ -145,11 +145,12 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
 
         })
-        NLiveDataUtil.observeData(this, Observer {
+        NLiveDataUtil.observeData(this) {
             if (MessageEvent.hide_safety_advice == it?.msg_type) {
-                rl_safety_advice.visibility = if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
+                rl_safety_advice.visibility =
+                    if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
             }
-        })
+        }
 
 
     }

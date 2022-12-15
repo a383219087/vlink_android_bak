@@ -110,8 +110,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     companion object {
         var liveDataFilterForEditText: MutableLiveData<AssetScreenBean> = MutableLiveData()
         var liveDataCleanForEditText: MutableLiveData<String> = MutableLiveData()
-
-
         @JvmStatic
         fun newInstance(param1: String, index: String) =
             NewVersionAssetOptimizeDetailFragment().apply {
