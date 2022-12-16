@@ -529,10 +529,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 getContractUserConfig()
-                getMarkertInfo()
-                getPositionAssetsList()
-                getCurrentOrderList()
-                getCurrentPlanOrderList()
+
             }
     }
 
@@ -543,6 +540,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             tab_order.getTitleView(1).text = getString(R.string.cp_order_text2)
             tab_order.getTitleView(2).text = getString(R.string.cp_order_text3)
             v_horizontal_depth.setUserLogout()
+            val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
+            CpEventBusUtil.post(event)
             return
         }
         addDisposable(
@@ -561,7 +560,17 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             v_horizontal_depth.setUserConfigInfo(this)
                             receiveCoupon()
                         }
+                         if(openContract==0){
+                             val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
+                             CpEventBusUtil.post(event)
+                         }
+
+
                         swipeLayout.isRefreshing = false
+                        getMarkertInfo()
+                        getPositionAssetsList()
+                        getCurrentOrderList()
+                        getCurrentPlanOrderList()
                     }
 
                     override fun onResponseFailure(code: Int, msg: String?) {

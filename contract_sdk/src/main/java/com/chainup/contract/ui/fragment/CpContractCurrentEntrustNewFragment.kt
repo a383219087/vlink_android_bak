@@ -158,7 +158,10 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
                 mAllList.clear()
                 updateAdapter()
             }
-
+            CpMessageEvent.sl_contract_clear_event -> {
+                mAllList.clear()
+                updateAdapter()
+            }
             //合约id有更新要重新筛选数组列表
             CpMessageEvent.sl_contract_calc_switch_contract_id -> {
                 val id = event.msg_content as Int

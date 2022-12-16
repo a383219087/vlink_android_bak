@@ -920,7 +920,7 @@ class CpTradeView @JvmOverloads constructor(
             val multiplierCoin = it.optString("multiplierCoin")
             base =
                 if (mContractUint == 0) context.getString(R.string.cp_overview_text9) else multiplierCoin
-            quote = mContractJson?.optString("quote").toString()
+            quote = mContractJson?.optString("base").toString()
             multiplierPrecision =
                 CpClLogicContractSetting.getContractMultiplierPrecisionById(context, mContractId)
             marginCoinPrecision =

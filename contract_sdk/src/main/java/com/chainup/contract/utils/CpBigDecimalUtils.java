@@ -129,17 +129,16 @@ public class CpBigDecimalUtils {
 
     /**
      * 提取字符串的数字
-     *
      */
-    public static long stringToNum(String v1 ){
-        String regEx="[^0-9]";
-        Pattern  pattern=Pattern.compile(regEx);
-        Matcher m=pattern.matcher(v1);
-        String str= m.replaceAll("").trim();
-        if(str.isEmpty()){
-            return  0;
+    public static long stringToNum(String v1) {
+        String regEx = "[^0-9]";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher m = pattern.matcher(v1);
+        String str = m.replaceAll("").trim();
+        if (str.isEmpty()) {
+            return 0;
         }
-        return  Long.parseLong(str);
+        return Long.parseLong(str);
     }
 
     /**
@@ -295,13 +294,26 @@ public class CpBigDecimalUtils {
         if (!CpStringUtil.isNumeric(v2)) {
             v2 = "0";
         }
-        if(Double.parseDouble(v1)==0){
-            return 0;
-        }
-        if(Double.parseDouble(v2)==0){
+        if (Double.parseDouble(v1) == 0&&Double.parseDouble(v2) == 0){
             return 0;
         }
 
+
+        if (Double.parseDouble(v1) == 0) {
+            if (v2.contains("-")) {
+                return 1;
+            } else {
+                return -1;
+            }
+
+        }
+        if (Double.parseDouble(v2) == 0) {
+            if (v1.contains("-")) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
         return new BigDecimal(v1).compareTo(new BigDecimal(v2));
 
     }
@@ -612,9 +624,9 @@ public class CpBigDecimalUtils {
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
 
         BigDecimal rateBig = new BigDecimal(rate);
-         if (rateBig.doubleValue()==0){
-             rateBig=new BigDecimal("1");
-         }
+        if (rateBig.doubleValue() == 0) {
+            rateBig = new BigDecimal("1");
+        }
 
         if (isForward) {
             buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
@@ -624,7 +636,9 @@ public class CpBigDecimalUtils {
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             scale = 0;
             //BigDecimal.ROUND_DOWN向下取整
-            buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
+            if (parValueBig.intValue() != 0) {
+                return buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+            }
         }
         return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
     }
@@ -678,6 +692,9 @@ public class CpBigDecimalUtils {
         //币
         //正向 /价格
         //反向 *价格
+        if (compareTo(parValueBig.toPlainString(),"0")==0||compareTo(priceBig.toPlainString(),"0")==0){
+            return " 0" + unit;
+        }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             if (isForward) {
                 if (isLimit) {
@@ -686,11 +703,7 @@ public class CpBigDecimalUtils {
                     buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(rateBig).divide((priceBig.multiply(parValueBig)), scale, BigDecimal.ROUND_DOWN);
                 }
             } else {
-                if (isLimit) {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig).divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
-                } else {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig).divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
-                }
+                buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig).divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
             }
             return buff.setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
         } else {
@@ -701,17 +714,11 @@ public class CpBigDecimalUtils {
                     buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(rateBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN);
                 }
             } else {
-                if (isLimit) {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig);
-                } else {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig);
-                }
+                buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig);
             }
             return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
         }
     }
-
-
 
 
     /**
@@ -826,21 +833,21 @@ public class CpBigDecimalUtils {
     /**
      * 计算市价单/条件市价单的数据展示
      *
-     * @param openValue  开仓价值
-     * @param price      本交易所最新价格
-     * @param scale      精度
-     * @param unit       单位
-     * @param isForward  是否输入正向合约
+     * @param openValue 开仓价值
+     * @param price     本交易所最新价格
+     * @param scale     精度
+     * @param unit      单位
+     * @param isForward 是否输入正向合约
      * @return
      */
-    public static String canPositionMarketStr(boolean isForward,  String parValue, String openValue, String price, int scale, String unit) {
+    public static String canPositionMarketStr(boolean isForward, String parValue, String openValue, String price, int scale, String unit) {
         String defaultStr = "";
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance())  != 0) {
+        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) != 0) {
             defaultStr = "0.00" + " " + unit;
         } else {
             defaultStr = "0" + " " + unit;
         }
-        if (TextUtils.isEmpty(openValue)||TextUtils.isEmpty(price)) {
+        if (TextUtils.isEmpty(openValue) || TextUtils.isEmpty(price)) {
             return defaultStr;
         }
         /**
@@ -858,9 +865,9 @@ public class CpBigDecimalUtils {
         BigDecimal priceBig = new BigDecimal(price);
         //合约面值
         BigDecimal parValueBig = new BigDecimal(parValue);
-         if (priceBig.doubleValue()==0){
-             return defaultStr;
-         }
+        if (priceBig.doubleValue() == 0) {
+            return defaultStr;
+        }
         BigDecimal buff;
         if (isForward) {
             //开仓价格/最新价格  精度是scale
@@ -1002,8 +1009,8 @@ public class CpBigDecimalUtils {
     }
 
     public static String getOrderLossNum(String inputNum, String multiplier) {
-        if (TextUtils.isEmpty(inputNum)){
-            inputNum="0";
+        if (TextUtils.isEmpty(inputNum)) {
+            inputNum = "0";
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             return new BigDecimal(inputNum).setScale(0, BigDecimal.ROUND_FLOOR).toPlainString();
@@ -1282,24 +1289,24 @@ public class CpBigDecimalUtils {
     /**
      * 止盈止损 计算预计盈亏
      *
-     * @param isForward      是否属于正向合约
-     * @param direction      0 多  1 空
-     * @param isLimit        是否输入限价单
-     * @param openPrice      开仓均价
-     * @param triggerPrice   触发价
-     * @param commissionPrice   委托价
-     * @param positionAmount 仓位数量（张）
-     * @param parValue       面值
-     * @param marginRate     保证金汇率
+     * @param isForward       是否属于正向合约
+     * @param direction       0 多  1 空
+     * @param isLimit         是否输入限价单
+     * @param openPrice       开仓均价
+     * @param triggerPrice    触发价
+     * @param commissionPrice 委托价
+     * @param positionAmount  仓位数量（张）
+     * @param parValue        面值
+     * @param marginRate      保证金汇率
      * @param scale
      * @return
      */
 
     public static String calcEstimatedProfitLoss(boolean isForward, int direction, boolean isLimit, String openPrice, String triggerPrice, String commissionPrice, String positionAmount, String parValue, String marginRate, int scale) {
-        if (TextUtils.isEmpty(positionAmount)) positionAmount ="0";
-        if (TextUtils.isEmpty(openPrice)) openPrice ="0";
-        if (TextUtils.isEmpty(triggerPrice)) triggerPrice ="0";
-        if (TextUtils.isEmpty(commissionPrice)) commissionPrice ="0";
+        if (TextUtils.isEmpty(positionAmount)) positionAmount = "0";
+        if (TextUtils.isEmpty(openPrice)) openPrice = "0";
+        if (TextUtils.isEmpty(triggerPrice)) triggerPrice = "0";
+        if (TextUtils.isEmpty(commissionPrice)) commissionPrice = "0";
 
         BigDecimal positionAmountBig = new BigDecimal(positionAmount);
         BigDecimal openingPriceBig = new BigDecimal(openPrice);
@@ -1308,14 +1315,14 @@ public class CpBigDecimalUtils {
         BigDecimal triggerPriceBig = new BigDecimal(triggerPrice);
         BigDecimal commissionPriceBig = new BigDecimal(commissionPrice);
 
-        Log.e("-------isForward:",isForward+"");
-        Log.e("-------direction:",direction+"");
-        Log.e("-------position:",positionAmount);
-        Log.e("-------openPrice:",openPrice);
-        Log.e("-------parValue面值:",parValue);
-        Log.e("-------marginRate保证金汇率:",marginRate);
-        Log.e("-------triggerPrice触发价:",triggerPrice);
-        Log.e("-------commission:",commissionPrice);
+        Log.e("-------isForward:", isForward + "");
+        Log.e("-------direction:", direction + "");
+        Log.e("-------position:", positionAmount);
+        Log.e("-------openPrice:", openPrice);
+        Log.e("-------parValue面值:", parValue);
+        Log.e("-------marginRate保证金汇率:", marginRate);
+        Log.e("-------triggerPrice触发价:", triggerPrice);
+        Log.e("-------commission:", commissionPrice);
         /**
          * 预计盈亏（单位：保证金币种）
          * 正向合约：
@@ -1357,7 +1364,7 @@ public class CpBigDecimalUtils {
             }
         } else {
             if (!isLimit) {
-                if (triggerPriceBig.compareTo(BigDecimal.ZERO)==0){
+                if (triggerPriceBig.compareTo(BigDecimal.ZERO) == 0) {
                     return "0";
                 }
                 //限价
@@ -1375,7 +1382,7 @@ public class CpBigDecimalUtils {
                     resultBig = buff3.multiply(positionAmountBig).multiply(parValueBig).divide(marginRateBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(new BigDecimal("-1"));
                 }
             } else {
-                if (commissionPriceBig.compareTo(BigDecimal.ZERO)==0){
+                if (commissionPriceBig.compareTo(BigDecimal.ZERO) == 0) {
                     return "0";
                 }
                 //市价
@@ -1413,9 +1420,9 @@ public class CpBigDecimalUtils {
                 String substring = (temp + ".0000").substring(0, 4);
                 if (substring.endsWith(".")) {
                     return substring.substring(0, 3);
-                } else if (substring.endsWith(".0")||substring.endsWith(".00")){
-                    return CpBigDecimalUtils.showSNormal(substring,0);
-                }else {
+                } else if (substring.endsWith(".0") || substring.endsWith(".00")) {
+                    return CpBigDecimalUtils.showSNormal(substring, 0);
+                } else {
                     return substring;
                 }
             }

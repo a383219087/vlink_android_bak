@@ -141,6 +141,10 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                     updateAdapter()
                 }
             }
+            CpMessageEvent.sl_contract_clear_event -> {
+                mAllList.clear()
+                updateAdapter()
+            }
             CpMessageEvent.sl_contract_logout_event->{
                 mList.clear()
                 updateAdapter()

@@ -139,7 +139,7 @@ class ChainUpApp : CpMyApp() {
                  chatApiUrl = ""
              )
          }
-           if (first||simulate!=SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+//           if (first||simulate!=SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
                HttpClient.instance.changeNetwork(url!!.baseUrl.split("//")[1])
                PushManager.getInstance()
                    .registerPushIntentService(this, HandlePushIntentService::class.java)
@@ -147,7 +147,7 @@ class ChainUpApp : CpMyApp() {
                CpWsContractAgentManager.instance.socketUrl(url!!.contractSocketAddress, true)
                CpHttpHelper.instance.serviceUrl(url!!.contractUrl)
                SPUtils.getInstance().put(ParamConstant.simulate, simulate)
-           }
+//           }
 
 
 
