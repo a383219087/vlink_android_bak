@@ -102,9 +102,9 @@ class SplashActivity : AppCompatActivity() {
             checkNetworkLine(liksArray[currentCheckIndex])
         } else {
             if (UserDataService.getInstance().isLogined) {
-                ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
+                ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false),first = true)
             } else {
-                ChainUpApp().changeNetwork(false)
+                ChainUpApp().changeNetwork(false,first = true)
             }
             if (SPUtils.getInstance().getBoolean("SplashActivityIsFirst", true)) {
                 val intent = Intent(this, DataInitService::class.java)

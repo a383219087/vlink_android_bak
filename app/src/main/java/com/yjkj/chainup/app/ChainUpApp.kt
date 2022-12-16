@@ -97,7 +97,7 @@ class ChainUpApp : CpMyApp() {
 
     }
 
-     fun changeNetwork(simulate: Boolean){
+     fun changeNetwork(simulate: Boolean,first:Boolean=false){
          if (UtilSystem.getVersionName1() == "version_1"){
              return
          }
@@ -139,7 +139,7 @@ class ChainUpApp : CpMyApp() {
                  chatApiUrl = ""
              )
          }
-           if (simulate!=SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
+           if (first||simulate!=SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)){
                HttpClient.instance.changeNetwork(url!!.baseUrl.split("//")[1])
                PushManager.getInstance()
                    .registerPushIntentService(this, HandlePushIntentService::class.java)

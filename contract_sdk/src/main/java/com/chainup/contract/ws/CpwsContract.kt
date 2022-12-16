@@ -66,7 +66,11 @@ class CpWsContractAgentManager private constructor() {
 
     }
 
-    fun socketUrl(socketUrl: String, isMainThread: Boolean = true) {
+    fun socketUrl(socketUrl: String, isMainThread: Boolean = true, isChange: Boolean = false ) {
+        if (isChange){
+            stopWs()
+            isConnection=false
+        }
         this.serverUrl = socketUrl
         if (isMainThread) {
             initWS()
@@ -350,7 +354,7 @@ class CpWsContractAgentManager private constructor() {
     fun addWsCallback(callback: WsResultCallback) {
         val key = callback.javaClass.simpleName
         if (mapSubCallbacks.contains(key)) {
-//            Log.e(TAG, "${callback.javaClass.name}  exist in callbacks, index is ${callbacks.indexOf(callback)} ")
+            Log.e(TAG, "${callback.javaClass.name}  exist in callbacks, index is ${callbacks.indexOf(callback)} ")
 //            subCallbacks.remove(key)
 //            mapSubCallbacks.remove(key)
 //            subCallbacks.put(key, callback)
@@ -377,7 +381,7 @@ class CpWsContractAgentManager private constructor() {
 
     private var isConnection = false
     private fun initWS() {
-//        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
+        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
         if (isConnection || serverUrl.isEmpty() || !serverUrl.startsWith("ws")) {
             return
         }
