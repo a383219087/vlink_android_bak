@@ -223,8 +223,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                     }
                 })
         )
-
-
     }
 
 

@@ -52,6 +52,13 @@ class MainModel : BaseDataManager() {
 
         return changeIOToMainThread(httpHelper.getBaseUrlService(MainApiService::class.java).accountStats(getBaseReqBody()), consumer)
     }
+    /**
+     * 合约收益分析
+     */
+    fun accountStatsCon( consumer: DisposableObserver<ResponseBody>): Disposable? {
+
+        return changeIOToMainThread(httpHelper.getContractUrlService(ContractApiService::class.java).accountStatsCon(getBaseReqBody()), consumer)
+    }
 
     /**
      * 获取 public_info_v4

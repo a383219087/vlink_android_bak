@@ -104,7 +104,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
     //收益分析
     fun accountStats(rate: String, usdt: String) {
-        tv_rate.text = rate
+        tv_rate.text = "$rate%"
         tv_usdt.text = usdt
         tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
         if (rate.contains("-")) {

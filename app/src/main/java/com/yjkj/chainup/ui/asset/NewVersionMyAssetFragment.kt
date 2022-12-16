@@ -30,6 +30,7 @@ import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
+import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
 
@@ -745,10 +746,64 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                             BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
                         }
 //                        总资产折合计算： 币币总资产+ 法币总资产 +合约总资产估值 +杠杆净资产（总资产 - 借贷资产）
-
+                        bibiSHouyi()
                         updateAsset(false)
                     }
                 }))
+    }
+    /**
+     * 币币收益
+     */
+    private fun bibiSHouyi(){
+        if (!UserDataService.getInstance().isLogined) return
+        addDisposable(
+            getMainModel().accountStats(
+                consumer = object : NDisposableObserver(true) {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        jsonObject.optJSONObject("data").run {
+                            var  rate = opt("rate").toString()
+                            var usdt = opt("usdt").toString()
+                            if (openContract==1){
+                                addDisposable(
+                                    getMainModel().accountStatsCon(
+                                        consumer = object : NDisposableObserver(true) {
+                                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                                jsonObject.optJSONObject("data").run {
+                                                    var  rate1 = opt("rate").toString().toDouble()
+                                                    var usdt1 = opt("usdt").toString().toDouble()
+
+                                                   accountStats((rate.toDouble()+rate1).toString(),(usdt.toDouble()+usdt1).toString())
+
+
+                                                }
+                                            }
+                                        })
+                                )
+
+                            }else{
+                                accountStats(rate,usdt)
+                            }
+
+
+
+                        }
+                    }
+                })
+        )
+    }
+
+    //收益分析
+   private fun accountStats(rate: String, usdt: String) {
+        tv_rate.text = "$rate%"
+        tv_usdt.text = usdt
+        tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+        if (rate.contains("-")) {
+            tv_rate.setTextColor(resources.getColor(R.color.main_red))
+            tv_usdt.setTextColor(resources.getColor(R.color.main_red))
+        } else {
+            tv_rate.setTextColor(resources.getColor(R.color.main_green))
+            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+        }
     }
 
 

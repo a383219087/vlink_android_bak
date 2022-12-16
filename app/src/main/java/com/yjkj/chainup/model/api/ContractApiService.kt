@@ -19,6 +19,11 @@ import retrofit2.http.POST
  * @Description: 合约接口
  */
 interface ContractApiService {
+    /**
+     *  合约收益分析
+     */
+    @POST("assets/account_stats")
+    fun accountStatsCon(@Body requestBody: RequestBody): Observable<ResponseBody>
 
     /**
      * 跟单

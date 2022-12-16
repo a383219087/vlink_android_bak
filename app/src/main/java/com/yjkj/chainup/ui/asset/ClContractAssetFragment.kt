@@ -134,11 +134,32 @@ class ClContractAssetFragment : NBaseFragment() {
         if (isVisibleToUser) {
             loadContractUserConfig()
             getTotalAccountBalance()
-
+            bibiSHouyi()
 
         }
     }
+    /**
+     * 合约收益
+     */
+    private fun bibiSHouyi(){
+        if (!UserDataService.getInstance().isLogined) return
+        addDisposable(
+            getMainModel().accountStatsCon(
+                consumer = object : NDisposableObserver(true) {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        jsonObject.optJSONObject("data").run {
+                            var  rate = opt("rate").toString()
+                            var usdt = opt("usdt").toString()
+                            assetHeadView?.accountStats(rate,usdt)
 
+
+                        }
+                    }
+                })
+        )
+
+
+    }
     private fun getPositionList() {
         if (!UserDataService.getInstance().isLogined) return
         if (openContract == 0) return
