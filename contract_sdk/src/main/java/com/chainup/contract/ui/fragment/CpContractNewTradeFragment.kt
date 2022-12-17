@@ -812,6 +812,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     override fun onWsMessage(json: String) {
+        handleData(json)
+
         val jsonObj = JSONObject(json)
         val channel = jsonObj.optString("channel")
         val m24HLinkChannel = WsLinkUtils.tickerFor24HLink(currentSymbol, isChannel = true)
@@ -830,7 +832,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 //                v_horizontal_depth.mContractId
             }
         }
-        handleData(json)
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
@@ -1756,7 +1757,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         val depthReal =
             jsonObj.getString("channel") == WsLinkUtils.getDealHistoryLink(symbol).channel ||
                     jsonObj.getString("channel") == WsLinkUtils.getDealNewLink(symbol).channel
-        if (depthReal) {
+        //if (depthReal) {
             if (dealtRecordFragment != null) {
                 if (!isRealNew) {
                     CoroutineScope(Dispatchers.Main).launch {
@@ -1769,7 +1770,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     dealtRecordFragment?.onCallback(data)
                 }
             }
-        }
+        //}
     }
 
     /**
