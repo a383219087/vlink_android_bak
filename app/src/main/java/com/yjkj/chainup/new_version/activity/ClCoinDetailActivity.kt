@@ -20,6 +20,7 @@ import com.yjkj.chainup.new_version.adapter.ClContractAssetRecordAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
 import com.yjkj.chainup.util.BigDecimalUtils
+import com.yjkj.chainup.util.LogUtil
 import com.yjkj.chainup.util.Utils
 import kotlinx.android.synthetic.main.cl_activity_coin_detail.*
 import org.json.JSONArray
@@ -218,6 +219,7 @@ class ClCoinDetailActivity : NBaseActivity() {
     }
 
     private fun getAccountBalanceByMarginCoin() {
+        LogUtil.d("getPositionAssetsList","我是1")
         addDisposable(getContractModel().getAccountBalanceByMarginCoin(marginCoin,
                 consumer = object : NDisposableObserver() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {

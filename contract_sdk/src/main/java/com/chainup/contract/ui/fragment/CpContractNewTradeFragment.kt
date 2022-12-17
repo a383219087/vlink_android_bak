@@ -618,6 +618,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     private fun getPositionAssetsList() {
         if (!CpClLogicContractSetting.isLogin()) return
         if (openContract == 0) return
+        Log.d("getPositionAssetsList","我是7")
         addDisposable(
             getContractModel().getPositionAssetsList(
                 consumer = object : CpNDisposableObserver(true) {

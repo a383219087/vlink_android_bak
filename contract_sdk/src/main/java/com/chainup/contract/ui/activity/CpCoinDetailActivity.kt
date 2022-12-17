@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -209,6 +210,7 @@ class CpCoinDetailActivity : CpNBaseActivity() {
     }
 
     private fun getAccountBalanceByMarginCoin() {
+        Log.d("getPositionAssetsList","我是5")
         addDisposable(
             getContractModel().getAccountBalanceByMarginCoin(marginCoin,
                 consumer = object : CpNDisposableObserver() {

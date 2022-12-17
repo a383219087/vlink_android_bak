@@ -84,6 +84,7 @@ class ClContractAssetFragmentChild : NBaseFragment() {
         if (!UserDataService.getInstance().isLogined) return
         if (openContract == 0) return
         mList.clear()
+        LogUtil.d("getPositionAssetsList","我是4")
         addDisposable(getContractModel().getPositionAssetsList(
                 consumer = object : NDisposableObserver(isScrollStatus) {
                     @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")

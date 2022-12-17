@@ -11,6 +11,7 @@ import com.chainup.contract.view.CpMyLinearLayoutManager
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
+import com.yjkj.chainup.util.LogUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -47,6 +48,7 @@ class ContractHoldFragment : CpNBaseFragment() {
 
     private fun loopStart() {
         loopStop()
+        LogUtil.d("getPositionAssetsList","我是6")
         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

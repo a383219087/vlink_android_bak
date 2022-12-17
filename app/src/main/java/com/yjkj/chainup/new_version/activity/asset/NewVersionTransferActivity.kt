@@ -1099,6 +1099,7 @@ class NewVersionTransferActivity : NBaseActivity() {
     }
 
     private fun getPositionAssetsList() {
+        LogUtil.d("getPositionAssetsList","我是2")
         addDisposable(getContractModel().getPositionAssetsList(object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 jsonObject.optJSONObject("data")?.run {

@@ -108,20 +108,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
     }
 
 
-    //限价单，市价单，IOC，FOK，Post Only
 
 
-//            //普通
-    when(sideStr) {
-      "BUY" -> {
-        helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
-      }
-      "SELL" -> {
-        helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
-      }
-      else -> {
-      }
-    }
+
     var orderType = when(item.type) {
       "1" -> context.getString(R.string.cp_overview_text3)//"限价单"
       "2" -> context.getString(R.string.cp_overview_text4)//"市价单"
@@ -142,6 +131,18 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
     when(helper.itemViewType) {
       1 -> {
+
+        //            //普通
+        when(sideStr) {
+          "BUY" -> {
+            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
+          }
+          "SELL" -> {
+            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+          }
+          else -> {
+          }
+        }
         val volumePercentBig = CpBigDecimalUtils.div(item.dealVolume, item.volume, 2)
         val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
         helper.setText(R.id.tv_side, typeStr)
@@ -193,6 +194,18 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         }
       }
       2 -> {
+
+        //     //限价单，市价单，IOC，FOK，Post Only
+        when(sideStr) {
+          "BUY" -> {
+            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
+          }
+          "SELL" -> {
+            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+          }
+          else -> {
+          }
+        }
         var orderTypeStr = when(item.triggerType) {
           1 -> statusText8 //止损单
           2 -> statusText7 //止盈单
@@ -248,6 +261,16 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         }
       }
       3 -> {
+        when(sideStr) {
+          "BUY" -> {
+            helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_green))
+          }
+          "SELL" -> {
+            helper.setTextColor(R.id.tv_side, context.resources.getColor(R.color.main_red))
+          }
+          else -> {
+          }
+        }
         var orderStatus = when(item.status) {
           "2" -> context.getString(R.string.cp_extra_text1)//完全成交
           "3" -> context.getString(R.string.cp_status_text5)//"部分成交"
