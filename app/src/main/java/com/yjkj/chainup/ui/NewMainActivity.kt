@@ -20,6 +20,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.fragment.CpContractNewTradeFragment
@@ -291,6 +292,10 @@ class NewMainActivity : NBaseActivity() {
           curPosition = HomeTabMap.maps[HomeTabMap.coinTradeTab] ?: 2
           setCurrentItem()
         } else if (ParamConstant.TYPE_FAIT == position) {
+          if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+            ToastUtils.showToast(getString(R.string.important_hint1))
+            return
+          }
           ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
         }
       }

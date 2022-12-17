@@ -11,6 +11,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.fastjson.JSON
+import com.blankj.utilcode.util.SPUtils
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
 import com.common.sdk.utlis.MathHelper
@@ -238,6 +239,13 @@ class NewVersionTransferActivity : NBaseActivity() {
         contractStatus = PublicInfoDataService.getInstance().contractOpen(null)
     }
 
+
+    override fun onPause() {
+        var messageEvent = MessageEvent(MessageEvent.refresh_local_coin_trans_type)
+        messageEvent.msg_content="bibi,fabi"
+        EventBusUtil.post(messageEvent)
+        super.onPause()
+    }
 
     override fun initView() {
         cbtn_confirm?.isEnable(false)
@@ -810,6 +818,16 @@ class NewVersionTransferActivity : NBaseActivity() {
      * 划转成功
      */
     fun transferSuc() {
+        if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+            if (null != fromBorrow && fromBorrow) {
+                ArouterUtil.navigation(RoutePath.NewVersionBorrowingActivity, Bundle().apply {
+                    putString(ParamConstant.symbol, NCoinManager.getName4Symbol(transferCurrency))
+                })
+            }
+            finish()
+            return
+        }
+
         NewDialogUtils.showNormalTransferDialog(this, LanguageUtil.getString(mActivity, "transfer_text_guideTransaction"), object : NewDialogUtils.DialogTransferBottomListener {
             override fun showCancel() {
                 if (null != fromBorrow && fromBorrow) {

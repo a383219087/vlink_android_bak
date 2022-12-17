@@ -46,6 +46,7 @@ class QuickBuySureViewModel : BaseViewModel() {
      */
     fun onclickRightIcon(){
         if (index.value==1){
+
             ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
         } else{
             PayDialog() .apply {

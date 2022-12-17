@@ -238,6 +238,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     }
 
 
+
     private fun dataProcessing() {
 
         /**
@@ -324,7 +325,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         /**
          * 币币数据 详情数据
          */
-        NLiveDataUtil.observeData(this, Observer {
+        NLiveDataUtil.observeData(this, Observer { it ->
             if (MessageEvent.refresh_local_coin_trans_type == it?.msg_type && param_index == ParamConstant.BIBI_INDEX) {
                 if (null != it?.msg_content) {
                     var jsonObject = it.msg_content as JSONObject
@@ -351,6 +352,9 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
                         listFund.addAll(nolittleBalanceList)
                     } else {
                         listFund.addAll(balancelist)
+                    }
+                    listFund.sortByDescending {
+                        it?.optString("allBtcValuatin").toString().toDouble()
                     }
                     LogUtil.e(TAG, "initBiBiView() 刷新 ${listFund}")
                     adapter4Fund?.setList(listFund)
@@ -574,11 +578,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-
-
-        super.onHiddenChanged(hidden)
-    }
 
 
 

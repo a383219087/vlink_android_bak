@@ -135,7 +135,6 @@ class ClContractAssetFragment : NBaseFragment() {
             loadContractUserConfig()
             getTotalAccountBalance()
             bibiSHouyi()
-
         }
     }
     /**

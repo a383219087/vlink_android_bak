@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.SPUtils
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -20,10 +21,7 @@ import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.grid.NGridFragment
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.NCVCTradeFragment
-import com.yjkj.chainup.util.ColorUtil
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.getVisible
+import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
 import kotlinx.android.synthetic.main.fragment_trade.*
 import org.jetbrains.anko.textColor
@@ -85,6 +83,10 @@ class TradeFragment : NBaseFragment() {
         }
         // otc
         btn_otc?.setOnClickListener {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
+                ToastUtils.showToast(context?.getString(R.string.important_hint1))
+                return@setOnClickListener
+            }
             ArouterUtil.navigation(RoutePath.NewVersionOTCActivity, null)
         }
         // 杠杆

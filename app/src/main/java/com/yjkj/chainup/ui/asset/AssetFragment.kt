@@ -96,6 +96,7 @@ open class AssetFragment : NBaseFragment() {
 
                     val marketPageAdapter = NVPagerAdapter(childFragmentManager, tabTitles.toMutableList(), fragments)
                     vp_otc_asset?.adapter = marketPageAdapter
+                    vp_otc_asset?.setCurrentItem(0,true)
                     vp_otc_asset?.offscreenPageLimit = tabTitles.size
                     vp_otc_asset?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
