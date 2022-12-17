@@ -58,18 +58,18 @@ class CpWsContractAgentManager private constructor() {
             newBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
         }
         mOkHttpClient = newBuilder
-                .retryOnConnectionFailure(true)
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .build()
+            .retryOnConnectionFailure(true)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .build()
 
     }
 
-    fun socketUrl(socketUrl: String, isMainThread: Boolean = true, isChange: Boolean = false ) {
-        if (isChange){
+    fun socketUrl(socketUrl: String, isMainThread: Boolean = true, isChange: Boolean = false) {
+        if (isChange) {
             stopWs()
-            isConnection=false
+            isConnection = false
         }
         this.serverUrl = socketUrl
         if (isMainThread) {
@@ -87,47 +87,60 @@ class CpWsContractAgentManager private constructor() {
             if (mapSubCallbacks.containsKey(key)) {
                 lastNew = key
                 when (key) {
-                    "CpContractNewTradeFragment","CpContractFragment" -> {
-                        mapAnySubCallbacks.put(key, message)
-                        if (message.contains("symbol")) {
-                            val symbol = message.get("symbol") as String
-                            Log.e(TAG, "订阅的币对 ${symbol} ")
-                            val step = if (message.containsKey("step")) message.get("step") as String else "0"
-                            val team = mapSubCallbacks.get(key) as HashMap
-                            val temp = if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).symbol else ""
-                            val tempStep = if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).step else ""
-                            val symbolEquls = temp != symbol //false
-                            val symbolStep = tempStep != step && tempStep.isNotEmpty() //false
-                            val reSend = symbolEquls || symbolStep
-                            Log.e(TAG, "判断当前是否 symbol != ${symbolEquls}  step  old ${tempStep} new ${step}  != ${symbolStep} ")
-                            if (team.isNotEmpty() && team.size != 0 && reSend) {
-                                unbind(callback, false, symbolEquls, symbolStep)
-                            }
+                    /*"CpContractNewTradeFragment",*/"CpContractFragment" -> {
+                    mapAnySubCallbacks.put(key, message)
+                    if (message.contains("symbol")) {
+                        val symbol = message.get("symbol") as String
+                        Log.e(TAG, "订阅的币对 ${symbol} ")
+                        val step =
+                            if (message.containsKey("step")) message.get("step") as String else "0"
+                        val team = mapSubCallbacks.get(key) as HashMap
+                        val temp =
+                            if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).symbol else ""
+                        val tempStep =
+                            if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).step else ""
+                        val symbolEquls = temp != symbol //false
+                        val symbolStep = tempStep != step && tempStep.isNotEmpty() //false
+                        val reSend = symbolEquls || symbolStep
+                        Log.e(
+                            TAG,
+                            "判断当前是否 symbol != ${symbolEquls}  step  old ${tempStep} new ${step}  != ${symbolStep} "
+                        )
+                        if (team.isNotEmpty() && team.size != 0 && reSend) {
+                            unbind(callback, false, symbolEquls, symbolStep)
+                        }
 
-                            val isReSend = temp.isEmpty() || reSend
+                        val isReSend = temp.isEmpty() || reSend
 //                            Log.e(TAG, "-----------------1")
 //                            Log.e(TAG, "-----------------temp："+temp)
 //                            Log.e(TAG, "-----------------reSend："+reSend)
 //                            Log.e(TAG, "-----------------isReSend："+isReSend)
-                            if (isReSend) {
+                        if (isReSend) {
 //                                Log.e(TAG, "bind ws set")
-                                val ticker = WsLinkUtils.tickerFor24HLinkBean(symbol)
-                                val depthLink = WsLinkUtils.getDepthLink(symbol, true, if (step.isEmpty()) "0" else step)
-                                val map = hashMapOf("ticker24H" to ticker, "depthLink" to depthLink)
-                                mapSubCallbacks.put(key, map)
-                                // ticker
-                                if (!symbolStep || symbolEquls) {
-                                    sendData(ticker)
-                                }
-                                // depthLink
-                                sendData(depthLink)
+                            val ticker = WsLinkUtils.tickerFor24HLinkBean(symbol)
+                            val depthLink = WsLinkUtils.getDepthLink(
+                                symbol,
+                                true,
+                                if (step.isEmpty()) "0" else step
+                            )
+                            val map = hashMapOf("ticker24H" to ticker, "depthLink" to depthLink)
+                            mapSubCallbacks.put(key, map)
+                            // ticker
+                            if (!symbolStep || symbolEquls) {
+                                sendData(ticker)
                             }
+                            // depthLink
+                            sendData(depthLink)
                         }
                     }
-                    "CpContractCoinSearchDialog","MarketContractFragment" -> {
+                }
+                    "CpContractCoinSearchDialog", "MarketContractFragment" -> {
                         val symbol = message.get("symbols") as String
                         val bind = message.get("bind") as Boolean
-                        val type = JsonWSUtils.gson.fromJson<Array<String>>(symbol, object : TypeToken<Array<String>>() {}.type)
+                        val type = JsonWSUtils.gson.fromJson<Array<String>>(
+                            symbol,
+                            object : TypeToken<Array<String>>() {}.type
+                        )
                         val arrays = StringBuffer()
                         for (item in type) {
                             arrays.append(item + ",")
@@ -135,18 +148,25 @@ class CpWsContractAgentManager private constructor() {
                         if (arrays.isEmpty()) {
                             return
                         }
-                        val event = WsLinkUtils.tickerFor24HLinkBatchBean(arrays.substring(0, arrays.length - 1), bind)
+                        val event = WsLinkUtils.tickerFor24HLinkBatchBean(
+                            arrays.substring(
+                                0,
+                                arrays.length - 1
+                            ), bind
+                        )
                         unbind(callback, false)
                         sendData(event)
                         mapAnySubCallbacks.put(key, message)
                         mapSubCallbacks.put(key, hashMapOf("batchMarket" to event))
                     }
-                    "CpMarketDetail4Activity" -> {
+                    "CpMarketDetail4Activity", "CpContractNewTradeFragment" -> {
                         val symbol = message.get("symbol") as String
-                        val step = if (message.containsKey("line")) message.get("line") as String else "15min"
+                        val step =
+                            if (message.containsKey("line")) message.get("line") as String else "15min"
 
                         val team = mapSubCallbacks.get(key) as HashMap
-                        val temp = if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).symbol else ""
+                        val temp =
+                            if (team.containsKey("depthLink")) (team.get("depthLink") as CpWsLinkBean).symbol else ""
 
                         val symbolEquls = temp != symbol
                         // 不等于 说明新币种
@@ -183,10 +203,12 @@ class CpWsContractAgentManager private constructor() {
                     }
                     "CpHorizonMarketDetailActivity" -> {
                         val symbol = message.get("symbol") as String
-                        val step = if (message.containsKey("line")) message.get("line") as String else "15min"
+                        val step =
+                            if (message.containsKey("line")) message.get("line") as String else "15min"
 
                         val team = mapSubCallbacks.get(key) as HashMap
-                        val temp = if (team.containsKey("line")) (team.get("line") as CpWsLinkBean).symbol else ""
+                        val temp =
+                            if (team.containsKey("line")) (team.get("line") as CpWsLinkBean).symbol else ""
 
                         val symbolEquls = temp != symbol
                         // 不等于 说明新币种
@@ -236,7 +258,13 @@ class CpWsContractAgentManager private constructor() {
     }
 
 
-    fun unbind(callback: WsResultCallback?, isStop: Boolean = true, isSymbol: Boolean = false, step: Boolean = false, time: Boolean = false) {
+    fun unbind(
+        callback: WsResultCallback?,
+        isStop: Boolean = true,
+        isSymbol: Boolean = false,
+        step: Boolean = false,
+        time: Boolean = false
+    ) {
 //        Log.e(TAG, "unbind ws unset")
         if (callback != null) {
             val key = callback.javaClass.simpleName
@@ -324,11 +352,11 @@ class CpWsContractAgentManager private constructor() {
             if (mCount <= reCount) {
 //                Log.e(TAG, "WS 是重连")
                 Observable.timer(1, TimeUnit.SECONDS)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread()).subscribe {
-                            initWS()
-                            mCount++
-                        }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                        initWS()
+                        mCount++
+                    }
             } else {
 //                Log.e(TAG, "WS 不重连")
                 resetParams()
@@ -354,7 +382,12 @@ class CpWsContractAgentManager private constructor() {
     fun addWsCallback(callback: WsResultCallback) {
         val key = callback.javaClass.simpleName
         if (mapSubCallbacks.contains(key)) {
-            Log.e(TAG, "${callback.javaClass.name}  exist in callbacks, index is ${callbacks.indexOf(callback)} ")
+            Log.e(
+                TAG,
+                "${callback.javaClass.name}  exist in callbacks, index is ${
+                    callbacks.indexOf(callback)
+                } "
+            )
 //            subCallbacks.remove(key)
 //            mapSubCallbacks.remove(key)
 //            subCallbacks.put(key, callback)
@@ -381,7 +414,10 @@ class CpWsContractAgentManager private constructor() {
 
     private var isConnection = false
     private fun initWS() {
-        Log.e("我是cpwsContraccy", "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}")
+        Log.e(
+            "我是cpwsContraccy",
+            "initWS()  ${isAppStopWs} isConnection ${isConnection} serverUrl ${serverUrl}"
+        )
         if (isConnection || serverUrl.isEmpty() || !serverUrl.startsWith("ws")) {
             return
         }
@@ -439,14 +475,15 @@ class CpWsContractAgentManager private constructor() {
                                 val hashMap = mapSubCallbacks.get(key)
                                 hashMap?.apply {
                                     for (hashItem in hashMap.entries) {
-                                        val isSend = dataCall(channel, hashItem.value, callValue, data)
+                                        val isSend =
+                                            dataCall(channel, hashItem.value, callValue, data)
                                         if (isSend) {
                                             break
                                         }
                                     }
                                 }
                             }
-                            if (key == "CpContractStopRateLossActivity"){
+                            if (key == "CpContractStopRateLossActivity") {
                                 callValue.onWsMessage(data)
                             }
                         }
@@ -455,9 +492,19 @@ class CpWsContractAgentManager private constructor() {
                             val channel = jsonObj.optString("channel")
                             val key = channel.contains("kline") || channel.contains("trade")
                             if (key) {
-                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks[keyLine]!!, data)
+                                dataCall(
+                                    channel,
+                                    CpWsLinkBean("", ""),
+                                    subCallbacks[keyLine]!!,
+                                    data
+                                )
                             } else {
-                                dataCall(channel, CpWsLinkBean("", ""), subCallbacks["SlContractFragment"]!!, data)
+                                dataCall(
+                                    channel,
+                                    CpWsLinkBean("", ""),
+                                    subCallbacks["SlContractFragment"]!!,
+                                    data
+                                )
                             }
 
                         }
@@ -510,10 +557,10 @@ class CpWsContractAgentManager private constructor() {
     private fun initPong() {
         if (subscribePong == null || (subscribePong != null && subscribePong?.isDisposed != null && subscribePong?.isDisposed!!)) {
             subscribePong = Observable.interval(20, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                    .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
-                    .subscribe {
-                        sendData(WsLinkUtils.pongBean().json)
-                    }
+                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+                .subscribe {
+                    sendData(WsLinkUtils.pongBean().json)
+                }
         }
     }
 
@@ -521,7 +568,12 @@ class CpWsContractAgentManager private constructor() {
         subscribePong?.dispose()
     }
 
-    private fun dataCall(dataChannel: String, mapChannel: CpWsLinkBean, wsResultCallback: WsResultCallback, json: String): Boolean {
+    private fun dataCall(
+        dataChannel: String,
+        mapChannel: CpWsLinkBean,
+        wsResultCallback: WsResultCallback,
+        json: String
+    ): Boolean {
         if (dataChannel == mapChannel.channel) {
             wsResultCallback.onWsMessage(json)
         } else {
@@ -560,7 +612,10 @@ class CpWsContractAgentManager private constructor() {
                 } else {
                     if (mapAnySubCallbacks.containsKey(fragmentName)) {
                         mapSubCallbacks.set(lastNew, hashMapOf())
-                        sendMessage(mapAnySubCallbacks.get(fragmentName)!!, subCallbacks.get(fragmentName))
+                        sendMessage(
+                            mapAnySubCallbacks.get(fragmentName)!!,
+                            subCallbacks.get(fragmentName)
+                        )
                     }
                 }
             } else {
