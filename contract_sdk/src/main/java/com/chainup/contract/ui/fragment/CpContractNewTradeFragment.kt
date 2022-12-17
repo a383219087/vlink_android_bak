@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -23,6 +24,7 @@ import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
+import com.chainup.contract.bean.*
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
@@ -31,19 +33,21 @@ import com.chainup.contract.ws.CpWsContractAgentManager
 import com.google.android.material.appbar.AppBarLayout
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
-import com.chainup.contract.bean.CpCreateOrderBean
-import com.chainup.contract.bean.CpFlagBean
-import com.chainup.contract.bean.KlineQuotesData
-import com.chainup.contract.bean.KlineTick
 import com.chainup.contract.eventbus.CpNLiveDataUtil
 import com.chainup.contract.view.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.yjkj.chainup.bean.kline.cp.DepthItem
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
+import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.yjkj.chainup.new_contract.fragment.CpDepthFragment
@@ -55,13 +59,17 @@ import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.customize_depth_chart
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.kline_tab_indicator
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.ly_kline_panel
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rl_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_indicator
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_landscape
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_scale
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
 import kotlinx.android.synthetic.main.cp_market_info_kline_panel.*
@@ -78,7 +86,9 @@ import org.jetbrains.anko.textColor
 import org.jetbrains.anko.uiThread
 import org.json.JSONObject
 import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 
 /**
  * 合约
@@ -172,6 +182,14 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
     private var lastTick: KlineQuotesData? = null
     private var isRealNew = false
+
+    /**
+     * 显示指标orScale
+     */
+    var isShow = false
+    var klineState = 0
+    var showedView: View? = null
+    private var datas: DepthItem? = null
     //k线图end
 
 
@@ -248,6 +266,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         swipeLayout.setOnRefreshListener {
             loopStart()
         }
+        setOnclick()
         setTextConetnt()
     }
 
@@ -560,10 +579,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             v_horizontal_depth.setUserConfigInfo(this)
                             receiveCoupon()
                         }
-                         if(openContract==0){
-                             val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
-                             CpEventBusUtil.post(event)
-                         }
+                        if (openContract == 0) {
+                            val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
+                            CpEventBusUtil.post(event)
+                        }
 
 
                         swipeLayout.isRefreshing = false
@@ -816,6 +835,133 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: CpMessageEvent) {
+        if (event.msg_type == CpMessageEvent.market_switch_curTime) {
+            curTime = event.msg_content as String
+            Log.e("shengong", "curTime2:$curTime")
+            switchKLineScale(curTime ?: "15min")
+            tv_scale?.text = curTime ?: "15min"
+            calibrationAdapter?.notifyDataSetChanged()
+
+            rv_kline_ctrl.postDelayed(Runnable {
+                LogUtils.e("positiongetCurTime-----" + CpKLineUtil.getCurTime())
+                val position = CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
+                LogUtils.e("position-----" + position)
+                if (position != -1) {
+                    val childView: View = rv_kline_ctrl.getChildAt(position)
+                    childView.apply {
+                        val tvSale = this.findViewById<TextView>(R.id.tv_time)
+                        tvSale?.let { textClickTab(it, null) }
+                    }
+                } else {
+                    val childView: View = rv_kline_ctrl.getChildAt(4)
+                    childView.apply {
+                        val tvSale = this.findViewById<TextView>(R.id.tv_scale)
+                        tvSale?.let { textClickTab(it, null) }
+                    }
+                }
+                mklineCtrlList.clear()
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "15min",
+                        CpKLineUtil.getCurTime().equals("15min"),
+                        1
+                    )
+                )
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "60min",
+                        CpKLineUtil.getCurTime().equals("60min"),
+                        1
+                    )
+                )
+                mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime().equals("4h"), 1))
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "1day",
+                        CpKLineUtil.getCurTime().equals("1day"),
+                        1
+                    )
+                )
+
+                if (CpKLineUtil.getCurTime().equals("line")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
+                } else if (CpKLineUtil.getCurTime().equals("1min")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("1min", true, 2))
+                } else if (CpKLineUtil.getCurTime().equals("5min")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
+                } else if (CpKLineUtil.getCurTime().equals("30min")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
+                } else if (CpKLineUtil.getCurTime().equals("1week")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
+                } else if (CpKLineUtil.getCurTime().equals("1month")) {
+                    mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
+                } else {
+                    mklineCtrlList.add(
+                        CpKlineCtrlBean(
+                            CpLanguageUtil.getString(
+                                activity,
+                                "cl_assets_text4"
+                            ), false, 2
+                        )
+                    )
+                }
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        CpLanguageUtil.getString(
+                            activity,
+                            "cl_depth_text4"
+                        ), false, 3
+                    )
+                )
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        CpLanguageUtil.getString(
+                            activity,
+                            "kline_text_scale"
+                        ), false, 2
+                    )
+                )
+                mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+//            LogUtils.e("childView --- " + childView)
+            }, 300)
+
+
+        }
+
+        if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
+            val ticker = event.msg_content as JSONObject
+            contractId = ticker.getInt("id")
+            baseSymbol = ticker.getString("base")
+            quoteSymbol = ticker.getString("quote")
+            symbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
+                .replace("-", "")).toLowerCase()
+            mPricePrecision =
+                CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, contractId)
+
+            mMultiplierCoin =
+                CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(
+                    activity,
+                    contractId
+                )
+
+            mMultiplierPrecision =
+                CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, contractId)
+
+            coUnit = CpClLogicContractSetting.getContractUint(CpMyApp.instance())
+
+            mMultiplier = CpClLogicContractSetting.getContractMultiplierById(activity, contractId)
+
+            tv24hVolUnit =
+                if (CpClLogicContractSetting.getContractUint(activity) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
+
+            v_kline?.setPricePrecision(mPricePrecision)
+
+            isFrist = true
+            klineData.clear()
+            getSymbol(symbol)
+            //showCoinName()
+        }
+
         when (event.msg_type) {
             CpMessageEvent.sl_contract_open_contract_event -> {
                 doCreateContractAccount()
@@ -879,91 +1025,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 v_horizontal_depth.cleanInputData()
                 v_horizontal_depth.swicthUnit()
             }
-        }
-
-        if (event.msg_type == CpMessageEvent.market_switch_curTime) {
-            curTime = event.msg_content as String
-            Log.e("shengong", "curTime2:$curTime")
-            switchKLineScale(curTime ?: "15min")
-            tv_scale?.text = curTime ?: "15min"
-            calibrationAdapter?.notifyDataSetChanged()
-
-            rv_kline_ctrl.postDelayed(Runnable {
-                LogUtils.e("positiongetCurTime-----" + CpKLineUtil.getCurTime())
-                val position = CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
-                LogUtils.e("position-----" + position)
-                if (position != -1) {
-                    val childView: View = rv_kline_ctrl.getChildAt(position)
-                    childView.apply {
-                        val tvSale = this.findViewById<TextView>(R.id.tv_time)
-                        tvSale?.let { textClickTab(it, null) }
-                    }
-                } else {
-                    val childView: View = rv_kline_ctrl.getChildAt(4)
-                    childView.apply {
-                        val tvSale = this.findViewById<TextView>(R.id.tv_scale)
-                        tvSale?.let { textClickTab(it, null) }
-                    }
-                }
-                mklineCtrlList.clear()
-                mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime().equals("15min"), 1))
-                mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime().equals("60min"), 1))
-                mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime().equals("4h"), 1))
-                mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime().equals("1day"), 1))
-
-                if (CpKLineUtil.getCurTime().equals("line")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
-                } else if (CpKLineUtil.getCurTime().equals("1min")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("1min", true, 2))
-                } else if (CpKLineUtil.getCurTime().equals("5min")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
-                } else if (CpKLineUtil.getCurTime().equals("30min")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
-                } else if (CpKLineUtil.getCurTime().equals("1week")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
-                } else if (CpKLineUtil.getCurTime().equals("1month")) {
-                    mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
-                } else {
-                    mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cl_assets_text4"), false, 2))
-                }
-                mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cl_depth_text4"), false, 3))
-                mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "kline_text_scale"), false, 2))
-                mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-//            LogUtils.e("childView --- " + childView)
-            }, 300)
-
-
-        }
-
-        if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
-            val ticker = event.msg_content as JSONObject
-            contractId = ticker.getInt("id")
-            baseSymbol = ticker.getString("base")
-            quoteSymbol = ticker.getString("quote")
-            symbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
-                .replace("-", "")).toLowerCase()
-            mPricePrecision =
-                CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, contractId)
-
-            mMultiplierCoin =
-                CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(activity, contractId)
-
-            mMultiplierPrecision =
-                CpClLogicContractSetting.getContractMultiplierPrecisionById(activity, contractId)
-
-            coUnit = CpClLogicContractSetting.getContractUint(CpMyApp.instance())
-
-            mMultiplier = CpClLogicContractSetting.getContractMultiplierById(activity, contractId)
-
-            tv24hVolUnit =
-                if (CpClLogicContractSetting.getContractUint(activity) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
-
-            v_kline?.setPricePrecision(mPricePrecision)
-
-            isFrist = true
-            klineData.clear()
-            getSymbol(symbol)
-            //showCoinName()
         }
     }
 
@@ -1058,8 +1119,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 hasInit = true
             }
             initSocket()
-
-            //getMarkertInfo()
+            getMarkertInfo2()
         }
     }
 
@@ -1082,11 +1142,12 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }
     }
 
-
     override fun onPause() {
         super.onPause()
         loopStop()
+        CpWsContractAgentManager.instance.removeWsCallback(this)
         CpWsContractAgentManager.instance.unbind(this, true)
+        loopStop()
     }
 
     /**
@@ -1126,6 +1187,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     //初次 和 切换币对时触发
     private fun initSocket() {
+        symbol = "e_axsusdt"
         if (isNotEmpty(symbol)) {
             // sub ticker
             val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
@@ -1222,7 +1284,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(activity, contractId)
         tv24hVolUnit =
             if (CpClLogicContractSetting.getContractUint(activity) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
-        //initDepthAndDeals()
 
         v_kline?.adapter = adapter
         v_kline?.startAnimation()
@@ -1808,7 +1869,262 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             depth_chart?.marker = mv // Set the marker to the ch
             false
         }
+    }
+
+    private fun setOnclick() {
+        /**
+         * 横屏KLine
+         */
+        tv_landscape?.setOnClickListener {
+
+            val mIntent = Intent(mActivity, CpHorizonMarketDetailActivity::class.java)
+            mIntent.putExtra("curTime", curTime)
+            mIntent.putExtra("symbolHorizon", symbol)
+            mIntent.putExtra("contractId", contractId)
+            startActivity(mIntent)
+        }
+
+        /**
+         * KLine刻度
+         */
+        tv_scale?.setOnClickListener {
+            if (isShow) {
+                showedView = rv_kline_scale
+                klineState = CpMarketDetail4Activity.KLINE_SCALE
+            }
+            isShow = !isShow
+            rv_kline_scale?.visibility = if (isShow) View.GONE else View.VISIBLE
+            tv_scale?.run {
+                labelBackgroundColor =
+                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
+                textColor =
+                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
+            }
+        }
+
+        /**
+         * KLine指标
+         */
+        tv_indicator?.setOnClickListener {
+            if (isShow) {
+                showedView = ly_kline_panel
+                klineState = CpMarketDetail4Activity.KLINE_INDEX
+            }
+            isShow = !isShow
+            ly_kline_panel?.visibility = if (isShow) View.GONE else View.VISIBLE
+
+            tv_indicator?.run {
+                labelBackgroundColor =
+                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
+                textColor =
+                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
+            }
+        }
+    }
+
+    private fun getMarkertInfo2() {
+        if (contractId == -1) {
+            return
+        }
+        loopStop()
+        subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                addDisposable(
+                    getContractModel().getMarkertInfo(symbol, contractId.toString(),
+                        consumer = object : CpNDisposableObserver() {
+                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                jsonObject.optJSONObject("data").run {
+                                    tv_capital_rate?.apply {
+                                        var tagPrice = optString("tagPrice")
+                                        var fundRate = optString("currentFundRate")
+                                        var indexPrice = optString("indexPrice")
+                                        var obj = JSONObject()
+                                        obj.put(
+                                            "tagPrice",
+                                            CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
+                                        )
+                                        obj.put(
+                                            "indexPrice",
+                                            CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
+                                        )
+                                        obj.put("fundRate", "--")
+                                        val msgEvent =
+                                            CpMessageEvent(
+                                                CpMessageEvent.sl_contract_change_tagPrice_event
+                                            )
+                                        msgEvent.msg_content = obj
+                                        CpEventBusUtil.post(msgEvent)
+                                        setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
+                                    }
+                                }
+                            }
+                        })
+                )
+
+                addDisposable(
+                    getContractModel().getCoinDepth(contractId, symbol,
+                        consumer = object : CpNDisposableObserver(true) {
+                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                jsonObject.optJSONObject("data")?.run {
+                                    datas =
+                                        Gson().fromJson<DepthItem>(
+                                            this.toString(),
+                                            DepthItem::class.java
+                                        )
+                                    this@CpContractNewTradeFragment.activity?.runOnUiThread {
+                                        setData4DepthChart()
+                                    }
+                                }
+                            }
+
+                            override fun onError(e: Throwable) {
+                                super.onError(e)
+                            }
+                        })
+                )
+            }
+    }
+
+    /**
+     * 设置深度图数据
+     */
+    private fun setData4DepthChart() {
+
+        if (datas == null) {
+            clearDepthChart()
+            return
+        }
+        datas = datas?.parseDepth()
+        val sellList = ArrayList<CpDepthBean>()
+        val buyList = ArrayList<CpDepthBean>()
+
+        sellList.addAll(datas?.sellItem!! as ArrayList<CpDepthBean>)
+        buyList.addAll(datas?.buyItem!! as ArrayList<CpDepthBean>)
+        if (sellList.size == 0 || buyList.size == 0) {
+            return
+        }
+        val yData = arrayListOf<Entry>()
+        var buyVolumeSum = 0.0
+        // TODO 优化
+        for (i in buyList.indices) {
+            buyVolumeSum = CpBigDecimalUtils.add(buyVolumeSum.toString(), buyList[i].vol).toDouble()
+            val volSum = buyList[i].sum.toFloat()
+            val entry = Entry(
+                (buyList[i].price).toFloat(),
+                volSum,
+                buyList[i].price.toTextPrice(mPricePrecision)
+            )
+            yData.add(0, entry)
+        }
+        /*************处理卖盘数据*********/
+        var sellVolumeSum = 0.0
+        val sellYData = ArrayList<Entry>()
+        for (i in sellList.indices) {
+            sellVolumeSum =
+                CpBigDecimalUtils.add(sellVolumeSum.toString(), sellList[i].vol).toDouble()
+            val volSum = sellList[i].sum.toFloat()
+            val entry = Entry(
+                sellList[i].price.toFloat(),
+                volSum,
+                sellList[i].price.toTextPrice(mPricePrecision)
+            )
+            sellYData.add(entry)
+        }
+
+        /**
+         * Y 轴最大值 和 最小值
+         */
+        var maxVolume: Float = max(
+            buyList.get(buyList.size - 1).sum.toFloat(),
+            sellList.get(sellList.size - 1).sum.toFloat()
+        )
 
 
+        depth_chart ?: return
+        var xAxis = depth_chart.xAxis
+        xAxis.axisMinimum = buyList.get(buyList.size - 1).price.toFloat()
+        xAxis.axisMaximum = sellList.get(sellList.size - 1).price.toFloat()
+        var yAxis = depth_chart.axisRight
+        yAxis.axisMinimum = 0f
+        yAxis.axisMaximum = maxVolume * 1.1f
+
+        val buyLineDataSet = lineDataSet(yData, true)
+        val sellLineDataSet = lineDataSet(sellYData, false)
+
+        val lineData = LineData(buyLineDataSet, sellLineDataSet)
+
+        depth_chart.data = lineData
+        depth_chart.invalidate()
+
+    }
+
+    /**
+     * 清理深度
+     */
+    fun clearDepthChart() {
+        depth_chart?.clear()
+        depth_chart?.notifyDataSetChanged()
+        depth_chart?.invalidate()
+    }
+
+    /**
+     * 设置lineDataSet  in深度图
+     */
+    private fun lineDataSet(yData: ArrayList<Entry>, isBuy: Boolean): LineDataSet {
+        val lineDataSet: LineDataSet?
+        if (isBuy) {
+            lineDataSet = LineDataSet(yData, "Buy")
+            lineDataSet.color = CpColorUtil.getMainColorType()
+            lineDataSet.fillColor = CpColorUtil.getMainColorType()
+            /**
+             * 设置折线的颜色
+             */
+            lineDataSet.color = CpColorUtil.getMainColorType()
+
+        } else {
+            lineDataSet = LineDataSet(yData, "Sell")
+            lineDataSet.color = CpColorUtil.getMainColorType(isRise = false)
+            lineDataSet.fillColor = CpColorUtil.getMainColorType(isRise = false)
+            /**
+             * 设置折线的颜色
+             */
+            lineDataSet.color = CpColorUtil.getMainColorType(isRise = false)
+        }
+        /**
+         * 是否填充折线以及填充色设置
+         */
+        lineDataSet.setDrawFilled(true)
+
+        /**
+         * 控制MarkView的显示与隐藏
+         * 点击是否显示高亮线
+         */
+        lineDataSet.isHighlightEnabled = true
+        lineDataSet.highLightColor = Color.TRANSPARENT
+
+
+        /**
+         * 设置折线的宽度
+         */
+        lineDataSet.lineWidth = 2.0f
+
+
+        /**
+         * 隐藏每个数据点的值
+         */
+        lineDataSet.setDrawValues(false)
+
+        /**
+         * 数据点是否用小圆圈表示
+         */
+        lineDataSet.setDrawCircles(false)
+        return lineDataSet
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CpWsContractAgentManager.instance.removeWsCallback(this)
+        loopStop()
     }
 }
