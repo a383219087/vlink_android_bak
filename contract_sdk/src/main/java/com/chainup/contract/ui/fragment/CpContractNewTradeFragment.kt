@@ -251,7 +251,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_go_login_page))
             } else if (openContract == 0) {
                 CpDialogUtil.showCreateContractDialog(
-                    this!!.activity!!,
+                    this.activity!!,
                     object : CpNewDialogUtils.DialogBottomListener {
                         override fun sendConfirm() {
                             CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_open_contract_event))
@@ -547,7 +547,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 getContractUserConfig()
-
+                getMarkertInfo()
             }
     }
 
@@ -585,7 +585,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
 
                         swipeLayout.isRefreshing = false
-                        getMarkertInfo()
                         getPositionAssetsList()
                         getCurrentOrderList()
                         getCurrentPlanOrderList()
