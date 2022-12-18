@@ -588,10 +588,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                         getAccountBalance4OTC()
                     }
 
-                    //B2C
-                    ParamConstant.B2C_INDEX -> {
-                        getB2CAccount()
-                    }
                 }
             }else if (msg_content=="bibi,fabi"){
                 getAccountBalance()
@@ -680,13 +676,10 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 )
                 when {
 
-                    b2cOpen -> {
-                        getB2CAccount()
-                    }
                     otcOpen -> {
                         getAccountBalance4OTC()
                     }
-                    contractOpen -> {
+                    openContract==1 -> {
                         getContractAccount()
                     }
                 }
@@ -753,46 +746,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     }
 
-    /**
-     * 获取B2C的资产列表
-     */
-    private fun getB2CAccount() {
-        addDisposable(
-            getMainModel().fiatBalance(symbol = "",
-                consumer = object : NDisposableObserver() {
-                    @SuppressLint("SuspiciousIndentation")
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        val data = jsonObject.optJSONObject("data")
 
-                        assetlist[1].put(
-                            "totalBalance", data.optString("totalBtcValue")
-                                ?: ""
-                        )
-                        assetlist[1].put(
-                            "totalBalanceSymbol", data.optString("totalBalanceSymbol")
-                                ?: ""
-                        )
-                        val allCoinMap = data?.optJSONArray("allCoinMap")
-                        if (allCoinMap != null && allCoinMap.length() > 0) {
-                            val json = allCoinMap.optJSONObject(0)
-                            PublicInfoDataService.getInstance().saveCoinInfo4B2C(json?.optString("symbol"))
-                        }
-                        if (otcOpen) {
-                            getAccountBalance4OTC()
-                        } else if (contractOpen) {
-                            ContractUserDataAgent.getContractAccounts(true)
-                        }
-                        refresh()
-
-                        var message = MessageEvent(MessageEvent.refresh_local_b2c_coin_trans_type)
-                        message.msg_content = data
-                        NLiveDataUtil.postValue(message)
-
-                    }
-
-                })
-        )
-    }
 
     /**
      * 获取总资产

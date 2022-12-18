@@ -40,16 +40,6 @@ open class AssetFragment : NBaseFragment() {
     }
 
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-//          if (hidden){
-//              showTitles.clear()
-//              tabTitles.clear()
-//              fragments.clear()
-//              vp_otc_asset?.adapter =  NVPagerAdapter(childFragmentManager, tabTitles.toMutableList(), fragments)
-//          }
-    }
-
 
 
     override fun initView() {

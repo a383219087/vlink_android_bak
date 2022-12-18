@@ -153,8 +153,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     var mMultiplier = "0"
     var tv24hVolUnit = ""
     var mMultiplierCoin = ""
-    private var titles: ArrayList<String> = arrayListOf()
-    private val fragments = arrayListOf<Fragment>()
+
     var mClDepthFragment: CpDepthFragment? = null
     var dealtRecordFragment: CpDealtRecordFragment? = null
     var pageAdapter: CpNVPagerAdapter? = null
