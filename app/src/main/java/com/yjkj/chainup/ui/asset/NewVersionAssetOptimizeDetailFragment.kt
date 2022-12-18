@@ -80,7 +80,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
      * 隐藏小额资产
      */
     private var isLittleAssetsShow = false
-    private var searchIsFocus = false
     var assetHeadView: NewAssetTopView? = null
 
     private var total_balance: String = ""

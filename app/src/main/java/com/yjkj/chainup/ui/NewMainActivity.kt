@@ -53,6 +53,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.fragment.MarketFragment
 import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.ui.asset.AssetFragment
+import com.yjkj.chainup.ui.asset.AssetPFragment
 import com.yjkj.chainup.ui.home.NewVersionHomepageFragment
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.ws.WsAgentManager
@@ -94,7 +95,7 @@ class NewMainActivity : NBaseActivity() {
   //合约
   private var slCoContractFragment = CpContractNewTradeFragment()
   //资产
-  private var assetFragment = AssetFragment()
+  private var assetFragment = AssetPFragment()
 
   private var fragmentManager: FragmentManager? = null
   var subscribe: Disposable? = null

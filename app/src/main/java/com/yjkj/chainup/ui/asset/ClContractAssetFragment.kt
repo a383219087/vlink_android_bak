@@ -69,7 +69,7 @@ class ClContractAssetFragment : NBaseFragment() {
         assetHeadView = NewAssetTopView(activity!!, null, 0)
         assetHeadView?.initNorMalView(ParamConstant.CONTRACT_INDEX)
         initHoldContractAdapter()
-        NLiveDataUtil.observeData(this, androidx.lifecycle.Observer {
+        NLiveDataUtil.observeData(this) {
             if (MessageEvent.refresh_trans_type == it?.msg_type) {
                 isLittleAssetsShow = !isLittleAssetsShow
                 UserDataService.getInstance().saveAssetState(isLittleAssetsShow)
@@ -78,7 +78,7 @@ class ClContractAssetFragment : NBaseFragment() {
                 LogUtil.d("DEBUG", "刷新合约资产列表2")
                 setRefreshAdapter()
             }
-        }) //划转
+        } //划转
         assetHeadView?.ll_transfer_layout?.setOnClickListener {
             if (openContract == 0) {
                 showOpenContractDialog()
@@ -132,6 +132,7 @@ class ClContractAssetFragment : NBaseFragment() {
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
+            assetHeadView?.initNorMalView(ParamConstant.CONTRACT_INDEX)
             loadContractUserConfig()
             getTotalAccountBalance()
             bibiSHouyi()
