@@ -124,7 +124,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             openContract = it.getInt(ARG_PARAM1)
         }
         setAssetViewVisible()
-        getAccountBalance()
         getTotalAssets()
         if (openContract == 1) {
             getTotalAccountBalance()
@@ -592,13 +591,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }else if (msg_content=="bibi,fabi"){
                 getAccountBalance()
                 getTotalAssets()
-                getAccountBalance4OTC()
             }
         }
     }
 
 
-    var accountBean: JSONObject = JSONObject()
 
     /**
      * 获取账户信息  法币
@@ -659,6 +656,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         if (!isFristRequest) {
             loadingActivity = null
         }
+        getAccountBalance4OTC()
         addDisposable(getMainModel().accountBalance(object : NDisposableObserver(loadingActivity) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 closeLoadingDialog()
@@ -668,18 +666,13 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 bibiObject = jsonObject
                 refresh()
 
-                accountBean = json
                 assetlist[0].put("totalBalance", json.optString("totalBalance") ?: "")
                 assetlist[0].put(
                     "totalBalanceSymbol", json.optString("totalBalanceSymbol")
                         ?: ""
                 )
-                when {
-
-                    otcOpen -> {
-                        getAccountBalance4OTC()
-                    }
-                    openContract==1 -> {
+                when (openContract) {
+                    1 -> {
                         getContractAccount()
                     }
                 }

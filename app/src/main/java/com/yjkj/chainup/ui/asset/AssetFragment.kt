@@ -33,12 +33,6 @@ open class AssetFragment : NBaseFragment() {
 
 
 
-    override fun onVisibleChanged(isVisible: Boolean) {
-        super.onVisibleChanged(isVisible)
-
-
-    }
-
 
 
 
