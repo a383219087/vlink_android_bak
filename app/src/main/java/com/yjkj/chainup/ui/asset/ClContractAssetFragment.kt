@@ -176,7 +176,7 @@ class ClContractAssetFragment : NBaseFragment() {
 //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
 //                        钱包余额 用 totalAmount
 //                       lockAmount 保证金余额
-//                        unRealizedAmount 为实现盈亏
+//                        realizedAmount 为实现盈亏
                         for (i in 0 until mAccountListJson.length()) {
                             val data: JSONObject = mAccountListJson?.get(i) as JSONObject
                             if (data.optString("totalAmount").toDouble() > 0) {

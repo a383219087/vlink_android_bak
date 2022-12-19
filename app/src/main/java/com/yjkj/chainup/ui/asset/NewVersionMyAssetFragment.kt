@@ -745,6 +745,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
      * 获取总资产
      */
     private fun getTotalAssets() {
+        bibiSHouyi()
         addDisposable(
             getMainModel().getTotalAsset(
                 consumer = object : NDisposableObserver() {
@@ -756,7 +757,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                             BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
                         }
 //                        总资产折合计算： 币币总资产+ 法币总资产 +合约总资产估值 +杠杆净资产（总资产 - 借贷资产）
-                        bibiSHouyi()
+
                         updateAsset(false)
                     }
                 })
@@ -767,7 +768,9 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
      * 币币收益
      */
     private fun bibiSHouyi() {
-        if (!UserDataService.getInstance().isLogined) return
+        if (!UserDataService.getInstance().isLogined)   {
+            return
+        }
 //        {
 //                   "nowBalance": 8410.16,
 //                   "yesterdayBalance": 8920.74,
@@ -820,15 +823,25 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     //收益分析
     private fun accountStats(rate: String, usdt: String) {
-        tv_rate.text = "$rate%"
-        tv_usdt.text = usdt
-        tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-        if (rate.contains("-")) {
-            tv_rate.setTextColor(resources.getColor(R.color.main_red))
-            tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-        } else {
+        if (usdt.toDouble()==0.0){
+            tv_rate.text = "$rate%"
+            tv_usdt.text = "--"
+            tv_cny.visibility=View.GONE
+            tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             tv_rate.setTextColor(resources.getColor(R.color.main_green))
             tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+        }else{
+            tv_rate.text = "$rate%"
+            tv_usdt.text = usdt
+            tv_cny.visibility=View.GONE
+            tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+            if (rate.contains("-")) {
+                tv_rate.setTextColor(resources.getColor(R.color.main_red))
+                tv_usdt.setTextColor(resources.getColor(R.color.main_red))
+            } else {
+                tv_rate.setTextColor(resources.getColor(R.color.main_green))
+                tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+            }
         }
     }
 

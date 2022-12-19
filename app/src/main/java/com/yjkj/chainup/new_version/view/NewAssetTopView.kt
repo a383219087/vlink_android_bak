@@ -104,16 +104,28 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
     //收益分析
     fun accountStats(rate: String, usdt: String) {
-        tv_rate.text = "$rate%"
-        tv_usdt.text = usdt
-        tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-        if (rate.contains("-")) {
-            tv_rate.setTextColor(resources.getColor(R.color.main_red))
-            tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-        } else {
-            tv_rate.setTextColor(resources.getColor(R.color.main_green))
-            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-        }
+          if (usdt.toDouble()==0.0){
+              tv_rate.text = "$rate%"
+              tv_usdt.text = "--"
+              tv_cny.visibility=View.GONE
+              tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+              tv_rate.setTextColor(resources.getColor(R.color.main_green))
+              tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+          }else{
+              tv_rate.text = "$rate%"
+              tv_usdt.text = usdt
+              tv_cny.visibility=View.GONE
+              tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+              if (rate.contains("-")) {
+                  tv_rate.setTextColor(resources.getColor(R.color.main_red))
+                  tv_usdt.setTextColor(resources.getColor(R.color.main_red))
+              } else {
+                  tv_rate.setTextColor(resources.getColor(R.color.main_green))
+                  tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+              }
+          }
+
+
     }
 
     fun setRefreshViewData() {
@@ -466,7 +478,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
         //                        钱包余额 用 totalAmount
         //                       lockAmount 保证金余额
-        //                        unRealizedAmount 为实现盈亏
+        //                        realizedAmount 为实现盈亏
 
         val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("lockAmount"), 2).toPlainString(), 2)
         val fabi1 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("lockAmount"))
@@ -476,8 +488,8 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         val fabi2 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("totalAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_2, bibi2)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_2, fabi2)
-        val bibi3 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("unRealizedAmount"), 2).toPlainString(), 2)
-        val fabi3 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("unRealizedAmount"))
+        val bibi3 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("realizedAmount"), 2).toPlainString(), 2)
+        val fabi3 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("realizedAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_3, bibi3)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_3, fabi3)
 
