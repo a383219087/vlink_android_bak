@@ -3887,6 +3887,10 @@
     <string name="cp_extra_text_hold2">一键平仓</string>
     <string name="cp_extra_text_hold3">一键平仓将会撤销U本位合约下所有挂单，并以市价委托方式平仓U本位合约下所有仓位。\n请确认是否一键平仓?</string>
     <string name="cp_extra_text_hold4">全部撤销会撤掉当前列表的所有委托。\n请确认是否全部撤销?</string>
+    <!--ybc start-->
     <string name="u_benwei">U本位</string>
+    <string name="contract_account_equity">合约账户权益</string>
+    <string name="opsition_gain_loss">持仓盈亏</string>
+    <!--ybc end-->
 </resources>
 

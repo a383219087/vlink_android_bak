@@ -59,20 +59,25 @@ import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.*
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.customize_depth_chart
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.kline_tab_indicator
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.ly_kline_panel
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_boll
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_kdj
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_ma
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_macd
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_rsi
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_wr
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rg_main
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rg_vice
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rl_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_indicator
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_landscape
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_scale
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
-import kotlinx.android.synthetic.main.cp_market_info_kline_panel.*
 import kotlinx.android.synthetic.main.cp_trade_header_tools.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -199,7 +204,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     override fun initView() {
-        CpWsContractAgentManager.instance.addWsCallback(this)
         initTabInfo()
         tv_contract.setOnClickListener {
             showLeftCoinWindow()
@@ -1305,9 +1309,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     fun getSymbol(symbol: String) {
         if (jsonObject?.optString("symbol") != symbol) {
-            //chooseCoinAfterAddDetailsFg()
             setDepthSymbol()
-            //initHeaderData()
             /**
              * 逻辑声明：
              * 先取消订阅之前的币种，再订阅新币种
@@ -1386,43 +1388,35 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         when (main_index) {
             MainKlineViewStatus.MA.status -> {
-                rb_ma?.isLabelEnable = true
-                rb_hide_main?.isChecked = false
+                v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
             }
 
             MainKlineViewStatus.BOLL.status -> {
-                rb_boll?.isLabelEnable = true
-                rb_hide_main?.isChecked = false
-            }
-
-            MainKlineViewStatus.NONE.status -> {
-                rb_hide_main?.isChecked = true
+                v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
             }
         }
 
         when (vice_index) {
             CpViceViewStatus.MACD.status -> {
-                rb_macd?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(0)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
             }
 
             CpViceViewStatus.KDJ.status -> {
-                rb_kdj?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(1)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
             }
 
             CpViceViewStatus.RSI.status -> {
-                rb_rsi?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(2)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
             }
 
             CpViceViewStatus.WR.status -> {
-                rb_wr?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
-            }
-
-            CpViceViewStatus.NONE.status -> {
-                rb_hide_vice?.isChecked = true
+                v_kline?.setChildDraw(3)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
             }
         }
 
@@ -1538,10 +1532,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         val kLineEntity = CpKLineBean()
                         val data = jsonObj.optJSONObject("tick")
                         kLineEntity.id = data.optLong("id")
-//                        kLineEntity.openPrice = BigDecimal(data.optString("cp_open")).toFloat()
-//                        kLineEntity.closePrice = BigDecimal(data.optString("close")).toFloat()
-//                        kLineEntity.highPrice = BigDecimal(data.optString("high")).toFloat()
-//                        kLineEntity.lowPrice = BigDecimal(data.optString("low")).toFloat()
                         val open =
                             if (coUnit == 0) data.optString("open") else CpBigDecimalUtils.showSNormal(
                                 data.optString("open"),
@@ -1872,43 +1862,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             mIntent.putExtra("symbolHorizon", symbol)
             mIntent.putExtra("contractId", contractId)
             startActivity(mIntent)
-        }
-
-        /**
-         * KLine刻度
-         */
-        tv_scale?.setOnClickListener {
-            if (isShow) {
-                showedView = rv_kline_scale
-                klineState = CpMarketDetail4Activity.KLINE_SCALE
-            }
-            isShow = !isShow
-            rv_kline_scale?.visibility = if (isShow) View.GONE else View.VISIBLE
-            tv_scale?.run {
-                labelBackgroundColor =
-                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
-                textColor =
-                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
-            }
-        }
-
-        /**
-         * KLine指标
-         */
-        tv_indicator?.setOnClickListener {
-            if (isShow) {
-                showedView = ly_kline_panel
-                klineState = CpMarketDetail4Activity.KLINE_INDEX
-            }
-            isShow = !isShow
-            ly_kline_panel?.visibility = if (isShow) View.GONE else View.VISIBLE
-
-            tv_indicator?.run {
-                labelBackgroundColor =
-                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
-                textColor =
-                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
-            }
         }
     }
 
