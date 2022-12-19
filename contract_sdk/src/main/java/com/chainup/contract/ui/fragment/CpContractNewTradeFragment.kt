@@ -1096,7 +1096,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         loopStop()
         CpWsContractAgentManager.instance.removeWsCallback(this)
         CpWsContractAgentManager.instance.unbind(this, true)
-        loopStop()
     }
 
     /**
@@ -1656,6 +1655,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     private fun initKlineData() {
+        // TODO: V1.0.1版本test666 账号klineData没数据，需要排查  
         activity?.runOnUiThread {
             CpDataManager.calculate(klineData)
             adapter.addFooterData(klineData)
