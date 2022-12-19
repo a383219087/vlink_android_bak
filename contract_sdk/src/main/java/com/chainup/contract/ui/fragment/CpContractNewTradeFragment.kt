@@ -76,7 +76,6 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rg_vice
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rl_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.tv_landscape
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
 import kotlinx.android.synthetic.main.cp_trade_header_tools.*
 import kotlinx.coroutines.CoroutineScope
@@ -269,7 +268,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         swipeLayout.setOnRefreshListener {
             loopStart()
         }
-        setOnclick()
+        iv_pull_up.setOnClickListener {
+            if (v_kline.visibility == View.VISIBLE) {
+                v_kline.visibility = View.GONE
+            } else {
+                v_kline.visibility = View.VISIBLE
+            }
+        }
         setTextConetnt()
     }
 
@@ -335,41 +340,22 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 )
             )
         }
-        mklineCtrlList.add(
-            CpKlineCtrlBean(
-                CpLanguageUtil.getString(activity, "cp_extra_text153"),
-                false,
-                3
-            )
-        )
-        mklineCtrlList.add(
-            CpKlineCtrlBean(
-                CpLanguageUtil.getString(activity, "cp_extra_text154"),
-                false,
-                2
-            )
-        )
         mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
         rv_kline_ctrl.layoutManager = GridLayoutManager(activity, 7)
         rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
         mCpContractKlineCtrlAdapter?.setOnItemClickListener { adapter, view, position ->
             for (index in mklineCtrlList.indices) {
-                if (position == 6 && mklineCtrlList[index].isSelect) {
-
+                if (position == 4 && index < 4 && mklineCtrlList[index].isSelect) {
                 } else {
-                    if (position == 4 && index < 4 && mklineCtrlList[index].isSelect) {
-
+                    if (position == 4 && mklineCtrlList[5].isSelect) {
+                        mklineCtrlList[index].isSelect
                     } else {
-                        if (position == 4 && mklineCtrlList[5].isSelect) {
-                            mklineCtrlList[index].isSelect
-                        } else {
-                            mklineCtrlList[index].isSelect = (index == position)
-                        }
+                        mklineCtrlList[index].isSelect = (index == position)
                     }
                 }
             }
             mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-            if (position != 6 && position != 4) {
+            if (position != 4) {
                 customize_depth_chart.visibility = if (position == 5) View.VISIBLE else View.GONE
             }
             if (position < 4) {
@@ -378,11 +364,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 CpKLineUtil.setCurTime4KLine(klineScale.indexOf(mklineCtrlList[position].time))
                 switchKLineScale(mklineCtrlList[position].time)
             }
-            if (position != 4 && position != 6) {
+            if (position != 4) {
                 textClickTab(view.findViewById(R.id.tv_time), null)
             }
             if (position == 4) {
-                mklineCtrlList[6].isSelect = false
                 var isSel = false
                 CpDialogUtil.createMoreTimeKlinePop(
                     activity,
@@ -412,57 +397,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         }
                     })
             } else {
-                if (position != 6) {
-                    mklineCtrlList[4].time = CpLanguageUtil.getString(activity, "cp_extra_text152")
-                }
+                mklineCtrlList[4].time = CpLanguageUtil.getString(activity, "cp_extra_text152")
             }
-            if (position == 6) {
-//                mklineCtrlList[4].isSelect = false
-                CpDialogUtil.createMoreTargetKlinePop(
-                    activity,
-                    rl_kline_ctrl,
-                    object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-                        override fun clickItem(position: Int, text: String) {
-                            if (text.equals("main")) {
-                                when (position) {
-                                    0 -> {
-                                        v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
-                                        CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
-                                    }
-                                    1 -> {
-                                        v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
-                                        CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
-                                    }
-                                }
-                            } else {
-                                when (position) {
-                                    0 -> {
-                                        v_kline?.setChildDraw(0)
-                                        CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
-                                    }
-                                    1 -> {
-                                        v_kline?.setChildDraw(1)
-                                        CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
-                                    }
-                                    2 -> {
-                                        v_kline?.setChildDraw(2)
-                                        CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
-                                    }
-                                    3 -> {
-                                        v_kline?.setChildDraw(3)
-                                        CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    object : CpNewDialogUtils.DialogOnDismissClickListener {
-                        override fun clickItem() {
-                            mklineCtrlList[6].isSelect = false
-                            mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-                        }
-                    })
-            }
+
         }
     }
 
@@ -620,7 +557,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     private fun getPositionAssetsList() {
         if (!CpClLogicContractSetting.isLogin()) return
         if (openContract == 0) return
-        Log.d("getPositionAssetsList","我是7")
+        Log.d("getPositionAssetsList", "我是7")
         addDisposable(
             getContractModel().getPositionAssetsList(
                 consumer = object : CpNDisposableObserver(true) {
@@ -1089,19 +1026,24 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
             //ybc  这个如果放在onCreate里面，会先调用这个方法，再去刷新adapter，导致getChildAt报空指针异常
             rv_kline_ctrl.postDelayed(Runnable {
-                val position = CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
-                if (position != -1) {
-                    val childView: View = rv_kline_ctrl.getChildAt(position)
-                    childView?.apply {
-                        val tvSale = this.findViewById<TextView>(R.id.tv_time)
-                        tvSale?.let { textClickTab(it, null) }
+                try {
+                    val position =
+                        CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
+                    if (position != -1) {
+                        val childView: View = rv_kline_ctrl.getChildAt(position)
+                        childView?.apply {
+                            val tvSale = this.findViewById<TextView>(R.id.tv_time)
+                            tvSale?.let { textClickTab(it, null) }
+                        }
+                    } else {
+                        val childView: View = rv_kline_ctrl.getChildAt(4)
+                        childView?.apply {
+                            val tvSale = this.findViewById<TextView>(R.id.tv_scale)
+                            tvSale?.let { textClickTab(it, null) }
+                        }
                     }
-                } else {
-                    val childView: View = rv_kline_ctrl.getChildAt(4)
-                    childView?.apply {
-                        val tvSale = this.findViewById<TextView>(R.id.tv_scale)
-                        tvSale?.let { textClickTab(it, null) }
-                    }
+                } catch (e: Exception) {
+
                 }
 //            LogUtils.e("childView --- " + childView)
             }, 300)
@@ -1848,20 +1790,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             mv.chartView = depth_chart // For bounds control
             depth_chart?.marker = mv // Set the marker to the ch
             false
-        }
-    }
-
-    private fun setOnclick() {
-        /**
-         * 横屏KLine
-         */
-        tv_landscape?.setOnClickListener {
-
-            val mIntent = Intent(mActivity, CpHorizonMarketDetailActivity::class.java)
-            mIntent.putExtra("curTime", curTime)
-            mIntent.putExtra("symbolHorizon", symbol)
-            mIntent.putExtra("contractId", contractId)
-            startActivity(mIntent)
         }
     }
 

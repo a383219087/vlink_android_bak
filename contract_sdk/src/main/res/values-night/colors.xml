@@ -324,5 +324,5 @@
     <color name="color_etf_blue">@color/main_blue_10</color>
 
     <color name="unchecked_bg">#1D283A</color>
-
+    <color name="colorF6F7FC">@android:color/transparent</color>
 </resources>

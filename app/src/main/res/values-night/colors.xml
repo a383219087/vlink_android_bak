@@ -8,7 +8,7 @@
     <color name="chart_selected_y">#405D6D89</color>
     <color name="chart_selected_x">#5D6D89</color>
     <color name="price_line_color_day">#D8E1F0</color>
-    <color name="colorF6F7FC">@android:color/transparent</color>
+
     <color name="color323232">@color/text_color</color>
 
     <!-- text-->

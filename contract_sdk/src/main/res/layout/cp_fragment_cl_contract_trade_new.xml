@@ -40,9 +40,9 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_12"
-                            android:background="@color/bg_card_color"
-                            android:orientation="vertical">
+                            android:background="@color/colorF6F7FC"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/dp_12">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -223,16 +223,6 @@
                                     tools:itemCount="8"
                                     tools:listitem="@layout/cp_item_kline_ctrl" />
 
-                                <!--横屏视图-->
-                                <ImageView
-                                    android:id="@+id/tv_landscape"
-                                    android:layout_width="@dimen/dp_30"
-                                    android:layout_height="@dimen/dp_30"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginRight="6dp"
-                                    android:scaleType="centerInside"
-                                    android:src="@drawable/cp_quotes_zoom" />
-
                             </RelativeLayout>
 
                             <View
@@ -250,41 +240,33 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="410dp"
                                     android:nestedScrollingEnabled="false"
-                                    app:kc_background_color="@color/bg_card_color"
+                                    app:kc_background_color="@color/transparent"
                                     app:kc_grid_line_color="@color/kline_grid_line"
                                     app:kc_marker_value_color="@color/chart_max_min"
-                                    app:kc_selector_background_color="@color/marker_bg"
                                     app:kc_text_color="@color/text_color" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/rv_kline_scale"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/tabbar_color"
                                     android:overScrollMode="never"
                                     android:visibility="gone" />
-
-                                <ImageView
-                                    android:id="@+id/iv_logo"
-                                    android:layout_width="@dimen/dp_80"
-                                    android:layout_height="@dimen/dp_20"
-                                    android:layout_gravity="bottom|left"
-                                    android:layout_marginLeft="@dimen/dp_10"
-                                    android:layout_marginBottom="@dimen/dp_100"
-                                    android:adjustViewBounds="true"
-                                    android:clickable="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:usesCleartextTraffic="true"
-                                    tools:visibility="visible" />
 
                                 <include
                                     android:id="@+id/customize_depth_chart"
                                     layout="@layout/cp_depth_chart_com"
                                     android:visibility="gone" />
 
+                                <ImageView
+                                    android:id="@+id/iv_pull_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom|end"
+                                    android:layout_marginRight="@dimen/dp_15"
+                                    android:src="@mipmap/ic_pull_up" />
                             </FrameLayout>
                         </LinearLayout>
+
 
                         <com.chainup.contract.view.trade.CpNHorizontalDepthLayout
                             android:id="@+id/v_horizontal_depth"
