@@ -551,6 +551,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
     }
 
+
+
+
     private fun getContractUserConfig() {
         if (!CpClLogicContractSetting.isLogin()) {
             CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_logout_event))
@@ -1132,6 +1135,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onResume() {
         super.onResume()
+        loopStart()
         if (!isContractHidden && isContractFirst) {
             getContractPublicInfo()
             v_horizontal_depth.setLoginContractLayout(
