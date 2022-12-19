@@ -174,14 +174,14 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
      * 主图指标的子view
      */
     private val mainViewStatusViews: ArrayList<RadioButton?> by lazy(LazyThreadSafetyMode.NONE) {
-        arrayListOf<RadioButton?>(rb_ma, rb_boll, rb_hide_main)
+        arrayListOf(rb_ma, rb_boll, rb_hide_main)
     }
 
     /**
      * 副图指标的子view
      */
     private val viceViewStatusViews: ArrayList<RadioButton?> by lazy(LazyThreadSafetyMode.NONE) {
-        arrayListOf<RadioButton?>(rb_macd, rb_kdj, rb_wr, rb_rsi, rb_hide_vice)
+        arrayListOf(rb_macd, rb_kdj, rb_wr, rb_rsi, rb_hide_vice)
     }
     private var lastTick: KlineQuotesData? = null
     private var isRealNew = false

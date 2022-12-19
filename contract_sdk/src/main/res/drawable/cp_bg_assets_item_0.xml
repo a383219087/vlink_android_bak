@@ -4,10 +4,6 @@
     <stroke
         android:width="@dimen/dp_half"
         android:color="#F6F7FC" />
-    <corners
-        android:bottomRightRadius="@dimen/dp_4"
-        android:topLeftRadius="@dimen/dp_4"
-        android:bottomLeftRadius="@dimen/dp_4"
-        android:topRightRadius="@dimen/dp_4" />
+
     <solid android:color="#F6F7FC" />
 </shape>

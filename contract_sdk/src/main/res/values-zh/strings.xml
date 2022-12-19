@@ -3315,7 +3315,7 @@
     <string name="cp_overview_text8">数量</string>
     <string name="cp_overview_text9">张</string>
     <string name="cp_overview_text10">可开多</string>
-    <string name="cp_overview_text11">成本</string>
+    <string name="cp_overview_text11">可用</string>
     <string name="cp_overview_text12">止盈止损</string>
     <string name="cp_overview_text13">买入开多</string>
     <string name="cp_overview_text14">卖出开空</string>
@@ -3576,7 +3576,7 @@
 
     <string name="cp_overview_text35">永续合约</string>
     <string name="cp_overview_text36">以市价交易</string>
-    <string name="cp_overview_text37">可开空</string>
+    <string name="cp_overview_text37">保证金</string>
     <string name="cp_overview_text38">对手1档</string>
     <string name="cp_overview_text39">对手5档</string>
     <string name="cp_overview_text40">对手10档</string>
@@ -3585,7 +3585,7 @@
     <string name="cp_overview_text43">持仓上限约</string>
     <string name="cp_overview_text44">关闭</string>
     <string name="cp_overview_text45">预测下期资金费率</string>
-    <string name="cp_overview_text46">可开多</string>
+    <string name="cp_overview_text46">保证金</string>
     <string name="cp_tip_text1">请输入限制价格</string>
     <string name="cp_tip_text2">请输入触发价格</string>
     <string name="cp_tip_text3">条件市价</string>

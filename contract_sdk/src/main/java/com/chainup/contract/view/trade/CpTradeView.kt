@@ -106,7 +106,6 @@ class CpTradeView @JvmOverloads constructor(
         }
 
         et_volume?.setOnFocusChangeListener { _, hasFocus ->
-            ll_volume?.setBackgroundResource(if (hasFocus) R.drawable.cp_bg_trade_et_focused else R.drawable.cp_bg_trade_et_unfocused)
             if (hasFocus) {
                 if (isPercentPlaceOrder) {
                     et_volume.setText("")
@@ -1007,7 +1006,7 @@ class CpTradeView @JvmOverloads constructor(
             }
             isFrist = false
         }
-        mContractUint = CpClLogicContractSetting.getContractUint(context)
+        mContractUint = 1
         mContractJson?.let { setContractJsonInfo(it) }
     }
 
@@ -1085,13 +1084,7 @@ class CpTradeView @JvmOverloads constructor(
             isOpen = !cb_only_reduce_positions.isChecked
         }
         tv_equivalent.visibility = if (isOpen) View.VISIBLE else View.INVISIBLE
-        if (isOpen) {
-            tv_long_title.onLineText("cp_overview_text10")
-            tv_short_title.onLineText("cp_overview_text37")
-        } else {
-            tv_long_title.onLineText("cp_overview_text18")
-            tv_short_title.onLineText("cp_overview_text17")
-        }
+
         et_volume.hint = context.getString(R.string.cp_overview_text8)
         tv_volume_unit.text = base
         if (isOpen && buyOrSellHelper.orderType == 2) {

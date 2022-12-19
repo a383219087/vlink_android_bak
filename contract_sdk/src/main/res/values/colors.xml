@@ -12,7 +12,7 @@
     <color name="error_color_material">#ad971f</color>
     <color name="colorBgDialogWindow">#50000000</color>
 
-
+    <color name="item_color">#E7EBFE</color>
     <!-- text-->
     <color name="text_color_common">#909499</color>
     <color name="text_color_red">#FF0000</color>
