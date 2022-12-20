@@ -37,8 +37,6 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
-
-
         contractDropAdapter = CpContractDropAdapter2(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
         rv_search_coin.adapter = contractDropAdapter
@@ -67,7 +65,7 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
 
     override fun loadData() {
         super.loadData()
-
+        CpWsContractAgentManager.instance.addWsCallback(this)
         index = arguments!!.getInt(CpParamConstant.CUR_INDEX)
         try {
             contractListJson= CpClLogicContractSetting.getContractJsonListStr(mActivity)
@@ -106,10 +104,6 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
         contractDropAdapter?.notifyDataSetChanged()
     }
 
-
-
-
-
     companion object {
         @JvmStatic
         fun newInstance2(index: Int, contractListJson: String): CpCoinSearchItemFragment2 {
@@ -129,12 +123,12 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
     fun handleData(data: String) {
         try {
             val json = JSONObject(data)
-            if (!json.isNull("tick")) {
+            //if (!json.isNull("tick")) {
                 doAsync {
                     val quotesData = json
                     showWsData(quotesData)
                 }
-            }
+            //}
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -157,14 +151,18 @@ class CpCoinSearchItemFragment2 : CpNBaseFragment(), CpWsContractAgentManager.Ws
         }
     }
 
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
+    /*@Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: CpMessageEvent) {
         when (event.msg_type) {
             CpMessageEvent.sl_contract_sidebar_market_event -> {
                 showWsData(event.msg_content as JSONObject)
             }
         }
+    }*/
+
+    override fun onDestroyView() {
+        CpWsContractAgentManager.instance.removeWsCallback(this)
+        super.onDestroyView()
     }
 
 }

@@ -134,7 +134,7 @@ class CpWsContractAgentManager private constructor() {
                         }
                     }
                 }
-                    "CpContractCoinSearchDialog", "MarketContractFragment" -> {
+                    "CpContractCoinSearchDialog", "MarketContractFragment", "CpCoinSearchItemFragment2" -> {
                         val symbol = message.get("symbols") as String
                         val bind = message.get("bind") as Boolean
                         val type = JsonWSUtils.gson.fromJson<Array<String>>(
