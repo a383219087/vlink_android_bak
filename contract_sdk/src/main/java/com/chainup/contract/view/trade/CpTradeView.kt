@@ -1006,7 +1006,7 @@ class CpTradeView @JvmOverloads constructor(
             }
             isFrist = false
         }
-        mContractUint = 1
+        mContractUint = CpClLogicContractSetting.getContractUint(context)
         mContractJson?.let { setContractJsonInfo(it) }
     }
 

@@ -34,8 +34,6 @@ import com.timmy.tdialog.base.BindViewHolder
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.chainup.contract.bean.CpCurrentOrderBean
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_depth_horizontal_layout.view.*
 import kotlinx.android.synthetic.main.cp_item_transaction_detail.view.*
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
@@ -46,10 +44,7 @@ import org.jetbrains.anko.textColor
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                                                          attrs: AttributeSet? = null,

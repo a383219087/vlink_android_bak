@@ -513,7 +513,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/cp_overview_text46"
+
+                android:text="@string/cp_overview_text11"
                 android:textSize="@dimen/sp_12" />
 
             <TextView
@@ -541,7 +542,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/cp_overview_text11"
+                android:text="@string/cp_overview_text46"
                 style="@style/textStyle_title_bold"
                 android:textColor="@color/new_text_color"
                 android:textSize="@dimen/sp_12" />
@@ -579,7 +580,8 @@
                 style="@style/textStyle_title_bold"
                 android:textColor="@color/new_text_color"
                 android:textSize="@dimen/sp_12"
-                android:text="@string/cp_overview_text37" />
+                android:text="@string/cp_overview_text11"
+                />
 
             <TextView
                 android:id="@+id/tv_short_value"
@@ -610,9 +612,10 @@
                 android:textColor="@color/new_text_color"
                 android:textSize="@dimen/sp_12"
                 android:layout_width="0dp"
+                android:text="@string/cp_overview_text37"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/cp_overview_text11" />
+          />
 
             <TextView
                 android:id="@+id/tv_sell_cost"
