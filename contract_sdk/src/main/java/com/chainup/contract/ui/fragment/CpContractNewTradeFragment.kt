@@ -60,6 +60,8 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.*
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract.tv_capital_rate
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.customize_depth_chart
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.kline_tab_indicator
@@ -74,6 +76,9 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
 import kotlinx.android.synthetic.main.cp_trade_header_tools.*
+import kotlinx.android.synthetic.main.cp_trade_header_tools.ib_kline
+import kotlinx.android.synthetic.main.cp_trade_header_tools.iv_more
+import kotlinx.android.synthetic.main.cp_trade_header_tools.tv_contract
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
