@@ -1,6 +1,5 @@
 package com.chainup.contract.ui.fragment
 
-
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -101,7 +100,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun setContentView() = R.layout.cp_fragment_cl_contract_trade_new
 
-
     var currentSymbol = "e_btcusdt"
     var quote = ""
     var base = ""
@@ -140,9 +138,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         curTime = CpKLineUtil.getCurTime()
         klineScale = CpKLineUtil.getKLineScale()
-
         themeMode = 0
-
     }
 
     var klineData: ArrayList<CpKLineBean> = arrayListOf()
@@ -191,7 +187,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
      */
     var isShow = false
     var klineState = 0
-    var showedView: View? = null
     private var datas: DepthItem? = null
     //k线图end
 
@@ -199,7 +194,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun loadData() {
         super.loadData()
         CpWsContractAgentManager.instance.addWsCallback(this)
-
     }
 
     override fun initView() {
@@ -399,7 +393,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             } else {
                 mklineCtrlList[4].time = CpLanguageUtil.getString(activity, "cp_extra_text152")
             }
-
         }
     }
 
@@ -415,7 +408,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             mContractCoinSearchDialog.showDialog(childFragmentManager, "SlContractFragment")
         }
     }
-
 
     private var mFragments: ArrayList<Fragment>? = null
     private fun initTabInfo() {
@@ -469,7 +461,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         })
     }
 
-
     private fun getContractPublicInfo() {
         addDisposable(
             getContractModel().getPublicInfo(
@@ -481,7 +472,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         )
     }
 
-
     private fun loopStart() {
         loopStop()
         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
@@ -491,9 +481,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 getMarkertInfo()
             }
     }
-
-
-
 
     private fun getContractUserConfig() {
         if (!CpClLogicContractSetting.isLogin()) {
@@ -526,8 +513,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
                             CpEventBusUtil.post(event)
                         }
-
-
                         swipeLayout.isRefreshing = false
                         getPositionAssetsList()
                         getCurrentOrderList()
@@ -567,7 +552,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     @SuppressLint("SetTextI18n")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data")?.run {
-//                                    tab_order.getTitleView(0).text = getString(R.string.cp_order_text1) + " " + this.optJSONArray("positionList").length()
                             val msgEvent =
                                 CpMessageEvent(CpMessageEvent.sl_contract_refresh_position_list_event)
                             msgEvent.msg_content = this
@@ -587,7 +571,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 consumer = object : CpNDisposableObserver(true) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data").run {
-//                                    tab_order.getTitleView(1).text = getString(R.string.cp_order_text2) + " " + this.optString("count")
                             val msgEvent =
                                 CpMessageEvent(CpMessageEvent.sl_contract_refresh_current_entrust_list_event)
                             msgEvent.msg_content = this
@@ -608,7 +591,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     @SuppressLint("SetTextI18n")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data").run {
-//                                    tab_order.getTitleView(2).text = getString(R.string.cp_order_text3) + " " + this.optString("count")
                             val msgEvent =
                                 CpMessageEvent(CpMessageEvent.sl_contract_refresh_plan_entrust_list_event)
                             msgEvent.msg_content = this
@@ -620,7 +602,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     private fun doCreateContractAccount() {
-
         if (authLevel != 3) {
             if (authLevel == 0) {
                 kycTips(getString(R.string.cl_kyc_4))
@@ -707,46 +688,38 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 context,
                 marginCoinList.toString()
             )
-            try {
-                var obj: JSONObject = contractList.get(0) as JSONObject
-                mContractId = obj.optInt("id")
-                mSymbol = obj.optString("symbol")
-                symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(
-                    activity,
-                    mContractId
-                )
-                var isExitId = false;
-                val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
+            var obj: JSONObject = contractList.get(0) as JSONObject
+            mContractId = obj.optInt("id")
+            mSymbol = obj.optString("symbol")
+            symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(
+                activity,
+                mContractId
+            )
+            var isExitId = false;
+            val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
 
-                //通知子页面更新合约id
-                val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
-                event.msg_content = mContractId
-                CpEventBusUtil.post(event)
-
-
-                if (id == -1 && contractList.length() != 0) {
-                    isExitId = true
-                    showTabInfo(contractList[0] as JSONObject)
-                } else {
-                    for (i in 0..(contractList.length() - 1)) {
-                        var obj = contractList.get(i) as JSONObject
-                        if (id == obj.optInt("id")) {
-                            isExitId = true
-                            showTabInfo(obj)
-                        }
+            //通知子页面更新合约id
+            val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
+            event.msg_content = mContractId
+            CpEventBusUtil.post(event)
+            if (id == -1 && contractList.length() != 0) {
+                isExitId = true
+                showTabInfo(contractList[0] as JSONObject)
+            } else {
+                for (i in 0..(contractList.length() - 1)) {
+                    var obj = contractList.get(i) as JSONObject
+                    if (id == obj.optInt("id")) {
+                        isExitId = true
+                        showTabInfo(obj)
                     }
                 }
-                if (!isExitId && contractList.length() != 0) {
-                    showTabInfo(contractList[0] as JSONObject)
-                }
-                getContractUserConfig()
-            } finally {
-
             }
-
+            if (!isExitId && contractList.length() != 0) {
+                showTabInfo(contractList[0] as JSONObject)
+            }
+            getContractUserConfig()
         }
     }
-
 
     private fun loopStop() {
         if (subscribe != null) {
@@ -770,7 +743,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 activity?.runOnUiThread {
                     v_horizontal_depth.setTickInfo(jsonObj)
                 }
-//                v_horizontal_depth.mContractId
             }
         }
         handleData(json)
@@ -780,7 +752,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun onMessageEvent(event: CpMessageEvent) {
         if (event.msg_type == CpMessageEvent.market_switch_curTime) {
             curTime = event.msg_content as String
-            Log.e("shengong", "curTime2:$curTime")
             switchKLineScale(curTime ?: "15min")
             tv_scale?.text = curTime ?: "15min"
             calibrationAdapter?.notifyDataSetChanged()
@@ -865,10 +836,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     )
                 )
                 mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-//            LogUtils.e("childView --- " + childView)
             }, 300)
-
-
         }
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
@@ -880,7 +848,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 .replace("-", "")).toLowerCase()
             mPricePrecision =
                 CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, contractId)
-
             mMultiplierCoin =
                 CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(
                     activity,
@@ -902,7 +869,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             isFrist = true
             klineData.clear()
             getSymbol(symbol)
-            //showCoinName()
         }
 
         when (event.msg_type) {
@@ -918,8 +884,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 showTabInfo(obj)
             }
             CpMessageEvent.sl_contract_create_order_event -> {
-//                ToastUtils.showShort("发起下单请求")
-                LogUtils.e("我是二次弹窗--接收")
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(
                     getContractModel().createOrder(obj,
@@ -1048,7 +1012,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 } catch (e: Exception) {
 
                 }
-//            LogUtils.e("childView --- " + childView)
             }, 300)
 
             initData()
@@ -1110,27 +1073,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             /**
              * 取消订阅
              */
-            sendMsg(WsLinkUtils.getKlineNewLink(symbol, scale, false).json)
             curTime = kLineScale
             var scale2 = if (curTime == "line") "1min" else curTime
-            /**
-             * 请求历史
-             */
-            sendMsg(WsLinkUtils.getKLineHistoryLink(symbol, scale2).json)
-            /**
-             * 订阅
-             */
-            sendMsg(WsLinkUtils.getKlineNewLink(symbol, scale2).json)
             initSocket()
         }
-
-    }
-
-    /**
-     * WebSocket 发送消息
-     */
-    private fun sendMsg(msg: String) {
-
     }
 
     //初次 和 切换币对时触发
@@ -1254,15 +1200,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     fun getSymbol(symbol: String) {
         if (jsonObject?.optString("symbol") != symbol) {
             setDepthSymbol()
-            /**
-             * 逻辑声明：
-             * 先取消订阅之前的币种，再订阅新币种
-             * PS :历史K线是请求的，不是订阅的
-             */
-            var lastSymbol = jsonObject?.optString("symbol")
-            if (isNotEmpty(lastSymbol)) {
-                sendMsg(WsLinkUtils.tickerFor24HLink(lastSymbol!!, isSub = false))
-            }
             initSocket()
         }
     }
@@ -1329,7 +1266,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
      * K线的指标处理
      */
     private fun action4KLineIndex() {
-
         when (main_index) {
             MainKlineViewStatus.MA.status -> {
                 v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
@@ -1629,8 +1565,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     }
                     klineData.add(mKLineBean)
                 }
-//                val list: ArrayList<KLineBean> = gson.fromJson(json.getJSONArray("data").toString(), type)
-//                klineData.addAll(list)
                 if (klineData.size == 0) {
                     initKlineData()
                 } else {
@@ -1650,11 +1584,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
             initKlineData()
         }
-
     }
 
     private fun initKlineData() {
-        // TODO: V1.0.1版本test666 账号klineData没数据，需要排查  
         activity?.runOnUiThread {
             CpDataManager.calculate(klineData)
             adapter.addFooterData(klineData)
@@ -1851,10 +1783,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                                     }
                                 }
                             }
-
-                            override fun onError(e: Throwable) {
-                                super.onError(e)
-                            }
                         })
                 )
             }
@@ -1913,8 +1841,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             buyList.get(buyList.size - 1).sum.toFloat(),
             sellList.get(sellList.size - 1).sum.toFloat()
         )
-
-
         depth_chart ?: return
         var xAxis = depth_chart.xAxis
         xAxis.axisMinimum = buyList.get(buyList.size - 1).price.toFloat()
@@ -1930,7 +1856,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         depth_chart.data = lineData
         depth_chart.invalidate()
-
     }
 
     /**
