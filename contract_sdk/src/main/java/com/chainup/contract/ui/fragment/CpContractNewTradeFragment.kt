@@ -341,11 +341,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             for (index in mklineCtrlList.indices) {
                 if (position == 4 && index < 4 && mklineCtrlList[index].isSelect) {
                 } else {
-                    if (position == 4 && mklineCtrlList[5].isSelect) {
-                        mklineCtrlList[index].isSelect
-                    } else {
-                        mklineCtrlList[index].isSelect = (index == position)
-                    }
+                    mklineCtrlList[index].isSelect = (index == position)
                 }
             }
             mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
