@@ -30,11 +30,9 @@ import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.NewAssetTopView
 import com.yjkj.chainup.ui.contract.ContractHoldFragment
-import com.yjkj.chainup.util.JsonUtils
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.NToastUtil
+import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
+import kotlinx.android.synthetic.main.cl_activity_coin_detail.*
 import kotlinx.android.synthetic.main.fragment_bibi_asset.*
 import kotlinx.android.synthetic.main.sl_fragment_contract_asset.*
 
@@ -48,7 +46,6 @@ class ClContractAssetFragment : NBaseFragment() {
         return R.layout.sl_fragment_contract_asset
     }
 
-    val mList = ArrayList<JSONObject>()
 
     /**
      * 隐藏小额资产
@@ -160,18 +157,19 @@ class ClContractAssetFragment : NBaseFragment() {
 
 
     }
+
+
+
+
     private fun getPositionList() {
         if (!UserDataService.getInstance().isLogined) return
         if (openContract == 0) return
-        mList.clear()
-        LogUtil.d("getPositionAssetsList","我是3")
         addDisposable(getContractModel().getPositionAssetsList(consumer = object : NDisposableObserver(isScrollStatus) {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 jsonObject.optJSONObject("data")?.run {
                     if (!isNull("accountList")) {
                         val mAccountListJson = optJSONArray("accountList")
-                        mList.clear()
 //                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
 //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
 //                        钱包余额 用 totalAmount
@@ -179,11 +177,7 @@ class ClContractAssetFragment : NBaseFragment() {
 //                        realizedAmount 为实现盈亏
                         for (i in 0 until mAccountListJson.length()) {
                             val data: JSONObject = mAccountListJson?.get(i) as JSONObject
-                            if (data.optString("totalAmount").toDouble() > 0) {
-                                mList.add(0, data)
-                            } else {
-                                mList.add(data)
-                            }
+
                              if (data.optString("symbol")=="USDT"){
                                  buffJson1 = data
                                  assetHeadView?.setContractHeadData1(data)

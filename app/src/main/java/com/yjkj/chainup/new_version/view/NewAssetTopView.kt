@@ -473,13 +473,16 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
     /**
      * 合约保证金余额
      */
-    fun setContractHeadData1(jsonObject: JSONObject) { //                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
+    fun setContractHeadData1(jsonObject: JSONObject) {
+        //                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
         //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
         //                        钱包余额 用 totalAmount
-        //                       lockAmount 保证金余额
+        //                       isolateMargin+totalMargin+lockAmount 保证金余额
         //                        realizedAmount 为实现盈亏
-
-        val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("lockAmount"), 2).toPlainString(), 2)
+      val  isolateMargin =  jsonObject?.optString("isolateMargin").toString().toDouble()
+      val  totalMargin =  jsonObject?.optString("totalMargin").toString().toDouble()
+      val  lockAmount =  jsonObject?.optString("lockAmount").toString().toDouble()
+        val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown((isolateMargin+totalMargin+lockAmount).toString(), 2).toPlainString(), 2)
         val fabi1 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("lockAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_1, bibi1)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_1, fabi1)
