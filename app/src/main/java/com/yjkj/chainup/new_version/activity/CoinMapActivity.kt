@@ -199,12 +199,12 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
             val symbol = obj.optString("symbol")
             val isAdd = obj.optBoolean("isAdd")
             var hasAdd = isAdd
-            if (hasAdd) {
+            hasAdd = if (hasAdd) {
                 LikeDataService.getInstance().removeCollect(symbol)
-                hasAdd = false
+                false
             } else {
                 LikeDataService.getInstance().saveCollecData(symbol, null)
-                hasAdd = true
+                true
             }
             if (!LoginManager.isLogin(this)) {
                 if (hasAdd) {

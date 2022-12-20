@@ -475,6 +475,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             .subscribe {
                 getContractUserConfig()
                 getMarkertInfo()
+                getMarkertInfo2()
             }
     }
 
@@ -528,9 +529,34 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             getContractModel().getMarkertInfo(mSymbol, mContractId.toString(),
                 consumer = object : CpNDisposableObserver() {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
+                        LogUtils.e("合约更新---标记价格")
                         jsonObject.optJSONObject("data").run {
                             activity?.runOnUiThread {
                                 v_horizontal_depth.setMarkertInfo(this)
+                            }
+                        }
+                        jsonObject.optJSONObject("data").run {
+                            tv_capital_rate?.apply {
+                                var tagPrice = optString("tagPrice")
+                                var fundRate = optString("currentFundRate")
+                                var indexPrice = optString("indexPrice")
+                                var obj = JSONObject()
+                                obj.put(
+                                    "tagPrice",
+                                    CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
+                                )
+                                obj.put(
+                                    "indexPrice",
+                                    CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
+                                )
+                                obj.put("fundRate", "--")
+                                val msgEvent =
+                                    CpMessageEvent(
+                                        CpMessageEvent.sl_contract_change_tagPrice_event
+                                    )
+                                msgEvent.msg_content = obj
+                                CpEventBusUtil.post(msgEvent)
+                                setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
                             }
                         }
                     }
@@ -586,6 +612,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 consumer = object : CpNDisposableObserver(true) {
                     @SuppressLint("SetTextI18n")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
+                        LogUtils.e("合约更新---计划委托")
                         jsonObject.optJSONObject("data").run {
                             val msgEvent =
                                 CpMessageEvent(CpMessageEvent.sl_contract_refresh_plan_entrust_list_event)
@@ -979,6 +1006,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
         if (isVisible) {
+            LogUtils.e("合约更新---onVisibleChanged")
             loopStart()
             isContractFirst = true
             getContractPublicInfo()
@@ -1026,7 +1054,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 hasInit = true
             }
             initSocket()
-            getMarkertInfo2()
+
         }
     }
 
@@ -1041,6 +1069,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun onResume() {
         super.onResume()
         loopStart()
+        LogUtils.e("合约更新---onResume")
         if (!isContractHidden && isContractFirst) {
             getContractPublicInfo()
             v_horizontal_depth.setLoginContractLayout(
@@ -1049,6 +1078,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             )
         }
     }
+
+
+
 
     override fun onPause() {
         super.onPause()
@@ -1728,60 +1760,24 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (contractId == -1) {
             return
         }
-        loopStop()
-        subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                addDisposable(
-                    getContractModel().getMarkertInfo(symbol, contractId.toString(),
-                        consumer = object : CpNDisposableObserver() {
-                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                jsonObject.optJSONObject("data").run {
-                                    tv_capital_rate?.apply {
-                                        var tagPrice = optString("tagPrice")
-                                        var fundRate = optString("currentFundRate")
-                                        var indexPrice = optString("indexPrice")
-                                        var obj = JSONObject()
-                                        obj.put(
-                                            "tagPrice",
-                                            CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
-                                        )
-                                        obj.put(
-                                            "indexPrice",
-                                            CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
-                                        )
-                                        obj.put("fundRate", "--")
-                                        val msgEvent =
-                                            CpMessageEvent(
-                                                CpMessageEvent.sl_contract_change_tagPrice_event
-                                            )
-                                        msgEvent.msg_content = obj
-                                        CpEventBusUtil.post(msgEvent)
-                                        setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
-                                    }
-                                }
-                            }
-                        })
-                )
 
-                addDisposable(
-                    getContractModel().getCoinDepth(contractId, symbol,
-                        consumer = object : CpNDisposableObserver(true) {
-                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                jsonObject.optJSONObject("data")?.run {
-                                    datas =
-                                        Gson().fromJson<DepthItem>(
-                                            this.toString(),
-                                            DepthItem::class.java
-                                        )
-                                    this@CpContractNewTradeFragment.activity?.runOnUiThread {
-                                        setData4DepthChart()
-                                    }
-                                }
+        addDisposable(
+            getContractModel().getCoinDepth(contractId, symbol,
+                consumer = object : CpNDisposableObserver(true) {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        jsonObject.optJSONObject("data")?.run {
+                            datas =
+                                Gson().fromJson<DepthItem>(
+                                    this.toString(),
+                                    DepthItem::class.java
+                                )
+                            this@CpContractNewTradeFragment.activity?.runOnUiThread {
+                                setData4DepthChart()
                             }
-                        })
-                )
-            }
+                        }
+                    }
+                })
+        )
     }
 
     /**

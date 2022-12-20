@@ -150,7 +150,7 @@ class DialogUtil {
                 /*划转*/
                 val llTransfer = findViewById<View>(R.id.ll_transfer)
                 if (PublicInfoDataService.getInstance().otcOpen(null)) {
-                    llTransfer.visibility = View.VISIBLE
+                    llTransfer.visibility = View.GONE
                 } else {
                     llTransfer.visibility = View.GONE
                 }

@@ -183,15 +183,6 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         helper.setText(R.id.tv_deal, "$takerProfitTrigger/$stopLossTrigger")
 //        val pbDealVolume = helper.getView<ProgressBar>(R.id.pb_deal_volume)
 //        pbDealVolume.progress = volumePercentStr.replace("%", "").toInt()
-        if(!item.traderName.isNullOrEmpty()) {
-          helper.setGone(R.id.tv_tradle_name, false)
-          helper.setText(
-            R.id.tv_tradle_name,
-            "${context.getString(R.string.traders_apply_text9)}：${item.traderName}"
-          )
-        } else {
-          helper.setGone(R.id.tv_tradle_name, true)
-        }
       }
       2 -> {
 
@@ -250,15 +241,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
           CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd  HH:mm")
         )
         helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
-        if(!item.traderName.isNullOrEmpty()) {
-          helper.setGone(R.id.tv_tradle_name, false)
-          helper.setText(
-            R.id.tv_tradle_name,
-            "${context.getString(R.string.traders_apply_text9)}：${item.traderName}"
-          )
-        } else {
-          helper.setGone(R.id.tv_tradle_name, true)
-        }
+
       }
       3 -> {
         when(sideStr) {
@@ -368,15 +351,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         } else {
           tvOrderType.setCompoundDrawables(null, null, null, null);
         }
-        if(!item.traderName.isNullOrEmpty()) {
-          helper.setGone(R.id.tv_tradle_name, false)
-          helper.setText(
-            R.id.tv_tradle_name,
-            "${context.getString(R.string.traders_apply_text9)}：${item.traderName}"
-          )
-        } else {
-          helper.setGone(R.id.tv_tradle_name, true)
-        }
+
       }
 
 
@@ -429,15 +404,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         )
 //                helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
         helper.setText(R.id.tv_only_reduce_position, orderTypeNewStr)
-        if(!item.traderName.isNullOrEmpty()) {
-          helper.setGone(R.id.tv_tradle_name, false)
-          helper.setText(
-            R.id.tv_tradle_name,
-            "${context.getString(R.string.traders_apply_text9)}：${item.traderName}"
-          )
-        } else {
-          helper.setGone(R.id.tv_tradle_name, true)
-        }
+
       }
     }
 

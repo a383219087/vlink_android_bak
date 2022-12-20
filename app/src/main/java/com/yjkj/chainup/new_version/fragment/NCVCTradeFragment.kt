@@ -24,6 +24,7 @@ import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
+import com.yjkj.chainup.manager.DataManager
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.manager.NCoinManager
@@ -164,13 +165,18 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
             DialogUtil.createCVCPop(context, iv_more, this)
         }
-        RxView.clicks(iv_more_coin)
-            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { x ->
-                val coinList = NCoinManager.getSymbolByMarket(coinMapData?.getMarketNameByCoinList(), false)
-                DialogUtil.createCVCPopCoins(context, iv_more_coin, coinList, TradeTypeEnum.COIN_TRADE.value)
+        /**
+         * 划转
+         */
+        iv_more_coin?.setOnClickListener {
+            if (!LoginManager.checkLogin(context, true)) {
+                return@setOnClickListener
             }
+            val coinMapBean = DataManager.getCoinMapBySymbol(PublicInfoDataService.getInstance().currentSymbol)
+            val coin = NCoinManager.getMarketName(coinMapBean.name)
+            ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_BIBI, coin)
+        }
+
         /**
          * 切换币种
          */
