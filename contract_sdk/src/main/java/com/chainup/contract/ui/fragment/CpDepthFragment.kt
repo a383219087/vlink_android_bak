@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_contract.fragment
+package com.chainup.contract.ui.fragment
 
 
 import android.annotation.SuppressLint
@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.base.CpNBaseFragment
@@ -117,7 +116,6 @@ class CpDepthFragment : CpNBaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         initDepthView()
         initDepthChart()
         liveData.observe(this, Observer {

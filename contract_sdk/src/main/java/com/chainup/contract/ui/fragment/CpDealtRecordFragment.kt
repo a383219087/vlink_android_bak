@@ -11,7 +11,7 @@ import com.chainup.contract.R
 import com.chainup.contract.bean.CpFlagBean
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.CpWrapContentViewPager
-import com.yjkj.chainup.new_contract.fragment.CpDepthFragment
+import com.chainup.contract.ui.fragment.CpDepthFragment
 import kotlinx.android.synthetic.main.cp_fragment_dealt_record.*
 import kotlinx.android.synthetic.main.cp_item_dealt_record.view.*
 import org.jetbrains.anko.doAsync

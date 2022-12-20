@@ -31,6 +31,7 @@ import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.eventbus.CpNLiveDataUtil
 import com.chainup.contract.ui.fragment.CpContractCoinSearchDialog
+import com.chainup.contract.ui.fragment.CpContractEntrustNewFragment
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
 import com.chainup.contract.ws.CpWsContractAgentManager
@@ -50,7 +51,7 @@ import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.chainup.contract.ui.fragment.CpDealtRecordFragment
-import com.yjkj.chainup.new_contract.fragment.CpDepthFragment
+import com.chainup.contract.ui.fragment.CpDepthFragment
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import com.yjkj.chainup.new_version.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
@@ -427,7 +428,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }
 
         ib_share?.setOnClickListener {
-            CpDialogUtil.showKLineShareDialog(context = mActivity, mView = ll_kline_view.getViewById(R.id.ll_kline_view))
+            CpDialogUtil.showKLineShareDialog(context = mActivity, mView = ll_kline_view)
         }
 
         /**
@@ -957,8 +958,8 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         )
         dealtRecordFragment = CpDealtRecordFragment.newInstance(viewPager = vp_depth_dealt)
 
-        fragments.add(mClDepthFragment ?: return)
-        fragments.add(dealtRecordFragment ?: return)
+        fragments.add(mClDepthFragment!!)
+        fragments.add(dealtRecordFragment!!)
         pageAdapter = CpNVPagerAdapter(
                 supportFragmentManager,
                 titles,
