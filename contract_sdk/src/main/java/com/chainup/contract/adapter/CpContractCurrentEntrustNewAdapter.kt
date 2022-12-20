@@ -132,8 +132,8 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             helper.setText(R.id.tv_order_type, orderType)
             helper.setText(R.id.tv_price,  CpBigDecimalUtils.showSNormal(item.price))
 //            helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)
-            helper.setText(R.id.tv_dealvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) )
-            helper.setText(R.id.tv_totalvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
+            helper.setText(R.id.tv_totalvolume, (if (coUnit == 0) item.dealVolume else CpBigDecimalUtils.mulStr(item.dealVolume, multiplier, multiplierPrecision)) )
+            helper.setText(R.id.tv_dealvolume, if (coUnit == 0) item.volume else CpBigDecimalUtils.mulStr(item.volume, multiplier, multiplierPrecision))
             if (item.otoOrder != null) {
                 val takerProfitTrigger = if (item.otoOrder.takerProfitTrigger.toString() == "null") "--" else item.otoOrder.takerProfitTrigger.toString()
                 val stopLossTrigger = if (item.otoOrder.stopLossTrigger.toString() == "null") "--" else item.otoOrder.stopLossTrigger.toString()
