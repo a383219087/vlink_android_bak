@@ -104,26 +104,26 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
     //收益分析
     fun accountStats(rate: String, usdt: String) {
-          if (usdt.toDouble()==0.0){
-              tv_rate.text = "$rate%"
-              tv_usdt.text = "--"
-              tv_cny.visibility=View.GONE
-              tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-              tv_rate.setTextColor(resources.getColor(R.color.main_green))
-              tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-          }else{
-              tv_rate.text = "$rate%"
-              tv_usdt.text = usdt
-              tv_cny.visibility=View.GONE
-              tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-              if (rate.contains("-")) {
-                  tv_rate.setTextColor(resources.getColor(R.color.main_red))
-                  tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-              } else {
-                  tv_rate.setTextColor(resources.getColor(R.color.main_green))
-                  tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-              }
-          }
+        if (usdt.toDouble() == 0.0) {
+            tv_rate.text = "$rate%"
+            tv_usdt.text = "--"
+            tv_cny.visibility = View.GONE
+            tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+            tv_rate.setTextColor(resources.getColor(R.color.main_green))
+            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+        } else {
+            tv_rate.text = "$rate%"
+            tv_usdt.text = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(usdt, 2).toPlainString(), 2)
+            tv_cny.visibility = View.GONE
+            tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
+            if (rate.contains("-")) {
+                tv_rate.setTextColor(resources.getColor(R.color.main_red))
+                tv_usdt.setTextColor(resources.getColor(R.color.main_red))
+            } else {
+                tv_rate.setTextColor(resources.getColor(R.color.main_green))
+                tv_usdt.setTextColor(resources.getColor(R.color.main_green))
+            }
+        }
 
 
     }
@@ -348,21 +348,20 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { // 如果adapter不为空的话就根据编辑框中的内容来过滤数据
                 et_search?.isFocusable = true
                 et_search?.isFocusableInTouchMode = true
-                    if (null != listener) {
-                        when (param_index) {
-                            ParamConstant.BIBI_INDEX -> {
-                                listener?.bibiFilter(s.toString())
-                            }
-                            ParamConstant.FABI_INDEX -> {
-                                listener?.fiatFilter(s.toString())
-                            }
-
+                if (null != listener) {
+                    when (param_index) {
+                        ParamConstant.BIBI_INDEX -> {
+                            listener?.bibiFilter(s.toString())
                         }
+                        ParamConstant.FABI_INDEX -> {
+                            listener?.fiatFilter(s.toString())
+                        }
+
                     }
+                }
 
             }
         })
