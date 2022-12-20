@@ -7,11 +7,13 @@ import android.util.Patterns;
 
 
 import com.blankj.utilcode.util.LogUtils;
+import com.chainup.contract.R;
 import com.chainup.contract.app.CpMyApp;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -636,13 +638,16 @@ public class CpBigDecimalUtils {
         } else {
             buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+
+          //等于张的生活
+        if (Objects.equals(CpMyApp.Companion.instance().getString(R.string.cp_overview_text9), unit)) {
             scale = 0;
             //BigDecimal.ROUND_DOWN向下取整
-            if (parValueBig.intValue() != 0) {
+            if (parValueBig.doubleValue() != 0) {
                 return buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
             }
         }
+
         return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
     }
 

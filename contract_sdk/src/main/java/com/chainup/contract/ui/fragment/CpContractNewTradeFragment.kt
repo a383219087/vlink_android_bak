@@ -3,7 +3,6 @@ package com.chainup.contract.ui.fragment
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -12,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -26,27 +26,26 @@ import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.*
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
-import com.chainup.contract.utils.*
-import com.chainup.contract.ws.CpWsContractAgentManager
-import com.google.android.material.appbar.AppBarLayout
-import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.eventbus.CpNLiveDataUtil
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
+import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
+import com.chainup.contract.ws.CpWsContractAgentManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.bean.kline.cp.DepthItem
 import com.yjkj.chainup.manager.CpLanguageUtil
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
-import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.yjkj.chainup.new_contract.fragment.CpDepthFragment
@@ -70,8 +69,6 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_ma
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_macd
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_rsi
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rb_wr
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rg_main
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rg_vice
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rl_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_ctrl
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
@@ -211,7 +208,16 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
         })
         img_top.setOnClickListener {
-            appbarlayout.setExpanded(true, true)
+//            appbarlayout.setExpanded(true, true)
+            val behavior: CoordinatorLayout.Behavior<*>? = (appbarlayout.layoutParams as CoordinatorLayout.LayoutParams).behavior
+            if (behavior is AppBarLayout.Behavior) {
+                val topAndBottomOffset = behavior.topAndBottomOffset
+                if (topAndBottomOffset != 0) {
+                    behavior.topAndBottomOffset = 0
+                }
+            }
+
+
         }
         //去k线图页面
         ib_kline.setOnClickListener {

@@ -926,17 +926,13 @@ class CpTradeView @JvmOverloads constructor(
                 CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, mContractId)
             symbolPricePrecision =
                 CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, mContractId)
-            val volumeUnit = if (mContractUint == 0) {
-                context.getString(R.string.cp_overview_text9)
-            } else {
-                mContractJson?.optString("base")
-            }
+
             val equivalentUnit = if (mContractUint != 0) {
                 context.getString(R.string.cp_overview_text9)
             } else {
                 mContractJson?.optString("base")
             }
-            tv_volume_unit.text = volumeUnit
+            tv_volume_unit.text =  equivalentUnit
             tv_coin_name.text = quote
             tv_equivalent.text = "≈ 0 $equivalentUnit"
             et_price.numberFilter(symbolPricePrecision, otherFilter = object : CpDoListener {
@@ -1086,7 +1082,7 @@ class CpTradeView @JvmOverloads constructor(
         tv_equivalent.visibility = if (isOpen) View.VISIBLE else View.INVISIBLE
 
         et_volume.hint = context.getString(R.string.cp_overview_text8)
-        tv_volume_unit.text = base
+//        tv_volume_unit.text = base
         if (isOpen && buyOrSellHelper.orderType == 2) {
             et_volume.hint = context.getString(R.string.cp_overview_text28)
             tv_volume_unit.text = if (contractSide == "1") quote else base
