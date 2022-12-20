@@ -294,7 +294,7 @@ public class CpBigDecimalUtils {
         if (!CpStringUtil.isNumeric(v2)) {
             v2 = "0";
         }
-        if (Double.parseDouble(v1) == 0&&Double.parseDouble(v2) == 0){
+        if (Double.parseDouble(v1) == 0 && Double.parseDouble(v2) == 0) {
             return 0;
         }
 
@@ -620,6 +620,9 @@ public class CpBigDecimalUtils {
             return defaultStr;
         }
         BigDecimal priceBig = new BigDecimal(price);
+        if (TextUtils.isEmpty(canUseAmount)) {
+            canUseAmount = "0";
+        }
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
 
@@ -692,7 +695,7 @@ public class CpBigDecimalUtils {
         //币
         //正向 /价格
         //反向 *价格
-        if (compareTo(parValueBig.toPlainString(),"0")==0||compareTo(priceBig.toPlainString(),"0")==0){
+        if (compareTo(parValueBig.toPlainString(), "0") == 0 || compareTo(priceBig.toPlainString(), "0") == 0) {
             return " 0" + unit;
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {

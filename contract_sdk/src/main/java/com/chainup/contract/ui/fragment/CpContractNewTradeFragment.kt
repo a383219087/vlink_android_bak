@@ -1135,7 +1135,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     //初次 和 切换币对时触发
     private fun initSocket() {
-        symbol = "e_axsusdt"
         if (isNotEmpty(symbol)) {
             // sub ticker
             val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
