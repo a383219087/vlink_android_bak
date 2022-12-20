@@ -25,8 +25,6 @@ import java.util.Comparator;
  */
 public class LikeDataService {
 
-    private static final String TAG = "LikeDataService";
-
     private static final String collectData = "collectData";
 
     private MMKVDb mMMKVDb;
@@ -230,6 +228,4 @@ public class LikeDataService {
             LikeDataService.getInstance().saveCollecData(symbolObj,null);
         }
     }
-
-
 }

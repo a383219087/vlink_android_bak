@@ -25,8 +25,6 @@ import java.util.Comparator;
  */
 public class HeYueLikeDataService {
 
-    private static final String TAG = "LikeDataService";
-
     private static final String collectData = "heYueCollectData";
 
     private MMKVDb mMMKVDb;
@@ -229,8 +227,4 @@ public class HeYueLikeDataService {
         }
         return null;
     }
-
-
-
-
 }

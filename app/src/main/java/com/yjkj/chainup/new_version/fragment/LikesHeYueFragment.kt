@@ -10,10 +10,8 @@ import android.widget.LinearLayout
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
-import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.HeYueLikeDataService
-import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
@@ -42,7 +40,6 @@ import org.jetbrains.anko.imageResource
 import org.json.JSONObject
 import java.util.HashMap
 
-
 /**
  * @description :  合约的自选页面
  * @date 2018-1- 5
@@ -53,7 +50,6 @@ import java.util.HashMap
  * 2. 提高性能
  */
 class LikesHeYueFragment : NBaseFragment() {
-
     override fun setContentView() = R.layout.fragment_likes_heyue
 
     var adapter: MarketDetailAdapter? = null
@@ -72,9 +68,9 @@ class LikesHeYueFragment : NBaseFragment() {
         showLikeView(false)
         initRecylerView()
         setOnclick()
+        setOnclick()
         initAdapter()
         setOnScrowListener()
-
     }
 
     private fun setOnScrowListener() {
@@ -348,7 +344,7 @@ class LikesHeYueFragment : NBaseFragment() {
 
     private fun removeLocalCollecta(symbol: String) {
 
-        var newArray = LikeDataService.getInstance().removeCollect(symbol)
+        var newArray = HeYueLikeDataService.getInstance().removeCollect(symbol)
         if (null == newArray || newArray.size <= 0) {
             normalTickList.clear()
         } else {
@@ -356,7 +352,7 @@ class LikesHeYueFragment : NBaseFragment() {
         }
         oriSymbols.clear()
         oriSymbols.addAll(normalTickList)
-        LikeDataService.getInstance().removeCollect(symbol)
+        HeYueLikeDataService.getInstance().removeCollect(symbol)
         if (oriSymbols.size != 0) {
             refreshAdapter()
         } else {
@@ -383,7 +379,6 @@ class LikesHeYueFragment : NBaseFragment() {
     fun getOptionalSymbol() {
         addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType)))
     }
-
 
     val getUserSelfDataReqType = 2 // 服务器用户自选数据
     val addCancelUserSelfDataReqType = 3
@@ -430,7 +425,7 @@ class LikesHeYueFragment : NBaseFragment() {
         var sync_status = data.optString("sync_status", "")
 
         if ("0".equals(sync_status)) {
-            var array = LikeDataService.getInstance().symbols
+            var array = HeYueLikeDataService.getInstance().symbols
             if (null != array && array.length() > 0) {
                 var temps = ArrayList<String>()
                 for (i in 0 until array.length()) {
@@ -446,13 +441,13 @@ class LikesHeYueFragment : NBaseFragment() {
             return
         }
 
-        LikeDataService.getInstance().clearAllCollect()
+        HeYueLikeDataService.getInstance().clearAllCollect()
         var tempList = ArrayList<JSONObject>()
         for (i in 0 until array.length()) {
             var symbol = array.optString(i)
             var symbolObj = NCoinManager.getSymbolObj(symbol)
             if (null != symbolObj && symbolObj.length() > 0) {
-                LikeDataService.getInstance().saveCollecData(symbol, symbolObj)
+                HeYueLikeDataService.getInstance().saveCollecData(symbol, symbolObj)
                 tempList.add(symbolObj)
             }
         }
@@ -479,10 +474,6 @@ class LikesHeYueFragment : NBaseFragment() {
 
     private fun initSocket() {
         pageEventSymbol()
-    }
-
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
     }
 
     var isLogined = false
