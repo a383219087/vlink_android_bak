@@ -15,6 +15,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.fragment_market_contract.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -54,12 +55,7 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
     }
     override fun initView() {
         type = arguments!!.getInt(CpParamConstant.CUR_INDEX)
-        contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
-        try {
-            mContractList = JSONArray(contractListJson)
-        }catch (e:Exception){
 
-        }
          if (type==0){
              tv_u.visibility=View.GONE
              ll_item_titles.visibility=View.VISIBLE
@@ -68,9 +64,24 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
              ll_item_titles.visibility=View.GONE
          }
 
+        addDisposable(getContractModel().getPublicInfo(
+            consumer = object : CpNDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+                    jsonObject.optJSONObject("data").run {
+                        var contractList = optJSONArray("contractList")
+                        if (contractList!=null){
+                            CpClLogicContractSetting.setContractJsonListStr(context, contractList.toString())
+                            contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
+                                mContractList = JSONArray(contractListJson)
+                            initTab()
+                        }
+
+                    }
+                }
+            })
+        )
 
 
-        initTab()
     }
 
     override fun loadData() {

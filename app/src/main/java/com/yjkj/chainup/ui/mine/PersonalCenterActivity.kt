@@ -321,6 +321,8 @@ class  PersonalCenterActivity : NBaseActivity() {
                                 aiv_mail?.showMailRed(true)
                             } else {
                                 aiv_mail?.showMailRed(false)
+
+
                             }
                         }
                     }
