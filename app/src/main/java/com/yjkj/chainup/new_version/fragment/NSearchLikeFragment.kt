@@ -253,7 +253,7 @@ class NSearchLikeFragment : NBaseFragment() {
      * var req_type = type
      */
     fun getOptionalSymbol() {
-        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(getUserSelfDataReqType)))
+        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(getUserSelfDataReqType), ""))
     }
 
     val getUserSelfDataReqType = 2 // 服务器用户自选数据
@@ -376,7 +376,7 @@ class NSearchLikeFragment : NBaseFragment() {
         if (null == symbols || symbols.isEmpty())
             return
         showLoadingDialog()
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols, MyNDisposableObserver(addCancelUserSelfDataReqType)))
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols,"", MyNDisposableObserver(addCancelUserSelfDataReqType)))
     }
 
     fun handleData(data: String) {

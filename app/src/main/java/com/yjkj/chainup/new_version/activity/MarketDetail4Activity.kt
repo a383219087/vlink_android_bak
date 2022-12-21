@@ -1243,7 +1243,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
      * var req_type = type
      */
     private fun getOptionalSymbol() {
-        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(getUserSelfDataReqType)))
+        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(getUserSelfDataReqType), ""))
     }
 
     /**
@@ -1257,7 +1257,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
             return
         var list = ArrayList<String>()
         list.add(symbol)
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list, MyNDisposableObserver(addCancelUserSelfDataReqType)))
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"", MyNDisposableObserver(addCancelUserSelfDataReqType)))
     }
 
     val getUserSelfDataReqType = 2 // 服务器用户自选数据

@@ -12,11 +12,13 @@ import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseActivity
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.HeYueLikeDataService
+import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.SearchDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.JSONUtil
+import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.like.view.SearchTopView
 import com.yjkj.chainup.new_version.adapter.HeYueMapAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
@@ -40,6 +42,7 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
     override fun setContentView() = R.layout.activity_map_heyue
 
     var markList = ArrayList<JSONObject>()
+    var searchHistroylist = ArrayList<JSONObject>()
     var likeList = ArrayList<JSONObject>()
 
     var adapter: HeYueMapAdapter? = null
@@ -128,7 +131,7 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
                 }
             }
 
-
+            addOrDeleteSymbol(if (hasAdd) 1 else 2, symbol)
 
 
             try {
@@ -215,6 +218,31 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
             tempList.add(obj)
         }
         return tempList
+    }
+
+    /**
+     * 添加或者删除自选数据
+     * @param operationType 标识 0(批量添加)/1(单个添加)/2(单个删除)
+     * @param symbol 单个币对名称
+     */
+    private fun addOrDeleteSymbol(operationType: Int = 0, symbol: String?) {
+
+        if (null == symbol || !LoginManager.isLogin(this))
+            return
+        var list = ArrayList<String>()
+        list.add(symbol)
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"BTC-USDT", object : NDisposableObserver() {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                if (operationType == 1) {
+                    NToastUtil.showTopToastNet(this@HeYueMapActivity, true, LanguageUtil.getString(this@HeYueMapActivity, "kline_tip_addCollectionSuccess"))
+                    HeYueLikeDataService.getInstance().saveCollecData(symbol, null)
+                } else {
+                    NToastUtil.showTopToastNet(this@HeYueMapActivity, true, LanguageUtil.getString(this@HeYueMapActivity, "kline_tip_removeCollectionSuccess"))
+                    HeYueLikeDataService.getInstance().removeCollect(symbol)
+                }
+
+            }
+        }))
     }
 
     override fun clearSearch() {

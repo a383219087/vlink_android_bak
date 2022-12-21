@@ -382,7 +382,7 @@ class LikesFragment : NBaseFragment() {
      * sync_status
      */
     fun getOptionalSymbol() {
-        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType)))
+        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType), "BTC"))
     }
 
 
@@ -512,7 +512,7 @@ class LikesFragment : NBaseFragment() {
         if (isLogined && isOptionalSymbolServerOpen) {
             if (null == symbols || symbols.isEmpty())
                 return
-            addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols, MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)))
+            addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols,"BTC", MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)))
         }
     }
 
