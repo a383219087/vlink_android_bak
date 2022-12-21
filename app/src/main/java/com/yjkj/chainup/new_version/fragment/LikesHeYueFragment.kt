@@ -68,7 +68,6 @@ class LikesHeYueFragment : NBaseFragment() {
         showLikeView(false)
         initRecylerView()
         setOnclick()
-        setOnclick()
         initAdapter()
         setOnScrowListener()
     }
