@@ -46,7 +46,6 @@ public class HeYueLikeDataService {
      * 收藏/自选数据保存
      */
     public void saveCollecData(String symbol, JSONObject symbolObj) {
-
         JSONArray array = getCollecArray();
         if (null != array) {
             for (int i = 0; i < array.length(); i++) {
@@ -64,23 +63,8 @@ public class HeYueLikeDataService {
     public void saveCollecData(ArrayList<JSONObject> symbols) {
         for (int i = 0; i < symbols.size(); i++) {
             String symbolObj = symbols.get(i).optString("symbol");
-            LikeDataService.getInstance().saveCollecData(symbolObj,null);
+            HeYueLikeDataService.getInstance().saveCollecData(symbolObj,null);
         }
-    }
-    /*
-     * 是否已加入自选
-     */
-    public boolean hasCollect(String symbol) {
-        JSONArray array = getCollecArray();
-        if (null == array || array.length() <= 0)
-            return false;
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject jsonObject = array.optJSONObject(i);
-            if (jsonObject.optString("symbol").equalsIgnoreCase(symbol)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /*

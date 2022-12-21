@@ -124,16 +124,6 @@ class LikeEditActivity : NBaseActivity(), EditDragListener {
         itemTouchHelper.attachToRecyclerView(rv_market_detail)
     }
 
-    private fun addOrDeleteSymbol(symbols: String?) {
-        if (symbols != null) {
-
-        }
-    }
-
-    private fun removeLocalCollect(symbol: String) {
-
-    }
-
     private fun getCollecData(): ArrayList<JSONObject>? {
         return LikeDataService.getInstance().getCollecData(false)
     }
@@ -168,7 +158,7 @@ class LikeEditActivity : NBaseActivity(), EditDragListener {
             else -> normalTickList.getSymbols()
         }
         showLoadingDialog()
-        MainModel().likesCoinsUpload(symbols, object : NDisposableObserver() {
+        MainModel().likesCoinsUpload(symbols, "BTC", object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 closeLoadingDialog()
                 delete(isDelete)

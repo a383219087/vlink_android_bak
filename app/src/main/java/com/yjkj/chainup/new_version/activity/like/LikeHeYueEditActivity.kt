@@ -129,7 +129,8 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
         LogUtil.e(TAG, "onDrag()")
         HeYueLikeDataService.getInstance().apply {
             clearAllCollect()
-
+            // 更新本地缓存
+            saveCollecData(normalTickList)
             upload()
         }
     }
@@ -155,7 +156,17 @@ class LikeHeYueEditActivity : NBaseActivity(), EditHeYueDragListener {
         }
         delete(isDelete)
         showLoadingDialog()
+        MainModel().likesCoinsUpload(symbols, "BTC-USDT", object : NDisposableObserver() {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                closeLoadingDialog()
+                delete(isDelete)
+            }
 
+            override fun onResponseFailure(code: Int, msg: String?) {
+                super.onResponseFailure(code, msg)
+                closeLoadingDialog()
+            }
+        })
     }
 
     private fun delete(isDelete: Boolean, isLogin: Boolean = true) {

@@ -68,7 +68,6 @@ class LikesHeYueFragment : NBaseFragment() {
         showLikeView(false)
         initRecylerView()
         setOnclick()
-        setOnclick()
         initAdapter()
         setOnScrowListener()
     }
@@ -377,7 +376,7 @@ class LikesHeYueFragment : NBaseFragment() {
      * sync_status
      */
     fun getOptionalSymbol() {
-        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType)))
+        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType), "BTC-USDT"))
     }
 
     val getUserSelfDataReqType = 2 // 服务器用户自选数据
@@ -502,7 +501,7 @@ class LikesHeYueFragment : NBaseFragment() {
         if (isLogined && isOptionalSymbolServerOpen) {
             if (null == symbols || symbols.isEmpty())
                 return
-            addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols, MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)))
+            addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols,"BTC-USDT", MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)))
         }
     }
 

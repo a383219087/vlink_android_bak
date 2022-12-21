@@ -324,7 +324,7 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
             return
         var list = ArrayList<String>()
         list.add(symbol)
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list, object : NDisposableObserver() {
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"BTC", object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 if (operationType == 1) {
                     NToastUtil.showTopToastNet(this@CoinMapActivity, true, LanguageUtil.getString(this@CoinMapActivity, "kline_tip_addCollectionSuccess"))
