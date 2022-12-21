@@ -126,7 +126,7 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
         if (isContract) {
             titles.add(LanguageUtil.getString(context, "trade_contract_title"))
-            fragments.add(MarketContractFragment())
+            fragments.add(MarketContractFragment.newInstance(1))
         }
 
         var collecData = LikeDataService.getInstance().getCollecData(false)

@@ -1576,34 +1576,37 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             if (isFrist) {
                 klineData.clear()
                 var objKline = json.getJSONArray("data")
-                for (i in 0..(objKline.length() - 1)) {
-                    var obj: JSONObject = objKline.get(i) as JSONObject
-                    val mKLineBean: CpKLineBean = gson.fromJson(obj.toString(), typeNew)
-                    if (coUnit != 0) {
-                        mKLineBean.volume = CpBigDecimalUtils.mulStr(
-                            mKLineBean.volume.toString(),
-                            mMultiplier,
-                            mMultiplierPrecision
-                        ).toFloat()
-                        mKLineBean.openPrice = CpBigDecimalUtils.showSNormal(
-                            mKLineBean.openPrice.toString(),
-                            mPricePrecision
-                        ).toFloat()
-                        mKLineBean.closePrice = CpBigDecimalUtils.showSNormal(
-                            mKLineBean.closePrice.toString(),
-                            mPricePrecision
-                        ).toFloat()
-                        mKLineBean.highPrice = CpBigDecimalUtils.showSNormal(
-                            mKLineBean.highPrice.toString(),
-                            mPricePrecision
-                        ).toFloat()
-                        mKLineBean.lowPrice = CpBigDecimalUtils.showSNormal(
-                            mKLineBean.lowPrice.toString(),
-                            mPricePrecision
-                        ).toFloat()
+                if (objKline.length()>1){
+                    for (i in 0 until objKline.length()) {
+                        var obj: JSONObject = objKline.get(i) as JSONObject
+                        val mKLineBean: CpKLineBean = gson.fromJson(obj.toString(), typeNew)
+                        if (coUnit != 0) {
+                            mKLineBean.volume = CpBigDecimalUtils.mulStr(
+                                mKLineBean.volume.toString(),
+                                mMultiplier,
+                                mMultiplierPrecision
+                            ).toFloat()
+                            mKLineBean.openPrice = CpBigDecimalUtils.showSNormal(
+                                mKLineBean.openPrice.toString(),
+                                mPricePrecision
+                            ).toFloat()
+                            mKLineBean.closePrice = CpBigDecimalUtils.showSNormal(
+                                mKLineBean.closePrice.toString(),
+                                mPricePrecision
+                            ).toFloat()
+                            mKLineBean.highPrice = CpBigDecimalUtils.showSNormal(
+                                mKLineBean.highPrice.toString(),
+                                mPricePrecision
+                            ).toFloat()
+                            mKLineBean.lowPrice = CpBigDecimalUtils.showSNormal(
+                                mKLineBean.lowPrice.toString(),
+                                mPricePrecision
+                            ).toFloat()
+                        }
+                        klineData.add(mKLineBean)
                     }
-                    klineData.add(mKLineBean)
                 }
+
                 if (klineData.size == 0) {
                     initKlineData()
                 } else {

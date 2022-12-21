@@ -36,6 +36,7 @@ import com.yjkj.chainup.new_version.activity.personalCenter.NoticeActivity
 import com.yjkj.chainup.new_version.adapter.NVPagerAdapter
 import com.yjkj.chainup.new_version.adapter.NewHomePageServiceAdapter
 import com.yjkj.chainup.new_version.adapter.NewhomepageTradeListAdapter
+import com.yjkj.chainup.new_version.fragment.MarketContractFragment
 import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
@@ -509,7 +510,7 @@ class NewVersionHomepageFragment :
     titles.add(getString(R.string.trade_bb_titile))
     fragments.clear()
 
-    fragments.add(NewHomeContractFragment())
+    fragments.add(MarketContractFragment.newInstance(0))
     fragments.add(
       NewHomeDetailFragmentItem.newInstance(
         titles[1],

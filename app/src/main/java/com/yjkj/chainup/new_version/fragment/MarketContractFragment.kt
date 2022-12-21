@@ -1,7 +1,10 @@
 package com.yjkj.chainup.new_version.fragment
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.chainup.contract.adapter.CpPageAdapter
+import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
@@ -31,18 +34,42 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
     private var contractListJson: String? = null
     private val ContractCodeList = ArrayList<String>()
     private val showTitles = ArrayList<String>()
+    //0是首页1是合约
+    private var type:Int=0
     private val fragments = ArrayList<Fragment>()
     override fun setContentView(): Int {
         return R.layout.fragment_market_contract
     }
 
+
+    companion object {
+        @JvmStatic
+        fun newInstance(index: Int): MarketContractFragment {
+            val fg = MarketContractFragment()
+            val bundle = Bundle()
+            bundle.putInt(CpParamConstant.CUR_INDEX, index)
+            fg.arguments = bundle
+            return fg
+        }
+    }
     override fun initView() {
+        type = arguments!!.getInt(CpParamConstant.CUR_INDEX)
         contractListJson = CpClLogicContractSetting.getContractJsonListStr(activity)
         try {
             mContractList = JSONArray(contractListJson)
         }catch (e:Exception){
 
         }
+         if (type==0){
+             tv_u.visibility=View.GONE
+             ll_item_titles.visibility=View.VISIBLE
+         }else{
+             tv_u.visibility=View.VISIBLE
+             ll_item_titles.visibility=View.GONE
+         }
+
+
+
         initTab()
     }
 
@@ -97,18 +124,18 @@ private fun initTab() {
     //USDT
     if (isHasU) {
         showTitles.add(getString(context, "cp_contract_data_text13"))
-        fragments.add(MarketContracthItemFragment.newInstance(1, contractListJson.toString()))
+        fragments.add(MarketContracthItemFragment.newInstance(1,type, contractListJson.toString()))
     }
     //
     //混合
     if (isHasH) {
         showTitles.add(getString(context, "cp_contract_data_text12"))
-        fragments.add(MarketContracthItemFragment.newInstance(2, contractListJson.toString()))
+        fragments.add(MarketContracthItemFragment.newInstance(2,type, contractListJson.toString()))
     }
     //模拟
     if (isHasM) {
         showTitles.add(getString(context, "cp_contract_data_text11"))
-        fragments.add(MarketContracthItemFragment.newInstance(3, contractListJson.toString()))
+        fragments.add(MarketContracthItemFragment.newInstance(3,type, contractListJson.toString()))
     }
     val marketPageAdapter = CpPageAdapter(childFragmentManager, showTitles, fragments)
     vp_market_contract.adapter = marketPageAdapter

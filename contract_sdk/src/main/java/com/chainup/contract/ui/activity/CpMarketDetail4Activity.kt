@@ -968,7 +968,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
         vp_depth_dealt?.adapter = pageAdapter
         vp_depth_dealt.offscreenPageLimit = fragments.size
-        vp_depth_dealt?.setScrollable(false)
+//        vp_depth_dealt?.setScrollable(true)
         stl_depth_dealt?.setViewPager(vp_depth_dealt, titles.toTypedArray())
 
         vp_depth_dealt?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -985,7 +985,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             override fun onPageSelected(position: Int) {
                 selectPosition = position
                 // 这里必须调用resetHeight，否则不会重新计算高度
-                vp_depth_dealt?.resetHeight(position)
+//                vp_depth_dealt?.resetHeight(position)
             }
         })
 

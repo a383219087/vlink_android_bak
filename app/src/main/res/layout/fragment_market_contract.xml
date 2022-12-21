@@ -33,6 +33,7 @@
             app:tl_textUnSelectColor="@color/text_color" />
 
         <TextView
+            android:id="@+id/tv_u"
             android:layout_width="@dimen/dp_90"
             android:layout_height="@dimen/dp_32"
             android:layout_marginStart="@dimen/dp_15"
@@ -43,6 +44,48 @@
             android:textColor="@color/btn_select_text_color"
             android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/ll_item_titles"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_16">
+
+            <TextView
+                android:id="@+id/tv_home_action_coinNameTitle"
+                style="@style/textStyle_value_hint_12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.35"
+                android:gravity="center_vertical|left"
+                android:maxLines="1"
+                android:text="@string/home_action_coinNameTitle" />
+
+            <TextView
+                android:id="@+id/tv_new_price_title"
+                style="@style/textStyle_value_hint_12"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:maxLines="1"
+                android:text="@string/home_text_dealLatestPrice" />
+
+
+            <TextView
+                android:id="@+id/tv_24h_title"
+                style="@style/textStyle_value_hint_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35"
+                android:gravity="center_vertical|right"
+                android:maxLines="1"
+                android:orientation="horizontal"
+                android:text="@string/common_text_priceLimit" />
+
+        </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_market_contract"

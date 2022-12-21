@@ -3,6 +3,8 @@ package com.yjkj.chainup.new_version.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.eventbus.CpMessageEvent
@@ -20,9 +22,12 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
+
 class MarketContracthItemFragment : CpNBaseFragment(){
     ///  (反向：0，1：正向 , 2 : 混合 , 3 : 模拟)
     private var index = 0
+    /// 0显示在首页1是行情页
+    private var type = 0
     private var contractDropAdapter: MarketContractDropAdapter? = null
     private var tickers: ArrayList<JSONObject> = ArrayList()
     private val localTickers: ArrayList<JSONObject> = ArrayList()
@@ -35,8 +40,21 @@ class MarketContracthItemFragment : CpNBaseFragment(){
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
+        type = arguments!!.getInt(CpParamConstant.COIN_TYPE)
         contractDropAdapter = MarketContractDropAdapter(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
+        if (type==0){
+            rv_search_coin?.isNestedScrollingEnabled = false
+        }
+        // 第一种，直接取消动画
+        val animator: ItemAnimator? = rv_search_coin.itemAnimator
+        if (animator is SimpleItemAnimator) {
+            animator.supportsChangeAnimations = false
+        }
+//        // 第二种，设置动画时间为0
+//        rv_search_coin.itemAnimator?.changeDuration = 0
+
+
         rv_search_coin.adapter = contractDropAdapter
         contractDropAdapter?.setEmptyView(CpSearchCoinEmptyForAdapterView(context ?: return))
         rv_search_coin.adapter = contractDropAdapter
@@ -62,8 +80,8 @@ class MarketContracthItemFragment : CpNBaseFragment(){
 
     override fun loadData() {
         super.loadData()
-
         index = arguments!!.getInt(CpParamConstant.CUR_INDEX)
+
         try {
             contractListJson=CpClLogicContractSetting.getContractJsonListStr(activity)
             mContractList = JSONArray(contractListJson)
@@ -107,10 +125,11 @@ class MarketContracthItemFragment : CpNBaseFragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(index: Int, contractListJson: String): MarketContracthItemFragment {
+        fun newInstance(index: Int,type: Int, contractListJson: String): MarketContracthItemFragment {
             val fg = MarketContracthItemFragment()
             val bundle = Bundle()
             bundle.putInt(CpParamConstant.CUR_INDEX, index)
+            bundle.putInt(CpParamConstant.COIN_TYPE, type)
             bundle.putString("contractList", contractListJson)
             fg.arguments = bundle
             return fg
