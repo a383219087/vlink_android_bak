@@ -176,6 +176,10 @@ public class HeYueLikeDataService {
                       return null;
                   }
                 for (int i = 0; i < array.length(); i++) {
+                    JSONObject jsonObject = array.optJSONObject(i);
+                    if(jsonObject == null) {
+                        continue;
+                    }
                     String symbol = array.optJSONObject(i).optString("symbol");
                     for (int j = 0; j < marketArray.length(); j++) {
                         JSONObject jsonObj = marketArray.optJSONObject(j);

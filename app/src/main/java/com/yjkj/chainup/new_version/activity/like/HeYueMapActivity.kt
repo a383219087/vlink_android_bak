@@ -3,6 +3,7 @@ package com.yjkj.chainup.new_version.activity.like
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,10 +59,13 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
         adapter?.headerWithEmptyEnable = true
         initOnClickListener()
 
-        val tempMarket =JSONArray(CpClLogicContractSetting.getContractJsonListStr(this))
-        if (tempMarket.length() > 0) {
-            markList.addAll(JSONUtil.arrayToList(tempMarket))
-            markList.sortBy { it.optInt("sort") }
+        var json = CpClLogicContractSetting.getContractJsonListStr(this);
+        if(!TextUtils.isEmpty(json)) {
+            val tempMarket =JSONArray(json)
+            if (tempMarket.length() > 0) {
+                markList.addAll(JSONUtil.arrayToList(tempMarket))
+                markList.sortBy { it.optInt("sort") }
+            }
         }
 
         val tempLikeList = HeYueLikeDataService.getInstance().getCollecData(false)
