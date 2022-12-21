@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpCommonConstant
 import com.chainup.contract.base.CpNBaseFragment

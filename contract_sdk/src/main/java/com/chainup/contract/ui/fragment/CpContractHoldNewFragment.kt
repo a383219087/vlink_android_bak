@@ -79,6 +79,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         showSwitch()
         adapter = CpHoldContractNewAdapter(mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
+        rv_hold_contract?.isNestedScrollingEnabled = false
         rv_hold_contract.adapter = adapter
         adapter?.setEmptyView(CpEmptyOrderForAdapterView(context ?: return))
         adapter?.addChildClickViewIds(

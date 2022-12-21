@@ -13,6 +13,7 @@
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
+        android:background="@color/bg_color"
         android:layout_height="@dimen/page_head_height"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -669,16 +670,6 @@
 
                     </LinearLayout>
 
-
-                    <androidx.appcompat.widget.Toolbar
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/bg_color"
-                        app:layout_collapseMode="pin"
-                        app:title="TITLE">
-
-                        <include layout="@layout/cp_trade_header_tools" />
-                    </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
                 <LinearLayout

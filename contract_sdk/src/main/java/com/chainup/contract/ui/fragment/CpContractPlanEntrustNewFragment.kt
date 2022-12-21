@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.tv_confirm_btn
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -42,6 +43,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         adapter = CpContractPlanEntrustNewAdapter(this.activity!!,mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
+        rv_hold_contract?.isNestedScrollingEnabled = false
         adapter?.setEmptyView(CpEmptyForAdapterView(context ?: return))
         adapter?.addChildClickViewIds(R.id.tv_cancel)
         adapter?.setOnItemChildClickListener { adapter, view, position ->

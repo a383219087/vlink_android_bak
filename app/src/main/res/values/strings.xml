@@ -1578,7 +1578,7 @@ Mark Price: This is the current mark price.</string>
     <string name="personal_text_message4">Latest Rebate</string>
     <string name="personal_text_newPwd">New password</string>
     <string name="personal_text_notice">Notice</string>
-    <string name="important_hint1">请登陆正式账号</string>
+    <string name="important_hint1">Please login official account</string>
     <string name="personal_text_notice1">Authentication</string>
     <string name="personal_text_phoneCode">SMS verification code</string>
     <string name="personal_text_phoneNumber">Mobile phone number</string>

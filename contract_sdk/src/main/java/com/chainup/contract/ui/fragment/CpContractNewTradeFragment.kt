@@ -1033,13 +1033,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
                     if (position != -1) {
                         val childView: View = rv_kline_ctrl.getChildAt(position)
-                        childView?.apply {
+                        childView.apply {
                             val tvSale = this.findViewById<TextView>(R.id.tv_time)
                             tvSale?.let { textClickTab(it, null) }
                         }
                     } else {
                         val childView: View = rv_kline_ctrl.getChildAt(4)
-                        childView?.apply {
+                        childView.apply {
                             val tvSale = this.findViewById<TextView>(R.id.tv_scale)
                             tvSale?.let { textClickTab(it, null) }
                         }

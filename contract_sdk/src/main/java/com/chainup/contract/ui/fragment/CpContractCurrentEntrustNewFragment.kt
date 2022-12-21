@@ -48,6 +48,7 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
         adapter = CpContractCurrentEntrustNewAdapter(this.activity!!, mList)
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
+        rv_hold_contract?.isNestedScrollingEnabled = false
         adapter?.setEmptyView(CpEmptyOrderForAdapterView(context ?: return))
         adapter?.addChildClickViewIds(R.id.tv_cancel)
         adapter?.setOnItemChildClickListener { adapter, view, position ->
