@@ -6,15 +6,18 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
+import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.Utils
+import kotlinx.android.synthetic.main.detail_head_layout.*
 import org.json.JSONObject
 
 /**
@@ -118,7 +121,9 @@ open class OTCFundAdapter(var datas: ArrayList<JSONObject>) :
 //            "withdrawOpen":1,"lock_increment_amount":"0.0000000000","isFiat":0,"normal_balance":"2.0638339701",
 //            "btcValuatin":"2.0638339701","sort":1,"lock_grant_divided_balance":"0.0000000000","total_balance":"2.0638339701",
 //            "nc_lock_balance":"0.0000000000","coinName":"BTC","lock_balance":"0.0000000000","overcharge_balance":""}
-
+        val coin = PublicInfoDataService.getInstance().getCoinByName(item.optString("coinName", ""))
+        //币种logo
+        Glide.with(context).load(coin?.getString("icon")).into(helper.getView(R.id.img))
         /**
          * 币种
          */

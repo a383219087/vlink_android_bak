@@ -2675,6 +2675,8 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="cl_loss_amortization_str">Loss Amortization</string>
     <string name="cl_expration_date_str">Expiration Date</string>
     <string name="cl_total_asset_str">Total Asset</string>
+    <string name="cl_total_asset_str2">unrealized profit and loss</string>
+    <string name="cl_total_asset_str1">Available transfer balance</string>
     <string name="cl_cross_balance_str">Cross Balance</string>
     <string name="cl_isolated_balance__str">Isolated Balance </string>
     <string name="cl_frozen_balance_str">Frozen Balance</string>

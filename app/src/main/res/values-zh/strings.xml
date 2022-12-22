@@ -893,7 +893,7 @@
     <string name="contract_unrealised_pnl_title">未实现盈亏</string>
     <string name="contract_unrealised_pnl_content">未实现盈亏：所有未平仓合约的当前盈亏。</string>
     <string name="contract_available_balance_content">你可以用于开仓的保证金。可用余额 = (保证金余额 - 委托保证金 - 仓位保证金)</string>
-    <string name="contract_assets_account_equity">可用资产</string>
+    <string name="contract_assets_account_equity">可用划转余额</string>
     <string name="contracnt_margin_balance_content">存在全仓亏损时可用资产会被用来抵扣全仓亏损，因此可用资产与可用保证金可能不一致。</string>
     <string name="value">价值</string>
     <string name="realized_gain_less">已实现盈亏</string>
@@ -2774,6 +2774,8 @@
     <string name="cl_loss_amortization_str">分摊</string>
     <string name="cl_expration_date_str">过期时间</string>
     <string name="cl_total_asset_str">总资产</string>
+    <string name="cl_total_asset_str2">未实现盈亏</string>
+    <string name="cl_total_asset_str1">可用划转余额</string>
     <string name="cl_cross_balance_str">全仓保证金余额</string>
     <string name="cl_isolated_balance__str">逐仓保证金余额</string>
     <string name="cl_frozen_balance_str">冻结保证金</string>

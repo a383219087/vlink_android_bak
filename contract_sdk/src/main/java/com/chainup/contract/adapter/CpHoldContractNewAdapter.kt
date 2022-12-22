@@ -101,7 +101,7 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
             //总持仓Key
             setText(R.id.tv_total_position_key, if (CpClLogicContractSetting.getContractUint(context) == 0) context.getString(R.string.cp_order_text11) + "("+context.getString(R.string.cp_overview_text9)+")" else context.getString(R.string.cp_order_text11) + "(" + mMultiplierCoin + ")")
             //保证金
-            setText(R.id.tv_margins_value, CpBigDecimalUtils.showSNormal(item.holdAmount, CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, item.contractId)))
+            setText(R.id.tv_margins_value, CpBigDecimalUtils.showSNormal(item.openAmount.toString(), CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, item.contractId)))
             //保证金Key
             setText(R.id.tv_margins_key, context.getString(R.string.cp_order_text12) + "(" + CpClLogicContractSetting.getContractMarginCoinById(context, item.contractId) + ")")
             //可平
