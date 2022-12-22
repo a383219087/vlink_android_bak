@@ -20,6 +20,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.LoginManager
 import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_version.activity.like.view.SearchTopView
 import com.yjkj.chainup.new_version.adapter.HeYueMapAdapter
 import com.yjkj.chainup.new_version.view.EmptyForAdapterView
@@ -55,26 +56,54 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
         adapter = HeYueMapAdapter()
         tv_cancel?.text = LanguageUtil.getString(this, "common_text_btnCancel")
         et_search?.hint = LanguageUtil.getString(this, "assets_action_search")
-      
+
         adapter?.headerWithEmptyEnable = true
         initOnClickListener()
 
-        var json = CpClLogicContractSetting.getContractJsonListStr(this);
-        if(!TextUtils.isEmpty(json)) {
-            val tempMarket =JSONArray(json)
+        var json = CpClLogicContractSetting.getContractJsonListStr(this); //有可能json没有数据
+        if (!TextUtils.isEmpty(json)) {
+            val tempMarket = JSONArray(json)
             if (tempMarket.length() > 0) {
                 markList.addAll(JSONUtil.arrayToList(tempMarket))
                 markList.sortBy { it.optInt("sort") }
             }
+            val tempLikeList = HeYueLikeDataService.getInstance().getCollecData(false)
+            if (null != tempLikeList && tempLikeList.size > 0) {
+                likeList.addAll(tempLikeList)
+            }
+            initViews()
+        } else {
+            addDisposable(
+                getContractModel().getPublicInfo(
+                    consumer = object : CpNDisposableObserver(mActivity, true) {
+                        override fun onResponseSuccess(jsonObject: JSONObject) {
+                            jsonObject.optJSONObject("data").run {
+                                var contractList = optJSONArray("contractList")
+                                if (contractList != null) {
+                                    CpClLogicContractSetting.setContractJsonListStr(
+                                        mActivity,
+                                        contractList.toString()
+                                    )
+                                }
+                                json = contractList.toString()
+                            }
+                            if (!TextUtils.isEmpty(json)) {
+                                val tempMarket = JSONArray(json)
+                                if (tempMarket.length() > 0) {
+                                    markList.addAll(JSONUtil.arrayToList(tempMarket))
+                                    markList.sortBy { it.optInt("sort") }
+                                }
+                                val tempLikeList =
+                                    HeYueLikeDataService.getInstance().getCollecData(false)
+                                if (null != tempLikeList && tempLikeList.size > 0) {
+                                    likeList.addAll(tempLikeList)
+                                }
+                                initViews()
+                            }
+                        }
+                    })
+            )
         }
-
-        val tempLikeList = HeYueLikeDataService.getInstance().getCollecData(false)
-        if (null != tempLikeList && tempLikeList.size > 0) {
-            likeList.addAll(tempLikeList)
-        }
-
-        initViews()
-
     }
 
 
@@ -104,7 +133,6 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
          */
         adapter?.setOnItemChildClickListener { adapter, view, position ->
             val obj = adapter.data[position] as JSONObject
-
             val symbol = obj.optString("symbol")
             val isAdd = obj.optBoolean("isAdd")
             var hasAdd = isAdd
@@ -148,7 +176,7 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
 
 
         rv_coinmap?.adapter = adapter
-        adapter?.setList(markList)
+        adapter?.setList(getLikeData2(markList))
 
 
         /**
@@ -161,7 +189,7 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
                     adapter?.setList(null)
                     adapter?.setEmptyView(EmptyForAdapterView(this@HeYueMapActivity))
                 } else {
-                    adapter?.setList(resultList)
+                    adapter?.setList(getLikeData2(resultList))
                 }
 
             }
@@ -225,6 +253,26 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
     }
 
     /**
+     * 判断是否在自选数据中
+     */
+    private fun getLikeData2(list: ArrayList<JSONObject>?): ArrayList<JSONObject>? {
+        if (null == list || list.size <= 0)
+            return list
+
+        val tempList = ArrayList<JSONObject>()
+        for (i in 0 until list.size) {
+            val obj = list[i]
+            for (v in likeList) {
+                if (obj.optString("symbol").equals(v.optString("symbol"), true)) {
+                    obj.put("isAdd", true)
+                }
+            }
+            tempList.add(obj)
+        }
+        return tempList
+    }
+
+    /**
      * 添加或者删除自选数据
      * @param operationType 标识 0(批量添加)/1(单个添加)/2(单个删除)
      * @param symbol 单个币对名称
@@ -234,19 +282,39 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
         if (null == symbol || !LoginManager.isLogin(this))
             return
         var list = ArrayList<String>()
-        list.add(symbol)
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"BTC-USDT", object : NDisposableObserver() {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                if (operationType == 1) {
-                    NToastUtil.showTopToastNet(this@HeYueMapActivity, true, LanguageUtil.getString(this@HeYueMapActivity, "kline_tip_addCollectionSuccess"))
-                    HeYueLikeDataService.getInstance().saveCollecData(symbol, null)
-                } else {
-                    NToastUtil.showTopToastNet(this@HeYueMapActivity, true, LanguageUtil.getString(this@HeYueMapActivity, "kline_tip_removeCollectionSuccess"))
-                    HeYueLikeDataService.getInstance().removeCollect(symbol)
-                }
+        list.add("e-$symbol")
+        addDisposable(
+            getMainModel().addOrDeleteSymbol(
+                operationType,
+                list,
+                "BTC-USDT",
+                object : NDisposableObserver() {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        if (operationType == 1) {
+                            NToastUtil.showTopToastNet(
+                                this@HeYueMapActivity,
+                                true,
+                                LanguageUtil.getString(
+                                    this@HeYueMapActivity,
+                                    "kline_tip_addCollectionSuccess"
+                                )
+                            )
+                            HeYueLikeDataService.getInstance().saveCollecData(symbol, null)
+                        } else {
+                            NToastUtil.showTopToastNet(
+                                this@HeYueMapActivity,
+                                true,
+                                LanguageUtil.getString(
+                                    this@HeYueMapActivity,
+                                    "kline_tip_removeCollectionSuccess"
+                                )
+                            )
+                            HeYueLikeDataService.getInstance().removeCollect(symbol)
+                        }
 
-            }
-        }))
+                    }
+                })
+        )
     }
 
     override fun clearSearch() {
