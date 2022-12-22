@@ -2,11 +2,13 @@ package com.yjkj.chainup.new_version.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.TextUtils
+import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
-import android.widget.LinearLayout
+import com.chainup.contract.utils.CpClLogicContractSetting
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -17,19 +19,16 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolWsData
+import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
+import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.yjkj.chainup.new_version.adapter.MarketDetailAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.new_version.view.EmptyMarketForAdapterView
-import com.yjkj.chainup.util.ContextUtil
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.NToastUtil
-import com.yjkj.chainup.util.Utils
-import com.yjkj.chainup.util.getSymbolChannel
+import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.fragment_likes.*
 import kotlinx.android.synthetic.main.fragment_likes.rv_market_detail
 import kotlinx.android.synthetic.main.fragment_likes.swipe_refresh
@@ -37,8 +36,8 @@ import kotlinx.android.synthetic.main.fragment_market_detail.*
 import kotlinx.android.synthetic.main.include_market_sort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.imageResource
+import org.json.JSONArray
 import org.json.JSONObject
-import java.util.HashMap
 
 /**
  * @description :  合约的自选页面
@@ -239,6 +238,7 @@ class LikesHeYueFragment : NBaseFragment() {
             getOptionalSymbol()
             swipe_refresh?.isRefreshing = false
         }
+        CpClLogicContractSetting.getContractJsonListStr(activity)
     }
 
     private fun refreshTransferImageView(status: Int) {
@@ -323,20 +323,23 @@ class LikesHeYueFragment : NBaseFragment() {
 
         }
         adapter?.setOnItemLongClickListener { adapter, view, position ->
-            NewDialogUtils.showNormalDialog(context!!, LanguageUtil.getString(context, "new_confrim_likes"), object : NewDialogUtils.DialogBottomListener {
-                override fun sendConfirm() {
+            NewDialogUtils.showNormalDialog(
+                context!!,
+                LanguageUtil.getString(context, "new_confrim_likes"),
+                object : NewDialogUtils.DialogBottomListener {
+                    override fun sendConfirm() {
 
-                    var symbol = normalTickList[position].optString("symbol")
-                    if (isLogined && isOptionalSymbolServerOpen) {
-                        var tempList = ArrayList<String>()
-                        tempList.add(symbol)
-                        operationType = 2
-                        addOrDeleteSymbol(tempList)
-                    } else {
-                        removeLocalCollecta(symbol)
+                        var symbol = normalTickList[position].optString("symbol")
+                        if (isLogined && isOptionalSymbolServerOpen) {
+                            var tempList = ArrayList<String>()
+                            tempList.add(symbol)
+                            operationType = 2
+                            addOrDeleteSymbol(tempList)
+                        } else {
+                            removeLocalCollecta(symbol)
+                        }
                     }
-                }
-            })
+                })
             true
         }
     }
@@ -361,7 +364,11 @@ class LikesHeYueFragment : NBaseFragment() {
         Handler().postDelayed({
             initSocket()
         }, 200)
-        NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(context, "kline_tip_removeCollectionSuccess"))
+        NToastUtil.showTopToastNet(
+            mActivity,
+            true,
+            LanguageUtil.getString(context, "kline_tip_removeCollectionSuccess")
+        )
     }
 
     /**
@@ -376,13 +383,21 @@ class LikesHeYueFragment : NBaseFragment() {
      * sync_status
      */
     fun getOptionalSymbol() {
-        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(null, getUserSelfDataReqType), "BTC-USDT"))
+        addDisposable(
+            getMainModel().getOptionalSymbol(
+                MyNDisposableObserver(
+                    null,
+                    getUserSelfDataReqType
+                ), "BTC-USDT"
+            )
+        )
     }
 
     val getUserSelfDataReqType = 2 // 服务器用户自选数据
     val addCancelUserSelfDataReqType = 3
 
-    inner class MyNDisposableObserver(symbols: ArrayList<String>?, type: Int) : NDisposableObserver() {
+    inner class MyNDisposableObserver(symbols: ArrayList<String>?, type: Int) :
+        NDisposableObserver() {
 
         var msymbols = symbols
         var req_type = type
@@ -390,7 +405,10 @@ class LikesHeYueFragment : NBaseFragment() {
             //LogUtil.d("LikesFragment","onResponseSuccess==req_type is $req_type,jsonObject is &jsonObject ")
             closeLoadingDialog()
             if (getUserSelfDataReqType == req_type) {
-                LogUtil.d("LikesFragment", "onResponseSuccess==req_type is $req_type,jsonObject is $jsonObject ")
+                LogUtil.d(
+                    "LikesFragment",
+                    "onResponseSuccess==req_type is $req_type,jsonObject is $jsonObject "
+                )
                 showServerSelfSymbols(jsonObject.optJSONObject("data"))
             } else if (addCancelUserSelfDataReqType == req_type) {
                 if (0 == operationType) {
@@ -420,7 +438,20 @@ class LikesHeYueFragment : NBaseFragment() {
             return
         }
 
-        var array = data.optJSONArray("symbols")
+        var arrayTemp = data.optJSONArray("symbols")
+        var array = JSONArray()
+        if (arrayTemp != null && arrayTemp.length() != 0) {
+            for (i in 0..arrayTemp.length() - 1) {
+                var symbol = arrayTemp[i].toString()
+                if (symbol != null && symbol.length > 2) {
+                    var pre = symbol.substring(0, 2)
+                    if (TextUtils.equals("e-", pre)) {
+                        symbol = symbol.substring(2)
+                        array.put(symbol)
+                    }
+                }
+            }
+        }
         var sync_status = data.optString("sync_status", "")
 
         if ("0".equals(sync_status)) {
@@ -442,9 +473,11 @@ class LikesHeYueFragment : NBaseFragment() {
 
         HeYueLikeDataService.getInstance().clearAllCollect()
         var tempList = ArrayList<JSONObject>()
+        var contractJson = CpClLogicContractSetting.getContractJsonListStr(activity)
+        val tempMarket = JSONArray(contractJson)
         for (i in 0 until array.length()) {
             var symbol = array.optString(i)
-            var symbolObj = NCoinManager.getSymbolObj(symbol)
+            var symbolObj = getSymbolObj(tempMarket, symbol)
             if (null != symbolObj && symbolObj.length() > 0) {
                 HeYueLikeDataService.getInstance().saveCollecData(symbol, symbolObj)
                 tempList.add(symbolObj)
@@ -467,6 +500,20 @@ class LikesHeYueFragment : NBaseFragment() {
         initSocket()
     }
 
+    private fun getSymbolObj(tempMarket: JSONArray, symbol: String): JSONObject? {
+        if(tempMarket == null || TextUtils.isEmpty(symbol)) {
+            return null
+        }
+        for (i in 0..tempMarket.length() - 1) {
+            var jsonObject = tempMarket.optJSONObject(i)
+            var symbol2 = jsonObject.optString("symbol")
+            if(TextUtils.equals(symbol.uppercase(), symbol2.uppercase())) {
+                return jsonObject
+            }
+        }
+        return null
+    }
+
     private fun refreshAdapter(list: ArrayList<JSONObject>) {
         adapter?.setList(list)
     }
@@ -481,10 +528,32 @@ class LikesHeYueFragment : NBaseFragment() {
         super.onResume()
         isLogined = UserDataService.getInstance().isLogined
         if (isLogined) {
-            isOptionalSymbolServerOpen = PublicInfoDataService.getInstance().isOptionalSymbolServerOpen(null)
+            isOptionalSymbolServerOpen =
+                PublicInfoDataService.getInstance().isOptionalSymbolServerOpen(null)
         }
         if (isLogined && isOptionalSymbolServerOpen) {
-            getOptionalSymbol()
+            var json = CpClLogicContractSetting.getContractJsonListStr(mContext); //有可能json没有数据
+            if (!TextUtils.isEmpty(json)) {
+                getOptionalSymbol()
+            } else{
+                addDisposable(
+                    getContractModel().getPublicInfo(
+                        consumer = object : CpNDisposableObserver(mActivity, true) {
+                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                jsonObject.optJSONObject("data").run {
+                                    var contractList = optJSONArray("contractList")
+                                    if (contractList != null) {
+                                        CpClLogicContractSetting.setContractJsonListStr(
+                                            mActivity,
+                                            contractList.toString()
+                                        )
+                                    }
+                                    getOptionalSymbol()
+                                }
+                            }
+                        })
+                )
+            }
         } else {
             showData()
         }
@@ -501,7 +570,14 @@ class LikesHeYueFragment : NBaseFragment() {
         if (isLogined && isOptionalSymbolServerOpen) {
             if (null == symbols || symbols.isEmpty())
                 return
-            addDisposable(getMainModel().addOrDeleteSymbol(operationType, symbols,"BTC-USDT", MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)))
+            addDisposable(
+                getMainModel().addOrDeleteSymbol(
+                    operationType,
+                    symbols,
+                    "BTC-USDT",
+                    MyNDisposableObserver(symbols, addCancelUserSelfDataReqType)
+                )
+            )
         }
     }
 
@@ -524,7 +600,8 @@ class LikesHeYueFragment : NBaseFragment() {
 
     private fun forwardMarketTab(coin: Array<String?>, isBind: Boolean = true) {
         var messageEvent = MessageEvent(MessageEvent.market_event_page_symbol_type)
-        messageEvent.msg_content = hashMapOf("symbols" to coin, "bind" to isBind, "curIndex" to curIndex)
+        messageEvent.msg_content =
+            hashMapOf("symbols" to coin, "bind" to isBind, "curIndex" to curIndex)
         EventBusUtil.post(messageEvent)
     }
 
@@ -633,14 +710,15 @@ class LikesHeYueFragment : NBaseFragment() {
 
     private fun reloadLocalTick(news: ArrayList<JSONObject>) {
         for (item in news) {
-            val symbolLocal = normalTickList.findLast { it.optString("symbol") == item.optString("symbol") }
-            if (symbolLocal != null){
+            val symbolLocal =
+                normalTickList.findLast { it.optString("symbol") == item.optString("symbol") }
+            if (symbolLocal != null) {
                 item.put("rose", symbolLocal.optString("rose"))
                 item.put("close", symbolLocal.optString("close"))
                 item.put("vol", symbolLocal.optString("vol"))
             }
         }
-        if (newPriceIndex != 0 || limitIndex != 0 ||  nameIndex != 0) {
+        if (newPriceIndex != 0 || limitIndex != 0 || nameIndex != 0) {
             if (newPriceIndex != 0) {
                 when (newPriceIndex) {
                     1 -> {

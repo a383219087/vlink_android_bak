@@ -282,7 +282,7 @@ class HeYueMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
         if (null == symbol || !LoginManager.isLogin(this))
             return
         var list = ArrayList<String>()
-        list.add(symbol)
+        list.add("e-$symbol")
         addDisposable(
             getMainModel().addOrDeleteSymbol(
                 operationType,
