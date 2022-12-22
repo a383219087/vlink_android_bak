@@ -3444,6 +3444,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="traders_apply_text8">successful</string>
     <string name="traders_apply_text81">Please enter the rebate ratio</string>
     <string name="traders_apply_text82">The rebate ratio ranges from 0 to 100</string>
+    <string name="traders_apply_text84">The referral ratio for friends cannot be greater than your own</string>
     <string name="traders_apply_text83">Only increase the ratio</string>
 
     <string name="dialog_close_text1">average open</string>

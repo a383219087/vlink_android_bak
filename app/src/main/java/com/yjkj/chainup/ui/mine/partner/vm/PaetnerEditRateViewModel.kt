@@ -57,11 +57,15 @@ class PaetnerEditRateViewModel : BaseViewModel() {
             return
         }
 
-        if(rate.value?.toDoubleOrNull()?.toInt()!!<=0||rate.value?.toDoubleOrNull()?.toInt()!!>=100){
+        if(rate.value?.toDoubleOrNull()?.toInt()!!<0||rate.value?.toDoubleOrNull()?.toInt()!!>100){
             ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text82))
             return
         }
-
+        if (rate.value?.toDoubleOrNull()?.toInt()!! > myRate.value?.toDoubleOrNull()?.toInt()!!
+        ) {
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text84))
+            return
+        }
         val map = HashMap<String, Any>()
         map["rate"] = rate.value.toString()
         map["remark"] = remark.value.toString()

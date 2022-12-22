@@ -40,7 +40,7 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
         }
         startTask(apiService.parentRate()) {
             if (it.data != null)
-                myRate.value = it.data?.toDoubleOrNull()?.toInt().toString()
+                myRate.value = it.data?.toDouble()?.toInt().toString()
         }
 
     }
@@ -48,7 +48,7 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
 
     fun initData() {
         remark.value = bean.value?.remark
-        rate.value = bean.value?.rate?.toDoubleOrNull()?.toInt().toString()
+        rate.value = bean.value?.rate?.toDouble()?.toInt().toString()
         inviteCode.value = bean.value?.inviteCode
         isCheck.value = bean.value?.isDefault == "1"
     }
@@ -59,10 +59,15 @@ class PaetnerEditInviteCodesViewModel : BaseViewModel() {
             return
         }
 
-        if (rate.value?.toDoubleOrNull()?.toInt()!! <= 0 || rate.value?.toDoubleOrNull()
-                ?.toInt()!! >= myRate.value?.toDoubleOrNull()?.toInt()!!
+        if (rate.value?.toDoubleOrNull()?.toInt()!! < 0 || rate.value?.toDoubleOrNull()
+                ?.toInt()!! >100
         ) {
             ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text82))
+            return
+        }
+        if (rate.value?.toDoubleOrNull()?.toInt()!! > myRate.value?.toDoubleOrNull()?.toInt()!!
+        ) {
+            ToastUtils.showShort(conetxt.value?.getString(R.string.traders_apply_text84))
             return
         }
 

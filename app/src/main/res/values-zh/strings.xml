@@ -3538,6 +3538,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="traders_apply_text8">申请成功</string>
     <string name="traders_apply_text81">请输入返利比例</string>
     <string name="traders_apply_text82">返利比例范围在0到100之间</string>
+    <string name="traders_apply_text84">好友返佣比例不能大于自己的返佣比例</string>
     <string name="traders_apply_text83">只能调高比例</string>
 
     <string name="dialog_close_text1">开仓均价</string>

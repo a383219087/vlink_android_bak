@@ -325,7 +325,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@{DecimalUtil.cutValueByPrecision(_all.myBonusBean.amount+``,2)+``}"
                             android:textColor="#d26e4a"

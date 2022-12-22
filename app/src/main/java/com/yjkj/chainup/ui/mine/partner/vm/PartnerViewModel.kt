@@ -24,7 +24,7 @@ class PartnerViewModel : BaseViewModel() {
     val codeList: ObservableList<AgentCodeBean> = ObservableArrayList()
     var rate = MutableLiveData(0)
     var code = MutableLiveData("")
-    var url = MutableLiveData( UserDataService.getInstance()?.inviteUrl)
+    var url = MutableLiveData(UserDataService.getInstance()?.inviteUrl)
     var bean = MutableLiveData<AgentCodeBean>()
     var myBonusBean = MutableLiveData<InviteBean>()
     var isShowDialog = MutableLiveData(0)
@@ -38,7 +38,9 @@ class PartnerViewModel : BaseViewModel() {
         startTask(apiService.myInviteCodes()) { it ->
             codeList.clear()
             codeList.addAll(it.data)
-            bean.value = it.data.first { it.isDefault == "1" }
+            val index= it.data.indexOfFirst { it.isDefault == "1" }
+                bean.value = it.data[maxOf(index,0) ]
+
             bean.value!!.rateInt = bean.value!!.rate.toDouble().toInt()
             rate.value = bean.value!!.rate.toDouble().toInt()
             code.value = bean.value!!.inviteCode
@@ -78,7 +80,6 @@ class PartnerViewModel : BaseViewModel() {
     fun onEditClick(view: View) {
         isShowDialog.value = isShowDialog.value!! + 1
     }
-
 
 
 }
