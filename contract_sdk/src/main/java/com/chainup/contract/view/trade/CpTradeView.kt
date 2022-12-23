@@ -919,7 +919,7 @@ class CpTradeView @JvmOverloads constructor(
             val multiplierCoin = it.optString("multiplierCoin")
             base =
                 if (mContractUint == 0) context.getString(R.string.cp_overview_text9) else multiplierCoin
-            quote = mContractJson?.optString("base").toString()
+            quote = mContractJson?.optString("quote").toString()
             multiplierPrecision =
                 CpClLogicContractSetting.getContractMultiplierPrecisionById(context, mContractId)
             marginCoinPrecision =
@@ -932,8 +932,8 @@ class CpTradeView @JvmOverloads constructor(
             } else {
                 mContractJson?.optString("base")
             }
-            tv_volume_unit.text =  equivalentUnit
-            tv_coin_name.text = quote
+            tv_volume_unit.text =  quote
+            tv_coin_name.text = marginCoin
             tv_equivalent.text = "≈ 0 $equivalentUnit"
             et_price.numberFilter(symbolPricePrecision, otherFilter = object : CpDoListener {
                 override fun doThing(obj: Any?): Boolean {
@@ -1295,8 +1295,8 @@ class CpTradeView @JvmOverloads constructor(
             canOpenBuy = buybuff1.split(" ")[0]
             canOpenSell = sellbuff1.split(" ")[0]
         }
-        tv_long_value.text = "$canOpenBuy $base"
-        tv_short_value.text = "$canOpenSell $base"
+        tv_long_value.text = "$canOpenBuy $quote"
+        tv_short_value.text = "$canOpenSell $quote"
 
 
         val llLongTitle = ll_long_title.layoutParams as LayoutParams

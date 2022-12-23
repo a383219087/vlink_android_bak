@@ -727,7 +727,6 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
         rc_contract?.itemAnimator = null
 
         adapter4Asset!!.setOnItemClickListener { _, _, position ->
-
             tDialog =
                 NewDialogUtils.showBottomListDialog(context!!, otcDialogList, 0, object : NewDialogUtils.DialogOnclickListener {
                     @SuppressLint("NotifyDataSetChanged")

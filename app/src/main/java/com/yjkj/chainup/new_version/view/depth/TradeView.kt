@@ -771,8 +771,10 @@ class TradeView @JvmOverloads constructor(
                 if (inputPrice.isEmpty()) {
                     isClear = true
                 }
-                if (inputPrice.startsWith(".")) {
-                    inputPrice = "0"
+                inputPrice = if (inputPrice.startsWith(".")) {
+                    "0"
+                }else{
+                    s.toString()
                 }
 
                 if (transactionType == TYPE_BUY) {
@@ -1220,7 +1222,7 @@ class TradeView @JvmOverloads constructor(
 
 
     fun editPriceIsNull(): Boolean {
-        if (et_price.text.isNullOrEmpty() && !isClear) {
+        if (et_price.text.isNullOrEmpty() && !isClear&&inputPrice.isNullOrEmpty()) {
             return true
         }
         return false
