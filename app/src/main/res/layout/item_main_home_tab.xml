@@ -7,19 +7,20 @@
     <LinearLayout
         android:id="@+id/item_tab_view_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="@dimen/dp_75"
         android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp_20"
+            android:layout_width="@dimen/dp_30"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageview"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:background="@drawable/tabbar_home_selected" />
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/tabbar_home_selected"
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/toast"
@@ -42,7 +43,7 @@
             android:maxLines="1"
             android:text="首"
             android:textColor="@color/selector_article_tab_text_color"
-            android:textSize="@dimen/sp_10" />
+            android:textSize="@dimen/sp_12" />
     </LinearLayout>
 
 </LinearLayout>
