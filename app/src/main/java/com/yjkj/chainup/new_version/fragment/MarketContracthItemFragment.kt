@@ -2,6 +2,7 @@ package com.yjkj.chainup.new_version.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -15,6 +16,7 @@ import com.chainup.contract.utils.CpSymbolWsData
 import com.chainup.contract.view.CpSearchCoinEmptyForAdapterView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.NCoinManager
+import com.yjkj.chainup.new_version.adapter.MarketContractDetailAdapter
 import com.yjkj.chainup.new_version.adapter.MarketContractDropAdapter
 import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.fragment_sl_contra_child.*
@@ -45,10 +47,16 @@ class MarketContracthItemFragment : CpNBaseFragment(){
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
         type = arguments!!.getInt(CpParamConstant.COIN_TYPE)
-        contractDropAdapter = MarketContractDropAdapter(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
         if (type==0){
             rv_search_coin?.isNestedScrollingEnabled = false
+            //首页用首页显示的 item
+            contractDropAdapter = MarketContractDropAdapter(tickers)
+            ll_item_titles.visibility = View.GONE
+        }else{
+            //行情的合约另一个 item
+            contractDropAdapter = MarketContractDetailAdapter(tickers)
+            ll_item_titles.visibility = View.VISIBLE
         }
         // 第一种，直接取消动画
         val animator: ItemAnimator? = rv_search_coin.itemAnimator

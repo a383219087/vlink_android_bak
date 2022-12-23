@@ -60,10 +60,10 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
 
          if (type==0){
              tv_u.visibility=View.GONE
-//             ll_item_titles.visibility=View.VISIBLE
+             ll_titles.visibility=View.VISIBLE
          }else{
              tv_u.visibility=View.VISIBLE
-//             ll_item_titles.visibility=View.GONE
+             ll_titles.visibility=View.GONE
          }
 
         addDisposable(getContractModel().getPublicInfo(

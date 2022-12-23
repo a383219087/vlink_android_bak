@@ -2,44 +2,30 @@ package com.yjkj.chainup.new_version.adapter
 
 import android.content.Intent
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.app.CpParamConstant
+import com.coorchice.library.SuperTextView
+import com.yjkj.chainup.R
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpChainUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
-import com.coorchice.library.SuperTextView
-import com.yjkj.chainup.R
-import com.chainup.contract.ui.activity.CpMarketDetail4Activity
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
+import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
 
 /**
- * Created by zj on 2018/3/7.
+ * 行情内合约 item
  */
-open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>) :
-    BaseQuickAdapter<JSONObject, BaseViewHolder>(layoutRes, data) {
-
-    constructor(data: ArrayList<JSONObject>) : this(R.layout.item_contract_drop, data)
-
-    class SpotViewHolder(itemView: View, type: Int) : RecyclerView.ViewHolder(itemView) {
-        var rlContent: RelativeLayout
-        var tvContractName: TextView
-        var tvContractChg: SuperTextView
-
-        init {
-            rlContent = itemView.findViewById(R.id.rl_content)
-            tvContractName = itemView.findViewById(R.id.tv_contract_name)
-            tvContractChg = itemView.findViewById(R.id.tv_contract_chg)
-        }
-    }
+class MarketContractDetailAdapter(data: ArrayList<JSONObject>) :
+    MarketContractDropAdapter(R.layout.item_contract_detail, data) {
 
     /**
     //    {"id":1,"contractName":"E-BTC-USDT","symbol":"BTC-USDT","contractType":"E","coType":"E",
@@ -55,7 +41,8 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
     override fun convert(helper: BaseViewHolder, ticker: JSONObject) {
         ticker.let {
             val dfRate = CpNumberUtil().getDecimal(2)
-            helper.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id")))
+            val nameStr:String = ticker.optString("symbol").replace("-USDT","")
+            helper.setText(R.id.tv_contract_name, nameStr)
             if (!ticker.isNull("rose")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例
@@ -65,6 +52,9 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
                     helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
+            helper.setText(R.id.tv_contract_info,"/${ticker.optString("marginCoin")}  ${ticker.optString("contractShowType").replace("合约","")}")
+            helper.setText(R.id.tv_contract_detail,"24H 量 ${ticker.optString("vol","0")}")
+            helper.setText(R.id.tv_price_detail, RateManager.getCNYByCoinName(nameStr,ticker.optString("close")))
             if (!ticker.isNull("close")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例
@@ -72,10 +62,9 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
                 tvLastPrice.run {
                     text = ticker.optString("close")
 //                    setTextColor(CpColorUtil.getMainColorType(chg >= 0))
-                    helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
-            helper.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
+            helper.getView<ConstraintLayout>(R.id.rl_content).setOnClickListener {
                 if (!CpChainUtil.isFastClick()) {
                     val  mContractId = ticker.optInt("id")
                     val   currentSymbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
@@ -93,41 +82,4 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
         }
     }
 
-    /**
-     *获取主要颜色(红绿)
-     * @param isRise 是否是上涨状态
-     */
-    fun getMainColorV2Type(colorSelect: Int, isRise: Double = 0.0): Int {
-        val mainGreen =
-            ColorUtil.getColor(R.color.main_green)
-        val mainRed = ColorUtil.getColor(R.color.main_red)
-        val mainZero = ColorUtil.getColorByMode(R.color.main_zero_day)
-        return if (colorSelect == ColorUtil.GREEN_RISE) {
-            if (isRise > 0) {
-                mainGreen
-            } else if (isRise < 0) {
-                mainRed
-            } else {
-                mainZero
-            }
-        } else {
-            if (isRise > 0) {
-                mainRed
-            } else if (isRise < 0) {
-                mainGreen
-            } else {
-                mainZero
-            }
-        }
-    }
-
-    fun setDiffData(diffCallback: MarketTabDiffCallback) {
-        if (emptyLayout!=null &&  emptyLayout?.childCount == 1) {
-            setList(diffCallback.getNewData())
-            return
-        }
-        val diffResult = DiffUtil.calculateDiff(diffCallback, true)
-        data = diffCallback.getNewData() as java.util.ArrayList<JSONObject>
-        diffResult.dispatchUpdatesTo(this)
-    }
 }

@@ -25,6 +25,7 @@ import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolWsData
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
+import com.yjkj.chainup.new_version.adapter.MarketContractDetailAdapter
 import com.yjkj.chainup.new_version.adapter.MarketContractDropAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
@@ -311,7 +312,7 @@ class LikesHeYueFragment : NBaseFragment(),CpWsContractAgentManager.WsResultCall
 
 
     private fun initAdapter() {
-        adapter = MarketContractDropAdapter(java.util.ArrayList());
+        adapter = MarketContractDetailAdapter(java.util.ArrayList());
 //        adapter?.isMarketLike = true
         rv_market_detail?.adapter = adapter
         rv_market_detail?.setHasFixedSize(true)
