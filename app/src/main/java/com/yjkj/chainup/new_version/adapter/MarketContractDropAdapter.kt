@@ -16,10 +16,6 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpChainUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
-import com.coorchice.library.SuperTextView
-import com.yjkj.chainup.R
-import com.chainup.contract.ui.activity.CpMarketDetail4Activity
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.ColorUtil
