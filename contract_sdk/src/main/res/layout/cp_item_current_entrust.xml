@@ -120,7 +120,7 @@
                     android:layout_marginTop="@dimen/dp_5"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="0.014450" />
+                    android:text="--" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="50293.1" />
+                    android:text="--" />
 
             </LinearLayout>
 
@@ -181,7 +181,7 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="-21.23%"
+                    android:text="--"
                     />
 
             </LinearLayout>
@@ -223,7 +223,7 @@
                     android:layout_marginTop="@dimen/dp_5"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="0.014450" />
+                    android:text="--" />
 
             </LinearLayout>
             <!--强平价格-->
@@ -253,7 +253,7 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="50293.1" />
+                    android:text="--" />
 
             </LinearLayout>
             <!--价格-->

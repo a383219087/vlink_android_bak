@@ -130,8 +130,6 @@ class  PersonalCenterActivity : NBaseActivity() {
         if (!UserDataService.getInstance().isLogined) {
             title_layout?.setNoLogin()
             ll_share.visibility=View.GONE
-        }else{
-            ll_share.visibility=View.VISIBLE
         }
 
         if (PublicInfoDataService.getInstance().isUserRoleLevel(null)) {
