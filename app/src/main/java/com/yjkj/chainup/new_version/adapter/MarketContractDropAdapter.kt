@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -15,6 +16,11 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpChainUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
+import com.coorchice.library.SuperTextView
+import com.yjkj.chainup.R
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
+import com.yjkj.chainup.extra_service.arouter.ArouterUtil
+import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
@@ -120,5 +126,13 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
         }
     }
 
-
+    fun setDiffData(diffCallback: MarketTabDiffCallback) {
+        if (emptyLayout!=null &&  emptyLayout?.childCount == 1) {
+            setList(diffCallback.getNewData())
+            return
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback, true)
+        data = diffCallback.getNewData() as java.util.ArrayList<JSONObject>
+        diffResult.dispatchUpdatesTo(this)
+    }
 }

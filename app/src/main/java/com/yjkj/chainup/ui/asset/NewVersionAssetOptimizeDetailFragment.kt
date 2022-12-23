@@ -794,7 +794,7 @@ class NewVersionAssetOptimizeDetailFragment : NBaseFragment() {
     /**
      * 币币交易 item
      */
-    fun initBiBiView() {
+    private fun initBiBiView() {
         rc_contract.removeAllViews()
         if (isLittleAssetsShow) {
             listFund.addAll(nolittleBalanceList)

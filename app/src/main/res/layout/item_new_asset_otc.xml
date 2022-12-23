@@ -13,6 +13,7 @@
         
         
         <ImageView
+            android:id="@+id/img"
             android:layout_width="@dimen/dp_26"
             android:layout_height="@dimen/dp_26"
             android:layout_marginLeft="@dimen/dp_22"/>

@@ -75,6 +75,8 @@ import java.util.concurrent.TimeUnit
 @Route(path = RoutePath.NewMainActivity)
 class NewMainActivity : NBaseActivity() {
 
+
+
   override fun setContentView() = R.layout.activity_new_main
 
   /*
@@ -105,11 +107,11 @@ class NewMainActivity : NBaseActivity() {
 //    val intent = Intent(this, MyFirebaseMessagingService::class.java)
 //    startService(intent)
     loadData()
-//    DoraemonKit.disableUpload()
-//    DoraemonKit.install(application, "cb190f56cf")
-//    DoraemonKit.setAwaysShowMainIcon(false)
-//    DoraemonKit.setDebug(BuildConfig.DEBUG)
-//    DoraemonKit.show()
+    DoraemonKit.disableUpload()
+    DoraemonKit.install(application, "cb190f56cf")
+    DoraemonKit.setAwaysShowMainIcon(false)
+    DoraemonKit.setDebug(true)
+    DoraemonKit.show()
     netChangeStatus()
 //    uploadFCMToken()
   }

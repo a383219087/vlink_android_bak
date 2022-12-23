@@ -211,6 +211,31 @@ class WsContractAgentManager private constructor() {
                         mapAnySubCallbacks.put(key, message)
                         mapSubCallbacks.put(key, map)
                     }
+                    "LikesHeYueFragment" -> {
+                        val symbol = message.get("symbols") as String
+                        val bind = message.get("bind") as Boolean
+                        val type = JsonWSUtils.gson.fromJson<Array<String>>(
+                            symbol,
+                            object : TypeToken<Array<String>>() {}.type
+                        )
+                        val arrays = StringBuffer()
+                        for (item in type) {
+                            arrays.append(item + ",")
+                        }
+                        if (arrays.isEmpty()) {
+                            return
+                        }
+                        val event = WsLinkUtils.tickerFor24HLinkBatchBean(
+                            arrays.substring(
+                                0,
+                                arrays.length - 1
+                            ), bind
+                        )
+                        unbind(callback, false)
+                        sendData(event)
+                        mapAnySubCallbacks.put(key, message)
+                        mapSubCallbacks.put(key, hashMapOf("batchMarket" to event))
+                    }
                     else -> {
 
                     }

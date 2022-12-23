@@ -13,6 +13,8 @@ import com.chainup.contract.ws.CpWsContractAgentManager
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
+import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.fragment_market_contract.*
@@ -175,6 +177,9 @@ private fun initTab() {
             val messageEvent = CpMessageEvent(CpMessageEvent.sl_contract_sidebar_market_event)
             messageEvent.msg_content = jsonObject
             CpEventBusUtil.post(messageEvent)
+            val messageEvent2 = MessageEvent(CpMessageEvent.sl_contract_sidebar_market_event)
+            messageEvent2.msg_content = jsonObject
+            EventBusUtil.post(messageEvent2)
         } catch (e: JSONException) {
             e.printStackTrace()
         }

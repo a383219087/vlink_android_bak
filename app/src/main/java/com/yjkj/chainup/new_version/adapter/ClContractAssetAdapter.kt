@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yjkj.chainup.R
 import com.yjkj.chainup.contract.utils.getLineText
+import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.new_version.activity.ClCoinDetailActivity
@@ -41,16 +43,34 @@ class ClContractAssetAdapter(context: Context, data: ArrayList<JSONObject>) : Ba
             helper.setText(R.id.tv_coin_name, NCoinManager.getShowMarket(it.optString("symbol")))
             val isShowAssets = UserDataService.getInstance().isShowAssets
 
+
+            val coin = PublicInfoDataService.getInstance().getCoinByName( NCoinManager.getShowMarket(it?.optString("symbol")))
+            //币种logo
+            Glide.with(context).load(coin?.getString("icon")).into(helper.getView(R.id.img))
+
       //            账户权益 可用资产
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_normal_balance),BigDecimalUtils.divForDown(
                     it.optString("canUseAmount"), NCoinManager.getCoinShowPrecision(
                         it.optString("symbol")
                 ?: "")).toPlainString())
-      //            总资产
+      //            未实现盈亏
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_margin_balance_value),  BigDecimalUtils.divForDown(
+                    it.optString("realizedAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                ?: "")).toPlainString())
+      //            钱包余额
+            Utils.assetsHideShow(isShowAssets,
+                helper.getView(R.id.tv_available_value),  BigDecimalUtils.divForDown(
                     it.optString("totalAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                ?: "")).toPlainString())
+      //            保证金余额
+            val  isolateMargin =  it.optString("isolateMargin").toString().toDouble()
+            val  totalMargin =  it.optString("totalMargin").toString().toDouble()
+            val  lockAmount =  it.optString("lockAmount").toString().toDouble()
+            Utils.assetsHideShow(isShowAssets,
+                helper.getView(R.id.tv_normal_balance1),  BigDecimalUtils.divForDown(
+                    (isolateMargin+totalMargin+lockAmount).toString(), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
                 ?: "")).toPlainString())
 
 

@@ -8,7 +8,9 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
+import com.chainup.contract.ws.CpWsContractAgentManager
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -21,10 +23,9 @@ import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolWsData
-import com.yjkj.chainup.net.JSONUtil
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_version.adapter.MarketDetailAdapter
+import com.yjkj.chainup.new_version.adapter.MarketContractDropAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.new_version.view.EmptyMarketForAdapterView
@@ -34,6 +35,8 @@ import kotlinx.android.synthetic.main.fragment_likes.rv_market_detail
 import kotlinx.android.synthetic.main.fragment_likes.swipe_refresh
 import kotlinx.android.synthetic.main.fragment_market_detail.*
 import kotlinx.android.synthetic.main.include_market_sort.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.imageResource
 import org.json.JSONArray
@@ -48,14 +51,15 @@ import org.json.JSONObject
  * 1. 提高代码阅读性；
  * 2. 提高性能
  */
-class LikesHeYueFragment : NBaseFragment() {
+class LikesHeYueFragment : NBaseFragment(),CpWsContractAgentManager.WsResultCallback{
     override fun setContentView() = R.layout.fragment_likes_heyue
 
-    var adapter: MarketDetailAdapter? = null
+    var adapter: MarketContractDropAdapter? = null
     private var curIndex = 0
     var isScrollStatus = false
     override fun loadData() {
         super.loadData()
+        CpWsContractAgentManager.instance.addWsCallback(this)
         curIndex = arguments?.getInt(CUR_INDEX) ?: 0
     }
 
@@ -307,8 +311,8 @@ class LikesHeYueFragment : NBaseFragment() {
 
 
     private fun initAdapter() {
-        adapter = MarketDetailAdapter()
-        adapter?.isMarketLike = true
+        adapter = MarketContractDropAdapter(java.util.ArrayList());
+//        adapter?.isMarketLike = true
         rv_market_detail?.adapter = adapter
         rv_market_detail?.setHasFixedSize(true)
         val emptyForAdapterView = EmptyMarketForAdapterView(context ?: return)
@@ -625,7 +629,7 @@ class LikesHeYueFragment : NBaseFragment() {
         if (rv_market_detail?.layoutManager == null) {
             return
         }
-        val obj = SymbolWsData().getNewSymbolObj(normalTickList, jsonObject)
+        val obj = SymbolWsData().getNewSymbolObj2(normalTickList, jsonObject)
         val layoutManager = rv_market_detail?.layoutManager as LinearLayoutManager
         val firstView = layoutManager.findFirstVisibleItemPosition()
         val lastItem = layoutManager.findLastVisibleItemPosition()
@@ -748,6 +752,20 @@ class LikesHeYueFragment : NBaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        when (event.msg_type) {
+            CpMessageEvent.sl_contract_sidebar_market_event -> {
+                showWsData(event.msg_content as JSONObject)
+            }
+        }
+    }
+
+    override fun onWsMessage(json: String) {
+        val jsonObject = JSONObject(json)
+        showWsData(jsonObject)
     }
 
 }
