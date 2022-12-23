@@ -55,12 +55,12 @@ class MarketDetailAdapter : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layou
         }
         val isShowArea = !(isMarketLike || isMarketSort)
         val itemArea = helper.adapterPosition == 0 || data[helper.adapterPosition - 1].optInt("newcoinFlag") != newcoinFlag
-        if (isShowArea && itemArea) {
-            helper.setGoneV3(R.id.ll_main_area, true)
-            helper.setText(R.id.ll_title_content, newcoinFlag.byMarketGroupTypeGetName(context))
-        } else {
+//        if (isShowArea && itemArea) {
+//            helper.setGoneV3(R.id.ll_main_area, true)
+//            helper.setText(R.id.ll_title_content, newcoinFlag.byMarketGroupTypeGetName(context))
+//        } else {
             helper.setGoneV3(R.id.ll_main_area, false)
-        }
+//        }
 
         if (!name.contains("/")!!) {
             return
