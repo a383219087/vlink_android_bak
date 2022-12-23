@@ -2,20 +2,20 @@ package com.yjkj.chainup.new_version.adapter
 
 import android.content.Intent
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.app.CpParamConstant
+import com.coorchice.library.SuperTextView
+import com.yjkj.chainup.R
+import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpChainUtil
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
-import com.coorchice.library.SuperTextView
-import com.yjkj.chainup.R
-import com.chainup.contract.ui.activity.CpMarketDetail4Activity
-import com.yjkj.chainup.extra_service.arouter.ArouterUtil
+import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
 
@@ -26,12 +26,10 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
     BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.item_contract_drop, data) {
 
     class SpotViewHolder(itemView: View, type: Int) : RecyclerView.ViewHolder(itemView) {
-        var rlContent: RelativeLayout
         var tvContractName: TextView
         var tvContractChg: SuperTextView
 
         init {
-            rlContent = itemView.findViewById(R.id.rl_content)
             tvContractName = itemView.findViewById(R.id.tv_contract_name)
             tvContractChg = itemView.findViewById(R.id.tv_contract_chg)
         }
@@ -51,7 +49,9 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
     override fun convert(helper: BaseViewHolder, ticker: JSONObject) {
         ticker.let {
             val dfRate = CpNumberUtil().getDecimal(2)
-            helper.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id")))
+            val value:String =
+                CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id")).replace("-USDT","")
+            helper.setText(R.id.tv_contract_name, value)
             if (!ticker.isNull("rose")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例
@@ -61,6 +61,9 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
                     helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
+            helper.setText(R.id.tv_contract_info,"/${ticker.optString("marginCoin")}  ${ticker.optString("contractShowType").replace("合约","")}")
+            helper.setText(R.id.tv_contract_detail,"24H 量 ${ticker.optString("vol","0")}")
+            helper.setText(R.id.tv_price_detail, RateManager.getCNYByCoinName(value,ticker.optString("close")))
             if (!ticker.isNull("close")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例
@@ -71,7 +74,7 @@ class MarketContractDropAdapter(data: ArrayList<JSONObject>) :
                     helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
-            helper.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
+            helper.getView<ConstraintLayout>(R.id.rl_content).setOnClickListener {
                 if (!CpChainUtil.isFastClick()) {
                   val  mContractId = ticker.optInt("id")
                   val   currentSymbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
