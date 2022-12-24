@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="@color/tabbar_divide_color2" />
+        android:color="@color/colorF6F7FC" />
     <corners android:radius="@dimen/dp_4"/>
 </shape>

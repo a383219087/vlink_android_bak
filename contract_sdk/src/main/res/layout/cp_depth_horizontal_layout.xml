@@ -173,6 +173,7 @@
                     android:id="@+id/ll_sell_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:orientation="vertical" />
 
                 <LinearLayout
@@ -212,12 +213,18 @@
                         android:gravity="center_vertical"
                         android:layout_marginBottom="4dp"
                         android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/icon_mark_price"/>
                         <!--标记价-->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right|center_vertical"
                             android:text="@string/cp_extra_text136"
+                            android:layout_marginLeft="@dimen/dp_4"
                             android:textSize="10sp"
                             android:textColor="@color/hint_color" />
 
@@ -273,6 +280,7 @@
                     android:id="@+id/ll_buy_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:orientation="vertical" />
 
                 <LinearLayout
@@ -282,40 +290,49 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
+                    <!--改变盘口-->
+                    <ImageButton
+                        android:id="@+id/ib_tape"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_24"
+                        android:background="@drawable/bg_price_type"
+                        android:padding="@dimen/dp_4"
+                        android:paddingLeft="@dimen/dp_6"
+                        android:paddingRight="@dimen/dp_6"
+                        android:src="@drawable/coins_handicap" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:background="@drawable/bg_drop_icon"
+                        android:scaleType="center"
+                        android:src="@drawable/coins_drop_down"/>
+
                     <!--选择深度-->
                     <TextView
                         android:id="@+id/tv_change_depth"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_8"
+                        android:layout_height="@dimen/dp_30"
                         android:layout_weight="1"
-                        android:background="@drawable/cp_bg_trade_et_unfocused"
-                        android:drawableRight="@drawable/cp_contract_dropdown"
+                        android:gravity="center"
+                        android:background="@drawable/bg_price_type"
                         android:drawablePadding="@dimen/dp_4"
                         android:padding="@dimen/dp_4"
                         android:paddingLeft="@dimen/dp_8"
                         android:paddingRight="@dimen/dp_15"
-                        android:textColor="@color/normal_text_color"
+                        android:textColor="@color/new_text_color"
                         android:textSize="@dimen/sp_12"
                         tools:text="深度2" />
 
-                    <!--改变盘口-->
-                    <LinearLayout
-                        android:layout_width="30dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                    <ImageView
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_24"
+                        android:background="@drawable/bg_drop_icon"
+                        android:scaleType="center"
                         android:layout_marginRight="@dimen/dp_15"
-                        android:background="@drawable/cp_bg_trade_et_unfocused"
-                        android:gravity="center">
+                        android:src="@drawable/coins_drop_down"/>
 
-                        <ImageButton
-                            android:id="@+id/ib_tape"
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_14"
-                            android:background="@color/transparent"
-                            android:src="@drawable/cp_default_tape" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -238,30 +238,30 @@ object CpColorUtil {
         return if (colorSelect == GREEN_RISE) {
             when (flag) {
                 1 -> {
-                    imageView.setImageResource(R.drawable.cp_buy_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap_buy)
                 }
 
                 2 -> {
-                    imageView.setImageResource(R.drawable.cp_sell_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap_sell)
                 }
 
                 else -> {
-                    imageView.setImageResource(R.drawable.cp_default_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap)
                 }
             }
 
         } else {
             when (flag) {
                 1 -> {
-                    imageView.setImageResource(R.drawable.cp_sell_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap_buy_red)
                 }
 
                 2 -> {
-                    imageView.setImageResource(R.drawable.cp_buy_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap_sell_green)
                 }
 
                 else -> {
-                    imageView.setImageResource(R.drawable.cp_reverse_tape)
+                    imageView.setImageResource(R.drawable.coins_handicap_greenred)
                 }
             }
 
