@@ -58,13 +58,11 @@ class MarketContracthItemFragment : CpNBaseFragment(){
             contractDropAdapter = MarketContractDetailAdapter(tickers)
             ll_item_titles.visibility = View.VISIBLE
         }
-        // 第一种，直接取消动画
         val animator: ItemAnimator? = rv_search_coin.itemAnimator
         if (animator is SimpleItemAnimator) {
             animator.supportsChangeAnimations = false
         }
-//        // 第二种，设置动画时间为0
-//        rv_search_coin.itemAnimator?.changeDuration = 0
+
 
 
         rv_search_coin.adapter = contractDropAdapter

@@ -700,18 +700,18 @@ public class CpBigDecimalUtils {
         if (compareTo(parValueBig.toPlainString(), "0") == 0 || compareTo(priceBig.toPlainString(), "0") == 0) {
             return " 0" + unit;
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            if (isForward) {
-                if (isLimit) {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).divide((priceBig.multiply(parValueBig)), scale, BigDecimal.ROUND_DOWN);
-                } else {
-                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(rateBig).divide((priceBig.multiply(parValueBig)), scale, BigDecimal.ROUND_DOWN);
-                }
-            } else {
-                buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig).divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
-            }
-            return buff.setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-        } else {
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//            if (isForward) {
+//                if (isLimit) {
+//                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).divide((priceBig.multiply(parValueBig)), scale, BigDecimal.ROUND_DOWN);
+//                } else {
+//                    buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(rateBig).divide((priceBig.multiply(parValueBig)), scale, BigDecimal.ROUND_DOWN);
+//                }
+//            } else {
+//                buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig).divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
+//            }
+//            return buff.setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+//        } else {
             if (isForward) {
                 if (isLimit) {
                     buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).divide(priceBig, scale, BigDecimal.ROUND_DOWN);
@@ -722,7 +722,7 @@ public class CpBigDecimalUtils {
                 buff = (maxOpenLimitBig.subtract(positionValueBig).subtract(entrustedValueBig)).multiply(priceBig);
             }
             return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-        }
+//        }
     }
 
 
@@ -763,45 +763,48 @@ public class CpBigDecimalUtils {
 
         BigDecimal buff = null;
 
-        if (orderType == 1 || orderType == 4 || orderType == 5 || orderType == 6) { // 限价单、PostOnly、IOC、FOK
+//        if (orderType == 1 || orderType == 4 || orderType == 5 || orderType == 6) { // 限价单、PostOnly、IOC、FOK
             if (TextUtils.isEmpty(price)) {
                 return defaultStr;
             }
             if (compareTo(price, "0") != 1) {
                 return defaultStr;
             }
-            BigDecimal priceBig = new BigDecimal(price);
-            if (isForward) {
-                //输入的100USDT*合约面值0.0001*当前价格16814.60/杠杆5
-                buff = sheetsBig.multiply(parValueBig).multiply(priceBig).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-            } else {
-                buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+            if (compareTo(position, "0") ==0) {
+                return "0.00";
             }
-        } else if (orderType == 2) {//市价单
-            buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-        } else if (orderType == 3) {//条件单
-            //0限价 1市价
-            if (CpClLogicContractSetting.getExecution(CpMyApp.Companion.instance()) == 1) {
-                //条件市价单
-                buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-            } else {
-                //条件限价单
-                if (TextUtils.isEmpty(price)) {
-                    return defaultStr;
-                }
-                if (compareTo(price, "0") != 1) {
-                    return defaultStr;
-                }
-                BigDecimal priceBig = new BigDecimal(price);
-                if (isForward) {
-                    buff = sheetsBig.multiply(parValueBig).multiply(priceBig).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-                } else {
-                    buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-                }
-            }
-        } else {
-            return "0" + " " + unit;
-        }
+         buff=positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//            if (isForward) {
+//                //输入的100USDT*合约面值0.0001*当前价格16814.60/杠杆5
+//                buff = sheetsBig.divide(parValueBig.multiply(priceBig)).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//            } else {
+//                buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//            }
+//        } else if (orderType == 2) {//市价单
+//            buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//        } else if (orderType == 3) {//条件单
+//            //0限价 1市价
+//            if (CpClLogicContractSetting.getExecution(CpMyApp.Companion.instance()) == 1) {
+//                //条件市价单
+//                buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//            } else {
+//                //条件限价单
+//                if (TextUtils.isEmpty(price)) {
+//                    return defaultStr;
+//                }
+//                if (compareTo(price, "0") != 1) {
+//                    return defaultStr;
+//                }
+//                BigDecimal priceBig = new BigDecimal(price);
+//                if (isForward) {
+//                    buff = sheetsBig.multiply(parValueBig).multiply(priceBig).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//                } else {
+//                    buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+//                }
+//            }
+//        } else {
+//            return "0" + " " + unit;
+//        }
 
         return buff.setScale(scale, BigDecimal.ROUND_HALF_DOWN).toPlainString() + " " + unit;
     }

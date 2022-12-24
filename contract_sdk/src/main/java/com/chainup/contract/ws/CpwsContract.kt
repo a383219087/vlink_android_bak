@@ -286,7 +286,7 @@ class CpWsContractAgentManager private constructor() {
                         }
 
                     }
-                    "CpNewVersionMarketFragment", "CpNewVersionHomepageFragment" -> {
+                    "CpNewVersionMarketFragment", "CpNewVersionHomepageFragment","LikesHeYueFragment" -> {
                         val map = mapSubCallbacks.get(key) as HashMap
                         if (map.contains("batchMarket")) {
                             val bean = map.get("batchMarket") as CpWsLinkBean

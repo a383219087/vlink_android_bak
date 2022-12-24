@@ -18,6 +18,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpNumberUtil
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.manager.RateManager
+import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil
 import org.json.JSONObject
 
@@ -52,9 +53,9 @@ class MarketContractDetailAdapter(data: ArrayList<JSONObject>) :
                     helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
-            helper.setText(R.id.tv_contract_info,"/${ticker.optString("marginCoin")}  ${ticker.optString("contractShowType").replace("合约","")}")
-            helper.setText(R.id.tv_contract_detail,"24H 量 ${ticker.optString("vol","0")}")
-            helper.setText(R.id.tv_price_detail, RateManager.getCNYByCoinName(nameStr,ticker.optString("close")))
+            helper.setText(R.id.tv_contract_info,"/${ticker.optString("marginCoin")}")
+            helper.setText(R.id.tv_contract_detail,"24H 量 ${BigDecimalUtils.showDepthVolume(ticker.optString("vol","0"))}")
+            helper.setText(R.id.tv_price_detail, RateManager.getCNYByCoinName("USDT",ticker.optString("close")))
             if (!ticker.isNull("close")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例

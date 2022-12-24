@@ -133,6 +133,8 @@ class SymbolWsData {
         for (jsonObject in symbols) {
 
             val symbol = jsonObject.optString("symbol")
+
+
             if (tickSymbol.equals(symbol, ignoreCase = true)) {
                 try {
                     val close = tick.optString("close")
