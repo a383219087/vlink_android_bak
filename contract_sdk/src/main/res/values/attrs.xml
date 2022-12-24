@@ -558,6 +558,7 @@
         <attr name="kc_grid_line_width" format="dimension" />
         <attr name="kc_grid_line_color" format="color" />
         <attr name="kc_point_width" format="dimension" />
+        <attr name="kc_show_child" format="boolean" />
         <!--macd-->
         <attr name="kc_macd_width" format="dimension" />
         <attr name="kc_dif_color" format="color" />

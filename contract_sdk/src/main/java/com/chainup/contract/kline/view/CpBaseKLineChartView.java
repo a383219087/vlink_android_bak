@@ -311,6 +311,8 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
      */
     protected float lineEndMaxMultiply = CpSizeUtils.dp2px(2f);
 
+    private boolean mIsShowChild;
+
 
     private DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
@@ -463,6 +465,10 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        /*if(!mIsShowChild) {
+            mVolDraw = null;
+            childDraw = null;
+        }*/
         canvas.drawColor(bgPaint.getColor());
         if (width == 0 || mainRect.height() == 0 || itemCount == 0) {
             Log.d(TAG, "发生未知错误。。。");
@@ -611,10 +617,10 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
             if (mMainDraw != null) {
                 mMainDraw.drawTranslated(lastPoint, currentPoint, lastX, currentPointX, canvas, this, i);
             }
-            if (mVolDraw != null) {
+            if (mVolDraw != null && mIsShowChild) {
                 mVolDraw.drawTranslated(lastPoint, currentPoint, lastX, currentPointX, canvas, this, i);
             }
-            if (childDraw != null) {
+            if (childDraw != null && mIsShowChild) {
                 childDraw.drawTranslated(lastPoint, currentPoint, lastX, currentPointX, canvas, this, i);
             }
         }
@@ -725,13 +731,13 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
 
         /**--------------画下方子图的值-------------**/
         if (childDraw != null) {
-            childMaxValue= Float.valueOf(CpBigDecimalUtils.showSNormal(childMaxValue.toString(),5));
+            childMaxValue = Float.valueOf(CpBigDecimalUtils.showSNormal(childMaxValue.toString(), 5));
             canvas.drawText(childDraw.getValueFormatter().format(childMaxValue),
                     width - calculateWidth(formatValue(childMaxValue)) - CpDisplayUtil.INSTANCE.dip2px(15f), volRect.bottom + baseLine, boundaryValuePaint);
             /**
              * 画最小值
              */
-            childMinValue= Float.valueOf(CpBigDecimalUtils.showSNormal(childMinValue.toString(),5));
+            childMinValue = Float.valueOf(CpBigDecimalUtils.showSNormal(childMinValue.toString(), 5));
             canvas.drawText(childDraw.getValueFormatter().format(childMinValue),
                     width - calculateWidth(formatValue(childMinValue)) - CpDisplayUtil.INSTANCE.dip2px(15f), childRect.bottom, boundaryValuePaint);
         }
@@ -905,11 +911,11 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
                 float y = mainRect.top + baseLine - textHeight;
                 mMainDraw.drawText(canvas, this, position, 0, y);
             }
-            if (mVolDraw != null) {
+            if (mVolDraw != null && mIsShowChild) {
                 float y = mainRect.bottom + baseLine;
                 mVolDraw.drawText(canvas, this, position, 0, y);
             }
-            if (childDraw != null) {
+            if (childDraw != null && mIsShowChild) {
                 float y = volRect.bottom + baseLine;
                 childDraw.drawText(canvas, this, position, 0, y);
             }
@@ -1125,6 +1131,12 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
             childScaleY = childRect.height() * 1f / (childMaxValue - childMinValue);
         }
 
+        if (!mIsShowChild) {
+            mainScaleY = mainScaleY + volScaleY + childScaleY;
+            volScaleY = 0;
+            childScaleY = 0;
+        }
+
         if (animator.isRunning()) {
             float value = (float) animator.getAnimatedValue();
             stopIndex = startIndex + Math.round(value * (stopIndex - startIndex));
@@ -1283,7 +1295,7 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
      */
     public void setPricePrecision(int position) {
         mPricePrecision = position;
-        if (mainDraw != null ) {
+        if (mainDraw != null) {
             mainDraw.setMaPricePrecision(position);
         }
     }
@@ -1383,6 +1395,10 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
     public void setMainDraw(CpIChartViewDraw mainDraw) {
         mMainDraw = mainDraw;
         this.mainDraw = (CpMainKLineView) mMainDraw;
+    }
+
+    public void setIsShowChild(boolean isShowChild) {
+        mIsShowChild = isShowChild;
     }
 
     public CpIChartViewDraw getVolDraw() {

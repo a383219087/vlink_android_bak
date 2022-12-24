@@ -214,7 +214,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         })
         img_top.setOnClickListener {
 //            appbarlayout.setExpanded(true, true)
-            val behavior: CoordinatorLayout.Behavior<*>? = (appbarlayout.layoutParams as CoordinatorLayout.LayoutParams).behavior
+            val behavior: CoordinatorLayout.Behavior<*>? =
+                (appbarlayout.layoutParams as CoordinatorLayout.LayoutParams).behavior
             if (behavior is AppBarLayout.Behavior) {
                 val topAndBottomOffset = behavior.topAndBottomOffset
                 if (topAndBottomOffset != 0) {
@@ -276,8 +277,12 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         iv_pull_up.setOnClickListener {
             if (v_kline.visibility == View.VISIBLE) {
                 v_kline.visibility = View.GONE
+                rl_kline_ctrl.visibility = View.GONE
+                iv_pull_up.setImageResource(R.mipmap.ic_pull_down)
             } else {
                 v_kline.visibility = View.VISIBLE
+                rl_kline_ctrl.visibility = View.VISIBLE
+                iv_pull_up.setImageResource(R.mipmap.ic_pull_up)
             }
         }
         setTextConetnt()
@@ -1091,8 +1096,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
 
-
-
     override fun onPause() {
         super.onPause()
         loopStop()
@@ -1576,7 +1579,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             if (isFrist) {
                 klineData.clear()
                 var objKline = json.getJSONArray("data")
-                if (objKline.length()>1){
+                if (objKline.length() > 1) {
                     for (i in 0 until objKline.length()) {
                         var obj: JSONObject = objKline.get(i) as JSONObject
                         val mKLineBean: CpKLineBean = gson.fromJson(obj.toString(), typeNew)
