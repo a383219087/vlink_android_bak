@@ -85,11 +85,12 @@ public class CpClLogicContractSetting {
 
     //0 张 1 币
     public static int getContractUint(Context context) {
-        if (s_contract_unit_first) {
-            s_contract_unit = CpPreferenceManager.getInstance(context).getSharedInt(CpPreferenceManager.PREF_CONTRACT_UNIT, 0);
-            s_contract_unit_first = false;
-        }
-        return s_contract_unit;
+        return 1;
+//        if (s_contract_unit_first) {
+//            s_contract_unit = CpPreferenceManager.getInstance(context).getSharedInt(CpPreferenceManager.PREF_CONTRACT_UNIT, 0);
+//            s_contract_unit_first = false;
+//        }
+//        return s_contract_unit;
     }
 
     public static void setContractUint(Context context, int unit) {

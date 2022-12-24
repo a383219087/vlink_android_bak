@@ -142,6 +142,19 @@ public class CpBigDecimalUtils {
         }
         return Long.parseLong(str);
     }
+    /**
+     * 提取字符串的数字
+     */
+    public static Double stringToNum1(String v1) {
+        String regEx = "[^0-9.]";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher m = pattern.matcher(v1);
+        String str = m.replaceAll("").trim();
+        if (str.isEmpty()) {
+            return 0.0;
+        }
+        return Double.parseDouble(str);
+    }
 
     /**
      * 提供精确的乘法运算。(TODO 舍入)
@@ -950,13 +963,13 @@ public class CpBigDecimalUtils {
      */
     public static boolean orderNumMaxCheck(String inputNum, String maxNum, String multiplier) {
         int ret = 0;
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             ret = compareTo(inputNum, maxNum);
-        } else {
-            BigDecimal multiplierBig = new BigDecimal(multiplier);
-            BigDecimal inputNumBig = new BigDecimal(inputNum);
-            ret = compareTo(inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_HALF_DOWN).toPlainString(), maxNum);
-        }
+//        } else {
+//            BigDecimal multiplierBig = new BigDecimal(multiplier);
+//            BigDecimal inputNumBig = new BigDecimal(inputNum);
+//            ret = compareTo(inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_HALF_DOWN).toPlainString(), maxNum);
+//        }
         //如果两个数一样则返回0，如果第一个数比第二个数大则返回1，反之返回-1
         return ret == 1;
     }
