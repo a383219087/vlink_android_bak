@@ -281,6 +281,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
         }
         setTextConetnt()
+        v_kline.hideVolDrawView()
     }
 
     private fun setTextConetnt() {

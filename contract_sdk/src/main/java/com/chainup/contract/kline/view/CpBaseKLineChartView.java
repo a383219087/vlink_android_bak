@@ -445,9 +445,18 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
         setOverScrollRange(width * 0.2f);
         Log.d("========", "=====initRect=======" + isShowChild);
         if (isShowChild) {
-            int mMainHeight = (int) (displayHeight * 0.6f);
-            int mVolHeight = (int) (displayHeight * 0.2f);
-            int mChildHeight = (int) (displayHeight * 0.2f);
+            int mMainHeight;
+            int mVolHeight;
+            int mChildHeight;
+            if(mVolDraw!=null) {
+                mMainHeight = (int) (displayHeight * 0.6f);
+                mVolHeight = (int) (displayHeight * 0.2f);
+                mChildHeight = (int) (displayHeight * 0.2f);
+            }else{
+                mMainHeight = (int) (displayHeight * 0.8f);
+                mVolHeight=0;
+                mChildHeight = (int) (displayHeight * 0.2f);
+            }
             mainRect = new Rect(0, topPadding, displayWidth, topPadding + mMainHeight);
             volRect = new Rect(0, mainRect.bottom + childPadding, displayWidth, mainRect.bottom + mVolHeight);
             childRect = new Rect(0, volRect.bottom + childPadding, displayWidth, volRect.bottom + mChildHeight);
@@ -455,6 +464,10 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
             Log.d("=====onSizeChanged===", "width:" + width + ",height:" + displayHeight);
             int mMainHeight = (int) (displayHeight * 0.8f);
             int mVolHeight = (int) (displayHeight * 0.2f);
+            if(mVolDraw==null) {
+                mMainHeight = displayHeight;
+                mVolHeight= 0;
+            }
             mainRect = new Rect(0, topPadding, displayWidth, topPadding + mMainHeight);
             volRect = new Rect(0, mainRect.bottom + childPadding, displayWidth, mainRect.bottom + mVolHeight);
         }
