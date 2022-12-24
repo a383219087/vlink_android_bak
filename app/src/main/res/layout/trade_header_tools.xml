@@ -46,6 +46,7 @@
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
             android:singleLine="true"
+            android:textStyle="bold"
             android:textColor="@color/main_green"
             android:textSize="@dimen/sp_12"
             tools:text="+1.88%" />
@@ -60,6 +61,7 @@
             android:padding="@dimen/dp_4"
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
+            android:textStyle="bold"
             android:textColor="@color/tag_content_color"
             android:textSize="@dimen/sp_12"
             tools:text="+1.88%" />

@@ -298,7 +298,6 @@
         android:id="@+id/ll_transaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_18"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -306,10 +305,10 @@
             android:id="@+id/tv_transaction_money"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_37"
-            android:layout_marginTop="@dimen/dp_11"
+            android:layout_marginTop="@dimen/dp_8"
             android:background="@drawable/bg_trade_et_unfocused"
             android:gravity="center"
-            android:text="&#45;&#45;"
+            android:text="成交额（USDT）"
             android:textColor="@color/hint_color" />
     </LinearLayout>
 
@@ -389,7 +388,7 @@
         android:id="@+id/cbtn_create_order"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_18"
         app:bottonTextContent="@string/contract_action_buy" />
 
 
