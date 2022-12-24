@@ -599,13 +599,13 @@ public class CpBigDecimalUtils {
      */
     public static String canBuyStr(boolean isOpen, boolean isLimit, boolean isForward, String price, String parValue, String canUseAmount, String canCloseVolume, String nowLevel, String rate, int scale, String unit) {
 
-        String defaultStr = "0" + " " + unit;
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) != 0) {
-            defaultStr = "0.00" + " " + unit;
-        } else {
-            defaultStr = "0" + " " + unit;
+        String defaultStr = "0.00" + " " + unit;
+
+        if (compareTo(parValue, "0") == 0) {
+            parValue="1";
         }
         BigDecimal parValueBig = new BigDecimal(parValue);
+
         BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
         BigDecimal buff;
         if (!CpClLogicContractSetting.isLogin()) {
@@ -622,81 +622,31 @@ public class CpBigDecimalUtils {
             return defaultStr;
         }
         BigDecimal priceBig = new BigDecimal(price);
+        if (TextUtils.isEmpty(canUseAmount)) {
+            canUseAmount = "0";
+        }
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
 
         BigDecimal rateBig = new BigDecimal(rate);
 
-        if (rateBig.doubleValue()==0){
-            rateBig=new BigDecimal("1");
+        if (rateBig.doubleValue() == 0) {
+            rateBig = new BigDecimal("1");
         }
 
         if (isForward) {
-            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
-            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
+//            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
+            buff = canUseAmountBig.multiply(nowLevelBig).divide(rateBig, scale, RoundingMode.DOWN);
         } else {
-            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
             buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            scale = 0;
-            buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
-        }
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//            scale = 0;
+//            buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
+//        }
         return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
     }
-//    public static String canBuyStr(boolean isOpen, boolean isLimit, boolean isForward, String price, String parValue, String canUseAmount, String canCloseVolume, String nowLevel, String rate, int scale, String unit) {
-//
-//        String defaultStr = "0" + " " + unit;
-//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) != 0) {
-//            defaultStr = "0.00" + " " + unit;
-//        } else {
-//            defaultStr = "0" + " " + unit;
-//        }
-//        BigDecimal parValueBig = new BigDecimal(parValue);
-//        BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
-//        BigDecimal buff;
-//        if (!CpClLogicContractSetting.isLogin()) {
-//            return defaultStr;
-//        }
-//        if (!isOpen) {
-//            if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-//                return canCloseVolumeBig.setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-//            } else {
-//                return parValueBig.multiply(canCloseVolumeBig).setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-//            }
-//        }
-//        if (compareTo(price, "0") == 0) {
-//            return defaultStr;
-//        }
-//        BigDecimal priceBig = new BigDecimal(price);
-//        if (TextUtils.isEmpty(canUseAmount)) {
-//            canUseAmount = "0";
-//        }
-//        BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
-//        BigDecimal nowLevelBig = new BigDecimal(nowLevel);
-//
-//        BigDecimal rateBig = new BigDecimal(rate);
-//        if (rateBig.doubleValue() == 0) {
-//            rateBig = new BigDecimal("1");
-//        }
-//
-//        if (isForward) {
-//            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
-//        } else {
-//            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
-//        }
 
-          //等于张的生活
-//        if (Objects.equals(CpMyApp.Companion.instance().getString(R.string.cp_overview_text9), unit)) {
-//            scale = 0;
-//            //BigDecimal.ROUND_DOWN向下取整
-//            if (parValueBig.doubleValue() != 0) {
-//                return buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-//            }
-//        }
-
-//        return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-//    }
 
     /**
      * 计算可开数量
@@ -822,6 +772,7 @@ public class CpBigDecimalUtils {
             }
             BigDecimal priceBig = new BigDecimal(price);
             if (isForward) {
+                //输入的100USDT*合约面值0.0001*当前价格16814.60/杠杆5
                 buff = sheetsBig.multiply(parValueBig).multiply(priceBig).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
             } else {
                 buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
@@ -876,8 +827,8 @@ public class CpBigDecimalUtils {
             return defaultStr;
         }
 //        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            //数量=张数*面值
-            return mulStr(position, parValue, scale) + " " + unit;
+        //数量=张数*面值
+        return mulStr(position, parValue, scale) + " " + unit;
 //        } else {
 //            //张=数量/面值
 //            return divStr(position, parValue, 0) + " " + unit;
@@ -932,8 +883,8 @@ public class CpBigDecimalUtils {
             buff = openValueBig.multiply(priceBig);
         }
 //        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            //显示bi  转换精度
-            return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
+        //显示bi  转换精度
+        return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
 //        } else {
 //            //显示张 再处除合约面值
 //            return buff.divide(parValueBig, 0, RoundingMode.DOWN).toPlainString() + " " + unit;

@@ -328,12 +328,9 @@ class CpTradeView @JvmOverloads constructor(
                 }
                 val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
                     true
-                } else if (tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-                    //输入框单位是张的时候大于1就行
-                    et_volume.text.toString().toDouble() >= 1
-                } else {
+                }else {
                     //输入框单位是币币的时候约等于多少张要大于1
-                    CpBigDecimalUtils.stringToNum(tv_equivalent.text.toString()) >= 1
+                    CpBigDecimalUtils.stringToNum(tv_equivalent.text.toString()) >= CpBigDecimalUtils.stringToNum(multiplier)
                 }
 
                 if (!canBuy1) {
@@ -382,12 +379,9 @@ class CpTradeView @JvmOverloads constructor(
 
                     val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
                         true
-                    } else if (tv_volume_unit.text.toString() == context.getString(R.string.cp_overview_text9)) {
-                        //输入框单位是张的时候大于1就行
-                        et_volume.text.toString().toDouble() >= 1
-                    } else {
-                        //输入框单位是币币的时候约等于多少张要大于1
-                        CpBigDecimalUtils.stringToNum(tv_equivalent.text.toString()) >= 1
+                    }else {
+                        //输入框单位是币币的时候要大于合约面值
+                        CpBigDecimalUtils.stringToNum(tv_equivalent.text.toString()) >= CpBigDecimalUtils.stringToNum(multiplier)
                     }
                     if (!canBuy1) {
                         CpNToastUtil.showTopToastNet(
@@ -917,8 +911,7 @@ class CpTradeView @JvmOverloads constructor(
             multiplier = it.optString("multiplier")
             mContractId = it.getInt("id")
             val multiplierCoin = it.optString("multiplierCoin")
-            base =
-                if (mContractUint == 0) context.getString(R.string.cp_overview_text9) else multiplierCoin
+            base =multiplierCoin
             quote = mContractJson?.optString("quote").toString()
             multiplierPrecision =
                 CpClLogicContractSetting.getContractMultiplierPrecisionById(context, mContractId)
@@ -927,11 +920,7 @@ class CpTradeView @JvmOverloads constructor(
             symbolPricePrecision =
                 CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, mContractId)
 
-            val equivalentUnit = if (mContractUint != 0) {
-                context.getString(R.string.cp_overview_text9)
-            } else {
-                mContractJson?.optString("base")
-            }
+            val equivalentUnit = mContractJson?.optString("base")
             tv_volume_unit.text =  quote
             tv_coin_name.text = marginCoin
             tv_equivalent.text = "≈ 0 $equivalentUnit"
@@ -1165,42 +1154,41 @@ class CpTradeView @JvmOverloads constructor(
                 }
             }
         }
-        val unit =
-            if (CpClLogicContractSetting.getContractUint(context) == 0) mContractJson?.optString("multiplierCoin") else context.getString(
-                R.string.cp_overview_text9
-            )
-        tv_equivalent.text =
-            "≈" + CpBigDecimalUtils.canPositionStr(
-                positionAmount,
-                multiplier,
-                multiplierPrecision,
-                unit
-            )
+        val unit = mContractJson?.optString("multiplierCoin")
+        tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
+            contractSide == "1",
+            multiplier,
+            positionAmount,
+            price,
+            multiplierPrecision,
+            unit
+        )
 
-        if (isOpen && buyOrSellHelper.orderType == 2) {
-
-            tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
-                contractSide == "1",
-                multiplier,
-                positionAmount,
-                price,
-                multiplierPrecision,
-                unit
-            )
-
-
-        }
-        if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
-            tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
-                contractSide == "1",
-                multiplier,
-                positionAmount,
-                price,
-                multiplierPrecision,
-                unit
-            )
-
-        }
+//
+//        if (isOpen && buyOrSellHelper.orderType == 2) {
+//
+//            tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
+//                contractSide == "1",
+//                multiplier,
+//                positionAmount,
+//                price,
+//                multiplierPrecision,
+//                unit
+//            )
+//
+//
+//        }
+//        if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
+//            tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(
+//                contractSide == "1",
+//                multiplier,
+//                positionAmount,
+//                price,
+//                multiplierPrecision,
+//                unit
+//            )
+//
+//        }
 
         //通过保证金计算的可开数
         val buybuff1 = CpBigDecimalUtils.canBuyStr(
@@ -1291,10 +1279,10 @@ class CpTradeView @JvmOverloads constructor(
 
         canOpenBuy = CpBigDecimalUtils.min(buybuff1.split(" ")[0], buybuff2.split(" ")[0])
         canOpenSell = CpBigDecimalUtils.min(sellbuff1.split(" ")[0], sellbuff2.split(" ")[0])
-        if (!isOpen) {
-            canOpenBuy = buybuff1.split(" ")[0]
-            canOpenSell = sellbuff1.split(" ")[0]
-        }
+//        if (!isOpen) {
+//            canOpenBuy = buybuff1.split(" ")[0]
+//            canOpenSell = sellbuff1.split(" ")[0]
+//        }
         tv_long_value.text = "$canOpenBuy $quote"
         tv_short_value.text = "$canOpenSell $quote"
 
