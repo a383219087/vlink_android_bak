@@ -12,13 +12,13 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp_30"
+            android:layout_width="@dimen/dp_35"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageview"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
                 android:background="@drawable/tabbar_home_selected"
                 android:scaleType="fitXY" />
 
