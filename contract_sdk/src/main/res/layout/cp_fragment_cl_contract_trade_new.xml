@@ -240,12 +240,13 @@
                                 <com.yjkj.chainup.kline.view.CpKLineChartView
                                     android:id="@+id/v_kline"
                                     android:layout_width="match_parent"
-                                    android:layout_height="300dp"
+                                    android:layout_height="200dp"
                                     android:nestedScrollingEnabled="false"
                                     app:kc_background_color="@color/transparent"
                                     app:kc_grid_line_color="@color/kline_grid_line"
                                     app:kc_marker_value_color="@color/chart_max_min"
-                                    app:kc_text_color="@color/text_color" />
+                                    app:kc_text_color="@color/text_color"
+                                    app:kc_show_child="false"/>
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/rv_kline_scale"

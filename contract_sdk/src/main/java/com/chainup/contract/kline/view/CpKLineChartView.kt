@@ -49,6 +49,7 @@ class CpKLineChartView @JvmOverloads constructor(
     private var startXX = 0
     private var startYY = 0
     private var pricePricision = 2
+    private var mIsShowChild:Boolean = true
 
 
     init {
@@ -203,7 +204,8 @@ class CpKLineChartView @JvmOverloads constructor(
 
                 setSelectedTextColor(array.getColor(R.styleable.CpKLineChartView_kc_text_color, CpColorUtil.getColor(context,R.color.chart_max_min)))
 
-
+                mIsShowChild = array.getBoolean(R.styleable.CpKLineChartView_kc_show_child, true)
+                setIsShowChild(mIsShowChild)
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
