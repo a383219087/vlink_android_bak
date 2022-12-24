@@ -622,34 +622,81 @@ public class CpBigDecimalUtils {
             return defaultStr;
         }
         BigDecimal priceBig = new BigDecimal(price);
-        if (TextUtils.isEmpty(canUseAmount)) {
-            canUseAmount = "0";
-        }
         BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
 
         BigDecimal rateBig = new BigDecimal(rate);
-        if (rateBig.doubleValue() == 0) {
-            rateBig = new BigDecimal("1");
+
+        if (rateBig.doubleValue()==0){
+            rateBig=new BigDecimal("1");
         }
 
         if (isForward) {
+            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, BigDecimal.ROUND_DOWN).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
             buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
         } else {
+            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
             buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
         }
-
-          //等于张的生活
-        if (Objects.equals(CpMyApp.Companion.instance().getString(R.string.cp_overview_text9), unit)) {
+        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             scale = 0;
-            //BigDecimal.ROUND_DOWN向下取整
-            if (parValueBig.doubleValue() != 0) {
-                return buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
-            }
+            buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
         }
-
         return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
     }
+//    public static String canBuyStr(boolean isOpen, boolean isLimit, boolean isForward, String price, String parValue, String canUseAmount, String canCloseVolume, String nowLevel, String rate, int scale, String unit) {
+//
+//        String defaultStr = "0" + " " + unit;
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) != 0) {
+//            defaultStr = "0.00" + " " + unit;
+//        } else {
+//            defaultStr = "0" + " " + unit;
+//        }
+//        BigDecimal parValueBig = new BigDecimal(parValue);
+//        BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
+//        BigDecimal buff;
+//        if (!CpClLogicContractSetting.isLogin()) {
+//            return defaultStr;
+//        }
+//        if (!isOpen) {
+//            if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//                return canCloseVolumeBig.setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+//            } else {
+//                return parValueBig.multiply(canCloseVolumeBig).setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+//            }
+//        }
+//        if (compareTo(price, "0") == 0) {
+//            return defaultStr;
+//        }
+//        BigDecimal priceBig = new BigDecimal(price);
+//        if (TextUtils.isEmpty(canUseAmount)) {
+//            canUseAmount = "0";
+//        }
+//        BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
+//        BigDecimal nowLevelBig = new BigDecimal(nowLevel);
+//
+//        BigDecimal rateBig = new BigDecimal(rate);
+//        if (rateBig.doubleValue() == 0) {
+//            rateBig = new BigDecimal("1");
+//        }
+//
+//        if (isForward) {
+//            buff = canUseAmountBig.multiply(nowLevelBig).divide(priceBig, scale, RoundingMode.DOWN).divide(rateBig, scale, RoundingMode.DOWN);
+//        } else {
+//            buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
+//        }
+
+          //等于张的生活
+//        if (Objects.equals(CpMyApp.Companion.instance().getString(R.string.cp_overview_text9), unit)) {
+//            scale = 0;
+//            //BigDecimal.ROUND_DOWN向下取整
+//            if (parValueBig.doubleValue() != 0) {
+//                return buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+//            }
+//        }
+
+//        return buff.setScale(scale, BigDecimal.ROUND_DOWN).toPlainString() + " " + unit;
+//    }
 
     /**
      * 计算可开数量
@@ -828,14 +875,14 @@ public class CpBigDecimalUtils {
         if (TextUtils.isEmpty(position)) {
             return defaultStr;
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             //数量=张数*面值
             return mulStr(position, parValue, scale) + " " + unit;
-        } else {
-            //张=数量/面值
-            return divStr(position, parValue, 0) + " " + unit;
-
-        }
+//        } else {
+//            //张=数量/面值
+//            return divStr(position, parValue, 0) + " " + unit;
+//
+//        }
     }
 
     /**
@@ -884,13 +931,13 @@ public class CpBigDecimalUtils {
             //开仓价格*最新价格
             buff = openValueBig.multiply(priceBig);
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             //显示bi  转换精度
             return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
-        } else {
-            //显示张 再处除合约面值
-            return buff.divide(parValueBig, 0, RoundingMode.DOWN).toPlainString() + " " + unit;
-        }
+//        } else {
+//            //显示张 再处除合约面值
+//            return buff.divide(parValueBig, 0, RoundingMode.DOWN).toPlainString() + " " + unit;
+//        }
     }
 
 
