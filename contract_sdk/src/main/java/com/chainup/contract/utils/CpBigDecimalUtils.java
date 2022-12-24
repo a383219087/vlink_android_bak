@@ -605,8 +605,8 @@ public class CpBigDecimalUtils {
         } else {
             defaultStr = "0" + " " + unit;
         }
-        BigDecimal parValueBig = new BigDecimal(parValue);
-        BigDecimal canCloseVolumeBig = new BigDecimal(canCloseVolume);
+        BigDecimal parValueBig = new BigDecimal(TextUtils.isEmpty(parValue)?"0":parValue);
+        BigDecimal canCloseVolumeBig = new BigDecimal(TextUtils.isEmpty(canCloseVolume)?"0":canCloseVolume);
         BigDecimal buff;
         if (!CpClLogicContractSetting.isLogin()) {
             return defaultStr;
@@ -621,11 +621,11 @@ public class CpBigDecimalUtils {
         if (compareTo(price, "0") == 0) {
             return defaultStr;
         }
-        BigDecimal priceBig = new BigDecimal(price);
-        BigDecimal canUseAmountBig = new BigDecimal(canUseAmount);
-        BigDecimal nowLevelBig = new BigDecimal(nowLevel);
+        BigDecimal priceBig = new BigDecimal(TextUtils.isEmpty(price)?"0":price);
+        BigDecimal canUseAmountBig = new BigDecimal(TextUtils.isEmpty(canUseAmount)?"0":canUseAmount);
+        BigDecimal nowLevelBig = new BigDecimal(TextUtils.isEmpty(nowLevel)?"0":nowLevel);
 
-        BigDecimal rateBig = new BigDecimal(rate);
+        BigDecimal rateBig = new BigDecimal(TextUtils.isEmpty(rate)?"0":rate);
 
         if (rateBig.doubleValue()==0){
             rateBig=new BigDecimal("1");
@@ -638,7 +638,8 @@ public class CpBigDecimalUtils {
             buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, BigDecimal.ROUND_DOWN);
             buff = canUseAmountBig.multiply(nowLevelBig).multiply(priceBig).divide(rateBig, scale, RoundingMode.DOWN);
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0
+                && parValueBig.compareTo(BigDecimal.ZERO) != 0) {
             scale = 0;
             buff = buff.divide(parValueBig, scale, BigDecimal.ROUND_DOWN);
         }

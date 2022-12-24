@@ -518,6 +518,10 @@ class CpKLineChartView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun hideVolDrawView(){
+        volDraw = null
+    }
+
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         when (ev.action) {

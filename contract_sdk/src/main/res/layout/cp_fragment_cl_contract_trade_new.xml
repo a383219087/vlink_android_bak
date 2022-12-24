@@ -100,6 +100,7 @@
                                 android:layout_height="@dimen/dp_20"
                                 android:layout_marginTop="@dimen/dp_10"
                                 android:background="@color/white"
+                                android:visibility="gone"
                                 android:orientation="horizontal">
 
                                 <RadioGroup
@@ -239,7 +240,7 @@
                                 <com.yjkj.chainup.kline.view.CpKLineChartView
                                     android:id="@+id/v_kline"
                                     android:layout_width="match_parent"
-                                    android:layout_height="410dp"
+                                    android:layout_height="300dp"
                                     android:nestedScrollingEnabled="false"
                                     app:kc_background_color="@color/transparent"
                                     app:kc_grid_line_color="@color/kline_grid_line"
