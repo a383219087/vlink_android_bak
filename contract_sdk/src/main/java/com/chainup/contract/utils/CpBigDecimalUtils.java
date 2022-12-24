@@ -1029,6 +1029,31 @@ public class CpBigDecimalUtils {
             return inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_DOWN).toPlainString();
         }
     }
+    public static String getOrderNum1(boolean isOpen, String inputUSdt, String multiplier, int orderType,String price,int sacle) {
+        BigDecimal inputUSdtBig = new BigDecimal(inputUSdt);
+        BigDecimal priceBig = new BigDecimal(price);
+        String inputNum=inputUSdtBig.divide(priceBig,sacle, BigDecimal.ROUND_DOWN).toPlainString();
+        if (orderType == 2) {//市价单
+            if (isOpen) {
+                return inputNum;
+            }
+        } else if (orderType == 3) {//条件单
+            //0限价 1市价
+            if (CpClLogicContractSetting.getExecution(CpMyApp.Companion.instance()) == 1) {
+                //条件市价单
+                if (isOpen) {
+                    return inputNum;
+                }
+            }
+        }
+        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
+            return new BigDecimal(inputNum).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
+        } else {
+            BigDecimal multiplierBig = new BigDecimal(multiplier);
+            BigDecimal inputNumBig = new BigDecimal(inputNum);
+            return inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_DOWN).toPlainString();
+        }
+    }
 
     public static String getOrderLossNum(String inputNum, String multiplier) {
         if (TextUtils.isEmpty(inputNum)) {

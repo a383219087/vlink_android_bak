@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -17,6 +16,8 @@ import com.blankj.utilcode.util.SizeUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
+import com.chainup.contract.bean.CpCreateOrderBean
+import com.chainup.contract.bean.CpCurrentOrderBean
 import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.listener.CpDoListener
@@ -26,8 +27,6 @@ import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
-import com.chainup.contract.bean.CpCreateOrderBean
-import com.chainup.contract.bean.CpCurrentOrderBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
@@ -216,7 +215,9 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     })
                 }
         }
+        img_sell_transfer.setOnClickListener{
 
+        }
         //点击条件单下的市价单
         tv_price_hint.setOnClickListener {
             isMarketPriceModel = !isMarketPriceModel
@@ -648,7 +649,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             orderType,
             level,
             if (isMarketPriceModel) "0" else price,
-            CpBigDecimalUtils.getOrderNum(isOpen, volume, multiplier, buyOrSellHelper.orderType),
+        CpBigDecimalUtils.getOrderNum1(isOpen, volume, multiplier, buyOrSellHelper.orderType,price,multiplierPrecision),
             isConditionOrder,
             triggerPrice,
             expireTime,
@@ -952,7 +953,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 if (isOpen && isPercentPlaceOrder) {
 
                     val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
-                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+//                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
                     buyPositionAmount = positionAmount
                     sellPositionAmount = positionAmount
                 }
@@ -967,7 +969,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 }
                 if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
                     val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
-                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+//                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
                     buyPositionAmount = positionAmount
                     sellPositionAmount = positionAmount
                 }
@@ -1317,7 +1320,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     fun setSellTransferListener(click:OnClickListener){
-        img_sell_transfer.setOnClickListener(click)
+
     }
 
     private fun kycTips(s: String) {
