@@ -75,6 +75,8 @@ import java.util.concurrent.TimeUnit
 @Route(path = RoutePath.NewMainActivity)
 class NewMainActivity : NBaseActivity() {
 
+
+
   override fun setContentView() = R.layout.activity_new_main
 
   /*

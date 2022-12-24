@@ -65,6 +65,8 @@ class TradeView @JvmOverloads constructor(
 
     val TAG = "我是交易量的View"
 
+    val TRANSACTION_MONEY_VIEW_HINT="成交额（USDT）"
+
 
     //交易类型
     var transactionType = TYPE_BUY
@@ -117,7 +119,7 @@ class TradeView @JvmOverloads constructor(
                 tv_convert_price?.text = "--"
             }
 
-            tv_transaction_money?.text = "--"
+            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
         }
 
     init {
@@ -186,7 +188,7 @@ class TradeView @JvmOverloads constructor(
         } else {
             ll_transaction?.visibility = View.VISIBLE
             tv_transaction_money?.visibility = View.VISIBLE
-            tv_transaction_money?.text = "--"
+            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
             tv_convert_price?.visibility = View.GONE
         }
 
@@ -529,7 +531,7 @@ class TradeView @JvmOverloads constructor(
         volumeScale = coinMapData?.optInt("volume", 2) ?: 2
         setPrice()
         if (!LoginManager.isLogin(context)) {
-            tv_transaction_money?.text = "--"
+            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
             et_price?.isFocusableInTouchMode = false
             et_volume?.isFocusableInTouchMode = false
         } else {
@@ -597,7 +599,7 @@ class TradeView @JvmOverloads constructor(
                         et_volume?.setText(volume)
                     }
                     if (TextUtils.isEmpty(inputPrice) || inputPrice == "0") {
-                        tv_transaction_money?.text = "--"
+                        tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                     } else {
                         tv_transaction_money?.text =
                             "${BigDecimalUtils.showSNormal(consume) + showMarket()}"
@@ -672,7 +674,7 @@ class TradeView @JvmOverloads constructor(
         val unit = (1 / 10.0.pow(scale.toDouble())).toString()
         Log.d(TAG, "=======price:加的单位量unit:$unit===")
         if (TextUtils.isEmpty(unit)) return
-        if (BigDecimal(inputPrice).toFloat() > 0f) {
+        if (inputPrice != "" && BigDecimal(inputPrice).toFloat() > 0f) {
             inputPrice =
                 BigDecimalUtils.divForDown(
                     BigDecimalUtils.add(inputPrice, unit).toPlainString(),
@@ -771,14 +773,16 @@ class TradeView @JvmOverloads constructor(
                 if (inputPrice.isEmpty()) {
                     isClear = true
                 }
-                if (inputPrice.startsWith(".")) {
-                    inputPrice = "0"
+                inputPrice = if (inputPrice.startsWith(".")) {
+                    "0"
+                }else{
+                    s.toString()
                 }
 
                 if (transactionType == TYPE_BUY) {
                     if (priceType == TYPE_LIMIT) {
                         if (TextUtils.isEmpty(inputPrice) || TextUtils.isEmpty(inputQuantity)) {
-                            tv_transaction_money?.text = "--"
+                            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                         } else {
                             //计算总金额
                             var money =
@@ -796,7 +800,7 @@ class TradeView @JvmOverloads constructor(
                     //当市价卖出状态时，此输入框输入的是商品数量（即币对前半段）
                     if (priceType == TYPE_LIMIT) {
                         if (TextUtils.isEmpty(inputPrice) || TextUtils.isEmpty(inputQuantity)) {
-                            tv_transaction_money?.text = "--"
+                            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                         } else {
                             var money =
                                 BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
@@ -862,7 +866,7 @@ class TradeView @JvmOverloads constructor(
                     if (priceType == TYPE_LIMIT) {
                         //交易额
                         if (TextUtils.isEmpty(inputPrice) || TextUtils.isEmpty(inputQuantity)) {
-                            tv_transaction_money?.text = "--"
+                            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                         } else {
                             var money =
                                 BigDecimalUtils.mul(inputPrice, inputQuantity).toPlainString()
@@ -874,7 +878,7 @@ class TradeView @JvmOverloads constructor(
                 } else {
                     if (priceType == TYPE_LIMIT) {
                         if (TextUtils.isEmpty(inputQuantity) || TextUtils.isEmpty(inputPrice)) {
-                            tv_transaction_money?.text = "--"
+                            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                         } else {
                             //交易额
                             var money =
@@ -1015,7 +1019,7 @@ class TradeView @JvmOverloads constructor(
                             coinMapData = NCoinManager.getSymbolObj(symbol)
                             tv_coin_name?.text = "${showCoinName()}"
                             tv_convert_price?.text = "--"
-                            tv_transaction_money?.text = "--"
+                            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
                             getAvailableBalance()
                         }
                     }
@@ -1053,7 +1057,7 @@ class TradeView @JvmOverloads constructor(
             tv_convert_price?.visibility = View.GONE
             tv_convert_price?.text = "--"
             ll_transaction?.visibility = View.VISIBLE
-            tv_transaction_money?.text = "--"
+            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
             if (transactionType == TYPE_BUY) {
                 et_volume?.hint = LanguageUtil.getString(context, "charge_text_volume")
             } else {
@@ -1065,7 +1069,7 @@ class TradeView @JvmOverloads constructor(
             ll_price?.visibility = View.GONE
             tv_convert_price?.visibility = View.GONE
             ll_transaction?.visibility = View.INVISIBLE
-            tv_transaction_money?.text = "--"
+            tv_transaction_money?.text = TRANSACTION_MONEY_VIEW_HINT
             if (transactionType == TYPE_BUY) {
                 et_volume?.hint = LanguageUtil.getString(context, "transaction_text_tradeSum")
             } else {
@@ -1220,7 +1224,7 @@ class TradeView @JvmOverloads constructor(
 
 
     fun editPriceIsNull(): Boolean {
-        if (et_price.text.isNullOrEmpty() && !isClear) {
+        if (et_price.text.isNullOrEmpty() && !isClear&&inputPrice.isNullOrEmpty()) {
             return true
         }
         return false
@@ -1297,10 +1301,10 @@ class TradeView @JvmOverloads constructor(
 
 
     fun changeEtfLayout(isVerticalOrGone: Boolean = false) {
-        val layoutParams = ll_transaction.layoutParams as LinearLayout.LayoutParams
+        val layoutParams = ll_transaction.layoutParams as LayoutParams
         layoutParams.topMargin = DisplayUtil.dip2px(
             when (isVerticalOrGone) {
-                true -> 18
+                true -> 0
                 else -> 35
             }
         )

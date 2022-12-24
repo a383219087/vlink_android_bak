@@ -2,6 +2,7 @@ package com.yjkj.chainup.new_version.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -14,10 +15,15 @@ import com.chainup.contract.utils.CpStringUtil
 import com.chainup.contract.utils.CpSymbolWsData
 import com.chainup.contract.view.CpSearchCoinEmptyForAdapterView
 import com.yjkj.chainup.R
+import com.yjkj.chainup.manager.NCoinManager
+import com.yjkj.chainup.new_version.adapter.MarketContractDetailAdapter
 import com.yjkj.chainup.new_version.adapter.MarketContractDropAdapter
+import com.yjkj.chainup.util.LanguageUtil
 import kotlinx.android.synthetic.main.fragment_sl_contra_child.*
+import kotlinx.android.synthetic.main.include_market_sort.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.imageResource
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -41,18 +47,22 @@ class MarketContracthItemFragment : CpNBaseFragment(){
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
         type = arguments!!.getInt(CpParamConstant.COIN_TYPE)
-        contractDropAdapter = MarketContractDropAdapter(tickers)
         rv_search_coin.layoutManager = LinearLayoutManager(context)
         if (type==0){
             rv_search_coin?.isNestedScrollingEnabled = false
+            //首页用首页显示的 item
+            contractDropAdapter = MarketContractDropAdapter(tickers)
+            ll_item_titles.visibility = View.GONE
+        }else{
+            //行情的合约另一个 item
+            contractDropAdapter = MarketContractDetailAdapter(tickers)
+            ll_item_titles.visibility = View.VISIBLE
         }
-        // 第一种，直接取消动画
         val animator: ItemAnimator? = rv_search_coin.itemAnimator
         if (animator is SimpleItemAnimator) {
             animator.supportsChangeAnimations = false
         }
-//        // 第二种，设置动画时间为0
-//        rv_search_coin.itemAnimator?.changeDuration = 0
+
 
 
         rv_search_coin.adapter = contractDropAdapter
@@ -76,6 +86,10 @@ class MarketContracthItemFragment : CpNBaseFragment(){
                 }
             }
         }
+        tv_name?.text = LanguageUtil.getString(context, "home_action_coinNameTitle")
+        tv_new_price?.text = LanguageUtil.getString(context, "home_text_dealLatestPrice")
+        tv_limit?.text = LanguageUtil.getString(context, "common_text_priceLimit")
+        setOnclick()
     }
 
     override fun loadData() {
@@ -154,6 +168,154 @@ class MarketContracthItemFragment : CpNBaseFragment(){
         }
     }
 
+
+    var nameIndex = 0
+    var newPriceIndex = 0
+    var limitIndex = 0
+
+    fun setOnclick() {
+        /**
+         * 点击名称
+         */
+        ll_name.setOnClickListener {
+            refreshTransferImageView(0)
+            when (nameIndex) {
+                /**
+                 * 正常
+                 */
+                0 -> {
+                    tickers.sortBy { CpClLogicContractSetting.getContractShowNameById(context, it.optInt("id")) }
+                    nameIndex = 1
+                    iv_name_up?.imageResource = R.drawable.quotes_up_daytime
+
+                }
+                /**
+                 * 正序
+                 */
+                1 -> {
+                    tickers.sortByDescending { CpClLogicContractSetting.getContractShowNameById(context, it.optInt("id")) }
+                    nameIndex = 2
+                    iv_name_up?.imageResource = R.drawable.quotes_under_daytime
+
+                }
+                /**
+                 * 倒序
+                 */
+                2 -> {
+                    tickers.clear()
+                    tickers.addAll(localTickers)
+                    nameIndex = 0
+                    iv_name_up?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                }
+            }
+            if (tickers.size > 0) {
+                refreshAdapter(tickers)
+            }
+
+        }
+        /**
+         * 点击最新价
+         */
+        ll_new_price.setOnClickListener {
+            refreshTransferImageView(1)
+            when (newPriceIndex) {
+                /**
+                 * 正常
+                 */
+                0 -> {
+                    tickers.sortBy { it.optDouble("close") }
+                    newPriceIndex = 1
+                    iv_new_price?.imageResource = R.drawable.quotes_up_daytime
+
+                }
+                /**
+                 * 正序
+                 */
+                1 -> {
+                    tickers.sortByDescending { it.optDouble("close") }
+                    newPriceIndex = 2
+                    iv_new_price?.imageResource = R.drawable.quotes_under_daytime
+                }
+                /**
+                 * 倒序
+                 */
+                2 -> {
+                    tickers.clear()
+                    tickers.addAll(localTickers)
+                    newPriceIndex = 0
+                    iv_new_price?.imageResource = R.drawable.quotes_upanddown_default_daytime
+
+                }
+            }
+            if (tickers.size > 0) {
+                refreshAdapter(tickers)
+            }
+        }
+        /**
+         * 点击24小时涨幅
+         */
+        ll_limit.setOnClickListener {
+            refreshTransferImageView(2)
+            when (limitIndex) {
+                /**
+                 * 正常
+                 */
+                0 -> {
+                    tickers.sortBy { it.optDouble("rose") }
+                    limitIndex = 1
+                    iv_new_limit?.imageResource = R.drawable.quotes_up_daytime
+                }
+                /**
+                 * 正序
+                 */
+                1 -> {
+                    tickers.sortByDescending { it.optDouble("rose") }
+                    limitIndex = 2
+                    iv_new_limit?.imageResource = R.drawable.quotes_under_daytime
+                }
+                /**
+                 * 倒序
+                 */
+                2 -> {
+                    tickers.clear()
+                    tickers.addAll(localTickers)
+                    limitIndex = 0
+                    iv_new_limit?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                }
+            }
+            if (tickers.size > 0) {
+                refreshAdapter(tickers)
+            }
+        }
+    }
+
+    private fun refreshAdapter(list: java.util.ArrayList<JSONObject>) {
+        contractDropAdapter?.setList(list)
+    }
+
+
+    private fun refreshTransferImageView(status: Int) {
+        when (status) {
+            0 -> {
+                iv_new_price?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                iv_new_limit?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                newPriceIndex = 0
+                limitIndex = 0
+            }
+            1 -> {
+                iv_name_up?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                iv_new_limit?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                nameIndex = 0
+                limitIndex = 0
+            }
+            2 -> {
+                iv_name_up?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                iv_new_price?.imageResource = R.drawable.quotes_upanddown_default_daytime
+                nameIndex = 0
+                newPriceIndex = 0
+            }
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: CpMessageEvent) {

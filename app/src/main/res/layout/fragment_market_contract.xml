@@ -45,7 +45,7 @@
             android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
         <LinearLayout
-            android:id="@+id/ll_item_titles"
+            android:id="@+id/ll_titles"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_32"
             android:paddingLeft="@dimen/dp_16"

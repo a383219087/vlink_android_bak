@@ -10,7 +10,6 @@ import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpJsonUtils
 import com.chainup.contract.ws.CpWsContractAgentManager
-
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
@@ -19,6 +18,7 @@ import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.manager.CpLanguageUtil.getString
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import kotlinx.android.synthetic.main.fragment_market_contract.*
+import kotlinx.android.synthetic.main.include_market_sort.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -60,10 +60,10 @@ class MarketContractFragment : NBaseFragment() , CpWsContractAgentManager.WsResu
 
          if (type==0){
              tv_u.visibility=View.GONE
-             ll_item_titles.visibility=View.VISIBLE
+             ll_titles.visibility=View.VISIBLE
          }else{
              tv_u.visibility=View.VISIBLE
-             ll_item_titles.visibility=View.GONE
+             ll_titles.visibility=View.GONE
          }
 
         addDisposable(getContractModel().getPublicInfo(

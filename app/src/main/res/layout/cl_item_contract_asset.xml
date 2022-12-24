@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/tv_coin_name"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="58dp"
+            android:layout_marginLeft="36dp"
             android:layout_height="wrap_content"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/sp_16"
@@ -25,7 +25,6 @@
         <ImageView
             android:id="@+id/img"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="22dp"
             android:layout_width="@dimen/dp_26"
             android:layout_height="@dimen/dp_26"/>
 

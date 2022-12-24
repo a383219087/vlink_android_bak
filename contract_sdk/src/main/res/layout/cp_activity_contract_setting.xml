@@ -53,6 +53,7 @@
         android:id="@+id/rl_display_unit_layout"
         android:background="@color/bg_card_color"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="43dp">
         <TextView
             android:id="@+id/tv_contracts_unit_label"

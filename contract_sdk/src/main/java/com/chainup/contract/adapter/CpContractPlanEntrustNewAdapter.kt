@@ -126,7 +126,7 @@ class CpContractPlanEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrd
             else -> "error"
         }
 
-        helper.setGone(R.id.tv_only_reduce_position,( item.timeInForce == "1" || item.timeInForce == "2"))
+//        helper.setGone(R.id.tv_only_reduce_position,( item.timeInForce == "1" || item.timeInForce == "2"))
 
         helper.setText(R.id.tv_side, typeStr)
         helper.setText(R.id.tv_coin_name, symbolName)
@@ -135,7 +135,7 @@ class CpContractPlanEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrd
         helper.setText(R.id.tv_trigger_price, CpBigDecimalUtils.showSNormal(item.triggerPrice))
         helper.setText(R.id.tv_entrust_price, if (item.timeInForce == "2") context.getString(R.string.cp_overview_text53) else item.price)
         helper.setText(R.id.tv_expiration_date, CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd  HH:mm"))
-        helper.setText(R.id.tv_only_reduce_position, orderTypeNewStr)
+        helper.setText(R.id.tv_only_reduce_position, orderTypeStr)
 
         if (openStr == "OPEN" && item.type == "2") {
             helper.setText(R.id.tv_entrust_amount_key, context.getString(R.string.cp_extra_text9) + "(" + (if (contractSide == 1) item.quote else item.base) + ")")
