@@ -826,14 +826,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         if (usdt.toDouble()==0.0){
             tv_rate.text = "$rate%"
             tv_usdt.text = "--"
-            tv_cny.visibility=View.GONE
+            tv_cny.visibility=View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             tv_rate.setTextColor(resources.getColor(R.color.main_green))
             tv_usdt.setTextColor(resources.getColor(R.color.main_green))
         }else{
             tv_rate.text = "$rate%"
             tv_usdt.text = usdt
-            tv_cny.visibility=View.GONE
+            tv_cny.visibility=View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             if (rate.contains("-")) {
                 tv_rate.setTextColor(resources.getColor(R.color.main_red))
