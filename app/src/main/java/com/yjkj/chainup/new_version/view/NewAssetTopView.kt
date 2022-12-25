@@ -107,14 +107,14 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         if (usdt.toDouble() == 0.0) {
             tv_rate.text = "$rate%"
             tv_usdt.text = "--"
-            tv_cny.visibility = View.GONE
+            tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             tv_rate.setTextColor(resources.getColor(R.color.main_green))
             tv_usdt.setTextColor(resources.getColor(R.color.main_green))
         } else {
             tv_rate.text = "$rate%"
             tv_usdt.text = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(usdt, 2).toPlainString(), 2)
-            tv_cny.visibility = View.GONE
+            tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             if (rate.contains("-")) {
                 tv_rate.setTextColor(resources.getColor(R.color.main_red))
@@ -398,6 +398,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
                 ll_bibi.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
                 img_assets_pie_chart?.visibility = View.VISIBLE
+                tv_bb_title.visibility=View.VISIBLE
 
                 assetsTitle = LanguageUtil.getString(context, "assets_crypto_asset_value")
             }

@@ -3766,6 +3766,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="withdrawal_transfer" tools:ignore="ExtraTranslation">提现/转账</string>
     <string name="contract" tools:ignore="ExtraTranslation">合约</string>
     <string name="customer_service" tools:ignore="ExtraTranslation">客服</string>
+    <string name="bb_asset_text1">币币资产</string>
 
 </resources>
 

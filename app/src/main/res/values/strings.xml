@@ -3677,5 +3677,6 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="contract_account_equity">合约账户权益</string>
     <string name="opsition_gain_loss">持仓盈亏</string>
     <!--ybc end-->
+    <string name="bb_asset_text1">币币资产</string>
 </resources>
 

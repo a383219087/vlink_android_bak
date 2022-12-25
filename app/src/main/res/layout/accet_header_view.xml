@@ -77,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:text="0.00000000"
                 android:textColor="@color/text_color"
-                android:textSize="18sp"
+                android:fontFamily="@font/dinpro_bold"
+                android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
 
             <TextView
@@ -87,7 +88,8 @@
                 android:layout_marginLeft="5dp"
                 android:text="≈¥0.00"
                 android:textColor="@color/normal_text_color"
-                android:textSize="12sp" />
+                android:fontFamily="@font/dinpro_medium"
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -160,7 +162,8 @@
                     android:text="0.00000000"
                     android:layout_marginLeft="@dimen/dp_17"
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/dinpro_bold"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
                 <TextView
@@ -170,7 +173,8 @@
                     android:text="≈¥0.00"
                     android:layout_marginLeft="@dimen/dp_17"
                     android:textColor="@color/normal_text_color"
-                    android:textSize="12sp" />
+                    android:fontFamily="@font/dinpro_medium"
+                    android:textSize="@dimen/sp_14" />
 
 
 
@@ -204,7 +208,8 @@
                     android:text="0.00000000"
                     android:layout_marginLeft="@dimen/dp_17"
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/dinpro_bold"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
                 <TextView
@@ -214,7 +219,8 @@
                     android:text="≈¥0.00"
                     android:layout_marginLeft="@dimen/dp_17"
                     android:textColor="@color/normal_text_color"
-                    android:textSize="12sp" />
+                    android:fontFamily="@font/dinpro_medium"
+                    android:textSize="@dimen/sp_14" />
 
 
 
@@ -251,7 +257,8 @@
                 android:text="0.00000000"
                 android:layout_marginLeft="@dimen/dp_17"
                 android:textColor="@color/text_color"
-                android:textSize="18sp"
+                android:fontFamily="@font/dinpro_bold"
+                android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
 
             <TextView
@@ -261,7 +268,8 @@
                 android:text="≈¥0.00"
                 android:layout_marginLeft="@dimen/dp_17"
                 android:textColor="@color/normal_text_color"
-                android:textSize="12sp" />
+                android:fontFamily="@font/dinpro_medium"
+                android:textSize="@dimen/sp_14" />
 
 
 
@@ -301,7 +309,7 @@
                 android:paddingLeft="8dp"
                 android:text="@string/assets_security_advice1"
                 android:textColor="@color/main_blue"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
 
 
@@ -337,7 +345,8 @@
                     android:gravity="center|left"
                     android:text="+0%"
                     android:textColor="@color/green"
-                    android:textSize="20sp" />
+                    android:fontFamily="@font/dinpro_medium"
+                    android:textSize="@dimen/sp_20" />
 
 
             </LinearLayout>
@@ -371,7 +380,8 @@
                         android:gravity="center|left"
                         android:text="0.00"
                         android:textColor="@color/green"
-                        android:textSize="20sp" />
+                        android:fontFamily="@font/dinpro_medium"
+                        android:textSize="@dimen/sp_20" />
 
                     <TextView
                         android:id="@+id/tv_cny"
@@ -381,7 +391,8 @@
                         android:gravity="center|left"
                         android:text="≈ ¥0.00"
                         android:textColor="@color/normal_text_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:fontFamily="@font/dinpro_medium"
+                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
 
@@ -411,6 +422,7 @@
             android:background="@mipmap/button_1"
             android:gravity="center"
             android:text="@string/assets_action_transfer"
+            android:textSize="@dimen/sp_16"
             android:textColor="@color/main_blue"
             android:textStyle="bold" />
 
@@ -422,6 +434,7 @@
             android:background="@mipmap/button_2"
             android:gravity="center"
             android:text="@string/assets_action_withdraw"
+            android:textSize="@dimen/sp_16"
             android:textColor="@color/main_blue"
             android:textStyle="bold" />
 
@@ -433,6 +446,7 @@
             android:background="@mipmap/button_3"
             android:gravity="center"
             android:text="@string/assets_action_chargeCoin"
+            android:textSize="@dimen/sp_16"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -661,6 +675,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
         android:background="@color/bg_color" />
+
+    <TextView
+        android:id="@+id/tv_bb_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/main_blue"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:text="@string/bb_asset_text1"/>
 
     <RelativeLayout
         android:id="@+id/rl_search_layout"
