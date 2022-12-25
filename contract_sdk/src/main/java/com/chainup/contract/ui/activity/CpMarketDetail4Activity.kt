@@ -544,9 +544,50 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         klineScale = CpKLineUtil.getKLineScale()
 
         themeMode = 0
-
+        initMainViceIndex()
     }
 
+    private fun initMainViceIndex(){
+        when (main_index) {
+            MainKlineViewStatus.MA.status -> {
+                v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+                (mainViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+
+            MainKlineViewStatus.BOLL.status -> {
+                v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+                (mainViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+        }
+
+        when (vice_index) {
+            CpViceViewStatus.MACD.status -> {
+                v_kline?.setChildDraw(0)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+                (viceViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+
+            CpViceViewStatus.KDJ.status -> {
+                v_kline?.setChildDraw(1)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+                (viceViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+
+            CpViceViewStatus.RSI.status -> {
+                v_kline?.setChildDraw(2)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+                (viceViewStatusViews[2] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+
+            CpViceViewStatus.WR.status -> {
+                v_kline?.setChildDraw(3)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+                (viceViewStatusViews[3] as CpLabelRadioButton?)?.isLabelEnable = true
+            }
+        }
+    }
 
     override fun initView() {
         contractId = intent.getIntExtra("contractId", -1)
@@ -811,46 +852,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
      * K线的指标处理
      */
     private fun action4KLineIndex() {
-        when (main_index) {
-            MainKlineViewStatus.MA.status -> {
-                v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
-                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
-                (mainViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-
-            MainKlineViewStatus.BOLL.status -> {
-                v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
-                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
-                (mainViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-        }
-
-        when (vice_index) {
-            CpViceViewStatus.MACD.status -> {
-                v_kline?.setChildDraw(0)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
-                (viceViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-
-            CpViceViewStatus.KDJ.status -> {
-                v_kline?.setChildDraw(1)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
-                (viceViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-
-            CpViceViewStatus.RSI.status -> {
-                v_kline?.setChildDraw(2)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
-                (viceViewStatusViews[2] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-
-            CpViceViewStatus.WR.status -> {
-                v_kline?.setChildDraw(3)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
-                (viceViewStatusViews[3] as CpLabelRadioButton?)?.isLabelEnable = true
-            }
-        }
-
         mainViewStatusViews.forEach {
             it?.setOnClickListener {
                 val index = mainViewStatusViews.indexOf(it)

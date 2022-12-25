@@ -318,11 +318,11 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
             }
         }
         /**
-         *  合约账单
+         *  转换
          */
         ll_transfer_layout2?.setOnClickListener {
             if (Utils.isFastClick()) return@setOnClickListener
-            NewVersionContractBillActivity.enter2(context)
+//            NewVersionContractBillActivity.enter2(context)
         }
 
         /**
@@ -330,8 +330,16 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
          */
         img_assets_pie_chart?.setOnClickListener {
             if (Utils.isFastClick()) return@setOnClickListener
-            if (null != listener) {
-                listener?.clickAssetsPieChart()
+            when (param_index) {
+                ParamConstant.BIBI_INDEX -> {
+                    if (null != listener) {
+                        listener?.clickAssetsPieChart()
+                    }
+                }
+                ParamConstant.CONTRACT_INDEX -> {
+                    NewVersionContractBillActivity.enter2(context)
+                }
+
             }
         }
 
@@ -415,6 +423,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
                 ll_heyue_balance.visibility = View.VISIBLE
                 ll_heyue.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
+                img_assets_pie_chart?.visibility = View.VISIBLE
                 if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
                 v_top_line?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE

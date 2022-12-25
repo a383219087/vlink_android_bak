@@ -95,7 +95,7 @@ class ClContractAssetFragment : NBaseFragment() {
         }
         showTitles.clear()
         fragments.clear()
-        showTitles.add(LanguageUtil.getString(context, "cp_order_text1"))
+        showTitles.add(LanguageUtil.getString(context, "position_held_text"))
         showTitles.add(LanguageUtil.getString(context, "cp_order_text111"))
         fragments.add(ContractHoldFragment())
         fragments.add(ClContractAssetFragmentChild())

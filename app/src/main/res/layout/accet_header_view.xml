@@ -481,7 +481,7 @@
             android:layout_weight="1"
             android:background="@mipmap/button_2"
             android:gravity="center"
-            android:text="@string/assets_action_contractNote"
+            android:text="@string/convert_text"
             android:textColor="@color/main_blue"
             android:textStyle="bold" />
 
