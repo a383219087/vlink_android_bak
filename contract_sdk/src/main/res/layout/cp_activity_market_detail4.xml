@@ -811,59 +811,27 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <ImageView
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/line_color"
-                app:layout_constraintBottom_toTopOf="@+id/ll_bottom_ctrl" />
-
-            <LinearLayout
-                android:id="@+id/ll_bottom_ctrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bg_card_color"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <com.chainup.contract.view.CpCommonlyUsedButton
-                    android:id="@+id/btn_buy"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/dp_44"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1"
-                    app:bgColor="@color/main_green"
-                    app:bottonTextContent="买入"
-                    app:layout_constraintHorizontal_weight="1" />
-
-                <com.chainup.contract.view.CpCommonlyUsedButton
-                    android:id="@+id/btn_sell"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/dp_44"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1"
-                    app:bgColor="@color/main_red"
-                    app:bottonTextContent="卖出" />
-            </LinearLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color"
+        app:layout_constraintBottom_toTopOf="@+id/ll_bottom_ctrl" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_card_color"
         android:orientation="horizontal">
 
         <com.chainup.contract.view.CpCommonlyUsedButton
-            android:id="@+id/btn_buy_all"
+            android:id="@+id/btn_buy"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -875,7 +843,7 @@
             app:bottonTextContent="买入" />
 
         <com.chainup.contract.view.CpCommonlyUsedButton
-            android:id="@+id/btn_sell_all"
+            android:id="@+id/btn_sell"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"

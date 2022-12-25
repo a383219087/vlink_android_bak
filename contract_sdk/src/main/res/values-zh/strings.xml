@@ -3446,10 +3446,10 @@
     <string name="cp_calculator_text39">保证金数量</string>
     <string name="cp_calculator_text40">计算</string>
     <string name="cp_calculator_text41">确认</string>
-    <string name="cp_order_text1">当前持仓</string>
+    <string name="cp_order_text1">我的持仓</string>
     <string name="cp_order_text111">全部资产</string>
     <string name="cp_order_text2">当前委托</string>
-    <string name="cp_order_text3">计划委托</string>
+    <string name="cp_order_text3">当前计划</string>
     <string name="cp_order_text4">全部</string>
     <string name="cp_order_text5">显示全部</string>
     <string name="cp_order_text6">多头</string>
