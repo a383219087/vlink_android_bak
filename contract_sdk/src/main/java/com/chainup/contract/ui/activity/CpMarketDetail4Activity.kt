@@ -61,8 +61,20 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.customize_depth_chart
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.kline_tab_indicator
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_boll
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_kdj
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_ma
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_macd
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_rsi
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_wr
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rl_kline_ctrl
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_ctrl
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_scale
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.v_kline
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
-import kotlinx.android.synthetic.main.cp_market_info_kline_panel.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -123,14 +135,14 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
      * 主图指标的子view
      */
     private val mainViewStatusViews: ArrayList<RadioButton?> by lazy(LazyThreadSafetyMode.NONE) {
-        arrayListOf<RadioButton?>(rb_ma, rb_boll, rb_hide_main)
+        arrayListOf<RadioButton?>(rb_ma, rb_boll)
     }
 
     /**
      * 副图指标的子view
      */
     private val viceViewStatusViews: ArrayList<RadioButton?> by lazy(LazyThreadSafetyMode.NONE) {
-        arrayListOf<RadioButton?>(rb_macd, rb_kdj, rb_wr, rb_rsi, rb_hide_vice)
+        arrayListOf<RadioButton?>(rb_macd, rb_kdj, rb_wr, rb_rsi)
     }
 
     private var datas: DepthItem? = null
@@ -164,8 +176,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 //        tv_common_text_dayVolume?.text = CpLanguageUtil.getString(this, "common_text_dayVolume")
 //        tv_cp_extra_text112?.text = LanguageUtil.getString(this, "cp_extra_text112")
         tv_indicator?.text = CpLanguageUtil.getString(this, "kline_text_scale")
-        tv_main?.text = CpLanguageUtil.getString(this, "cp_extra_text155")
-        tv_vice?.text = CpLanguageUtil.getString(this, "cp_extra_text156")
 
         mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("15min")), 1))
         mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("60min")), 1))
@@ -188,7 +198,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text152"), false, 2))
         }
         mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text153"), false, 3))
-        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text154"), false, 2))
+//        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text154"), false, 2))
         mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
         rv_kline_ctrl.layoutManager = GridLayoutManager(this, 7)
         rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
@@ -254,49 +264,49 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                     mklineCtrlList[4].time = CpLanguageUtil.getString(this, "cp_extra_text152")
                 }
             }
-            if (position == 6) {
-//                mklineCtrlList[4].isSelect = false
-                CpDialogUtil.createMoreTargetKlinePop(this, rl_kline_ctrl, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-                    override fun clickItem(position: Int, text: String) {
-                        if (text.equals("main")) {
-                            when (position) {
-                                0 -> {
-                                    v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
-                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
-                                }
-                                1 -> {
-                                    v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
-                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
-                                }
-                            }
-                        } else {
-                            when (position) {
-                                0 -> {
-                                    v_kline?.setChildDraw(0)
-                                    CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
-                                }
-                                1 -> {
-                                    v_kline?.setChildDraw(1)
-                                    CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
-                                }
-                                2 -> {
-                                    v_kline?.setChildDraw(2)
-                                    CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
-                                }
-                                3 -> {
-                                    v_kline?.setChildDraw(3)
-                                    CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
-                                }
-                            }
-                        }
-                    }
-                }, object : CpNewDialogUtils.DialogOnDismissClickListener {
-                    override fun clickItem() {
-                        mklineCtrlList[6].isSelect = false
-                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-                    }
-                })
-            }
+//            if (position == 6) {
+////                mklineCtrlList[4].isSelect = false
+//                CpDialogUtil.createMoreTargetKlinePop(this, rl_kline_ctrl, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+//                    override fun clickItem(position: Int, text: String) {
+//                        if (text.equals("main")) {
+//                            when (position) {
+//                                0 -> {
+//                                    v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
+//                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+//                                }
+//                                1 -> {
+//                                    v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
+//                                    CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+//                                }
+//                            }
+//                        } else {
+//                            when (position) {
+//                                0 -> {
+//                                    v_kline?.setChildDraw(0)
+//                                    CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+//                                }
+//                                1 -> {
+//                                    v_kline?.setChildDraw(1)
+//                                    CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+//                                }
+//                                2 -> {
+//                                    v_kline?.setChildDraw(2)
+//                                    CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+//                                }
+//                                3 -> {
+//                                    v_kline?.setChildDraw(3)
+//                                    CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }, object : CpNewDialogUtils.DialogOnDismissClickListener {
+//                    override fun clickItem() {
+//                        mklineCtrlList[6].isSelect = false
+//                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+//                    }
+//                })
+//            }
         }
         rv_kline_ctrl.postDelayed(Runnable {
             LogUtils.e("positiongetCurTime-----+" + CpKLineUtil.getCurTime())
@@ -801,46 +811,43 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
      * K线的指标处理
      */
     private fun action4KLineIndex() {
-
         when (main_index) {
             MainKlineViewStatus.MA.status -> {
-                rb_ma?.isLabelEnable = true
-                rb_hide_main?.isChecked = false
+                v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+                (mainViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
             }
 
             MainKlineViewStatus.BOLL.status -> {
-                rb_boll?.isLabelEnable = true
-                rb_hide_main?.isChecked = false
-            }
-
-            MainKlineViewStatus.NONE.status -> {
-                rb_hide_main?.isChecked = true
+                v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+                (mainViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
             }
         }
 
         when (vice_index) {
             CpViceViewStatus.MACD.status -> {
-                rb_macd?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(0)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+                (viceViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = true
             }
 
             CpViceViewStatus.KDJ.status -> {
-                rb_kdj?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(1)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+                (viceViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = true
             }
 
             CpViceViewStatus.RSI.status -> {
-                rb_rsi?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
+                v_kline?.setChildDraw(2)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+                (viceViewStatusViews[2] as CpLabelRadioButton?)?.isLabelEnable = true
             }
 
             CpViceViewStatus.WR.status -> {
-                rb_wr?.isLabelEnable = true
-                rb_hide_vice?.isChecked = false
-            }
-
-            CpViceViewStatus.NONE.status -> {
-                rb_hide_vice?.isChecked = true
+                v_kline?.setChildDraw(3)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+                (viceViewStatusViews[3] as CpLabelRadioButton?)?.isLabelEnable = true
             }
         }
 
@@ -849,7 +856,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 val index = mainViewStatusViews.indexOf(it)
                 (mainViewStatusViews[0] as CpLabelRadioButton?)?.isLabelEnable = (index == 0)
                 (mainViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = (index == 1)
-                mainViewStatusViews[2]?.isChecked = (index == 2)
                 when (index) {
                     MainKlineViewStatus.MA.status -> {
                         v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
@@ -879,7 +885,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 (viceViewStatusViews[1] as CpLabelRadioButton?)?.isLabelEnable = (index == 1)
                 (viceViewStatusViews[2] as CpLabelRadioButton?)?.isLabelEnable = (index == 2)
                 (viceViewStatusViews[3] as CpLabelRadioButton?)?.isLabelEnable = (index == 3)
-                viceViewStatusViews[4]?.isChecked = (index == 4)
 
                 when (index) {
                     CpViceViewStatus.MACD.status -> {
@@ -949,7 +954,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             fragments.clear()
         }
         titles.add(CpLanguageUtil.getString(this, "kline_action_entrustMentOrder"))//委托挂单
-        titles.add(CpLanguageUtil.getString(this, "kline_action_dealHistory"))//成交记录
+        titles.add(CpLanguageUtil.getString(this, "cp_order_text71"))//成交记录
 
         mClDepthFragment = CpDepthFragment.newInstance(
                 viewPager = vp_depth_dealt,

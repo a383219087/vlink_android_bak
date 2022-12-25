@@ -46,9 +46,9 @@
         android:id="@+id/ib_kline"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_12"
-        android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/iv_more"
         android:background="@color/transparent"
         android:src="@drawable/cp_exchange_klinediagram" />
