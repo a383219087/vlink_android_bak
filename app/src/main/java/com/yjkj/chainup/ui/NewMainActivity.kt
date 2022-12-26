@@ -391,6 +391,13 @@ class NewMainActivity : NBaseActivity() {
           putString(ParamConstant.TRANSFERSYMBOL, event.msg_content.toString())
         })
       }
+     (CpMessageEvent.contract_switch_type == event.msg_type)  ->{
+        /**
+         * 跳转合约
+         */
+        curPosition = HomeTabMap.maps[HomeTabMap.contractTab] ?: 0
+        setCurrentItem()
+      }
       CpMessageEvent.sl_contract_go_kyc_page == event.msg_type -> {
         ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
       }

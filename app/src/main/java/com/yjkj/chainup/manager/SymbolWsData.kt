@@ -116,27 +116,26 @@ class SymbolWsData {
      * 合约的
      */
     fun getNewSymbolObj2(symbols: ArrayList<JSONObject>?, socketJSON: JSONObject?): JSONObject? {
-        if (null == symbols || symbols.size <= 0 || null == socketJSON)
-            return null
-
-        val tick = socketJSON.optJSONObject("tick")
-        if (null == tick || tick.length() <= 0)
-            return null
-
-        val channel = socketJSON.optString("channel")
-        if (null == channel || !channel.contains("_")) {
+        if (null == symbols || symbols.size <= 0 || null == socketJSON){
             return null
         }
-
-        var tickSymbol = channel.split("_")[2]
-
+        val tick = socketJSON.optJSONObject("tick")
+        if (null == tick || tick.length() <= 0){
+            return null
+        }
+        val channel = socketJSON.optString("channel")
+        if (!channel.contains("_")) {
+            return null
+        }
+        val tickSymbol = channel.split("_")[2]
         for (jsonObject in symbols) {
-
             val symbol = jsonObject.optString("symbol")
-
-
-            if (tickSymbol.equals(symbol, ignoreCase = true)) {
+            LogUtil.d("我是tickSymbol=11","${tickSymbol}====${symbol}")
+            if (tickSymbol.equals(symbol.replace("-",""), ignoreCase = true)) {
+                LogUtil.d("我是tickSymbol=","${tickSymbol}====${symbol}")
                 try {
+//                    {"amount":"180897329518350.4","close":"16835.4","high":"16910","low":"16723.6",
+//                        "open":"16784.1","rose":"0.0030564642","vol":"10751871175"}
                     val close = tick.optString("close")
                     jsonObject.put("amount", tick.optString("amount"))
                     jsonObject.put("close", close)
@@ -146,9 +145,9 @@ class SymbolWsData {
                     jsonObject.put("rose", tick.optString("rose"))
                     jsonObject.put("vol", tick.optString("vol"))
 
-                    var name = jsonObject?.optString("name")//NCoinManager.showAnoterName(jsonObject)
-                    if(null!=name && name.contains("/")){
-                        var split = name.split("/")
+                    val name = jsonObject.optString("name")//NCoinManager.showAnoterName(jsonObject)
+                    if(name.contains("/")){
+                        val split = name.split("/")
                         val rateResult = RateManager.getCNYByCoinName(split[1], close)
                         jsonObject.put("rateResult", rateResult)
                     }
@@ -200,7 +199,7 @@ class SymbolWsData {
                     }
 
                     var name = jsonObject?.optString("name")//NCoinManager.showAnoterName(jsonObject)
-                    if (name.contains("/")) {
+                    if (name!!.contains("/")) {
                         var split = name.split("/")
                         val rateResult = RateManager.getCNYByCoinName(split[1], close)
                         jsonObject.put("rateResult", rateResult)

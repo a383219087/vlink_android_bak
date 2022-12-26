@@ -634,7 +634,7 @@ class LikesHeYueFragment : NBaseFragment(),CpWsContractAgentManager.WsResultCall
         val layoutManager = rv_market_detail?.layoutManager as LinearLayoutManager
         val firstView = layoutManager.findFirstVisibleItemPosition()
         val lastItem = layoutManager.findLastVisibleItemPosition()
-        if (obj?.length() ?: 0 > 0) {
+        if ((obj?.length() ?: 0) > 0) {
             val pos = normalTickList.indexOf(obj)
             if (pos >= 0) {
                 val isRange = (firstView..lastItem).contains(pos)
