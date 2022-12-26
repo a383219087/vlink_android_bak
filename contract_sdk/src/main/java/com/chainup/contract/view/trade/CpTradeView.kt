@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -215,8 +214,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     })
                 }
         }
+        img_buy_transfer.setOnClickListener{
+            CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_transfer))
+        }
         img_sell_transfer.setOnClickListener{
-
+            CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_transfer))
         }
         //点击条件单下的市价单
         tv_price_hint.setOnClickListener {
@@ -649,7 +651,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             orderType,
             level,
             if (isMarketPriceModel) "0" else price,
-        CpBigDecimalUtils.getOrderNum1(isOpen, volume, multiplier, buyOrSellHelper.orderType,price,multiplierPrecision),
+        CpBigDecimalUtils.getOrderNum1(isOpen, volume, multiplier, buyOrSellHelper.orderType,price,if(priceType==2) symbolPricePrecision else multiplierPrecision),
             isConditionOrder,
             triggerPrice,
             expireTime,
@@ -1315,13 +1317,6 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         return null
     }
 
-    fun setBuyTransferListener(click:OnClickListener){
-        img_buy_transfer.setOnClickListener(click)
-    }
-
-    fun setSellTransferListener(click:OnClickListener){
-
-    }
 
     private fun kycTips(s: String) {
         CpNewDialogUtils.showDialog(context!!,

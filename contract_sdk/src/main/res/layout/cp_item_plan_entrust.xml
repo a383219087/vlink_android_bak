@@ -55,16 +55,7 @@
                 android:textSize="@dimen/sp_14"
                 tools:text="LTC" />
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_4"
-                android:layout_toRightOf="@id/tv_coin_name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                tools:text="空头" />
+
 
 
 
@@ -208,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@string/cp_overview_text12"
+                    android:text="@string/cp_order_text67"
                     android:textColor="@color/normal_text_color"
                     android:textSize="12sp" />
 
@@ -226,15 +217,36 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:gravity="center_vertical|left"
                 android:orientation="vertical">
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/cp_order_text671"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="0.014450" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:gravity="bottom|right"
                 android:orientation="vertical">
                 <TextView

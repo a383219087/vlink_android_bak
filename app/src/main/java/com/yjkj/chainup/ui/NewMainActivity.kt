@@ -394,6 +394,9 @@ class NewMainActivity : NBaseActivity() {
       CpMessageEvent.sl_contract_go_kyc_page == event.msg_type -> {
         ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
       }
+      CpMessageEvent.sl_contract_transfer == event.msg_type -> {
+        ArouterUtil.forwardTransfer(ParamConstant.TRANSFER_CONTRACT, "USDT")
+      }
     }
   }
 

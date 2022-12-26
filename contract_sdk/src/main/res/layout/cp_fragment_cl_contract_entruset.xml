@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:visibility="invisible"
                 android:maxLines="1"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/cp_drop_down_small"

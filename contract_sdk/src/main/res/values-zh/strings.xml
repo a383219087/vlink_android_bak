@@ -3522,6 +3522,7 @@
     <string name="cp_order_text66">委托数量</string>
     <string name="cp_order_text661">委托价值</string>
     <string name="cp_order_text67">到期时间</string>
+    <string name="cp_order_text671">创建时间</string>
     <string name="cp_order_text68">撤销</string>
     <string name="cp_order_text681">全部撤销</string>
     <string name="cp_order_text69">条件单</string>
