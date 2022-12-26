@@ -1,6 +1,7 @@
 package com.chainup.contract.ui.fragment
 
 import android.annotation.SuppressLint
+import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpCurrentOrderBean
@@ -37,6 +38,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         return R.layout.cp_fragment_cl_contract_hold
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
         showSwitch()
         initOnClick()
@@ -48,6 +50,8 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         adapter?.addChildClickViewIds(R.id.tv_cancel)
         adapter?.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.data[position] as CpCurrentOrderBean
+            mList.removeAt(position)
+            adapter.notifyDataSetChanged()
             cancelOrder(item.contractId, item.id, true)
         }
     }
@@ -85,6 +89,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
             CpDialogUtil.showNewDoubleDialog(
                 context!!, context!!.getString(R.string.cp_extra_text_hold4),
                 object : CpDialogUtil.DialogBottomListener {
+                    @SuppressLint("NotifyDataSetChanged")
                     override fun sendConfirm() {
                         if (mList.isEmpty()) {
                             CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
@@ -94,6 +99,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                             val item = mList[i]
                             cancelOrder(item.contractId, item.id, false)
                         }
+
 
 
                     }
@@ -113,7 +119,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                 isConditionOrder,
                 consumer = object : CpNDisposableObserver(activity,true) {
                     override fun onResponseSuccess(jsonObject: JSONObject) {
-                        CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_req_plan_entrust_list_event))
+
                     }
                 })
         )

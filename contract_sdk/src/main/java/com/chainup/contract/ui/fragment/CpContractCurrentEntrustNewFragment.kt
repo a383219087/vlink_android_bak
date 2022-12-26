@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.rv_hold_contract
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.tv_confirm_btn
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.tv_show_all
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -64,11 +63,8 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
 
     //更新是否显示全部的是UI
     private fun showSwitch() {
-        showAll =
-            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, 0)
-
+        showAll = CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, 0)
         updateAdapter()
-
     }
     var showTDialog:  TDialog?  =null
     private fun initOnClick() {

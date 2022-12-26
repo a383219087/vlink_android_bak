@@ -467,7 +467,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         } else {
             sellPositionAmount
         }
-        if (mContractUint == 1) {
+        if (mContractUint == 0) {
             volume = if (isOpen) {
                 CpBigDecimalUtils.showSNormal(volume, 0)
             } else {
@@ -508,11 +508,10 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 orderType = 2
                 price = CpBigDecimalUtils.median(buyMaxPrice, askMaxPrice, lastPrice)
                 isMarketPriceModel = true
-                if (isOpen && isPercentPlaceOrder) {
-
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
-                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
-                }
+//                if (isOpen && isPercentPlaceOrder) {
+//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+//                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
+//                }
             }
             3 -> {
                 isConditionOrder = true
@@ -531,11 +530,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                         return
                     }
                 }
-                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
-                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
-                }
+//                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
+//
+//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+//                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
+//                }
             }
             4 -> {
                 orderType = 5
