@@ -20,6 +20,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.ui.mine.partner.vm.PartnerViewModel
 import com.yjkj.chainup.util.SystemV2Utils.Companion.getFontFamily
 import com.yjkj.chainup.util.SystemV2Utils.Companion.getFontFamily2
+import com.yjkj.chainup.util.SystemV2Utils.Companion.getFontFamily3
 import com.yjkj.chainup.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_psrtner.*
 import org.greenrobot.eventbus.Subscribe
@@ -44,6 +45,10 @@ class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityPsrtnerBinding
         tv3.typeface = fontFamily
         tv4.typeface = fontFamily
         tv5.typeface = fontFamily
+        var fontFamily3 = getFontFamily3()
+        tv11.typeface = fontFamily3
+        tv12.typeface = fontFamily3
+        tv13.typeface = fontFamily3
         mViewModel?.activity?.value = this
         mViewModel?.myBonus()
         mViewModel?.top10()
@@ -62,20 +67,24 @@ class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityPsrtnerBinding
         })
         mBinding?.tvShare?.setOnClickListener {
             val list: ArrayList<String> = arrayListOf()
-            val url = UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
-                ?.get(0) + mViewModel?.bean?.value?.inviteCode
+            val url =
+                UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
+                    ?.get(0) + mViewModel?.bean?.value?.inviteCode
             list.add(url)
             list.add(url)
-            dialog = NewDialogUtils.showInvitationPosters(this, list, object : NewDialogUtils.DialogSharePostersListener {
-                override fun saveIamgePosters(imageUrl: String, shareView: View, type: Int) {
-                    createShareView(shareView, type)
-                    dialog?.dismiss()
-                }
+            dialog = NewDialogUtils.showInvitationPosters(
+                this,
+                list,
+                object : NewDialogUtils.DialogSharePostersListener {
+                    override fun saveIamgePosters(imageUrl: String, shareView: View, type: Int) {
+                        createShareView(shareView, type)
+                        dialog?.dismiss()
+                    }
 
-                override fun saveIamgePostersNew(imageUrl: String) {
+                    override fun saveIamgePostersNew(imageUrl: String) {
 
-                }
-            })
+                    }
+                })
         }
 
     }

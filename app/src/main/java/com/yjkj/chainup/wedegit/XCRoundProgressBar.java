@@ -112,7 +112,7 @@ public class XCRoundProgressBar extends View {
         int percent = (int) (((float) progress / (float) max) * 100);//计算百分比
         float textWidth = paint.measureText(percent + "%");//测量字体宽度，需要居中显示
 
-        if (isDisplayText && style == STROKE && percent != 0) {
+        if (isDisplayText && style == STROKE /*&& percent != 0*/) {
             canvas.drawText(percent + "%", centerX - textWidth / 2, centerX + textSize / 2, paint);
         }
 

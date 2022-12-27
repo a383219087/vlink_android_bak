@@ -105,6 +105,8 @@ class  PersonalCenterActivity : NBaseActivity() {
 
         title_layout?.setUserName("UID:${t.optString("id")}")
         title_layout?.setAccountContent(t.optString("userAccount"))
+        title_layout?.setContentTitle(getString(R.string.title_personal_center));
+        title_layout?.slidingShowTitle(false)
         when (t.optInt("authLevel")) {
             /**
              * 认证状态 0、未审核，1、通过，2、未通过  3未认证
