@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.SPUtils
 import com.contract.sdk.ContractUserDataAgent
 import com.contract.sdk.data.ContractAccount
@@ -13,7 +11,6 @@ import com.contract.sdk.impl.ContractAccountListener
 import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.base.NBaseFragment
-import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
 import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.onLineText
@@ -33,6 +30,8 @@ import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import org.json.JSONObject
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 private const val ARG_PARAM1 = "param1"
 
@@ -104,12 +103,11 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(openContract: Int) =
-            NewVersionMyAssetFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_PARAM1, openContract)
-                }
+        fun newInstance(openContract: Int) = NewVersionMyAssetFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, openContract)
             }
+        }
     }
 
 
@@ -159,16 +157,27 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     // 合约
     private fun getTotalAccountBalance() {
         if (!UserDataService.getInstance().isLogined) return
-        addDisposable(
-            getMainModel().contractTotalAccountBalanceV2(
-                consumer = object : NDisposableObserver(mActivity, true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        heyueObject = jsonObject
-                        refresh()
+        addDisposable(getContractModel().getPositionAssetsList(consumer = object : NDisposableObserver() {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                jsonObject.optJSONObject("data")?.run {
+                    if (!isNull("accountList")) {
+                        val mAccountListJson = optJSONArray("accountList")
 
+                        for (i in 0 until mAccountListJson.length()) {
+                            val data: JSONObject = mAccountListJson?.get(i) as JSONObject
+                            if (data.optString("symbol") == "USDT") {
+                                heyueObject = data
+                                refresh()
+                            }
+
+
+                            LogUtil.e(TAG, "------------------------------------")
+                        }
                     }
-                })
-        )
+                } //                        swipe_refresh?.isRefreshing =false
+            }
+        }))
     }
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
@@ -185,8 +194,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
         }
     }
-
-
 
 
     var versionAssetStatus = false
@@ -232,7 +239,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
          *  今日盈亏
          */
         tv_today_pl.setOnClickListener {
-            SlDialogHelper.showIncomeDialog(context!!,LanguageUtil.getString(context,"assets_security_advice_tips7"))
+            SlDialogHelper.showIncomeDialog(context!!, LanguageUtil.getString(context, "assets_security_advice_tips7"))
         }
 
         rl_safety_advice.setOnClickListener {
@@ -262,8 +269,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             }
             if (Utils.isFastClick()) return@setOnClickListener
             if (PublicInfoDataService.getInstance().depositeKycOpen && UserDataService.getInstance().authLevel != 1) {
-                NewDialogUtils.KycSecurityDialog(
-                    mActivity!!,
+                NewDialogUtils.KycSecurityDialog(mActivity!!,
                     context!!.getString(R.string.common_kyc_chargeAndwithdraw),
                     object : NewDialogUtils.DialogBottomListener {
                         override fun sendConfirm() {
@@ -311,24 +317,21 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                     if (it.optInt("withdrawOpen") == 1) {
                         if (phoneCertification()) return@setOnClickListener
                         if (PublicInfoDataService.getInstance().withdrawKycOpen && UserDataService.getInstance().authLevel != 1) {
-                            NewDialogUtils.KycSecurityDialog(context!!, context?.getString(R.string.common_kyc_chargeAndwithdraw)
-                                ?: "", object : NewDialogUtils.DialogBottomListener {
-                                override fun sendConfirm() {
-                                    when (UserDataService.getInstance().authLevel) {
-                                        0 -> {
-                                            NToastUtil.showTopToastNet(
-                                                mActivity,
-                                                false,
-                                                context?.getString(R.string.noun_login_pending)
-                                            )
-                                        }
+                            NewDialogUtils.KycSecurityDialog(context!!,
+                                context?.getString(R.string.common_kyc_chargeAndwithdraw) ?: "",
+                                object : NewDialogUtils.DialogBottomListener {
+                                    override fun sendConfirm() {
+                                        when (UserDataService.getInstance().authLevel) {
+                                            0 -> {
+                                                NToastUtil.showTopToastNet(mActivity, false, context?.getString(R.string.noun_login_pending))
+                                            }
 
-                                        2, 3 -> {
-                                            ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                            2, 3 -> {
+                                                ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
+                                            }
                                         }
                                     }
-                                }
-                            })
+                                })
                             return@setOnClickListener
                         }
 
@@ -377,8 +380,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                             return
                         }
 
-                        if (UserDataService.getInstance().nickName.isEmpty()) {
-                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                        if (UserDataService.getInstance().nickName.isEmpty()) { //认证状态 0、审核中，1、通过，2、未通过  3未认证
                             ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
                             return
                         }
@@ -409,8 +411,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                             return
                         }
 
-                        if (UserDataService.getInstance().nickName.isEmpty()) {
-                            //认证状态 0、审核中，1、通过，2、未通过  3未认证
+                        if (UserDataService.getInstance().nickName.isEmpty()) { //认证状态 0、审核中，1、通过，2、未通过  3未认证
                             //.enter2(context!!)
                             ArouterUtil.navigation(RoutePath.PersonalInfoActivity, null)
                             return
@@ -440,67 +441,40 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     fun refresh() {
         if (null != totalBalance) {
-            Utils.assetsHideShowJrLongData(
-                UserDataService.getInstance().isShowAssets,
-                tv_assets_btc_balance,
-                totalBalance,
-                legalCurrency
-            )
+            Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
         }
         if (fabiObject != null) {
             fabiObject!!.optJSONObject("data")?.run {
-                val assets_legal_currency_balance =
-                    RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
-                val assets_btc_balance =
-                    BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
-                    tv_assets_action_bibi3,
-                    assets_btc_balance + "(BTC)"
-                )
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
-                    tv_assets_action_fabi3,
-                    assets_legal_currency_balance
-                )
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
+                val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi3, assets_btc_balance + "(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi3, assets_legal_currency_balance)
             }
         }
         if (bibiObject != null) {
             bibiObject!!.optJSONObject("data")?.run {
-                val assets_legal_currency_balance =
-                    RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
-                val assets_btc_balance =
-                    BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
-                    tv_assets_action_bibi1,
-                    assets_btc_balance + "(BTC)"
-                )
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
-                    tv_assets_action_fabi1,
-                    assets_legal_currency_balance
-                )
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("totalBalance"))
+                val assets_btc_balance = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(this.optString("totalBalance"), 8).toPlainString(), 8)
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_bibi1, assets_btc_balance + "(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi1, assets_legal_currency_balance)
             }
         }
         if (heyueObject != null) {
             ll_heyue.visibility = View.VISIBLE
-            heyueObject!!.optJSONObject("data")?.run {
-                val assets_legal_currency_balance =
-                    RateManager.getCNYByCoinName(this.optString("totalBalanceSymbol"), this.optString("futuresTotalBalance"))
-                val assets_btc_balance = BigDecimalUtils.showSNormal(
-                    BigDecimalUtils.divForDown(this.optString("futuresTotalBalance"), 8).toPlainString(), 8
-                )
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
+            heyueObject!!.run {
+                var btcRate = BigDecimal(RateManager.getRatesByCoinName("BTC"))
+                val rate = BigDecimal(RateManager.getRatesByCoinName("USDT"))
+                val totalAmount = BigDecimal(this.optString("totalAmount"))
+                if (btcRate.toDouble() == 0.0) {
+                    btcRate = BigDecimal("1")
+                }
+                val data = totalAmount.divide(btcRate, 8, RoundingMode.DOWN).multiply(rate)
+                val assets_legal_currency_balance = RateManager.getCNYByCoinName("USDT", this.optString("totalAmount"))
+
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets,
                     tv_assets_action_bibi2,
-                    assets_btc_balance + "(BTC)"
-                )
-                Utils.assetsHideShow(
-                    UserDataService.getInstance().isShowAssets,
-                    tv_assets_action_fabi2,
-                    assets_legal_currency_balance
-                )
+                    BigDecimalUtils.showSNormal(data.toPlainString(), 8) + "(BTC)")
+                Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_action_fabi2, assets_legal_currency_balance)
             }
         } else {
             ll_heyue.visibility = View.GONE
@@ -576,25 +550,22 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             val msg_content = event.msg_content
             if (null != msg_content && msg_content is Bundle) {
                 val content = msg_content.getString(ARG_INDEX)
-                when (content) {
-                    //币币
+                when (content) { //币币
                     ParamConstant.BIBI_INDEX -> {
                         getAccountBalance()
                         getTotalAssets()
-                    }
-                    //法币
+                    } //法币
                     ParamConstant.FABI_INDEX -> {
                         getAccountBalance4OTC()
                     }
 
                 }
-            }else if (msg_content=="bibi,fabi"){
+            } else if (msg_content == "bibi,fabi") {
                 getAccountBalance()
                 getTotalAssets()
             }
         }
     }
-
 
 
     /**
@@ -609,23 +580,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 if (b2cOpen) {
                     if (assetlist.size > 3) {
                         assetlist[3].put("totalBalance", t.optString("totalBalance") ?: "")
-                        assetlist[3].put(
-                            "totalBalanceSymbol", t.optString("totalBalanceSymbol")
-                                ?: ""
-                        )
+                        assetlist[3].put("totalBalanceSymbol", t.optString("totalBalanceSymbol") ?: "")
                     }
                 } else if (b2cOpen) {
                     assetlist[2].put("totalBalance", t.optString("totalBalance") ?: "")
-                    assetlist[2].put(
-                        "totalBalanceSymbol", t.optString("totalBalanceSymbol")
-                            ?: ""
-                    )
+                    assetlist[2].put("totalBalanceSymbol", t.optString("totalBalanceSymbol") ?: "")
                 } else {
                     assetlist[1].put("totalBalance", t.optString("totalBalance") ?: "")
-                    assetlist[1].put(
-                        "totalBalanceSymbol", t.optString("totalBalanceSymbol")
-                            ?: ""
-                    )
+                    assetlist[1].put("totalBalanceSymbol", t.optString("totalBalanceSymbol") ?: "")
                 }
 
 
@@ -667,10 +629,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 refresh()
 
                 assetlist[0].put("totalBalance", json.optString("totalBalance") ?: "")
-                assetlist[0].put(
-                    "totalBalanceSymbol", json.optString("totalBalanceSymbol")
-                        ?: ""
-                )
+                assetlist[0].put("totalBalanceSymbol", json.optString("totalBalanceSymbol") ?: "")
                 when (openContract) {
                     1 -> {
                         getContractAccount()
@@ -733,12 +692,10 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
 
         //刷新header
-        refresh()
-        //通知列表刷新
+        refresh() //通知列表刷新
         contractAssetFragment?.setRefreshAdapter()
 
     }
-
 
 
     /**
@@ -746,94 +703,80 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
      */
     private fun getTotalAssets() {
         bibiSHouyi()
-        addDisposable(
-            getMainModel().getTotalAsset(
-                consumer = object : NDisposableObserver() {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        val data = jsonObject.optJSONObject("data")
-                        totalBalance = if (null == totalBalance) {
-                            data.optString("totalBalance")
-                        } else {
-                            BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
-                        }
-//                        总资产折合计算： 币币总资产+ 法币总资产 +合约总资产估值 +杠杆净资产（总资产 - 借贷资产）
+        addDisposable(getMainModel().getTotalAsset(consumer = object : NDisposableObserver() {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                val data = jsonObject.optJSONObject("data")
+                totalBalance = if (null == totalBalance) {
+                    data.optString("totalBalance")
+                } else {
+                    BigDecimalUtil.add(data.optString("totalBalance"), contractTotal.toString(), 8).toPlainString()
+                } //                        总资产折合计算： 币币总资产+ 法币总资产 +合约总资产估值 +杠杆净资产（总资产 - 借贷资产）
 
-                        updateAsset(false)
-                    }
-                })
-        )
+                updateAsset(false)
+            }
+        }))
     }
 
     /**
      * 币币收益
      */
     private fun bibiSHouyi() {
-        if (!UserDataService.getInstance().isLogined)   {
+        if (!UserDataService.getInstance().isLogined) {
             return
-        }
-//        {
-//                   "nowBalance": 8410.16,
-//                   "yesterdayBalance": 8920.74,
-//                   "rate": -5.72,
-//                   "yesterdayAccountAmount": 8920.74,
-//                   "usdt": -510.57,
-//                   "deposit": 0,
-//                   "sumToFutures": 0,
-//                   "sumFromFutures": 0,
-//                   "withdraw": 0
-//               }
-        addDisposable(
-            getMainModel().accountStats(
-                consumer = object : NDisposableObserver(true) {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            val usdt = opt("usdt").toString().toDouble()
-                            val balance = opt("yesterdayBalance").toString().toDouble()
-                            if (openContract == 1) {
-                                addDisposable(
-                                    getMainModel().accountStatsCon(
-                                        consumer = object : NDisposableObserver(true) {
-                                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                                jsonObject.optJSONObject("data").run {
-                                                    val usdt1 = opt("usdt").toString().toDouble()
-                                                    val balance1 = opt("yesterdayBalance").toString().toDouble()
-                                                    val rate = BigDecimalUtil.getFixedPointNum3(
-                                                        ((usdt + usdt1) * 100 / (balance + balance1)).toString(),
-                                                        2
-                                                    );
-                                                    val rateU = BigDecimalUtil.getFixedPointNum3(((usdt + usdt1)).toString(), 2);
-                                                    accountStats(rate, rateU)
-                                                }
-                                            }
-                                        })
-                                )
-
-                            } else {
-                                val rate = BigDecimalUtil.getFixedPointNum3(((usdt) * 100 / (balance)).toString(), 2);
-                                val rateU = BigDecimalUtil.getFixedPointNum3(((usdt)).toString(), 2);
-                                accountStats(rate, rateU)
+        } //        {
+        //                   "nowBalance": 8410.16,
+        //                   "yesterdayBalance": 8920.74,
+        //                   "rate": -5.72,
+        //                   "yesterdayAccountAmount": 8920.74,
+        //                   "usdt": -510.57,
+        //                   "deposit": 0,
+        //                   "sumToFutures": 0,
+        //                   "sumFromFutures": 0,
+        //                   "withdraw": 0
+        //               }
+        addDisposable(getMainModel().accountStats(consumer = object : NDisposableObserver(true) {
+            override fun onResponseSuccess(jsonObject: JSONObject) {
+                jsonObject.optJSONObject("data").run {
+                    val usdt = opt("usdt").toString().toDouble()
+                    val balance = opt("yesterdayBalance").toString().toDouble()
+                    if (openContract == 1) {
+                        addDisposable(getMainModel().accountStatsCon(consumer = object : NDisposableObserver(true) {
+                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                jsonObject.optJSONObject("data").run {
+                                    val usdt1 = opt("usdt").toString().toDouble()
+                                    val balance1 = opt("yesterdayBalance").toString().toDouble()
+                                    val rate = BigDecimalUtil.getFixedPointNum3(((usdt + usdt1) * 100 / (balance + balance1)).toString(), 2);
+                                    val rateU = BigDecimalUtil.getFixedPointNum3(((usdt + usdt1)).toString(), 2);
+                                    accountStats(rate, rateU)
+                                }
                             }
+                        }))
 
-
-                        }
+                    } else {
+                        val rate = BigDecimalUtil.getFixedPointNum3(((usdt) * 100 / (balance)).toString(), 2);
+                        val rateU = BigDecimalUtil.getFixedPointNum3(((usdt)).toString(), 2);
+                        accountStats(rate, rateU)
                     }
-                })
-        )
+
+
+                }
+            }
+        }))
     }
 
     //收益分析
     private fun accountStats(rate: String, usdt: String) {
-        if (usdt.toDouble()==0.0){
+        if (usdt.toDouble() == 0.0) {
             tv_rate.text = "$rate%"
             tv_usdt.text = "--"
-            tv_cny.visibility=View.VISIBLE
+            tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             tv_rate.setTextColor(resources.getColor(R.color.main_green))
             tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-        }else{
+        } else {
             tv_rate.text = "$rate%"
             tv_usdt.text = usdt
-            tv_cny.visibility=View.VISIBLE
+            tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
             if (rate.contains("-")) {
                 tv_rate.setTextColor(resources.getColor(R.color.main_red))
@@ -853,12 +796,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             BigDecimalUtil.add(totalBalance, "0", 8).toPlainString()
         }
         legalCurrency = RateManager.getCNYByCoinName("BTC", totalBalance)
-        Utils.assetsHideShowJrLongData(
-            UserDataService.getInstance().isShowAssets,
-            tv_assets_btc_balance,
-            totalBalance,
-            legalCurrency
-        )
+        Utils.assetsHideShowJrLongData(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, totalBalance, legalCurrency)
 
     }
 

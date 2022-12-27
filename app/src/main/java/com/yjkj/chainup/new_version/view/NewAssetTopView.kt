@@ -35,6 +35,8 @@ import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import kotlinx.android.synthetic.main.sl_activity_contract_entrust_detail.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 /**
  * @Author lianshangljl
@@ -476,41 +478,46 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
     }
 
 
-    /**
-     * 合约总资产
-     */
-    fun setContractHeadData(jsonObject: JSONObject) {
-        val assets_legal_currency_balance =
-            RateManager.getCNYByCoinName(jsonObject?.optString("totalBalanceSymbol"), jsonObject?.optString("futuresTotalBalance"))
-        val assets_btc_balance =
-            BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("futuresTotalBalance"), 8).toPlainString(), 8)
-        tv_assets_title.setText(LanguageUtil.getString(context, "assets_contract_value") + "(BTC)")
-        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, assets_btc_balance)
-        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
-    }
 
     /**
      * 合约保证金余额
      */
     fun setContractHeadData1(jsonObject: JSONObject) {
-        //                        {"symbol":"USDT","totalAmount":"0","canUseAmount":0.0,"isolateMargin":"0","lockAmount":"0",
-        //                            "unRealizedAmount":"0","realizedAmount":"0","totalMargin":"0","totalMarginRate":"0"}
-        //                        钱包余额 用 totalAmount
-        //                       isolateMargin+totalMargin+lockAmount 保证金余额
-        //                        realizedAmount 为实现盈亏
-      val  isolateMargin =  jsonObject?.optString("isolateMargin").toString().toDouble()
-      val  totalMargin =  jsonObject?.optString("totalMargin").toString().toDouble()
-      val  lockAmount =  jsonObject?.optString("lockAmount").toString().toDouble()
-        val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown((isolateMargin+totalMargin+lockAmount).toString(), 2).toPlainString(), 2)
-        val fabi1 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("lockAmount"))
+        //                       {"symbol":"USDT","accountLock":0,"unRealizedAmount":"-0.29999991645833",
+        //                       "realizedAmount":"0","totalMargin":"859.0766631140086462",
+        //                       "sumHoldAmount":"131.8365805728915","totalAmount":"981.2107485939816562",
+        //                       "canUseAmount":849.9275079140086,"isolateMargin":"122.13408547997301",
+        //                       "lockAmount":"0","totalEntity":859.0766631140086,
+        //                       "totalMarginRate":"0.4501516570074769","partEntity":122.13408547997301,
+        //                       "openRealizedAmount":"-9.63217097397833"}
+        //                        钱包余额 用 canUseAmount
+        //                      sumHoldAmount 保证金余额
+        //                        openRealizedAmount 为实现盈亏
+
+
+        var btcRate = BigDecimal(RateManager.getRatesByCoinName("BTC"))
+        val rate = BigDecimal(RateManager.getRatesByCoinName("USDT"))
+        val totalAmount = BigDecimal(jsonObject.optString("totalAmount"))
+        if (btcRate.toDouble() == 0.0) {
+            btcRate = BigDecimal("1")
+        }
+        val assets_btc_balance = totalAmount.divide(btcRate, 8, RoundingMode.DOWN).multiply(rate)
+        val assets_legal_currency_balance = RateManager.getCNYByCoinName("USDT", jsonObject.optString("totalAmount"))
+        tv_assets_title.setText(LanguageUtil.getString(context, "assets_contract_value") + "(BTC)")
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_btc_balance, BigDecimalUtils.showSNormal(assets_btc_balance.toPlainString(), 8))
+        Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_assets_legal_currency_balance, assets_legal_currency_balance)
+
+
+        val bibi1 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown( jsonObject?.optString("sumHoldAmount"), 2).toPlainString(), 2)
+        val fabi1 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("sumHoldAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_1, bibi1)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_1, fabi1)
-        val bibi2 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("totalAmount"), 2).toPlainString(), 2)
-        val fabi2 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("totalAmount"))
+        val bibi2 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("canUseAmount"), 2).toPlainString(), 2)
+        val fabi2 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("canUseAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_2, bibi2)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_2, fabi2)
-        val bibi3 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("realizedAmount"), 2).toPlainString(), 2)
-        val fabi3 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("realizedAmount"))
+        val bibi3 = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(jsonObject?.optString("openRealizedAmount"), 2).toPlainString(), 2)
+        val fabi3 = RateManager.getCNYByCoinName("USDT", jsonObject?.optString("openRealizedAmount"))
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_bibi_3, bibi3)
         Utils.assetsHideShow(UserDataService.getInstance().isShowAssets, tv_fabi_3, fabi3)
 

@@ -131,7 +131,6 @@ class ClContractAssetFragment : NBaseFragment() {
         if (isVisibleToUser) {
             assetHeadView?.initNorMalView(ParamConstant.CONTRACT_INDEX)
             loadContractUserConfig()
-            getTotalAccountBalance()
             bibiSHouyi()
         }
     }
@@ -192,19 +191,7 @@ class ClContractAssetFragment : NBaseFragment() {
         }))
     }
 
-    var buffJson: JSONObject? = null
     var buffJson1: JSONObject? = null
-    private fun getTotalAccountBalance() {
-        if (!UserDataService.getInstance().isLogined) return
-        addDisposable(getMainModel().contractTotalAccountBalanceV2(consumer = object : NDisposableObserver(mActivity, true) {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                jsonObject.optJSONObject("data")?.run {
-                    buffJson = this
-                    assetHeadView?.setContractHeadData(this)
-                }
-            }
-        }))
-    }
 
     private fun loadContractUserConfig() { //如果合约ID传0则获取默认的数据，此处主要就是获取是否开通合约
         if (!UserDataService.getInstance().isLogined) return
@@ -268,9 +255,7 @@ class ClContractAssetFragment : NBaseFragment() {
             }
 
             override fun isShowAssets() {
-                if (buffJson != null) {
-                    assetHeadView?.setContractHeadData(buffJson!!)
-                }
+
                 if (buffJson1 != null) {
                     assetHeadView?.setContractHeadData1(buffJson1!!)
                 }
