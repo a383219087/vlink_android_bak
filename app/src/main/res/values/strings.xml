@@ -3680,5 +3680,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="bb_asset_text1">币币资产</string>
     <string name="convert_text">转换</string>
     <string name="position_held_text">持有仓位</string>
+    <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币</string>
+    <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约</string>
 </resources>
 

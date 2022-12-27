@@ -149,7 +149,16 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
          *  今日盈亏
          */
         tv_today_pl.setOnClickListener {
-            SlDialogHelper.showIncomeDialog(context)
+            var text = ""
+            when (param_index) {
+                ParamConstant.BIBI_INDEX -> {
+                    text = LanguageUtil.getString(context,"assets_bb_security_advice_tips")
+                }
+                ParamConstant.CONTRACT_INDEX -> {
+                    text = LanguageUtil.getString(context,"assets_contract_security_advice_tips")
+                }
+            }
+            SlDialogHelper.showIncomeDialog(context,text)
         }
         /**
          * 显示或者隐藏资产

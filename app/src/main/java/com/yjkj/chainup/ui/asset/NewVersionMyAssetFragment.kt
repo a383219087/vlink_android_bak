@@ -232,7 +232,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
          *  今日盈亏
          */
         tv_today_pl.setOnClickListener {
-            SlDialogHelper.showIncomeDialog(context!!)
+            SlDialogHelper.showIncomeDialog(context!!,LanguageUtil.getString(context,"assets_security_advice_tips7"))
         }
 
         rl_safety_advice.setOnClickListener {

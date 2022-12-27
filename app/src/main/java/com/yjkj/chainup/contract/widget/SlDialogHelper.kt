@@ -3,6 +3,7 @@ package com.yjkj.chainup.contract.widget
 import android.content.Context
 import android.view.Gravity
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.listener.OnBindViewListener
@@ -147,7 +148,7 @@ object SlDialogHelper {
     /**
      * 资产页面--收益分析
      */
-    fun showIncomeDialog(context: Context): TDialog {
+    fun showIncomeDialog(context: Context,msg:String): TDialog {
         return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
             .setLayoutRes(R.layout.sl_item_income_dialog)
             .setScreenWidthAspect(context, 0.8f)
@@ -156,6 +157,7 @@ object SlDialogHelper {
             .setScreenWidthAspect(context, 0.89f)
             .setCancelableOutside(false)
             .setOnBindViewListener { viewHolder ->
+                viewHolder.setText(R.id.tv_text1, msg)
             }
             .addOnClickListener(R.id.tv_confirm_btn)
             .setOnViewClickListener { _, view, tDialog ->
