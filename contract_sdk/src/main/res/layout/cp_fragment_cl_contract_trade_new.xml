@@ -241,6 +241,7 @@
                                     android:id="@+id/v_kline"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"
+                                    android:layout_marginRight="@dimen/dp_20"
                                     android:nestedScrollingEnabled="false"
                                     app:kc_background_color="@color/transparent"
                                     app:kc_grid_line_color="@color/kline_grid_line"
@@ -262,10 +263,10 @@
 
                                 <ImageView
                                     android:id="@+id/iv_pull_up"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/dp_25"
+                                    android:layout_height="@dimen/dp_25"
                                     android:layout_gravity="bottom|end"
-                                    android:layout_marginRight="@dimen/dp_15"
+                                    android:layout_marginRight="@dimen/dp_8"
                                     android:src="@mipmap/ic_pull_up" />
                             </FrameLayout>
                         </LinearLayout>

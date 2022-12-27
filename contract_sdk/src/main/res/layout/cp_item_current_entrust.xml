@@ -224,7 +224,7 @@
                     android:layout_marginTop="@dimen/dp_5"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="--" />
+                    android:text="--/--" />
 
             </LinearLayout>
             <!--强平价格-->

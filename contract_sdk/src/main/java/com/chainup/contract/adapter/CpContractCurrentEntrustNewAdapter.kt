@@ -128,7 +128,7 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
             val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
             helper.setText(R.id.tv_side, typeStr)
             helper.setText(R.id.tv_coin_name, symbolName)
-            helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm:ss"))
+            helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd HH:mm:ss"))
             helper.setText(R.id.tv_order_type, orderType)
             helper.setText(R.id.tv_price,  CpBigDecimalUtils.showSNormal(item.price))
 //            helper.setText(R.id.tv_volume, if (CpBigDecimalUtils.compareTo(item.avgPrice,"0")==0) "--" else item.avgPrice)

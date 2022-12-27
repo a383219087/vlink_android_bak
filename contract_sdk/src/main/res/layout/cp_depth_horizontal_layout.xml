@@ -33,7 +33,6 @@
                         android:layout_width="wrap_content"
                         android:gravity="center"
                         android:background="@drawable/cp_bg_assets_item_0"
-                        android:paddingLeft="14dp"
                         android:paddingRight="8dp"
                         android:layout_height="@dimen/dp_24">
                         <TextView
@@ -43,7 +42,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/cp_contract_setting_text1"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
                             android:textColor="@color/new_text_color"
                             android:textSize="@dimen/sp_14" />
                         <ImageView
@@ -58,26 +58,28 @@
                     <LinearLayout
                         android:id="@+id/ll_lever"
                         android:layout_width="wrap_content"
-                        android:gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="8dp"
-                        android:background="@drawable/cp_bg_assets_item_0"
+                        android:layout_height="@dimen/dp_24"
                         android:layout_alignParentRight="true"
-                        android:layout_height="@dimen/dp_24">
+                        android:background="@drawable/cp_bg_assets_item_0"
+                        android:gravity="center"
+                        android:paddingRight="8dp">
+
                         <TextView
                             android:id="@+id/tv_lever"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
                             android:gravity="center|right"
                             android:text="20x"
-                            android:layout_marginRight="8dp"
                             android:textColor="@color/new_text_color"
                             android:textSize="@dimen/sp_14" />
+
                         <ImageView
                             android:id="@+id/img_lever"
                             android:layout_width="wrap_content"
-                            android:src="@drawable/cp_drop_down_small"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cp_drop_down_small" />
                     </LinearLayout>
 
                     <LinearLayout
