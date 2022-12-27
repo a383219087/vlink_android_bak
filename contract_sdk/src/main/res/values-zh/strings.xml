@@ -3461,7 +3461,7 @@
     <string name="cp_order_text10">回报率</string>
     <string name="cp_order_text11">持仓数量</string>
     <string name="traders_apply_text9">跟随</string>
-    <string name="cp_order_text12">保证金</string>
+    <string name="cp_order_text12">初始保证金</string>
     <string name="cp_order_text13">标记价格</string>
     <string name="cp_order_text14">已结算盈亏</string>
     <string name="cp_order_text15">空头</string>

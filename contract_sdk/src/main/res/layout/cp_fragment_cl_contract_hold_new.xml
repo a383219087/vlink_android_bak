@@ -32,6 +32,7 @@
                 android:drawableRight="@drawable/cp_drop_down_small"
                 android:drawablePadding="4dp"
                 android:maxLines="1"
+                android:textStyle="bold"
                 android:text="@string/cp_extra_text_hold1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/sp_13" />
