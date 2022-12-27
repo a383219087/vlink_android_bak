@@ -298,6 +298,7 @@
     <!-- 个人页面自定义title-->
     <declare-styleable name="CustomPersonalTitle">
         <attr name="showTitle" format="boolean" />
+        <attr name="bar_title_value" format="string" />
         <attr name="showRightIc" format="boolean" />
         <attr name="showRightTv" format="boolean" />
         <attr name="showRightIc2" format="boolean" />

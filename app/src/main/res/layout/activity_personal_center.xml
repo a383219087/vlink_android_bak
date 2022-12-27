@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bg_color"
             app:personalTitle=""
+            app:bar_title_value="@string/title_personal_center"
             app:showRightIc="false"
             app:showTitle="false" />
 

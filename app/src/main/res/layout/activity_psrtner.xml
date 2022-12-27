@@ -46,9 +46,9 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/dp_15"
-                    android:text="@string/share_text711"
+                    android:text="@string/share_text7"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/sp_18"
+                    android:textSize="@dimen/sp_16"
                     android:textStyle="bold" />
 
             </FrameLayout>
@@ -79,6 +79,7 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_60"
                         android:text="呼朋唤友，共赴未来"
+                        android:fontFamily="@font/pang"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
 
@@ -87,7 +88,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_85"
-                        android:text="Go to the future with friends"
+                        android:fontFamily="@font/dinpro_bold"
+                        android:text="GO TO THE FUTURE WITH FRIENDS"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -100,6 +102,7 @@
                         android:background="@mipmap/bg_button"
                         android:gravity="center"
                         android:text="立刻邀请"
+                        android:fontFamily="@font/pang"
                         android:textColor="@color/main_blue"
                         android:textSize="15sp" />
                 </RelativeLayout>
@@ -305,6 +308,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -334,6 +338,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -363,6 +368,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

@@ -39,6 +39,7 @@ class PersonalCenterView @JvmOverloads constructor(
     var rightIcon = 0
 
     var mContext = context
+    var barTitle:String? =""
 
     interface MyProfileListener {
         fun onclickHead()
@@ -56,6 +57,7 @@ class PersonalCenterView @JvmOverloads constructor(
         attrs.let {
             var typedArray = context.obtainStyledAttributes(it, R.styleable.CustomPersonalTitle)
             showTitle = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showTitle, true)
+            barTitle = typedArray.getString(R.styleable.CustomPersonalTitle_bar_title_value)
             showRightIc = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightIc, false)
             showRightIc2 = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightIc2, false)
             showRightTv = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightTv, false)
@@ -75,6 +77,7 @@ class PersonalCenterView @JvmOverloads constructor(
         tv_title?.text = title
         tv_noun_login_pending?.text = LanguageUtil.getString(context,"noun_login_pending")
         tv_title_for_top?.text = title
+        tv_bar_title?.text = barTitle?:""
         right_icon?.setImageResource(rightIcon)
         iv_back?.setOnClickListener {
             if (finishListener != null) {
