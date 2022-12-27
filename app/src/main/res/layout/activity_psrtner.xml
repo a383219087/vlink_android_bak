@@ -314,7 +314,6 @@
                             android:layout_gravity="center"
                             android:text="@{_all.myBonusBean.userCount+``}"
                             android:textColor="@color/main_blue"
-                            android:fontFamily="@font/din_blackitalic"
                             android:textSize="18sp" />
 
                         <TextView
@@ -345,7 +344,6 @@
                             android:layout_gravity="center"
                             android:text="@{_all.myBonusBean.txCount+``}"
                             android:textColor="@color/main_blue"
-                            android:fontFamily="@font/din_blackitalic"
                             android:textSize="18sp" />
 
                         <TextView
@@ -376,7 +374,6 @@
                             android:layout_gravity="center"
                             android:text="@{DecimalUtil.cutValueByPrecision(_all.myBonusBean.amount+``,2)+``}"
                             android:textColor="@color/main_blue"
-                            android:fontFamily="@font/din_blackitalic"
                             android:textSize="18sp" />
 
                         <TextView
