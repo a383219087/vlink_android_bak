@@ -73,6 +73,14 @@ class SystemV2Utils {
             return Typeface.createFromAsset(ChainUpApp.app.assets,
                     "fonts/dinpro_medium.otf")
         }
+
+        /**
+         * 旁门正道标题题
+         */
+        fun getFontFamily2(): Typeface {
+            return Typeface.createFromAsset(ChainUpApp.app.assets,
+                "fonts/pmzdbtt.ttf")
+        }
     }
 }
 

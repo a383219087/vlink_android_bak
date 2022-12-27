@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
-                android:gravity="center"
+                android:gravity="start"
                 android:text="@{_all.type==1?@string/share_text30:@string/share_text31}"
                 android:textColor="@color/text_color"
                 android:textSize="12sp"

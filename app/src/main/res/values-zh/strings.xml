@@ -3702,7 +3702,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text5">已交易人数</string>
     <string name="share_text6">获得返利收入</string>
     <string name="share_text7">邀请有礼</string>
-    <string name="share_text711">合伙人</string>
+    <string name="share_text711">邀请人</string>
     <string name="share_text8">返佣规则</string>
     <string name="share_text9">有福同享 多邀多得</string>
     <string name="share_text10">邀请好友 共同赚币</string>
@@ -3718,11 +3718,11 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="share_text20">我的邀请统计</string>
     <string name="share_text201">我的邀请统计</string>
     <string name="share_text21">更多</string>
-    <string name="share_text22">邀请人数</string>
-    <string name="share_text23">已交易人数</string>
+    <string name="share_text22">已邀请</string>
+    <string name="share_text23">已交易</string>
     <string name="share_text24">我的返利（USDT）</string>
     <string name="share_text25">邀请排行榜</string>
-    <string name="share_text26">排行</string>
+    <string name="share_text26">排行榜</string>
     <string name="share_text27">用户昵称</string>
     <string name="share_text28">邀请人数</string>
     <string name="share_text281">比例</string>
