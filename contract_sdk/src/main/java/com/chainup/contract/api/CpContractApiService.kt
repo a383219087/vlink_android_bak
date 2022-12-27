@@ -119,6 +119,12 @@ interface CpContractApiService {
     @POST("order/trigger_order_list")
     fun getCurrentPlanOrderList(@Body requestBody: RequestBody): Observable<ResponseBody>
 
+    /**
+     *  所有当前计划订单
+     */
+    @POST("order/take_profit_stop_loss_all")
+    fun getCurrentPlanOrderListAll(@Body requestBody: RequestBody): Observable<ResponseBody>
+
 
     /**
      *  持仓列表

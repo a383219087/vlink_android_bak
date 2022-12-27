@@ -597,6 +597,29 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     @SuppressLint("SetTextI18n")
                     override fun onResponseSuccess(jsonObject: JSONObject) {
                         jsonObject.optJSONObject("data")?.run {
+                            if (!isNull("accountList")) {
+                                val mAccountListJson = optJSONArray("accountList")
+                                for (i in 0 until mAccountListJson.length()) {
+                                    val data: JSONObject = mAccountListJson?.get(i) as JSONObject
+                                    if (data.optString("symbol") == "USDT") {
+                                        val bibi1 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("totalAmount"), 2).toPlainString(), 2)
+                                        val bibi2 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("openRealizedAmount"), 2).toPlainString(), 2)
+                                        tv_contract_account_equity.text=bibi1
+                                        tv_opsition_gain_loss.text=bibi2
+                                         if (bibi2.contains("-")){
+                                             tv_opsition_gain_loss.textColor=CpColorUtil.getColor(R.color.main_red)
+                                         }else{
+                                             tv_opsition_gain_loss.textColor=CpColorUtil.getColor(R.color.main_green)
+                                         }
+
+
+
+                                    }
+
+
+
+                                }
+                            }
                             tab_order.getTitleView(0).text = getString(R.string.cp_order_text1) + " " + this.optJSONArray("positionList").length()
                             val msgEvent =
                                 CpMessageEvent(CpMessageEvent.sl_contract_refresh_position_list_event)
@@ -633,7 +656,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (!CpClLogicContractSetting.isLogin()) return
         if (openContract == 0) return
         addDisposable(
-            getContractModel().getCurrentPlanOrderList(mContractId.toString(), 0, 1,
+            getContractModel().getCurrentPlanOrderListAll(0, 1,
                 consumer = object : CpNDisposableObserver(true) {
                     @SuppressLint("SetTextI18n")
                     override fun onResponseSuccess(jsonObject: JSONObject) {

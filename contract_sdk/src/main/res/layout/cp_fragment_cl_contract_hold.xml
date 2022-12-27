@@ -31,7 +31,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:maxLines="1"
-                android:visibility="invisible"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/cp_drop_down_small"
                 android:text="@string/cp_extra_text_hold1"

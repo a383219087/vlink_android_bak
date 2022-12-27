@@ -423,6 +423,26 @@ class CpNewContractModel : CpBaseDataManager() {
                 .getCurrentPlanOrderList(getBaseReqBody(map)), consumer
         )
     }
+    /**
+     * 当前计划委托(全部)
+     * @param contractId 合约ID
+     * @param status 订单状态：0 init，1 new，2 filled，3 part_filled，4 canceled，5 pending_cancel，6 expired (不传默认查询 0, 1, 3, 5 状态)
+     */
+    fun getCurrentPlanOrderListAll(
+        status: Int,
+        page: Int,
+        consumer: DisposableObserver<ResponseBody>
+    ): Disposable? {
+        val map = getBaseMaps().apply {
+            if (status != 0) this["type"] = status.toString()
+            this["page"] = page.toString()
+            this["limit"] = "20"
+        }
+        return changeIOToMainThread(
+            httpHelper.getContractNewUrlService(CpContractApiService::class.java)
+                .getCurrentPlanOrderListAll(getBaseReqBody(map)), consumer
+        )
+    }
 
 
     /**
