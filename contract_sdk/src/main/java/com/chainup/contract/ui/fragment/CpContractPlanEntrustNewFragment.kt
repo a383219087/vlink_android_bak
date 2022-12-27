@@ -1,11 +1,9 @@
 package com.chainup.contract.ui.fragment
 
 import android.annotation.SuppressLint
-import com.blankj.utilcode.util.ToastUtils
 import com.chainup.contract.R
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpCurrentOrderBean
-import com.chainup.contract.eventbus.CpEventBusUtil
 import com.chainup.contract.eventbus.CpMessageEvent
 import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpMyLinearLayoutManager
@@ -18,7 +16,6 @@ import com.chainup.contract.utils.CpPreferenceManager
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.timmy.tdialog.TDialog
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.tv_confirm_btn
@@ -53,8 +50,6 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         adapter?.addChildClickViewIds(R.id.tv_cancel)
         adapter?.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.data[position] as CpCurrentOrderBean
-            mList.removeAt(position)
-            adapter.notifyDataSetChanged()
             cancelOrder(item.contractId, item.id, true)
         }
     }
@@ -129,7 +124,6 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                     @SuppressLint("NotifyDataSetChanged")
                     override fun sendConfirm() {
                         if (mList.isEmpty()) {
-                            CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
                             return
                         }
                         for (i in 0 until mList.size) {

@@ -92,7 +92,6 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
                 object : CpDialogUtil.DialogBottomListener {
                     override fun sendConfirm() {
                         if (mList.isEmpty()) {
-                            CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
                             return
                         }
                         for (i in 0 until mList.size) {
