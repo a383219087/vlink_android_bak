@@ -1244,10 +1244,6 @@ public class BigDecimalUtils {
     public static String subAndDot(String s) {
         if (!StringUtil.isNumeric(s))
             return "0";
-
-        if (s.indexOf(".") > 0) {
-            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
-        }
         return deleteO(s);
     }
 
@@ -1258,10 +1254,9 @@ public class BigDecimalUtils {
      */
     private static String deleteO(String num) {
         if (num.contains(".")) {
-            if (num.endsWith("0")) {
+            if (num.endsWith("0") || num.endsWith(".")) {
                 num = num.substring(0, num.length() - 1);
-                deleteO(num);
-                return "";
+                return deleteO(num);
             }
         }
         return num;
