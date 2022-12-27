@@ -40,6 +40,7 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
      * 底部行情
      */
     private var bottomMarketAdapter: NewHomepageMarketAdapter? = null
+
     /**
      * 底部行情 成交榜
      */
@@ -54,15 +55,15 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: Int, chooseType: String, viewPager: WrapContentViewPager, coins: String?) =
-                NewHomeDetailFragmentItem().apply {
-                    this.viewPager = viewPager
-                    arguments = Bundle().apply {
-                        putString(ParamConstant.MARKET_NAME, param1)
-                        putString(ParamConstant.TYPE, chooseType)
-                        putInt(ParamConstant.CUR_INDEX, param2)
-                        putString(ParamConstant.CUR_HOME_COINS, coins)
-                    }
+            NewHomeDetailFragmentItem().apply {
+                this.viewPager = viewPager
+                arguments = Bundle().apply {
+                    putString(ParamConstant.MARKET_NAME, param1)
+                    putString(ParamConstant.TYPE, chooseType)
+                    putInt(ParamConstant.CUR_INDEX, param2)
+                    putString(ParamConstant.CUR_HOME_COINS, coins)
                 }
+            }
     }
 
     override fun setContentView(): Int = R.layout.fragment_new_home_detail
@@ -98,92 +99,43 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
         } else {
             tempData = data
         }
-        var dataList = JSONUtil.arrayToList(tempData)
-        if (null == dataList || dataList.size <= 0)
-            return
-        if (dataList.size > 10) {
-            dataList = ArrayList(dataList.subList(0, 10))
+        tv_24h_title?.text = LanguageUtil.getString(context, "common_text_priceLimit")
+        tv_new_price_title?.text = LanguageUtil.getString(context, "home_text_dealLatestPrice")
+        var temp: ArrayList<JSONObject>? = NCoinManager.getSymbols(tempData)
+        if (null == temp || temp.size <= 0) return
+
+        if (null == bottomMarketAdapter) {
+            bottomMarketAdapter = NewHomepageMarketAdapter()
+            rv_market_detail?.adapter = bottomMarketAdapter
+            rv_market_detail?.layoutManager = LinearLayoutManager(context)
+            rv_market_detail?.isNestedScrollingEnabled = false
+            bottomMarketAdapter?.setEmptyView(EmptyForAdapterView(context ?: return))
+            if (null == curShowData) {
+                bottomMarketAdapter?.setList(temp)
+            } else {
+                bottomMarketAdapter?.replaceData(temp)
+            }
+        } else {
+            val diffCallback = EmployeeDiffCallback(bottomMarketAdapter?.data!!, temp)
+            bottomMarketAdapter?.setDiffData(diffCallback)
+        }
+        curShowData = temp // 保证http数据 晚到达
+        val isMain = isMaineTabSort()
+        LogUtil.d(TAG, "isMaineTabSort is  ${curIndex}  ${marketName} $isMain")
+        if (isMaineTabSort()) {
+            startInit()
         }
         /**
-         * 成交榜
+         * 跳转至 交易详情界面
          */
-        if ("deal" == tradeType) {
-            tv_24h_title?.text = LanguageUtil.getString(context, "home_text_deal24hour") + "(BTC)"
-            tv_new_price_title?.text = LanguageUtil.getString(context, "home_text_dealLatestPrice") + "(${RateManager.getCurrencyLang()})"
-            if (null == bottomDealAdapter) {
-                bottomDealAdapter = NewHomepageBottomClinchDealAdapter()
-                rv_market_detail?.adapter = bottomDealAdapter
-                rv_market_detail?.layoutManager = LinearLayoutManager(context)
-                rv_market_detail?.isNestedScrollingEnabled = false
-                bottomDealAdapter?.setEmptyView(EmptyForAdapterView(context ?: return))
-            }
-            if (null == curShowData) {
-                bottomDealAdapter?.setList(dataList)
-            } else {
-                bottomDealAdapter?.replaceData(dataList)
-            }
-            curShowData = dataList
-
-            /**
-             * 跳转至 交易详情界面
-             */
-            bottomDealAdapter?.setOnItemClickListener { adapter, view, position ->
-                /**
-                 * Tick(amount='39.96450966', vol='17.56774781', high='2.30000000', low='2.18970000', rose=0.0, close='2.30000000', open='2.30000000', name='BCH/BTC', symbol='bchbtc')
-                 */
-                var dataList = bottomDealAdapter?.data
-                LogUtil.d("bottomDealAdapter", "dataList is $dataList")
-
-                if (null != dataList && dataList!!.size >= 0) {
-                    var symbol = dataList!![position].optString("symbol")
-
-                    symbol = NCoinManager.getSymbol(symbol)
-                    ArouterUtil.forwardKLine(symbol)
-                }
+        bottomMarketAdapter?.setOnItemClickListener { adapter, view, position ->
+            var dataList = bottomMarketAdapter?.data
+            LogUtil.d("bottomMarketAdapter", "dataList is $dataList")
+            if (null != dataList && dataList!!.size >= 0) {
+                var symbol = dataList!![position].optString("symbol")
+                ArouterUtil.forwardKLine(symbol)
             }
 
-        } else {
-            tv_24h_title?.text = LanguageUtil.getString(context, "common_text_priceLimit")
-            tv_new_price_title?.text = LanguageUtil.getString(context, "home_text_dealLatestPrice")
-            var temp: ArrayList<JSONObject>? = NCoinManager.getSymbols(tempData)
-            if (null == temp || temp.size <= 0)
-                return
-
-            if (null == bottomMarketAdapter) {
-                bottomMarketAdapter = NewHomepageMarketAdapter()
-                rv_market_detail?.adapter = bottomMarketAdapter
-                rv_market_detail?.layoutManager = LinearLayoutManager(context)
-                rv_market_detail?.isNestedScrollingEnabled = false
-                bottomMarketAdapter?.setEmptyView(EmptyForAdapterView(context ?: return))
-                if (null == curShowData) {
-                    bottomMarketAdapter?.setList(temp)
-                } else {
-                    bottomMarketAdapter?.replaceData(temp)
-                }
-            } else {
-                val diffCallback = EmployeeDiffCallback(bottomMarketAdapter?.data!!, temp)
-                bottomMarketAdapter?.setDiffData(diffCallback)
-            }
-
-            curShowData = temp
-            // 保证http数据 晚到达
-            val isMain = isMaineTabSort()
-            LogUtil.d(TAG, "isMaineTabSort is  ${curIndex}  ${marketName} $isMain")
-            if (isMaineTabSort()) {
-                startInit()
-            }
-            /**
-             * 跳转至 交易详情界面
-             */
-            bottomMarketAdapter?.setOnItemClickListener { adapter, view, position ->
-                var dataList = bottomMarketAdapter?.data
-                LogUtil.d("bottomMarketAdapter", "dataList is $dataList")
-                if (null != dataList && dataList!!.size >= 0) {
-                    var symbol = dataList!![position].optString("symbol")
-                    ArouterUtil.forwardKLine(symbol)
-                }
-
-            }
         }
     }
 
@@ -235,7 +187,6 @@ class NewHomeDetailFragmentItem : NBaseFragment() {
         }
         return false
     }
-
 
 
     @Synchronized
