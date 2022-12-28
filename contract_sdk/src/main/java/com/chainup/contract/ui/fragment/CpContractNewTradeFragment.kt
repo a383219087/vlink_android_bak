@@ -61,7 +61,6 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.*
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract.tv_capital_rate
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.customize_depth_chart
@@ -763,41 +762,35 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 context,
                 marginCoinList.toString()
             )
+            if ( contractList.length() != 0) {
+               return
+            }
             var obj: JSONObject = contractList.get(0) as JSONObject
+            val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
+            for (i in 0..(contractList.length() - 1)) {
+                var obj1 = contractList.get(i) as JSONObject
+                if (id == obj.optInt("id")) {
+                    obj=(obj1)
+                }
+            }
             mContractId = obj.optInt("id")
             mSymbol = obj.optString("symbol")
             symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(
                 activity,
                 mContractId
             )
-            var isExitId = false;
-            val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
+            showTabInfo(obj)
 
             //通知子页面更新合约id
             val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
             event.msg_content = mContractId
             CpEventBusUtil.post(event)
-            if (id == -1 && contractList.length() != 0) {
-                isExitId = true
-                showTabInfo(contractList[0] as JSONObject)
-            } else {
-                for (i in 0..(contractList.length() - 1)) {
-                    var obj = contractList.get(i) as JSONObject
-                    if (id == obj.optInt("id")) {
-                        isExitId = true
-                        showTabInfo(obj)
-                    }
-                }
-            }
-            if (!isExitId && contractList.length() != 0) {
-                showTabInfo(contractList[0] as JSONObject)
-            }
             getContractUserConfig()
-            //更新k线图为上次的操作记录
-            var msgEvent =
-                CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
-            msgEvent.msg_content = contractList[0]
-            CpEventBusUtil.post(msgEvent)
+//            //更新k线图为上次的操作记录
+//            var msgEvent =
+//                CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
+//            msgEvent.msg_content = obj
+//            CpEventBusUtil.post(msgEvent)
         }
     }
 
@@ -1062,55 +1055,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        if (isVisible) {
-            LogUtils.e("合约更新---onVisibleChanged")
-            loopStart()
-            isContractFirst = true
-            getContractPublicInfo()
-            v_horizontal_depth.setLoginContractLayout(
-                CpClLogicContractSetting.isLogin(),
-                openContract == 1
-            )
-
-            //ybc  这个如果放在onCreate里面，会先调用这个方法，再去刷新adapter，导致getChildAt报空指针异常
-            rv_kline_ctrl.postDelayed(Runnable {
-                try {
-                    val position =
-                        CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
-                    if (position != -1) {
-                        val childView: View = rv_kline_ctrl.getChildAt(position)
-                        childView.apply {
-                            val tvSale = this.findViewById<TextView>(R.id.tv_time)
-                            tvSale?.let { textClickTab(it, null) }
-                        }
-                    } else {
-                        val childView: View = rv_kline_ctrl.getChildAt(4)
-                        childView.apply {
-                            val tvSale = this.findViewById<TextView>(R.id.tv_scale)
-                            tvSale?.let { textClickTab(it, null) }
-                        }
-                    }
-                } catch (e: Exception) {
-
-                }
-            }, 300)
-
-            initData()
-            CpWsContractAgentManager.instance.changeKlineKey(this.javaClass.simpleName)
-            cur_time_index = CpKLineUtil.getCurTime4Index()
-
-            curTime = CpKLineUtil.getCurTime()
-            v_kline?.setMainDrawLine(CpKLineUtil.getCurTime4Index() == 0)
-            tv_scale?.text = curTime
-            isFrist = true
-            klineData.clear()
-
-            if (!hasInit) {
-                initView2()
-                setDepthSymbol()
-                hasInit = true
-            }
-            initSocket()
+        if (isVisible&&!isload) {
+            initResumeData()
 
         }
     }
@@ -1119,26 +1065,76 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onHiddenChanged(hidden)
         isContractHidden = hidden
         if (hidden) {
+            isload=false
             loopStop()
         }
     }
 
+
+     private  var isload=false
+    private  fun initResumeData(){
+        isload=true
+        LogUtils.e("合约更新---onVisibleChanged")
+        loopStart()
+        isContractFirst = true
+        getContractPublicInfo()
+        v_horizontal_depth.setLoginContractLayout(
+            CpClLogicContractSetting.isLogin(),
+            openContract == 1
+        )
+
+        //ybc  这个如果放在onCreate里面，会先调用这个方法，再去刷新adapter，导致getChildAt报空指针异常
+        rv_kline_ctrl.postDelayed(Runnable {
+            try {
+                val position =
+                    CpKLineUtil.getKLineDefaultScale().indexOf(CpKLineUtil.getCurTime())
+                if (position != -1) {
+                    val childView: View = rv_kline_ctrl.getChildAt(position)
+                    childView.apply {
+                        val tvSale = this.findViewById<TextView>(R.id.tv_time)
+                        tvSale?.let { textClickTab(it, null) }
+                    }
+                } else {
+                    val childView: View = rv_kline_ctrl.getChildAt(4)
+                    childView.apply {
+                        val tvSale = this.findViewById<TextView>(R.id.tv_scale)
+                        tvSale?.let { textClickTab(it, null) }
+                    }
+                }
+            } catch (e: Exception) {
+
+            }
+        }, 300)
+
+        initData()
+        CpWsContractAgentManager.instance.changeKlineKey(this.javaClass.simpleName)
+        cur_time_index = CpKLineUtil.getCurTime4Index()
+
+        curTime = CpKLineUtil.getCurTime()
+        v_kline?.setMainDrawLine(CpKLineUtil.getCurTime4Index() == 0)
+        tv_scale?.text = curTime
+        isFrist = true
+        klineData.clear()
+
+        if (!hasInit) {
+            initView2()
+            setDepthSymbol()
+            hasInit = true
+        }
+        initSocket()
+    }
+
     override fun onResume() {
         super.onResume()
-        loopStart()
-        LogUtils.e("合约更新---onResume")
-        if (!isContractHidden && isContractFirst) {
-            getContractPublicInfo()
-            v_horizontal_depth.setLoginContractLayout(
-                CpClLogicContractSetting.isLogin(),
-                openContract == 1
-            )
+        if (!isload){
+            initResumeData()
         }
     }
 
 
     override fun onPause() {
         super.onPause()
+        isload=false
         loopStop()
         CpWsContractAgentManager.instance.removeWsCallback(this)
         CpWsContractAgentManager.instance.unbind(this, true)
