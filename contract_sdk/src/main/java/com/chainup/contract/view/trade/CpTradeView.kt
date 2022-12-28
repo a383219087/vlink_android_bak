@@ -508,10 +508,10 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 orderType = 2
                 price = CpBigDecimalUtils.median(buyMaxPrice, askMaxPrice, lastPrice)
                 isMarketPriceModel = true
-//                if (isOpen && isPercentPlaceOrder) {
-//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
-//                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
-//                }
+                if (isOpen && isPercentPlaceOrder) {
+                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+                    volume = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
+                }
             }
             3 -> {
                 isConditionOrder = true
@@ -533,7 +533,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
 //                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
 //
 //                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
-//                    volume = CpBigDecimalUtils.mulStr(buff, level.toString(), symbolPricePrecision)
+//                    volume = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
 //                }
             }
             4 -> {

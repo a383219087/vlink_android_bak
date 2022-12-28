@@ -182,13 +182,13 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("4h")), 1))
         mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1day")), 1))
 
-        if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("line"))) {
+        if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("line")) {
             mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1min"))) {
+        } else if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("1min")) {
             mklineCtrlList.add(CpKlineCtrlBean("1min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("5min"))) {
+        } else if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("5min")) {
             mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("30min"))) {
+        } else if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("30min")) {
             mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
         } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1week"))) {
             mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
@@ -198,7 +198,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text152"), false, 2))
         }
         mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text153"), false, 3))
-//        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text154"), false, 2))
+        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text154"), false, 2))
         mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
         rv_kline_ctrl.layoutManager = GridLayoutManager(this, 7)
         rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
@@ -393,6 +393,8 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         getMarkertInfo()
 
     }
+
+
 
     override fun onPause() {
         super.onPause()
@@ -731,11 +733,12 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
         }
 
-        if (event.msg_type == CpMessageEvent.sl_contract_change_tagPrice_event) {
-            val obj = event.msg_content as JSONObject
-            tv_mark_price.text = obj.optString("tagPrice")
-            tv_index_price.text = obj.optString("indexPrice")
-        }
+//        if (event.msg_type == CpMessageEvent.sl_contract_change_tagPrice_event) {
+//            val obj = event.msg_content as JSONObject
+//            tv_mark_price.text = obj.optString("tagPrice")
+//            tv_index_price.text = obj.optString("indexPrice")
+//        }
+
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
             val ticker = event.msg_content as JSONObject
@@ -1491,37 +1494,38 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    addDisposable(
-                            getContractModel().getMarkertInfo(symbol, contractId.toString(),
-                                    consumer = object : CpNDisposableObserver() {
-                                        override fun onResponseSuccess(jsonObject: JSONObject) {
-                                            jsonObject.optJSONObject("data").run {
-                                                tv_capital_rate?.apply {
-                                                    var tagPrice = optString("tagPrice")
-                                                    var fundRate = optString("currentFundRate")
-                                                    var indexPrice = optString("indexPrice")
-                                                    var obj = JSONObject()
-                                                    obj.put(
-                                                            "tagPrice",
-                                                            CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
-                                                    )
-                                                    obj.put(
-                                                            "indexPrice",
-                                                            CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
-                                                    )
-                                                    obj.put("fundRate", "--")
-                                                    val msgEvent =
-                                                            CpMessageEvent(
-                                                                    CpMessageEvent.sl_contract_change_tagPrice_event
-                                                            )
-                                                    msgEvent.msg_content = obj
-                                                    CpEventBusUtil.post(msgEvent)
-                                                    setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
-                                                }
-                                            }
-                                        }
-                                    })
-                    )
+                    getContractUserConfig()
+//                    addDisposable(
+//                            getContractModel().getMarkertInfo(symbol, contractId.toString(),
+//                                    consumer = object : CpNDisposableObserver() {
+//                                        override fun onResponseSuccess(jsonObject: JSONObject) {
+//                                            jsonObject.optJSONObject("data").run {
+//                                                tv_capital_rate?.apply {
+//                                                    var tagPrice = optString("tagPrice")
+//                                                    var fundRate = optString("currentFundRate")
+//                                                    var indexPrice = optString("indexPrice")
+//                                                    var obj = JSONObject()
+//                                                    obj.put(
+//                                                            "tagPrice",
+//                                                            CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
+//                                                    )
+//                                                    obj.put(
+//                                                            "indexPrice",
+//                                                            CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
+//                                                    )
+//                                                    obj.put("fundRate", "--")
+//                                                    val msgEvent =
+//                                                            CpMessageEvent(
+//                                                                    CpMessageEvent.sl_contract_change_tagPrice_event
+//                                                            )
+//                                                    msgEvent.msg_content = obj
+//                                                    CpEventBusUtil.post(msgEvent)
+//                                                    setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
+//                                                }
+//                                            }
+//                                        }
+//                                    })
+//                    )
 
                     addDisposable(
                             getContractModel().getCoinDepth(contractId, symbol,
@@ -1542,6 +1546,71 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                                     })
                     )
                 }
+    }
+
+
+    private fun getContractUserConfig() {
+        if (!CpClLogicContractSetting.isLogin()) {
+            CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_logout_event))
+            tab_order.getTitleView(0).text = getString(R.string.cp_order_text1)
+            tab_order.getTitleView(1).text = getString(R.string.cp_order_text2)
+            tab_order.getTitleView(2).text = getString(R.string.cp_order_text3)
+            v_horizontal_depth.setUserLogout()
+            val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
+            CpEventBusUtil.post(event)
+            return
+        }
+        addDisposable(
+            getContractModel().getUserConfig(contractId.toString(),
+                consumer = object : CpNDisposableObserver() {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        jsonObject.optJSONObject("data").run {
+                            var openContract = optInt("openContract")
+
+                            if (openContract == 1) {
+                                addDisposable(
+                                    getContractModel().getPositionAssetsList(
+                                        consumer = object : CpNDisposableObserver(true) {
+                                            @SuppressLint("SetTextI18n")
+                                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                                jsonObject.optJSONObject("data")?.run {
+                                                    if (!isNull("accountList")) {
+                                                        rl_ctrl.visibility=View.VISIBLE
+                                                        val mAccountListJson = optJSONArray("accountList")
+                                                        for (i in 0 until mAccountListJson.length()) {
+                                                            val data: JSONObject = mAccountListJson?.get(i) as JSONObject
+                                                            if (data.optString("symbol") == "USDT") {
+                                                                val bibi1 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("totalAmount"), 2).toPlainString(), 2)
+                                                                val bibi2 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("openRealizedAmount"), 2).toPlainString(), 2)
+                                                                tv_mark_price.text=bibi1
+                                                                tv_capital_rate.text=bibi2
+                                                                if (bibi2.contains("-")){
+                                                                    tv_mark_price.textColor=CpColorUtil.getColor(R.color.main_red)
+                                                                }else{
+                                                                    tv_capital_rate.textColor=CpColorUtil.getColor(R.color.main_green)
+                                                                }
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        })
+                                )
+
+
+                            }
+
+                        }
+                    }
+
+                    override fun onResponseFailure(code: Int, msg: String?) {
+                        super.onResponseFailure(code, msg)
+                        swipeLayout.isRefreshing = false
+                    }
+                })
+        )
     }
 
 

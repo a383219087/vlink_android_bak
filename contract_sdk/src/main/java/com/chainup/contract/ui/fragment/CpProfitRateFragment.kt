@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_contract.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
@@ -72,6 +73,7 @@ class CpProfitRateFragment : CpNBaseFragment() {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initListener() {
         contractId = arguments?.getInt("contractId")!!
         mContractJson = CpClLogicContractSetting.getContractJsonStrById(mActivity, contractId)

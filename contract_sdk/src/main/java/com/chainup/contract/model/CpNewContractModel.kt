@@ -537,7 +537,7 @@ class CpNewContractModel : CpBaseDataManager() {
     ): Disposable? {
         val map = getBaseMaps().apply {
             this["symbol"] = symbol
-            if (!type.equals("0")) {
+            if (type != "0") {
                 this["type"] = type
             }
             this["page"] = page

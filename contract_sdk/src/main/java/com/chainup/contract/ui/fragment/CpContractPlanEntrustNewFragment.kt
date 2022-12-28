@@ -126,6 +126,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                         if (mList.isEmpty()) {
                             return
                         }
+
                         for (i in 0 until mList.size) {
                             val item = mList[i]
                             cancelOrder(item.contractId, item.id, false)

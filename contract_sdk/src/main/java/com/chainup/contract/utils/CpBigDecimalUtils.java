@@ -1035,14 +1035,6 @@ public class CpBigDecimalUtils {
             if (isOpen) {
                 return inputUSdt;
             }
-        } else if (orderType == 3) {//条件单
-            //0限价 1市价
-            if (CpClLogicContractSetting.getExecution(CpMyApp.Companion.instance()) == 1) {
-                //条件市价单
-                if (isOpen) {
-                    return inputUSdt;
-                }
-            }
         }
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
             return new BigDecimal(inputUSdt).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
