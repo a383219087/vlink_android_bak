@@ -530,8 +530,11 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                             receiveCoupon()
                         }
                         if (openContract == 0) {
+                            ll_contract_account.visibility=View.GONE
                             val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
                             CpEventBusUtil.post(event)
+                        }else{
+                            ll_contract_account.visibility=View.VISIBLE
                         }
                         swipeLayout.isRefreshing = false
                         getPositionAssetsList()

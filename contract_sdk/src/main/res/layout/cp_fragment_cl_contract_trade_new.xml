@@ -45,9 +45,11 @@
                             android:paddingTop="@dimen/dp_12">
 
                             <LinearLayout
+                                android:id="@+id/ll_contract_account"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
+                                android:visibility="gone"
                                 android:orientation="horizontal"
                                 android:paddingTop="@dimen/dp_2"
                                 android:paddingBottom="@dimen/dp_2">
