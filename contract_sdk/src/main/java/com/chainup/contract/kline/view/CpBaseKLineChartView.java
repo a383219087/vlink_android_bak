@@ -1145,7 +1145,7 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
         }
 
         if (!mIsShowChild) {
-            mainScaleY = mainScaleY + volScaleY + childScaleY;
+            mainScaleY = mainScaleY + (volScaleY + childScaleY) * 0.9f;
             volScaleY = 0;
             childScaleY = 0;
         }
