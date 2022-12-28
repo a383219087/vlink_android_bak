@@ -645,19 +645,11 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
         var mCoinResultVo = depthData?.getJSONObject("coinResultVo")
         var mDepthJsonArray = mCoinResultVo?.optJSONArray("depth")
         depthList.clear()
-        for (i in 0 until mDepthJsonArray?.length()!!) {
+        val namePrefix = CpLanguageUtil.getString(context,"cl_depth_text4")
+        val length = mDepthJsonArray?.length()!!
+        for (i in 0 until length) {
             val obj = mDepthJsonArray[i] as String
-            if (obj.toInt() == 0) {
-                depthList.add(CpTabInfo("1", i, obj))
-            } else {
-                var buff = StringBuffer("0")
-                buff.append(".")
-                for (x in 0 until obj.toInt() - 1) {
-                    buff.append("0")
-                }
-                buff.append("1")
-                depthList.add(CpTabInfo(buff.toString(), i, obj))
-            }
+            depthList.add(CpTabInfo("${namePrefix}${length-i}", i, obj))
         }
         depth_level = depthList[0].extras?.toInt()!!
         depthType = depthList[0]
