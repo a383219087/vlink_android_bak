@@ -25,10 +25,7 @@ import com.yjkj.chainup.new_version.activity.BlackListActivity
 import com.yjkj.chainup.new_version.activity.personalCenter.*
 import com.yjkj.chainup.new_version.bean.ReadMessageCountBean
 import com.yjkj.chainup.new_version.view.PersonalCenterView
-import com.yjkj.chainup.util.DecimalUtil
-import com.yjkj.chainup.util.LanguageUtil
-import com.yjkj.chainup.util.StringUtils
-import com.yjkj.chainup.util.ToastUtils
+import com.yjkj.chainup.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -44,7 +41,7 @@ import org.json.JSONObject
  */
 
 @Route(path = RoutePath.PersonalCenterActivity)
-class  PersonalCenterActivity : NBaseActivity() {
+class PersonalCenterActivity : NBaseActivity() {
     override fun setContentView(): Int {
         return R.layout.activity_personal_center
     }
@@ -55,8 +52,18 @@ class  PersonalCenterActivity : NBaseActivity() {
         if (!TextUtils.isEmpty(PublicInfoDataService.getInstance().getOnlineService(null))) {
             aiv_service?.visibility = View.VISIBLE
         }
-
-
+        var fontFamily2 = SystemV2Utils.getFontFamily2();
+        tv1.typeface = fontFamily2
+        tv2.typeface = fontFamily2
+        tv3.typeface = fontFamily2
+        tv4.typeface = fontFamily2
+        tv5.typeface = fontFamily2
+        tv6.typeface = fontFamily2
+        tv7.typeface = fontFamily2
+        var fontFamily3 = SystemV2Utils.getFontFamily3();
+        tv_share_data1.typeface = fontFamily3
+        tv_share_data2.typeface = fontFamily3
+        tv_share_data3.typeface = fontFamily3
     }
 
     override fun onInit(savedInstanceState: Bundle?) {
@@ -75,9 +82,11 @@ class  PersonalCenterActivity : NBaseActivity() {
     override fun onResume() {
         super.onResume()
         getDealerInfo()
-        if (UserDataService.getInstance().isLogined){
-            ChainUpApp().changeNetwork(SPUtils.getInstance().getBoolean(ParamConstant.simulate, false))
-        }else{
+        if (UserDataService.getInstance().isLogined) {
+            ChainUpApp().changeNetwork(
+                SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)
+            )
+        } else {
             ChainUpApp().changeNetwork(false)
         }
 
@@ -105,24 +114,44 @@ class  PersonalCenterActivity : NBaseActivity() {
 
         title_layout?.setUserName("UID:${t.optString("id")}")
         title_layout?.setAccountContent(t.optString("userAccount"))
-        title_layout?.setContentTitle(getString(R.string.title_personal_center));
-        title_layout?.slidingShowTitle(false)
+        /*title_layout?.setContentTitle(getString(R.string.title_personal_center));
+        title_layout?.slidingShowTitle(false)*/
         when (t.optInt("authLevel")) {
             /**
              * 认证状态 0、未审核，1、通过，2、未通过  3未认证
              */
             0 -> {
-                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_verified"))
+                aiv_announcement.setStatusText(
+                    LanguageUtil.getString(
+                        this,
+                        "personal_text_verified"
+                    )
+                )
             }
             1 -> {
                 aiv_announcement.setShowArrow(false)
-                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_verified"))
+                aiv_announcement.setStatusText(
+                    LanguageUtil.getString(
+                        this,
+                        "personal_text_verified"
+                    )
+                )
             }
             2 -> {
-                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_unverified"))
+                aiv_announcement.setStatusText(
+                    LanguageUtil.getString(
+                        this,
+                        "personal_text_unverified"
+                    )
+                )
             }
             3 -> {
-                aiv_announcement.setStatusText( LanguageUtil.getString(this, "personal_text_unverified"))
+                aiv_announcement.setStatusText(
+                    LanguageUtil.getString(
+                        this,
+                        "personal_text_unverified"
+                    )
+                )
             }
         }
 
@@ -131,7 +160,7 @@ class  PersonalCenterActivity : NBaseActivity() {
     fun setOnClick() {
         if (!UserDataService.getInstance().isLogined) {
             title_layout?.setNoLogin()
-            ll_share.visibility=View.GONE
+            ll_share.visibility = View.GONE
         }
 
         if (PublicInfoDataService.getInstance().isUserRoleLevel(null)) {
@@ -148,7 +177,10 @@ class  PersonalCenterActivity : NBaseActivity() {
             override fun onRealNameCertificat() {
                 when (UserDataService.getInstance()?.authLevel) {
                     0 -> {
-                        ArouterUtil.greenChannel(RoutePath.RealNameCertificaionSuccessActivity, null)
+                        ArouterUtil.greenChannel(
+                            RoutePath.RealNameCertificaionSuccessActivity,
+                            null
+                        )
                     }
                     2, 3 -> {
                         ArouterUtil.greenChannel(RoutePath.RealNameCertificationActivity, null)
@@ -204,14 +236,12 @@ class  PersonalCenterActivity : NBaseActivity() {
             if (!LoginManager.checkLogin(this, true)) {
                 return@setOnClickListener
             }
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(this.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
             ArouterUtil.navigation(RoutePath.PartnerActivity, null)
         }
-
-
 
 
         /**
@@ -220,7 +250,6 @@ class  PersonalCenterActivity : NBaseActivity() {
         aiv_setting?.setOnClickListener {
             NewSettingActivity.enter2(this)
         }
-
 
 
         /**
@@ -262,7 +291,10 @@ class  PersonalCenterActivity : NBaseActivity() {
             //ItemDetailActivity.enter2(this@PersonalCenterActivity, PublicInfoDataService.getInstance().getOnlineService(null), "在线客服", true, true)
             val intent = Intent()
             intent.setClass(this, UdeskWebViewActivity::class.java)
-            intent.putExtra(ParamConstant.URL_4_SERVICE, PublicInfoDataService.getInstance().getOnlineService(null))
+            intent.putExtra(
+                ParamConstant.URL_4_SERVICE,
+                PublicInfoDataService.getInstance().getOnlineService(null)
+            )
             startActivity(intent)
         }
 
@@ -270,7 +302,7 @@ class  PersonalCenterActivity : NBaseActivity() {
          * 身份验证
          */
         aiv_announcement?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(this.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
@@ -303,7 +335,7 @@ class  PersonalCenterActivity : NBaseActivity() {
             }))
         } else {
             ChainUpApp().changeNetwork(false)
-            ll_share.visibility=View.GONE
+            ll_share.visibility = View.GONE
             title_layout?.setNoLogin()
         }
 
@@ -311,46 +343,48 @@ class  PersonalCenterActivity : NBaseActivity() {
 
     private fun getMessageCount() {
         HttpClient.instance.getReadMessageCount()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : NetObserver<ReadMessageCountBean>() {
-                    override fun onHandleSuccess(t: ReadMessageCountBean?) {
-                        t ?: return
-                        if (StringUtils.isNumeric(t.noReadMsgCount)) {
-                            if (t.noReadMsgCount.toInt() > 0) {
-                                aiv_mail?.showMailRed(true)
-                            } else {
-                                aiv_mail?.showMailRed(false)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetObserver<ReadMessageCountBean>() {
+                override fun onHandleSuccess(t: ReadMessageCountBean?) {
+                    t ?: return
+                    if (StringUtils.isNumeric(t.noReadMsgCount)) {
+                        if (t.noReadMsgCount.toInt() > 0) {
+                            aiv_mail?.showMailRed(true)
+                        } else {
+                            aiv_mail?.showMailRed(false)
 
 
-                            }
                         }
                     }
+                }
 
-                })
+            })
 
         HttpClient.instance.getInviteStatus()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : NetObserver<String>() {
                 override fun onHandleSuccess(t: String?) {
-                    if (t=="1"||t=="0"){
-                        ll_share.visibility=View.VISIBLE
-                    }else{
-                        ll_share.visibility=View.GONE
+                    if (t == "1" || t == "0") {
+                        ll_share.visibility = View.VISIBLE
+                    } else {
+                        ll_share.visibility = View.GONE
                     }
 
                 }
 
             })
 
-        startTask(HttpHelper.instance.getBaseUrlService(ApiService::class.java).myBonus(), Consumer {
-            tv_share_data1.text=it.data.userCount.toString()
-            tv_share_data2.text=it.data.txCount.toString()
-            tv_share_data3.text= DecimalUtil.cutValueByPrecision(it.data.amount.toString(),2)
+        startTask(
+            HttpHelper.instance.getBaseUrlService(ApiService::class.java).myBonus(),
+            Consumer {
+                tv_share_data1.text = it.data.userCount.toString()
+                tv_share_data2.text = it.data.txCount.toString()
+                tv_share_data3.text = DecimalUtil.cutValueByPrecision(it.data.amount.toString(), 2)
 
 
-        }) {
+            }) {
 
         }
     }
