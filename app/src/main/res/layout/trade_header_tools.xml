@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/tv_coin_map"
-            style="@style/textStyle_title_20"
+            style="@style/textStyle_title_16"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -46,9 +46,9 @@
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
             android:singleLine="true"
-            android:textStyle="bold"
+            android:fontFamily="@font/dinpro_bold"
             android:textColor="@color/main_green"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_16"
             tools:text="+1.88%" />
 
         <TextView
