@@ -790,6 +790,11 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 showTabInfo(contractList[0] as JSONObject)
             }
             getContractUserConfig()
+            //更新k线图为上次的操作记录
+            var msgEvent =
+                CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
+            msgEvent.msg_content = contractList[0]
+            CpEventBusUtil.post(msgEvent)
         }
     }
 
