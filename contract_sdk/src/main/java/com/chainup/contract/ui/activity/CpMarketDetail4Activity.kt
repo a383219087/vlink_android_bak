@@ -1551,13 +1551,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
     private fun getContractUserConfig() {
         if (!CpClLogicContractSetting.isLogin()) {
-            CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_logout_event))
-            tab_order.getTitleView(0).text = getString(R.string.cp_order_text1)
-            tab_order.getTitleView(1).text = getString(R.string.cp_order_text2)
-            tab_order.getTitleView(2).text = getString(R.string.cp_order_text3)
-            v_horizontal_depth.setUserLogout()
-            val event = CpMessageEvent(CpMessageEvent.sl_contract_clear_event)
-            CpEventBusUtil.post(event)
             return
         }
         addDisposable(

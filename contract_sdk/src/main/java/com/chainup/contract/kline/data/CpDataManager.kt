@@ -174,7 +174,10 @@ object CpDataManager {
      *
      * @param dataList
      */
-    fun calculateBOLL(dataList: List<CpKLineBean>) {
+    private fun calculateBOLL(dataList: List<CpKLineBean>) {
+        if (dataList.isEmpty()){
+            return
+        }
         for (i in dataList.indices) {
             val point = dataList[i]
             if (i < 19) {
@@ -215,9 +218,7 @@ object CpDataManager {
         for (i in dataList.indices) {
             val point = dataList[i]
             var closePrice = 0f
-            if (null != point.closePrice) {
-                closePrice = point.closePrice
-            }
+            closePrice = point.closePrice
 
 
             ma5 += closePrice

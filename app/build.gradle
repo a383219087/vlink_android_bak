@@ -156,7 +156,7 @@ android {
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyMMddHHmm");
                 Date curDate = new Date(System.currentTimeMillis());
                 outputFileName = "taucoin-release-${change.versionName}-${change.versionCode}-${formatter.format(curDate)}.apk"
 
