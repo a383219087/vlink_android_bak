@@ -285,6 +285,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                             val item = it.dataJson
                             curEntrustAdapter.addData(0, item)
                             curEntrustAdapter.notifyDataSetChanged()
+                            displayHeaderWithNum()
                         }
                         getEachEntrust()
                     }
@@ -308,6 +309,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     if (!LoginManager.isLogin(context)) {
                         currentOrderList.clear()
                         curEntrustAdapter.setList(currentOrderList)
+                        displayHeaderWithNum()
                     }
                     v_vertical_depth?.loginSwitch()
                     v_horizontal_depth?.loginSwitch()
@@ -315,6 +317,11 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
         }
 
+    }
+
+    private fun displayHeaderWithNum(){
+        val size = curEntrustAdapter.data.size
+        tv_currentEntrust?.text = "${LanguageUtil.getString(context, "contract_text_currentEntrust")}（${size}）"
     }
 
     private fun showSymbolSwitchData(newSymbol: String?) {
@@ -344,6 +351,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             }
             currentOrderList.clear()
             curEntrustAdapter.notifyDataSetChanged()
+            displayHeaderWithNum()
         }
         getTradeLimitInfo(coinMapData)
 
@@ -499,6 +507,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                             currentOrderList.add(orderList.optJSONObject(i))
                         }
                         curEntrustAdapter.setList(currentOrderList)
+                        displayHeaderWithNum()
                     }
 
                 }
@@ -650,6 +659,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         currentOrderList.clear()
                         curEntrustAdapter.notifyDataSetChanged()
                         curEntrustAdapter.setList(currentOrderList)
+                        displayHeaderWithNum()
 //                        if (isCreatedOrder) {
 //                        } else {
 //                            disposables?.clear()
@@ -665,6 +675,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                                 currentOrderList.add(jsonArray.optJSONObject(i))
                             }
                             curEntrustAdapter.setList(currentOrderList)
+                            displayHeaderWithNum()
                         }
                     }
                     v_vertical_depth?.changeOrder(currentOrderList)
@@ -696,6 +707,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 val obj = curEntrustAdapter.getItem(pos)
                 curEntrustAdapter.remove(pos)
                 clearToolHttp()
+                displayHeaderWithNum()
             }
         }))
     }
@@ -857,6 +869,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     val item = event.dataJson
                     curEntrustAdapter.addData(0, item)
                     curEntrustAdapter.notifyDataSetChanged()
+                    displayHeaderWithNum()
                 }
                 clearToolHttp()
             }
