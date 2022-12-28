@@ -129,7 +129,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
 
                         for (i in 0 until mList.size) {
                             val item = mList[i]
-                            cancelOrder(item.contractId, item.id, false)
+                            cancelOrder(item.contractId, item.id, true)
                         }
 
 
