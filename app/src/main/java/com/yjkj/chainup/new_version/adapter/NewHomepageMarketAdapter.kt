@@ -5,6 +5,7 @@ import android.text.TextUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.coorchice.library.SuperTextView
+import com.elvishew.xlog.XLog.Log
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
@@ -71,6 +72,7 @@ open class NewHomepageMarketAdapter : BaseQuickAdapter<JSONObject, BaseViewHolde
 
     fun setDiffData(diffCallback: EmployeeDiffCallback) {
         if (emptyLayout != null && emptyLayout?.childCount == 1) {
+            Log.e("我是列表",diffCallback.getNewData().size.toString())
             setList(diffCallback.getNewData())
             return
         }
