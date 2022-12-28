@@ -66,27 +66,33 @@ class PartnerActivity : BaseMVActivity<PartnerViewModel?, ActivityPsrtnerBinding
 
         })
         mBinding?.tvShare?.setOnClickListener {
-            val list: ArrayList<String> = arrayListOf()
-            val url =
-                UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
-                    ?.get(0) + mViewModel?.bean?.value?.inviteCode
-            list.add(url)
-            list.add(url)
-            dialog = NewDialogUtils.showInvitationPosters(
-                this,
-                list,
-                object : NewDialogUtils.DialogSharePostersListener {
-                    override fun saveIamgePosters(imageUrl: String, shareView: View, type: Int) {
-                        createShareView(shareView, type)
-                        dialog?.dismiss()
-                    }
-
-                    override fun saveIamgePostersNew(imageUrl: String) {
-
-                    }
-                })
+            invite()
         }
+        mBinding?.tv2?.setOnClickListener {
+            invite()
+        }
+    }
 
+    private fun invite() {
+        val list: ArrayList<String> = arrayListOf()
+        val url =
+            UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
+                ?.get(0) + mViewModel?.bean?.value?.inviteCode
+        list.add(url)
+        list.add(url)
+        dialog = NewDialogUtils.showInvitationPosters(
+            this,
+            list,
+            object : NewDialogUtils.DialogSharePostersListener {
+                override fun saveIamgePosters(imageUrl: String, shareView: View, type: Int) {
+                    createShareView(shareView, type)
+                    dialog?.dismiss()
+                }
+
+                override fun saveIamgePostersNew(imageUrl: String) {
+
+                }
+            })
     }
 
     private fun createShareView(shareView: View, type: Int) {
