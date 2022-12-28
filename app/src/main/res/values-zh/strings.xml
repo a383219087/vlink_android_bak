@@ -2660,7 +2660,7 @@
     <string name="assets_security_advice_tips4">1.总资产（BTC）是您在平台持有的资产</string>
     <string name="assets_security_advice_tips5">2.由于各资产账户统计存在延迟，账户资产并非最新余额，如需准确余额请到相关账户页面查看。</string>
     <string name="assets_security_advice_tips6">3.下表中的每日资产以每日0点（UTC）的总值估算。</string>
-    <string name="assets_security_advice_tips7">今日盈亏=当前全部账户资产-今日零点全部</string>
+    <string name="assets_security_advice_tips7">今日盈亏=当前全部账户资产-今日零点全部账户资产-今日净充值和和净划入</string>
     <string name="contract_asset_account">资产账户</string>
     <string name="account_action_token_expire_tip">Token已失效,请重试.</string>
     <string name="tag_warning_tips">请认真核对并填写地址标签，若遗漏标签将导致资金丢失！</string>
@@ -3769,8 +3769,8 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="bb_asset_text1">币币资产</string>
     <string name="convert_text">转换</string>
     <string name="position_held_text">持有仓位</string>
-    <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币</string>
-    <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约</string>
+    <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币账户资产-今日净充值和和净划入</string>
+    <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约账户资产-今日净充值和和净划入</string>
 
 </resources>
 
