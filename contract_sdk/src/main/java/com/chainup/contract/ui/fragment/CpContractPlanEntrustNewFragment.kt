@@ -169,7 +169,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
                         for (i in 0..(mOrderListJson.length() - 1)) {
                             var obj = mOrderListJson.getString(i)
                             val mClCurrentOrderBean =
-                                Gson().fromJson<CpCurrentOrderBean>(
+                                Gson().fromJson(
                                     obj,
                                     CpCurrentOrderBean::class.java
                                 )
