@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -30,7 +29,6 @@ import com.chainup.contract.bean.KlineQuotesData
 import com.chainup.contract.bean.KlineTick
 import com.chainup.contract.eventbus.*
 import com.chainup.contract.ui.fragment.CpContractCoinSearchDialog
-import com.chainup.contract.ui.fragment.CpContractEntrustNewFragment
 import com.chainup.contract.utils.*
 import com.chainup.contract.view.*
 import com.chainup.contract.ws.CpWsContractAgentManager
@@ -52,7 +50,7 @@ import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.chainup.contract.ui.fragment.CpDealtRecordFragment
 import com.chainup.contract.ui.fragment.CpDepthFragment
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
-import com.yjkj.chainup.new_version.kline.data.CpDataManager
+import com.chainup.contract.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
 import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
@@ -86,7 +84,6 @@ import org.jetbrains.anko.textColor
 import org.jetbrains.anko.uiThread
 import org.json.JSONObject
 import java.math.BigDecimal
-import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
