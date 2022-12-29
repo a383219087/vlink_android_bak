@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import com.chainup.contract.utils.CpDisplayUtils
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.yjkj.chainup.util.ColorUtil
@@ -22,7 +23,8 @@ class MarketLayout @JvmOverloads constructor(context: Context,
         for (index in titles) {
             val tabView = View.inflate(context, R.layout.item_tab_market, null)
             tabView.tag = titles.indexOf(index)
-            val params = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f)
+            val params = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+            params.marginStart = 16
             addView(tabView, params)
             var item: SuperTextView = tabView.findViewById(R.id.btn_item)
             if (titles.indexOf(index) == mCurrentTab) {

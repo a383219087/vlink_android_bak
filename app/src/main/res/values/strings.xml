@@ -3673,7 +3673,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="contract">Contract</string>
     <string name="customer_service">Customer/Service</string>
     <!--ybc start-->
-    <string name="u_benwei">U本位</string>
+    <string name="u_benwei">USDT-M</string>
     <string name="contract_account_equity">Contract account equity</string>
     <string name="opsition_gain_loss">Position PnL</string>
     <!--ybc end-->

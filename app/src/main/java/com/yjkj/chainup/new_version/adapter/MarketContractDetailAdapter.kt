@@ -20,6 +20,7 @@ import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.manager.RateManager
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.ColorUtil
+import com.yjkj.chainup.util.LanguageUtil
 import org.json.JSONObject
 
 /**
@@ -54,7 +55,7 @@ class MarketContractDetailAdapter(data: ArrayList<JSONObject>) :
                 }
             }
             helper.setText(R.id.tv_contract_info,"/${ticker.optString("marginCoin")}")
-            helper.setText(R.id.tv_contract_detail,"24H 量 ${BigDecimalUtils.showDepthVolume(ticker.optString("vol","0"))}")
+            helper.setText(R.id.tv_contract_detail,"${LanguageUtil.getString(context,"sl_str_24h_vol")} ${BigDecimalUtils.showDepthVolume(ticker.optString("vol","0"))}")
             helper.setText(R.id.tv_price_detail, RateManager.getCNYByCoinName("USDT",ticker.optString("close")))
             if (!ticker.isNull("close")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
