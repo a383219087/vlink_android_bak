@@ -3607,7 +3607,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text4">team</string>
     <string name="share_text5">completed</string>
     <string name="share_text6">rebate</string>
-    <string name="share_text7">polite</string>
+    <string name="share_text7">Reward Center</string>
     <string name="share_text711">partner</string>
     <string name="share_text8">rules</string>
     <string name="share_text9">Many invite many</string>
@@ -3619,14 +3619,14 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text151">Rebate</string>
     <string name="share_text16">Invite code</string>
     <string name="share_text17">Invitation link</string>
-    <string name="share_text18">Immediately invited</string>
+    <string name="share_text18">Invite Now</string>
     <string name="share_text19">more</string>
     <string name="share_text20">My invitation statistics</string>
     <string name="share_text201">Statistics</string>
     <string name="share_text21">more</string>
-    <string name="share_text22">Invite the number</string>
-    <string name="share_text23">Number of transactions completed</string>
-    <string name="share_text24">My rebate（USDT）</string>
+    <string name="share_text22">Invited</string>
+    <string name="share_text23">Traded</string>
+    <string name="share_text24">My Rebates\n（USDT）</string>
     <string name="share_text25">Invitation list</string>
     <string name="share_text26">rank</string>
     <string name="share_text27">nickName</string>
@@ -3668,19 +3668,21 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="buy_text10">Buy </string>
     <string name="buy_text11">The exchange rate has not been obtained</string>
     <string name="buy_text12">You will get about </string>
-    <string name="hoem_recharge">Recharge/Collection</string>
-    <string name="withdrawal_transfer">Withdrawal/Transfer</string>
+    <string name="hoem_recharge">Recharge</string>
+    <string name="withdrawal_transfer">Withdraw</string>
     <string name="contract">Contract</string>
-    <string name="customer_service">Customer/Service</string>
+    <string name="customer_service">Service</string>
     <!--ybc start-->
-    <string name="u_benwei">U本位</string>
-    <string name="contract_account_equity">合约账户权益</string>
-    <string name="opsition_gain_loss">持仓盈亏</string>
+    <string name="u_benwei">USDT-M</string>
+    <string name="contract_account_equity">Contract account equity</string>
+    <string name="opsition_gain_loss">Position PnL</string>
     <!--ybc end-->
-    <string name="bb_asset_text1">币币资产</string>
+    <string name="bb_asset_text1">Currency asset</string>
     <string name="convert_text">转换</string>
-    <string name="position_held_text">持有仓位</string>
+    <string name="position_held_text">Holding position</string>
     <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币</string>
     <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约</string>
+    <string name="share_tip_text">Invite friends</string>
+    <string name="goto_invite">Go Invite</string>
 </resources>
 

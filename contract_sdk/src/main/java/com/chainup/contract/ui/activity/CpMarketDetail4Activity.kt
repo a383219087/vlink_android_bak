@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -27,9 +28,7 @@ import com.chainup.contract.bean.CpDepthBean
 import com.chainup.contract.bean.CpFlagBean
 import com.chainup.contract.bean.KlineQuotesData
 import com.chainup.contract.bean.KlineTick
-import com.chainup.contract.eventbus.CpEventBusUtil
-import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.eventbus.CpNLiveDataUtil
+import com.chainup.contract.eventbus.*
 import com.chainup.contract.ui.fragment.CpContractCoinSearchDialog
 import com.chainup.contract.ui.fragment.CpContractEntrustNewFragment
 import com.chainup.contract.utils.*
@@ -78,6 +77,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.textColor
@@ -166,6 +168,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         showLoadingDialog()
         setOnclick()
         setTextConetnt()
+        collectCoin()
     }
 
     fun setTextConetnt() {
@@ -176,10 +179,34 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 //        tv_cp_extra_text112?.text = LanguageUtil.getString(this, "cp_extra_text112")
         tv_indicator?.text = CpLanguageUtil.getString(this, "kline_text_scale")
 
-        mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("15min")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("60min")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("4h")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1day")), 1))
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                "15min",
+                CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("15min")),
+                1
+            )
+        )
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                "60min",
+                CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("60min")),
+                1
+            )
+        )
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                "4h",
+                CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("4h")),
+                1
+            )
+        )
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                "1day",
+                CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1day")),
+                1
+            )
+        )
 
         if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("line")) {
             mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
@@ -189,15 +216,37 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
         } else if (CpKLineUtil.getCurTime4Index() == CpKLineUtil.getKLineScale().indexOf("30min")) {
             mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1week"))) {
+        } else if (CpKLineUtil.getCurTime4Index()
+                .equals(CpKLineUtil.getKLineScale().indexOf("1week"))
+        ) {
             mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1month"))) {
+        } else if (CpKLineUtil.getCurTime4Index()
+                .equals(CpKLineUtil.getKLineScale().indexOf("1month"))
+        ) {
             mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
         } else {
-            mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text152"), false, 2))
+            mklineCtrlList.add(
+                CpKlineCtrlBean(
+                    CpLanguageUtil.getString(this, "cp_extra_text152"),
+                    false,
+                    2
+                )
+            )
         }
-        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text153"), false, 3))
-        mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cp_extra_text154"), false, 2))
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                CpLanguageUtil.getString(this, "cp_extra_text153"),
+                false,
+                3
+            )
+        )
+        mklineCtrlList.add(
+            CpKlineCtrlBean(
+                CpLanguageUtil.getString(this, "cp_extra_text154"),
+                false,
+                2
+            )
+        )
         mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
         rv_kline_ctrl.layoutManager = GridLayoutManager(this, 7)
         rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
@@ -235,29 +284,33 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             if (position == 4) {
                 mklineCtrlList[6].isSelect = false
                 var isSel = false
-                CpDialogUtil.createMoreTimeKlinePop(this, rl_kline_ctrl, object : CpNewDialogUtils.DialogOnSigningItemClickListener {
-                    override fun clickItem(position: Int, text: String) {
-                        mklineCtrlList[4].time = text
-                        for (index in mklineCtrlList.indices) {
-                            mklineCtrlList[index].isSelect = (index == 4)
+                CpDialogUtil.createMoreTimeKlinePop(
+                    this,
+                    rl_kline_ctrl,
+                    object : CpNewDialogUtils.DialogOnSigningItemClickListener {
+                        override fun clickItem(position: Int, text: String) {
+                            mklineCtrlList[4].time = text
+                            for (index in mklineCtrlList.indices) {
+                                mklineCtrlList[index].isSelect = (index == 4)
+                            }
+                            mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
+                            customize_depth_chart.visibility = View.GONE
+                            v_kline?.setMainDrawLine(position == 0)
+                            switchKLineScale(text)
+                            isSel = true
+                            textClickTab(view.findViewById(R.id.tv_scale), null)
                         }
-                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-                        customize_depth_chart.visibility = View.GONE
-                        v_kline?.setMainDrawLine(position == 0)
-                        switchKLineScale(text)
-                        isSel = true
-                        textClickTab(view.findViewById(R.id.tv_scale), null)
-                    }
-                }, object : CpNewDialogUtils.DialogOnDismissClickListener {
-                    override fun clickItem() {
-                        if (isSel) {
+                    },
+                    object : CpNewDialogUtils.DialogOnDismissClickListener {
+                        override fun clickItem() {
+                            if (isSel) {
 
-                        } else {
-                            mklineCtrlList[4].isSelect = false
+                            } else {
+                                mklineCtrlList[4].isSelect = false
+                            }
+                            mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
                         }
-                        mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
-                    }
-                })
+                    })
             } else {
                 if (position != 6) {
                     mklineCtrlList[4].time = CpLanguageUtil.getString(this, "cp_extra_text152")
@@ -329,8 +382,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     }
 
 
-
-
     var aG = true
     fun textClickTab(textView: TextView, view: View?) {
         val iArr = IntArray(2)
@@ -394,7 +445,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     }
 
 
-
     override fun onPause() {
         super.onPause()
         CpWsContractAgentManager.instance.removeWsCallback(this)
@@ -409,7 +459,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         btn_buy.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 var messageEvent =
-                        CpMessageEvent(CpMessageEvent.contract_switch_type)
+                    CpMessageEvent(CpMessageEvent.contract_switch_type)
                 CpEventBusUtil.post(messageEvent)
                 finish()
             }
@@ -417,7 +467,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 var messageEvent =
-                        CpMessageEvent(CpMessageEvent.contract_switch_type)
+                    CpMessageEvent(CpMessageEvent.contract_switch_type)
                 CpEventBusUtil.post(messageEvent)
                 finish()
             }
@@ -455,11 +505,11 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 return@setOnClickListener
 
             var mContractCoinSearchDialog =
-                    CpContractCoinSearchDialog()
+                CpContractCoinSearchDialog()
             var bundle = Bundle()
             bundle.putString(
-                    "contractList",
-                    CpClLogicContractSetting.getContractJsonListStr(mActivity)
+                "contractList",
+                CpClLogicContractSetting.getContractJsonListStr(mActivity)
             )
             mContractCoinSearchDialog.arguments = bundle
             mContractCoinSearchDialog.showDialog(supportFragmentManager, "SlContractFragment")
@@ -477,9 +527,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             rv_kline_scale?.visibility = if (isShow) View.GONE else View.VISIBLE
             tv_scale?.run {
                 labelBackgroundColor =
-                        CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
+                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
                 textColor =
-                        CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
+                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
             }
         }
 
@@ -496,9 +546,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
             tv_indicator?.run {
                 labelBackgroundColor =
-                        CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
+                    CpColorUtil.getColor(if (isShow) R.color.normal_icon_color else R.color.main_blue)
                 textColor =
-                        CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
+                    CpColorUtil.getColor(if (isShow) R.color.normal_text_color else R.color.text_color)
             }
         }
     }
@@ -524,7 +574,10 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         contractId = intent.getIntExtra("contractId", 0)
         baseSymbol = intent.getStringExtra("baseSymbol").toString()
         quoteSymbol = intent.getStringExtra("quoteSymbol").toString()
-        Log.e("我是传的参数","symbol===$symbol,,,,contractId===$contractId,,,,baseSymbol===$baseSymbol,,,,quoteSymbol===$quoteSymbol,,,,")
+        Log.e(
+            "我是传的参数",
+            "symbol===$symbol,,,,contractId===$contractId,,,,baseSymbol===$baseSymbol,,,,quoteSymbol===$quoteSymbol,,,,"
+        )
     }
 
     /*
@@ -548,7 +601,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         initMainViceIndex()
     }
 
-    private fun initMainViceIndex(){
+    private fun initMainViceIndex() {
         when (main_index) {
             MainKlineViewStatus.MA.status -> {
                 v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
@@ -593,29 +646,33 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     override fun initView() {
         contractId = intent.getIntExtra("contractId", -1)
         if (type == CpParamConstant.LEVER_INDEX) {
-            btn_buy?.setContent("${
-                CpLanguageUtil.getString(
+            btn_buy?.setContent(
+                "${
+                    CpLanguageUtil.getString(
                         this,
                         "contract_action_buy"
-                )
-            }/${
-                CpLanguageUtil.getString(
+                    )
+                }/${
+                    CpLanguageUtil.getString(
                         this,
                         "contract_action_long"
-                )
-            }")
+                    )
+                }"
+            )
 
-            btn_sell?.setContent("${
-                CpLanguageUtil.getString(
+            btn_sell?.setContent(
+                "${
+                    CpLanguageUtil.getString(
                         this,
                         "contract_action_sell"
-                )
-            }/${
-                CpLanguageUtil.getString(
+                    )
+                }/${
+                    CpLanguageUtil.getString(
                         this,
                         "contract_action_short"
-                )
-            }")
+                    )
+                }"
+            )
 
         } else {
             btn_buy?.setContent(CpLanguageUtil.getString(this, "cp_order_text75"))
@@ -623,20 +680,20 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }
 
         mPricePrecision =
-                CpClLogicContractSetting.getContractSymbolPricePrecisionById(this, contractId)
+            CpClLogicContractSetting.getContractSymbolPricePrecisionById(this, contractId)
 
         mMultiplierCoin =
-                CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(this, contractId)
+            CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(this, contractId)
 
         mMultiplierPrecision =
-                CpClLogicContractSetting.getContractMultiplierPrecisionById(this, contractId)
+            CpClLogicContractSetting.getContractMultiplierPrecisionById(this, contractId)
 
         coUnit = CpClLogicContractSetting.getContractUint(CpMyApp.instance())
 
         mMultiplier = CpClLogicContractSetting.getContractMultiplierById(this, contractId)
 
         tv24hVolUnit =
-                if (CpClLogicContractSetting.getContractUint(this) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
+            if (CpClLogicContractSetting.getContractUint(this) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
 
         initDepthAndDeals()
 
@@ -671,7 +728,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     private fun showCoinName() {
         if (contractId != -1) {
             tv_coin_map?.text =
-                    CpClLogicContractSetting.getContractShowNameById(mActivity, contractId)
+                CpClLogicContractSetting.getContractShowNameById(mActivity, contractId)
         }
     }
 
@@ -703,10 +760,28 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                     }
                 }
                 mklineCtrlList.clear()
-                mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime().equals("15min"), 1))
-                mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime().equals("60min"), 1))
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "15min",
+                        CpKLineUtil.getCurTime().equals("15min"),
+                        1
+                    )
+                )
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "60min",
+                        CpKLineUtil.getCurTime().equals("60min"),
+                        1
+                    )
+                )
                 mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime().equals("4h"), 1))
-                mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime().equals("1day"), 1))
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        "1day",
+                        CpKLineUtil.getCurTime().equals("1day"),
+                        1
+                    )
+                )
 
                 if (CpKLineUtil.getCurTime().equals("line")) {
                     mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
@@ -721,10 +796,30 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 } else if (CpKLineUtil.getCurTime().equals("1month")) {
                     mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
                 } else {
-                    mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cl_assets_text4"), false, 2))
+                    mklineCtrlList.add(
+                        CpKlineCtrlBean(
+                            CpLanguageUtil.getString(
+                                this,
+                                "cl_assets_text4"
+                            ), false, 2
+                        )
+                    )
                 }
-                mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "cl_depth_text4"), false, 3))
-                mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(this, "kline_text_scale"), false, 2))
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        CpLanguageUtil.getString(this, "cl_depth_text4"),
+                        false,
+                        3
+                    )
+                )
+                mklineCtrlList.add(
+                    CpKlineCtrlBean(
+                        CpLanguageUtil.getString(
+                            this,
+                            "kline_text_scale"
+                        ), false, 2
+                    )
+                )
                 mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
 //            LogUtils.e("childView --- " + childView)
             }, 300)
@@ -745,22 +840,22 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             baseSymbol = ticker.getString("base")
             quoteSymbol = ticker.getString("quote")
             symbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
-                    .replace("-", "")).toLowerCase()
+                .replace("-", "")).toLowerCase()
             mPricePrecision =
-                    CpClLogicContractSetting.getContractSymbolPricePrecisionById(this, contractId)
+                CpClLogicContractSetting.getContractSymbolPricePrecisionById(this, contractId)
 
             mMultiplierCoin =
-                    CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(this, contractId)
+                CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(this, contractId)
 
             mMultiplierPrecision =
-                    CpClLogicContractSetting.getContractMultiplierPrecisionById(this, contractId)
+                CpClLogicContractSetting.getContractMultiplierPrecisionById(this, contractId)
 
             coUnit = CpClLogicContractSetting.getContractUint(CpMyApp.instance())
 
             mMultiplier = CpClLogicContractSetting.getContractMultiplierById(this, contractId)
 
             tv24hVolUnit =
-                    if (CpClLogicContractSetting.getContractUint(this) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
+                if (CpClLogicContractSetting.getContractUint(this) == 0) " " + getString(R.string.cp_overview_text9) else " " + mMultiplierCoin
 
             v_kline?.setPricePrecision(mPricePrecision)
 
@@ -815,15 +910,15 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     private fun setDepthSymbol() {
 
         CpDepthFragment.liveData.value = CpFlagBean(
-                isContract = true,
-                contractId = contractId.toString(),
-                symbol = symbol,
-                baseSymbol = baseSymbol!!,
-                quotesSymbol = quoteSymbol!!,
-                pricePrecision = mPricePrecision,
-                volumePrecision = if (coUnit == 0) 0 else mMultiplierPrecision,
-                mMultiplier = mMultiplier,
-                coUnit = coUnit
+            isContract = true,
+            contractId = contractId.toString(),
+            symbol = symbol,
+            baseSymbol = baseSymbol!!,
+            quotesSymbol = quoteSymbol!!,
+            pricePrecision = mPricePrecision,
+            volumePrecision = if (coUnit == 0) 0 else mMultiplierPrecision,
+            mMultiplier = mMultiplier,
+            coUnit = coUnit
         )
     }
 
@@ -925,10 +1020,10 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             // sub ticker
             val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
             CpWsContractAgentManager.instance.sendMessage(
-                    hashMapOf(
-                            "symbol" to symbol,
-                            "line" to scale
-                    ), this
+                hashMapOf(
+                    "symbol" to symbol,
+                    "line" to scale
+                ), this
             )
         }
     }
@@ -960,18 +1055,18 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         titles.add(CpLanguageUtil.getString(this, "cp_order_text71"))//成交记录
 
         mClDepthFragment = CpDepthFragment.newInstance(
-                viewPager = vp_depth_dealt,
-                contractId = contractId,
-                symbol = symbol
+            viewPager = vp_depth_dealt,
+            contractId = contractId,
+            symbol = symbol
         )
         dealtRecordFragment = CpDealtRecordFragment.newInstance(viewPager = vp_depth_dealt)
 
         fragments.add(mClDepthFragment!!)
         fragments.add(dealtRecordFragment!!)
         pageAdapter = CpNVPagerAdapter(
-                supportFragmentManager,
-                titles,
-                fragments
+            supportFragmentManager,
+            titles,
+            fragments
         )
 
         vp_depth_dealt?.adapter = pageAdapter
@@ -984,9 +1079,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             }
 
             override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
             ) {
             }
 
@@ -1029,14 +1124,14 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             if (position != CpKLineUtil.getCurTime4Index()) {
                 for (i in 0 until klineScale.size) {
                     val boxView =
-                            viewHolder?.getViewByPosition(i, R.id.cbtn_view) as CpCustomCheckBoxView
+                        viewHolder?.getViewByPosition(i, R.id.cbtn_view) as CpCustomCheckBoxView
                     boxView.setCenterColor(CpColorUtil.getColor(R.color.normal_text_color))
                     boxView.setCenterSize(12f)
                     boxView.setIsNeedDraw(false)
                     boxView.isChecked = false
                 }
                 val boxView =
-                        viewHolder?.getViewByPosition(position, R.id.cbtn_view) as CpCustomCheckBoxView
+                    viewHolder?.getViewByPosition(position, R.id.cbtn_view) as CpCustomCheckBoxView
                 boxView.isChecked = true
                 boxView.setIsNeedDraw(true)
                 boxView.setCenterSize(12f)
@@ -1049,7 +1144,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
             } else {
                 val boxView =
-                        viewHolder?.getViewByPosition(position, R.id.cbtn_view) as CpCustomCheckBoxView
+                    viewHolder?.getViewByPosition(position, R.id.cbtn_view) as CpCustomCheckBoxView
                 boxView.isChecked = true
                 boxView.setIsNeedDraw(true)
                 boxView.setCenterSize(12f)
@@ -1104,9 +1199,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                  * 24H行情
                  */
                 if (jsonObj.getString("channel") == WsLinkUtils.tickerFor24HLink(
-                                symbol,
-                                isChannel = true
-                        )
+                        symbol,
+                        isChannel = true
+                    )
                 ) {
                     val quotesData = CpJsonUtils.convert2Quote(jsonObj.toString())
                     if (lastTick != null) {
@@ -1126,9 +1221,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                  */
                 var scale = if (curTime == "line") "1min" else curTime
                 if (jsonObj.getString("channel") == WsLinkUtils.getKlineNewLink(
-                                symbol,
-                                scale
-                        ).channel
+                        symbol,
+                        scale
+                    ).channel
                 ) {
 
                     doAsync {
@@ -1143,29 +1238,29 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 //                        kLineEntity.highPrice = BigDecimal(data.optString("high")).toFloat()
 //                        kLineEntity.lowPrice = BigDecimal(data.optString("low")).toFloat()
                         val open =
-                                if (coUnit == 0) data.optString("open") else CpBigDecimalUtils.showSNormal(
-                                        data.optString("open"),
-                                        mPricePrecision
-                                )
+                            if (coUnit == 0) data.optString("open") else CpBigDecimalUtils.showSNormal(
+                                data.optString("open"),
+                                mPricePrecision
+                            )
                         val close =
-                                if (coUnit == 0) data.optString("close") else CpBigDecimalUtils.showSNormal(
-                                        data.optString("close"),
-                                        mPricePrecision
-                                )
+                            if (coUnit == 0) data.optString("close") else CpBigDecimalUtils.showSNormal(
+                                data.optString("close"),
+                                mPricePrecision
+                            )
                         val high =
-                                if (coUnit == 0) data.optString("high") else CpBigDecimalUtils.showSNormal(
-                                        data.optString("high"),
-                                        mPricePrecision
-                                )
+                            if (coUnit == 0) data.optString("high") else CpBigDecimalUtils.showSNormal(
+                                data.optString("high"),
+                                mPricePrecision
+                            )
                         val low =
-                                if (coUnit == 0) data.optString("low") else CpBigDecimalUtils.showSNormal(
-                                        data.optString("low"),
-                                        mPricePrecision
-                                )
+                            if (coUnit == 0) data.optString("low") else CpBigDecimalUtils.showSNormal(
+                                data.optString("low"),
+                                mPricePrecision
+                            )
                         val vol =
-                                if (coUnit == 0) data.optString("vol") else CpBigDecimalUtils.mulStr(
-                                        data.optString("vol"), mMultiplier, mMultiplierPrecision
-                                )
+                            if (coUnit == 0) data.optString("vol") else CpBigDecimalUtils.mulStr(
+                                data.optString("vol"), mMultiplier, mMultiplierPrecision
+                            )
 
                         kLineEntity.openPrice = BigDecimal(open).toFloat()
                         kLineEntity.closePrice = BigDecimal(close).toFloat()
@@ -1215,9 +1310,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             } else {
                 var scale = if (curTime == "line") "1min" else curTime
                 if (!jsonObj.isNull("data") && jsonObj.getString("channel") == WsLinkUtils.getKLineHistoryLink(
-                                symbol,
-                                scale
-                        ).channel
+                        symbol,
+                        scale
+                    ).channel
                 ) {
                     /**
                      * 请求(req) ----> K线历史数据
@@ -1244,11 +1339,11 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         val price = mPricePrecision
 
         CpDepthFragment.liveData4closePrice.postValue(
-                arrayListOf(
-                        tick.close,
-                        price.toString(),
-                        symbol
-                )
+            arrayListOf(
+                tick.close,
+                price.toString(),
+                symbol
+            )
         )
 
         runOnUiThread {
@@ -1264,13 +1359,19 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             val rose = tick?.rose.toString()
             RateManager.getRoseText(tv_rose, rose)
             tv_rose?.textColor = CpColorUtil.getMainColorType(RateManager.getRoseTrend(rose) >= 0)
-            tv_rose?.setBackgroundResource(CpColorUtil.getContractRateDrawable(RateManager.getRoseTrend(rose) >= 0))
+            tv_rose?.setBackgroundResource(
+                CpColorUtil.getContractRateDrawable(
+                    RateManager.getRoseTrend(
+                        rose
+                    ) >= 0
+                )
+            )
             tv_high_price?.text = CpDecimalUtil.cutValueByPrecision(tick.high, price)
             tv_low_price?.text = CpDecimalUtil.cutValueByPrecision(tick.low, price)
             val amount = if (coUnit == 0) tick.vol else CpBigDecimalUtils.mulStr(
-                    tick.vol,
-                    mMultiplier,
-                    mMultiplierPrecision
+                tick.vol,
+                mMultiplier,
+                mMultiplierPrecision
             )
             tv_24h_vol?.text = CpBigDecimalUtils.showDepthVolume(amount) + tv24hVolUnit
         }
@@ -1296,25 +1397,25 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                     val mKLineBean: CpKLineBean = gson.fromJson(obj.toString(), typeNew)
                     if (coUnit != 0) {
                         mKLineBean.volume = CpBigDecimalUtils.mulStr(
-                                mKLineBean.volume.toString(),
-                                mMultiplier,
-                                mMultiplierPrecision
+                            mKLineBean.volume.toString(),
+                            mMultiplier,
+                            mMultiplierPrecision
                         ).toFloat()
                         mKLineBean.openPrice = CpBigDecimalUtils.showSNormal(
-                                mKLineBean.openPrice.toString(),
-                                mPricePrecision
+                            mKLineBean.openPrice.toString(),
+                            mPricePrecision
                         ).toFloat()
                         mKLineBean.closePrice = CpBigDecimalUtils.showSNormal(
-                                mKLineBean.closePrice.toString(),
-                                mPricePrecision
+                            mKLineBean.closePrice.toString(),
+                            mPricePrecision
                         ).toFloat()
                         mKLineBean.highPrice = CpBigDecimalUtils.showSNormal(
-                                mKLineBean.highPrice.toString(),
-                                mPricePrecision
+                            mKLineBean.highPrice.toString(),
+                            mPricePrecision
                         ).toFloat()
                         mKLineBean.lowPrice = CpBigDecimalUtils.showSNormal(
-                                mKLineBean.lowPrice.toString(),
-                                mPricePrecision
+                            mKLineBean.lowPrice.toString(),
+                            mPricePrecision
                         ).toFloat()
                     }
                     klineData.add(mKLineBean)
@@ -1326,11 +1427,11 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 } else {
                     val scale = if (curTime == "line") "1min" else curTime
                     CpWsContractAgentManager.instance.sendData(
-                            WsLinkUtils.getKlineHistoryOther(
-                                    symbol,
-                                    scale,
-                                    klineData[0].id.toString()
-                            )
+                        WsLinkUtils.getKlineHistoryOther(
+                            symbol,
+                            scale,
+                            klineData[0].id.toString()
+                        )
                     )
                 }
                 isFrist = false
@@ -1451,14 +1552,11 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             serverSelfSymbols.add(array.optString(i))
         }
         if (serverSelfSymbols.contains(symbol)) {
-            ib_collect?.setImageResource(R.drawable.cp_quotes_optional_selected)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
         } else {
-            ib_collect?.setImageResource(R.drawable.cp_quotes_optional_default)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
         }
     }
-
-
-
 
 
     override fun onWsMessage(json: String) {
@@ -1467,8 +1565,8 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
     private fun realtData(jsonObj: JSONObject, data: String) {
         val depthReal =
-                jsonObj.getString("channel") == WsLinkUtils.getDealHistoryLink(symbol).channel ||
-                        jsonObj.getString("channel") == WsLinkUtils.getDealNewLink(symbol).channel
+            jsonObj.getString("channel") == WsLinkUtils.getDealHistoryLink(symbol).channel ||
+                    jsonObj.getString("channel") == WsLinkUtils.getDealNewLink(symbol).channel
         if (depthReal) {
             if (dealtRecordFragment != null) {
                 if (!isRealNew) {
@@ -1491,9 +1589,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }
         loopStop()
         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    getContractUserConfig()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                getContractUserConfig()
 //                    addDisposable(
 //                            getContractModel().getMarkertInfo(symbol, contractId.toString(),
 //                                    consumer = object : CpNDisposableObserver() {
@@ -1526,25 +1624,28 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 //                                    })
 //                    )
 
-                    addDisposable(
-                            getContractModel().getCoinDepth(contractId, symbol,
-                                    consumer = object : CpNDisposableObserver(true) {
-                                        override fun onResponseSuccess(jsonObject: JSONObject) {
-                                            jsonObject.optJSONObject("data")?.run {
-                                                datas =
-                                                        Gson().fromJson<DepthItem>(this.toString(), DepthItem::class.java)
-                                                this@CpMarketDetail4Activity?.runOnUiThread {
-                                                    setData4DepthChart()
-                                                }
-                                            }
-                                        }
+                addDisposable(
+                    getContractModel().getCoinDepth(contractId, symbol,
+                        consumer = object : CpNDisposableObserver(true) {
+                            override fun onResponseSuccess(jsonObject: JSONObject) {
+                                jsonObject.optJSONObject("data")?.run {
+                                    datas =
+                                        Gson().fromJson<DepthItem>(
+                                            this.toString(),
+                                            DepthItem::class.java
+                                        )
+                                    this@CpMarketDetail4Activity?.runOnUiThread {
+                                        setData4DepthChart()
+                                    }
+                                }
+                            }
 
-                                        override fun onError(e: Throwable) {
-                                            super.onError(e)
-                                        }
-                                    })
-                    )
-                }
+                            override fun onError(e: Throwable) {
+                                super.onError(e)
+                            }
+                        })
+                )
+            }
     }
 
 
@@ -1567,19 +1668,37 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                                             override fun onResponseSuccess(jsonObject: JSONObject) {
                                                 jsonObject.optJSONObject("data")?.run {
                                                     if (!isNull("accountList")) {
-                                                        rl_ctrl.visibility=View.VISIBLE
-                                                        val mAccountListJson = optJSONArray("accountList")
+                                                        rl_ctrl.visibility = View.VISIBLE
+                                                        val mAccountListJson =
+                                                            optJSONArray("accountList")
                                                         for (i in 0 until mAccountListJson.length()) {
-                                                            val data: JSONObject = mAccountListJson?.get(i) as JSONObject
+                                                            val data: JSONObject =
+                                                                mAccountListJson?.get(i) as JSONObject
                                                             if (data.optString("symbol") == "USDT") {
-                                                                val bibi1 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("totalAmount"), 2).toPlainString(), 2)
-                                                                val bibi2 = CpBigDecimalUtils.showSNormal(CpBigDecimalUtils.divForDown(data?.optString("openRealizedAmount"), 2).toPlainString(), 2)
-                                                                tv_mark_price.text=bibi1
-                                                                tv_capital_rate.text=bibi2
-                                                                if (bibi2.contains("-")){
-                                                                    tv_mark_price.textColor=CpColorUtil.getColor(R.color.main_red)
-                                                                }else{
-                                                                    tv_capital_rate.textColor=CpColorUtil.getColor(R.color.main_green)
+                                                                val bibi1 =
+                                                                    CpBigDecimalUtils.showSNormal(
+                                                                        CpBigDecimalUtils.divForDown(
+                                                                            data?.optString("totalAmount"),
+                                                                            2
+                                                                        ).toPlainString(),
+                                                                        2
+                                                                    )
+                                                                val bibi2 =
+                                                                    CpBigDecimalUtils.showSNormal(
+                                                                        CpBigDecimalUtils.divForDown(
+                                                                            data?.optString("openRealizedAmount"),
+                                                                            2
+                                                                        ).toPlainString(),
+                                                                        2
+                                                                    )
+                                                                tv_mark_price.text = bibi1
+                                                                tv_capital_rate.text = bibi2
+                                                                if (bibi2.contains("-")) {
+                                                                    tv_mark_price.textColor =
+                                                                        CpColorUtil.getColor(R.color.main_red)
+                                                                } else {
+                                                                    tv_capital_rate.textColor =
+                                                                        CpColorUtil.getColor(R.color.main_green)
                                                                 }
 
                                                             }
@@ -1732,9 +1851,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             buyVolumeSum = CpBigDecimalUtils.add(buyVolumeSum.toString(), buyList[i].vol).toDouble()
             val volSum = buyList[i].sum.toFloat()
             val entry = Entry(
-                    (buyList[i].price).toFloat(),
-                    volSum,
-                    buyList[i].price.toTextPrice(mPricePrecision)
+                (buyList[i].price).toFloat(),
+                volSum,
+                buyList[i].price.toTextPrice(mPricePrecision)
             )
             yData.add(0, entry)
         }
@@ -1743,12 +1862,12 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         val sellYData = ArrayList<Entry>()
         for (i in sellList.indices) {
             sellVolumeSum =
-                    CpBigDecimalUtils.add(sellVolumeSum.toString(), sellList[i].vol).toDouble()
+                CpBigDecimalUtils.add(sellVolumeSum.toString(), sellList[i].vol).toDouble()
             val volSum = sellList[i].sum.toFloat()
             val entry = Entry(
-                    sellList[i].price.toFloat(),
-                    volSum,
-                    sellList[i].price.toTextPrice(mPricePrecision)
+                sellList[i].price.toFloat(),
+                volSum,
+                sellList[i].price.toTextPrice(mPricePrecision)
             )
             sellYData.add(entry)
         }
@@ -1757,8 +1876,8 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
          * Y 轴最大值 和 最小值
          */
         var maxVolume: Float = max(
-                buyList.get(buyList.size - 1).sum.toFloat(),
-                sellList.get(sellList.size - 1).sum.toFloat()
+            buyList.get(buyList.size - 1).sum.toFloat(),
+            sellList.get(sellList.size - 1).sum.toFloat()
         )
 
 
@@ -1847,6 +1966,75 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     private fun loopStop() {
         if (subscribe != null) {
             subscribe?.dispose()
+        }
+    }
+
+    ////ybc start
+    private fun collectCoin() {
+        /**
+         * 根据是否存在于"自选"列表中
+         */
+        EventBus.getDefault().post(CpCollectionEvent(CpCollectionEvent.TYPE_REQUEST))
+        /*if (isLogined && isOptionalSymbolServerOpen) {
+            getOptionalSymbol()
+        } else {
+            var hasCollect = LikeDataService.getInstance().hasCollect(symbol)
+            showImgCollect(hasCollect, false, false)
+        }*/
+
+        ib_collect?.setOnClickListener {
+            if (serverSelfSymbols.contains(symbol)) {
+                operationType = 2
+            } else {
+                operationType = 1
+            }
+            //addOrDeleteSymbol(operationType, symbol)
+            EventBus.getDefault()
+                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, symbol))
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCpCollectionEvent2(event: CpCollectionEvent2) {
+        Log.e("yubch", "bbb:" + event.type)
+        if (getUserSelfDataReqType == event.type) {
+            showServerSelfSymbols(event.jsonObject.optJSONObject("data"))
+        } else if (addCancelUserSelfDataReqType == event.type) {
+            var hasCollect = false
+            if (operationType == 2) {
+                serverSelfSymbols.remove(symbol)
+            } else {
+                hasCollect = true
+                serverSelfSymbols.add(symbol)
+            }
+            showImgCollect(hasCollect, true, true)
+        }
+    }
+
+    /*
+    * 收藏图标状态及其行为处理
+    */
+    private fun showImgCollect(hasCollect: Boolean, isShowToast: Boolean, isAddRemove: Boolean) {
+        if (hasCollect) {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
+            if (isShowToast) {
+                CpNToastUtil.showTopToastNet(
+                    mActivity,
+                    true,
+                    CpLanguageUtil.getString(this, "kline_tip_addCollectionSuccess")
+                )
+            }
+
+        } else {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
+            if (isShowToast) {
+                CpNToastUtil.showTopToastNet(
+                    mActivity,
+                    true,
+                    CpLanguageUtil.getString(this, "kline_tip_removeCollectionSuccess")
+                )
+            }
+
         }
     }
 }

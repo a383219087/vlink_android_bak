@@ -33,7 +33,6 @@
             app:tl_indicator_height="@dimen/dp_3"
             app:tl_indicator_width="@dimen/dp_20"
             app:tl_indicator_width_equal_title="false"
-            app:tl_tab_space_equal="true"
             app:tl_textBold="SELECT"
             app:tl_textSelectColor="@color/main_blue"
             app:tl_textSize="@dimen/sp_14"

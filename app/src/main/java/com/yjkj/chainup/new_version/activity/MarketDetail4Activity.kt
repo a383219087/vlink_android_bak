@@ -658,7 +658,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
      */
     private fun showImgCollect(hasCollect: Boolean, isShowToast: Boolean, isAddRemove: Boolean) {
         if (hasCollect) {
-            ib_collect?.setImageResource(R.drawable.quotes_optional_selected)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
             if (isShowToast) {
                 NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(this, "kline_tip_addCollectionSuccess"))
             }
@@ -666,7 +666,7 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
                 LikeDataService.getInstance().saveCollecData(symbol, null)
             }
         } else {
-            ib_collect?.setImageResource(R.drawable.quotes_optional_default)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
             if (isShowToast) {
                 NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(this, "kline_tip_removeCollectionSuccess"))
             }
@@ -1302,9 +1302,9 @@ class MarketDetail4Activity : NBaseActivity(), WsAgentManager.WsResultCallback {
             serverSelfSymbols.add(array.optString(i))
         }
         if (serverSelfSymbols.contains(symbol)) {
-            ib_collect?.setImageResource(R.drawable.quotes_optional_selected)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
         } else {
-            ib_collect?.setImageResource(R.drawable.quotes_optional_default)
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
         }
     }
 

@@ -79,7 +79,7 @@
                                 android:layout_marginLeft="33dp"
                                 android:layout_weight="1"
                                 android:gravity="center|left"
-                                android:text="呼朋唤友 共赴未来"
+                                android:text="@string/share_tip_text"
                                 android:textColor="#2B4DE7"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -95,7 +95,7 @@
                                 android:gravity="center"
                                 android:paddingLeft="@dimen/dp_10"
                                 android:paddingRight="@dimen/dp_10"
-                                android:text="去邀请"
+                                android:text="@string/goto_invite"
                                 android:textColor="#FFFFFF"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />

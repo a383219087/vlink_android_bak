@@ -59,12 +59,12 @@
 
         <ImageView
             android:id="@+id/ib_collect"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/ib_share"
             android:scaleType="centerInside"
-            android:src="@drawable/cp_quotes_optional_default"/>
+            android:src="@drawable/quotes_optional_default2"/>
 
         <ImageView
             android:id="@+id/ib_share"
