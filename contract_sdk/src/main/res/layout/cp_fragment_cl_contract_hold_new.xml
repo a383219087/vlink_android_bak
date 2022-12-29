@@ -43,7 +43,7 @@
                 android:layout_weight="1" />
 
 
-            <Button
+            <TextView
                 android:id="@+id/tv_confirm_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
@@ -51,6 +51,7 @@
                 android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:gravity="center"
                 android:text="@string/cp_extra_text_hold2"
                 android:textColor="@color/main_blue"
                 android:textSize="@dimen/sp_14"

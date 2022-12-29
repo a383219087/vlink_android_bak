@@ -438,38 +438,41 @@
 
 
 
-            <Button
+            <TextView
                 android:id="@+id/tv_profit_loss"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:text="@string/cp_order_text29"
                 android:textAllCaps="false"
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/tv_reverse_opem"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:text="@string/cp_order_text291"
                 android:textAllCaps="false"
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/tv_adjust_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:background="@drawable/cp_btn_linear_blue_bg_postion"
                 android:text="@string/cp_order_text16"
                 android:textAllCaps="false"
