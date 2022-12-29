@@ -1,7 +1,9 @@
 package com.yjkj.chainup.new_version.adapter
 
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chainup.contract.utils.CpColorUtil
 import com.yjkj.chainup.R
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.RateManager
@@ -36,8 +38,14 @@ class NewHomepageBottomClinchDealAdapter() :
             setGoneV3(R.id.ctv_content, false)
         }
 
+        val tvLastPrice = helper.getView<TextView>(R.id.tv_close_price)
+        tvLastPrice.run {
+            val divForDown = BigDecimalUtils.divForDown(rateByCoinName, coinPrecision)
+            text = divForDown.toPlainString()
+            setTextColor(CpColorUtil.getMainColorType(divForDown.toDouble() >= 0))
+//                    helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
+        }
 
-        helper.setText(R.id.tv_close_price, BigDecimalUtils.divForDown(rateByCoinName, coinPrecision).toPlainString())
         /**
          * 24H 成交量
          */

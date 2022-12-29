@@ -29,7 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/textStyle_title_16"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_black"
+                android:textStyle="bold"
                 tools:text="LTC" />
 
 
@@ -52,10 +54,12 @@
             <TextView
                 android:id="@+id/tv_close_price"
                 android:textColor="@color/main_green"
-                android:textSize="@dimen/sp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dinpro_bold"
                 android:ellipsize="end"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="5734.580000" />

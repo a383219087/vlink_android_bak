@@ -2,8 +2,10 @@ package com.yjkj.chainup.new_version.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import android.text.TextUtils
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chainup.contract.utils.CpColorUtil
 import com.coorchice.library.SuperTextView
 import com.elvishew.xlog.XLog.Log
 import com.yjkj.chainup.R
@@ -14,6 +16,7 @@ import com.yjkj.chainup.new_version.view.CustomTagView
 import com.yjkj.chainup.util.ColorUtil
 import com.yjkj.chainup.util.BigDecimalUtils
 import com.yjkj.chainup.util.setGoneV3
+import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.util.ArrayList
 
@@ -53,21 +56,26 @@ open class NewHomepageMarketAdapter : BaseQuickAdapter<JSONObject, BaseViewHolde
             }
         }
         /**
+         * 涨幅
+         */
+        val rose = tick.optString("rose")
+        RateManager.getRoseText(helper?.getView<SuperTextView>(R.id.tv_rose), rose)
+        val mainColorType = ColorUtil.getMainColorType(isRise = RateManager.getRoseTrend(rose) >= 0)
+        helper.getView<SuperTextView>(R.id.tv_rose).solid = mainColorType
+        /**
          * 收盘价
          */
         val close = tick.optString("close")
         if (TextUtils.isEmpty(close)) {
             helper.setText(R.id.tv_close_price, "--")
         } else {
-            helper.setText(R.id.tv_close_price, BigDecimalUtils.divForDown(close, tick.optInt("price")).toPlainString())
+            val tvLastPrice = helper.getView<TextView>(R.id.tv_close_price)
+            tvLastPrice.run {
+                val divForDown = BigDecimalUtils.divForDown(close, tick.optInt("price"))
+                text = divForDown.toPlainString()
+                textColor = mainColorType
+            }
         }
-
-        /**
-         * 涨幅
-         */
-        val rose = tick.optString("rose")
-        RateManager.getRoseText(helper?.getView<SuperTextView>(R.id.tv_rose), rose)
-        helper.getView<SuperTextView>(R.id.tv_rose).solid = ColorUtil.getMainColorType(isRise = RateManager.getRoseTrend(rose) >= 0)
     }
 
     fun setDiffData(diffCallback: EmployeeDiffCallback) {

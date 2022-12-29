@@ -34,7 +34,9 @@
                     android:id="@+id/tv_coin_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/textStyle_title_16"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/text_black"
                     tools:text="LTC" />
 
                 <TextView
@@ -73,11 +75,12 @@
                 android:id="@+id/tv_close_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dinpro_bold"
                 android:ellipsize="end"
+                android:textSize="@dimen/sp_20"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="5734.580000"
-                style="@style/textStyle_title_16" />
+                android:text="5734.580000" />
 
         </LinearLayout>
 

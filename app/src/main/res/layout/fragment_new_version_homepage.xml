@@ -102,7 +102,13 @@
 
                     </LinearLayout>
 
-<!--                    <View style="@style/common_horizon_line_style" />-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/line_color"
+                        app:layout_constraintEnd_toEndOf="@id/ll_advertising_layout"
+                        app:layout_constraintStart_toStartOf="@id/ll_advertising_layout"
+                        app:layout_constraintTop_toBottomOf="@id/ll_advertising_layout"/>
 
 
                     <LinearLayout

@@ -9,13 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.app.CpParamConstant
-import com.chainup.contract.utils.CpBigDecimalUtils
-import com.chainup.contract.utils.CpChainUtil
-import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.utils.CpNumberUtil
 import com.coorchice.library.SuperTextView
 import com.yjkj.chainup.R
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
+import com.chainup.contract.utils.*
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.util.ColorUtil
@@ -71,8 +68,8 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
                 val tvLastPrice = helper.getView<TextView>(R.id.tv_last_price)
                 tvLastPrice.run {
                     text = ticker.optString("close")
-//                    setTextColor(CpColorUtil.getMainColorType(chg >= 0))
-                    helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
+                    setTextColor(CpColorUtil.getMainColorType(chg >= 0))
+//                    helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }
             helper.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
