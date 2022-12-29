@@ -20,7 +20,9 @@ import com.yjkj.chainup.db.constant.CommonConstant
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.constant.TradeTypeEnum
+import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
+import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
@@ -46,6 +48,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_market_detail4.*
 import kotlinx.android.synthetic.main.depth_horizontal_layout.*
 import kotlinx.android.synthetic.main.depth_horizontal_layout.view.*
 import kotlinx.android.synthetic.main.depth_vertical_layout.*
@@ -55,6 +58,11 @@ import kotlinx.android.synthetic.main.fragment_cvctrade.rv_current_entrust
 import kotlinx.android.synthetic.main.fragment_cvctrade.swipe_refresh
 import kotlinx.android.synthetic.main.trade_amount_view.*
 import kotlinx.android.synthetic.main.trade_header_tools.*
+import kotlinx.android.synthetic.main.trade_header_tools.ctv_content
+import kotlinx.android.synthetic.main.trade_header_tools.ib_collect
+import kotlinx.android.synthetic.main.trade_header_tools.ll_coin_map
+import kotlinx.android.synthetic.main.trade_header_tools.tv_coin_map
+import kotlinx.android.synthetic.main.trade_header_tools.tv_rose
 import kotlinx.android.synthetic.main.trade_header_view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -89,6 +97,9 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     var subscribeCoin: Disposable? = null//保存订阅者
     var isScrollStatus = true
 
+    private var isLogined = false
+    private var isOptionalSymbolServerOpen = false
+
     companion object {
         var curDepthIndex = 0
         var tradeOrientation = ParamConstant.TYPE_BUY
@@ -98,6 +109,9 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     override fun setContentView() = R.layout.fragment_cvctrade
 
     override fun initView() {
+        isLogined = UserDataService.getInstance().isLogined
+        isOptionalSymbolServerOpen = PublicInfoDataService.getInstance().isOptionalSymbolServerOpen(null)
+
         changeInitData()
         getETFValue()
 
@@ -112,6 +126,11 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         observeData()
         initTap()
         setTextContent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        collectCoin()
     }
 
     fun setTextContent() {
@@ -1025,6 +1044,138 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
             }
         }
+    }
+
+    /*
+     * 收藏图标状态及其行为处理
+     */
+    private fun showImgCollect(hasCollect: Boolean, isShowToast: Boolean, isAddRemove: Boolean) {
+        if (hasCollect) {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
+            if (isShowToast) {
+                NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(activity, "kline_tip_addCollectionSuccess"))
+            }
+            if (isAddRemove) {
+                LikeDataService.getInstance().saveCollecData(symbol, null)
+            }
+        } else {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
+            if (isShowToast) {
+                NToastUtil.showTopToastNet(mActivity, true, LanguageUtil.getString(activity, "kline_tip_removeCollectionSuccess"))
+            }
+            if (isAddRemove) {
+                LikeDataService.getInstance().removeCollect(symbol)
+            }
+        }
+    }
+
+    /*
+    * 获取服务器用户的自选币对数据
+    */
+    var serverSelfSymbols = ArrayList<String>()
+    /**
+     * 添加收藏
+     */
+    private var operationType = 0
+    val addCancelUserSelfDataReqType = 1 // 服务器用户自选数据
+    val getUserSelfDataReqType = 2 // 服务器用户自选数据
+    var sync_status = ""
+
+    private fun collectCoin() {
+        serverSelfSymbols.clear()
+        /**
+         * 根据是否存在于"自选"列表中
+         */
+        LogUtil.d("collectCoin", "isLogined is $isLogined,isOptionalSymbolServerOpen is $isOptionalSymbolServerOpen")
+
+        if (isLogined && isOptionalSymbolServerOpen) {
+            getOptionalSymbol()
+        } else {
+            var hasCollect = LikeDataService.getInstance().hasCollect(symbol)
+            showImgCollect(hasCollect, false, false)
+        }
+
+        ib_collect?.setOnClickListener {
+
+            if (isLogined && isOptionalSymbolServerOpen) {
+
+                if (serverSelfSymbols.contains(symbol)) {
+                    operationType = 2
+                } else {
+                    operationType = 1
+                }
+                addOrDeleteSymbol(operationType, symbol)
+
+            } else {
+                val hasCollect = LikeDataService.getInstance().hasCollect(symbol)
+                var isExist = !hasCollect
+
+                showImgCollect(isExist, true, true)
+
+            }
+        }
+    }
+
+    /*
+     * 获取服务器用户自选数据
+     * var req_type = type
+     */
+    private fun getOptionalSymbol() {
+        addDisposable(getMainModel().getOptionalSymbol(MyNDisposableObserver(getUserSelfDataReqType), ""))
+    }
+
+    inner class MyNDisposableObserver(type: Int) : NDisposableObserver(mActivity) {
+
+        var req_type = type
+        override fun onResponseSuccess(jsonObject: JSONObject) {
+            if (getUserSelfDataReqType == req_type) {
+                showServerSelfSymbols(jsonObject.optJSONObject("data"))
+            } else if (addCancelUserSelfDataReqType == req_type) {
+                var hasCollect = false
+                if (operationType == 2) {
+                    serverSelfSymbols.remove(symbol)
+                } else {
+                    hasCollect = true
+                    serverSelfSymbols.add(symbol)
+                }
+                showImgCollect(hasCollect, true, true)
+            }
+        }
+    }
+
+    private fun showServerSelfSymbols(data: JSONObject?) {
+
+        if (null == data || data.length() <= 0)
+            return
+
+        var array = data.optJSONArray("symbols")
+        sync_status = data.optString("sync_status")
+
+        if (null == array || array.length() <= 0) {
+            return
+        }
+        for (i in 0 until array.length()) {
+            serverSelfSymbols.add(array.optString(i))
+        }
+        if (serverSelfSymbols.contains(symbol)) {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
+        } else {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
+        }
+    }
+
+    /**
+     * 添加或者删除自选数据
+     * @param operationType 标识 0(批量添加)/1(单个添加)/2(单个删除)
+     * @param symbol 单个币对名称
+     */
+    private fun addOrDeleteSymbol(operationType: Int = 0, symbol: String?) {
+
+        if (null == symbol)
+            return
+        var list = ArrayList<String>()
+        list.add(symbol)
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"", MyNDisposableObserver(addCancelUserSelfDataReqType)))
     }
 
 }
