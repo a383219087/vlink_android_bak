@@ -24,6 +24,9 @@
     <color name="minute_yellow">#E7B448</color>
 
 
+    <color name="colorMainText">#000000</color>
+
+
     <!--NEW ADD-->
     <color name="col_808ca9">#808CA9</color>
     <!--<color name="main_blue">#6584f2</color>-->
@@ -201,6 +204,7 @@
     <color name="open_postions_coin_bg">#FFFFFF</color>
 
     <color name="market_status_bar_color_day">#F6F8FC</color>
+    <color name="market_status_bar_color_day1">#FFFFFF</color>
     <color name="asset_status_bar_color_day">#004FE1</color>
 
     <color name="open_postions_coin_cancel_color">#5D6D89</color>

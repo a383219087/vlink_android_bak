@@ -581,7 +581,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                                     )
                                 msgEvent.msg_content = obj
                                 CpEventBusUtil.post(msgEvent)
-                                setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
+                                text = DecimalFormat("0.000000%").format(optDouble("currentFundRate"))
                             }
                         }
                     }
@@ -762,14 +762,14 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 context,
                 marginCoinList.toString()
             )
-            if ( contractList.length() != 0) {
+            if ( contractList.length() == 0) {
                return
             }
             var obj: JSONObject = contractList.get(0) as JSONObject
             val id = CpClLogicContractSetting.getContractCurrentSelectedId(activity)
             for (i in 0..(contractList.length() - 1)) {
                 var obj1 = contractList.get(i) as JSONObject
-                if (id == obj.optInt("id")) {
+                if (id == obj1.optInt("id")) {
                     obj=(obj1)
                 }
             }
@@ -787,10 +787,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             CpEventBusUtil.post(event)
             getContractUserConfig()
 //            //更新k线图为上次的操作记录
-//            var msgEvent =
-//                CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
-//            msgEvent.msg_content = obj
-//            CpEventBusUtil.post(msgEvent)
+            var msgEvent =
+                CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
+            msgEvent.msg_content = obj
+            CpEventBusUtil.post(msgEvent)
         }
     }
 
@@ -1055,7 +1055,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        if (isVisible&&!isload) {
+        if (isVisible) {
             initResumeData()
 
         }
@@ -1065,15 +1065,12 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onHiddenChanged(hidden)
         isContractHidden = hidden
         if (hidden) {
-            isload=false
             loopStop()
         }
     }
 
 
-     private  var isload=false
     private  fun initResumeData(){
-        isload=true
         LogUtils.e("合约更新---onVisibleChanged")
         loopStart()
         isContractFirst = true
@@ -1126,15 +1123,12 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onResume() {
         super.onResume()
-        if (!isload){
             initResumeData()
-        }
     }
 
 
     override fun onPause() {
         super.onPause()
-        isload=false
         loopStop()
         CpWsContractAgentManager.instance.removeWsCallback(this)
         CpWsContractAgentManager.instance.unbind(this, true)

@@ -209,7 +209,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
           R.id.tv_date,
           CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss")
         )
-        helper.setText(R.id.tv_order_type, orderTypeStr)
+//        helper.setText(R.id.tv_order_type, orderTypeStr)
         helper.setText(R.id.tv_trigger_price, item.triggerPrice)
         helper.setText(
           R.id.tv_entrust_price,

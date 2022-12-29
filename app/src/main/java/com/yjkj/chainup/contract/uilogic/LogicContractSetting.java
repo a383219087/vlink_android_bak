@@ -376,13 +376,7 @@ public class LogicContractSetting {
         return PreferenceManager.getInstance(context).getSharedString(PreferenceManager.CONTRACT_MARGIN_COIN_STR, "");
     }
 
-    public static void setContractCurrentSelectedId(Context context, int ContractId) {
-        PreferenceManager.getInstance(context).putSharedInt(PreferenceManager.CONTRACT_CURRENT_SELECTED_ID, ContractId);
-    }
 
-    public static int getContractCurrentSelectedId(Context context) {
-        return PreferenceManager.getInstance(context).getSharedInt(PreferenceManager.CONTRACT_CURRENT_SELECTED_ID, -1);
-    }
 
 
 //    // 1已开通, 0未开通

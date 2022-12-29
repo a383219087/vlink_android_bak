@@ -27,7 +27,6 @@ public final class PreferenceManager {
 	public static final String CONTRACT_JSON_LIST_STR = "contract_json_list_str";
 	public static final String CONTRACT_MARGIN_COIN_STR = "contract_margin_coin_str";
 
-	public static final String CONTRACT_CURRENT_SELECTED_ID = "contract_current_selected_id";
 
 	public static final String CONTRACT_POSITION_MODEL = "contract_position_model";
 

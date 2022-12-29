@@ -15,7 +15,7 @@
     <color name="text_color_orange">#FCAE05</color>
     <color name="text_color_99">#8391A8</color>
 
-
+    <color name="colorMainText">@color/main_blue</color>
 
 
     <!-- common -->
@@ -109,6 +109,9 @@
     <!--TAB bar分割线-->
     <color name="tabbar_divide_color">#1E2A40</color>
     <color name="tabbar_divide_color2">@color/tabbar_divide_color</color>
+
+    <color name="market_status_bar_color_day">#111C30</color>
+    <color name="market_status_bar_color_day1">#111C30</color>
 
     <!--按钮不可点击颜色-->
     <color name="btn_unclickable_color">#334662</color>
