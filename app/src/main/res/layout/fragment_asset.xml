@@ -32,7 +32,7 @@
         app:tl_indicator_corner_radius="@dimen/dp_4"
         app:tl_indicator_height="@dimen/dp_3"
         app:tl_indicator_width="@dimen/dp_20"
-        app:tl_underline_color="@color/white"
+        app:tl_underline_color="@color/bg_card_color"
         app:tl_underline_height="@dimen/dp_2"
         app:tl_indicator_width_equal_title="false"
         app:tl_tab_space_equal="true"

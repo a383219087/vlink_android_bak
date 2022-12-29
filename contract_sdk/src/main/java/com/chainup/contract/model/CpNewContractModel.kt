@@ -434,9 +434,9 @@ class CpNewContractModel : CpBaseDataManager() {
         consumer: DisposableObserver<ResponseBody>
     ): Disposable? {
         val map = getBaseMaps().apply {
-            if (status != 0) this["type"] = status.toString()
-            this["page"] = page.toString()
-            this["limit"] = "20"
+//            if (status != 0) this["type"] = status.toString()
+//            this["page"] = page.toString()
+//            this["limit"] = "20"
         }
         return changeIOToMainThread(
             httpHelper.getContractNewUrlService(CpContractApiService::class.java)

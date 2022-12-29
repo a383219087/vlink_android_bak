@@ -199,7 +199,7 @@
                             android:drawableTop="@mipmap/home_recharge"
                             android:text="@string/hoem_recharge"
                             android:textSize="@dimen/sp_12"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/new_text_color"
                             android:gravity="center"
                             android:onClick="@{()->_all.homeRecharge()}"
                             />
@@ -215,7 +215,7 @@
                             android:drawableTop="@mipmap/home_withdrawal"
                             android:text="@string/withdrawal_transfer"
                             android:textSize="@dimen/sp_12"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/new_text_color"
                             android:gravity="center"
                             android:onClick="@{()->_all.withdrawalTransfer()}"
                             />
@@ -231,7 +231,7 @@
                             android:drawableTop="@mipmap/home_contract"
                             android:text="@string/contract"
                             android:textSize="@dimen/sp_12"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/new_text_color"
                             android:gravity="center"
                             android:onClick="@{()->_all.contractClick()}"
                             />
@@ -247,7 +247,7 @@
                             android:drawableTop="@mipmap/home_service"
                             android:text="@string/customer_service"
                             android:textSize="@dimen/sp_12"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/new_text_color"
                             android:gravity="center"
                             android:onClick="@{()->_all.customerService()}"
                             />
