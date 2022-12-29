@@ -94,10 +94,24 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
                         if (mList.isEmpty()) {
                             return
                         }
+                        var ids="["
                         for (i in 0 until mList.size) {
-                            val item = mList[i]
-                            cancelOrder(item.contractId, item.id, false)
+                            if (i==0){
+                                ids += mList[i].contractId
+                            }else if (!ids.contains(mList[i].contractId)){
+                                ids=ids+","+mList[i].contractId
+                            }
                         }
+                        ids+= "]"
+                        addDisposable(
+                            getContractModel().orderCancelAll(ids,
+                                false,
+                                consumer = object : CpNDisposableObserver(activity,true) {
+                                    override fun onResponseSuccess(jsonObject: JSONObject) {
+
+                                    }
+                                })
+                        )
 
 
                     }

@@ -1,9 +1,13 @@
 package com.yjkj.chainup.net_new.rxjava
 
 import android.app.Activity
+import android.os.Bundle
+import android.text.TextUtils
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.net.CpJSONUtil
+import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpContextUtil
 import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.view.CpNLoadingDialog
@@ -123,8 +127,10 @@ abstract class CpNDisposableObserver : DisposableObserver<ResponseBody> {
             }
         }
         if (code == 10021 || code == 10002 || code == 3 || code == 104008) {
-            CpNToastUtil.showTopToast(false, msg+"  "+code)
+//            CpNToastUtil.showTopToast(false, msg+"  "+code)
+            CpClLogicContractSetting.cleanToken()
         }
+
     }
 
     private var mLoadingDialog: CpNLoadingDialog? = null

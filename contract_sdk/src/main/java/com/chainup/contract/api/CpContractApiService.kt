@@ -82,6 +82,12 @@ interface CpContractApiService {
     @POST("order/order_cancel")
     fun orderCancel(@Body requestBody: RequestBody): Observable<ResponseBody>
 
+    /**
+     *  撤单全部
+     */
+    @POST("order/order_cancel_all")
+    fun orderCancelAll(@Body requestBody: RequestBody): Observable<ResponseBody>
+
 
     /**
      *  历史委托订单

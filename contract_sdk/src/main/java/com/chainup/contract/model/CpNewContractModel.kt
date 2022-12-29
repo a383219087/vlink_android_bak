@@ -318,6 +318,26 @@ class CpNewContractModel : CpBaseDataManager() {
     }
 
     /**
+     * 撤单全部
+     * @param contractId 合约ID
+     * @param orderId 订单ID
+     */
+    fun orderCancelAll(
+        contractId: String,
+        isConditionOrder: Boolean,
+        consumer: DisposableObserver<ResponseBody>
+    ): Disposable? {
+        val map = getBaseMaps().apply {
+            this["contractIdList"] = contractId
+            this["isConditionOrder"] = isConditionOrder.toString()
+        }
+        return changeIOToMainThread(
+            httpHelper.getContractNewUrlService(CpContractApiService::class.java)
+                .orderCancelAll(getBaseReqBody(map)), consumer
+        )
+    }
+
+    /**
      * 调节逐仓仓位保证金
      * @param type 调整类型; 1 增加保证金, 2 减少保证金
      * @param contractId 合约ID
