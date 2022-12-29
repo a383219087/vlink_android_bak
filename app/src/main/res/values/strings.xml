@@ -3607,7 +3607,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text4">team</string>
     <string name="share_text5">completed</string>
     <string name="share_text6">rebate</string>
-    <string name="share_text7">polite</string>
+    <string name="share_text7">Reward Center</string>
     <string name="share_text711">partner</string>
     <string name="share_text8">rules</string>
     <string name="share_text9">Many invite many</string>
@@ -3619,14 +3619,14 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="share_text151">Rebate</string>
     <string name="share_text16">Invite code</string>
     <string name="share_text17">Invitation link</string>
-    <string name="share_text18">Immediately invited</string>
+    <string name="share_text18">Invite Now</string>
     <string name="share_text19">more</string>
     <string name="share_text20">My invitation statistics</string>
     <string name="share_text201">Statistics</string>
     <string name="share_text21">more</string>
-    <string name="share_text22">Invite the number</string>
-    <string name="share_text23">Number of transactions completed</string>
-    <string name="share_text24">My rebate（USDT）</string>
+    <string name="share_text22">Invited</string>
+    <string name="share_text23">Traded</string>
+    <string name="share_text24">My Rebates\n（USDT）</string>
     <string name="share_text25">Invitation list</string>
     <string name="share_text26">rank</string>
     <string name="share_text27">nickName</string>
