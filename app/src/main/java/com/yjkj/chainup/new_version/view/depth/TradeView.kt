@@ -65,7 +65,7 @@ class TradeView @JvmOverloads constructor(
 
     val TAG = "我是交易量的View"
 
-    val TRANSACTION_MONEY_VIEW_HINT="成交额（USDT）"
+    val TRANSACTION_MONEY_VIEW_HINT="${LanguageUtil.getString(context, "deal_vol")}（USDT）"
 
 
     //交易类型

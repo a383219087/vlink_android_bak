@@ -242,7 +242,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_24"
-                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:background="@drawable/bg_drop_icon"
                     android:scaleType="center"
                     android:src="@mipmap/coins_drop_down"/>
