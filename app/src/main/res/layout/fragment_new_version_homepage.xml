@@ -20,7 +20,7 @@
         android:id="@+id/v_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/bg_color">
 
         <!--    顶部搜索页   -->
         <include
@@ -180,7 +180,7 @@
                         android:layout_marginTop="@dimen/dp_12"
                         app:bl_corners_radius="@dimen/dp_4"
                         app:layout_constraintTop_toBottomOf="@+id/recycler_center_service_layout"
-                        app:bl_solid_color="@color/colorF6F7FC">
+                        app:bl_solid_color="@color/bg_card_color">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/home_recharge"

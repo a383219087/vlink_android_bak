@@ -444,7 +444,7 @@ class NewMainActivity : NBaseActivity() {
       bottomtab_group?.showCurTabView(curPosition)
     }
     if (mTextviewList[curPosition].equals(LanguageUtil.getString(this, "mainTab_text_assets"))) {
-      StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.bg_card_color), 0)
+      StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.market_status_bar_color_day), 0)
     } else {
       StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.market_status_bar_color_day), 0)
     }
