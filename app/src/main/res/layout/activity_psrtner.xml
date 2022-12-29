@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_60"
-                        android:text="呼朋唤友，共赴未来"
+                        android:text="@string/share_tip_text"
                         android:fontFamily="@font/pang"
                         android:textColor="@color/white"
                         android:textSize="24sp" />

@@ -3668,10 +3668,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="buy_text10">Buy </string>
     <string name="buy_text11">The exchange rate has not been obtained</string>
     <string name="buy_text12">You will get about </string>
-    <string name="hoem_recharge">Recharge/Collection</string>
-    <string name="withdrawal_transfer">Withdrawal/Transfer</string>
+    <string name="hoem_recharge">Recharge</string>
+    <string name="withdrawal_transfer">Withdraw</string>
     <string name="contract">Contract</string>
-    <string name="customer_service">Customer/Service</string>
+    <string name="customer_service">Service</string>
     <!--ybc start-->
     <string name="u_benwei">USDT-M</string>
     <string name="contract_account_equity">Contract account equity</string>
@@ -3682,5 +3682,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="position_held_text">Holding position</string>
     <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币</string>
     <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约</string>
+    <string name="share_tip_text">Invite friends</string>
+    <string name="goto_invite">Go Invite</string>
 </resources>
 
