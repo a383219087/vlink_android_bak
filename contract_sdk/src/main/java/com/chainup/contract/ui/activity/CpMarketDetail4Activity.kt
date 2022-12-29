@@ -73,7 +73,6 @@ import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_ctrl
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_scale
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.v_kline
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
-import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -367,13 +366,13 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
             LogUtils.e("position-----+" + position)
             if (position != -1) {
                 val childView: View = rv_kline_ctrl.getChildAt(position)
-                childView?.apply {
+                childView.apply {
                     val tvSale = this.findViewById<TextView>(R.id.tv_time)
                     tvSale?.let { textClickTab(it, null) }
                 }
             } else {
                 val childView: View = rv_kline_ctrl.getChildAt(4)
-                childView?.apply {
+                childView.apply {
                     val tvSale = this.findViewById<TextView>(R.id.tv_scale)
                     tvSale?.let { textClickTab(it, null) }
                 }
@@ -1719,7 +1718,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
                     override fun onResponseFailure(code: Int, msg: String?) {
                         super.onResponseFailure(code, msg)
-                        swipeLayout.isRefreshing = false
                     }
                 })
         )
