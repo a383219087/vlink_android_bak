@@ -33,6 +33,7 @@ import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
 import kotlinx.android.synthetic.main.sl_activity_contract_entrust_detail.*
+import org.jetbrains.anko.textColor
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -111,21 +112,14 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
             tv_usdt.text = "--"
             tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-            tv_rate.setTextColor(resources.getColor(R.color.main_green))
-            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
         } else {
             tv_rate.text = "$rate%"
             tv_usdt.text = BigDecimalUtils.showSNormal(BigDecimalUtils.divForDown(usdt, 2).toPlainString(), 2)
             tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-            if (rate.contains("-")) {
-                tv_rate.setTextColor(resources.getColor(R.color.main_red))
-                tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-            } else {
-                tv_rate.setTextColor(resources.getColor(R.color.main_green))
-                tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-            }
         }
+        tv_rate.textColor = ColorUtil.getMainColorType(rate.toDouble() >= 0)
+        tv_usdt.textColor = ColorUtil.getMainColorType(usdt.toDouble() >= 0)
 
 
     }

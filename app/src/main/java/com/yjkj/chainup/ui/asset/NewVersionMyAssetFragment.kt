@@ -29,6 +29,7 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.util.*
 import kotlinx.android.synthetic.main.accet_header_view.view.*
 import kotlinx.android.synthetic.main.fragment_new_version_my_asset.*
+import org.jetbrains.anko.textColor
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -771,21 +772,14 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
             tv_usdt.text = "--"
             tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-            tv_rate.setTextColor(resources.getColor(R.color.main_green))
-            tv_usdt.setTextColor(resources.getColor(R.color.main_green))
         } else {
             tv_rate.text = "$rate%"
             tv_usdt.text = usdt
             tv_cny.visibility = View.VISIBLE
             tv_cny.text = RateManager.getCNYByCoinName("USDT", usdt)
-            if (rate.contains("-")) {
-                tv_rate.setTextColor(resources.getColor(R.color.main_red))
-                tv_usdt.setTextColor(resources.getColor(R.color.main_red))
-            } else {
-                tv_rate.setTextColor(resources.getColor(R.color.main_green))
-                tv_usdt.setTextColor(resources.getColor(R.color.main_green))
-            }
         }
+        tv_rate.textColor = ColorUtil.getMainColorType(rate.toDouble() >= 0)
+        tv_usdt.textColor = ColorUtil.getMainColorType(usdt.toDouble() >= 0)
     }
 
 
