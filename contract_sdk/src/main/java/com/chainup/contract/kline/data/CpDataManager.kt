@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.kline.data
+package com.chainup.contract.kline.data
 
 import android.util.Log
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
@@ -214,6 +214,9 @@ object CpDataManager {
         var ma20 = 0f
         var ma30 = 0f
         var ma60 = 0f
+        if (dataList.isEmpty()){
+            return
+        }
 
         for (i in dataList.indices) {
             val point = dataList[i]

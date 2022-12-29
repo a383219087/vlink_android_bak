@@ -1,10 +1,7 @@
 package com.yjkj.chainup.new_contract.activity
 
 import android.content.Context
-import android.content.res.Configuration
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -25,7 +22,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
-import com.yjkj.chainup.new_version.kline.data.CpDataManager
+import com.chainup.contract.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
 import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
@@ -47,7 +44,6 @@ import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_high_
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_low_price
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_rose
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.v_kline
-import org.jetbrains.anko.configuration
 
 /**
  * @description : 横屏行情的详细界面
