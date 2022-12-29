@@ -100,9 +100,9 @@
                         android:layout_marginStart="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_116"
                         android:background="@mipmap/bg_button"
-                        android:gravity="center"
-                        android:text="立刻邀请"
                         android:fontFamily="@font/pang"
+                        android:gravity="center"
+                        android:text="@string/share_text18"
                         android:textColor="@color/main_blue"
                         android:textSize="15sp" />
                 </RelativeLayout>
