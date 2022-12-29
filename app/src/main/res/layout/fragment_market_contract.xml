@@ -54,7 +54,9 @@
 
             <TextView
                 android:id="@+id/tv_home_action_coinNameTitle"
-                style="@style/textStyle_value_hint_12"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/colorA2A9BD"
+                android:fontFamily="@font/dinpro_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.35"
@@ -64,7 +66,9 @@
 
             <TextView
                 android:id="@+id/tv_new_price_title"
-                style="@style/textStyle_value_hint_12"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/colorA2A9BD"
+                android:fontFamily="@font/dinpro_regular"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_width="match_parent"
@@ -76,7 +80,9 @@
 
             <TextView
                 android:id="@+id/tv_24h_title"
-                style="@style/textStyle_value_hint_12"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/colorA2A9BD"
+                android:fontFamily="@font/dinpro_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
