@@ -3678,10 +3678,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="opsition_gain_loss">Position PnL</string>
     <!--ybc end-->
     <string name="bb_asset_text1">Currency asset</string>
-    <string name="convert_text">转换</string>
+    <string name="convert_text">Convert</string>
     <string name="position_held_text">Holding position</string>
-    <string name="assets_bb_security_advice_tips">今日盈亏=当前币币账户资产-今日零点币币</string>
-    <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约</string>
+    <string name="assets_bb_security_advice_tips">Today profit and loss = current exchange account assets - today zero exchange</string>
+    <string name="assets_contract_security_advice_tips">Today profit and loss = current contract account assets - today zero contract</string>
     <string name="share_tip_text">Invite friends</string>
     <string name="goto_invite">Go Invite</string>
 </resources>
