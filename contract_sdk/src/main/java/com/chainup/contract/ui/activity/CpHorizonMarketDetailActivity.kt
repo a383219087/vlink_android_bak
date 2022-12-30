@@ -1,6 +1,7 @@
-package com.yjkj.chainup.new_contract.activity
+package com.chainup.contract.ui.activity
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chainup.contract.R
 import com.chainup.contract.adapter.CpHKLineScaleAdapter
@@ -21,9 +23,9 @@ import com.chainup.contract.ws.CpWsContractAgentManager
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.manager.CpLanguageUtil
-import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
+import com.chainup.contract.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
-import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
+import com.chainup.contract.kline.data.CpKLineChartAdapter
 import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import org.jetbrains.anko.doAsync
@@ -69,6 +71,7 @@ class CpHorizonMarketDetailActivity : CpNBaseActivity(), CpWsContractAgentManage
     var mMultiplier = "0"
     var coUnit = 0
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -297,6 +300,7 @@ class CpHorizonMarketDetailActivity : CpNBaseActivity(), CpWsContractAgentManage
     /**
      * 处理K线刻度
      */
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun initKLineScale() {
         rv_kline_scale?.isLayoutFrozen = true
         rv_kline_scale?.setHasFixedSize(true)

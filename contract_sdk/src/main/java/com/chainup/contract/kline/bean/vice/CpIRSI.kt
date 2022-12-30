@@ -1,6 +1,6 @@
 package com.yjkj.chainup.new_version.kline.bean.vice
 
-import com.yjkj.chainup.new_version.kline.bean.CpIndex
+import com.chainup.contract.kline.bean.CpIndex
 
 
 /**

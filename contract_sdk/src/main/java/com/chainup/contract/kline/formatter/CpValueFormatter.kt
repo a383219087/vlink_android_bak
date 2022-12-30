@@ -1,7 +1,7 @@
 package com.chainup.contract.kline.formatter
 
 import com.chainup.contract.utils.CpBigDecimalUtils
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
+import com.chainup.contract.kline.base.CpIValueFormatter
 
 /**
  * @Author: Bertking

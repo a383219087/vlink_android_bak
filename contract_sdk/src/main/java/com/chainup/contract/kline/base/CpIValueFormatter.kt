@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.kline.base
+package com.chainup.contract.kline.base
 
 /**
  * @Author: Bertking

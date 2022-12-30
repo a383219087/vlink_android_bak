@@ -12,11 +12,11 @@ import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.utils.CpDisplayUtil
 import com.chainup.contract.utils.RateManager
 import com.yjkj.chainup.manager.CpLanguageUtil
-import com.yjkj.chainup.new_version.kline.bean.CpCandleBean
+import com.chainup.contract.kline.bean.CpCandleBean
 import com.chainup.contract.kline.bean.CpIKLine
 import com.chainup.contract.kline.formatter.CpValueFormatter
 import com.chainup.contract.kline.base.CpIChartViewDraw
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
+import com.chainup.contract.kline.base.CpIValueFormatter
 import org.jetbrains.anko.dip
 
 /**

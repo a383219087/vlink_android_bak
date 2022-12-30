@@ -1,6 +1,6 @@
 package com.chainup.contract.kline.formatter
 
-import com.yjkj.chainup.new_version.kline.base.CpIDateFormatter
+import com.chainup.contract.kline.base.CpIDateFormatter
 import java.util.*
 
 /**

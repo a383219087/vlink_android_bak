@@ -7,10 +7,10 @@ import android.util.Log
 import com.chainup.contract.R
 import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.utils.CpDisplayUtil
-import com.yjkj.chainup.new_version.kline.bean.CpVolumeBean
+import com.chainup.contract.kline.bean.CpVolumeBean
 import com.chainup.contract.kline.formatter.CpBigValueFormatter
 import com.chainup.contract.kline.base.CpIChartViewDraw
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
+import com.chainup.contract.kline.base.CpIValueFormatter
 
 
 /**

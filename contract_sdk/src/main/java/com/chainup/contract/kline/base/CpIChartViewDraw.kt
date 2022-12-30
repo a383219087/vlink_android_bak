@@ -1,7 +1,6 @@
 package com.chainup.contract.kline.base
 import android.graphics.Canvas
 import com.chainup.contract.kline.view.CpBaseKLineChartView
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 
 
 /**

@@ -1,7 +1,7 @@
 package com.chainup.contract.kline.data
 
 import android.util.Log
-import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
+import com.chainup.contract.kline.bean.CpKLineBean
 
 /**
  * @Author: Bertking

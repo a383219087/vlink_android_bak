@@ -7,7 +7,7 @@ import com.chainup.contract.kline.view.CpBaseKLineChartView
 import com.chainup.contract.kline.view.CpKLineChartView
 
 import com.chainup.contract.kline.formatter.CpValueFormatter
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
+import com.chainup.contract.kline.base.CpIValueFormatter
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIRSI
 
 

@@ -49,9 +49,9 @@ import com.yjkj.chainup.new_contract.activity.CpContractCalculateActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
-import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
+import com.chainup.contract.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
-import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
+import com.chainup.contract.kline.data.CpKLineChartAdapter
 import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable

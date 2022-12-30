@@ -44,14 +44,13 @@ import com.google.gson.reflect.TypeToken
 import com.yjkj.chainup.bean.kline.cp.DepthItem
 import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
-import com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity
 import com.yjkj.chainup.new_contract.adapter.CpContractKlineCtrlAdapter
 import com.yjkj.chainup.new_contract.bean.CpKlineCtrlBean
 import com.chainup.contract.ui.fragment.CpDealtRecordFragment
 import com.chainup.contract.ui.fragment.CpDepthFragment
-import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
+import com.chainup.contract.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
-import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
+import com.chainup.contract.kline.data.CpKLineChartAdapter
 import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable

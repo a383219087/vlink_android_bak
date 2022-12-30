@@ -9,9 +9,10 @@ import androidx.annotation.DimenRes
 import com.chainup.contract.R
 import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.kline.view.vice.CpKDJView
-import com.yjkj.chainup.new_version.kline.view.vice.CpMACDView
+import com.chainup.contract.kline.view.vice.CpMACDView
 import com.chainup.contract.kline.view.vice.CpRSIView
-import com.yjkj.chainup.new_version.kline.view.vice.CpWRView
+import com.chainup.contract.kline.view.vice.CpWRView
+
 import org.jetbrains.anko.layoutInflater
 import kotlin.math.abs
 

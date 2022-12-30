@@ -57,7 +57,7 @@
             android:name=".ui.activity.CpContractStopRateLossActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yjkj.chainup.new_contract.activity.CpHorizonMarketDetailActivity"
+            android:name=".ui.activity.CpHorizonMarketDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
