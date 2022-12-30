@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.kline.cp
+package com.chainup.contract.kline
 
 interface ViewCallBack<T> {
     fun onCallback(t: T)

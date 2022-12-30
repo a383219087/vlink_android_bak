@@ -1,21 +1,16 @@
-package com.yjkj.chainup.kline.view
+package com.chainup.contract.kline.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.DimenRes
 import com.chainup.contract.R
-import com.chainup.contract.kline.view.CpBaseKLineChartView
 import com.chainup.contract.utils.CpColorUtil
-import com.yjkj.chainup.kline.view.vice.CpKDJView
-import com.yjkj.chainup.new_version.kline.view.CpIFallRiseColor
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
-import com.yjkj.chainup.new_version.kline.view.CpVolumeView
+import com.chainup.contract.kline.view.vice.CpKDJView
 import com.yjkj.chainup.new_version.kline.view.vice.CpMACDView
-import com.yjkj.chainup.new_version.kline.view.vice.CpRSIView
+import com.chainup.contract.kline.view.vice.CpRSIView
 import com.yjkj.chainup.new_version.kline.view.vice.CpWRView
 import org.jetbrains.anko.layoutInflater
 import kotlin.math.abs
@@ -63,7 +58,7 @@ class CpKLineChartView @JvmOverloads constructor(
          */
         val view = context.layoutInflater.inflate(R.layout.cp_layout_kline_loading, null)
         mProgressBar = view.findViewById(R.id.pb_kline_load)
-        mProgressBar!!.visibility = View.GONE
+        mProgressBar!!.visibility = GONE
         mMACDDraw = CpMACDView(this)
         mWRDraw = CpWRView(this)
         mKDJDraw = CpKDJView(this)
@@ -229,7 +224,7 @@ class CpKLineChartView @JvmOverloads constructor(
         if (!isLoadMoreEnd && !isRefreshing) {
             isRefreshing = true
             if (mProgressBar != null) {
-                mProgressBar!!.visibility = View.VISIBLE
+                mProgressBar!!.visibility = VISIBLE
             }
             if (mRefreshListener != null) {
                 mRefreshListener!!.onLoadMoreBegin(this)
@@ -246,7 +241,7 @@ class CpKLineChartView @JvmOverloads constructor(
             isLongPress = false
             isRefreshing = true
             if (mProgressBar != null) {
-                mProgressBar!!.visibility = View.VISIBLE
+                mProgressBar!!.visibility = VISIBLE
             }
             if (mRefreshListener != null) {
                 mRefreshListener!!.onLoadMoreBegin(this)
@@ -260,7 +255,7 @@ class CpKLineChartView @JvmOverloads constructor(
 
     private fun hideLoading() {
         if (mProgressBar != null) {
-            mProgressBar!!.visibility = View.GONE
+            mProgressBar!!.visibility = GONE
         }
         super.setScrollEnable(mLastScrollEnable)
         super.setScaleEnable(mLastScaleEnable)

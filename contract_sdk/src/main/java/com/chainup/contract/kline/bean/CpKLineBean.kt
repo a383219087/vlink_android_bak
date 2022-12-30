@@ -1,6 +1,7 @@
 package  com.yjkj.chainup.new_version.kline.bean
 
 
+import com.chainup.contract.kline.bean.CpIKLine
 import com.chainup.contract.utils.CpDecimalUtil
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal

@@ -1,19 +1,16 @@
-package com.yjkj.chainup.new_version.kline.view
+package com.chainup.contract.kline.view
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import android.util.Log
 import com.chainup.contract.R
-import com.chainup.contract.kline.view.CpBaseKLineChartView
 import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.utils.CpDisplayUtil
-import com.yjkj.chainup.kline.view.CpKLineChartView
-import com.yjkj.chainup.new_version.kline.base.CpIChartViewDraw
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 import com.yjkj.chainup.new_version.kline.bean.CpVolumeBean
-import com.yjkj.chainup.new_version.kline.formatter.CpBigValueFormatter
-
+import com.chainup.contract.kline.formatter.CpBigValueFormatter
+import com.chainup.contract.kline.base.CpIChartViewDraw
+import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 
 
 /**

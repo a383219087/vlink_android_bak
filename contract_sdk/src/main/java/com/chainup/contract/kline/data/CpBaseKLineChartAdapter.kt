@@ -1,7 +1,8 @@
-package com.yjkj.chainup.new_version.kline.data
+package com.chainup.contract.kline.data
 
 import android.database.DataSetObservable
 import android.database.DataSetObserver
+import com.chainup.contract.kline.data.CpIAdapter
 
 /**
  * @Author: Bertking

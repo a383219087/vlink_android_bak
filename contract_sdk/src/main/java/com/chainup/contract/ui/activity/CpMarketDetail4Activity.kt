@@ -52,7 +52,7 @@ import com.chainup.contract.ui.fragment.CpDepthFragment
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

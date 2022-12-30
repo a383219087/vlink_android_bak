@@ -52,13 +52,12 @@ import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.*
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
+import kotlinx.android.synthetic.main.cp_activity_contract_k_line_h.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract.tv_capital_rate
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
@@ -161,10 +160,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     var selectPosition = 0
     private val adapter by lazy { CpKLineChartAdapter() }
 
-    /*
-    *  币对参数数据初始化
-    * */
-    private var jsonObject: JSONObject? = null
+
     var calibrationAdapter: CpKLineScaleAdapter? = null
 
     /**
@@ -825,7 +821,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (event.msg_type == CpMessageEvent.market_switch_curTime) {
             curTime = event.msg_content as String
             switchKLineScale(curTime ?: "15min")
-            tv_scale?.text = curTime ?: "15min"
+//            tv_scale?.text = curTime ?: "15min"
             calibrationAdapter?.notifyDataSetChanged()
 
             rv_kline_ctrl.postDelayed(Runnable {
@@ -913,6 +909,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type) {
             val ticker = event.msg_content as JSONObject
+            showTabInfo(ticker)
             contractId = ticker.getInt("id")
             baseSymbol = ticker.getString("base")
             quoteSymbol = ticker.getString("quote")
@@ -941,6 +938,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             isFrist = true
             klineData.clear()
             getSymbol(symbol)
+
+
         }
 
         when (event.msg_type) {
@@ -950,11 +949,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             CpMessageEvent.sl_contract_switch_lever_event -> {
                 modifyMarginModel(event.msg_content as String)
             }
-            CpMessageEvent.sl_contract_left_coin_type -> {
-                //切换币对后更新信息
-                val obj = event.msg_content as JSONObject
-                showTabInfo(obj)
-            }
+
             CpMessageEvent.sl_contract_create_order_event -> {
                 val obj = event.msg_content as CpCreateOrderBean
                 addDisposable(
@@ -1108,7 +1103,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         curTime = CpKLineUtil.getCurTime()
         v_kline?.setMainDrawLine(CpKLineUtil.getCurTime4Index() == 0)
-        tv_scale?.text = curTime
+//        tv_scale?.text = curTime
         isFrist = true
         klineData.clear()
 
@@ -1270,10 +1265,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     fun getSymbol(symbol: String) {
-        if (jsonObject?.optString("symbol") != symbol) {
             setDepthSymbol()
             initSocket()
-        }
     }
 
     /**
@@ -1282,7 +1275,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     private fun initKLineScale() {
         rv_kline_scale?.isLayoutFrozen = true
         rv_kline_scale?.setHasFixedSize(true)
-        tv_scale?.text = if (cur_time_index == 0) "line" else curTime
+//        tv_scale?.text = if (cur_time_index == 0) "line" else curTime
 
         val layoutManager = GridLayoutManager(mActivity, 4)
         layoutManager.isAutoMeasureEnabled = false
@@ -1318,7 +1311,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 CpKLineUtil.setCurTime(klineScale[position])
                 switchKLineScale(klineScale[position])
 
-                tv_scale?.text = if (position == 0) "line" else curTime
+//                tv_scale?.text = if (position == 0) "line" else curTime
 
             } else {
                 val boxView =

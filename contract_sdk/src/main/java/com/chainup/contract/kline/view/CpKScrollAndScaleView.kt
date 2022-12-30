@@ -1,4 +1,4 @@
-package com.yjkj.chainup.kline.view
+package com.chainup.contract.kline.view
 
 import android.content.Context
 import android.util.AttributeSet

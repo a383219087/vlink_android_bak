@@ -1,13 +1,13 @@
-package com.yjkj.chainup.kline.view.vice
+package com.chainup.contract.kline.view.vice
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import com.chainup.contract.kline.view.CpBaseKLineChartView
-import com.yjkj.chainup.kline.view.CpKLineChartView
-import com.yjkj.chainup.new_version.kline.base.CpIChartViewDraw
+import com.chainup.contract.kline.view.CpKLineChartView
+import com.chainup.contract.kline.base.CpIChartViewDraw
+import com.chainup.contract.kline.formatter.CpValueFormatter
 import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIKDJ
-import com.yjkj.chainup.new_version.kline.formatter.CpValueFormatter
 
 /**
  * @Author: Bertking

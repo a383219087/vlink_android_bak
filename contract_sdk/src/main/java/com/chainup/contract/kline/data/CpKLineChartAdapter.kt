@@ -1,5 +1,6 @@
 package com.yjkj.chainup.new_version.kline.data
 
+import com.chainup.contract.kline.data.CpBaseKLineChartAdapter
 import com.chainup.contract.utils.CpDateUtils
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import java.lang.Exception

@@ -1,4 +1,4 @@
-package com.yjkj.chainup.kline.view
+package com.chainup.contract.kline.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,19 +7,16 @@ import android.graphics.RectF
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.chainup.contract.R
-import com.chainup.contract.kline.view.CpBaseKLineChartView
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.utils.CpDisplayUtil
 import com.chainup.contract.utils.RateManager
 import com.yjkj.chainup.manager.CpLanguageUtil
-import com.yjkj.chainup.new_version.kline.base.CpIChartViewDraw
-import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 import com.yjkj.chainup.new_version.kline.bean.CpCandleBean
-import com.yjkj.chainup.new_version.kline.bean.CpIKLine
-import com.yjkj.chainup.new_version.kline.formatter.CpValueFormatter
-import com.yjkj.chainup.new_version.kline.view.CpIFallRiseColor
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.chainup.contract.kline.bean.CpIKLine
+import com.chainup.contract.kline.formatter.CpValueFormatter
+import com.chainup.contract.kline.base.CpIChartViewDraw
+import com.yjkj.chainup.new_version.kline.base.CpIValueFormatter
 import org.jetbrains.anko.dip
 
 /**

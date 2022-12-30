@@ -1,5 +1,8 @@
-package  com.yjkj.chainup.new_version.kline.bean
+package  com.chainup.contract.kline.bean
 
+
+import com.yjkj.chainup.new_version.kline.bean.CpCandleBean
+import com.yjkj.chainup.new_version.kline.bean.CpVolumeBean
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIKDJ
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIMACD
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIRSI

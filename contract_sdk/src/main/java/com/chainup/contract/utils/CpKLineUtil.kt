@@ -3,9 +3,8 @@ package com.chainup.contract.utils
 import android.content.Context
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.view.*
 import java.lang.IndexOutOfBoundsException
 
 /**
@@ -150,7 +149,7 @@ object CpKLineUtil {
      */
     fun getMainIndex(): Int {
         return CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .getSharedInt(MAIN_INDEX,MainKlineViewStatus.MA.status);
+                .getSharedInt(MAIN_INDEX, MainKlineViewStatus.MA.status);
     }
 
 

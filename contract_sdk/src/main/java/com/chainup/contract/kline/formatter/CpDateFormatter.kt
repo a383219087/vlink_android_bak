@@ -1,4 +1,4 @@
-package com.yjkj.chainup.new_version.kline.formatter
+package com.chainup.contract.kline.formatter
 
 import com.yjkj.chainup.new_version.kline.base.CpIDateFormatter
 import java.util.*

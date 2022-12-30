@@ -287,6 +287,9 @@ object CpDataManager {
      */
     fun calculate(dataList: ArrayList<CpKLineBean>) {
         Log.d("======calculate======", "===" + dataList.size)
+        if (dataList.isEmpty()){
+            return
+        }
         calculateMA(dataList)
         calculateMACD(dataList)
         calculateBOLL(dataList)

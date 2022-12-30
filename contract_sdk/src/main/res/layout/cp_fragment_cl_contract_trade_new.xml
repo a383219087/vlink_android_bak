@@ -238,7 +238,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <com.yjkj.chainup.kline.view.CpKLineChartView
+                                <com.chainup.contract.kline.view.CpKLineChartView
                                     android:id="@+id/v_kline"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"

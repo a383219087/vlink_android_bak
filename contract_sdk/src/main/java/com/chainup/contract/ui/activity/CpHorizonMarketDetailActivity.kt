@@ -24,7 +24,7 @@ import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.new_version.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
 import com.yjkj.chainup.new_version.kline.data.CpKLineChartAdapter
-import com.yjkj.chainup.new_version.kline.view.cp.MainKlineViewStatus
+import com.chainup.contract.kline.view.MainKlineViewStatus
 import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.textColor
@@ -33,17 +33,7 @@ import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.*
 
-
 import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.*
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.rv_kline_scale
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_24h_vol
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_close_price
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_coin_map
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_converted_close_price
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_high_price
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_low_price
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.tv_rose
-import kotlinx.android.synthetic.main.cp_activity_horizon_market_detail.v_kline
 
 /**
  * @description : 横屏行情的详细界面
