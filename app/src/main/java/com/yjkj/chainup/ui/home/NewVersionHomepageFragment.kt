@@ -41,6 +41,7 @@ import com.yjkj.chainup.new_version.home.*
 import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
+import com.yjkj.chainup.wedegit.HomePageItemDecoration
 import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
 import com.youth.banner.config.IndicatorConfig
@@ -133,6 +134,7 @@ class NewVersionHomepageFragment :
 
     mBinding?.recyclerTop24?.layoutManager =
       LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
+    mBinding?.recyclerTop24?.addItemDecoration(HomePageItemDecoration(activity!!))
     topSymbolAdapter = NewhomepageTradeListAdapter()
     mBinding?.recyclerTop24?.adapter = topSymbolAdapter
     topSymbolAdapter?.setOnItemClickListener { adapter, view, position ->

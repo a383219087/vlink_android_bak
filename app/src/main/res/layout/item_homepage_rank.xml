@@ -94,14 +94,16 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_rose"
                 android:layout_width="@dimen/dp_78"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="@dimen/dp_22"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="-16.68%"
                 android:ellipsize="end"
                 android:paddingLeft="@dimen/dp_2"
                 android:paddingRight="@dimen/dp_2"
-                style="@style/textStyle_while_14"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/white"
+                android:fontFamily="@font/dinpro_medium"
                 app:stv_corner="@dimen/dp_4" />
         </LinearLayout>
     </LinearLayout>
