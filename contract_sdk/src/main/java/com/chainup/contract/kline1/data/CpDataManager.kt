@@ -1,7 +1,8 @@
-package com.chainup.contract.kline.data
+package com.chainup.contract.kline1.data
 
 import android.util.Log
-import com.chainup.contract.kline.bean.CpKLineBean
+import com.chainup.contract.kline.data.CpDataManager
+import com.chainup.contract.kline1.bean.CpKLineBean
 
 /**
  * @Author: Bertking
@@ -217,14 +218,13 @@ object CpDataManager {
         if (dataList.isEmpty()){
             return
         }
+
         for (i in dataList.indices) {
             val point = dataList[i]
             var closePrice = 0f
-            try {
-                closePrice = point.closePrice
-            }finally {
+            closePrice = point.closePrice
 
-            }
+
             ma5 += closePrice
             ma10 += closePrice
             ma20 += closePrice

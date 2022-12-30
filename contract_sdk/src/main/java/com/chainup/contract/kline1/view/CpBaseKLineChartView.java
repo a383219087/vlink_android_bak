@@ -1,4 +1,4 @@
-package com.chainup.contract.kline.view;
+package com.chainup.contract.kline1.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -24,13 +24,13 @@ import com.chainup.contract.utils.CpBigDecimalUtils;
 import com.chainup.contract.utils.CpColorUtil;
 import com.chainup.contract.utils.CpDisplayUtil;
 import com.chainup.contract.utils.CpSizeUtils;
-import com.chainup.contract.kline.base.CpIChartViewDraw;
-import com.chainup.contract.kline.base.CpIDateFormatter;
-import com.chainup.contract.kline.base.CpIValueFormatter;
-import com.chainup.contract.kline.bean.CpIKLine;
-import com.chainup.contract.kline.data.CpIAdapter;
-import com.chainup.contract.kline.formatter.CpDateFormatter;
-import com.chainup.contract.kline.formatter.CpValueFormatter;
+import com.chainup.contract.kline1.base.CpIChartViewDraw;
+import com.chainup.contract.kline1.base.CpIDateFormatter;
+import com.chainup.contract.kline1.base.CpIValueFormatter;
+import com.chainup.contract.kline1.bean.CpIKLine;
+import com.chainup.contract.kline1.data.CpIAdapter;
+import com.chainup.contract.kline1.formatter.CpDateFormatter;
+import com.chainup.contract.kline1.formatter.CpValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -174,7 +174,7 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
     private int selectedIndex;
 
     private CpIChartViewDraw mMainDraw;
-    private com.chainup.contract.kline.view.CpMainKLineView mainDraw;
+    private CpMainKLineView mainDraw;
     private CpIChartViewDraw mVolDraw;
 
     private CpIAdapter mAdapter;
@@ -271,7 +271,7 @@ public abstract class CpBaseKLineChartView extends CpScrollAndScaleView {
     protected boolean priceLabelInLineClickable = true;
     protected float priceLabelInLineBoxRight, priceLabelInLineBoxLeft, priceLabelInLineBoxTop, priceLabelInLineBoxBottom;
 
-    protected com.chainup.contract.kline.view.YLabelModel yLabelModel = YLabelModel.LABEL_NONE_GRID;
+    protected YLabelModel yLabelModel = YLabelModel.LABEL_NONE_GRID;
 
     /**
      * 动画执行时长

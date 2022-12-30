@@ -1,10 +1,11 @@
 package  com.chainup.contract.kline.bean
 
 
-import com.yjkj.chainup.new_version.kline.bean.vice.CpIKDJ
-import com.yjkj.chainup.new_version.kline.bean.vice.CpIMACD
-import com.yjkj.chainup.new_version.kline.bean.vice.CpIRSI
-import com.yjkj.chainup.new_version.kline.bean.vice.CpIWR
+
+import com.chainup.contract.kline.bean.vice.CpIKDJ
+import com.chainup.contract.kline.bean.vice.CpIMACD
+import com.chainup.contract.kline.bean.vice.CpIRSI
+import com.chainup.contract.kline.bean.vice.CpIWR
 
 
 /**

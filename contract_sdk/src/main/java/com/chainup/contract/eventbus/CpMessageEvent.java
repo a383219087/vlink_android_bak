@@ -80,7 +80,6 @@ public class CpMessageEvent {
     public static final int sl_contract_left_coin_type = 401;//切换合约币种
     public static final int sl_contract_switch_time_type = 402;//切换K线区间
 
-
     public static final int sl_contract_modify_margin_event = 50;//修改保证金
     public static final int sl_contract_modify_leverage_event = 52;//修改杠杆
     public static final int sl_contract_change_tagPrice_event = 53;//标记价格改变、指数价格改变

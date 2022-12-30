@@ -55,12 +55,12 @@ class CpContractDropAdapter(data: ArrayList<JSONObject>) : BaseQuickAdapter<JSON
                     setTextColor( CpColorUtil.getMainColorType(chg >= 0))
                 }
             }
-            helper?.getView<RelativeLayout>(R.id.rl_content)?.setOnClickListener {
+            helper?.getView<RelativeLayout>(R.id.rl_content).setOnClickListener {
                 CpClLogicContractSetting.setContractCurrentSelectedId(context, ticker.optInt("id"))
-                var msgEvent =
-                    CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
+                var msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
                 msgEvent.msg_content = ticker
                 CpEventBusUtil.post(msgEvent)
+
             }
         }
     }

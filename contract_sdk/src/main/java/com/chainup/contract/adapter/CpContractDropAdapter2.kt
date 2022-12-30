@@ -66,17 +66,15 @@ class CpContractDropAdapter2(data: ArrayList<JSONObject>) : BaseQuickAdapter<JSO
                     setTextColor( CpColorUtil.getMainColorType(chg >= 0))
                 }
             }
-            helper?.getView<LinearLayout>(R.id.rl_content)?.setOnClickListener {
+            helper.getView<LinearLayout>(R.id.rl_content).setOnClickListener {
                 mContractId = ticker.getInt("id")
                 base = ticker.getString("base")
                 quote = ticker.getString("quote")
                 contractType = ticker.getString("contractType")
-                currentSymbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol")
-                .replace("-", "")).toLowerCase()
+                currentSymbol = (ticker.getString("contractType") + "_" + ticker.getString("symbol").replace("-", "")).toLowerCase()
                 symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(context,mContractId)
                 CpClLogicContractSetting.setContractCurrentSelectedId(context, ticker.optInt("id"))
-                var msgEvent =
-                    CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
+                var msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_left_coin_type)
                 msgEvent.msg_content = ticker
                 CpEventBusUtil.post(msgEvent)
                 startItem()

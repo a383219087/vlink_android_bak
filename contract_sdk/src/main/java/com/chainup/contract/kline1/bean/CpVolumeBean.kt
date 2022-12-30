@@ -1,6 +1,6 @@
-package  com.chainup.contract.kline.bean
+package  com.chainup.contract.kline1.bean
 
-
+import com.chainup.contract.kline1.bean.CpIndex
 
 
 /**

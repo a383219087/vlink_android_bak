@@ -1587,39 +1587,6 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         subscribe = Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                getContractUserConfig()
-//                    addDisposable(
-//                            getContractModel().getMarkertInfo(symbol, contractId.toString(),
-//                                    consumer = object : CpNDisposableObserver() {
-//                                        override fun onResponseSuccess(jsonObject: JSONObject) {
-//                                            jsonObject.optJSONObject("data").run {
-//                                                tv_capital_rate?.apply {
-//                                                    var tagPrice = optString("tagPrice")
-//                                                    var fundRate = optString("currentFundRate")
-//                                                    var indexPrice = optString("indexPrice")
-//                                                    var obj = JSONObject()
-//                                                    obj.put(
-//                                                            "tagPrice",
-//                                                            CpBigDecimalUtils.scaleStr(tagPrice, mPricePrecision)
-//                                                    )
-//                                                    obj.put(
-//                                                            "indexPrice",
-//                                                            CpBigDecimalUtils.scaleStr(indexPrice, mPricePrecision)
-//                                                    )
-//                                                    obj.put("fundRate", "--")
-//                                                    val msgEvent =
-//                                                            CpMessageEvent(
-//                                                                    CpMessageEvent.sl_contract_change_tagPrice_event
-//                                                            )
-//                                                    msgEvent.msg_content = obj
-//                                                    CpEventBusUtil.post(msgEvent)
-//                                                    setText(DecimalFormat("0.000000%").format(optDouble("currentFundRate")))
-//                                                }
-//                                            }
-//                                        }
-//                                    })
-//                    )
-
                 addDisposable(
                     getContractModel().getCoinDepth(contractId, symbol,
                         consumer = object : CpNDisposableObserver(true) {
@@ -1630,7 +1597,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                                             this.toString(),
                                             DepthItem::class.java
                                         )
-                                    this@CpMarketDetail4Activity?.runOnUiThread {
+                                    this@CpMarketDetail4Activity.runOnUiThread {
                                         setData4DepthChart()
                                     }
                                 }
@@ -1645,79 +1612,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
     }
 
 
-    private fun getContractUserConfig() {
-        if (!CpClLogicContractSetting.isLogin()) {
-            return
-        }
-        addDisposable(
-            getContractModel().getUserConfig(contractId.toString(),
-                consumer = object : CpNDisposableObserver() {
-                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                        jsonObject.optJSONObject("data").run {
-                            var openContract = optInt("openContract")
 
-                            if (openContract == 1) {
-                                addDisposable(
-                                    getContractModel().getPositionAssetsList(
-                                        consumer = object : CpNDisposableObserver(true) {
-                                            @SuppressLint("SetTextI18n")
-                                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                                jsonObject.optJSONObject("data")?.run {
-                                                    if (!isNull("accountList")) {
-                                                        rl_ctrl.visibility = View.VISIBLE
-                                                        val mAccountListJson =
-                                                            optJSONArray("accountList")
-                                                        for (i in 0 until mAccountListJson.length()) {
-                                                            val data: JSONObject =
-                                                                mAccountListJson?.get(i) as JSONObject
-                                                            if (data.optString("symbol") == "USDT") {
-                                                                val bibi1 =
-                                                                    CpBigDecimalUtils.showSNormal(
-                                                                        CpBigDecimalUtils.divForDown(
-                                                                            data?.optString("totalAmount"),
-                                                                            2
-                                                                        ).toPlainString(),
-                                                                        2
-                                                                    )
-                                                                val bibi2 =
-                                                                    CpBigDecimalUtils.showSNormal(
-                                                                        CpBigDecimalUtils.divForDown(
-                                                                            data?.optString("openRealizedAmount"),
-                                                                            2
-                                                                        ).toPlainString(),
-                                                                        2
-                                                                    )
-                                                                tv_mark_price.text = bibi1
-                                                                tv_capital_rate.text = bibi2
-                                                                if (bibi2.contains("-")) {
-                                                                    tv_mark_price.textColor =
-                                                                        CpColorUtil.getColor(R.color.main_red)
-                                                                } else {
-                                                                    tv_capital_rate.textColor =
-                                                                        CpColorUtil.getColor(R.color.main_green)
-                                                                }
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        })
-                                )
-
-
-                            }
-
-                        }
-                    }
-
-                    override fun onResponseFailure(code: Int, msg: String?) {
-                        super.onResponseFailure(code, msg)
-                    }
-                })
-        )
-    }
 
 
     /**
