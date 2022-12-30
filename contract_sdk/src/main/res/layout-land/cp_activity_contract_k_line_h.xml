@@ -329,7 +329,7 @@
        >
 
 
-        <com.chainup.contract.kline.view.CpKLineChartView
+        <com.chainup.contract.kline.view1.CpKLineChartView
             android:id="@+id/v_kline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

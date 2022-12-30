@@ -7,11 +7,13 @@ import android.view.MotionEvent
 import android.widget.ProgressBar
 import androidx.annotation.DimenRes
 import com.chainup.contract.R
-import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.kline.view.vice.CpKDJView
 import com.chainup.contract.kline.view.vice.CpMACDView
 import com.chainup.contract.kline.view.vice.CpRSIView
 import com.chainup.contract.kline.view.vice.CpWRView
+
+import com.chainup.contract.utils.CpColorUtil
+
 
 import org.jetbrains.anko.layoutInflater
 import kotlin.math.abs

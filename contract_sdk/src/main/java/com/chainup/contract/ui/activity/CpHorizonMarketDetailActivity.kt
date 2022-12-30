@@ -27,7 +27,7 @@ import com.chainup.contract.kline.bean.CpKLineBean
 import com.chainup.contract.kline.data.CpDataManager
 import com.chainup.contract.kline.data.CpKLineChartAdapter
 import com.chainup.contract.kline.view.MainKlineViewStatus
-import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
+import com.chainup.contract.kline.view.vice.CpViceViewStatus
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.uiThread

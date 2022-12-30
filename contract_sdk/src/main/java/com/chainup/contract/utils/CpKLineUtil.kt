@@ -4,7 +4,7 @@ import android.content.Context
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.kline.view.MainKlineViewStatus
-import com.yjkj.chainup.new_version.kline.view.vice.CpViceViewStatus
+import com.chainup.contract.kline.view.vice.CpViceViewStatus
 import java.lang.IndexOutOfBoundsException
 
 /**

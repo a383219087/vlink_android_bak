@@ -5,10 +5,10 @@ import android.graphics.Paint
 import android.util.Log
 import com.chainup.contract.kline.base.CpIChartViewDraw
 import com.chainup.contract.kline.view.CpBaseKLineChartView
-import com.chainup.contract.kline.view.CpKLineChartView
 import com.chainup.contract.kline.formatter.CpValueFormatter
-import com.chainup.contract.kline.view.CpIFallRiseColor
 import com.chainup.contract.kline.base.CpIValueFormatter
+import com.chainup.contract.kline.view.CpIFallRiseColor
+import com.chainup.contract.kline.view.CpKLineChartView
 import com.yjkj.chainup.new_version.kline.bean.vice.CpIMACD
 
 /**
