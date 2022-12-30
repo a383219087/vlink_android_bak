@@ -1306,10 +1306,10 @@
     <string name="contract_action_holdMargin">持仓</string>
     <string name="contract_action_increaseMargin">增加保证金</string>
     <string name="contract_action_lever">杠杆</string>
-    <string name="contract_action_limitPrice">限价</string>
+    <string name="contract_action_limitPrice">限价交易</string>
     <string name="contract_action_long">做多</string>
     <string name="contract_action_marketClosing">市价平仓</string>
-    <string name="contract_action_marketPrice">市价</string>
+    <string name="contract_action_marketPrice">市价交易</string>
     <string name="contract_action_sell">卖出</string>
     <string name="contract_action_sellLimitOrder">卖出限价单</string>
     <string name="contract_action_short">做空</string>
@@ -1682,7 +1682,7 @@
     <string name="personal_text_message22">邀请人数</string>
     <string name="personal_text_message23">日交易人数</string>
     <string name="personal_text_message3">已交易</string>
-    <string name="personal_text_message4">最新返利</string>
+    <string name="personal_text_message4">最新返佣</string>
     <string name="personal_text_newPwd">新密码</string>
     <string name="important_hint1">请登陆正式账号</string>
     <string name="personal_text_notice">公告</string>

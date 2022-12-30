@@ -28,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textColor="@color/color323232"
                 android:textSize="@dimen/sp_14"
-                android:textColor="@color/text_black"
                 android:textStyle="bold"
                 tools:text="LTC" />
 
@@ -51,7 +51,6 @@
                 android:fontFamily="@font/dinpro_bold"
                 android:ellipsize="end"
                 android:textSize="@dimen/sp_20"
-                android:textStyle="bold"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="5734.580000" />
@@ -67,13 +66,13 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_contract_chg"
                 android:layout_width="@dimen/dp_78"
-                android:layout_height="@dimen/dp_32"
+                android:layout_height="@dimen/dp_22"
                 android:gravity="center"
                 android:maxLines="1"
-
+                android:fontFamily="@font/dinpro_medium"
                 android:text="--"
                 android:textColor="@color/white"
-                style="@style/textStyle_while_14"
+                android:textSize="@dimen/sp_14"
                 app:stv_corner="@dimen/dp_4"
                 app:stv_solid="@color/main_blue_15" />
         </LinearLayout>

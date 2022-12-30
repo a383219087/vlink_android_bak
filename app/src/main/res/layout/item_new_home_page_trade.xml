@@ -15,19 +15,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/item_new_home_page_trade_symbol"
-            style="@style/textStyle_title_12"
+            style="@style/textStyle_title_14"
+            android:fontFamily="@font/dinpro_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="btc" />
 
         <TextView
             android:id="@+id/item_new_home_page_trade_market"
-            style="@style/textStyle_title_12"
+            style="@style/textStyle_title_14"
+            android:fontFamily="@font/dinpro_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -37,9 +39,10 @@
 
         <TextView
             android:id="@+id/item_new_home_page_trade_gains"
-            style="@style/textStyle_nor_12"
+            android:textSize="@dimen/sp_10"
+            android:fontFamily="@font/dinpro_medium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:ellipsize="end"
             android:singleLine="true"
@@ -50,7 +53,8 @@
 
     <TextView
         android:id="@+id/item_new_home_page_trade_assets"
-        style="@style/textStyle_title_16"
+        android:textSize="@dimen/sp_20"
+        android:fontFamily="@font/dinpro_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -58,7 +62,9 @@
 
     <TextView
         android:id="@+id/item_new_home_page_trade_value"
-        style="@style/textStyle_text_nor_12"
+        android:textSize="@dimen/sp_12"
+        android:fontFamily="@font/dinpro_medium"
+        android:textColor="@color/normal_text_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_3"

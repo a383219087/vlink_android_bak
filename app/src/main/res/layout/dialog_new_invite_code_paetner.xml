@@ -38,7 +38,7 @@
                 android:gravity="start"
                 android:text="@{_all.type==1?@string/share_text30:@string/share_text31}"
                 android:textColor="@color/text_color"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_16"
                 android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/share_text331"
                     android:textColor="@color/text_color"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_color"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_14"
                 android:inputType="number"
                 android:text="@={_all.rate}"
                 android:layout_marginRight="15dp"
@@ -95,7 +95,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_gravity="left"
                 android:textColor="@color/text_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp_14" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_color"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_14"
                 android:text="@={_all.remark}"
                 android:layout_marginRight="15dp"
                 android:hint="@string/share_text35"/>
@@ -117,9 +117,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:paddingLeft="@dimen/dp_5"
+                android:textColor="@color/color323232"
                 android:button="@drawable/cp_trade_check_selector"
                 android:layout_marginTop="10dp"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp_14"
                 android:layout_gravity="left"
                 android:checked="@={_all.isCheck()}"
                 android:text="@string/share_text36"/>
