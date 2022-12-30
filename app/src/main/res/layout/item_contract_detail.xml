@@ -95,7 +95,7 @@
         android:maxLines="1"
         android:text="-16.68%"
         android:textColor="@color/white"
-        style="@style/textStyle_while_14"
+        android:textSize="@dimen/sp_14"
         app:stv_corner="@dimen/dp_4"
         app:stv_solid="@color/main_blue_15" />
 

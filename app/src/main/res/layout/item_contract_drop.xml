@@ -72,7 +72,7 @@
                 android:fontFamily="@font/dinpro_medium"
                 android:text="--"
                 android:textColor="@color/white"
-                style="@style/textStyle_while_14"
+                android:textSize="@dimen/sp_14"
                 app:stv_corner="@dimen/dp_4"
                 app:stv_solid="@color/main_blue_15" />
         </LinearLayout>

@@ -111,7 +111,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     override fun initView() {
         isLogined = UserDataService.getInstance().isLogined
         isOptionalSymbolServerOpen = PublicInfoDataService.getInstance().isOptionalSymbolServerOpen(null)
-
+        iv_more.visibility = View.VISIBLE
         changeInitData()
         getETFValue()
 

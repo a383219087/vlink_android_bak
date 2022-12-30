@@ -109,7 +109,7 @@ class TradeView @JvmOverloads constructor(
             /**
              * 设置 RadioButton 的选中效果
              */
-            for (i in 0 until rg_trade.childCount step 2) {
+            for (i in 0 until rg_trade.childCount) {
                 val radioButton = rg_trade?.getChildAt(i) as RadioButton
                 radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
                 radioButton.backgroundResource = R.color.transparent
@@ -202,7 +202,7 @@ class TradeView @JvmOverloads constructor(
             /**
              * 设置 RadioButton 的选中效果
              */
-            for (i in 0 until rg_trade.childCount step 2) {
+            for (i in 0 until rg_trade.childCount) {
                 val radioButton = rg_trade?.getChildAt(i) as RadioButton
                 radioButton.setTextColor(ColorUtil.getCheck4ColorStateList(isBuy()))
                 radioButton.background = ColorUtil.getCheck4StateListDrawable(isBuy())
@@ -843,7 +843,7 @@ class TradeView @JvmOverloads constructor(
                  * 清除 RadioButton 的选中效果
                  */
                 if (s.toString().length < volumeScale + 2) {
-                    for (i in 0 until rg_trade.childCount step 2) {
+                    for (i in 0 until rg_trade.childCount) {
                         val radioButton = rg_trade?.getChildAt(i) as RadioButton
                         radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
                         radioButton.backgroundResource = R.color.transparent
@@ -1122,7 +1122,7 @@ class TradeView @JvmOverloads constructor(
             /**
              * 设置 RadioButton 的选中效果
              */
-            for (i in 0 until rg_trade.childCount step 2) {
+            for (i in 0 until rg_trade.childCount) {
                 val radioButton = rg_trade?.getChildAt(i) as RadioButton
                 radioButton.setTextColor(ColorUtil.getCheck4ColorStateList())
                 radioButton.background = ColorUtil.getCheck4StateListDrawable()
@@ -1149,7 +1149,7 @@ class TradeView @JvmOverloads constructor(
             /**
              * 设置 RadioButton 的选中效果
              */
-            for (i in 0 until rg_trade.childCount step 2) {
+            for (i in 0 until rg_trade.childCount) {
                 val radioButton = rg_trade?.getChildAt(i) as RadioButton
                 radioButton.setTextColor(ColorUtil.getCheck4ColorStateList(isRise = false))
                 radioButton.background = ColorUtil.getCheck4StateListDrawable(isRise = false)

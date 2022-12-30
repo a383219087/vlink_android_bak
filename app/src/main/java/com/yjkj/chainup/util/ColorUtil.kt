@@ -161,6 +161,28 @@ object ColorUtil {
 
     }
 
+    fun getStrokeColorType(isRise: Boolean = true): Int {
+        var colorSelect = getColorType()
+
+        val minorGreen = getColor(R.color.main_green)
+        val minorRed = getColor(R.color.main_red)
+
+        return if (colorSelect == GREEN_RISE) {
+            if (isRise) {
+                minorGreen
+            } else {
+                minorRed
+            }
+        } else {
+            if (isRise) {
+                minorRed
+            } else {
+                minorGreen
+            }
+        }
+
+    }
+
     /**
      * 交易界面(买卖TAB drawable)，特殊处理
      */
@@ -251,6 +273,8 @@ object ColorUtil {
 
         val checkedDrawable = GradientDrawable()
         checkedDrawable.setColor(getMinorColorType(isRise))
+        checkedDrawable.setStroke(ChainUpApp.appContext.resources.getDimensionPixelOffset(R.dimen.dp_1),getStrokeColorType(isRise))
+        checkedDrawable.cornerRadius = ChainUpApp.appContext.resources.getDimensionPixelOffset(R.dimen.dp_4).toFloat()
 
         val stateDrawable = StateListDrawable()
         stateDrawable.addState(intArrayOf(android.R.attr.state_checked), checkedDrawable)

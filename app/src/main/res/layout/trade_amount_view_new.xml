@@ -250,6 +250,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:button="@null"
                 android:gravity="center"
                 android:text="25%"
@@ -262,6 +263,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:button="@null"
                 android:gravity="center"
                 android:text="50%"
@@ -276,6 +278,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
+                android:layout_margin="2dp"
                 android:text="75%"
                 tools:text="25%" />
 
@@ -287,6 +290,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
+                android:layout_margin="2dp"
                 android:text="100%"
                 tools:text="25%" />
 
@@ -327,6 +331,7 @@
             android:layout_height="match_parent"
             android:text="@string/assets_text_available"
             android:textColor="@color/text_black"
+            android:fontFamily="@font/dinpro_medium"
             android:textSize="@dimen/sp_12"
             android:textStyle="bold" />
 
@@ -341,6 +346,7 @@
             android:maxLines="1"
             android:text="--"
             android:textColor="@color/text_black"
+            android:fontFamily="@font/dinpro_medium"
             app:autoSizeMaxTextSize="@dimen/sp_12"
             app:autoSizeMinTextSize="6sp"
             app:autoSizeTextType="uniform"
