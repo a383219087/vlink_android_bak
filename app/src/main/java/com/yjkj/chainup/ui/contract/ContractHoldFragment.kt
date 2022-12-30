@@ -1,13 +1,24 @@
 package com.yjkj.chainup.ui.contract
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.text.TextUtils
+import android.view.View
+import android.widget.*
+import com.blankj.utilcode.util.LogUtils
 import com.chainup.contract.adapter.CpHoldContractNewAdapter
 import com.chainup.contract.app.CpCommonConstant
+import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.CpContractPositionBean
-import com.chainup.contract.utils.CpClLogicContractSetting
-import com.chainup.contract.view.CpEmptyOrderForAdapterView
-import com.chainup.contract.view.CpMyLinearLayoutManager
+import com.chainup.contract.bean.CpCreateOrderBean
+import com.chainup.contract.eventbus.CpEventBusUtil
+import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.listener.CpDoListener
+import com.chainup.contract.ui.activity.CpContractStopRateLossActivity
+import com.chainup.contract.utils.*
+import com.chainup.contract.view.*
+import com.coorchice.library.SuperTextView
 import com.google.gson.Gson
 import com.yjkj.chainup.R
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
@@ -16,6 +27,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_contract_hold.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -43,6 +55,61 @@ class ContractHoldFragment : CpNBaseFragment() {
         rv_hold_contract.layoutManager = CpMyLinearLayoutManager(context)
         rv_hold_contract.adapter = adapter
         adapter?.setEmptyView(CpEmptyOrderForAdapterView(context ?: return))
+        adapter?.addChildClickViewIds(
+            com.chainup.contract.R.id.tv_forced_close_price_key,
+            com.chainup.contract.R.id.tv_tag_price,
+            com.chainup.contract.R.id.tv_settled_profit_loss_key
+        )
+        adapter?.setOnItemChildClickListener  { adapter, view, position ->
+            if (CpClickUtil.isFastDoubleClick()) return@setOnItemChildClickListener
+            val clickData = adapter.data[position] as CpContractPositionBean
+            when (view.id) {
+                com.chainup.contract.R.id.tv_tag_price -> {
+                    CpNewDialogUtils.showDialogNew(
+                        context!!,
+                        getString(com.chainup.contract.R.string.cp_extra_text129),
+                        true,
+                        null,
+                        getLineText("cl_margin_rate_str"),
+                        getLineText("cp_extra_text28")
+                    )
+                }
+                com.chainup.contract.R.id.tv_forced_close_price_key -> {
+                    CpNewDialogUtils.showDialogNew(
+                        context!!,
+                        getString(com.chainup.contract.R.string.cp_extra_text130),
+                        true,
+                        null,
+                        getLineText("cp_calculator_text4"),
+                        getLineText("cp_extra_text28")
+                    )
+                }
+                com.chainup.contract.R.id.tv_settled_profit_loss_key -> {
+                    val obj: JSONObject = JSONObject()
+                    obj.put("profitRealizedAmount", clickData.profitRealizedAmount)
+                    obj.put("tradeFee", clickData.tradeFee)
+                    obj.put("capitalFee", clickData.capitalFee)
+                    obj.put("closeProfit", clickData.closeProfit)
+                    obj.put("shareAmount", clickData.shareAmount)
+                    obj.put("settleProfit", clickData.settleProfit)
+                    obj.put(
+                        "marginCoin",
+                        CpClLogicContractSetting.getContractMarginCoinById(
+                            context,
+                            clickData.contractId
+                        )
+                    )
+                    obj.put(
+                        "marginCoinPrecision",
+                        CpClLogicContractSetting.getContractMarginCoinPrecisionById(
+                            context,
+                            clickData.contractId
+                        )
+                    )
+                    CpSlDialogHelper.showProfitLossDetailsDialog(context!!, obj, 0)
+                }
+            }
+        }
         loopStart()
     }
 
