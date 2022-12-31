@@ -296,6 +296,8 @@
                 android:layout_height="@dimen/dp_20"
                 android:paddingEnd="6dp"
                 android:paddingLeft="7dp"
+                android:drawableLeft="@drawable/cpswitch"
+                android:drawablePadding="3dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:textColor="@color/white"
                 app:stv_solid="@color/main_blue"
