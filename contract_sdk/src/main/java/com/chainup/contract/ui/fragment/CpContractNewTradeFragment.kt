@@ -634,7 +634,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             mContractId = obj.optInt("id")
             mSymbol = obj.optString("symbol")
             symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, mContractId)
-            showTabInfo(obj)
+            showTabInfo(obj, true)
 
             //通知子页面更新合约id
             val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
@@ -728,7 +728,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type&&isShowPage) {
             val ticker = event.msg_content as JSONObject
-            //showTabInfo(ticker)
+            showTabInfo(ticker, false)
             contractId = ticker.getInt("id")
             baseSymbol = ticker.getString("base")
             quoteSymbol = ticker.getString("quote")
@@ -823,7 +823,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }))
     }
 
-    private fun showTabInfo(obj: JSONObject) {
+    private fun showTabInfo(obj: JSONObject, isSendEvent: Boolean) {
         base = obj.getString("base")
         quote = obj.getString("quote")
         mContractId = obj.getInt("id")
@@ -834,7 +834,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         tv_contract.text = CpClLogicContractSetting.getContractShowNameById(activity, mContractId)
         v_horizontal_depth.setContractJsonInfo(obj)
         var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
-        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment) //通知子页面更新合约id
+        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+        //通知子页面更新合约id
         val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
         event.msg_content = mContractId
         CpEventBusUtil.post(event)
