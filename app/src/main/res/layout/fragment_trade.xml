@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         android:background="@color/bg_card_color"
         app:elevation="@dimen/global_appbar_elevation">
 

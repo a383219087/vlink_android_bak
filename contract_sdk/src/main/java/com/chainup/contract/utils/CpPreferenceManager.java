@@ -18,6 +18,7 @@ public final class CpPreferenceManager {
 	public static final String PREF_TRADE_CONFIRM = "TradeConfirm";
 	public static final String PREF_LOSS_CONFIRM = "LossConfirm";
 	public static final String PREF_CONTRACT_UNIT = "ContractUnit";
+	public static final String PREF_CONTRACT_USDT = "ContractUnitUSDT";
 	public static final String PREF_CONTRACT_PNL_CALCULATE = "ContractPnlCalculate";
 	public static final String PREF_TRIGGER_PRICE_TYPE = "TriggerPriceType";
 	public static final String PREF_EXECUTION = "Execution";

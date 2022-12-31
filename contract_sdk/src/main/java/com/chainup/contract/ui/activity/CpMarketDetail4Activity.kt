@@ -1021,6 +1021,10 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                     "line" to scale
                 ), this
             )
+            Log.d("我是发送消息4",  hashMapOf(
+                "symbol" to symbol,
+                "line" to scale
+            ).toString())
         }
     }
 
