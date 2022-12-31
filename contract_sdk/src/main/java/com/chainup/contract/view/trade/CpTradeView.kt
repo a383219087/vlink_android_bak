@@ -254,6 +254,12 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             mCpMessageEvent.msg_content = buyOrSellHelper
             CpEventBusUtil.post(mCpMessageEvent)
         }
+        //输入数量的单位切换
+        tv_volume_unit.setOnClickListener {
+            CpClLogicContractSetting.setIsUSDT(context,!CpClLogicContractSetting.getIsUSDT(context))
+            tv_volume_unit.text = if (CpClLogicContractSetting.getIsUSDT(context)) quote else base
+            updateAvailableVol()
+        }
 
         //止盈止损
         ll_stop_loss.setSafeListener {
@@ -303,20 +309,20 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     CpNToastUtil.showTopToastNet(getActivity(), false, context.getString(R.string.cp_trade_text3))
                     return
                 }
-                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
-                    true
-                } else { //输入框单位是币币的时候约等于多少张要大于1
-                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
-
-                }
-
-
-                if (!canBuy1) {
-                    CpNToastUtil.showTopToastNet(getActivity(),
-                        false,
-                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
-                    return
-                }
+//                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
+//                    true
+//                } else { //输入框单位是币币的时候约等于多少张要大于1
+//                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
+//
+//                }
+//
+//
+//                if (!canBuy1) {
+//                    CpNToastUtil.showTopToastNet(getActivity(),
+//                        false,
+//                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
+//                    return
+//                }
                 var isOpen = false;
                 isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen") == 1) {
@@ -346,17 +352,17 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     return
                 }
 
-                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
-                    true
-                } else { //输入框单位是币币的时候要大于合约面值
-                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
-                }
-                if (!canBuy1) {
-                    CpNToastUtil.showTopToastNet(getActivity(),
-                        false,
-                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
-                    return
-                }
+//                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
+//                    true
+//                } else { //输入框单位是币币的时候要大于合约面值
+//                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
+//                }
+//                if (!canBuy1) {
+//                    CpNToastUtil.showTopToastNet(getActivity(),
+//                        false,
+//                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
+//                    return
+//                }
 
                 val isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen") == 1) {
@@ -673,19 +679,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
         val contractName = CpClLogicContractSetting.getContractShowNameById(context, mContractId)
         val contractSide = CpClLogicContractSetting.getContractSideById(context, mContractId)
-//        var mAmoutValue = ""
-//        val base = mContractJson?.optString("base")
-//        val quote = mContractJson?.optString("quote")
-//        mAmoutValue = if (buyOrSellHelper.orderType == 2 && isOpen) {
-//            volume + " " + if (contractSide == 1) quote else base
-//        } else if (buyOrSellHelper.orderType == 3 && isMarketPriceModel && isOpen) {
-//            volume + " " + if (contractSide == 1) quote else base
-//        } else {
-//            "$volume " + if (mContractUint == 1) context.getString(R.string.cp_overview_text9) else mContractJson?.optString("multiplierCoin")
-//        }
-//        if (isPercentPlaceOrder) {
-//            mAmoutValue = et_volume.text.toString()
-//        }
+
         var showPrice = ""
         var showTriggerPrice = ""
 
@@ -765,13 +759,14 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             mContractId = it.getInt("id")
             val multiplierCoin = it.optString("multiplierCoin")
             base = multiplierCoin
+            //base=BTC quote=USDT
             quote = mContractJson?.optString("quote").toString()
             multiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, mContractId)
             marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, mContractId)
             symbolPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(context, mContractId)
 
-            val equivalentUnit = mContractJson?.optString("base")
-            tv_volume_unit.text = quote
+            val equivalentUnit = if (CpClLogicContractSetting.getIsUSDT(context)) base else quote
+            tv_volume_unit.text = if (CpClLogicContractSetting.getIsUSDT(context)) quote else base
             tv_coin_name.text = marginCoin
             tv_equivalent.text = "≈ 0 $equivalentUnit"
             et_price.numberFilter(symbolPricePrecision, otherFilter = object : CpDoListener {
@@ -900,15 +895,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
         tv_equivalent.visibility = if (isOpen) View.VISIBLE else View.INVISIBLE
 
-        et_volume.hint = context.getString(R.string.cp_overview_text8) //        tv_volume_unit.text = base
-        if (isOpen && buyOrSellHelper.orderType == 2) {
-            et_volume.hint = context.getString(R.string.cp_overview_text28)
-            tv_volume_unit.text = if (contractSide == "1") quote else base
-        }
-        if (isOpen && buyOrSellHelper.orderType == 3 && isMarketPriceModel) {
-            et_volume.hint = context.getString(R.string.cp_overview_text28)
-            tv_volume_unit.text = if (contractSide == "1") quote else base
-        }
+        et_volume.hint = context.getString(R.string.cp_overview_text8)
+
         price = et_price.text.toString()
         triggerPrice = et_trigger_price.text.toString()
         val triggerPrice = et_trigger_price.text.toString()
@@ -977,9 +965,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 }
             }
         }
-        val unit = mContractJson?.optString("multiplierCoin")
         tv_equivalent.text =
-            "≈" + CpBigDecimalUtils.canPositionMarketStr(contractSide == "1", multiplier, positionAmount, price, multiplierPrecision, unit)
+            "≈" + CpBigDecimalUtils.canPositionMarketStr(contractSide == "1", multiplier, positionAmount, price, multiplierPrecision, mContractJson?.optString("multiplierCoin"))
 
         //
         //        if (isOpen && buyOrSellHelper.orderType == 2) {
@@ -1064,9 +1051,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         //        )
 
         //计算预估成本价
-        val buyCostbuff1 = CpBigDecimalUtils.canCostStr(isOpen,
-            contractSide == "1",
-            buyOrSellHelper.orderType,
+        val buyCostbuff1 = CpBigDecimalUtils.canCostStr(
             buyPrice,
             buyPositionAmount,
             multiplier,
@@ -1076,9 +1061,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             marginCoin)
 
         //计算预估成本价
-        val sellCostbuff1 = CpBigDecimalUtils.canCostStr(isOpen,
-            contractSide == "1",
-            buyOrSellHelper.orderType,
+        val sellCostbuff1 = CpBigDecimalUtils.canCostStr(
             sellPrice,
             sellPositionAmount,
             multiplier,

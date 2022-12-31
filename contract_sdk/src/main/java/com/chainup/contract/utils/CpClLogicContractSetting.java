@@ -100,6 +100,20 @@ public class CpClLogicContractSetting {
     }
 
 
+
+    private static boolean s_usdt_unit = true;
+
+    //0 BTC 1 USDT
+    public static boolean getIsUSDT(Context context) {
+        return CpPreferenceManager.getInstance(context).getSharedBoolean(CpPreferenceManager.PREF_CONTRACT_USDT, true);
+
+    }
+
+    public static void setIsUSDT(Context context, boolean unit) {
+        CpPreferenceManager.getInstance(context).putSharedBoolean(CpPreferenceManager.PREF_CONTRACT_USDT, unit);
+    }
+
+
     /**
      * 0 - 白天模式
      */

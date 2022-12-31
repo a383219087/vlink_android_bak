@@ -742,82 +742,50 @@ public class CpBigDecimalUtils {
     /**
      * 计算预估成本价
      *
-     * @param orderType
-     * @param price
-     * @param position
+     * @param input
      * @param nowLevel
      * @param rate
      * @param scale
      * @param unit
      * @return
      */
-    public static String canCostStr(boolean isOpen, boolean isForward, int orderType, String price, String position, String parValue, String nowLevel, String rate, int scale, String unit) {
+    public static String canCostStr(String price, String input, String parValue, String nowLevel, String rate, int scale, String unit) {
 
         String defaultStr = "0" + " " + unit;
-        if (!isOpen) {
-            return "0" + " " + unit;
-        }
-        if (TextUtils.isEmpty(position)) {
+
+        if (TextUtils.isEmpty(input)) {
             return defaultStr;
         }
         String sheets = "0";
 
         if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            sheets = position;
+            sheets = input;
         } else {
-            sheets = divStr(position, parValue, 0);
+            sheets = divStr(input, parValue, 0);
         }
 
-        BigDecimal positionBig = new BigDecimal(position);
-        BigDecimal sheetsBig = new BigDecimal(sheets);
+        BigDecimal positionBig = new BigDecimal(input);
+        BigDecimal priceBig = new BigDecimal(price);
         BigDecimal nowLevelBig = new BigDecimal(nowLevel);
         BigDecimal parValueBig = new BigDecimal(parValue);
         BigDecimal rateBig = new BigDecimal(rate);
 
         BigDecimal buff = null;
 
-//        if (orderType == 1 || orderType == 4 || orderType == 5 || orderType == 6) { // 限价单、PostOnly、IOC、FOK
             if (TextUtils.isEmpty(price)) {
                 return defaultStr;
             }
             if (compareTo(price, "0") != 1) {
                 return defaultStr;
             }
-            if (compareTo(position, "0") ==0) {
+            if (compareTo(input, "0") ==0) {
                 return "0.00";
             }
-         buff=positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//            if (isForward) {
-//                //输入的100USDT*合约面值0.0001*当前价格16814.60/杠杆5
-//                buff = sheetsBig.divide(parValueBig.multiply(priceBig)).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//            } else {
-//                buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//            }
-//        } else if (orderType == 2) {//市价单
-//            buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//        } else if (orderType == 3) {//条件单
-//            //0限价 1市价
-//            if (CpClLogicContractSetting.getExecution(CpMyApp.Companion.instance()) == 1) {
-//                //条件市价单
-//                buff = positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//            } else {
-//                //条件限价单
-//                if (TextUtils.isEmpty(price)) {
-//                    return defaultStr;
-//                }
-//                if (compareTo(price, "0") != 1) {
-//                    return defaultStr;
-//                }
-//                BigDecimal priceBig = new BigDecimal(price);
-//                if (isForward) {
-//                    buff = sheetsBig.multiply(parValueBig).multiply(priceBig).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//                } else {
-//                    buff = sheetsBig.multiply(parValueBig).divide(priceBig, scale, BigDecimal.ROUND_HALF_DOWN).divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
-//                }
-//            }
-//        } else {
-//            return "0" + " " + unit;
-//        }
+
+        buff=positionBig.divide(nowLevelBig, scale, BigDecimal.ROUND_HALF_DOWN).multiply(rateBig);
+        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+            buff=buff.multiply(priceBig);
+        }
 
         return buff.setScale(scale, BigDecimal.ROUND_HALF_DOWN).toPlainString() + " " + unit;
     }
@@ -881,30 +849,37 @@ public class CpBigDecimalUtils {
          * ≈ 开仓价值 * 本交易所最新价格  {币}
          * ≈ 开仓价值 * 本交易所最新价格 / 面值 {张}
          */
-        //开仓价格 就是输入的价格
-        BigDecimal openValueBig = new BigDecimal(openValue);
+
         //最新价格
         BigDecimal priceBig = new BigDecimal(price);
         //合约面值
         BigDecimal parValueBig = new BigDecimal(parValue);
-        if (priceBig.doubleValue() == 0) {
-            return defaultStr;
+        //开仓价格 就是输入的价格
+        BigDecimal openValueBig = new BigDecimal(openValue);
+        if (CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+            if (priceBig.doubleValue() == 0) {
+                return defaultStr;
+            }
+            BigDecimal buff;
+            if (isForward) {
+                //开仓价格/最新价格  精度是scale
+                buff = openValueBig.divide(priceBig, scale, RoundingMode.DOWN);
+            } else {
+                //开仓价格*最新价格
+                buff = openValueBig.multiply(priceBig);
+            }
+            //显示bi  转换精度
+            return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
+
+
+        }else {
+            //输入价格是BTC的时候
+            BigDecimal buff= openValueBig.multiply(priceBig);
+            //显示USDT  转换精度
+            return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + "USDT " ;
         }
-        BigDecimal buff;
-        if (isForward) {
-            //开仓价格/最新价格  精度是scale
-            buff = openValueBig.divide(priceBig, scale, RoundingMode.DOWN);
-        } else {
-            //开仓价格*最新价格
-            buff = openValueBig.multiply(priceBig);
-        }
-//        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-        //显示bi  转换精度
-        return buff.setScale(scale, RoundingMode.DOWN).toPlainString() + " " + unit;
-//        } else {
-//            //显示张 再处除合约面值
-//            return buff.divide(parValueBig, 0, RoundingMode.DOWN).toPlainString() + " " + unit;
-//        }
+
+
     }
 
 
@@ -1029,8 +1004,16 @@ public class CpBigDecimalUtils {
             return inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_DOWN).toPlainString();
         }
     }
-    public static String getOrderNum1(boolean isOpen, String inputUSdt, String multiplier, int orderType,String price,int sacle) {
-
+    public static String getOrderNum1(boolean isOpen, String input, String multiplier, int orderType,String price,int sacle) {
+        String inputUSdt=input;
+        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+            //输入价格是BTC的时候
+            BigDecimal priceBig = new BigDecimal(price);
+            BigDecimal inputBig = new BigDecimal(input);
+            BigDecimal buff= inputBig.multiply(priceBig);
+            //显示USDT  转换精度
+            inputUSdt=buff.setScale(sacle, RoundingMode.DOWN).toPlainString();
+        }
         if (orderType == 2) {//市价单
             if (isOpen) {
                 return inputUSdt;

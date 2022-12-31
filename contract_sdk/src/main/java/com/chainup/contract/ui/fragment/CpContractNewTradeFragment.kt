@@ -789,6 +789,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 depthLevel = event.msg_content as String
                 var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
                 CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+                Log.d("我是发送消息2",para.toString())
             }
             CpMessageEvent.sl_contract_receive_coupon -> { //领取模拟合约体验金
                 receiveCoupon()
@@ -834,7 +835,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         tv_contract.text = CpClLogicContractSetting.getContractShowNameById(activity, mContractId)
         v_horizontal_depth.setContractJsonInfo(obj)
         var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
-        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment) //通知子页面更新合约id
+        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+        Log.d("我是发送消息1",para.toString())
+
+        //通知子页面更新合约id
         val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
         event.msg_content = mContractId
         CpEventBusUtil.post(event)
@@ -946,6 +950,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (isNotEmpty(symbol)) { // sub ticker
             val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
             CpWsContractAgentManager.instance.sendMessage(hashMapOf("symbol" to symbol, "line" to scale), this)
+            Log.d("我是发送消息2",hashMapOf("symbol" to symbol, "line" to scale).toString())
         }
     }
 
