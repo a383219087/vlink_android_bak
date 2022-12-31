@@ -728,7 +728,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type&&isShowPage) {
             val ticker = event.msg_content as JSONObject
-            //showTabInfo(ticker)
+            showTabInfo(ticker)
             contractId = ticker.getInt("id")
             baseSymbol = ticker.getString("base")
             quoteSymbol = ticker.getString("quote")
@@ -834,9 +834,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         depthLevel = "0"
         tv_contract.text = CpClLogicContractSetting.getContractShowNameById(activity, mContractId)
         v_horizontal_depth.setContractJsonInfo(obj)
-        var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
-        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
-        Log.d("我是发送消息1",para.toString())
+//        var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
+//        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+//        Log.d("我是发送消息1",para.toString())
 
         //通知子页面更新合约id
         val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
