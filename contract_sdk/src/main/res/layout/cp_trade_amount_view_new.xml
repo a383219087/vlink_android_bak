@@ -347,7 +347,7 @@
                     android:background="@drawable/cp_percent_btn_bg"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="10%"
+                    android:text="25%"
                     android:textColor="@color/cp_percent_btn_text" />
 
 
@@ -361,7 +361,7 @@
                     android:background="@drawable/cp_percent_btn_bg"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="20%"
+                    android:text="50%"
                     android:textColor="@color/cp_percent_btn_text"/>
 
 
@@ -374,7 +374,7 @@
                     android:background="@drawable/cp_percent_btn_bg"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="50%"
+                    android:text="75%"
                     android:textColor="@color/cp_percent_btn_text"/>
 
 

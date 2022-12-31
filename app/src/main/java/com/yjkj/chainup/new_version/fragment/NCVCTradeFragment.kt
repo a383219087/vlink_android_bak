@@ -166,6 +166,20 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 })
             }
         }
+        /**
+         * 隐藏其他币对
+         */
+        ll_yincang?.setOnClickListener {
+            img_on.visibility=View.GONE
+            img_off.visibility=View.VISIBLE
+        }
+        /**
+         * 撤销全部
+         */
+        tv_status?.setOnClickListener {
+
+        }
+
 
         /**
          * 进入KLine

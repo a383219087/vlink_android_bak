@@ -1095,6 +1095,7 @@ Mark Price: This is the current mark price.</string>
     <string name="common_action_logout">Logout</string>
     <string name="common_action_next">Next</string>
     <string name="common_action_orderCancel">Undo</string>
+    <string name="common_action_orderCancel1">Undo All</string>
     <string name="common_action_paste">Paste</string>
     <string name="common_action_removeBlackList">Remove from the BlackList</string>
     <string name="common_action_searchCoinPair">Search coin pairs.</string>
@@ -1210,6 +1211,7 @@ Mark Price: This is the current mark price.</string>
     <string name="contract_text_buyMarket">Buy</string>
     <string name="contract_text_cost">Cost</string>
     <string name="contract_text_currentEntrust">Open Orders</string>
+    <string name="contract_text_currentEntrust1">Hide other</string>
     <string name="contract_text_currentWeek">Weekly</string>
     <string name="contract_text_dealAverage">Avg Price</string>
     <string name="contract_text_dealDone">Filled</string>

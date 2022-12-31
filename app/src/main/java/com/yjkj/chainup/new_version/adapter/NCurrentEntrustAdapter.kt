@@ -22,7 +22,7 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
         var pb_volume = helper.getView<XCRoundProgressBar>(R.id.pb_volume)
-        item?.run {
+        item.run {
             val baseCoin = optString("baseCoin")
             val countCoin = optString("countCoin")
             var source = optString("source")
@@ -43,7 +43,7 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
             }
             val coinMap = NCoinManager.getSymbolObj(symbol)
 
-            helper?.run {
+            helper.run {
                 /**
                  * 市价单隐藏按钮
                  */
@@ -107,11 +107,9 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                 setText(R.id.tv_deal_title, LanguageUtil.getString(context, "transaction_text_tradeValue") + "(${NCoinManager.getShowMarket(baseCoin)})")
                 setText(R.id.tv_deal, dealVolume.getTradeCoinVolume(coinMap))
                 var staText = getView<SuperTextView>(R.id.tv_status)
-                if (source == "QUANT-GRID") {
-                    //staText.solid = ContextCompat.getColor(context, R.color.bg_grid_order)
+                if (source == "QUANT-GRID") { //staText.solid = ContextCompat.getColor(context, R.color.bg_grid_order)
                     staText.setTextColor(ContextCompat.getColor(context, R.color.normal_text_color))
-                } else {
-                    //staText.solid = ContextCompat.getColor(context, R.color.tabbar_color)
+                } else { //staText.solid = ContextCompat.getColor(context, R.color.tabbar_color)
                     staText.setTextColor(ContextCompat.getColor(context, R.color.main_blue))
                 }
                 val dealDouble = dealVolume.getTradeCoinVolume(coinMap).toDouble()

@@ -283,15 +283,15 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 when (it.id) {
                     R.id.rb_1st -> {
                         et_volume.setText(rb_1st.text.toString())
-                        adjustRatio((0.1*level).toString())
+                        adjustRatio((0.25*level).toString())
                     }
                     R.id.rb_2nd -> {
                         et_volume.setText(rb_2nd.text.toString())
-                        adjustRatio((0.2*level).toString())
+                        adjustRatio((0.5*level).toString())
                     }
                     R.id.rb_3rd -> {
                         et_volume.setText(rb_3rd.text.toString())
-                        adjustRatio((0.5*level).toString())
+                        adjustRatio((0.75*level).toString())
                     }
                     R.id.rb_4th -> {
                         et_volume.setText(rb_4th.text.toString())
