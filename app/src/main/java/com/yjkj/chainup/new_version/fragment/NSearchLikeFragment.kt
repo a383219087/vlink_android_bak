@@ -65,7 +65,6 @@ class NSearchLikeFragment : NBaseFragment() {
     }
 
     override fun initView() {
-
         initAdapter()
         initSocket()
         showSearch()
@@ -99,41 +98,6 @@ class NSearchLikeFragment : NBaseFragment() {
             isblack = it.getBoolean(ParamConstant.ISBLACK)
         }
 
-        if (0 == curIndex) {
-            var localData = LikeDataService.getInstance().getCollecData(TradeTypeEnum.LEVER_TRADE.value == type)
-
-            if (null != localData) {
-                if (TradeTypeEnum.GRID_TRADE.value == type) {
-                    var listGrid = arrayListOf<JSONObject>()
-                    for (temp in localData) {
-                        if (temp.optInt("is_grid_open") == 1) {
-                            listGrid.add(temp)
-                        }
-                    }
-                    localData.clear()
-                    localData.addAll(listGrid)
-                }
-                normalTickList = localData
-            } else {
-                normalTickList.clear()
-            }
-        } else {
-            val oriSymbols : ArrayList<JSONObject>? =  if (TradeTypeEnum.LEVER_TRADE.value == type) {
-                NCoinManager.getLeverGroupList(marketName)
-            } else if (TradeTypeEnum.COIN_TRADE.value == type) {
-                NCoinManager.getMarketByName(marketName)
-            } else {
-                NCoinManager.getGridCroupList(marketName)
-            }
-
-            LogUtil.d(TAG, "type is $type,oriSymbols is $oriSymbols")
-            if (null != oriSymbols && oriSymbols.size > 0) {
-                normalTickList.clear()
-                normalTickList.addAll(oriSymbols)
-            }
-        }
-        normalTickList.sortBy { it.optInt("sort") }
-        normalTickList.sortBy { it.optInt("newcoinFlag") }
 
     }
 
@@ -184,6 +148,43 @@ class NSearchLikeFragment : NBaseFragment() {
             NLiveDataUtil.postValue(messageEvent)
             closeDialog()
         }
+
+        if (0 == curIndex) {
+            var localData = LikeDataService.getInstance().getCollecData(TradeTypeEnum.LEVER_TRADE.value == type)
+
+            if (null != localData) {
+                if (TradeTypeEnum.GRID_TRADE.value == type) {
+                    var listGrid = arrayListOf<JSONObject>()
+                    for (temp in localData) {
+                        if (temp.optInt("is_grid_open") == 1) {
+                            listGrid.add(temp)
+                        }
+                    }
+                    localData.clear()
+                    localData.addAll(listGrid)
+                }
+                normalTickList = localData
+            } else {
+                normalTickList.clear()
+            }
+        } else {
+            val oriSymbols : ArrayList<JSONObject>? =  if (TradeTypeEnum.LEVER_TRADE.value == type) {
+                NCoinManager.getLeverGroupList(marketName)
+            } else if (TradeTypeEnum.COIN_TRADE.value == type) {
+                NCoinManager.getMarketByName(marketName)
+            } else {
+                NCoinManager.getGridCroupList(marketName)
+            }
+
+            LogUtil.d(TAG, "type is $type,oriSymbols is $oriSymbols")
+            if (null != oriSymbols && oriSymbols.size > 0) {
+                normalTickList.clear()
+                normalTickList.addAll(oriSymbols)
+            }
+        }
+        normalTickList.sortBy { it.optInt("sort") }
+        normalTickList.sortBy { it.optInt("newcoinFlag") }
+        refreshAdapter(normalTickList)
     }
 
     private fun closeDialog() {
