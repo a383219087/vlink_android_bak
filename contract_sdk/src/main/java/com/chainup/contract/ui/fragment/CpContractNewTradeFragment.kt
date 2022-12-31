@@ -677,7 +677,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: CpMessageEvent) {
-        if (event.msg_type == CpMessageEvent.market_switch_curTime) {
+        if (event.msg_type == CpMessageEvent.market_switch_curTime&&isShowPage) {
             curTime = event.msg_content as String
             switchKLineScale(curTime ?: "15min") //            tv_scale?.text = curTime ?: "15min"
             calibrationAdapter?.notifyDataSetChanged()
@@ -728,7 +728,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type&&isShowPage) {
             val ticker = event.msg_content as JSONObject
-            showTabInfo(ticker)
+            //showTabInfo(ticker)
             contractId = ticker.getInt("id")
             baseSymbol = ticker.getString("base")
             quoteSymbol = ticker.getString("quote")
