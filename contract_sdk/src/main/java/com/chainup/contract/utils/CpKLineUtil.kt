@@ -1,6 +1,7 @@
 package com.chainup.contract.utils
 
 import android.content.Context
+import android.util.Log
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.kline1.view.MainKlineViewStatus
@@ -77,59 +78,59 @@ object CpKLineUtil {
      *@return 获取KLine的当前刻度
      * TODO 数组越界异常
      */
-    fun getCurTime4KLine(): HashMap<Int, String> {
+    fun getCurTime4KLine(type:Int=1): HashMap<Int, String> {
         return try {
-            hashMapOf<Int, String>(getCurTime4Index() to getKLineScale()[if (getCurTime4Index() < 0) 0 else getCurTime4Index()])
+            hashMapOf<Int, String>(getCurTime4Index(type=type) to getKLineScale()[if (getCurTime4Index(type=type) < 0) 0 else getCurTime4Index(type=type)])
         } catch (e: IndexOutOfBoundsException) {
             e.printStackTrace()
-            hashMapOf((getCurTime4Index() to getKLineScale()[0]))
+            hashMapOf((getCurTime4Index(type=type) to getKLineScale()[0]))
         }
     }
 
-    fun setCurTime(curTime: String) {
+    fun setCurTime(curTime: String,type:Int=1) {
         CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .putSharedString(CURRENT_TIME_CONTENT, curTime);
+                .putSharedString("${CURRENT_TIME_CONTENT}_${type}", curTime);
     }
 
-    /**
-     * 设置副图指标
-     * @param status 副图指标
-     */
-    fun setViceIndex(status: Int) {
-        CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .putSharedInt(VICE_INDEX, status);
-    }
 
-    fun getCurTime(): String {
+
+    fun getCurTime(type:Int=1): String {
         return  CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .getSharedString(CURRENT_TIME_CONTENT, "15min");
+                .getSharedString("${CURRENT_TIME_CONTENT}_${type}", "15min");
     }
 
 
     /**
      * @return 获取KLine的当前刻度的下标
      */
-    fun getCurTime4Index(): Int {
+    fun getCurTime4Index(type:Int=1): Int {
         return CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .getSharedInt(CURRENT_TIME, getKLineScale().indexOf("15min"));
+                .getSharedInt("${CURRENT_TIME}_${type}", getKLineScale().indexOf("15min"));
     }
 
     /**
      * 保存KLine的当前刻度
      * @param curPosition KLine的当前刻度下标
      */
-    fun setCurTime4KLine(curPosition: Int) {
+    fun setCurTime4KLine(curPosition: Int,type:Int=1) {
         CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .putSharedInt(CURRENT_TIME, curPosition);
+                .putSharedInt("${CURRENT_TIME}_${type}", curPosition);
     }
-
+    /**
+     * 设置副图指标
+     * @param status 副图指标
+     */
+    fun setViceIndex(status: Int,type:Int=1) {
+        CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
+            .putSharedInt("${VICE_INDEX}_${type}", status);
+    }
     /**
      * 获取副图指标
      * @return 副图指标
      */
-    fun getViceIndex(): Int{
+    fun getViceIndex(type:Int=1): Int{
         return CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .getSharedInt(VICE_INDEX, CpViceViewStatus.NONE.status);
+                .getSharedInt("${VICE_INDEX}_${type}", CpViceViewStatus.NONE.status);
     }
 
 
@@ -138,18 +139,19 @@ object CpKLineUtil {
      * 设置主图指标
      * @param status 主图指标
      */
-    fun setMainIndex(status: Int) {
+    fun setMainIndex(status: Int,type:Int=1) {
         CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .putSharedInt(MAIN_INDEX, status);
+                .putSharedInt("${MAIN_INDEX}_${type}", status);
     }
 
     /**
      * 获取主图指标
      * @return 主图指标
      */
-    fun getMainIndex(): Int {
+    fun getMainIndex(type:Int=1): Int {
+
         return CpPreferenceManager.getInstance(CpMyApp.Companion.instance())
-                .getSharedInt(MAIN_INDEX, MainKlineViewStatus.MA.status);
+                .getSharedInt("${MAIN_INDEX}_${type}", MainKlineViewStatus.MA.status);
     }
 
 
