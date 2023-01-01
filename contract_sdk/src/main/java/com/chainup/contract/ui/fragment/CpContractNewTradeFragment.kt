@@ -133,11 +133,11 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     private var klineScale = ArrayList<String>()
     private var themeMode = 0
     private fun initKLineData() {
-        main_index = CpKLineUtil.getMainIndex()
-        vice_index = CpKLineUtil.getViceIndex()
-        cur_time_index = CpKLineUtil.getCurTime4Index()
+        main_index = CpKLineUtil.getMainIndex(type = 0)
+        vice_index = CpKLineUtil.getViceIndex(type = 0)
+        cur_time_index = CpKLineUtil.getCurTime4Index(type = 0)
 
-        curTime = CpKLineUtil.getCurTime()
+        curTime = CpKLineUtil.getCurTime(type = 0)
         klineScale = CpKLineUtil.getKLineScale()
         themeMode = 0
     }
@@ -278,22 +278,22 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
     private fun setTextConetnt() {
-        mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("15min")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("60min")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("4h")), 1))
-        mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1day")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("15min", CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("15min")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("60min", CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("60min")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("4h", CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("4h")), 1))
+        mklineCtrlList.add(CpKlineCtrlBean("1day", CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("1day")), 1))
 
-        if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("line"))) {
+        if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("line"))) {
             mklineCtrlList.add(CpKlineCtrlBean("line", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1min"))) {
+        } else if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("1min"))) {
             mklineCtrlList.add(CpKlineCtrlBean("1min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("5min"))) {
+        } else if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("5min"))) {
             mklineCtrlList.add(CpKlineCtrlBean("5min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("30min"))) {
+        } else if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("30min"))) {
             mklineCtrlList.add(CpKlineCtrlBean("30min", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1week"))) {
+        } else if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("1week"))) {
             mklineCtrlList.add(CpKlineCtrlBean("1week", true, 2))
-        } else if (CpKLineUtil.getCurTime4Index().equals(CpKLineUtil.getKLineScale().indexOf("1month"))) {
+        } else if (CpKLineUtil.getCurTime4Index(type = 0).equals(CpKLineUtil.getKLineScale().indexOf("1month"))) {
             mklineCtrlList.add(CpKlineCtrlBean("1month", true, 2))
         } else {
             mklineCtrlList.add(CpKlineCtrlBean(CpLanguageUtil.getString(activity, "cp_extra_text152"), false, 2))
@@ -314,8 +314,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }
             if (position < 4) {
                 v_kline?.setMainDrawLine(false)
-                CpKLineUtil.setCurTime(mklineCtrlList[position].time)
-                CpKLineUtil.setCurTime4KLine(klineScale.indexOf(mklineCtrlList[position].time))
+                CpKLineUtil.setCurTime(mklineCtrlList[position].time, type = 0)
+                CpKLineUtil.setCurTime4KLine(klineScale.indexOf(mklineCtrlList[position].time), type = 0)
                 switchKLineScale(mklineCtrlList[position].time)
             }
             if (position != 4) {
@@ -345,7 +345,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                         }
                         mCpContractKlineCtrlAdapter?.notifyDataSetChanged()
                     }
-                })
+                }, type = 0)
             } else {
                 mklineCtrlList[4].time = CpLanguageUtil.getString(activity, "cp_extra_text152")
             }
@@ -899,10 +899,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
         initData()
         CpWsContractAgentManager.instance.changeKlineKey(this.javaClass.simpleName)
-        cur_time_index = CpKLineUtil.getCurTime4Index()
+        cur_time_index = CpKLineUtil.getCurTime4Index(type = 0)
 
         curTime = CpKLineUtil.getCurTime()
-        v_kline?.setMainDrawLine(CpKLineUtil.getCurTime4Index() == 0) //        tv_scale?.text = curTime
+        v_kline?.setMainDrawLine(CpKLineUtil.getCurTime4Index(type = 0) == 0) //        tv_scale?.text = curTime
         isFrist = true
         klineData.clear()
 
@@ -1082,7 +1082,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
              * 分时线
              */
             v_kline?.setMainDrawLine(position == 0)
-            if (position != CpKLineUtil.getCurTime4Index()) {
+            if (position != CpKLineUtil.getCurTime4Index(type = 0)) {
                 for (i in 0 until klineScale.size) {
                     val boxView = viewHolder?.getViewByPosition(i, R.id.cbtn_view) as CpCustomCheckBoxView
                     boxView.setCenterColor(CpColorUtil.getColor(R.color.normal_text_color))
@@ -1095,8 +1095,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 boxView.setIsNeedDraw(true)
                 boxView.setCenterSize(12f)
                 boxView.setCenterColor(CpColorUtil.getColor(R.color.text_color))
-                CpKLineUtil.setCurTime4KLine(position)
-                CpKLineUtil.setCurTime(klineScale[position])
+                CpKLineUtil.setCurTime4KLine(position, type = 0)
+                CpKLineUtil.setCurTime(klineScale[position], type = 0)
                 switchKLineScale(klineScale[position])
 
                 //                tv_scale?.text = if (position == 0) "line" else curTime
@@ -1107,8 +1107,8 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 boxView.setIsNeedDraw(true)
                 boxView.setCenterSize(12f)
                 boxView.setCenterColor(CpColorUtil.getColor(R.color.text_color))
-                CpKLineUtil.setCurTime4KLine(position)
-                CpKLineUtil.setCurTime(klineScale[position])
+                CpKLineUtil.setCurTime4KLine(position, type = 0)
+                CpKLineUtil.setCurTime(klineScale[position], type = 0)
                 switchKLineScale(klineScale[position])
             }
         }
@@ -1121,34 +1121,34 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         when (main_index) {
             MainKlineViewStatus.MA.status -> {
                 v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
-                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status, type = 0)
             }
 
             MainKlineViewStatus.BOLL.status -> {
                 v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
-                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+                CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status, type = 0)
             }
         }
 
         when (vice_index) {
             CpViceViewStatus.MACD.status -> {
                 v_kline?.setChildDraw(0)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status, type = 0)
             }
 
             CpViceViewStatus.KDJ.status -> {
                 v_kline?.setChildDraw(1)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status, type = 0)
             }
 
             CpViceViewStatus.RSI.status -> {
                 v_kline?.setChildDraw(2)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status, type = 0)
             }
 
             CpViceViewStatus.WR.status -> {
                 v_kline?.setChildDraw(3)
-                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+                CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status, type = 0)
             }
         }
 
@@ -1161,17 +1161,17 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 when (index) {
                     MainKlineViewStatus.MA.status -> {
                         v_kline?.changeMainDrawType(MainKlineViewStatus.MA)
-                        CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status)
+                        CpKLineUtil.setMainIndex(MainKlineViewStatus.MA.status, type = 0)
                     }
 
                     MainKlineViewStatus.BOLL.status -> {
                         v_kline?.changeMainDrawType(MainKlineViewStatus.BOLL)
-                        CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status)
+                        CpKLineUtil.setMainIndex(MainKlineViewStatus.BOLL.status, type = 0)
                     }
 
                     MainKlineViewStatus.NONE.status -> {
                         v_kline?.changeMainDrawType(MainKlineViewStatus.NONE)
-                        CpKLineUtil.setMainIndex(MainKlineViewStatus.NONE.status)
+                        CpKLineUtil.setMainIndex(MainKlineViewStatus.NONE.status, type = 0)
                     }
                 }
             }
@@ -1192,26 +1192,26 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 when (index) {
                     CpViceViewStatus.MACD.status -> {
                         v_kline?.setChildDraw(0)
-                        CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status)
+                        CpKLineUtil.setViceIndex(CpViceViewStatus.MACD.status, type = 0)
                     }
 
                     CpViceViewStatus.KDJ.status -> {
                         v_kline?.setChildDraw(1)
-                        CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status)
+                        CpKLineUtil.setViceIndex(CpViceViewStatus.KDJ.status, type = 0)
                     }
 
                     CpViceViewStatus.WR.status -> {
                         v_kline?.setChildDraw(2)
-                        CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status)
+                        CpKLineUtil.setViceIndex(CpViceViewStatus.WR.status, type = 0)
                     }
 
                     CpViceViewStatus.RSI.status -> {
                         v_kline?.setChildDraw(3)
-                        CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status)
+                        CpKLineUtil.setViceIndex(CpViceViewStatus.RSI.status, type = 0)
                     }
                     else -> {
                         v_kline?.hideChildDraw()
-                        CpKLineUtil.setViceIndex(CpViceViewStatus.NONE.status)
+                        CpKLineUtil.setViceIndex(CpViceViewStatus.NONE.status, type = 0)
                     }
                 }
 

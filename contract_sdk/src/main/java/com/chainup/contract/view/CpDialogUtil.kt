@@ -1049,7 +1049,8 @@ class CpDialogUtil {
             context: Context?,
             targetView: View,
             dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
-            mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
+            mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?,
+            type: Int=1,
         ) {
             val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_kline_time_more)
                 .setFocusAndOutsideEnable(true)
@@ -1068,13 +1069,13 @@ class CpDialogUtil {
                 list.add(CpTabInfo("30min", CpKLineUtil.getKLineScale().indexOf("30min")))
                 list.add(CpTabInfo("1week", CpKLineUtil.getKLineScale().indexOf("1week")))
                 list.add(CpTabInfo("1month", CpKLineUtil.getKLineScale().indexOf("1month")))
-                var adapter = CpKlineMorePopAdapter(list, 0)
+                var adapter = CpKlineMorePopAdapter(list, 0,type=type)
                 rvKlineCtrlMore?.layoutManager = GridLayoutManager(context, 6)
                 rvKlineCtrlMore?.adapter = adapter
                 rvKlineCtrlMore?.setHasFixedSize(true)
                 adapter.setOnItemClickListener { adapter, view, position ->
-                    CpKLineUtil.setCurTime(list[position].name)
-                    CpKLineUtil.setCurTime4KLine(list[position].index)
+                    CpKLineUtil.setCurTime(list[position].name, type = type)
+                    CpKLineUtil.setCurTime4KLine(list[position].index, type = type)
                     dialogDismissClickListener?.clickItem(position, list[position].name)
                     cvcEasyPopup?.dismiss()
                 }
@@ -1086,58 +1087,7 @@ class CpDialogUtil {
             cvcEasyPopup?.showAtAnchorView(targetView, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, 10)
         }
 
-        fun createMoreTargetKlinePop(
-            context: Context?,
-            targetView: View,
-            dialogDismissClickListener: CpNewDialogUtils.DialogOnSigningItemClickListener?,
-            mDialogDismissClickListener: CpNewDialogUtils.DialogOnDismissClickListener?
-        ) {
-            var isShowPositionDesc = false
-            val cvcEasyPopup = EasyPopup.create().setContentView(context, R.layout.cp_item_kline_target_more)
-                .setFocusAndOutsideEnable(true)
-                .setBackgroundDimEnable(true)
-                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                .setDimValue(0f)
-                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .apply()
-            cvcEasyPopup?.run {
-                val rvKlineCtrlMain = findViewById<RecyclerView>(R.id.rv_kline_ctrl_main)
-                val rvKlineCtrlVice = findViewById<RecyclerView>(R.id.rv_kline_ctrl_vice)
-                val llDissmiss = findViewById<LinearLayout>(R.id.ll_dissmiss)
-                var listMain = ArrayList<CpTabInfo>()
-                listMain.add(CpTabInfo("MA", 0, 0))
-                listMain.add(CpTabInfo("BOLL", 1, 4))
 
-                var listVice = ArrayList<CpTabInfo>()
-                listVice.add(CpTabInfo("MACD", 0, 4))
-                listVice.add(CpTabInfo("KDJ", 1, 9))
-                listVice.add(CpTabInfo("RSI", 2, 9))
-                listVice.add(CpTabInfo("WR", 3, 9))
-
-                var adapterMain = CpKlineMoreMainTargetAdapter(listMain)
-                rvKlineCtrlMain?.layoutManager = GridLayoutManager(context, 5)
-                rvKlineCtrlMain?.adapter = adapterMain
-                rvKlineCtrlMain?.setHasFixedSize(true)
-                adapterMain.setOnItemClickListener { adapter, view, position ->
-                    dialogDismissClickListener?.clickItem(position, "main")
-                    adapter.notifyDataSetChanged()
-                }
-
-                var adapterVice = CpKlineMoreViceTargetAdapter(listVice)
-                rvKlineCtrlVice?.layoutManager = GridLayoutManager(context, 5)
-                rvKlineCtrlVice?.adapter = adapterVice
-                rvKlineCtrlVice?.setHasFixedSize(true)
-                adapterVice.setOnItemClickListener { adapter, view, position ->
-                    dialogDismissClickListener?.clickItem(position, "vice")
-                    adapter.notifyDataSetChanged()
-                }
-                llDissmiss.setOnClickListener { dismiss() }
-            }
-            cvcEasyPopup?.setOnDismissListener {
-                mDialogDismissClickListener?.clickItem()
-            }
-            cvcEasyPopup?.showAtAnchorView(targetView, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, 10)
-        }
     }
 
 }

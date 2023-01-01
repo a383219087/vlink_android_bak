@@ -1204,6 +1204,7 @@
     <string name="common_action_logout">退出登录</string>
     <string name="common_action_next">下一步</string>
     <string name="common_action_orderCancel">撤销</string>
+    <string name="common_action_orderCancel1">撤销全部</string>
     <string name="common_action_paste">粘贴</string>
     <string name="common_action_removeBlackList">移出黑名单</string>
     <string name="common_action_searchCoinPair">搜索币对</string>
@@ -1319,6 +1320,7 @@
     <string name="contract_text_buyMarket">买盘</string>
     <string name="contract_text_cost">成本</string>
     <string name="contract_text_currentEntrust">当前委托</string>
+    <string name="contract_text_currentEntrust1">隐藏其他交易对</string>
     <string name="contract_text_currentWeek">当周</string>
     <string name="contract_text_dealAverage">成交均价</string>
     <string name="contract_text_dealDone">已成交</string>

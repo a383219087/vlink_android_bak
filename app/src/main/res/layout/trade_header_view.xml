@@ -1,56 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_44"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/tv_currentEntrust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:text="@string/contract_text_currentEntrust"
-        android:textColor="@color/main_blue"
-        android:textSize="@dimen/sp_14"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_all_entrust_order"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingRight="@dimen/dp_15"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center"
+        android:gravity="center|left"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:src="@drawable/exchange_order" />
 
         <TextView
-            android:id="@+id/tv_all"
+            android:id="@+id/tv_currentEntrust"
             android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:text="@string/contract_text_currentEntrust"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/ll_all_entrust_order"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/common_action_sendall"
-            android:visibility="gone"
-            android:textColor="@color/normal_text_color"
-            android:textSize="@dimen/sp_12"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/exchange_order" />
+
+            <TextView
+                android:id="@+id/tv_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/common_action_sendall"
+                android:visibility="gone"
+                android:textColor="@color/normal_text_color"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_half"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
         android:background="@color/line_color"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center"
+        android:gravity="center|left"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/ll_yincang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/on"/>
+            <ImageView
+                android:id="@+id/img_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@mipmap/off"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:text="@string/contract_text_currentEntrust1"
+                android:textColor="@color/new_text_color"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_status"
+            android:layout_width="98dp"
+            android:layout_height="@dimen/dp_25"
+            android:background="@drawable/bg_trade_et_unfocused"
+            android:ellipsize="end"
+            android:layout_marginRight="@dimen/dp_15"
+            android:gravity="center"
+            android:text="@string/common_action_orderCancel1"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_half"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@color/line_color"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</LinearLayout>
