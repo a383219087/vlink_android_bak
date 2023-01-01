@@ -1142,26 +1142,25 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     private fun showSwitch() {
         showAll =
             CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContract, 0)
+         if (showAll==0){
+             img_on.visibility=View.VISIBLE
+             img_off.visibility=View.GONE
+         }else{
+             img_on.visibility=View.GONE
+             img_off.visibility=View.VISIBLE
+         }
         updateAdapter()
 
     }
-    var showTDialog:  TDialog?  =null
     private fun initOnClick() {
         //选择
         tv_show_all.setOnClickListener {
-            val typeList = ArrayList<CpTabInfo>()
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
-            showTDialog?.dismiss()
-            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
-                override fun clickItem(position: Int) {
-                    showTDialog?.dismiss()
-                        CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, position)
-                    showSwitch()
-                }
-            })
-
+          if(showAll==0){
+              CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, 1)
+          }else{
+              CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, 0)
+          }
+            showSwitch()
         }
 
         //一键平仓
@@ -1208,23 +1207,12 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         }
         when (showAll) {
             0 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold1)
                 mList = mAllList
             }
             1 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold11)
                 mList.clear()
                 for (i in 0 until mAllList.size) {
-                    if (mAllList[i].orderSide == "BUY") {
-                        mList.add(mAllList[i])
-                    }
-                }
-            }
-            else -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold12)
-                mList.clear()
-                for (i in 0 until mAllList.size) {
-                    if (mAllList[i].orderSide == "SELL") {
+                    if (mAllList[i].contractId == mContractId) {
                         mList.add(mAllList[i])
                     }
                 }

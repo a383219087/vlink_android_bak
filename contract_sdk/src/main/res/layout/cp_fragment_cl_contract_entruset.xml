@@ -22,20 +22,39 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             >
-
-            <TextView
+            <LinearLayout
                 android:id="@+id/tv_show_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:maxLines="1"
-                android:drawablePadding="4dp"
-                android:textStyle="bold"
-                android:drawableRight="@drawable/cp_drop_down_small"
-                android:text="@string/cp_extra_text_hold1"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/sp_13" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:text="@string/cp_extra_text_hold1"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:id="@+id/img_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/switch_on"/>
+                <ImageView
+                    android:id="@+id/img_off"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/switch_off"/>
+
+
+            </LinearLayout>
 
             <View
                 android:layout_width="0dp"

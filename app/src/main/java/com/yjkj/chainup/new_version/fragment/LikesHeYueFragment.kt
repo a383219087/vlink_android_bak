@@ -3,6 +3,7 @@ package com.yjkj.chainup.new_version.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
