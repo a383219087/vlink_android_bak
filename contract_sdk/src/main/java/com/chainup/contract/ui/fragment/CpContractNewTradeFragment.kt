@@ -274,7 +274,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }
         setTextConetnt()
         v_kline.hideVolDrawView()
-        collectCoin()
     }
 
     private fun setTextConetnt() {
@@ -918,6 +917,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onResume()
         isShowPage=true
         initResumeData()
+        collectCoin()
     }
 
 
@@ -1674,6 +1674,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     val addCancelUserSelfDataReqType = 1 // 服务器用户自选数据
 
     private fun collectCoin() {
+        serverSelfSymbols.clear()
         /**
          * 根据是否存在于"自选"列表中
          */
@@ -1686,29 +1687,32 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }*/
 
         ib_collect?.setOnClickListener {
-            if (serverSelfSymbols.contains("e-$symbol")) {
+            if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
                 operationType = 2
             } else {
                 operationType = 1
             }
             //addOrDeleteSymbol(operationType, symbol)
             EventBus.getDefault()
-                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-$symbol"))
+                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase()))
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCpCollectionEvent2(event: CpCollectionEvent2) {
         Log.e("yubch", "bbb:" + event.type)
+        if(!isShowPage) {
+            return
+        }
         if (getUserSelfDataReqType == event.type) {
             showServerSelfSymbols(event.jsonObject.optJSONObject("data"))
         } else if (addCancelUserSelfDataReqType == event.type) {
             var hasCollect = false
             if (operationType == 2) {
-                serverSelfSymbols.remove("e-$symbol")
+                serverSelfSymbols.remove("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             } else {
                 hasCollect = true
-                serverSelfSymbols.add("e-$symbol")
+                serverSelfSymbols.add("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             }
             showImgCollect(hasCollect, true, true)
         }
@@ -1755,7 +1759,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         for (i in 0 until array.length()) {
             serverSelfSymbols.add(array.optString(i))
         }
-        if (serverSelfSymbols.contains("e-$symbol")) {
+        if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
             ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
         } else {
             ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
