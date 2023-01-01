@@ -1551,7 +1551,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         for (i in 0 until array.length()) {
             serverSelfSymbols.add(array.optString(i))
         }
-        if (serverSelfSymbols.contains("e-$symbol")) {
+        if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
             ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
         } else {
             ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
@@ -1878,14 +1878,14 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         }*/
 
         ib_collect?.setOnClickListener {
-            if (serverSelfSymbols.contains("e-$symbol")) {
+            if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
                 operationType = 2
             } else {
                 operationType = 1
             }
             //addOrDeleteSymbol(operationType, symbol)
             EventBus.getDefault()
-                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-$symbol"))
+                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase()))
         }
     }
 
@@ -1897,10 +1897,10 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         } else if (addCancelUserSelfDataReqType == event.type) {
             var hasCollect = false
             if (operationType == 2) {
-                serverSelfSymbols.remove("e-$symbol")
+                serverSelfSymbols.remove("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             } else {
                 hasCollect = true
-                serverSelfSymbols.add("e-$symbol")
+                serverSelfSymbols.add("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             }
             showImgCollect(hasCollect, true, true)
         }
