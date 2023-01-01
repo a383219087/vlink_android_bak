@@ -19,9 +19,11 @@ import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.timmy.tdialog.TDialog
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.rb_select_all
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.rv_hold_contract
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.tv_confirm_btn
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.tv_show_all
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -63,26 +65,34 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
 
     //更新是否显示全部的是UI
     private fun showSwitch() {
-        showAll = CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, 0)
+        showAll = CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, 1)
         updateAdapter()
     }
-    var showTDialog:  TDialog?  =null
+//    var showTDialog:  TDialog?  =null
     private fun initOnClick() {
         //选择
-        tv_show_all.setOnClickListener {
-            val typeList = ArrayList<CpTabInfo>()
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
-            showTDialog?.dismiss()
-            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
-                override fun clickItem(position: Int) {
-                    showTDialog?.dismiss()
-                    CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, position)
-                    showSwitch()
-                }
-            })
-
+//        tv_show_all.setOnClickListener {
+//            val typeList = ArrayList<CpTabInfo>()
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
+//            showTDialog?.dismiss()
+//            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
+//                override fun clickItem(position: Int) {
+//                    showTDialog?.dismiss()
+//                    CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractEntrust, position)
+//                    showSwitch()
+//                }
+//            })
+//
+//        }
+        rb_select_all.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractEntrust,0)
+            }else{
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractEntrust,1)
+            }
+            showSwitch()
         }
 
         //一键撤销
@@ -136,23 +146,14 @@ class CpContractCurrentEntrustNewFragment : CpNBaseFragment() {
         }
         when (showAll) {
             0 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold1)
                 mList = mAllList
-            }
-            1 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold11)
-                mList.clear()
-                for (i in 0 until mAllList.size) {
-                    if (mAllList[i].side == "BUY") {
-                        mList.add(mAllList[i])
-                    }
-                }
+                rb_select_all.isChecked = true
             }
             else -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold12)
+                rb_select_all.isChecked = false
                 mList.clear()
                 for (i in 0 until mAllList.size) {
-                    if (mAllList[i].side == "SELL") {
+                    if (mAllList[i].contractId == mContractId) {
                         mList.add(mAllList[i])
                     }
                 }

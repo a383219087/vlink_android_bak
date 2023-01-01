@@ -3893,5 +3893,7 @@
     <string name="contract_account_equity">合约账户权益</string>
     <string name="opsition_gain_loss">持仓盈亏</string>
     <!--ybc end-->
+    <string name="cp_overview_text8_buy">买入量</string>
+    <string name="cp_overview_text8_sell">卖出量</string>
 </resources>
 

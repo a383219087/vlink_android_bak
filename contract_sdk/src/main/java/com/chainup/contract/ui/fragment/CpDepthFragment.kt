@@ -147,9 +147,9 @@ class CpDepthFragment : CpNBaseFragment() {
 
             val amountUnit =   if (CpClLogicContractSetting.getContractUint(activity) == 0) "(${getString(R.string.cp_overview_text9)})" else "(${flagBean?.baseSymbol})"
 
-            tv_buy_volume_title?.text = context?.getString(R.string.cp_overview_text8) + amountUnit
+            tv_buy_volume_title?.text = context?.getString(R.string.cp_overview_text8_buy) + amountUnit
             tv_sell_volume_title?.text =
-                    context?.getString(R.string.cp_overview_text8) + amountUnit
+                    context?.getString(R.string.cp_overview_text8_sell) + amountUnit
 
 
             if (flagBean?.isContract == true) {

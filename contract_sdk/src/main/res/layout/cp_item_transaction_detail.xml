@@ -41,6 +41,7 @@
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:text="--"
+                android:fontFamily="@font/dinpro_medium"
                 style="@style/textStyle_text_nor_12"
                 tools:text="4500.000000" />
 
@@ -59,6 +60,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.46"
             android:gravity="right|center_vertical"
+            android:fontFamily="@font/dinpro_medium"
             android:lines="1"
             android:text="--"
             style="@style/textStyle_text_nor_12" />

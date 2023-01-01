@@ -11,6 +11,7 @@
         android:text="15分"
         android:layout_toLeftOf="@+id/tv_indicator"
         android:gravity="center"
+        android:fontFamily="@font/dinpro_bold"
         android:textColor="@color/main_blue"
         android:layout_height="match_parent"/>
      <ImageView

@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="@string/cp_overview_text8"
+            android:text="@string/cp_overview_text8_buy"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/sp_12" />
 
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="@string/cp_overview_text8"
+            android:text="@string/cp_overview_text8_sell"
             android:textColor="@color/hint_color"
             android:textSize="@dimen/sp_12" />
 

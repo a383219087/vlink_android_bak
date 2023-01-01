@@ -54,7 +54,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     private var mAllList = ArrayList<CpContractPositionBean>()
 
 
-    //是否显示全部合约，1是多头2是空头
+    //是否显示全部合约，1是显示当前合约持仓
     private var showAll = 0
 
     //合约id
@@ -1141,27 +1141,35 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     //更新是否显示全部的是UI
     private fun showSwitch() {
         showAll =
-            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContract, 0)
+            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContract, 1)
         updateAdapter()
 
     }
-    var showTDialog:  TDialog?  =null
+//    var showTDialog:  TDialog?  =null
     private fun initOnClick() {
         //选择
-        tv_show_all.setOnClickListener {
-            val typeList = ArrayList<CpTabInfo>()
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
-            showTDialog?.dismiss()
-            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
-                override fun clickItem(position: Int) {
-                    showTDialog?.dismiss()
-                        CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, position)
-                    showSwitch()
-                }
-            })
-
+//        tv_show_all.setOnClickListener {
+//            val typeList = ArrayList<CpTabInfo>()
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
+//            showTDialog?.dismiss()
+//            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
+//                override fun clickItem(position: Int) {
+//                    showTDialog?.dismiss()
+//                        CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract, position)
+//                    showSwitch()
+//                }
+//            })
+//
+//        }
+        rb_select_all.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract,0)
+            }else{
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContract,1)
+            }
+            showSwitch()
         }
 
         //一键平仓
@@ -1208,23 +1216,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         }
         when (showAll) {
             0 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold1)
                 mList = mAllList
-            }
-            1 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold11)
-                mList.clear()
-                for (i in 0 until mAllList.size) {
-                    if (mAllList[i].orderSide == "BUY") {
-                        mList.add(mAllList[i])
-                    }
-                }
+                rb_select_all.isChecked = true
             }
             else -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold12)
+                rb_select_all.isChecked = false
                 mList.clear()
                 for (i in 0 until mAllList.size) {
-                    if (mAllList[i].orderSide == "SELL") {
+                    if (mAllList[i].contractId == mContractId) {
                         mList.add(mAllList[i])
                     }
                 }

@@ -16,7 +16,9 @@ import com.chainup.contract.utils.CpPreferenceManager
 import com.chainup.contract.view.CpDialogUtil
 import com.chainup.contract.view.CpNewDialogUtils
 import com.timmy.tdialog.TDialog
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_entruset.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rb_select_all
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.rv_hold_contract
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.tv_confirm_btn
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold.tv_show_all
@@ -33,6 +35,9 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
 
     //是否显示全部合约
     private var showAll = 0
+
+    //合约id
+    var mContractId = "-1"
 
     override fun setContentView(): Int {
         return R.layout.cp_fragment_cl_contract_hold
@@ -58,7 +63,7 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
     //更新是否显示全部的是UI
     private fun showSwitch() {
         showAll =
-            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractPlan, 0)
+            CpPreferenceManager.getInt(activity!!, CpPreferenceManager.isShowAllContractPlan, 1)
 
         updateAdapter()
 
@@ -74,23 +79,14 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         }
         when (showAll) {
             0 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold1)
                 mList = mAllList
-            }
-            1 -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold11)
-                mList.clear()
-                for (i in 0 until mAllList.size) {
-                    if (mAllList[i].side == "BUY") {
-                        mList.add(mAllList[i])
-                    }
-                }
+                rb_select_all.isChecked = true
             }
             else -> {
-                tv_show_all.text=context?.getString(R.string.cp_extra_text_hold12)
+                rb_select_all.isChecked = false
                 mList.clear()
                 for (i in 0 until mAllList.size) {
-                    if (mAllList[i].side == "SELL") {
+                    if (mAllList[i].contractId == mContractId) {
                         mList.add(mAllList[i])
                     }
                 }
@@ -98,24 +94,33 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
         }
         adapter?.setList(mList)
     }
-    var showTDialog:  TDialog?  =null
+//    var showTDialog:  TDialog?  =null
     private fun initOnClick() {
         //选择
-        tv_show_all.setOnClickListener {
-            val typeList = ArrayList<CpTabInfo>()
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
-            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
-            showTDialog?.dismiss()
-            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
-                override fun clickItem(position: Int) {
-                    showTDialog?.dismiss()
-                    CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractPlan, position)
-                    showSwitch()
-                }
-            })
-
+//        tv_show_all.setOnClickListener {
+//            val typeList = ArrayList<CpTabInfo>()
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold1), 0,extras=0))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold11), 1,extras=1))
+//            typeList.add(CpTabInfo(getString(R.string.cp_extra_text_hold12), 2,extras=2))
+//            showTDialog?.dismiss()
+//            showTDialog=  CpDialogUtil.showNewListDialog(context!!, typeList, showAll, object : CpNewDialogUtils.DialogOnItemClickListener {
+//                override fun clickItem(position: Int) {
+//                    showTDialog?.dismiss()
+//                    CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractPlan, position)
+//                    showSwitch()
+//                }
+//            })
+//
+//        }
+        rb_select_all.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractPlan,0)
+            }else{
+                CpPreferenceManager.putInt(activity!!, CpPreferenceManager.isShowAllContractPlan,1)
+            }
+            showSwitch()
         }
+
         //一键撤销
         tv_confirm_btn.setOnClickListener {
             CpDialogUtil.showNewDoubleDialog(
@@ -197,6 +202,15 @@ class CpContractPlanEntrustNewFragment : CpNBaseFragment() {
             CpMessageEvent.sl_contract_logout_event->{
                 mList.clear()
                 updateAdapter()
+            }
+            //合约id有更新要重新筛选数组列表
+            CpMessageEvent.sl_contract_calc_switch_contract_id -> {
+                val id = event.msg_content as Int
+                if (mContractId != id.toString()) {
+                    mContractId = id.toString()
+                    updateAdapter()
+                }
+
             }
         }
     }

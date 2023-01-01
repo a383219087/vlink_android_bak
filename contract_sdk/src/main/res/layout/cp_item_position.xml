@@ -90,26 +90,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_floating_gains_balance_key"
                     android:textColor="@color/normal_text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:text="盈亏(USDT)" />
+                    android:singleLine="true"  android:textSize="12sp"
+                    android:text="@string/cp_order_text100" />
 
                 <TextView
-                    android:id="@+id/tv_profit_loss_value"
+                    android:id="@+id/tv_open_price_value"
                     style="@style/textStyle_select_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
                     android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="+0.014450"
-                    android:textSize="12sp"
-                    android:textColor="@color/main_red" />
+                    android:singleLine="true" android:textSize="12sp"
+                    android:text="50293.1" />
+
 
             </LinearLayout>
 
@@ -165,33 +162,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/normal_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"  android:textSize="12sp"
-                    android:text="@string/cp_order_text100" />
-
-                <TextView
-                    android:id="@+id/tv_open_price_value"
-                    style="@style/textStyle_select_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:ellipsize="end"
-                    android:singleLine="true" android:textSize="12sp"
-                    android:text="50293.1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:orientation="vertical">
-
-                <TextView
                     android:id="@+id/tv_forced_close_price_key"
                     android:textColor="@color/normal_text_color"
                     android:layout_width="wrap_content"
@@ -211,6 +181,38 @@
                     android:ellipsize="end"
                     android:singleLine="true" android:textSize="12sp"
                     android:text="50293.1" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_floating_gains_balance_key"
+                    android:textColor="@color/normal_text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="12sp"
+                    android:text="盈亏(USDT)" />
+
+                <TextView
+                    android:id="@+id/tv_profit_loss_value"
+                    style="@style/textStyle_select_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="+0.014450"
+                    android:textSize="12sp"
+                    android:textColor="@color/main_red" />
 
             </LinearLayout>
 

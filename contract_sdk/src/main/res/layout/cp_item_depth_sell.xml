@@ -33,6 +33,7 @@
             style="@style/textStyle_text_nor_12"
             android:text="--"
             tools:text="0.3200"
+            android:fontFamily="@font/dinpro_medium"
             android:textColor="@color/text_color"
             android:textSize="@dimen/sp_12" />
 
@@ -47,6 +48,7 @@
             tools:text="0.3200"
             style="@style/textStyle_text_nor_12"
             android:textColor="@color/text_color"
+            android:fontFamily="@font/dinpro_medium"
             android:textSize="@dimen/sp_12" />
 
         <TextView

@@ -29,13 +29,19 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:drawableRight="@drawable/cp_drop_down_small"
                 android:drawablePadding="4dp"
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:text="@string/cp_extra_text_hold1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/sp_13" />
+
+            <CheckBox
+                android:id="@+id/rb_select_all"
+                android:button="@drawable/switch_icon_selector"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_height="wrap_content"/>
 
             <View
                 android:layout_width="0dp"
