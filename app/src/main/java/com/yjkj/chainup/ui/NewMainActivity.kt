@@ -712,6 +712,7 @@ class NewMainActivity : NBaseActivity() {
             return
         var list = ArrayList<String>()
         list.add(symbol)
+        //list.add("e-$symbol")
         addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"", MyNDisposableObserver2(addCancelUserSelfDataReqType)))
     }
 }

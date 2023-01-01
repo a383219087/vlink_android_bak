@@ -43,13 +43,21 @@
         app:layout_constraintTop_toTopOf="@id/tv_contract" />
 
     <ImageView
+        android:id="@+id/ib_collect"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_toLeftOf="@+id/iv_more"
+        android:scaleType="centerInside"
+        android:src="@drawable/quotes_optional_default2" />
+
+    <ImageView
         android:id="@+id/ib_kline"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_12"
-        android:layout_toLeftOf="@+id/iv_more"
+        android:layout_toLeftOf="@+id/ib_collect"
         android:background="@color/transparent"
         android:src="@drawable/cp_exchange_klinediagram" />
 </RelativeLayout>

@@ -482,7 +482,7 @@ class LikesHeYueFragment : NBaseFragment(),CpWsContractAgentManager.WsResultCall
         val tempMarket = JSONArray(contractJson)
         for (i in 0 until array.length()) {
             var symbol = array.optString(i)
-            var symbolObj = getSymbolObj(tempMarket, symbol)
+            var symbolObj = getSymbolObj(tempMarket, symbol) //todo 这里有问题，不知道咋解决 ybc
             if (null != symbolObj && symbolObj.length() > 0) {
                 HeYueLikeDataService.getInstance().saveCollecData(symbol, symbolObj)
                 tempList.add(symbolObj)

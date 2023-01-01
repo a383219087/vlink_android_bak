@@ -24,9 +24,7 @@ import com.chainup.contract.app.CpMyApp
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.base.CpNBaseFragment
 import com.chainup.contract.bean.*
-import com.chainup.contract.eventbus.CpEventBusUtil
-import com.chainup.contract.eventbus.CpMessageEvent
-import com.chainup.contract.eventbus.CpNLiveDataUtil
+import com.chainup.contract.eventbus.*
 import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
 import com.chainup.contract.ui.activity.CpMarketDetail4Activity
 import com.chainup.contract.utils.*
@@ -58,6 +56,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_contract_k_line_h.*
+import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract.tv_capital_rate
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
@@ -74,6 +73,7 @@ import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.rv_kline_scale
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.v_kline
 import kotlinx.android.synthetic.main.cp_trade_header_tools.*
+import kotlinx.android.synthetic.main.cp_trade_header_tools.ib_collect
 import kotlinx.android.synthetic.main.cp_trade_header_tools.ib_kline
 import kotlinx.android.synthetic.main.cp_trade_header_tools.iv_more
 import kotlinx.android.synthetic.main.cp_trade_header_tools.tv_contract
@@ -81,6 +81,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundColor
@@ -273,6 +274,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }
         setTextConetnt()
         v_kline.hideVolDrawView()
+        collectCoin()
     }
 
     private fun setTextConetnt() {
@@ -750,7 +752,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             isFrist = true
             klineData.clear()
             getSymbol(symbol)
-
+            collectCoin()
         }
 
         when (event.msg_type) {
@@ -1656,5 +1658,107 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         CpWsContractAgentManager.instance.removeWsCallback(this)
         loopStop()
         isShowPage=false
+    }
+
+    ////ybc start
+    /*
+     * 获取服务器用户的自选币对数据
+     */
+    var serverSelfSymbols = ArrayList<String>()
+    var sync_status = ""
+    /**
+     * 添加收藏
+     */
+    private var operationType = 0
+    val getUserSelfDataReqType = 2 // 服务器用户自选数据
+    val addCancelUserSelfDataReqType = 1 // 服务器用户自选数据
+
+    private fun collectCoin() {
+        /**
+         * 根据是否存在于"自选"列表中
+         */
+        EventBus.getDefault().post(CpCollectionEvent(CpCollectionEvent.TYPE_REQUEST))
+        /*if (isLogined && isOptionalSymbolServerOpen) {
+            getOptionalSymbol()
+        } else {
+            var hasCollect = LikeDataService.getInstance().hasCollect(symbol)
+            showImgCollect(hasCollect, false, false)
+        }*/
+
+        ib_collect?.setOnClickListener {
+            if (serverSelfSymbols.contains("e-$symbol")) {
+                operationType = 2
+            } else {
+                operationType = 1
+            }
+            //addOrDeleteSymbol(operationType, symbol)
+            EventBus.getDefault()
+                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-$symbol"))
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCpCollectionEvent2(event: CpCollectionEvent2) {
+        Log.e("yubch", "bbb:" + event.type)
+        if (getUserSelfDataReqType == event.type) {
+            showServerSelfSymbols(event.jsonObject.optJSONObject("data"))
+        } else if (addCancelUserSelfDataReqType == event.type) {
+            var hasCollect = false
+            if (operationType == 2) {
+                serverSelfSymbols.remove("e-$symbol")
+            } else {
+                hasCollect = true
+                serverSelfSymbols.add("e-$symbol")
+            }
+            showImgCollect(hasCollect, true, true)
+        }
+    }
+
+    /*
+    * 收藏图标状态及其行为处理
+    */
+    private fun showImgCollect(hasCollect: Boolean, isShowToast: Boolean, isAddRemove: Boolean) {
+        if (hasCollect) {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
+            if (isShowToast) {
+                CpNToastUtil.showTopToastNet(
+                    mActivity,
+                    true,
+                    CpLanguageUtil.getString(activity, "kline_tip_addCollectionSuccess")
+                )
+            }
+
+        } else {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
+            if (isShowToast) {
+                CpNToastUtil.showTopToastNet(
+                    mActivity,
+                    true,
+                    CpLanguageUtil.getString(activity, "kline_tip_removeCollectionSuccess")
+                )
+            }
+
+        }
+    }
+
+    private fun showServerSelfSymbols(data: JSONObject?) {
+
+        if (null == data || data.length() <= 0)
+            return
+
+        var array = data.optJSONArray("symbols")
+        sync_status = data.optString("sync_status")
+
+        if (null == array || array.length() <= 0) {
+            return
+        }
+        for (i in 0 until array.length()) {
+            serverSelfSymbols.add(array.optString(i))
+        }
+        if (serverSelfSymbols.contains("e-$symbol")) {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
+        } else {
+            ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
+        }
     }
 }
