@@ -2685,7 +2685,7 @@
     <string name="sl_str_swap">永續合約</string>
     <string name="sl_str_rose_vol">漲跌額</string>
     <string name="sl_str_rose_rate">漲跌幅</string>
-    <string name="sl_str_24h_vol">24h量</string>
+    <string name="sl_str_24h_vol">24H量</string>
     <string name="sl_str_sell_empty">可平空</string>
     <string name="sl_str_sell_max">可平多</string>
     <string name="sl_str_no_contract_account">請先劃轉%1$s到合約賬戶</string>

@@ -27,7 +27,6 @@ class PartnerMyInviteCodesActivity : BaseMVActivity<PartnerMyInviteCodesViewMode
             if (it==null){
                 return@Observer
             }
-
             PartnerEditInviteCodesDialog().apply {
                 val bundle = Bundle()
                 bundle.putInt("type", 2)

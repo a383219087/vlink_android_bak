@@ -23,8 +23,9 @@ class MarketLayout @JvmOverloads constructor(context: Context,
         for (index in titles) {
             val tabView = View.inflate(context, R.layout.item_tab_market, null)
             tabView.tag = titles.indexOf(index)
-            val params = LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+            val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
             params.marginStart = 16
+            params.marginEnd=60
             addView(tabView, params)
             var item: SuperTextView = tabView.findViewById(R.id.btn_item)
             if (titles.indexOf(index) == mCurrentTab) {

@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -133,7 +134,7 @@ class NewVersionHomepageFragment :
   private fun initTop24HourView() {
 
     mBinding?.recyclerTop24?.layoutManager =
-      LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
+      GridLayoutManager(mActivity, 3000)
     mBinding?.recyclerTop24?.addItemDecoration(HomePageItemDecoration(activity!!))
     topSymbolAdapter = NewhomepageTradeListAdapter()
     mBinding?.recyclerTop24?.adapter = topSymbolAdapter

@@ -25,11 +25,6 @@ import org.json.JSONObject
 open class NewhomepageTradeListAdapter : BaseQuickAdapter<JSONObject, BaseViewHolder>(R.layout.item_new_home_page_trade) {
 
     override fun convert(helper: BaseViewHolder, item: JSONObject) {
-        val layout = helper.getView<LinearLayout>(R.id.layout_symbol_context)
-        val layoutParams = layout.layoutParams
-        val width = DisplayUtil.getScreenWidth(context) / 3
-        layoutParams.width = width
-        layout.layoutParams = layoutParams
         val name = NCoinManager.showAnoterName(item)
         if (StringUtil.checkStr(name) && name.contains("/")) {
             val split = name.split("/")
