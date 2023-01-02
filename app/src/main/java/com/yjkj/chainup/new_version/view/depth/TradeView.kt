@@ -842,7 +842,7 @@ class TradeView @JvmOverloads constructor(
                 /**
                  * 清除 RadioButton 的选中效果
                  */
-                if (s.toString().length < volumeScale + 2) {
+                if (et_volume.hasFocus()) {
                     for (i in 0 until rg_trade.childCount) {
                         val radioButton = rg_trade?.getChildAt(i) as RadioButton
                         radioButton.setTextColor(ColorUtil.getColor(R.color.normal_text_color))

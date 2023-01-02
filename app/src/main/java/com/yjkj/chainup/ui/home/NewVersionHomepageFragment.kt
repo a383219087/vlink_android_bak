@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.gcssloop.widget.PagerGridLayoutManager
@@ -43,7 +42,6 @@ import com.yjkj.chainup.new_version.home.adapter.ImageNetAdapter
 import com.yjkj.chainup.ui.home.vm.NewVersionHomePageViewModel
 import com.yjkj.chainup.util.*
 import com.yjkj.chainup.wedegit.HomePageItemDecoration
-import com.yjkj.chainup.wedegit.VerticalTextview4ChainUp
 import com.yjkj.chainup.ws.WsAgentManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.RectangleIndicator
@@ -55,7 +53,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.doAsync
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
@@ -134,7 +131,7 @@ class NewVersionHomepageFragment :
   private fun initTop24HourView() {
 
     mBinding?.recyclerTop24?.layoutManager =
-      GridLayoutManager(mActivity, 3000)
+      GridLayoutManager(mActivity, 3)
     mBinding?.recyclerTop24?.addItemDecoration(HomePageItemDecoration(activity!!))
     topSymbolAdapter = NewhomepageTradeListAdapter()
     mBinding?.recyclerTop24?.adapter = topSymbolAdapter
