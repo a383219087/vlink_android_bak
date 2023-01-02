@@ -15,6 +15,7 @@ import com.timmy.tdialog.listener.OnBindViewListener
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.AssetScreenBean
 import com.yjkj.chainup.contract.utils.ContractUtils
+import com.yjkj.chainup.contract.utils.PreferenceManager
 import com.yjkj.chainup.contract.utils.onLineText
 import com.yjkj.chainup.contract.widget.SlDialogHelper
 import com.yjkj.chainup.db.constant.ParamConstant
@@ -165,11 +166,16 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
             Utils.showAssetsSwitch(!isShowAssets, iv_hide_asset)
             if (null != listener) {
                 listener?.isShowAssets()
-            }
+            }0
         }
         /**
          * 查看安全建议
          */
+        if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", false)) {
+            rl_safety_advice.visibility=View.VISIBLE
+        }else{
+            rl_safety_advice.visibility=View.GONE
+        }
         rl_safety_advice.setOnClickListener {
             SlDialogHelper.showSimpleSafetyAdviceDialog(context!!, OnBindViewListener { viewHolder ->
                 viewHolder?.let {
@@ -181,6 +187,11 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
             }, object : NewDialogUtils.DialogBottomListener {
                 override fun sendConfirm() {
+                    if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", false)) {
+                        rl_safety_advice.visibility=View.VISIBLE
+                    }else{
+                        rl_safety_advice.visibility=View.GONE
+                    }
                     var messageEvent = MessageEvent(MessageEvent.hide_safety_advice)
                     NLiveDataUtil.postValue(messageEvent)
                 }

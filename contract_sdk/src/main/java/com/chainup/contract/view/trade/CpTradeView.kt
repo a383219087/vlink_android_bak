@@ -174,6 +174,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             })
         }
 
+
         changePriceType(1)
         priceType = 1 //选择订单类型
         tv_order_type?.view()?.let {
@@ -214,13 +215,12 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     })
                 }
         }
-        img_buy_transfer.setOnClickListener{
+        img_buy_transfer.setOnClickListener {
             CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_transfer))
         }
-        img_sell_transfer.setOnClickListener{
+        img_sell_transfer.setOnClickListener {
             CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_transfer))
-        }
-        //点击条件单下的市价单
+        } //点击条件单下的市价单
         tv_price_hint.setOnClickListener {
             isMarketPriceModel = !isMarketPriceModel
             if (CpClLogicContractSetting.getExecution(CpMyApp.instance()) == 1) {
@@ -253,10 +253,9 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             val mCpMessageEvent = CpMessageEvent(CpMessageEvent.sl_contract_modify_depth_event)
             mCpMessageEvent.msg_content = buyOrSellHelper
             CpEventBusUtil.post(mCpMessageEvent)
-        }
-        //输入数量的单位切换
+        } //输入数量的单位切换
         tv_volume_unit.setOnClickListener {
-            CpClLogicContractSetting.setIsUSDT(context,!CpClLogicContractSetting.getIsUSDT(context))
+            CpClLogicContractSetting.setIsUSDT(context, !CpClLogicContractSetting.getIsUSDT(context))
             tv_volume_unit.text = if (CpClLogicContractSetting.getIsUSDT(context)) quote else base
             updateAvailableVol()
         }
@@ -283,19 +282,19 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 when (it.id) {
                     R.id.rb_1st -> {
                         et_volume.setText(rb_1st.text.toString())
-                        adjustRatio((0.25*level).toString())
+                        adjustRatio((0.25 * level).toString())
                     }
                     R.id.rb_2nd -> {
                         et_volume.setText(rb_2nd.text.toString())
-                        adjustRatio((0.5*level).toString())
+                        adjustRatio((0.5 * level).toString())
                     }
                     R.id.rb_3rd -> {
                         et_volume.setText(rb_3rd.text.toString())
-                        adjustRatio((0.75*level).toString())
+                        adjustRatio((0.75 * level).toString())
                     }
                     R.id.rb_4th -> {
                         et_volume.setText(rb_4th.text.toString())
-                        adjustRatio((1*level).toString())
+                        adjustRatio((1 * level).toString())
                     }
                 }
             }
@@ -308,21 +307,20 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 if (et_volume.text.isNullOrEmpty()) {
                     CpNToastUtil.showTopToastNet(getActivity(), false, context.getString(R.string.cp_trade_text3))
                     return
-                }
-//                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
-//                    true
-//                } else { //输入框单位是币币的时候约等于多少张要大于1
-//                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
-//
-//                }
-//
-//
-//                if (!canBuy1) {
-//                    CpNToastUtil.showTopToastNet(getActivity(),
-//                        false,
-//                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
-//                    return
-//                }
+                } //                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
+                //                    true
+                //                } else { //输入框单位是币币的时候约等于多少张要大于1
+                //                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
+                //
+                //                }
+                //
+                //
+                //                if (!canBuy1) {
+                //                    CpNToastUtil.showTopToastNet(getActivity(),
+                //                        false,
+                //                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
+                //                    return
+                //                }
                 var isOpen = false;
                 isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen") == 1) {
@@ -352,17 +350,17 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     return
                 }
 
-//                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
-//                    true
-//                } else { //输入框单位是币币的时候要大于合约面值
-//                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
-//                }
-//                if (!canBuy1) {
-//                    CpNToastUtil.showTopToastNet(getActivity(),
-//                        false,
-//                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
-//                    return
-//                }
+                //                val canBuy1 = if (isPercentPlaceOrder || priceType > 3) {
+                //                    true
+                //                } else { //输入框单位是币币的时候要大于合约面值
+                //                    CpBigDecimalUtils.stringToNum1(tv_equivalent.text.toString()).toDouble() > CpBigDecimalUtils.showSNormal(multiplier).toDouble()
+                //                }
+                //                if (!canBuy1) {
+                //                    CpNToastUtil.showTopToastNet(getActivity(),
+                //                        false,
+                //                        context.getString(R.string.cp_trade_text2) + context.getString(R.string.cp_trade_text4) + context.getString(R.string.cp_trade_text1))
+                //                    return
+                //                }
 
                 val isOpen = transactionType == CpParamConstant.TYPE_BUY
                 if (isOpen && mUserConfigInfoJson?.optInt("forceKycOpen") == 1) {
@@ -535,12 +533,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                         CpNToastUtil.showTopToastNet(getActivity(), false, context.getString(R.string.cp_tip_text1))
                         return
                     }
-                }
-//                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-//
-//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
-//                    volume = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
-//                }
+                } //                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
+                //
+                //                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+                //                    volume = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
+                //                }
             }
             4 -> {
                 orderType = 5
@@ -656,7 +653,12 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             orderType,
             level,
             if (isMarketPriceModel) "0" else price,
-        CpBigDecimalUtils.getOrderNum1(isOpen, volume, multiplier, buyOrSellHelper.orderType,price,if(priceType==2) symbolPricePrecision else multiplierPrecision),
+            CpBigDecimalUtils.getOrderNum1(isOpen,
+                volume,
+                multiplier,
+                buyOrSellHelper.orderType,
+                price,
+                if (priceType == 2) symbolPricePrecision else multiplierPrecision),
             isConditionOrder,
             triggerPrice,
             expireTime,
@@ -758,8 +760,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             multiplier = it.optString("multiplier")
             mContractId = it.getInt("id")
             val multiplierCoin = it.optString("multiplierCoin")
-            base = multiplierCoin
-            //base=BTC quote=USDT
+            base = multiplierCoin //base=BTC quote=USDT
             quote = mContractJson?.optString("quote").toString()
             multiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, mContractId)
             marginCoinPrecision = CpClLogicContractSetting.getContractMarginCoinPrecisionById(context, mContractId)
@@ -923,6 +924,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         var sellPositionAmount = positionAmount
         if (TextUtils.isEmpty(positionAmount)) {
             positionAmount = "0"
+            tv_buy_cost.text = "0.00"
+            tv_sell_cost.text = "0.00"
         }
         if (isPercentPlaceOrder) {
             positionAmount = CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
@@ -941,8 +944,9 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 }
                 if (isOpen && isPercentPlaceOrder) {
 
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
-//                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
+                        percent,
+                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
                     positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
                     buyPositionAmount = positionAmount
                     sellPositionAmount = positionAmount
@@ -957,16 +961,21 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     sellPrice = price
                 }
                 if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, multiplierPrecision)
-//                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
+                        percent,
+                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
                     positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
                     buyPositionAmount = positionAmount
                     sellPositionAmount = positionAmount
                 }
             }
         }
-        tv_equivalent.text =
-            "≈" + CpBigDecimalUtils.canPositionMarketStr(contractSide == "1", multiplier, positionAmount, price, multiplierPrecision, mContractJson?.optString("multiplierCoin"))
+        tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(contractSide == "1",
+            multiplier,
+            positionAmount,
+            price,
+            multiplierPrecision,
+            mContractJson?.optString("multiplierCoin"))
 
         //
         //        if (isOpen && buyOrSellHelper.orderType == 2) {
@@ -1051,24 +1060,12 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         //        )
 
         //计算预估成本价
-        val buyCostbuff1 = CpBigDecimalUtils.canCostStr(
-            buyPrice,
-            buyPositionAmount,
-            multiplier,
-            level.toString(),
-            marginRate,
-            marginCoinPrecision,
-            marginCoin)
+        val buyCostbuff1 =
+            CpBigDecimalUtils.canCostStr(buyPrice, buyPositionAmount, multiplier, level.toString(), marginRate, marginCoinPrecision, marginCoin)
 
         //计算预估成本价
-        val sellCostbuff1 = CpBigDecimalUtils.canCostStr(
-            sellPrice,
-            sellPositionAmount,
-            multiplier,
-            level.toString(),
-            marginRate,
-            marginCoinPrecision,
-            marginCoin)
+        val sellCostbuff1 =
+            CpBigDecimalUtils.canCostStr(sellPrice, sellPositionAmount, multiplier, level.toString(), marginRate, marginCoinPrecision, marginCoin)
 
         tv_buy_cost.text = buyCostbuff1
         tv_sell_cost.text = sellCostbuff1
@@ -1239,11 +1236,13 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
 
+    @SuppressLint("SetTextI18n")
     fun changePriceType(item: Int) {
         CpClLogicContractSetting.setExecution(CpMyApp.instance(), 0)
         et_price.setText("")
         et_volume.setText("")
-        rg_trade.clearCheck()
+        tv_buy_cost.text = "0.00"
+        tv_sell_cost.text = "0.00"
         et_trigger_price.setText("")
         buyOrSellHelper.orderType = item
         tv_order_tips_layout.visibility = View.GONE

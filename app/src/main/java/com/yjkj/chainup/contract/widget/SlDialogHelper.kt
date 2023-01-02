@@ -1,5 +1,6 @@
 package com.yjkj.chainup.contract.widget
 
+import android.app.Activity
 import android.content.Context
 import android.view.Gravity
 import android.widget.ImageView
@@ -92,6 +93,7 @@ object SlDialogHelper {
                 .setCancelableOutside(false)
                 .setOnBindViewListener { viewHolder ->
                     val imageView = viewHolder?.getView<ImageView>(R.id.iv_state)
+
                     imageView?.setOnClickListener {
                         isSelected = !isSelected
                         if (isSelected) {
