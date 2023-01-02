@@ -3,6 +3,7 @@ package com.chainup.contract.ui.activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -314,7 +315,21 @@ class CpContractEntrustNewActivity : CpNBaseActivity() {
         mFragments?.add(CpContractEntrustNewFragment())
         mFragments?.add(CpContractHistoryEntrustNewFragment())
         mFragments?.add(CpContractPLRecordFragment())
-        sub_tab_layout.setViewPager(vp_order, arrayOf(getString(R.string.cp_order_text51), getString(R.string.cp_order_text72), getString(R.string.cp_order_text73)), this, mFragments)
+        sub_tab_layout.setViewPager(
+            vp_order,
+            arrayOf(
+                getString(R.string.cp_order_text51),
+                getString(R.string.cp_order_text72),
+                getString(R.string.cp_order_text73)
+            ),
+            this,
+            mFragments
+        )
+        for (i in 0 until sub_tab_layout.tabCount){
+            val titleView = sub_tab_layout.getTitleView(i)
+            titleView.typeface = Typeface.createFromAsset(assets,
+                "fonts/dinpro_medium.otf")
+        }
         vp_order.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
