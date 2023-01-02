@@ -49,20 +49,17 @@
 
     </RelativeLayout>
 
-    <com.flyco.tablayout.SlidingScaleTabLayout
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/sub_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
-        app:layout_collapseMode="parallax"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center"
         app:tl_tab_padding="10dp"
         app:tl_tab_vertical_gravity="Bottom"
         app:tl_indicator_height="0dp"
-        app:tl_textBold="BOTH"
-        app:tl_textSelectColor="@color/tab_select_text_color"
-        app:tl_textSelectSize="28sp"
-        app:tl_textUnSelectColor="@color/tab_nor_text_color"
+        app:tl_textSelectColor="@color/main_blue"
+        app:tl_textUnSelectColor="@color/colorA2A9BD"
+        app:tl_textSelectSize="16sp"
         app:tl_textUnSelectSize="16sp" />
 
     <View
@@ -89,7 +86,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全部交易对"
-                android:textColor="@color/text_color"
+                android:fontFamily="@font/dinpro_medium"
+                android:textColor="@color/colorA2A9BD"
                 android:textSize="12sp" />
 
             <ImageView
@@ -113,7 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cp_extra_text20"
-                android:textColor="@color/text_color"
+                android:fontFamily="@font/dinpro_medium"
+                android:textColor="@color/colorA2A9BD"
                 android:textSize="12sp" />
 
             <ImageView
@@ -137,7 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cp_order_text4"
-                android:textColor="@color/text_color"
+                android:fontFamily="@font/dinpro_medium"
+                android:textColor="@color/colorA2A9BD"
                 android:textSize="12sp" />
 
             <ImageView
@@ -185,8 +185,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/line_color" />
+                android:layout_height="12dp"
+                android:background="@color/colorF6F7FC" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_order"
