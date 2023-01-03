@@ -911,13 +911,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             hasInit = true
         }
         initSocket()
+        collectCoin()
     }
 
     override fun onResume() {
         super.onResume()
         isShowPage=true
         initResumeData()
-        collectCoin()
     }
 
 

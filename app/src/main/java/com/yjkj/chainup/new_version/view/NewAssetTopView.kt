@@ -166,7 +166,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
             Utils.showAssetsSwitch(!isShowAssets, iv_hide_asset)
             if (null != listener) {
                 listener?.isShowAssets()
-            }0
+            }
         }
         /**
          * 查看安全建议

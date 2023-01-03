@@ -133,6 +133,16 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         collectCoin()
     }
 
+
+    override fun onVisibleChanged(isVisible: Boolean) {
+        super.onVisibleChanged(isVisible)
+        if (isVisible){
+            collectCoin()
+        }
+    }
+
+
+
     fun setTextContent() {
         tv_currentEntrust?.text = LanguageUtil.getString(context, "contract_text_currentEntrust")
         tv_all?.text = LanguageUtil.getString(context, "common_action_sendall")
@@ -308,6 +318,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         v_vertical_depth.coinSwitch(nSymbol)
                         v_horizontal_depth.coinSwitch(nSymbol)
                     }
+                    collectCoin()
                 }
                 // 下单通知
                 MessageEvent.CREATE_ORDER_TYPE -> {
