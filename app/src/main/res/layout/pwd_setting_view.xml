@@ -3,27 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_login_acc"
     android:layout_height="@dimen/dp_40"
     android:clickable="true"
-    android:background="@color/bg_card_color">
+  >
+
+
 
 
     <com.yjkj.chainup.new_version.view.CustomizeEditText
         android:id="@+id/et_pwd"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_39"
-        android:layout_centerVertical="true"
+        android:layout_height="@dimen/dp_40"
         android:layout_marginRight="@dimen/dp_30"
         android:background="@null"
-        android:layout_marginBottom="@dimen/dp_half"
-        android:gravity="left|center_vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
         android:hint="@string/login_text_pwd"
-        android:inputType="textPassword"
-        android:textColor="@color/text_color"
+        android:maxLines="1"
+        android:textColor="@color/white"
         android:textColorHint="@color/hint_color"
         android:textCursorDrawable="@drawable/et_cursor_color"
-        android:textSize="@dimen/sp_16" />
-
+        android:textSize="@dimen/sp_14" />
 
     <ImageView
         android:id="@+id/iv_image"
@@ -32,6 +33,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
         android:paddingTop="11.5dp"
         android:paddingBottom="11.5dp"
         android:src="@drawable/hide"
@@ -49,6 +51,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingTop="11.5dp"
+        android:layout_marginRight="@dimen/dp_10"
         android:paddingBottom="11.5dp"
         android:paddingLeft="@dimen/dp_24"
         android:src="@drawable/login_eyesclose"
@@ -63,6 +66,7 @@
         android:id="@+id/v_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_line_height"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="@color/new_edit_line_color" />
 

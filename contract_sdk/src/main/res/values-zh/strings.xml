@@ -3451,6 +3451,7 @@
     <string name="cp_order_text2">当前委托</string>
     <string name="cp_order_text3">当前计划</string>
     <string name="cp_order_text4">全部</string>
+    <string name="cp_order_text40103">展开K线图</string>
     <string name="cp_order_text5">显示全部</string>
     <string name="cp_order_text6">多头</string>
     <string name="cp_order_text6111">多仓</string>
