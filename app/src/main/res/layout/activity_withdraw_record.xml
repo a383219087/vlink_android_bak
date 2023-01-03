@@ -21,7 +21,6 @@
         android:background="@color/bg_card_color"
         android:orientation="horizontal"
         app:bar_title_value="@string/sl_str_asset_record"
-        app:showTitle="false"
         app:showRightIc="true" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

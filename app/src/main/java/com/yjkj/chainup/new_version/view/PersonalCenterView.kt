@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,10 @@ class PersonalCenterView @JvmOverloads constructor(
         tv_noun_login_pending?.text = LanguageUtil.getString(context, "noun_login_pending")
         tv_title_for_top?.text = title
         tv_bar_title?.text = barTitle ?: ""
+        if(!TextUtils.isEmpty(barTitle)){
+            tv_title?.visibility=View.GONE
+            rl_personal_layoyt?.visibility=View.GONE
+        }
         right_icon?.setImageResource(rightIcon)
         iv_back?.setOnClickListener {
             if (finishListener != null) {
