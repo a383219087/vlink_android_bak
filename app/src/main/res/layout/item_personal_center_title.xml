@@ -74,10 +74,6 @@
     </RelativeLayout>
 
 
-
-
-
-
     <RelativeLayout
         android:id="@+id/rl_personal_layoyt"
         android:layout_width="match_parent"
@@ -250,6 +246,5 @@
         android:textStyle="bold"
         android:visibility="gone"
         tools:text="我的资料" />
-
 
 </RelativeLayout>

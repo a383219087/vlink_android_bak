@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.item_personal_center_title.view.*
  * @description   头部文件
  */
 class PersonalCenterView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     val TAG = PersonalCenterView::class.java.simpleName
@@ -39,7 +39,7 @@ class PersonalCenterView @JvmOverloads constructor(
     var rightIcon = 0
 
     var mContext = context
-    var barTitle:String? =""
+    var barTitle: String? = ""
 
     interface MyProfileListener {
         fun onclickHead()
@@ -59,12 +59,17 @@ class PersonalCenterView @JvmOverloads constructor(
             showTitle = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showTitle, true)
             barTitle = typedArray.getString(R.styleable.CustomPersonalTitle_bar_title_value)
             showRightIc = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightIc, false)
-            showRightIc2 = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightIc2, false)
+            showRightIc2 =
+                typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightIc2, false)
             showRightTv = typedArray.getBoolean(R.styleable.CustomPersonalTitle_showRightTv, false)
             if (showRightTv) {
-                rightTvTitle = typedArray.getString(R.styleable.CustomPersonalTitle_rightTitle).toString()
+                rightTvTitle =
+                    typedArray.getString(R.styleable.CustomPersonalTitle_rightTitle).toString()
             }
-            rightIcon = typedArray.getResourceId(R.styleable.CustomPersonalTitle_personalRightIcon, R.drawable.screening)
+            rightIcon = typedArray.getResourceId(
+                R.styleable.CustomPersonalTitle_personalRightIcon,
+                R.drawable.screening
+            )
             title = typedArray.getString(R.styleable.CustomPersonalTitle_personalTitle).toString()
         }
         initView(context)
@@ -75,9 +80,9 @@ class PersonalCenterView @JvmOverloads constructor(
         tv_title?.visibility = if (showTitle) View.VISIBLE else View.GONE
         rl_personal_layoyt?.visibility = if (showTitle) View.GONE else View.VISIBLE
         tv_title?.text = title
-        tv_noun_login_pending?.text = LanguageUtil.getString(context,"noun_login_pending")
+        tv_noun_login_pending?.text = LanguageUtil.getString(context, "noun_login_pending")
         tv_title_for_top?.text = title
-        tv_bar_title?.text = barTitle?:""
+        tv_bar_title?.text = barTitle ?: ""
         right_icon?.setImageResource(rightIcon)
         iv_back?.setOnClickListener {
             if (finishListener != null) {
@@ -117,9 +122,13 @@ class PersonalCenterView @JvmOverloads constructor(
 
         }
         tv_name?.setOnClickListener {
-            if(tv_name.text.toString().isNotEmpty()){
-                val clipboard = getContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("simple text", tv_name.text.toString().replace("UID:",""))
+            if (tv_name.text.toString().isNotEmpty()) {
+                val clipboard =
+                    getContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText(
+                    "simple text",
+                    tv_name.text.toString().replace("UID:", "")
+                )
                 clipboard.setPrimaryClip(clip)
                 ToastUtils.showToast("复制成功")
             }
@@ -129,14 +138,15 @@ class PersonalCenterView @JvmOverloads constructor(
         tv_phone?.setOnClickListener { if (listener != null) listener?.onclickName() }
         tv_right_title?.setOnClickListener { if (listener != null) listener?.onclickRightIcon() }
         ll_certification?.setOnClickListener {
-            if (!Utils.isFastClick()){
+            if (!Utils.isFastClick()) {
                 if (listener != null) listener?.onRealNameCertificat()
             }
         }
         ll_certificationing?.setOnClickListener {
-            if (!Utils.isFastClick()){
-                if (listener != null) listener?.onRealNameCertificat() }
+            if (!Utils.isFastClick()) {
+                if (listener != null) listener?.onRealNameCertificat()
             }
+        }
 
     }
 
@@ -241,6 +251,14 @@ class PersonalCenterView @JvmOverloads constructor(
                 ll_certification?.visibility = View.GONE
                 ll_certificationing?.visibility = View.GONE
             }
+        }
+    }
+
+    public fun setTvTitle(isShow: Boolean) {
+        if (isShow) {
+            tv_title.visibility = View.VISIBLE
+        } else {
+            tv_title.visibility = View.GONE
         }
     }
 

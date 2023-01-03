@@ -123,6 +123,7 @@ class WithdrawActivity : NBaseActivity() {
 
         title_layout?.setContentTitle(LanguageUtil.getString(this, "assets_action_withdraw"))
         title_layout?.setRightTitle(LanguageUtil.getString(this, "withdraw_action_withdrawHistory"))
+        title_layout.setTvTitle(false)
 
         tv_choose_symbol?.text = LanguageUtil.getString(this, "b2c_text_changecoin")
         tv_withdraw_adr_title?.text = LanguageUtil.getString(this, "withdraw_text_address")
@@ -134,7 +135,8 @@ class WithdrawActivity : NBaseActivity() {
         et_amount?.hint = LanguageUtil.getString(this, "withdraw_tip_withdrawMinValueError")
         tv_fee_title?.text = LanguageUtil.getString(this, "withdraw_text_fee")
         tv_instructions_title?.text = LanguageUtil.getString(this, "withdraw_tip_notice")
-        tv_withdraw_text_moneyWithoutFee?.text = LanguageUtil.getString(this, "withdraw_text_moneyWithoutFee")
+        tv_withdraw_text_moneyWithoutFee?.text =
+            LanguageUtil.getString(this, "withdraw_text_moneyWithoutFee")
         cubtn_confirm?.setBottomTextContent(LanguageUtil.getString(this, "common_text_btnConfirm"))
 
         if (null != bean?.has("coinName")) {
@@ -155,7 +157,12 @@ class WithdrawActivity : NBaseActivity() {
             }
 
             override fun onclickRightIcon() {
-                WithDrawRecordActivity.enter2(this@WithdrawActivity, showSymbol, ParamConstant.TRANSFER_WITHDRAW_RECORD, WITHDRAWTYPE)
+                WithDrawRecordActivity.enter2(
+                    this@WithdrawActivity,
+                    showSymbol,
+                    ParamConstant.TRANSFER_WITHDRAW_RECORD,
+                    WITHDRAWTYPE
+                )
             }
 
             override fun onclickName() {
@@ -265,7 +272,8 @@ class WithdrawActivity : NBaseActivity() {
             tv_real_amount?.text = "0" + NCoinManager.getShowMarket(showSymbol)
         } else {
             tv_real_amount?.setTextColor(ColorUtil.getColor(R.color.main_font_color))
-            tv_real_amount?.text = BigDecimalUtils.divForDown(result, coinPrecision).toPlainString() + NCoinManager.getShowMarket(showSymbol)
+            tv_real_amount?.text = BigDecimalUtils.divForDown(result, coinPrecision)
+                .toPlainString() + NCoinManager.getShowMarket(showSymbol)
         }
     }
 
@@ -366,36 +374,57 @@ class WithdrawActivity : NBaseActivity() {
          * 可用余额
          */
         var normalBalance = bean?.optString("normal_balance") ?: ""
-        var normalBalanceN = BigDecimalUtils.divForDown(normalBalance, coinPrecision).toPlainString()
+        var normalBalanceN =
+            BigDecimalUtils.divForDown(normalBalance, coinPrecision).toPlainString()
         var marketName = NCoinManager.getShowMarket(showSymbol)
-        tv_available_balance?.text = LanguageUtil.getString(mActivity, "available_balance") + "$normalBalanceN $marketName"
+        tv_available_balance?.text =
+            LanguageUtil.getString(mActivity, "available_balance") + "$normalBalanceN $marketName"
         et_fee?.filters = arrayOf(DecimalDigitsInputFilter(coinPrecision))
 
         feevalue = jsonObject.optString("defaultFee")
         realAmount(feevalue, et_amount.text.toString())
-        et_fee?.setText(BigDecimalUtils.divForDown(jsonObject.optString("defaultFee"), coinPrecision).toPlainString())
+        et_fee?.setText(
+            BigDecimalUtils.divForDown(
+                jsonObject.optString("defaultFee"),
+                coinPrecision
+            ).toPlainString()
+        )
 
         /**
          * 单次提币最小值
          */
-        tv_amount?.text = LanguageUtil.getString(mActivity, "charge_chargeAlert_contentA") + " " + BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString()
+        tv_amount?.text = LanguageUtil.getString(
+            mActivity,
+            "charge_chargeAlert_contentA"
+        ) + " " + BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString()
 
 
         /**
          * 单次提币限额为
          */
-        tv_amount_day?.text = LanguageUtil.getString(mActivity, "charge_chargeAlert_contentB") + " " + BigDecimalUtils.divForDown(withdrawMan, coinPrecision).toPlainString()
+        tv_amount_day?.text = LanguageUtil.getString(
+            mActivity,
+            "charge_chargeAlert_contentB"
+        ) + " " + BigDecimalUtils.divForDown(withdrawMan, coinPrecision).toPlainString()
 
 
         /**
          * 手续费范围
          */
-        tv_amount_range?.text = LanguageUtil.getString(mActivity, "charge_chargeAlert_contentC") + " " + BigDecimalUtils.divForDown(feeMin, coinPrecision).toPlainString()+"-"+BigDecimalUtils.divForDown(feeMax, coinPrecision).toPlainString()
+        tv_amount_range?.text = LanguageUtil.getString(
+            mActivity,
+            "charge_chargeAlert_contentC"
+        ) + " " + BigDecimalUtils.divForDown(feeMin, coinPrecision)
+            .toPlainString() + "-" + BigDecimalUtils.divForDown(feeMax, coinPrecision)
+            .toPlainString()
 
         /**
          * 设置最小提币数
          */
-        et_amount?.hint = String.format(LanguageUtil.getString(mActivity, "withdraw_tip_withdrawMinValueError"), BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString())
+        et_amount?.hint = String.format(
+            LanguageUtil.getString(mActivity, "withdraw_tip_withdrawMinValueError"),
+            BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString()
+        )
         et_amount?.filters = arrayOf(DecimalDigitsInputFilter(coinPrecision))
         setAdressView(jsonObject, false)
     }
@@ -429,9 +458,13 @@ class WithdrawActivity : NBaseActivity() {
          * 可用余额
          */
         var normalBalance = bean?.optString("normal_balance") ?: ""
-        var normalBalanceN = BigDecimalUtils.divForDown(normalBalance, coinPrecision).toPlainString()
+        var normalBalanceN =
+            BigDecimalUtils.divForDown(normalBalance, coinPrecision).toPlainString()
         var marketName = NCoinManager.getShowMarket(showSymbol)
-        tv_available_balance?.text = LanguageUtil.getString(mActivity, "withdraw_text_available") + "$normalBalanceN $marketName"
+        tv_available_balance?.text = LanguageUtil.getString(
+            mActivity,
+            "withdraw_text_available"
+        ) + "$normalBalanceN $marketName"
 
 
         /**
@@ -467,19 +500,28 @@ class WithdrawActivity : NBaseActivity() {
          * 全部可用余额
          */
         btn_all_amount?.setOnClickListener {
-            et_amount?.setText(BigDecimalUtils.divForDown(bean.optString("normal_balance"), coinPrecision).toPlainString())
+            et_amount?.setText(
+                BigDecimalUtils.divForDown(
+                    bean.optString("normal_balance"),
+                    coinPrecision
+                ).toPlainString()
+            )
 
             /**
              * 实际到账数量
              */
-            var result = BigDecimalUtils.sub(bean.optString("normal_balance"), et_fee.text.toString()).toString()
+            var result =
+                BigDecimalUtils.sub(bean.optString("normal_balance"), et_fee.text.toString())
+                    .toString()
             if (result.toDouble() < 0) {
                 tv_real_amount?.setTextColor(ColorUtil.getColor(R.color.red))
-                tv_real_amount?.text = LanguageUtil.getString(mActivity, "common_tip_balanceNotEnough")
+                tv_real_amount?.text =
+                    LanguageUtil.getString(mActivity, "common_tip_balanceNotEnough")
 
             } else {
                 tv_real_amount?.setTextColor(ColorUtil.getColor(R.color.main_font_color))
-                tv_real_amount?.text = BigDecimalUtils.divForDown(result, coinPrecision).toPlainString() + NCoinManager.getShowMarket(showSymbol)
+                tv_real_amount?.text = BigDecimalUtils.divForDown(result, coinPrecision)
+                    .toPlainString() + NCoinManager.getShowMarket(showSymbol)
             }
         }
 
@@ -502,9 +544,19 @@ class WithdrawActivity : NBaseActivity() {
         iv_into_withdraw_list?.setOnClickListener {
             var note = cet_withdraw_adr_note?.text.toString()
             if (note.isNotEmpty()) {
-                WithdrawAddressActivity.enter4Result(this, symbol, showSymbol, cet_withdraw_adr?.text.toString() + "_$note")
+                WithdrawAddressActivity.enter4Result(
+                    this,
+                    symbol,
+                    showSymbol,
+                    cet_withdraw_adr?.text.toString() + "_$note"
+                )
             } else {
-                WithdrawAddressActivity.enter4Result(this, symbol, showSymbol, cet_withdraw_adr?.text.toString())
+                WithdrawAddressActivity.enter4Result(
+                    this,
+                    symbol,
+                    showSymbol,
+                    cet_withdraw_adr?.text.toString()
+                )
             }
         }
 
@@ -529,22 +581,42 @@ class WithdrawActivity : NBaseActivity() {
         cubtn_confirm?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 if (UserDataService.getInstance().googleStatus != 1 && UserDataService.getInstance().isOpenMobileCheck != 1) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "unbind_verify_warn"), isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "unbind_verify_warn"),
+                        isSuc = false
+                    )
                     return
                 }
                 fee = et_fee?.text.toString()
                 var minAmount = et_amount?.text.toString().trim()
                 amount = BigDecimalUtils.divForDown(minAmount, coinPrecision).toPlainString()
-                actualaMount = BigDecimalUtils.divForDown(BigDecimalUtils.sub(minAmount, et_fee.text.toString()).toString(), coinPrecision).toPlainString()
+                actualaMount = BigDecimalUtils.divForDown(
+                    BigDecimalUtils.sub(
+                        minAmount,
+                        et_fee.text.toString()
+                    ).toString(), coinPrecision
+                ).toPlainString()
 
                 if (BigDecimalUtils.compareToDraw(minAmount, withdrawMin) == -1) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "subtitle_withdraw_min") + "$withdrawMin", isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "subtitle_withdraw_min") + "$withdrawMin",
+                        isSuc = false
+                    )
                     return
                 }
 
-                if (!TextUtils.isEmpty(bean.optString("normal_balance")) && StringUtil.isNumeric(bean.optString("normal_balance"))) {
+                if (!TextUtils.isEmpty(bean.optString("normal_balance")) && StringUtil.isNumeric(
+                        bean.optString("normal_balance")
+                    )
+                ) {
                     if (minAmount.toDouble() > bean.optDouble("normal_balance")) {
-                        DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "toast_withdraw_too_max"), isSuc = false)
+                        DisplayUtil.showSnackBar(
+                            window?.decorView,
+                            LanguageUtil.getString(mActivity, "toast_withdraw_too_max"),
+                            isSuc = false
+                        )
                         return
                     }
                 }
@@ -552,7 +624,11 @@ class WithdrawActivity : NBaseActivity() {
                     addressTag = cet_withdraw_adr_note?.text.toString()
                 }
                 if (tagBean == 2 && addressTag.isEmpty()) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "toast_no_tag"), isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "toast_no_tag"),
+                        isSuc = false
+                    )
                     return
                 }
 
@@ -560,7 +636,11 @@ class WithdrawActivity : NBaseActivity() {
                  * 手续费
                  */
                 if (TextUtils.isEmpty(fee)) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "toast_no_fee"), isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "toast_no_fee"),
+                        isSuc = false
+                    )
                     return
                 }
 
@@ -568,7 +648,11 @@ class WithdrawActivity : NBaseActivity() {
                     address = cet_withdraw_adr?.text.toString()
                 }
                 if (TextUtils.isEmpty(address)) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "toast_no_withdraw_address"), isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "toast_no_withdraw_address"),
+                        isSuc = false
+                    )
                     return
                 }
 
@@ -578,7 +662,11 @@ class WithdrawActivity : NBaseActivity() {
                 val normalBal = bean.optString("normal_balance")
 
                 if (BigDecimalUtils.sub(normalBal, amount).toDouble() < 0) {
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "common_tip_balanceNotEnough"), isSuc = false)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "common_tip_balanceNotEnough"),
+                        isSuc = false
+                    )
                     return
                 }
                 if (addressTag.isNotEmpty()) {
@@ -600,43 +688,99 @@ class WithdrawActivity : NBaseActivity() {
      * 需求
      */
     fun addWithdrawAddrValidate(symbol: String, address: String) {
-        addDisposable(getMainModel().addWithdrawAddrValidate(symbol, address, object : NDisposableObserver() {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                /**
-                 * 是否信任地址
-                 * true 是
-                 */
-                if (addressStatus) {
-                    NewDialogUtils.showNewDoubleDialog(this@WithdrawActivity, LanguageUtil.getString(this@WithdrawActivity, "withdraw_confirm_tips1"), object : NewDialogUtils.DialogBottomListener {
-                        override fun sendConfirm() {
-                            submitWithDraw()
+        addDisposable(
+            getMainModel().addWithdrawAddrValidate(
+                symbol,
+                address,
+                object : NDisposableObserver() {
+                    override fun onResponseSuccess(jsonObject: JSONObject) {
+                        /**
+                         * 是否信任地址
+                         * true 是
+                         */
+                        if (addressStatus) {
+                            NewDialogUtils.showNewDoubleDialog(
+                                this@WithdrawActivity,
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "withdraw_confirm_tips1"
+                                ),
+                                object : NewDialogUtils.DialogBottomListener {
+                                    override fun sendConfirm() {
+                                        submitWithDraw()
+                                    }
+
+                                },
+                                LanguageUtil.getString(this@WithdrawActivity, "common_text_tip"),
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "common_text_btnCancel"
+                                ),
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "common_text_btnConfirm"
+                                )
+                            )
+                        } else {
+                            NewDialogUtils.showNewDoubleDialog(
+                                this@WithdrawActivity,
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "withdraw_confirm_tips2"
+                                ),
+                                object : NewDialogUtils.DialogBottomListener {
+                                    override fun sendConfirm() {
+                                        /**
+                                         * 非信任地址 二次验证
+                                         */
+                                        untrustDialog = NewDialogUtils.showSecondDialog(
+                                            this@WithdrawActivity,
+                                            AppConstant.CRYPTO_WITHDRAW,
+                                            object : NewDialogUtils.DialogSecondListener {
+                                                override fun returnCode(
+                                                    phone: String?,
+                                                    mail: String?,
+                                                    googleCode: String?,
+                                                    pwd: String?
+                                                ) {
+                                                    submitWithDraw(
+                                                        phone ?: "", googleCode
+                                                            ?: "", mail ?: ""
+                                                    )
+                                                    untrustDialog?.dismiss()
+                                                }
+                                            },
+                                            loginPwdShow = false,
+                                            confirmTitle = LanguageUtil.getString(
+                                                this@WithdrawActivity,
+                                                "common_text_btnConfirm"
+                                            )
+                                        )
+
+                                    }
+                                },
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "login_success_action_alert_title"
+                                ),
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "common_text_btnCancel"
+                                ),
+                                LanguageUtil.getString(
+                                    this@WithdrawActivity,
+                                    "alert_common_i_understand"
+                                )
+                            )
                         }
+                    }
 
-                    }, LanguageUtil.getString(this@WithdrawActivity, "common_text_tip"), LanguageUtil.getString(this@WithdrawActivity, "common_text_btnCancel"), LanguageUtil.getString(this@WithdrawActivity, "common_text_btnConfirm"))
-                } else {
-                    NewDialogUtils.showNewDoubleDialog(this@WithdrawActivity, LanguageUtil.getString(this@WithdrawActivity, "withdraw_confirm_tips2"), object : NewDialogUtils.DialogBottomListener {
-                        override fun sendConfirm() {
-                            /**
-                             * 非信任地址 二次验证
-                             */
-                            untrustDialog = NewDialogUtils.showSecondDialog(this@WithdrawActivity, AppConstant.CRYPTO_WITHDRAW, object : NewDialogUtils.DialogSecondListener {
-                                override fun returnCode(phone: String?, mail: String?, googleCode: String?, pwd: String?) {
-                                    submitWithDraw(phone ?: "", googleCode
-                                            ?: "", mail ?: "")
-                                    untrustDialog?.dismiss()
-                                }
-                            }, loginPwdShow = false, confirmTitle = LanguageUtil.getString(this@WithdrawActivity, "common_text_btnConfirm"))
-
-                        }
-                    }, LanguageUtil.getString(this@WithdrawActivity, "login_success_action_alert_title"), LanguageUtil.getString(this@WithdrawActivity, "common_text_btnCancel"), LanguageUtil.getString(this@WithdrawActivity, "alert_common_i_understand"))
-                }
-            }
-
-            override fun onResponseFailure(code: Int, msg: String?) {
-                super.onResponseFailure(code, msg)
-                NToastUtil.showToast(msg, false)
-            }
-        }))
+                    override fun onResponseFailure(code: Int, msg: String?) {
+                        super.onResponseFailure(code, msg)
+                        NToastUtil.showToast(msg, false)
+                    }
+                })
+        )
     }
 
     /**
@@ -665,7 +809,8 @@ class WithdrawActivity : NBaseActivity() {
                  */
                 WithdrawAddressActivity.REQUEST_CODE_ADDRESS -> {
                     ll_tag_layout?.visibility = View.VISIBLE
-                    val addressbean = data?.getParcelableExtra<AddressBean.Address>(WithdrawAddressActivity.OBJECT_ADDRESS)
+                    val addressbean =
+                        data?.getParcelableExtra<AddressBean.Address>(WithdrawAddressActivity.OBJECT_ADDRESS)
                     if (addressbean == null) {
                         setNewAdr()
                     } else {
@@ -753,11 +898,15 @@ class WithdrawActivity : NBaseActivity() {
             override fun onResponseFailure(code: Int, msg: String?) {
                 super.onResponseFailure(code, msg)
                 LogUtil.e("LogUtils", "getCost error")
-                tv_amount?.text = LanguageUtil.getString(mActivity, "charge_chargeAlert_contentA") + " --"
-                tv_amount_day?.text = LanguageUtil.getString(mActivity, "charge_chargeAlert_contentB") + " --"
+                tv_amount?.text =
+                    LanguageUtil.getString(mActivity, "charge_chargeAlert_contentA") + " --"
+                tv_amount_day?.text =
+                    LanguageUtil.getString(mActivity, "charge_chargeAlert_contentB") + " --"
 
                 et_fee?.setText("--")
-                et_amount?.hint = LanguageUtil.getString(mActivity, "withdraw_tip_withdrawMinValueError").format(" --")
+                et_amount?.hint =
+                    LanguageUtil.getString(mActivity, "withdraw_tip_withdrawMinValueError")
+                        .format(" --")
                 cubtn_confirm.isEnable(false)
             }
         }))
@@ -769,60 +918,88 @@ class WithdrawActivity : NBaseActivity() {
      */
     fun submitWithDraw(first: String = "", second: String = "", emailValidCode: String = "") {
         cubtn_confirm?.isEnable(false)
-        HttpClient.instance.doWithdraw(addressId = if (addressId == 0) "" else addressId.toString(),
-                fee = fee,
-                smsCode = first,
-                googleCode = second,
-                amount = actualaMount,
-                symbol = symbol,
-                address = address ?: "",
-                trustType = if (addressStatus) "1" else "0",
-                emailValidCode = emailValidCode)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : NetObserver<AuthBean>() {
-                    override fun onHandleSuccess(t: AuthBean?) {
+        HttpClient.instance.doWithdraw(
+            addressId = if (addressId == 0) "" else addressId.toString(),
+            fee = fee,
+            smsCode = first,
+            googleCode = second,
+            amount = actualaMount,
+            symbol = symbol,
+            address = address ?: "",
+            trustType = if (addressStatus) "1" else "0",
+            emailValidCode = emailValidCode
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetObserver<AuthBean>() {
+                override fun onHandleSuccess(t: AuthBean?) {
 
-                        cubtn_confirm?.isEnable(true)
-                        if (t == null) {
-                            NToastUtil.showTopToastNet(this@WithdrawActivity, true, getString(R.string.toast_withdraw_suc))
-                            NewDialogUtils.showNewsingleDialog2(this@WithdrawActivity!!, getString(R.string.toast_withdraw_suc), object : NewDialogUtils.DialogBottomListener {
+                    cubtn_confirm?.isEnable(true)
+                    if (t == null) {
+                        NToastUtil.showTopToastNet(
+                            this@WithdrawActivity,
+                            true,
+                            getString(R.string.toast_withdraw_suc)
+                        )
+                        NewDialogUtils.showNewsingleDialog2(
+                            this@WithdrawActivity!!,
+                            getString(R.string.toast_withdraw_suc),
+                            object : NewDialogUtils.DialogBottomListener {
                                 override fun sendConfirm() {
                                     finish()
                                 }
-                            }, cancelTitle = LanguageUtil.getString(this@WithdrawActivity, "alert_common_i_understand"))
-                            return
-                        }
-                        if (t.isOpenUserCheck == true) {
-                            //是否需要实名认证
-                            if (t.isUserCheckFace()) {
-                                //face++
-                                ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, Bundle().apply {
-                                    putString(ParamConstant.head_title, "")
-                                    putString(ParamConstant.web_url, t.faceUrl())
-                                })
-                            } else {
-                                //用户手动提交实名
-                                ArouterUtil.greenChannel(RoutePath.IdentityAuthenticationActivity, Bundle().apply {
+                            },
+                            cancelTitle = LanguageUtil.getString(
+                                this@WithdrawActivity,
+                                "alert_common_i_understand"
+                            )
+                        )
+                        return
+                    }
+                    if (t.isOpenUserCheck == true) {
+                        //是否需要实名认证
+                        if (t.isUserCheckFace()) {
+                            //face++
+                            ArouterUtil.greenChannel(RoutePath.ItemDetailActivity, Bundle().apply {
+                                putString(ParamConstant.head_title, "")
+                                putString(ParamConstant.web_url, t.faceUrl())
+                            })
+                        } else {
+                            //用户手动提交实名
+                            ArouterUtil.greenChannel(
+                                RoutePath.IdentityAuthenticationActivity,
+                                Bundle().apply {
                                     putString(ParamConstant.WITHDRAW_ID, t.withdrawId ?: "")
                                 })
-                            }
-                            finish()
-                        } else {
-                            NToastUtil.showTopToastNet(this@WithdrawActivity, true, getString(R.string.toast_withdraw_suc))
-                            NewDialogUtils.showNewsingleDialog2(this@WithdrawActivity!!, getString(R.string.toast_withdraw_suc), object : NewDialogUtils.DialogBottomListener {
+                        }
+                        finish()
+                    } else {
+                        NToastUtil.showTopToastNet(
+                            this@WithdrawActivity,
+                            true,
+                            getString(R.string.toast_withdraw_suc)
+                        )
+                        NewDialogUtils.showNewsingleDialog2(
+                            this@WithdrawActivity!!,
+                            getString(R.string.toast_withdraw_suc),
+                            object : NewDialogUtils.DialogBottomListener {
                                 override fun sendConfirm() {
                                     finish()
                                 }
-                            }, cancelTitle = LanguageUtil.getString(this@WithdrawActivity, "alert_common_i_understand"))
-                        }
+                            },
+                            cancelTitle = LanguageUtil.getString(
+                                this@WithdrawActivity,
+                                "alert_common_i_understand"
+                            )
+                        )
                     }
+                }
 
-                    override fun onHandleError(code: Int, msg: String?) {
-                        super.onHandleError(code, msg)
-                        cubtn_confirm?.isEnable(true)
-                        NToastUtil.showTopToastNet(this@WithdrawActivity, false, msg)
-                    }
-                })
+                override fun onHandleError(code: Int, msg: String?) {
+                    super.onHandleError(code, msg)
+                    cubtn_confirm?.isEnable(true)
+                    NToastUtil.showTopToastNet(this@WithdrawActivity, false, msg)
+                }
+            })
     }
 }
