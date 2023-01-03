@@ -117,6 +117,8 @@ class WithdrawActivity : NBaseActivity() {
         getData()
         initView()
         initClickListener()
+        var fontFamily = SystemV2Utils.getFontFamily();
+        tv_symbol_name.typeface = fontFamily
     }
 
     override fun initView() {
@@ -378,7 +380,7 @@ class WithdrawActivity : NBaseActivity() {
             BigDecimalUtils.divForDown(normalBalance, coinPrecision).toPlainString()
         var marketName = NCoinManager.getShowMarket(showSymbol)
         tv_available_balance?.text =
-            LanguageUtil.getString(mActivity, "available_balance") + "$normalBalanceN $marketName"
+            LanguageUtil.getString(mActivity, "available_balance") + ":$normalBalanceN $marketName"
         et_fee?.filters = arrayOf(DecimalDigitsInputFilter(coinPrecision))
 
         feevalue = jsonObject.optString("defaultFee")
@@ -396,7 +398,10 @@ class WithdrawActivity : NBaseActivity() {
         tv_amount?.text = LanguageUtil.getString(
             mActivity,
             "charge_chargeAlert_contentA"
-        ) + " " + BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString()
+        ) + ":"
+
+        tv_amount2?.text =
+            " " + BigDecimalUtils.divForDown(withdrawMin, coinPrecision).toPlainString()
 
 
         /**
@@ -405,7 +410,10 @@ class WithdrawActivity : NBaseActivity() {
         tv_amount_day?.text = LanguageUtil.getString(
             mActivity,
             "charge_chargeAlert_contentB"
-        ) + " " + BigDecimalUtils.divForDown(withdrawMan, coinPrecision).toPlainString()
+        ) + ":"
+
+        tv_amount_day2?.text =
+            BigDecimalUtils.divForDown(withdrawMan, coinPrecision).toPlainString()
 
 
         /**
@@ -414,7 +422,9 @@ class WithdrawActivity : NBaseActivity() {
         tv_amount_range?.text = LanguageUtil.getString(
             mActivity,
             "charge_chargeAlert_contentC"
-        ) + " " + BigDecimalUtils.divForDown(feeMin, coinPrecision)
+        ) + ":"
+
+        tv_amount_range2?.text = BigDecimalUtils.divForDown(feeMin, coinPrecision)
             .toPlainString() + "-" + BigDecimalUtils.divForDown(feeMax, coinPrecision)
             .toPlainString()
 
@@ -464,7 +474,7 @@ class WithdrawActivity : NBaseActivity() {
         tv_available_balance?.text = LanguageUtil.getString(
             mActivity,
             "withdraw_text_available"
-        ) + "$normalBalanceN $marketName"
+        ) + ":$normalBalanceN $marketName"
 
 
         /**
