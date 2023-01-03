@@ -1368,6 +1368,7 @@ Mark Price: This is the current mark price.</string>
     <string name="login_text_gesture">Gesture login</string>
     <string name="login_text_phoneOrMail">Mobile phone number or email</string>
     <string name="login_text_pwd">Password</string>
+    <string name="login_text_title">Login</string>
     <string name="login_tip_authAppCancel">Authentication has been cancelled.</string>
     <string name="login_tip_authAppStillending">App has not been started completely, call failed.</string>
     <string name="login_tip_authCompleteFail">Identity authentication was not successful, and repeated use failed.</string>

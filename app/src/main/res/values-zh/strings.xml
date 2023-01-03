@@ -1474,6 +1474,7 @@
     <string name="login_text_gesture">手势登录</string>
     <string name="login_text_phoneOrMail">手机号或邮箱</string>
     <string name="login_text_pwd">密码</string>
+    <string name="login_text_title">用户登录</string>
     <string name="login_tip_authAppCancel">认证被取消应用</string>
     <string name="login_tip_authAppStillending">app未完全启动，调用失败</string>
     <string name="login_tip_authCompleteFail">身份验证未成功，多次使用失败</string>
