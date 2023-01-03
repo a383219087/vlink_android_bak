@@ -762,6 +762,13 @@ class LikesHeYueFragment : NBaseFragment(),CpWsContractAgentManager.WsResultCall
             CpMessageEvent.sl_contract_sidebar_market_event -> {
                 showWsData(event.msg_content as JSONObject)
             }
+            MessageEvent.refresh_MarketFragment  -> {
+                if (isLogined && isOptionalSymbolServerOpen) {
+                    getOptionalSymbol()
+                } else {
+                    showData()
+                }
+            }
         }
     }
 

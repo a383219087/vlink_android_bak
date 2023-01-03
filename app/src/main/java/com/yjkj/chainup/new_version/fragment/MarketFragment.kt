@@ -12,6 +12,7 @@ import com.yjkj.chainup.db.constant.RoutePath
 import com.yjkj.chainup.db.service.LikeDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
+import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
 import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil
 import com.yjkj.chainup.util.LanguageUtil
@@ -109,6 +110,8 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
     }
 
+
+
     val fragments = arrayListOf<Fragment>()
     private fun showVP() {
         val isContract = PublicInfoDataService.getInstance().contractOpen(null)
@@ -175,13 +178,15 @@ class MarketFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
 
     override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
+         super.fragmentVisibile(isVisibleToUser)
+
+
     }
 
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        LogUtil.e(TAG, "onVisibleChanged==NewVersionMarketFragment ${isVisible} ")
+        EventBusUtil.post(MessageEvent(MessageEvent.refresh_MarketFragment))
         sendWS(isVisible)
     }
 

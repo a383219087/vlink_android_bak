@@ -18,7 +18,6 @@ import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.arouter.ArouterUtil
 import com.yjkj.chainup.extra_service.eventbus.EventBusUtil
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent
-import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.manager.SymbolWsData
 import com.yjkj.chainup.net.NDisposableObserver
@@ -26,15 +25,14 @@ import com.yjkj.chainup.new_version.adapter.MarketDetailAdapter
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.home.callback.MarketTabDiffCallback
 import com.yjkj.chainup.new_version.view.EmptyMarketForAdapterView
-import com.yjkj.chainup.util.ContextUtil
-import com.yjkj.chainup.util.LogUtil
-import com.yjkj.chainup.util.NToastUtil
-import com.yjkj.chainup.util.Utils
-import com.yjkj.chainup.util.getSymbolChannel
+import com.yjkj.chainup.ui.NewMainActivity
+import com.yjkj.chainup.util.*
+import com.yjkj.chainup.ws.WsAgentManager
 import kotlinx.android.synthetic.main.fragment_likes.*
 import kotlinx.android.synthetic.main.fragment_likes.rv_market_detail
 import kotlinx.android.synthetic.main.fragment_likes.swipe_refresh
 import kotlinx.android.synthetic.main.fragment_market_detail.*
+import kotlinx.android.synthetic.main.fragment_market_type.*
 import kotlinx.android.synthetic.main.include_market_sort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.imageResource
@@ -482,9 +480,7 @@ class LikesFragment : NBaseFragment() {
         pageEventSymbol()
     }
 
-    override fun fragmentVisibile(isVisibleToUser: Boolean) {
-        super.fragmentVisibile(isVisibleToUser)
-    }
+
 
     var isLogined = false
     var isOptionalSymbolServerOpen = false
@@ -512,6 +508,16 @@ class LikesFragment : NBaseFragment() {
         }
     }
 
+    override fun onMessageEvent(event: MessageEvent) {
+        super.onMessageEvent(event)
+        if (MessageEvent.refresh_MarketFragment == event.msg_type) {
+            if (isLogined && isOptionalSymbolServerOpen) {
+                getOptionalSymbol()
+            } else {
+                showData()
+            }
+        }
+    }
 
 
     /**

@@ -121,6 +121,7 @@ public class MessageEvent {
     public static final int DocumentaryActivity_index = 94;//关闭跟单要
     public static final int NowDocumentViewModel_close = 95;//平仓
     public static final int refresh_MyInviteCodesActivity = 96;//刷新邀请码
+    public static final int refresh_MarketFragment = 97;//刷新行情页面
     private MessageEvent() {
     }
 
