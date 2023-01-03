@@ -3452,6 +3452,7 @@ In this mode, Margin balance can be increased or decreased.</string>
     <string name="cp_order_text2">Open Orders</string>
     <string name="cp_order_text3">Order</string>
     <string name="cp_order_text4">All</string>
+    <string name="cp_order_text40103">Open K Line</string>
     <string name="cp_order_text5">Display All</string>
     <string name="cp_order_text6">Open Long</string>
     <string name="cp_order_text6111">Open Long</string>
