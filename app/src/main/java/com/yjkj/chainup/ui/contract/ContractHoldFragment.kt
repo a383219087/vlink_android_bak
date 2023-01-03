@@ -48,7 +48,6 @@ class ContractHoldFragment : CpNBaseFragment() {
     }
 
 
-    var mPositionObj: JSONObject? = null
     override fun initView() {
         adapter = CpHoldContractNewAdapter(mList)
         adapter!!.setMySelf(false)

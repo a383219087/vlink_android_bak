@@ -148,7 +148,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         val volumePercentStr = DecimalFormat("0%").format(volumePercentBig)
         helper.setText(R.id.tv_side, typeStr)
         helper.setText(R.id.tv_coin_name, symbolName)
-        helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm:ss"))
+        helper.setText(R.id.tv_date, CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd HH:mm"))
         helper.setText(R.id.tv_order_type, orderType)
         helper.setText(
           R.id.tv_price,
@@ -208,7 +208,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         helper.setText(R.id.tv_coin_name, symbolName)
         helper.setText(
           R.id.tv_date,
-          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM-dd  HH:mm")
+          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM-dd HH:mm")
         )
 //        helper.setText(R.id.tv_order_type, orderTypeStr)
         helper.setText(R.id.tv_trigger_price, item.triggerPrice)
@@ -239,7 +239,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
 
         helper.setText(
           R.id.tv_expiration_date,
-          CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd  HH:mm")
+          CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd HH:mm")
         )
         helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
 
@@ -298,7 +298,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         helper.setText(R.id.tv_coin_name, symbolName)
         helper.setText(
           R.id.tv_date,
-          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd HH:mm:ss")
+          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd HH:mm")
         )
         helper.setText(R.id.tv_order_type, orderType)
         helper.setText(
@@ -379,7 +379,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         helper.setText(R.id.tv_coin_name, symbolName)
         helper.setText(
           R.id.tv_date,
-          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm:ss")
+          CpTimeFormatUtils.timeStampToDate(item.ctime.toLong(), "MM/dd  HH:mm")
         )
         helper.setText(R.id.tv_status, orderStatus)
         helper.setText(R.id.tv_trigger_price, item.triggerPrice)
@@ -401,7 +401,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         )
         helper.setText(
           R.id.tv_expiration_date,
-          CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM-dd HH:mm")
+          CpTimeFormatUtils.timeStampToDate(item.expireTime.toLong(), "MM/dd HH:mm")
         )
 //                helper.setVisible(R.id.tv_only_reduce_position, openStr.equals("CLOSE"))
         helper.setText(R.id.tv_only_reduce_position, orderTypeNewStr)

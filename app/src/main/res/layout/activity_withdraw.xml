@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/bg_card_color">
 
-
     <com.yjkj.chainup.new_version.view.PersonalCenterView
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_card_color"
         android:orientation="horizontal"
-        app:personalTitle="@string/assets_action_withdraw"
+        app:personalTitle=""
+        app:bar_title_value="@string/assets_action_withdraw"
         app:rightTitle="@string/withdraw_action_withdrawHistory"
+        app:showTitle="true"
         app:showRightTv="true" />
 
 
