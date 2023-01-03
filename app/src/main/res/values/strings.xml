@@ -3673,6 +3673,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="hoem_recharge">Recharge</string>
     <string name="withdrawal_transfer">Withdraw</string>
     <string name="contract">Contract</string>
+    <string name="contract_type">Perpetual</string>
     <string name="customer_service">Service</string>
     <!--ybc start-->
     <string name="u_benwei">USDT-M</string>
