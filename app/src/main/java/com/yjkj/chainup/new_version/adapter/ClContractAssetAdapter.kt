@@ -57,20 +57,20 @@ class ClContractAssetAdapter(context: Context, data: ArrayList<JSONObject>) : Ba
       //            未实现盈亏
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_margin_balance_value),  BigDecimalUtils.divForDown(
-                    it.optString("realizedAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                    it.optString("openRealizedAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
                 ?: "")).toPlainString())
       //            钱包余额
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_available_value),  BigDecimalUtils.divForDown(
-                    it.optString("totalAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                    it.optString("canUseAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
                 ?: "")).toPlainString())
       //            保证金余额
-            val  isolateMargin =  it.optString("isolateMargin").toString().toDouble()
-            val  totalMargin =  it.optString("totalMargin").toString().toDouble()
-            val  lockAmount =  it.optString("lockAmount").toString().toDouble()
+            val  sumHoldAmount =  it.optString("sumHoldAmount").toString().toDouble()
+//            val  totalMargin =  it.optString("totalMargin").toString().toDouble()
+//            val  lockAmount =  it.optString("lockAmount").toString().toDouble()
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_normal_balance1),  BigDecimalUtils.divForDown(
-                    (isolateMargin+totalMargin+lockAmount).toString(), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                    (sumHoldAmount).toString(), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
                 ?: "")).toPlainString())
 
 
