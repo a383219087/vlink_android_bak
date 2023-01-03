@@ -15,8 +15,11 @@ import com.yjkj.chainup.util.DateUtils
  * @Date：2019-05-15-16:30
  * @Description: 资金流水(4.0)
  */
-class CashFlow4Adapter(var status: String) :
-        BaseQuickAdapter<CashFlowBean.Finance, BaseViewHolder>(R.layout.item_cash_flow4), LoadMoreModule {
+open class CashFlow4Adapter(var status: String,var layoutRes:Int) :
+        BaseQuickAdapter<CashFlowBean.Finance, BaseViewHolder>(layoutRes), LoadMoreModule {
+
+    constructor(status: String):this(status,R.layout.item_cash_flow4)
+
     override fun convert(helper: BaseViewHolder, item: CashFlowBean.Finance) {
 
         helper?.setText(R.id.tv_date_title, LanguageUtil.getString(context, "charge_text_date"))

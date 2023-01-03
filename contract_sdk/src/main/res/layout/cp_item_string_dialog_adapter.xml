@@ -12,12 +12,15 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_20"
         android:gravity="center"
-        android:textColor="@color/text_color"
+        android:fontFamily="@font/dinpro_medium"
+        android:textColor="@color/colorA2A9BD"
         android:textSize="@dimen/sp_16" />
 
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
         android:layout_height="@dimen/dp_half"
         android:background="@color/new_line" />
 </LinearLayout>

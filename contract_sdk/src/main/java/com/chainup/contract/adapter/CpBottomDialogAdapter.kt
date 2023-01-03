@@ -16,7 +16,7 @@ open class CpBottomDialogAdapter(data: ArrayList<CpTabInfo>, var position: Int) 
         if (position == item?.index) {
             helper?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.main_blue))
         } else {
-            helper?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.text_color))
+            helper?.setTextColor(R.id.tv_content, ContextCompat.getColor(context, R.color.colorA2A9BD))
         }
     }
 
