@@ -88,8 +88,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_8"
-                android:drawablePadding="@dimen/dp_4"
-                android:drawableRight="@drawable/cp_contract_arrow_right"
+                android:drawableRight="@drawable/blue_right_arrow_icon"
+                android:fontFamily="@font/dinpro_medium"
                 android:text="已完成"
                 android:textColor="@color/main_blue"
                 android:textSize="12sp" />

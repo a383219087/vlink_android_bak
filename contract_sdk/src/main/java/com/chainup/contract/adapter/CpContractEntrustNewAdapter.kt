@@ -11,6 +11,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.chainup.contract.utils.CpColorUtil
 import com.coorchice.library.SuperTextView
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -135,10 +136,10 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         //            //普通
         when(sideStr) {
           "BUY" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(true)
           }
           "SELL" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(false)
           }
           else -> {
           }
@@ -189,10 +190,10 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         //     //限价单，市价单，IOC，FOK，Post Only
         when(sideStr) {
           "BUY" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(true)
           }
           "SELL" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(false)
           }
           else -> {
           }
@@ -246,10 +247,10 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
       3 -> {
         when(sideStr) {
           "BUY" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(true)
           }
           "SELL" -> {
-            helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+            helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(false)
           }
           else -> {
           }

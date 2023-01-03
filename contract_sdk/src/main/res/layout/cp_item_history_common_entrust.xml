@@ -75,12 +75,12 @@
 
             <TextView
                 android:id="@+id/tv_status_go"
-                android:layout_width="@dimen/dp_64"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_20"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_8"
-                android:drawableRight="@drawable/cp_contract_arrow_right"
+                android:drawableRight="@drawable/blue_right_arrow_icon"
                 android:fontFamily="@font/dinpro_medium"
                 android:gravity="center"
                 android:text="已完成"
