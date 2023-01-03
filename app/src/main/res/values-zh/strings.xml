@@ -1189,7 +1189,7 @@
     <string name="charge_text_date">日期</string>
     <string name="charge_text_state">状态</string>
     <string name="charge_text_tagAddress">标签(Memo)</string>
-    <string name="charge_text_volume">买入量</string>
+    <string name="charge_text_volume">提单数量</string>
     <string name="charge_text_volume1">数量</string>
     <string name="charge_text_volume2">卖出量</string>
     <string name="charge_tip_addressWarning">请勿向上述地址充币任何非本币种资产，否则资产不可找回</string>
