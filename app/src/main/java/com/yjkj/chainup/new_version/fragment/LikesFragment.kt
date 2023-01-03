@@ -501,6 +501,19 @@ class LikesFragment : NBaseFragment() {
         }
     }
 
+    override fun onVisibleChanged(isVisible: Boolean) {
+        super.onVisibleChanged(isVisible)
+        if (isVisible){
+            if (isLogined && isOptionalSymbolServerOpen) {
+                getOptionalSymbol()
+            } else {
+                showData()
+            }
+        }
+    }
+
+
+
     /**
      * 添加或者删除自选数据
      * @param operationType 标识 0(批量添加)/1(单个添加)/2(单个删除)
