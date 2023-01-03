@@ -262,15 +262,17 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             loopStart()
         }
         iv_pull_up.setOnClickListener {
-            if (v_kline.visibility == View.VISIBLE) {
-                v_kline.visibility = View.GONE
-                rl_kline_ctrl.visibility = View.GONE
-                iv_pull_up.setImageResource(R.mipmap.ic_pull_down)
-            } else {
-                v_kline.visibility = View.VISIBLE
-                rl_kline_ctrl.visibility = View.VISIBLE
-                iv_pull_up.setImageResource(R.mipmap.ic_pull_up)
-            }
+            v_kline.visibility = View.GONE
+            rl_kline_ctrl.visibility = View.GONE
+            iv_pull_up.visibility = View.GONE
+            iv_pull_up1.visibility = View.VISIBLE
+
+        }
+        iv_pull_up1.setOnClickListener {
+            v_kline.visibility = View.VISIBLE
+            rl_kline_ctrl.visibility = View.VISIBLE
+            iv_pull_up.visibility = View.VISIBLE
+            iv_pull_up1.visibility = View.GONE
         }
         setTextConetnt()
         v_kline.hideVolDrawView()
@@ -415,10 +417,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         loopStop()
         subscribe =
             Observable.interval(0L, CpCommonConstant.capitalRateLoopTime, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-                    getContractUserConfig()
-                    getMarkertInfo()
-                    getMarkertInfo2()
-                }
+                getContractUserConfig()
+                getMarkertInfo()
+                getMarkertInfo2()
+            }
     }
 
     private fun getContractUserConfig() {
@@ -655,7 +657,6 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     }
 
 
-
     override fun onWsMessage(json: String) {
         val jsonObj = JSONObject(json)
         val channel = jsonObj.optString("channel")
@@ -678,7 +679,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     override fun onMessageEvent(event: CpMessageEvent) {
-        if (event.msg_type == CpMessageEvent.market_switch_curTime&&isShowPage) {
+        if (event.msg_type == CpMessageEvent.market_switch_curTime && isShowPage) {
             curTime = event.msg_content as String
             switchKLineScale(curTime ?: "15min") //            tv_scale?.text = curTime ?: "15min"
             calibrationAdapter?.notifyDataSetChanged()
@@ -727,7 +728,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
             }, 300)
         }
 
-        if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type&&isShowPage) {
+        if (event.msg_type == CpMessageEvent.sl_contract_left_coin_type && isShowPage) {
             val ticker = event.msg_content as JSONObject
             showTabInfo(ticker)
             contractId = ticker.getInt("id")
@@ -790,7 +791,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 depthLevel = event.msg_content as String
                 var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
                 CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
-                Log.d("我是发送消息2",para.toString())
+                Log.d("我是发送消息2", para.toString())
             }
             CpMessageEvent.sl_contract_receive_coupon -> { //领取模拟合约体验金
                 receiveCoupon()
@@ -834,10 +835,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         currentSymbol = (obj.getString("contractType") + "_" + obj.getString("symbol").replace("-", "")).toLowerCase()
         depthLevel = "0"
         tv_contract.text = CpClLogicContractSetting.getContractShowNameById(activity, mContractId)
-        v_horizontal_depth.setContractJsonInfo(obj)
-//        var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
-//        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
-//        Log.d("我是发送消息1",para.toString())
+        v_horizontal_depth.setContractJsonInfo(obj) //        var para: HashMap<String, Any> = hashMapOf("symbol" to currentSymbol, "step" to depthLevel)
+        //        CpWsContractAgentManager.instance.sendMessage(para, this@CpContractNewTradeFragment)
+        //        Log.d("我是发送消息1",para.toString())
 
         //通知子页面更新合约id
         val event = CpMessageEvent(CpMessageEvent.sl_contract_calc_switch_contract_id)
@@ -861,7 +861,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (hidden) {
             isShowPage = false
             loopStop()
-        }else{
+        } else {
             isShowPage = true
         }
     }
@@ -916,7 +916,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     override fun onResume() {
         super.onResume()
-        isShowPage=true
+        isShowPage = true
         initResumeData()
     }
 
@@ -924,7 +924,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
     override fun onPause() {
         super.onPause()
         loopStop()
-        isShowPage=false
+        isShowPage = false
         CpWsContractAgentManager.instance.removeWsCallback(this)
         CpWsContractAgentManager.instance.unbind(this, true)
     }
@@ -952,7 +952,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (isNotEmpty(symbol)) { // sub ticker
             val scale: String = if (curTime == "line") "1min" else curTime ?: "15min"
             CpWsContractAgentManager.instance.sendMessage(hashMapOf("symbol" to symbol, "line" to scale), this)
-            Log.d("我是发送消息2",hashMapOf("symbol" to symbol, "line" to scale).toString())
+            Log.d("我是发送消息2", hashMapOf("symbol" to symbol, "line" to scale).toString())
         }
     }
 
@@ -1657,7 +1657,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         super.onDestroy()
         CpWsContractAgentManager.instance.removeWsCallback(this)
         loopStop()
-        isShowPage=false
+        isShowPage = false
     }
 
     ////ybc start
@@ -1666,6 +1666,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
      */
     var serverSelfSymbols = ArrayList<String>()
     var sync_status = ""
+
     /**
      * 添加收藏
      */
@@ -1678,8 +1679,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         /**
          * 根据是否存在于"自选"列表中
          */
-        EventBus.getDefault().post(CpCollectionEvent(CpCollectionEvent.TYPE_REQUEST))
-        /*if (isLogined && isOptionalSymbolServerOpen) {
+        EventBus.getDefault().post(CpCollectionEvent(CpCollectionEvent.TYPE_REQUEST))/*if (isLogined && isOptionalSymbolServerOpen) {
             getOptionalSymbol()
         } else {
             var hasCollect = LikeDataService.getInstance().hasCollect(symbol)
@@ -1687,21 +1687,20 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         }*/
 
         ib_collect?.setOnClickListener {
-            if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
+            if (serverSelfSymbols.contains("e-" + baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
                 operationType = 2
             } else {
                 operationType = 1
-            }
-            //addOrDeleteSymbol(operationType, symbol)
+            } //addOrDeleteSymbol(operationType, symbol)
             EventBus.getDefault()
-                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase()))
+                .post(CpCollectionEvent(CpCollectionEvent.TYPE_ADD_DEL, operationType, "e-" + baseSymbol.lowercase() + "-" + quoteSymbol.lowercase()))
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCpCollectionEvent2(event: CpCollectionEvent2) {
         Log.e("yubch", "bbb:" + event.type)
-        if(!isShowPage) {
+        if (!isShowPage) {
             return
         }
         if (getUserSelfDataReqType == event.type) {
@@ -1709,10 +1708,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         } else if (addCancelUserSelfDataReqType == event.type) {
             var hasCollect = false
             if (operationType == 2) {
-                serverSelfSymbols.remove("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
+                serverSelfSymbols.remove("e-" + baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             } else {
                 hasCollect = true
-                serverSelfSymbols.add("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
+                serverSelfSymbols.add("e-" + baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())
             }
             showImgCollect(hasCollect, true, true)
         }
@@ -1725,21 +1724,13 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         if (hasCollect) {
             ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
             if (isShowToast) {
-                CpNToastUtil.showTopToastNet(
-                    mActivity,
-                    true,
-                    CpLanguageUtil.getString(activity, "kline_tip_addCollectionSuccess")
-                )
+                CpNToastUtil.showTopToastNet(mActivity, true, CpLanguageUtil.getString(activity, "kline_tip_addCollectionSuccess"))
             }
 
         } else {
             ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
             if (isShowToast) {
-                CpNToastUtil.showTopToastNet(
-                    mActivity,
-                    true,
-                    CpLanguageUtil.getString(activity, "kline_tip_removeCollectionSuccess")
-                )
+                CpNToastUtil.showTopToastNet(mActivity, true, CpLanguageUtil.getString(activity, "kline_tip_removeCollectionSuccess"))
             }
 
         }
@@ -1747,8 +1738,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
 
     private fun showServerSelfSymbols(data: JSONObject?) {
 
-        if (null == data || data.length() <= 0)
-            return
+        if (null == data || data.length() <= 0) return
 
         var array = data.optJSONArray("symbols")
         sync_status = data.optString("sync_status")
@@ -1759,7 +1749,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
         for (i in 0 until array.length()) {
             serverSelfSymbols.add(array.optString(i))
         }
-        if (serverSelfSymbols.contains("e-" +baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
+        if (serverSelfSymbols.contains("e-" + baseSymbol.lowercase() + "-" + quoteSymbol.lowercase())) {
             ib_collect?.setImageResource(R.drawable.quotes_optional_selected2)
         } else {
             ib_collect?.setImageResource(R.drawable.quotes_optional_default2)
