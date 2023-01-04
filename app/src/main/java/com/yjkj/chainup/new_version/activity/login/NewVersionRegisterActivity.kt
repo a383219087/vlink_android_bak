@@ -35,8 +35,12 @@ import com.yjkj.chainup.new_version.activity.SelectAreaActivity
 import com.yjkj.chainup.new_version.dialog.DialogUtil
 import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
+import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.*
+import kotlinx.android.synthetic.main.activity_new_version_login.*
 import kotlinx.android.synthetic.main.activity_new_version_register.*
+import kotlinx.android.synthetic.main.activity_new_version_register.pws_view
+import kotlinx.android.synthetic.main.activity_new_version_register.tv_cancel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
@@ -59,6 +63,7 @@ class NewVersionRegisterActivity : NBaseActivity() {
 
     var isEmailRegister = false
     var accountContent = ""
+    var pwdTextContent = ""
     var country = "86"
     private lateinit var mTitleList: ArrayList<TitleBean>
     private lateinit var mBuffAdapter: BuffAdapter
@@ -139,13 +144,11 @@ class NewVersionRegisterActivity : NBaseActivity() {
         if (isEmailRegister) {
             pws_view?.visibility = View.GONE
             cet_view?.hint = LanguageUtil.getString(this, "safety_tip_inputMail")
-            tv_mail_or_phone_register?.text = LanguageUtil.getString(this, "register_action_phone")
             cet_view?.inputType = InputType.TYPE_CLASS_TEXT
             cet_view?.setMaxLeng(110)
         } else {
             pws_view?.visibility = View.VISIBLE
             cet_view?.hint = LanguageUtil.getString(this, "userinfo_tip_inputPhone")
-            tv_mail_or_phone_register?.text = LanguageUtil.getString(this, "register_action_mail")
             cet_view?.inputType = InputType.TYPE_CLASS_NUMBER
             cet_view?.setMaxLeng(11)
         }
@@ -154,12 +157,6 @@ class NewVersionRegisterActivity : NBaseActivity() {
     }
 
     fun setTextContent() {
-//        tv_title?.text = LanguageUtil.getString(this, "register_action_phone")
-//        tv_cancel?.text = LanguageUtil.getString(this, "common_text_btnCancel")
-        tv_mail_or_phone_register?.text = LanguageUtil.getString(this, "register_action_mail")
-        tv_existing_account?.text = LanguageUtil.getString(this, "register_tip_exsitUser")
-        tv_go_login?.text = LanguageUtil.getString(this, "login_action_login")
-//        pws_view?.setEditText(LanguageUtil.getString(this, "default_area"))
         cet_view?.hint = LanguageUtil.getString(this, "userinfo_tip_inputPhone")
         cub_view?.setBottomTextContent(LanguageUtil.getString(this, "common_action_next"))
     }
@@ -179,11 +176,7 @@ class NewVersionRegisterActivity : NBaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 accountContent = s.toString()
-                if (accountContent.isNotEmpty() && (accountContent.length >= 5)) {
-                    cub_view?.isEnable(true)
-                } else {
-                    cub_view?.isEnable(false)
-                }
+                flushNextView()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -191,40 +184,50 @@ class NewVersionRegisterActivity : NBaseActivity() {
             }
 
         })
+
+        pws_pwd?.setListener(object : PwdSettingView.OnTextListener {
+            override fun onclickImage() {
+
+            }
+
+            override fun returnItem(item: Int) {
+
+            }
+
+            override fun showText(text: String): String {
+                pwdTextContent = text
+                flushNextView()
+                return text
+            }
+        })
+
         pws_view.setOnClickListener {
             startActivity(Intent(this@NewVersionRegisterActivity, SelectAreaActivity::class.java))
         }
 
-        /**
-         * 去登陆
-         */
-        tv_go_login?.setOnClickListener {
-            ArouterUtil.navigation("/login/NewVersionLoginActivity", null)
-            finish()
-        }
-        tv_existing_account?.setOnClickListener {
-            ArouterUtil.navigation("/login/NewVersionLoginActivity", null)
-            finish()
-        }
-        tv_title_phone.setOnClickListener {
-            isEmailRegister = !isEmailRegister
-            pws_view?.visibility = View.VISIBLE
-            cet_view?.hint = LanguageUtil.getString(mActivity, "userinfo_tip_inputPhone")
-            cet_view?.inputType = InputType.TYPE_CLASS_NUMBER
-            tv_title_email.setTextAppearance(R.style.RegisterTitleNoSelect)
-            tv_title_phone.setTextAppearance(R.style.RegisterTitleSelect)
-            cet_view?.setMaxLeng(11)
-        }
-        tv_title_email.setOnClickListener {
-            isEmailRegister = !isEmailRegister
-            pws_view?.visibility = View.GONE
-            cet_view?.hint = LanguageUtil.getString(mActivity, "safety_tip_inputMail")
-            cet_view?.inputType = InputType.TYPE_CLASS_TEXT
-            tv_title_email.setTextAppearance(R.style.RegisterTitleSelect)
-            tv_title_phone.setTextAppearance(R.style.RegisterTitleNoSelect)
-            cet_view?.setMaxLeng(110)
+        tv_email.setOnClickListener{
+            tv_email.setBackgroundResource(R.mipmap.bg_register_email_selected)
+            tv_email.setTextColor(resources.getColor(R.color.white))
+            tv_tel.setBackgroundResource(R.mipmap.bg_register_tel_normal)
+            tv_tel.setTextColor(resources.getColor(R.color.normal_text_color))
+            tv_title_email.visibility = View.VISIBLE
+            et_email.visibility = View.VISIBLE
+            tv_title_tel.visibility = View.GONE
+            cet_view.visibility = View.GONE
+            flushNextView()
         }
 
+        tv_tel.setOnClickListener {
+            tv_email.setBackgroundResource(R.mipmap.bg_register_email_normal)
+            tv_email.setTextColor(resources.getColor(R.color.normal_text_color))
+            tv_tel.setBackgroundResource(R.mipmap.bg_register_tel_selected)
+            tv_tel.setTextColor(resources.getColor(R.color.white))
+            tv_title_email.visibility = View.GONE
+            et_email.visibility = View.GONE
+            tv_title_tel.visibility = View.VISIBLE
+            cet_view.visibility = View.VISIBLE
+            flushNextView()
+        }
 
         /**
          * 点击下一步
@@ -249,7 +252,26 @@ class NewVersionRegisterActivity : NBaseActivity() {
             }
         }
 
+        layout_radio.setOnClickListener{
+            (!iv_radio.isSelected).also { iv_radio.isSelected = it }
+            flushNextView()
+        }
+    }
 
+    private fun flushNextView() {
+        if(et_email.visibility == View.VISIBLE) {
+            if(et_email.text.isNotEmpty() && pwdTextContent.isNotEmpty() && iv_radio.isSelected) {
+                cub_view?.isEnable(true)
+            } else {
+                cub_view?.isEnable(false)
+            }
+        } else if(cet_view.visibility == View.VISIBLE) {
+            if (accountContent.isNotEmpty() && (accountContent.length >= 5) && pwdTextContent.isNotEmpty()&& iv_radio.isSelected) {
+                cub_view?.isEnable(true)
+            } else {
+                cub_view?.isEnable(false)
+            }
+        }
     }
 
     override fun initView() {
