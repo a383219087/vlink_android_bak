@@ -584,6 +584,10 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         val maxMarketVolume = coinResultVo.optString("maxMarketVolume") //市价单最大下单数量
         val maxMarketMoney = coinResultVo.optString("maxMarketMoney") //市价最大下单金额
         val maxLimitVolume = coinResultVo.optString("maxLimitVolume") //限价单最大下单数量
+
+
+
+
         when (buyOrSellHelper.orderType) {
             1, 4, 5, 6 -> { //最小下单量  < x <限价单最大下单数量
                 if (CpBigDecimalUtils.orderNumMinCheck(volume, minOrderVolume, multiplier)) {
@@ -657,6 +661,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             }
         }
         var expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context)
+        var volumeData= et_volume.text.toString()
+        if ( isPercentPlaceOrder) {
+            val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
+            volumeData = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
+        }
         val mCpCreateOrderBean = CpCreateOrderBean(mContractId,
             positionType,
             if (isOpen) "OPEN" else "CLOSE",
@@ -665,11 +674,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             level,
             if (isMarketPriceModel) "0" else price,
             CpBigDecimalUtils.getOrderNum1(isOpen,
-               et_volume.text.toString(),
+                volumeData,
                 multiplier,
                 buyOrSellHelper.orderType,
                 price,
-                if (priceType == 2) symbolPricePrecision else multiplierPrecision),
+                if (priceType == 2) symbolPricePrecision else multiplierPrecision,isPercentPlaceOrder),
             isConditionOrder,
             triggerPrice,
             expireTime,
@@ -845,7 +854,6 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         mContractUint = CpClLogicContractSetting.getContractUint(context)
         mContractJson?.let { setContractJsonInfo(it) }
     }
-
     var isFrist = true
 
     fun setUserAssetsInfo(json: JSONObject) {
@@ -957,15 +965,14 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     buyPrice = price
                     sellPrice = price
                 }
-                if (isOpen && isPercentPlaceOrder) {
-
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
-                        percent,
-                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
-                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
-                    buyPositionAmount = positionAmount
-                    sellPositionAmount = positionAmount
-                }
+//                if (isOpen && isPercentPlaceOrder) {
+//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
+//                        percent,
+//                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+//                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
+//                    buyPositionAmount = positionAmount
+//                    sellPositionAmount = positionAmount
+//                }
             }
             3 -> {
                 if (isOpen) {
@@ -975,14 +982,14 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     buyPrice = price
                     sellPrice = price
                 }
-                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
-                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
-                        percent,
-                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
-                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
-                    buyPositionAmount = positionAmount
-                    sellPositionAmount = positionAmount
-                }
+//                if (isOpen && isPercentPlaceOrder && isMarketPriceModel) {
+//                    val buff = CpBigDecimalUtils.mulStr(canUseAmount,
+//                        percent,
+//                        multiplierPrecision) //                    positionAmount = CpBigDecimalUtils.mulStr(buff, level.toString(), multiplierPrecision)
+//                    positionAmount = CpBigDecimalUtils.mulStr(buff, "1", multiplierPrecision)
+//                    buyPositionAmount = positionAmount
+//                    sellPositionAmount = positionAmount
+//                }
             }
         }
         tv_equivalent.text = "≈" + CpBigDecimalUtils.canPositionMarketStr(contractSide == "1",

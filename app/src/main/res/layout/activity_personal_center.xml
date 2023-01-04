@@ -54,6 +54,7 @@
                 <FrameLayout
                     android:id="@+id/ll_share"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_color">
 

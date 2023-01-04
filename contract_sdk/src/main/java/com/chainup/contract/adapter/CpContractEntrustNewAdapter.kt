@@ -81,12 +81,7 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
       CpClLogicContractSetting.getContractSideById(context, item.contractId.toInt())
 
     //面值精度
-    val multiplierPrecision = if(multiplierBuff.contains(".")) {
-      val index = multiplierBuff.indexOf(".")
-      if(index < 0) 0 else multiplierBuff.length - index - 1
-    } else {
-      multiplierBuff.length
-    }
+    val multiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, item.contractId.toInt())
     var showDealNumber = ""
     var showEntrustNumber = ""
 

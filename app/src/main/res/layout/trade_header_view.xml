@@ -70,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:gravity="center|left"
         android:orientation="horizontal">
 

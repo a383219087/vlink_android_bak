@@ -342,24 +342,24 @@ class PersonalCenterActivity : NBaseActivity() {
     }
 
     private fun getMessageCount() {
-        HttpClient.instance.getReadMessageCount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetObserver<ReadMessageCountBean>() {
-                override fun onHandleSuccess(t: ReadMessageCountBean?) {
-                    t ?: return
-                    if (StringUtils.isNumeric(t.noReadMsgCount)) {
-                        if (t.noReadMsgCount.toInt() > 0) {
-                            aiv_mail?.showMailRed(true)
-                        } else {
-                            aiv_mail?.showMailRed(false)
-
-
-                        }
-                    }
-                }
-
-            })
+//        HttpClient.instance.getReadMessageCount()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(object : NetObserver<ReadMessageCountBean>() {
+//                override fun onHandleSuccess(t: ReadMessageCountBean?) {
+//                    t ?: return
+//                    if (StringUtils.isNumeric(t.noReadMsgCount)) {
+//                        if (t.noReadMsgCount.toInt() > 0) {
+//                            aiv_mail?.showMailRed(true)
+//                        } else {
+//                            aiv_mail?.showMailRed(false)
+//
+//
+//                        }
+//                    }
+//                }
+//
+//            })
 
         HttpClient.instance.getInviteStatus()
             .subscribeOn(Schedulers.io())

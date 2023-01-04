@@ -3520,7 +3520,7 @@
     <string name="cp_order_text63">止盈单</string>
     <string name="cp_order_text64">只减仓</string>
     <string name="cp_order_text65">委托价格</string>
-    <string name="cp_order_text66">委托数量</string>
+    <string name="cp_order_text66">委托价值</string>
     <string name="cp_order_text661">委托价值</string>
     <string name="cp_order_text67">到期时间</string>
     <string name="cp_order_text671">创建时间</string>

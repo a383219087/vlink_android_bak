@@ -96,11 +96,7 @@ class CpContractHistoryEntrustNewFragment : CpNBaseFragment() {
             getOrderList()
         }
         adapter?.loadMoreModule?.apply {
-            setOnLoadMoreListener(object : OnLoadMoreListener {
-                override fun onLoadMore() {
-                    getOrderList()
-                }
-            })
+            setOnLoadMoreListener { getOrderList() }
             isAutoLoadMore = true
             isEnableLoadMoreIfNotFullPage = false
         }

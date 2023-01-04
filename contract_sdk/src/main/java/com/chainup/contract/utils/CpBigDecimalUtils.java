@@ -1004,9 +1004,9 @@ public class CpBigDecimalUtils {
             return inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_DOWN).toPlainString();
         }
     }
-    public static String getOrderNum1(boolean isOpen, String input, String multiplier, int orderType,String price,int sacle) {
+    public static String getOrderNum1(boolean isOpen, String input, String multiplier, int orderType,String price,int sacle,boolean isPercentPlaceOrder) {
         String inputUSdt=input;
-        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())&&!isPercentPlaceOrder){
             inputUSdt= CpBigDecimalUtils.mulStr(input, price, sacle);
         }
         if (orderType == 2) {//市价单
@@ -1021,12 +1021,11 @@ public class CpBigDecimalUtils {
             }
         }
 
-
         //转换成张
-        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())&&!isPercentPlaceOrder){
             return  CpBigDecimalUtils.div(input, multiplier, 0).toPlainString();
         }else {
-            return  CpBigDecimalUtils.mulStr(CpBigDecimalUtils.div(input, price, sacle).toPlainString(), multiplier, 0);
+            return  CpBigDecimalUtils.div(CpBigDecimalUtils.div(input, price, sacle).toPlainString(), multiplier, 0).toPlainString();
         }
     }
 
