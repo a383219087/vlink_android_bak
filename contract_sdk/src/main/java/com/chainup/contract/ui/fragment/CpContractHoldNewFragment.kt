@@ -125,9 +125,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         )
                         it.setTextColor(
                             R.id.tv_type,
-                            if (clickData.orderSide == "BUY") activity?.resources?.getColor(R.color.main_green)!! else activity?.resources?.getColor(
-                                R.color.main_red
-                            )!!
+                            CpColorUtil.getMainColorType(clickData.orderSide == "BUY")
                         )
                         it.setText(
                             R.id.tv_contract_name,
@@ -189,14 +187,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             orderType = getString(R.string.cp_order_text611)
                             it.setTextColor(
                                 R.id.tv_reverse_open_value,
-                                activity?.resources?.getColor(R.color.main_red)!!
+                                CpColorUtil.getMainColorType(false)
                             )
                         } else {
                             //买入做多
                             orderType = getString(R.string.cp_order_text151)
                             it.setTextColor(
                                 R.id.tv_reverse_open_value,
-                                activity?.resources?.getColor(R.color.main_green)!!
+                                CpColorUtil.getMainColorType(true)
                             )
                         }
                         it.setText(R.id.tv_reverse_open_value, orderType + num + unit)
@@ -334,9 +332,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             )
                             it.setTextColor(
                                 R.id.tv_type,
-                                if (clickData.orderSide == "BUY") activity?.resources?.getColor(R.color.main_green)!! else activity?.resources?.getColor(
-                                    R.color.main_red
-                                )!!
+                                CpColorUtil.getMainColorType(clickData.orderSide == "BUY")
                             )
                             it.setText(
                                 R.id.tv_contract_name,
@@ -671,10 +667,10 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                         var dialogTitle = ""
                                         val titleColor = if (clickData.orderSide == "BUY") {
                                             dialogTitle += context?.getString(R.string.cp_extra_text5)
-                                            resources.getColor(R.color.main_red)
+                                            CpColorUtil.getMainColorType(false)
                                         } else {
                                             dialogTitle += context?.getString(R.string.cp_extra_text4)
-                                            resources.getColor(R.color.main_green)
+                                            CpColorUtil.getMainColorType(true)
                                         }
                                         val showTag = when (clickData.positionType) {
                                             1 -> {

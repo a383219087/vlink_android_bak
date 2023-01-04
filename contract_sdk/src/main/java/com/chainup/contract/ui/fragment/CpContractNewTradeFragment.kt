@@ -512,11 +512,10 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                                     .toPlainString(), 2)
                                 tv_contract_account_equity.text = bibi1
                                 tv_opsition_gain_loss.text = bibi2
-                                if (bibi2.contains("-")) {
-                                    tv_opsition_gain_loss.textColor = CpColorUtil.getColor(R.color.main_red)
-                                } else {
-                                    tv_opsition_gain_loss.textColor = CpColorUtil.getColor(R.color.main_green)
-                                }
+                                tv_contract_account_equity.textColor =
+                                    CpColorUtil.getMainColorType(bibi1.contains("-"))
+                                tv_opsition_gain_loss.textColor =
+                                    CpColorUtil.getMainColorType(bibi2.contains("-"))
 
 
                             }

@@ -316,9 +316,9 @@ class CpContractEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrentOrderBe
         val plText=prefix + CpBigDecimalUtils.showSNormal(item.realizedAmount, marginCoinPrecision);
         helper.setText(R.id.tv_pl,plText)
         if (plText.contains("-")&& plText != "--"){
-          helper.setTextColorRes(R.id.tv_pl,R.color.main_red)
+          helper.setTextColor(R.id.tv_pl,CpColorUtil.getMainColorType(false))
         }else if (plText.contains("+")){
-          helper.setTextColorRes(R.id.tv_pl,R.color.main_green)
+          helper.setTextColor(R.id.tv_pl,CpColorUtil.getMainColorType(true))
         }
 
 

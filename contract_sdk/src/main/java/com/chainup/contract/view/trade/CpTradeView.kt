@@ -807,6 +807,8 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
 
     fun setUserConfigInfo(json: JSONObject) {
+        btn_sell.setBgColor(CpColorUtil.getMainColorType(false))
+        btn_buy.setBgColor(CpColorUtil.getMainColorType(true))
         mUserConfigInfoJson = json
         mUserConfigInfoJson?.let {
             level = it.optInt("nowLevel")

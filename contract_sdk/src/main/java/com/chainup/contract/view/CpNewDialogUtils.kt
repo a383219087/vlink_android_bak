@@ -324,12 +324,8 @@ class CpNewDialogUtils {
                     viewHolder?.setText(R.id.tv_app_name, AppUtils.getAppName())
                     viewHolder?.setText(R.id.tv_earned, profitRateBuff + "%")
 
-                    if (CpBigDecimalUtils.compareTo(profitRateBuff,"0")==-1){
-                        viewHolder?.setTextColor(R.id.tv_earned,CpColorUtil.getColor(R.color.main_red))
-                    }else{
-                        viewHolder?.setTextColor(R.id.tv_earned,CpColorUtil.getColor(R.color.main_green))
-                    }
-                    viewHolder?.setTextColor(R.id.tv_earned, if (CpBigDecimalUtils.compareTo(profitRate, "0") != -1) context.resources.getColor(R.color.main_green) else context.resources.getColor(R.color.main_red))
+                    viewHolder?.setTextColor(R.id.tv_earned,CpColorUtil.getMainColorType(CpBigDecimalUtils.compareTo(profitRateBuff,"0")!=-1))
+                    viewHolder?.setTextColor(R.id.tv_earned, CpColorUtil.getMainColorType(CpBigDecimalUtils.compareTo(profitRate, "0") != -1))
 
 
                     var nav_up :Drawable?=null

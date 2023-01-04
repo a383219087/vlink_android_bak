@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.chainup.contract.utils.CpColorUtil
 import com.common.sdk.impl.IResponse
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
@@ -87,22 +88,22 @@ class SlContractEntrustDetailActivity : NBaseActivity(){
             when (it.side) {
                 ContractOrder.CONTRACT_ORDER_WAY_BUY_OPEN_LONG -> {
                     tv_type.onLineText("sl_str_buy_open")
-                    tv_type.setTextColor(resources.getColor(R.color.main_green))
+                    tv_type.setTextColor(CpColorUtil.getMainColorType(true))
                     title_layout.title = getLineText("otc_action_buy")+symbol
                 }
                 ContractOrder.CONTRACT_ORDER_WAY_SELL_OPEN_SHORT -> {
                     tv_type.onLineText("sl_str_sell_open")
-                    tv_type.setTextColor(resources.getColor(R.color.main_red))
+                    tv_type.setTextColor(CpColorUtil.getMainColorType(false))
                     title_layout.title = getLineText("contract_action_sell")+symbol
                 }
                 ContractOrder.CONTRACT_ORDER_WAY_BUY_CLOSE_SHORT -> {
                     tv_type.onLineText("sl_str_buy_close")
-                    tv_type.setTextColor(resources.getColor(R.color.main_green))
+                    tv_type.setTextColor(CpColorUtil.getMainColorType(true))
                     title_layout.title = getLineText("otc_buy")+symbol
                 }
                 ContractOrder.CONTRACT_ORDER_WAY_SELL_CLOSE_LONG -> {
                     tv_type.onLineText("sl_str_sell_close")
-                    tv_type.setTextColor(resources.getColor(R.color.main_red))
+                    tv_type.setTextColor(CpColorUtil.getMainColorType(false))
                     title_layout.title = getLineText("contract_action_sell")+symbol
                 }
                 else -> {
