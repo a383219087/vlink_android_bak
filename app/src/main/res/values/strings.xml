@@ -3689,5 +3689,10 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="assets_contract_security_advice_tips">Today profit and loss = current contract account assets - today zero contract</string>
     <string name="share_tip_text">Invite friends</string>
     <string name="goto_invite">Go Invite</string>
+    <string name="create_account">创建账户</string>
+    <string name="create_account2">使用您的电子邮箱或手机号进行注册</string>
+    <string name="pwd">密码</string>
+    <string name="my_read_agree">我已阅读并同意</string>
+    <string name="my_read_agree2">《用户服务协议》</string>
 </resources>
 
