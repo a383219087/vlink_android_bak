@@ -132,7 +132,7 @@ class WithdrawActivity : NBaseActivity() {
         cet_withdraw_adr?.hint = LanguageUtil.getString(this, "withdraw_tip_addressEmpty")
         tv_adr_note_title?.text = LanguageUtil.getString(this, "charge_text_tagAddress")
         cet_withdraw_adr_note?.hint = LanguageUtil.getString(this, "withdraw_tip_tagEmpty")
-        tv_number_title?.text = LanguageUtil.getString(this, "charge_text_volume")
+        tv_number_title?.text = LanguageUtil.getString(this, "charge_text_volume3")
         btn_all_amount?.text = LanguageUtil.getString(this, "common_action_sendall")
         et_amount?.hint = LanguageUtil.getString(this, "withdraw_tip_withdrawMinValueError")
         tv_fee_title?.text = LanguageUtil.getString(this, "withdraw_text_fee")
