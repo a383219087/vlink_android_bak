@@ -1083,6 +1083,7 @@ Mark Price: This is the current mark price.</string>
     <string name="charge_text_volume">Amount</string>
     <string name="charge_text_volume1">Amount</string>
     <string name="charge_text_volume2">Amount</string>
+    <string name="charge_text_volume3">Amount</string>
     <string name="charge_tip_addressWarning">Please do not top up any assets that are not in this currency to the above address. Otherwise, the assets can not be returned.</string>
     <string name="charge_tip_notavailable">No available currency for top-up currently</string>
     <string name="charge_tip_tagWarning">Top-up address and label(Memo) must be filled in when topping up. That is the only identification of your account. Blank information or incorrect informaiton will lead to the asset loss .</string>
