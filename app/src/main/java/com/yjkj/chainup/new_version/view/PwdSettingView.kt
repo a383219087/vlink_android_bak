@@ -123,7 +123,7 @@ class PwdSettingView @JvmOverloads constructor(context: Context,
             textContent = typedArray.getString(R.styleable.PwdSettingView_textContent)
             resId = typedArray.getResourceId(R.styleable.PwdSettingView_icon_res, R.drawable.login_eyesclose)
             resId2 = typedArray.getResourceId(R.styleable.PwdSettingView_icon_res2, R.drawable.dropdown)
-            textContentColor = typedArray.getColor(R.styleable.PwdSettingView_pwd_text_content_color, ContextCompat.getColor(context, R.color.white))
+            textContentColor = typedArray.getColor(R.styleable.PwdSettingView_pwd_text_content_color, ContextCompat.getColor(context, R.color.text_color))
             textContentSize = typedArray.getDimension(R.styleable.PwdSettingView_textContentSize, resources.getDimension(R.dimen.sp_16))
             inputType = typedArray.getInt(R.styleable.PwdSettingView_android_inputType, InputType.TYPE_TEXT_VARIATION_PASSWORD)
             typedArray.recycle()

@@ -82,6 +82,7 @@
                 style="@style/NewVersionPwdStyle"
                 app:hint_text="@string/register_tip_inputPassword"
                 app:textContentSize="@dimen/sp_14"
+                app:pwd_text_content_color="@color/white"
                 app:icon_res="@mipmap/login_eyesclose"
                 app:isEditable="true" />
 
