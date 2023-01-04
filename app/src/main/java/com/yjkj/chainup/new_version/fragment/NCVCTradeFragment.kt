@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.SPUtils
+import com.chainup.contract.utils.CpNToastUtil
+import com.chainup.contract.view.CpDialogUtil
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
@@ -93,8 +95,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     var etfIsShow = true
 
     var netValueDisposable: CompositeDisposable? = CompositeDisposable()
-    var subscribe: Disposable? = null//保存订阅者
-    var subscribeCoin: Disposable? = null//保存订阅者
+    var subscribe: Disposable? = null //保存订阅者
+    var subscribeCoin: Disposable? = null //保存订阅者
     var isScrollStatus = true
 
     private var isLogined = false
@@ -136,11 +138,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     override fun onVisibleChanged(isVisible: Boolean) {
         super.onVisibleChanged(isVisible)
-        if (isVisible){
+        if (isVisible) {
             collectCoin()
         }
     }
-
 
 
     fun setTextContent() {
@@ -163,7 +164,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 
-    @SuppressLint("CheckResult")
     private fun setOnClick() {
         /**
          * 进入全部委托界面
@@ -180,13 +180,53 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
          * 隐藏其他币对
          */
         ll_yincang?.setOnClickListener {
-            img_on.visibility=View.GONE
-            img_off.visibility=View.VISIBLE
+            if (img_on.visibility == View.VISIBLE) {
+                img_on.visibility = View.GONE
+                img_off.visibility = View.VISIBLE
+            } else {
+                img_on.visibility = View.VISIBLE
+                img_off.visibility = View.GONE
+            }
+            getAvailableBalance()
         }
         /**
          * 撤销全部
          */
         tv_status?.setOnClickListener {
+            if (currentOrderList.isEmpty()) {
+                return@setOnClickListener
+            }
+            CpDialogUtil.showNewDoubleDialog(context!!,
+                context!!.getString(R.string.cp_extra_text_hold4),
+                object : CpDialogUtil.DialogBottomListener {
+                    override fun sendConfirm() {
+                        for (i in 0 until currentOrderList.size) {
+                            try {
+                                (currentOrderList[i] as JSONObject?)?.run {
+                                    val status = this.optString("status")
+                                    val id = this.optString("id")
+                                    val baseCoin = optString("baseCoin").toLowerCase()
+                                    val countCoin = optString("countCoin").toLowerCase()
+
+                                    when (status) {
+                                        "0", "1", "3" -> {
+                                            deleteOrder(id, baseCoin + countCoin, i)
+                                        }
+                                    }
+                                }
+
+                            } catch (e: java.lang.Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+
+
+                    }
+
+                }
+
+            )
+
 
         }
 
@@ -202,7 +242,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
          * 入口
          */
         iv_more?.setOnClickListener {
-            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate,false)) {
+            if (SPUtils.getInstance().getBoolean(ParamConstant.simulate, false)) {
                 ToastUtils.showToast(context?.getString(R.string.important_hint1))
                 return@setOnClickListener
             }
@@ -248,9 +288,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
              */
             observeData()
             initEntrustOrder()
-            swipe_refresh?.isRefreshing =false
+            swipe_refresh?.isRefreshing = false
         }
     }
+
     // 当前页切换symblo
     fun changeSymbal(index: Int) {
 
@@ -262,8 +303,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
     private fun showLeftCoinPopup() {
-        if (Utils.isFastClick())
-            return
+        if (Utils.isFastClick()) return
         var mCoinSearchDialogFg: CoinSearchDialogFg? = null
         if (mCoinSearchDialogFg == null) {
             mCoinSearchDialogFg = CoinSearchDialogFg()
@@ -290,12 +330,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 
-
     var isCreatedOrder: Boolean = false
     private fun observeData() {
         NLiveDataUtil.observeForeverData {
-            if (null == it || it.isLever)
-                return@observeForeverData
+            if (null == it || it.isLever) return@observeForeverData
 
             when (it.msg_type) {
                 /**
@@ -319,10 +357,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         v_horizontal_depth.coinSwitch(nSymbol)
                     }
                     collectCoin()
-                }
-                // 下单通知
-                MessageEvent.CREATE_ORDER_TYPE -> {
-//                    Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
+                } // 下单通知
+                MessageEvent.CREATE_ORDER_TYPE -> { //                    Log.d(TAG, "====isCreatedOrder:$isCreatedOrder=========")
                     isCreatedOrder = it.msg_content as Boolean
                     if (isCreatedOrder) {
                         if (it.dataIsNotNull()) {
@@ -338,9 +374,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 //深度
                 MessageEvent.DEPTH_LEVEL_TYPE -> {
                     if (null != it.msg_content) {
-                        val level = it.msg_content as Int
-//                        LogUtil.d(TAG, "tv_change_depth==level is $level,curDepthIndex is $curDepthIndex")
-//                        Log.d(TAG, "tv_change_depth====之前深度:$curDepthIndex,当前深度：$it======")
+                        val level =
+                            it.msg_content as Int //                        LogUtil.d(TAG, "tv_change_depth==level is $level,curDepthIndex is $curDepthIndex") //                        Log.d(TAG, "tv_change_depth====之前深度:$curDepthIndex,当前深度：$it======")
                         sendAgentData(level.toString())
                         curDepthIndex = level
                         if (curDepthIndex != level) {
@@ -363,15 +398,13 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     }
 
-    private fun displayHeaderWithNum(){
+    private fun displayHeaderWithNum() {
         val size = curEntrustAdapter.data.size
         tv_currentEntrust?.text = "${LanguageUtil.getString(context, "contract_text_currentEntrust")}（${size}）"
     }
 
-    private fun showSymbolSwitchData(newSymbol: String?) {
-//        LogUtil.d(TAG, "observeData==newSymbol is ${newSymbol}")
-        if (null == newSymbol)
-            return
+    private fun showSymbolSwitchData(newSymbol: String?) { //        LogUtil.d(TAG, "observeData==newSymbol is ${newSymbol}")
+        if (null == newSymbol) return
         if (newSymbol != symbol) {
             PublicInfoDataService.getInstance().currentSymbol = newSymbol
             initTap()
@@ -384,8 +417,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             sendAgentData()
             getAvailableBalance()
             if (null != coinMapData) {
-                getETFValue()
-//                Log.d(TAG, "========HERE=======")
+                getETFValue() //                Log.d(TAG, "========HERE=======")
                 v_horizontal_depth?.coinMapData = coinMapData
                 v_vertical_depth?.coinMapData = coinMapData
             }
@@ -393,8 +425,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 showTopCoin()
                 et_price?.setText("")
             }
-            currentOrderList.clear()
-            curEntrustAdapter.notifyDataSetChanged()
+            if (img_on.visibility == View.VISIBLE) {
+                currentOrderList.clear()
+                curEntrustAdapter.notifyDataSetChanged()
+            }
             displayHeaderWithNum()
         }
         getTradeLimitInfo(coinMapData)
@@ -461,13 +495,12 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     private var startReq = 0
 
     private fun getTradeLimitInfo(coinMapData: JSONObject?, isNeedCreated: Boolean = true) {
-        if (!mIsVisibleToUser)
-            return
+        if (!mIsVisibleToUser) return
         if (PublicInfoDataService.getInstance().isHasTradeLimitOpen(null)) {
-            if (1 == startReq)
-                return
+            if (1 == startReq) return
 
             startReq = 1
+
 
             addDisposable(getMainModel().getTradeLimitInfo(symbol = coinMapData?.optString("symbol"), consumer = object : NDisposableObserver() {
                 override fun onResponseFailure(code: Int, msg: String?) {
@@ -492,8 +525,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         val precision = coinMapData?.optString("volume", "2")?.toInt() ?: 2
 
                         val coinName = NCoinManager.getMarketCoinName(coinMapData?.optString("name", ""))
-                        val everyDayBuyVolume = LanguageUtil.getString(context, "tradeLimit_text_everyDayBuy").format("${DecimalUtil.cutValueByPrecision(tradeSymbolBuyLimit, precision)} ${coinName}")
-                        val everyDaySellVolume = LanguageUtil.getString(context, "tradeLimit_text_everyDaySell").format("${DecimalUtil.cutValueByPrecision(tradeSymbolSellLimit, precision)} ${coinName}")
+                        val everyDayBuyVolume = LanguageUtil.getString(context, "tradeLimit_text_everyDayBuy")
+                            .format("${DecimalUtil.cutValueByPrecision(tradeSymbolBuyLimit, precision)} ${coinName}")
+                        val everyDaySellVolume = LanguageUtil.getString(context, "tradeLimit_text_everyDaySell")
+                            .format("${DecimalUtil.cutValueByPrecision(tradeSymbolSellLimit, precision)} ${coinName}")
 
                         val noLimitBuy = ", " + LanguageUtil.getString(context, "tradeLimit_text_noLimitBuy")
                         val noLimitSell = ", " + LanguageUtil.getString(context, "tradeLimit_text_noLimitSell")
@@ -510,9 +545,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                             return
                         }
 
-//                        LogUtil.d(TAG, "getTradeLimitInfo==content is $content")
-                        if (isNeedCreated) {
-//                            Log.d(TAG, "=====11=====tDialog.isVisible is ${tDialog?.isVisible},content is $content")
+                        //                        LogUtil.d(TAG, "getTradeLimitInfo==content is $content")
+                        if (isNeedCreated) { //                            Log.d(TAG, "=====11=====tDialog.isVisible is ${tDialog?.isVisible},content is $content")
                             if (StringUtil.checkStr(content)) {
                                 tDialog = showDialog(content)
                             }
@@ -533,10 +567,11 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     private fun getAvailableBalance() {
         if (!LoginManager.checkLogin(context, false)) return
-        if (!StringUtil.checkStr(symbol)) {
-            return
+        var symbolData = ""
+        if (img_on.visibility == View.VISIBLE) {
+            symbolData = symbol
         }
-        addDisposable(getMainModel().getNewEntrust(symbol = symbol, consumer = object : NDisposableObserver() {
+        addDisposable(getMainModel().getNewEntrust(symbol = symbolData, consumer = object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 jsonObject.optJSONObject("data")?.run {
 
@@ -544,8 +579,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     showBalanceData()
 
                     val orderList = optJSONArray("orderList")
-                    orderList?.run {
-//                        Log.d(TAG, "======mList=()====" + orderList.length())
+                    orderList?.run { //                        Log.d(TAG, "======mList=()====" + orderList.length())
                         currentOrderList.clear()
                         for (i in 0 until orderList.length()) {
                             currentOrderList.add(orderList.optJSONObject(i))
@@ -600,18 +634,15 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     }
                     lastTick = jsonObj
                     doAsync {
-                        activity?.runOnUiThread {
-//                            /**
-//                             * 收盘价的法币换算
-//                             */
+                        activity?.runOnUiThread { //                            /**
+                            //                             * 收盘价的法币换算
+                            //                             */
                             v_horizontal_depth?.changeTickData(tick)
-                            v_vertical_depth?.changeTickData(tick)
-                            //
+                            v_vertical_depth?.changeTickData(tick) //
                             val rose = tick.getRose()
                             RateManager.getRoseText(tv_rose, rose)
                             val roseRes = ColorUtil.getMainColorBgType(RateManager.getRoseTrend(rose) >= 0)
-                            tv_rose?.textColor = roseRes.first
-                            //tv_rose?.backgroundResource = roseRes.second
+                            tv_rose?.textColor = roseRes.first //tv_rose?.backgroundResource = roseRes.second
 
                         }
                     }
@@ -619,8 +650,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 /**
                  * 深度
                  */
-                if (channel == WsLinkUtils.getDepthLink(PublicInfoDataService.getInstance().currentSymbol, isSub = true, step = curDepthIndex.toString()).channel) {
-//                    LogUtil.d(TAG, "=======深度：$data")
+                if (channel == WsLinkUtils.getDepthLink(PublicInfoDataService.getInstance().currentSymbol,
+                        isSub = true,
+                        step = curDepthIndex.toString()).channel
+                ) { //                    LogUtil.d(TAG, "=======深度：$data")
                     val temp = System.currentTimeMillis() - klineTime
                     if (temp <= 3000) {
                         klineTime = temp
@@ -629,8 +662,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         v_horizontal_depth?.refreshDepthView(jsonObj)
                         v_vertical_depth?.refreshDepthView(jsonObj)
                     }
-                }
-                // 多倍比率
+                } // 多倍比率
                 var etfUpAndDown = coinMapData?.optJSONArray("etfUpAndDown")
                 for (item in 0 until (etfUpAndDown?.length() ?: 0)) {
                     val coin = etfUpAndDown?.getString(item)!!
@@ -663,18 +695,15 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
     }
 
-    private fun getEntrustInterval5(status: Boolean = true) {
-//        Log.d(TAG, "========getEntrustInterval5()${disposables?.isDisposed},::${disposables?.size()}=======")
+    private fun getEntrustInterval5(status: Boolean = true) { //        Log.d(TAG, "========getEntrustInterval5()${disposables?.isDisposed},::${disposables?.size()}=======")
         loopData(status)
     }
 
-    private fun loopData(status: Boolean = true) {
-//        LogUtil.e(TAG, "ETF value loopData  $mIsVisibleToUser $cvcFragment")
-        if (!mIsVisibleToUser || !cvcFragment)
-            return
+    private fun loopData(status: Boolean = true) { //        LogUtil.e(TAG, "ETF value loopData  $mIsVisibleToUser $cvcFragment")
+        if (!mIsVisibleToUser || !cvcFragment) return
         if (subscribeCoin == null || (subscribeCoin != null && subscribeCoin?.isDisposed != null && subscribeCoin?.isDisposed!!)) {
-            subscribeCoin = Observable.interval(0L, CommonConstant.coinLoopTime, TimeUnit.SECONDS)//按时间间隔发送整数的Observable
-                .observeOn(AndroidSchedulers.mainThread())//切换到主线程修改UI
+            subscribeCoin = Observable.interval(0L, CommonConstant.coinLoopTime, TimeUnit.SECONDS) //按时间间隔发送整数的Observable
+                .observeOn(AndroidSchedulers.mainThread()) //切换到主线程修改UI
                 .subscribe {
                     getEachEntrust(status)
                 }
@@ -688,32 +717,31 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         if (!LoginManager.checkLogin(activity, false)) {
             return
         }
-        if (!StringUtil.checkStr(symbol)) {
-            return
+        var symbolData = ""
+        if (img_on.visibility == View.VISIBLE) {
+            symbolData = symbol
         }
-        addDisposableTrade(getMainModel().getNewEntrust(symbol = symbol, consumer = object : NDisposableObserver(null, showToast = false) {
+
+        addDisposableTrade(getMainModel().getNewEntrust(symbol = symbolData, consumer = object : NDisposableObserver(null, showToast = false) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 val data = jsonObject.optJSONObject("data")
                 data?.run {
                     availableBalanceData = data
                     showBalanceData()
-                    val jsonArray = data.getJSONArray("orderList")
-//                    Log.d(TAG, "====length:${jsonArray.length()},is:$isCreatedOrder======")
+                    val jsonArray =
+                        data.getJSONArray("orderList") //                    Log.d(TAG, "====length:${jsonArray.length()},is:$isCreatedOrder======")
                     if (jsonArray.length() == 0) {
                         currentOrderList.clear()
                         curEntrustAdapter.notifyDataSetChanged()
                         curEntrustAdapter.setList(currentOrderList)
-                        displayHeaderWithNum()
-//                        if (isCreatedOrder) {
-//                        } else {
-//                            disposables?.clear()
-//                            isCreatedOrder = false
-//                        }
-                    } else {
-//                        isCreatedOrder = false
+                        displayHeaderWithNum() //                        if (isCreatedOrder) {
+                        //                        } else {
+                        //                            disposables?.clear()
+                        //                            isCreatedOrder = false
+                        //                        }
+                    } else { //                        isCreatedOrder = false
                         currentOrderList.clear()
-                        jsonArray.run {
-//                            Log.d(TAG, "======mList=()====" + jsonArray.length())
+                        jsonArray.run { //                            Log.d(TAG, "======mList=()====" + jsonArray.length())
                             currentOrderList.clear()
                             for (i in 0 until jsonArray.length()) {
                                 currentOrderList.add(jsonArray.optJSONObject(i))
@@ -782,12 +810,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
             return tDialog
         }
         hasShowDialog = true
-        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
-            .setLayoutRes(R.layout.item_normal_dialog)
-            .setScreenWidthAspect(context, 0.8f)
-            .setGravity(Gravity.CENTER)
-            .setDimAmount(0.8f)
-            .setCancelableOutside(false)
+        return TDialog.Builder((context as AppCompatActivity).supportFragmentManager).setLayoutRes(R.layout.item_normal_dialog)
+            .setScreenWidthAspect(context, 0.8f).setGravity(Gravity.CENTER).setDimAmount(0.8f).setCancelableOutside(false)
             .setOnBindViewListener { viewHolder: BindViewHolder? ->
                 viewHolder?.run {
                     setGone(R.id.tv_title, true)
@@ -797,9 +821,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                     setText(R.id.tv_content, content)
                 }
 
-            }
-            .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn)
-            .setOnViewClickListener { _, view, tDialog ->
+            }.addOnClickListener(R.id.tv_cancel, R.id.tv_confirm_btn).setOnViewClickListener { _, view, tDialog ->
                 when (view.id) {
                     R.id.tv_cancel -> {
                         tDialog.dismiss()
@@ -810,8 +832,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                         hasShowDialog = false
                     }
                 }
-            }
-            .create().show()
+            }.create().show()
 
     }
 
@@ -880,14 +901,12 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     override fun onMessageEvent(event: MessageEvent) {
         super.onMessageEvent(event)
         if (MessageEvent.coinTrade_topTab_type == event?.msg_type) {
-            val msg_content = event.msg_content
-//            LogUtil.d(TAG, "observeData==msg_content is ${event.msg_content}")
+            val msg_content = event.msg_content //            LogUtil.d(TAG, "observeData==msg_content is ${event.msg_content}")
             if (null != msg_content && msg_content is Bundle) {
                 isFromOtherPage = true
                 var bundle = msg_content as Bundle
                 tradeOrientation = bundle.getInt(ParamConstant.transferType)
-                var symbol = bundle.getString(ParamConstant.symbol)
-//                LogUtil.d(TAG, "observeData==symbol is ${symbol}")
+                var symbol = bundle.getString(ParamConstant.symbol) //                LogUtil.d(TAG, "observeData==symbol is ${symbol}")
                 et_price?.text?.clear()
                 showSymbolSwitchData(symbol ?: "")
                 setTagView(NCoinManager.getNameForSymbol(symbol))
@@ -905,8 +924,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 v_vertical_depth.coinSwitch(nSymbol)
                 v_horizontal_depth.coinSwitch(nSymbol)
             }
-        } else if (MessageEvent.CREATE_ORDER_TYPE == event.msg_type) {
-            // 下单通知
+        } else if (MessageEvent.CREATE_ORDER_TYPE == event.msg_type) { // 下单通知
             isCreatedOrder = event.msg_content as Boolean
             if (isCreatedOrder) {
                 if (event.dataIsNotNull()) {
@@ -966,9 +984,8 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      */
     private fun loopPriceRiskPosition() {
         subscribe?.dispose()
-        subscribe = Observable.interval(0,CommonConstant.etfLoopTime, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(getObserver())
+        subscribe = Observable.interval(0, CommonConstant.etfLoopTime, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(getObserver())
     }
 
     private fun getObserver(): DisposableObserver<Long> {
@@ -980,14 +997,15 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
                 val name = coinMapData?.optString("name")
                 val base = NCoinManager.getMarketCoinName(name)
                 val quote = NCoinManager.getMarketName(name)
-                (netValueDisposable
-                    ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base, quote = quote, consumer = object : NDisposableObserver() {
-                    override fun onResponseSuccess(data: JSONObject) {
+                (netValueDisposable ?: CompositeDisposable()).add((getMainModel()).getETFValue(base = base,
+                    quote = quote,
+                    consumer = object : NDisposableObserver() {
+                        override fun onResponseSuccess(data: JSONObject) {
 
-                        v_vertical_depth?.changeEtf(data)
-                        v_horizontal_depth?.changeEtf(data)
-                    }
-                })!!)
+                            v_vertical_depth?.changeEtf(data)
+                            v_horizontal_depth?.changeEtf(data)
+                        }
+                    })!!)
             }
 
             override fun onError(e: Throwable) {
@@ -996,7 +1014,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
         }
 
     }
-
 
 
     override fun onStop() {
@@ -1009,7 +1026,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     fun sendAgentData(step: String = "") {
         var stepTemp = curDepthIndex.toString()
-        if(step.isNotEmpty()){
+        if (step.isNotEmpty()) {
             stepTemp = step
         }
         if (symbol.isNotEmpty()) {
@@ -1044,7 +1061,6 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     }
 
 
-
     fun isInitSymbol(): Boolean {
         return symbol.isNotEmpty()
     }
@@ -1052,10 +1068,9 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     fun changeInitData() {
         coinMapData = NCoinManager.getSymbolObj(PublicInfoDataService.getInstance().currentSymbol)
         showTopCoin()
-        symbol = coinMapData?.optString("symbol") ?: ""//return
+        symbol = coinMapData?.optString("symbol") ?: "" //return
         setTagView(coinMapData?.optString("name", "").toString())
     }
-
 
 
     var klineTime = 0L
@@ -1063,9 +1078,13 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     private fun wsNetworkChange() {
         GlobalScope.launch {
             delay(3000L)
-            if (v_horizontal_depth!=null&&v_horizontal_depth.depthBuyOrSell().isNotEmpty()){
+            if (v_horizontal_depth != null && v_horizontal_depth.depthBuyOrSell().isNotEmpty()) {
                 val statusType = v_horizontal_depth.depthBuyOrSell().getKlineByType(WsAgentManager.instance.pageSubWs(this@NCVCTradeFragment))
-                sendWsHomepage(mIsVisibleToUser, statusType, NetworkDataService.KEY_PAGE_TRANSACTION, NetworkDataService.KEY_SUB_TRAN_DEPTH, klineTime)
+                sendWsHomepage(mIsVisibleToUser,
+                    statusType,
+                    NetworkDataService.KEY_PAGE_TRANSACTION,
+                    NetworkDataService.KEY_SUB_TRAN_DEPTH,
+                    klineTime)
 
             }
         }
@@ -1098,6 +1117,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
     * 获取服务器用户的自选币对数据
     */
     var serverSelfSymbols = ArrayList<String>()
+
     /**
      * 添加收藏
      */
@@ -1170,8 +1190,7 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
 
     private fun showServerSelfSymbols(data: JSONObject?) {
 
-        if (null == data || data.length() <= 0)
-            return
+        if (null == data || data.length() <= 0) return
 
         var array = data.optJSONArray("symbols")
         sync_status = data.optString("sync_status")
@@ -1196,11 +1215,10 @@ class NCVCTradeFragment : NBaseFragment(), WsAgentManager.WsResultCallback {
      */
     private fun addOrDeleteSymbol(operationType: Int = 0, symbol: String?) {
 
-        if (null == symbol)
-            return
+        if (null == symbol) return
         var list = ArrayList<String>()
         list.add(symbol)
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"", MyNDisposableObserver(addCancelUserSelfDataReqType)))
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list, "", MyNDisposableObserver(addCancelUserSelfDataReqType)))
     }
 
 }
