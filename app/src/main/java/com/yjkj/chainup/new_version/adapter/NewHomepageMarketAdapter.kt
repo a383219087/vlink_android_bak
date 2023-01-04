@@ -39,8 +39,8 @@ open class NewHomepageMarketAdapter : BaseQuickAdapter<JSONObject, BaseViewHolde
         // TODO 待解决不包含/的情况
         if (name.contains("/")) {
             val split = name.split("/")
-            helper.setText(R.id.tv_coin_name, split[0])
-            helper.setText(R.id.tv_market_name, "/" + split[1])
+            helper.setText(R.id.tv_coin_name, split[0] + split[1])
+//            helper.setText(R.id.tv_market_name, "/" + split[1])
         }
         helper.apply {
             val tagCoin = NCoinManager.getMarketShowCoinName(name)

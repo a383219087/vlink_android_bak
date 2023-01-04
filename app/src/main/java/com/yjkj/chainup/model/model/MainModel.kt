@@ -247,7 +247,7 @@ class MainModel : BaseDataManager() {
      * 3.获取当前委托(币币)
      */
     fun getNewEntrust(
-        symbol: String,
+        symbol: String="",
         type: String = "",
         side: String = "",
         isLever: Boolean = false,
