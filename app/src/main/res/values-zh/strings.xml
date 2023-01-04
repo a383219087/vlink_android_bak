@@ -1189,7 +1189,7 @@
     <string name="charge_text_date">日期</string>
     <string name="charge_text_state">状态</string>
     <string name="charge_text_tagAddress">标签(Memo)</string>
-    <string name="charge_text_volume">买入量</string>
+    <string name="charge_text_volume">提单数量</string>
     <string name="charge_text_volume1">数量</string>
     <string name="charge_text_volume2">卖出量</string>
     <string name="charge_tip_addressWarning">请勿向上述地址充币任何非本币种资产，否则资产不可找回</string>
@@ -1474,6 +1474,7 @@
     <string name="login_text_gesture">手势登录</string>
     <string name="login_text_phoneOrMail">手机号或邮箱</string>
     <string name="login_text_pwd">密码</string>
+    <string name="login_text_title">用户登录</string>
     <string name="login_tip_authAppCancel">认证被取消应用</string>
     <string name="login_tip_authAppStillending">app未完全启动，调用失败</string>
     <string name="login_tip_authCompleteFail">身份验证未成功，多次使用失败</string>
@@ -3767,6 +3768,7 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="hoem_recharge" tools:ignore="ExtraTranslation">充值/收款</string>
     <string name="withdrawal_transfer" tools:ignore="ExtraTranslation">提现/转账</string>
     <string name="contract" tools:ignore="ExtraTranslation">合约</string>
+    <string name="contract_type" tools:ignore="ExtraTranslation">永续</string>
     <string name="customer_service" tools:ignore="ExtraTranslation">客服</string>
     <string name="bb_asset_text1">币币资产</string>
     <string name="convert_text">转换</string>

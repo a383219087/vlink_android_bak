@@ -66,39 +66,40 @@ class NewVersionLoginActivity : NBaseActivity() {
 
 
     override fun initView() {
-        StatusBarUtil.setColor(this, ColorUtil.getColorByMode(R.color.bg_card_color_day), 0)
         setListener()
+        StatusBarUtil.setTransparent(this)
+        StatusBarUtil.setDarkMode(this)
         list.add(LanguageUtil.getString(mActivity, "safety_text_googleAuth"))
         list.add(LanguageUtil.getString(mActivity, "safety_text_phoneAuth"))
         list.add(LanguageUtil.getString(mActivity, "safety_text_mailAuth"))
 
-        val logoBeanLogos = PublicInfoDataService.getInstance().getApp_logo_list_new(null)
-
-        if (logoBeanLogos != null && logoBeanLogos?.size > 0) {
-            val logo_black = logoBeanLogos[0]
-            var logo_white = ""
-            if (logoBeanLogos.size > 1) {
-                logo_white = logoBeanLogos[1]
-            }
-            if (PublicInfoDataService.getInstance().themeMode == 0) {
-
-                if (StringUtil.checkStr(logo_white)) {
-                    GlideUtils.loadImageHeader(this, logo_white, app_logo)
-                }
-            } else {
-                if (StringUtil.checkStr(logo_black)) {
-                    GlideUtils.loadImageHeader(this, logo_black, app_logo)
-                }
-            }
-        }
+//        val logoBeanLogos = PublicInfoDataService.getInstance().getApp_logo_list_new(null)
+//
+//        if (logoBeanLogos != null && logoBeanLogos?.size > 0) {
+//            val logo_black = logoBeanLogos[0]
+//            var logo_white = ""
+//            if (logoBeanLogos.size > 1) {
+//                logo_white = logoBeanLogos[1]
+//            }
+//            if (PublicInfoDataService.getInstance().themeMode == 0) {
+//
+//                if (StringUtil.checkStr(logo_white)) {
+//                    GlideUtils.loadImageHeader(this, logo_white, app_logo)
+//                }
+//            } else {
+//                if (StringUtil.checkStr(logo_black)) {
+//                    GlideUtils.loadImageHeader(this, logo_black, app_logo)
+//                }
+//            }
+//        }
 
 
         ce_account?.isFocusable = true
         ce_account?.isFocusableInTouchMode = true
         cbtn_view?.isEnable(false)
-        ce_account?.setOnFocusChangeListener { v, hasFocus ->
-            v_line?.setBackgroundResource(if (hasFocus) R.color.main_blue else R.color.new_edit_line_color)
-        }
+//        ce_account?.setOnFocusChangeListener { v, hasFocus ->
+//            v_line?.setBackgroundResource(if (hasFocus) R.color.main_blue else R.color.new_edit_line_color)
+//        }
         ce_account?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 

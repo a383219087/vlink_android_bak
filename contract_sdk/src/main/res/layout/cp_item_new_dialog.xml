@@ -14,19 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <View
-        android:id="@+id/item_line_view"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/bg_color" />
 
     <TextView
         android:id="@+id/tv_cancel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:gravity="center"
+        android:fontFamily="@font/dinpro_medium"
         android:text="@string/cp_overview_text56"
-        android:textColor="@color/text_color"
+        android:background="@drawable/cp_bg_trade_et_focused"
+        android:layout_margin="@dimen/dp_16"
+        android:textColor="@color/colorA2A9BD"
         android:textSize="@dimen/sp_16" />
 
 </LinearLayout>

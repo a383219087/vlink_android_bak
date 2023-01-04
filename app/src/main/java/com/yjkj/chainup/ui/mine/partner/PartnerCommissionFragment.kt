@@ -16,7 +16,7 @@ class PartnerCommissionFragment : BaseMVFragment<PartnerCommissionViewModel?, Fr
     override fun setContentView(): Int = R.layout.fragment_commission_partner
 
     override fun initView() {
-        mViewModel?.getList(1)
+        mBinding?.twinklingRefreshLayout?.autoRefresh(0,300,3f)
         mViewModel?.isRefreshing?.observe(this, Observer {
             mBinding?.twinklingRefreshLayout?.finishRefresh()
         })

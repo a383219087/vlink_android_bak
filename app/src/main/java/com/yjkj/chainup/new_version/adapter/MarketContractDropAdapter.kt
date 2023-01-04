@@ -52,7 +52,7 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
     override fun convert(helper: BaseViewHolder, ticker: JSONObject) {
         ticker.let {
             val dfRate = CpNumberUtil().getDecimal(2)
-            helper.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id")))
+            helper.setText(R.id.tv_contract_name, CpClLogicContractSetting.getContractShowNameById(context, ticker.optInt("id"))+context.getString(R.string.contract_type))
             if (!ticker.isNull("rose")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
                 //比例

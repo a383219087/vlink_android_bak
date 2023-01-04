@@ -1,6 +1,7 @@
 package com.yjkj.chainup.new_version.activity.asset
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -8,10 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
+import com.chainup.contract.adapter.CpCoinSelectLeftAdapter
+import com.chainup.contract.adapter.CpCoinSelectRightAdapter
+import com.chainup.contract.bean.CpTabInfo
+import com.chainup.contract.eventbus.CpEventBusUtil
+import com.chainup.contract.eventbus.CpMessageEvent
+import com.chainup.contract.ui.activity.CpContractEntrustNewActivity
+import com.chainup.contract.utils.CpClLogicContractSetting
+import com.chainup.contract.utils.setSafeListener
+import com.chainup.contract.view.CpNewDialogUtils
+import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
 import com.yjkj.chainup.bean.fund.CashFlowBean
 import com.yjkj.chainup.db.constant.ParamConstant
 import com.yjkj.chainup.db.service.UserDataService
+import com.yjkj.chainup.manager.CpLanguageUtil
 import com.yjkj.chainup.util.LanguageUtil
 import com.yjkj.chainup.manager.NCoinManager
 import com.yjkj.chainup.net.HttpClient
@@ -23,14 +35,14 @@ import com.yjkj.chainup.new_version.activity.NewBaseActivity
 import com.yjkj.chainup.new_version.adapter.Cash4ContractAdapter
 import com.yjkj.chainup.new_version.adapter.CashFlow4Adapter
 import com.yjkj.chainup.new_version.adapter.CashFlowAdapter
+import com.yjkj.chainup.new_version.adapter.WithDrawAdapter
 import com.yjkj.chainup.new_version.view.*
 import com.yjkj.chainup.treaty.bean.ContractCashFlowBean
 import com.yjkj.chainup.util.DisplayUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_withdraw_record.*
-import kotlinx.android.synthetic.main.activity_withdraw_record.title_layout
-import kotlinx.android.synthetic.main.activity_withdraw_record.tv_number_title
+import org.json.JSONArray
 
 
 /**
@@ -53,6 +65,12 @@ class WithDrawRecordActivity : NewBaseActivity() {
     var isScrollstatus = true
     var isContract = false
     var recordType = 0
+
+    private var isShowContractSelect: Boolean = false
+    private var depthDialog: TDialog? = null
+    var typeList = ArrayList<CpTabInfo>()
+    private var selectType: CpTabInfo? = null
+    private var mCurrentSelectExchange: CpTabInfo? = null
 
     companion object {
         const val RECORDTYPE = "RecordType"
@@ -135,6 +153,176 @@ class WithDrawRecordActivity : NewBaseActivity() {
         getData()
         initRecordView()
         initRefresh()
+        initTypeList()
+        initEvent()
+    }
+
+    private fun initTypeList() {
+        typeList.clear()
+        val element = CpTabInfo(CpLanguageUtil.getString(this, "cl_coflowingwater_all"), 0)
+        selectType = element
+        typeList.add(element)
+        typeList.add(CpTabInfo(CpLanguageUtil.getString(this,"cl_coflowingwater_transferin"),1))
+        typeList.add(CpTabInfo(CpLanguageUtil.getString(this,"cl_coflowingwater_transferout"),2))
+    }
+
+    private fun initEvent() {
+        ll_sel_coins.setOnClickListener {
+            setCoinData()
+            if (!isShowContractSelect) {
+                ll_coin_select.visibility = View.VISIBLE
+                img_coins_name_arrow.animate().setDuration(200).rotation(180f).start()
+            } else {
+                ll_coin_select.visibility = View.GONE
+                img_coins_name_arrow.animate().setDuration(200).rotation(0f).start()
+            }
+            isShowContractSelect = !isShowContractSelect
+        }
+        ll_contract_type?.setSafeListener{
+            if (typeList.size == 0) return@setSafeListener
+            img_order_type_arrow.animate().setDuration(200).rotation(180f).start()
+            depthDialog = CpNewDialogUtils.showNewBottomListDialog(
+                context,
+                typeList,
+                selectType!!.index,
+                object : CpNewDialogUtils.DialogOnItemClickListener {
+                    override fun clickItem(index: Int) {
+                        if (selectType != typeList[index]) {
+                            selectType = typeList[index]
+                            tv_order_type.setText(selectType?.name)
+                        }
+                        depthDialog?.dismiss()
+                        depthDialog = null
+                    }
+                },
+                object:DialogInterface.OnDismissListener{
+                    override fun onDismiss(p0: DialogInterface?) {
+                        img_order_type_arrow.animate().setDuration(200).rotation(0f).start()
+                    }
+
+                }
+            )
+        }
+    }
+
+    private fun setCoinData() {
+        val sideList = ArrayList<CpTabInfo>()
+        val sideListBuff = ArrayList<CpTabInfo>()
+        val sideListU = ArrayList<CpTabInfo>()
+        val sideListB = ArrayList<CpTabInfo>()
+        val sideListH = ArrayList<CpTabInfo>()
+        val sideListM = ArrayList<CpTabInfo>()
+
+        var isHasU = false //正向合约
+        val isHasB = false //币本位
+        var isHasH = false //混合合约
+        var isHasM = false //模拟合约
+        val mContractList = JSONArray(CpClLogicContractSetting.getContractJsonListStr(this))
+        var positionLeft = 0
+        for (i in 0 until mContractList.length()) {
+            val obj = mContractList.getJSONObject(i)
+            val contractType = obj.getString("contractType")
+            val id = obj.getInt("id")
+
+            //classification 1,USDT合约 2,币本位合约 3,混合合约 4,模拟合约
+            when (contractType) {
+                "E" -> {
+                    isHasU = true
+                    sideListU.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                "S" -> {
+                    isHasM = true
+                    sideListM.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+                else -> {
+                    isHasH = true
+                    sideListH.add(CpTabInfo(obj.getString("symbol"), obj.getInt("id")))
+                }
+            }
+            if (CpContractEntrustNewActivity.mContractId == id) {
+                positionLeft = when (contractType) {
+                    "E" -> {
+                        0
+                    }
+                    "S" -> {
+                        3
+                    }
+                    else -> {
+                        2
+                    }
+                }
+            }
+        }
+        if (isHasU) {
+            sideList.add(CpTabInfo(getString(com.chainup.contract.R.string.cp_contract_data_text13), 0, if (positionLeft == 0) 0 else 1))
+        }
+        if (isHasB) {
+            sideList.add(CpTabInfo(getString(com.chainup.contract.R.string.cp_contract_data_text10), 1, if (positionLeft == 1) 0 else 1))
+        }
+        if (isHasH) {
+            sideList.add(CpTabInfo(getString(com.chainup.contract.R.string.cp_contract_data_text12), 2, if (positionLeft == 2) 0 else 1))
+        }
+        if (isHasM) {
+            sideList.add(CpTabInfo(getString(com.chainup.contract.R.string.cp_contract_data_text11), 3, if (positionLeft == 3) 0 else 1))
+        }
+        when(positionLeft) {
+            0 -> {
+                sideListBuff.addAll(sideListU)
+            }
+            1 -> {
+                sideListBuff.addAll(sideListB)
+            }
+            3 -> {
+                sideListBuff.addAll(sideListM)
+            }
+            else -> {
+                sideListBuff.addAll(sideListH)
+            }
+        }
+        var index = -1
+        for (i in 0 until sideListBuff.size){
+            if(sideListBuff[i].name==symbol){
+                index = i
+                break
+            }
+        }
+        val mRightAdapter = CpCoinSelectRightAdapter(sideListBuff, index)
+        rv_right?.layoutManager = LinearLayoutManager(this)
+        rv_right?.adapter = mRightAdapter
+        rv_right?.setHasFixedSize(true)
+        mRightAdapter.setOnItemClickListener { adapter, view, position ->
+            mCurrentSelectExchange = CpTabInfo(sideListBuff[position].name, position)
+            tv_coins_name.text = sideListBuff[position].name
+            ll_coin_select.visibility = View.GONE
+            img_coins_name_arrow.animate().setDuration(200).rotation(0f).start()
+        }
+        val adapter = CpCoinSelectLeftAdapter(sideList, positionLeft)
+        rv_left?.layoutManager = LinearLayoutManager(this)
+        rv_left?.adapter = adapter
+        rv_left?.setHasFixedSize(true)
+        adapter.setOnItemClickListener { adapter, view, position ->
+            sideListBuff.clear()
+            when (sideList[position].index) {
+                0 -> {
+                    sideListBuff.addAll(sideListU)
+                }
+                1 -> {
+                    sideListBuff.addAll(sideListB)
+                }
+                2 -> {
+                    sideListBuff.addAll(sideListH)
+                }
+                else -> {
+                    sideListBuff.addAll(sideListM)
+                }
+            }
+            mRightAdapter.notifyDataSetChanged()
+
+            for (buff in sideList) {
+                buff.extrasNum = if (buff.index == sideList[position].index) 0 else 1
+            }
+            adapter.notifyDataSetChanged()
+        }
     }
 
     fun getData() {
@@ -173,6 +361,7 @@ class WithDrawRecordActivity : NewBaseActivity() {
              * 提币记录
              */
             WITHDRAWTYPE -> {
+                ll_sel_ctrl?.visibility = View.VISIBLE
                 ll_label_layout?.visibility = View.GONE
                 spw_layout?.setInitView(WITHDRAWTYPE)
 //                collapsing_toolbar?.title = NCoinManager.getShowMarket(selectedCoin) + " " + LanguageUtil.getString(context, "withdraw_action_withdrawHistory")
@@ -370,7 +559,7 @@ class WithDrawRecordActivity : NewBaseActivity() {
                  * 提币记录
                  */
                 WITHDRAWTYPE -> {
-                    adapter4Deposit = CashFlow4Adapter(LanguageUtil.getString(this, "assets_action_withdraw"))
+                    adapter4Deposit = WithDrawAdapter()
                     adapter4Deposit?.setEmptyView(EmptyForAdapterView(this))
                     recycler_view.adapter = adapter4Deposit
                     adapter4Deposit?.setOnItemClickListener { adapter, view, position ->

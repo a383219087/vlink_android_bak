@@ -22,7 +22,7 @@ class PartnerFriendsFragment : BaseMVFragment<PartnerMyFriendsViewModel?, Fragme
 
     override fun initView() {
         mViewModel?.activity?.value=mActivity
-        mViewModel?.getList(1)
+        mBinding?.twinklingRefreshLayout?.autoRefresh(0,300,3f)
         mViewModel?.isRefreshing?.observe(this, Observer {
             mBinding?.twinklingRefreshLayout?.finishRefresh()
         })

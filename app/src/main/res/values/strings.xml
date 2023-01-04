@@ -1368,6 +1368,7 @@ Mark Price: This is the current mark price.</string>
     <string name="login_text_gesture">Gesture login</string>
     <string name="login_text_phoneOrMail">Mobile phone number or email</string>
     <string name="login_text_pwd">Password</string>
+    <string name="login_text_title">Login</string>
     <string name="login_tip_authAppCancel">Authentication has been cancelled.</string>
     <string name="login_tip_authAppStillending">App has not been started completely, call failed.</string>
     <string name="login_tip_authCompleteFail">Identity authentication was not successful, and repeated use failed.</string>
@@ -3673,6 +3674,7 @@ A no timed position adjst. refers to a temporary position adjst. when the actual
     <string name="hoem_recharge">Recharge</string>
     <string name="withdrawal_transfer">Withdraw</string>
     <string name="contract">Contract</string>
+    <string name="contract_type">Perpetual</string>
     <string name="customer_service">Service</string>
     <!--ybc start-->
     <string name="u_benwei">USDT-M</string>

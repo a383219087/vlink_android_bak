@@ -6,105 +6,133 @@
     android:id="@+id/v_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_card_color"
+    android:background="@mipmap/bg_login"
     android:fitsSystemWindows="true">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:visibility="gone"
-            style="@style/NewVersionCancel" />
+
         <ImageView
             android:id="@+id/tv_cancel"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_23"
             android:scaleType="centerInside"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginLeft="@dimen/dp_32"
-            android:src="@drawable/login_close"
-            />
+            android:src="@mipmap/ic_login_back" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="298dp"
+            android:layout_marginRight="@dimen/dp_16"
+            android:background="@drawable/bg_login"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_gravity="center"
+                android:layout_marginTop="38dp">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/fenjiexian" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/pang"
+                    android:gravity="center"
+                    android:text="@string/login_text_title"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+            </FrameLayout>
+
+
+            <com.yjkj.chainup.new_version.view.CustomizeEditText
+                android:id="@+id/ce_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:background="@drawable/bg_login_acc"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:hint="@string/common_tip_inputPhoneOrMail"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textCursorDrawable="@drawable/et_cursor_color"
+                android:textSize="@dimen/sp_14" />
+
+
+            <com.yjkj.chainup.new_version.view.PwdSettingView
+                android:id="@+id/pws_view"
+                style="@style/NewVersionPwdStyle"
+                app:hint_text="@string/register_tip_inputPassword"
+                app:textContentSize="@dimen/sp_14"
+                app:icon_res="@mipmap/login_eyesclose"
+                app:isEditable="true" />
+
+            <com.yjkj.chainup.new_version.view.CommonlyUsedButton
+                android:id="@+id/cbtn_view"
+                style="@style/NewVersionCommonlyUsedButtonStyle"
+                android:layout_marginTop="@dimen/dp_40"
+                app:bottonTextContent="@string/login_action_login"
+                apps:bgColor="@color/main_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cbtn_view"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="30dp">
+
+                <TextView
+                    android:id="@+id/tv_forget_pwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/login_action_fogotPassword"
+                    android:textColor="#8392D2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_to_register"
+                    style="@style/NewVersionRegisterOrLogin"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/white"
+                    android:text="@string/login_action_register"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/app_logo"
-            android:layout_width="160dp"
-            android:layout_height="32dp"
-            android:layout_below="@+id/tv_cancel"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginTop="38dp" />
-
-        <com.yjkj.chainup.new_version.view.CustomizeEditText
-            android:id="@+id/ce_account"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_below="@+id/app_logo"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginTop="@dimen/dp_45"
-            android:layout_marginRight="@dimen/dp_30"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="@string/common_tip_inputPhoneOrMail"
-            android:maxLines="1"
-            android:textColor="@color/text_color"
-            android:textColorHint="@color/hint_color"
-            android:textCursorDrawable="@drawable/et_cursor_color"
-            android:textSize="@dimen/sp_16" />
-
-        <View
-            android:id="@+id/v_line"
-            style="@style/common_horizon_line_style"
-            android:layout_below="@+id/ce_account"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_30"
-            android:background="@color/new_edit_line_color" />
-
-        <com.yjkj.chainup.new_version.view.PwdSettingView
-            android:id="@+id/pws_view"
-            style="@style/NewVersionPwdStyle"
-            android:layout_below="@+id/ce_account"
-            app:hint_text="@string/register_tip_inputPassword"
-            app:icon_res="@mipmap/login_eyesclose"
-            app:isEditable="true" />
+            android:layout_width="275dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/ic_login_logo" />
 
 
-        <com.yjkj.chainup.new_version.view.CommonlyUsedButton
-            android:id="@+id/cbtn_view"
-            style="@style/NewVersionCommonlyUsedButtonStyle"
-            android:layout_below="@+id/pws_view"
-            android:layout_marginTop="@dimen/dp_40"
-            app:bottonTextContent="@string/login_action_login"
-            apps:bgColor="@color/main_blue" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cbtn_view"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="30dp">
-
-            <TextView
-                android:id="@+id/tv_forget_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/login_action_fogotPassword"
-                android:textStyle="bold"
-                android:textColor="@color/main_blue"
-                android:textSize="14sp" />
-
-
-            <TextView
-                android:id="@+id/tv_to_register"
-                style="@style/NewVersionRegisterOrLogin"
-                android:layout_alignParentLeft="true"
-                android:text="@string/login_action_register"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-    </RelativeLayout>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

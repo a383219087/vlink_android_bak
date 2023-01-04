@@ -17,6 +17,7 @@ import com.chainup.contract.view.CpEmptyForAdapterView
 import com.chainup.contract.view.CpNewDialogUtils
 import com.yjkj.chainup.net_new.rxjava.CpNDisposableObserver
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.chainup.contract.utils.CpColorUtil
 import kotlinx.android.synthetic.main.cp_activity_contract_entrust_detail.*
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -97,24 +98,26 @@ class CpContractEntrustDetailActivity : CpNBaseActivity() {
                 "BUY" -> {
                     if (it.open.equals("OPEN")) {
                         tv_type.setText(R.string.cp_overview_text13)
-                        tv_type.setTextColor(resources.getColor(R.color.main_green))
+//                        tv_type.setTextColor(resources.getColor(R.color.main_green))
 //                        collapsing_toolbar.title = symbol
                     } else {
                         tv_type.setText(R.string.cp_extra_text4)
-                        tv_type.setTextColor(resources.getColor(R.color.main_green))
+//                        tv_type.setTextColor(resources.getColor(R.color.main_green))
 //                        collapsing_toolbar.title = symbol
                     }
+                    tv_type.solid = CpColorUtil.getMainColorType(true)
                 }
                 "SELL" -> {
                     if (it.open.equals("OPEN")) {
                         tv_type.setText(R.string.cp_overview_text14)
-                        tv_type.setTextColor(resources.getColor(R.color.main_red))
+//                        tv_type.setTextColor(resources.getColor(R.color.main_red))
 //                        collapsing_toolbar.title = symbol
                     } else {
                         tv_type.setText(R.string.cp_extra_text5)
-                        tv_type.setTextColor(resources.getColor(R.color.main_red))
+//                        tv_type.setTextColor(resources.getColor(R.color.main_red))
 //                        collapsing_toolbar.title = symbol
                     }
+                    tv_type.solid = CpColorUtil.getMainColorType(false)
                 }
             }
             ll_stop_profit.visibility = if (it.otoOrder == null) View.GONE else View.VISIBLE
@@ -161,7 +164,7 @@ class CpContractEntrustDetailActivity : CpNBaseActivity() {
             }
             tv_order_type.isEnabled=false
 
-            tv_date.text = CpTimeFormatUtils.timeStampToDate(it.ctime.toLong(), "yyyy-MM-dd  HH:mm:ss")
+            tv_date.text = CpTimeFormatUtils.timeStampToDate(it.ctime.toLong(), "MM/dd HH:mm")
             tv_status.text = when (it.status) {
                 "2" -> getString(R.string.cp_extra_text1)//完全成交
                 "3" -> getString(R.string.cp_order_text55)//"部分成交"

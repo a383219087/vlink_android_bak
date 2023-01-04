@@ -1,6 +1,7 @@
 package com.chainup.contract.view
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -104,7 +105,8 @@ class CpNewDialogUtils {
             context: Context,
             list: ArrayList<CpTabInfo>,
             position: Int,
-            listener: DialogOnItemClickListener
+            listener: DialogOnItemClickListener,
+            dismissListener:DialogInterface.OnDismissListener = DialogInterface.OnDismissListener{}
         ): TDialog {
             return TDialog.Builder((context as AppCompatActivity).supportFragmentManager)
                 .setLayoutRes(R.layout.cp_item_new_dialog)
@@ -134,6 +136,7 @@ class CpNewDialogUtils {
                         }
                     }
                 }
+                .setOnDismissListener(dismissListener)
                 .create()
                 .show()
         }
@@ -429,9 +432,16 @@ class CpNewDialogUtils {
             context: Context,
             list: ArrayList<CpTabInfo>,
             position: Int,
-            listener: DialogOnItemClickListener
+            listener: DialogOnItemClickListener,
+            dismissListener: DialogInterface.OnDismissListener = DialogInterface.OnDismissListener {}
         ): TDialog {
-            return showNewListDialog(context, list, position, listener)
+            return showNewListDialog(
+                context,
+                list,
+                position,
+                listener,
+                dismissListener = dismissListener
+            )
         }
 
         fun isEnable(editText: EditText?): Boolean {

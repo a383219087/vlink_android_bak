@@ -124,8 +124,7 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
                 val json = jsonObject.optJSONObject("data")
                 val jsonLeverMap = json?.optJSONObject("leverMap")
                 searchHistroylist.clear()
-                searchHistroylist.addAll(NCoinManager.getLeverMapList(jsonLeverMap)
-                        ?: arrayListOf())
+                searchHistroylist.addAll(NCoinManager.getLeverMapList(jsonLeverMap) ?: arrayListOf())
                 searchHistroylist.sortBy { it?.optInt("sort") }
                 markList.clear()
                 markList.addAll(searchHistroylist)
@@ -221,8 +220,7 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-        }
-//        adapter?.setHeaderAndEmpty(true)
+        } //        adapter?.setHeaderAndEmpty(true)
 
 
         rv_coinmap?.adapter = adapter
@@ -233,22 +231,27 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
         /**
          * 监听搜索编辑框
          */
+        var resultList1 = getSearchMatchList("")
+        if (!leverStatus) {
+            resultList1 = getLikeData(resultList1, 0)
+        }
+        adapter?.setList(resultList1)
         et_search?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 var resultList = getSearchMatchList(s.toString())
                 if (!leverStatus) {
                     resultList = getLikeData(resultList, 0)
                 }
-                if (TextUtils.isEmpty(s.toString())) {
-                    adapter?.setList(searchHistroylist)
-                } else {
+//                if (TextUtils.isEmpty(s.toString())) {
+//                    adapter?.setList(searchHistroylist)
+//                } else {
                     if (null == resultList || resultList.size <= 0) {
                         adapter?.setList(null)
                         adapter?.setEmptyView(EmptyForAdapterView(this@CoinMapActivity))
                     } else {
                         adapter?.setList(resultList)
                     }
-                }
+//                }
 
             }
 
@@ -266,8 +269,19 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
      */
     private fun getSearchMatchList(input: String?): ArrayList<JSONObject>? {
 
-        if (null == input || input.trim().isEmpty() || markList.size <= 0) {
+        if (markList.size <= 0) {
             return null
+        }
+        if (input.isNullOrEmpty()) {
+            val temp = ArrayList<JSONObject>()
+            markList.forEach {
+                temp.add(it)
+            }
+            return if (leverStatus) {
+                temp
+            } else {
+                getLikeData(temp, 0)
+            }
         }
 
         val temp = ArrayList<JSONObject>()
@@ -293,8 +307,7 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
      * @Param  count = 5只取前5条
      */
     private fun getLikeData(list: ArrayList<JSONObject>?, count: Int): ArrayList<JSONObject>? {
-        if (null == list || list.size <= 0)
-            return list
+        if (null == list || list.size <= 0) return list
 
         val tempList = ArrayList<JSONObject>()
 
@@ -320,17 +333,20 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
      */
     private fun addOrDeleteSymbol(operationType: Int = 0, symbol: String?) {
 
-        if (null == symbol || !LoginManager.isLogin(this))
-            return
+        if (null == symbol || !LoginManager.isLogin(this)) return
         var list = ArrayList<String>()
         list.add(symbol)
-        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list,"BTC", object : NDisposableObserver() {
+        addDisposable(getMainModel().addOrDeleteSymbol(operationType, list, "BTC", object : NDisposableObserver() {
             override fun onResponseSuccess(jsonObject: JSONObject) {
                 if (operationType == 1) {
-                    NToastUtil.showTopToastNet(this@CoinMapActivity, true, LanguageUtil.getString(this@CoinMapActivity, "kline_tip_addCollectionSuccess"))
+                    NToastUtil.showTopToastNet(this@CoinMapActivity,
+                        true,
+                        LanguageUtil.getString(this@CoinMapActivity, "kline_tip_addCollectionSuccess"))
                     LikeDataService.getInstance().saveCollecData(symbol, null)
                 } else {
-                    NToastUtil.showTopToastNet(this@CoinMapActivity, true, LanguageUtil.getString(this@CoinMapActivity, "kline_tip_removeCollectionSuccess"))
+                    NToastUtil.showTopToastNet(this@CoinMapActivity,
+                        true,
+                        LanguageUtil.getString(this@CoinMapActivity, "kline_tip_removeCollectionSuccess"))
                     LikeDataService.getInstance().removeCollect(symbol)
                 }
 
@@ -359,8 +375,7 @@ class CoinMapActivity : NBaseActivity(), SearchTopView.SearchViewListener {
                     val data = getString("recommendCoin")
                     searchView.initTopView(data)
                     if (!leverStatus) {
-                        if (data.isNotEmpty())
-                            homeMarketRecommend(this@CoinMapActivity, searchView.getItemView())
+                        if (data.isNotEmpty()) homeMarketRecommend(this@CoinMapActivity, searchView.getItemView())
                     }
                 }
             }
