@@ -124,10 +124,10 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, clickData.contractId)
                         val mMultiplierCoin = CpClLogicContractSetting.getContractMultiplierCoinPrecisionById(context, clickData.contractId)
                         if (CpClLogicContractSetting.getContractUint(context) == 0) {
-                            num = CpDecimalUtil.cutValueByPrecision(clickData.canCloseVolume, 0)
+                            num = CpDecimalUtil.cutValueByPrecision(clickData.positionVolume, 0)
                             unit = "(" + context?.getString(R.string.cp_overview_text9) + ")"
                         } else {
-                            num = CpBigDecimalUtils.mulStr(clickData.canCloseVolume, mMultiplier, mMultiplierPrecision)
+                            num = CpBigDecimalUtils.mulStr(clickData.positionVolume, mMultiplier, mMultiplierPrecision)
                             unit = mMultiplierCoin
                         }
                         it.setText(R.id.tv_gains_balance_value, num + unit) //反向开仓
@@ -145,11 +145,9 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             @SuppressLint("SuspiciousIndentation")
                             override fun bottonOnClick() {
 
-                                var num1 = CpBigDecimalUtils.mulStr(clickData.positionVolume, mMultiplier, mMultiplierPrecision)
-                                var num2 = CpBigDecimalUtils.mulStr(clickData.canCloseVolume, mMultiplier, mMultiplierPrecision)
-                                var num3 = clickData.indexPrice
 
-                                LogUtils.e("我是创建订单1${clickData.toString()}")
+
+
                                 val obj = CpCreateOrderBean(
                                     contractId = clickData.contractId,
                                     positionType = clickData.positionType.toString(),
@@ -157,7 +155,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                     side = if (clickData.orderSide == "BUY") "SELL" else "BUY",
                                     leverageLevel = clickData.leverageLevel,
                                     price = "0",
-                                    volume = CpBigDecimalUtils.mulStr(num2,num3,mPricePrecision),
+                                    volume = clickData.canCloseVolume,
                                     type = 2,
                                     isConditionOrder = false,
                                     triggerPrice = "",
@@ -167,28 +165,31 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                     expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
                                 )
 
-                                val obj1 = CpCreateOrderBean(
-                                    contractId = clickData.contractId,
-                                    positionType = clickData.positionType.toString(),
-                                    open = "OPEN",
-                                    side =if (clickData.orderSide == "BUY") "SELL" else "BUY",
-                                    leverageLevel = clickData.leverageLevel,
-                                    price = "0",
-                                    volume = CpBigDecimalUtils.mulStr(num1,num3,mPricePrecision),
-                                    type = 2,
-                                    isConditionOrder = false,
-                                    triggerPrice = "",
-                                    isOto = false,
-                                    takerProfitTrigger = "",
-                                    stopLossTrigger = "",
-                                    expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
-                                )
                                 addDisposable(getContractModel().createOrder(obj, consumer = object : CpNDisposableObserver(true) {
                                     override fun onResponseSuccess(jsonObject: JSONObject) {
                                         if (subscribe != null) {
                                             subscribe?.dispose()
                                         }
                                         mReverseOpenDialog?.dismiss()
+                                        val num1 = CpBigDecimalUtils.mulStr(clickData.positionVolume, mMultiplier, mMultiplierPrecision)
+                                        val num3 = clickData.indexPrice
+
+                                        val obj1 = CpCreateOrderBean(
+                                            contractId = clickData.contractId,
+                                            positionType = clickData.positionType.toString(),
+                                            open = "OPEN",
+                                            side =if (clickData.orderSide == "BUY") "SELL" else "BUY",
+                                            leverageLevel = clickData.leverageLevel,
+                                            price = "0",
+                                            volume = CpBigDecimalUtils.mulStr(num1,num3,mPricePrecision),
+                                            type = 2,
+                                            isConditionOrder = false,
+                                            triggerPrice = "",
+                                            isOto = false,
+                                            takerProfitTrigger = "",
+                                            stopLossTrigger = "",
+                                            expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
+                                        )
                                         cancelOrder(clickData.contractId.toString(), true) //开仓接口
                                         addDisposable(getContractModel().createOrder(obj1, consumer = object : CpNDisposableObserver(mActivity, true) {
                                             override fun onResponseSuccess(jsonObject: JSONObject) {

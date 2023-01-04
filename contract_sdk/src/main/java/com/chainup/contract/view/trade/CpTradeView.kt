@@ -226,11 +226,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         } //点击条件单下的市价单
         tv_price_hint.setOnClickListener {
             isMarketPriceModel = !isMarketPriceModel
-            if (CpClLogicContractSetting.getExecution(CpMyApp.instance()) == 1) {
-                CpClLogicContractSetting.setExecution(CpMyApp.instance(), 0)
+            if (CpClLogicContractSetting.getExecution(instance()) == 1) {
+                CpClLogicContractSetting.setExecution(instance(), 0)
                 et_price.requestFocus()
             } else {
-                CpClLogicContractSetting.setExecution(CpMyApp.instance(), 1)
+                CpClLogicContractSetting.setExecution(instance(), 1)
                 et_price.clearFocus()
             }
             updataMarketPriceUI()
@@ -729,7 +729,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
         showTriggerPrice = "$triggerPrice $quote"
         val showTag = marginModel + level.toString() + "X"
-        val tradeConfirm = CpPreferenceManager.getInstance(CpMyApp.instance()).getSharedBoolean(CpPreferenceManager.PREF_TRADE_CONFIRM, true) //二次弹窗确认
+        val tradeConfirm = CpPreferenceManager.getInstance(instance()).getSharedBoolean(CpPreferenceManager.PREF_TRADE_CONFIRM, true) //二次弹窗确认
         if (tradeConfirm) {
             CpDialogUtil.showCreateOrderDialog(context,
                 titleColor,
@@ -1265,7 +1265,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     @SuppressLint("SetTextI18n")
     fun changePriceType(item: Int) {
-        CpClLogicContractSetting.setExecution(CpMyApp.instance(), 0)
+        CpClLogicContractSetting.setExecution(instance(), 0)
         et_price.setText("")
         et_volume.setText("")
         tv_buy_cost.text = "0.00"
@@ -1297,7 +1297,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 ll_price.visibility = View.GONE
                 ll_all_price.visibility = View.GONE
                 tv_order_tips_layout.visibility = View.VISIBLE
-                CpClLogicContractSetting.setExecution(CpMyApp.instance(), 1)
+                CpClLogicContractSetting.setExecution(instance(), 1)
             }
             3 -> { //条件单
                 ll_price.visibility = View.VISIBLE
