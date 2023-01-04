@@ -1007,12 +1007,7 @@ public class CpBigDecimalUtils {
     public static String getOrderNum1(boolean isOpen, String input, String multiplier, int orderType,String price,int sacle) {
         String inputUSdt=input;
         if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
-            //输入价格是BTC的时候
-            BigDecimal priceBig = new BigDecimal(price);
-            BigDecimal inputBig = new BigDecimal(input);
-            BigDecimal buff= inputBig.multiply(priceBig);
-            //显示USDT  转换精度
-            inputUSdt=buff.setScale(sacle, RoundingMode.DOWN).toPlainString();
+            inputUSdt= CpBigDecimalUtils.mulStr(input, price, sacle);
         }
         if (orderType == 2) {//市价单
             if (isOpen) {
@@ -1025,15 +1020,13 @@ public class CpBigDecimalUtils {
                 return inputUSdt;
             }
         }
-        if (CpClLogicContractSetting.getContractUint(CpMyApp.Companion.instance()) == 0) {
-            return new BigDecimal(inputUSdt).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
-        } else {
-            BigDecimal inputUSdtBig = new BigDecimal(inputUSdt);
-            BigDecimal priceBig = new BigDecimal(price);
-            BigDecimal multiplierBig = new BigDecimal(multiplier);
-            String inputNum=inputUSdtBig.divide(priceBig,sacle, BigDecimal.ROUND_DOWN).toPlainString();
-            BigDecimal inputNumBig = new BigDecimal(inputNum);
-            return inputNumBig.divide(multiplierBig, 0, BigDecimal.ROUND_DOWN).toPlainString();
+
+
+        //转换成张
+        if (!CpClLogicContractSetting.getIsUSDT(CpMyApp.Companion.instance())){
+            return  CpBigDecimalUtils.div(input, multiplier, 0).toPlainString();
+        }else {
+            return  CpBigDecimalUtils.mulStr(CpBigDecimalUtils.div(input, price, sacle).toPlainString(), multiplier, 0);
         }
     }
 

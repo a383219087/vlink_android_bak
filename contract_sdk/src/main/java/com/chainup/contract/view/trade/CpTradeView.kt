@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -14,6 +15,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.chainup.contract.R
 import com.chainup.contract.app.CpMyApp
+import com.chainup.contract.app.CpMyApp.Companion.instance
 import com.chainup.contract.app.CpParamConstant
 import com.chainup.contract.bean.CpCreateOrderBean
 import com.chainup.contract.bean.CpCurrentOrderBean
@@ -440,7 +442,13 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         var isConditionOrder = false
         var orderType = 1;
         var dialogTitle = ""
-        var volume = et_volume.text.toString();
+        var volume = if (CpClLogicContractSetting.getIsUSDT(context)) {
+            et_volume.text.toString()
+
+        } else {
+            CpBigDecimalUtils.mulStr(et_volume.text.toString(), price, multiplierPrecision)
+        }
+        Log.d("我是输入的金额6", volume.toString())
         isOpen = transactionType == CpParamConstant.TYPE_BUY
         val isStopLoss = cb_stop_loss.isChecked
         val stopProfitPrice = et_stop_profit_price.text.toString().trim()
@@ -460,9 +468,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             if (side == "BUY") {
                 volume = CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
                 buyPositionAmount = volume
+                Log.d("我是输入的金额4", volume.toString())
             } else {
                 volume = CpBigDecimalUtils.mulStr(canOpenSell, percent, multiplierPrecision)
                 sellPositionAmount = volume
+                Log.d("我是输入的金额5", volume.toString())
             }
 
         }
@@ -471,12 +481,14 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         } else {
             sellPositionAmount
         }
+        Log.d("我是输入的金额3", volume.toString())
         if (mContractUint == 0) {
             volume = if (isOpen) {
                 CpBigDecimalUtils.showSNormal(volume, 0)
             } else {
                 CpBigDecimalUtils.showSNormalUp(volume, 0)
             }
+            Log.d("我是输入的金额2", volume.toString())
         }
 
         when (buyOrSellHelper.orderType) { //限价单
@@ -515,6 +527,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 if (isOpen && isPercentPlaceOrder) {
                     val buff = CpBigDecimalUtils.mulStr(canUseAmount, percent, symbolPricePrecision)
                     volume = CpBigDecimalUtils.mulStr(buff, "1", symbolPricePrecision)
+                    Log.d("我是输入的金额1", volume.toString())
                 }
             }
             3 -> {
@@ -586,34 +599,32 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
                     return
                 }
             }
-            2 -> {
-                if (isOpen) { //最小下单金额  < x < 市价最大下单金额
-                    if (CpBigDecimalUtils.orderMoneyMinCheck(volume, minOrderMoney, multiplier)) {
-                        CpNToastUtil.showTopToastNet(getActivity(),
-                            false,
-                            context.getString(R.string.cp_tip_text7) + minOrderMoney + mContractJson?.optString("quote"))
-                        return
-                    }
-                    if (CpBigDecimalUtils.orderMoneyMaxCheck(volume, maxMarketMoney, multiplier)) {
-                        CpNToastUtil.showTopToastNet(getActivity(),
-                            false,
-                            context.getString(R.string.cp_tip_text8) + maxMarketMoney + mContractJson?.optString("quote"))
-                        return
-                    }
-                } else { //最小下单量  < x <市价单最大下单数量
-                    if (CpBigDecimalUtils.orderNumMinCheck(volume, minOrderVolume, multiplier)) {
-                        CpNToastUtil.showTopToastNet(getActivity(),
-                            false,
-                            context.getString(R.string.cp_tip_text5) + minOrderVolume + context.getString(R.string.cp_overview_text9))
-                        return
-                    }
-                    if (CpBigDecimalUtils.orderNumMaxCheck(volume, maxMarketVolume, multiplier)) {
-                        CpNToastUtil.showTopToastNet(getActivity(),
-                            false,
-                            context.getString(R.string.cp_tip_text6) + maxMarketVolume + context.getString(R.string.cp_overview_text9))
-                        return
-                    }
+            2 -> { //                if (isOpen) { //最小下单金额  < x < 市价最大下单金额
+                if (CpBigDecimalUtils.orderMoneyMinCheck(volume, minOrderMoney, multiplier)) {
+                    CpNToastUtil.showTopToastNet(getActivity(),
+                        false,
+                        context.getString(R.string.cp_tip_text7) + minOrderMoney + mContractJson?.optString("quote"))
+                    return
                 }
+                if (CpBigDecimalUtils.orderMoneyMaxCheck(volume, maxMarketMoney, multiplier)) {
+                    CpNToastUtil.showTopToastNet(getActivity(),
+                        false,
+                        context.getString(R.string.cp_tip_text8) + maxMarketMoney + mContractJson?.optString("quote"))
+                    return
+                } //                } else { //最小下单量  < x <市价单最大下单数量
+                //                    if (CpBigDecimalUtils.orderNumMinCheck(volume, minOrderVolume, multiplier)) {
+                //                        CpNToastUtil.showTopToastNet(getActivity(),
+                //                            false,
+                //                            context.getString(R.string.cp_tip_text5) + minOrderVolume + context.getString(R.string.cp_overview_text9))
+                //                        return
+                //                    }
+                //                    if (CpBigDecimalUtils.orderNumMaxCheck(volume, maxMarketVolume, multiplier)) {
+                //                        CpNToastUtil.showTopToastNet(getActivity(),
+                //                            false,
+                //                            context.getString(R.string.cp_tip_text6) + maxMarketVolume + context.getString(R.string.cp_overview_text9))
+                //                        return
+                //                    }
+                //                }
             }
             3 -> {
                 if (isMarketPriceModel && isOpen) { //最小下单金额  < x < 市价最大下单金额
@@ -654,7 +665,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             level,
             if (isMarketPriceModel) "0" else price,
             CpBigDecimalUtils.getOrderNum1(isOpen,
-                volume,
+               et_volume.text.toString(),
                 multiplier,
                 buyOrSellHelper.orderType,
                 price,
@@ -928,7 +939,11 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             tv_sell_cost.text = "0.00"
         }
         if (isPercentPlaceOrder) {
-            positionAmount = CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
+            positionAmount = if (CpClLogicContractSetting.getIsUSDT(context)) {
+                CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision)
+            } else {
+                CpBigDecimalUtils.divStr(CpBigDecimalUtils.mulStr(canOpenBuy, percent, multiplierPrecision), price, multiplierPrecision)
+            }
             buyPositionAmount = positionAmount
             sellPositionAmount = positionAmount
         }

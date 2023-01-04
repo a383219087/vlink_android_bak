@@ -361,20 +361,20 @@ class PersonalCenterActivity : NBaseActivity() {
 
             })
 
-//        HttpClient.instance.getInviteStatus()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(object : NetObserver<String>() {
-//                override fun onHandleSuccess(t: String?) {
-//                    if (t == "1" || t == "0") {
-//                        ll_share.visibility = View.VISIBLE
-//                    } else {
-//                        ll_share.visibility = View.GONE
-//                    }
-//
-//                }
-//
-//            })
+        HttpClient.instance.getInviteStatus()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetObserver<String>() {
+                override fun onHandleSuccess(t: String?) {
+                    if (t == "1" || t == "0") {
+                        ll_share.visibility = View.VISIBLE
+                    } else {
+                        ll_share.visibility = View.GONE
+                    }
+
+                }
+
+            })
 
         startTask(
             HttpHelper.instance.getBaseUrlService(ApiService::class.java).myBonus(),
