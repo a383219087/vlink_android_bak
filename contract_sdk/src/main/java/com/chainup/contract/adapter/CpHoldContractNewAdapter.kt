@@ -39,30 +39,32 @@ class CpHoldContractNewAdapter(data: ArrayList<CpContractPositionBean>) : BaseQu
         val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, item.contractId)
         helper.run {
             setGone(R.id.ll_button, !isMe)
+            val buyColor = CpColorUtil.getMainColorType(true)
+            val sellColor = CpColorUtil.getMainColorType(false)
             when (item.orderSide) {
                 "BUY" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text6111))
-                    setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_green))
-                    setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_green))
-                    getView<SuperTextView>(R.id.tv_open_type).solid = context.resources.getColor(R.color.main_green)
+                    setTextColor(R.id.tv_profit_loss_value, buyColor)
+                    setTextColor(R.id.tv_floating_gains_value, buyColor)
+                    getView<SuperTextView>(R.id.tv_open_type).solid = buyColor
                 }
                 "SELL" -> {
                     setText(R.id.tv_type, context.getString(R.string.cp_order_text152))
-                    setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_red))
-                    setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_red))
-                    getView<SuperTextView>(R.id.tv_open_type).solid = context.resources.getColor(R.color.main_red)
+                    setTextColor(R.id.tv_profit_loss_value, sellColor)
+                    setTextColor(R.id.tv_floating_gains_value, sellColor)
+                    getView<SuperTextView>(R.id.tv_open_type).solid = sellColor
                 }
                 else -> {
                 }
             }
             if (CpBigDecimalUtils.compareTo(
                     CpBigDecimalUtils.showSNormal(item.openRealizedAmount, mMarginCoinPrecision),"0")==1){
-                setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_green))
-                setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_green))
+                setTextColor(R.id.tv_profit_loss_value, buyColor)
+                setTextColor(R.id.tv_floating_gains_value, buyColor)
 
             }else{
-                setTextColor(R.id.tv_profit_loss_value, context.resources.getColor(R.color.main_red))
-                setTextColor(R.id.tv_floating_gains_value, context.resources.getColor(R.color.main_red))
+                setTextColor(R.id.tv_profit_loss_value, sellColor)
+                setTextColor(R.id.tv_floating_gains_value, sellColor)
 
             }
 

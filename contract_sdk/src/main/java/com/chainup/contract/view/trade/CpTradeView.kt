@@ -29,6 +29,7 @@ import com.chainup.contract.view.CpNewDialogUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.cp_item_commonly_used_button.view.*
 import kotlinx.android.synthetic.main.cp_trade_amount_view_new.view.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.view
@@ -303,6 +304,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
 
         btn_buy.isEnable(true)
+        btn_buy.setBgColor(CpColorUtil.getMainColorType(true))
         btn_buy.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
 
@@ -345,6 +347,7 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             }
         }
         btn_sell.isEnable(true)
+        btn_sell.setBgColor(CpColorUtil.getMainColorType(false))
         btn_sell.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 if (et_volume.text.isNullOrEmpty()) {
@@ -677,9 +680,9 @@ class CpTradeView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             stopProfitPrice,
             stopLossPrice)
         val titleColor = if (side == "BUY") {
-            resources.getColor(R.color.main_green)
+            CpColorUtil.getMainColorType(true)
         } else {
-            resources.getColor(R.color.main_red)
+            CpColorUtil.getMainColorType(false)
         }
         if (isOpen && side == "BUY") {
             dialogTitle = context.getString(R.string.cp_overview_text13) //买入开多

@@ -54,7 +54,7 @@ object CpColorUtil {
      *
      */
     fun getColorType(): Int {
-        return 0
+        return ColorDataService.getInstance().colorType
     }
 
     /**

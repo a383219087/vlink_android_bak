@@ -451,7 +451,9 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
 
     private fun setOnclick() {
         btn_buy.isEnable(true)
+        btn_buy.setBgColor(CpColorUtil.getMainColorType(true))
         btn_sell.isEnable(true)
+        btn_sell.setBgColor(CpColorUtil.getMainColorType(false))
         btn_buy.listener = object : CpCommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
                 var messageEvent =
