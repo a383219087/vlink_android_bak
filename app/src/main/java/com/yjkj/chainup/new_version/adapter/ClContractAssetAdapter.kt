@@ -62,7 +62,7 @@ class ClContractAssetAdapter(context: Context, data: ArrayList<JSONObject>) : Ba
       //            钱包余额
             Utils.assetsHideShow(isShowAssets,
                 helper.getView(R.id.tv_available_value),  BigDecimalUtils.divForDown(
-                    it.optString("canUseAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
+                    it.optString("totalAmount"), NCoinManager.getCoinShowPrecision(it?.optString("symbol")
                 ?: "")).toPlainString())
       //            保证金余额
             val  sumHoldAmount =  it.optString("sumHoldAmount").toString().toDouble()
