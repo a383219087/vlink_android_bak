@@ -83,7 +83,7 @@ class SystemV2Utils {
         }
 
         /**
-         * 旁门正道标题题
+         * BlackItalic
          */
         fun getFontFamily3(): Typeface {
             return Typeface.createFromAsset(ChainUpApp.app.assets,
