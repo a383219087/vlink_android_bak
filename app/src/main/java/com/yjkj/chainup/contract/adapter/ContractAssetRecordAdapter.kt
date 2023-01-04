@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chainup.contract.utils.CpColorUtil
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.common.sdk.utlis.TimeFormatUtils
@@ -80,71 +81,71 @@ class ContractAssetRecordAdapter(ctx: Context, data: ArrayList<ContractCashBook>
             //类型
             val action: Int = item.action
             val tvTypeValue = getView<TextView>(R.id.tv_type_value)
-            var typeColor = R.color.main_green
+            var typeColor = CpColorUtil.getMainColorType(true)
             var typeText = "--"
             when (action) {
                 1 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = sl_str_buy_open
                 }
                 2 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = sl_str_buy_close
                 }
                 3 -> {
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                     typeText = sl_str_sell_close
                 }
                 4 -> {
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                     typeText = sl_str_sell_open
                 }
                 5, 7, 22 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = sl_str_transfer_bb2contract
                 }
                 6, 8, 23 -> {
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                     typeText = sl_str_transfer_contract2bb
                 }
                 9 -> {
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                     typeText = sl_str_transferim_position2contract
                 }
                 10 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = sl_str_transferim_contract2position
                 }
                 11 -> {
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                     typeText = sl_str_transferim_contract2position
                 }
                 12 -> {
                     //赠金发放 contract_bonus_Issue
                     typeText = sl_str_contract_bonus_Issue
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                 }
                 13 -> {
                     //赠金回收 contract_bonus_recycle
                     typeText = sl_str_contract_bonus_recycle
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                 }
                 19 -> {
                     typeText = contract_cash_book_action_system_fee_in
-                    typeColor = R.color.main_red
+                    typeColor = CpColorUtil.getMainColorType(false)
                 }
                 20 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = contract_fee_share
                 }
                 21 -> {
-                    typeColor = R.color.main_green
+                    typeColor = CpColorUtil.getMainColorType(true)
                     typeText = sl_str_air_drop
                 }
             }
             tvTypeValue.run {
                 text = typeText
-                setTextColor(context.resources.getColor(typeColor))
+                setTextColor(typeColor)
             }
         }
     }

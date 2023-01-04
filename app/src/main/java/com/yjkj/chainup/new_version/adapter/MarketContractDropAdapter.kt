@@ -64,11 +64,10 @@ open class MarketContractDropAdapter(layoutRes: Int, data: ArrayList<JSONObject>
             }
             if (!ticker.isNull("close")) {
                 val chg = CpBigDecimalUtils.mul(ticker.optString("rose"), "100", 2).toDouble()
-                //比例
                 val tvLastPrice = helper.getView<TextView>(R.id.tv_last_price)
                 tvLastPrice.run {
                     text = ticker.optString("close")
-                    setTextColor(CpColorUtil.getMainColorType(chg >= 0))
+                    setTextColor(getMainColorV2Type( ColorUtil.getColorType(),chg))
 //                    helper.getView<SuperTextView>(R.id.tv_contract_chg).solid =  getMainColorV2Type( ColorUtil.getColorType(),chg)
                 }
             }

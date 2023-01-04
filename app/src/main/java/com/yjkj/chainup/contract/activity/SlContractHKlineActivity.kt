@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.RadioButton
+import com.chainup.contract.utils.CpColorUtil
 import com.common.sdk.utlis.MathHelper
 import com.common.sdk.utlis.NumberUtil
 import com.contract.sdk.ContractPublicDataAgent
@@ -203,7 +204,7 @@ class SlContractHKlineActivity : SlBaseKlineActivity() {
             val riseFallValue: Double = MathHelper.round(it.change_value, contract!!.price_index)
             val sRate = if (riseFallRate >= 0) "+" + dfRate.format(riseFallRate) + "%" else dfRate.format(riseFallRate) + "%"
             val sValue = if (riseFallValue >= 0) "+" + dfPrice.format(riseFallValue) else dfPrice.format(riseFallValue)
-            val color = if (riseFallRate >= 0) resources.getColor(R.color.main_green) else resources.getColor(R.color.main_red)
+            val color = CpColorUtil.getMainColorType(riseFallRate >= 0)
 
             val current: Double = MathHelper.round(it.last_px, contract!!.price_index)
             val fairPrice: Double = MathHelper.round(it.fair_px, contract!!.price_index)

@@ -92,9 +92,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:fontFamily="@font/dinpro_medium"
                 android:textColor="@color/normal_text_color"
                 android:textSize="14sp"
-                android:fontFamily="@font/dinpro_medium"
                 android:visibility="invisible"
                 tools:text="≈¥186801525" />
         </LinearLayout>

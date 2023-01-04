@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.chainup.contract.R
 import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
+import com.chainup.contract.utils.CpColorUtil
 import com.chainup.contract.utils.CpTimeFormatUtils
 import org.json.JSONObject
 
@@ -27,13 +28,8 @@ class CpContractHistoricalPositionAdapter(ctx: Context, data: ArrayList<JSONObje
             } else {
                 context.getString(R.string.cp_order_text15)
             }
-            val typeColor = if (item.optString("orderSide").equals("BUY")) {
-                R.color.main_green
-            } else {
-                R.color.main_red
-            }
             setText(R.id.tv_side, typeStr)
-            setTextColor(R.id.tv_side, context.resources.getColor(typeColor))
+            setTextColor(R.id.tv_side, CpColorUtil.getMainColorType(item.optString("orderSide").equals("BUY")))
 
             setText(R.id.tv_coin_name, item.optString("symbol"))
             setText(R.id.tv_level_value, (if (item.optInt("positionType") == 1) context.getString(R.string.cp_contract_setting_text1) else  context.getString(R.string.cp_contract_setting_text2)) + item.optString("leverageLevel") + "X")

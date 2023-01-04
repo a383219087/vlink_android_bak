@@ -8,9 +8,9 @@ import android.graphics.drawable.StateListDrawable
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.chainup.contract.utils.ColorDataService
 import com.yjkj.chainup.R
 import com.yjkj.chainup.app.ChainUpApp
-import com.yjkj.chainup.db.service.ColorDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import java.math.BigDecimal
 

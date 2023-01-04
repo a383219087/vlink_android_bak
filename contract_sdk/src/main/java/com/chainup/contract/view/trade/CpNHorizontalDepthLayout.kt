@@ -888,6 +888,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 if (subList.isNotEmpty()) {
                     /*****深度背景色START****/
                     sellViewList[i].fl_bg_item.backgroundColor = CpColorUtil.getMinorColorType(isRise = false)
+                    sellViewList[i].tv_price_item.textColor = CpColorUtil.getMainColorType(isRise = false)
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
@@ -918,9 +919,11 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 sellViewList[i].tv_price_item.text = "--"
                 sellViewList[i].tv_quantity_item.text = "--"
                 sellViewList[i].ll_item.backgroundColor = CpColorUtil.getColor(R.color.transparent)
+                sellViewList[i].tv_price_item.textColor = CpColorUtil.getColor(R.color.normal_text_color)
                 if (i >= temp) {
                     /*****深度背景色START****/
                     sellViewList[i].fl_bg_item.backgroundColor = CpColorUtil.getMinorColorType(isRise = false)
+                    sellViewList[i].tv_price_item.textColor = CpColorUtil.getMainColorType(isRise = false)
                     val layoutParams = sellViewList[i].fl_bg_item.layoutParams
                     val width = (list[i - temp].optDouble(1) / maxVol) * measuredWidth * 0.4
                     layoutParams.width = width.toInt()
@@ -1011,6 +1014,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                 if (subList.isNotEmpty()) {
                     /*****深度背景色START****/
                     buyViewList[i].fl_bg_item.backgroundColor = CpColorUtil.getMinorColorType(isRise = true)
+                    buyViewList[i].tv_price_item.textColor = CpColorUtil.getMainColorType(isRise = true)
                     val layoutParams = buyViewList[i].fl_bg_item.layoutParams
                     val curVolume = subList[i].optDouble(1)
                     val width = (curVolume / maxVol) * measuredWidth * 0.37
@@ -1038,6 +1042,7 @@ class CpNHorizontalDepthLayout @JvmOverloads constructor(context: Context,
                     tv_price_item.text = "--"
                     tv_quantity_item.text = "--"
                     fl_bg_item.setBackgroundResource(R.color.transparent)
+                    buyViewList[i].tv_price_item.textColor = CpColorUtil.getColor(R.color.normal_text_color)
                     im_sell.visibility = View.GONE
                 }
 

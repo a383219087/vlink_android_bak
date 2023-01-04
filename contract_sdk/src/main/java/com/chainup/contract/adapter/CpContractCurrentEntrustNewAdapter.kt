@@ -10,6 +10,7 @@ import com.chainup.contract.utils.CpBigDecimalUtils
 import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.chainup.contract.utils.CpColorUtil
 import com.coorchice.library.SuperTextView
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -116,10 +117,10 @@ class CpContractCurrentEntrustNewAdapter(ctx: Context, data: ArrayList<CpCurrent
 
             when (sideStr) {
                 "BUY" -> {
-                    helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_green)
+                    helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(true)
                 }
                 "SELL" -> {
-                    helper.getView<SuperTextView>(R.id.tv_side).solid = context.resources.getColor(R.color.main_red)
+                    helper.getView<SuperTextView>(R.id.tv_side).solid = CpColorUtil.getMainColorType(false)
                 }
                 else -> {
                 }

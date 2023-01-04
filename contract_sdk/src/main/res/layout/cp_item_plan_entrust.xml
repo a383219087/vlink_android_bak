@@ -32,7 +32,6 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginLeft="21dp"
                 android:layout_marginBottom="4dp"
-                android:textStyle="bold"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:paddingLeft="8dp"
@@ -40,6 +39,7 @@
                 android:text="买入开多"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12"
+                android:textStyle="bold"
                 app:stv_corner="4dp"
                 app:stv_solid="@color/main_blue_15" />
 

@@ -147,7 +147,7 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 //        tv_contract_name_lable.setText(orderSideStr+" " + mContractPositionBean?.leverageLevel + "X")
 
 //        tv_contract_name_lable.setBackgroundResource(if (mContractPositionBean?.orderSide.equals("BUY")) R.drawable.cp_border_green_fill else R.drawable.cp_border_red_fill)
-        tv_type.setTextColor(if (mContractPositionBean?.orderSide.equals("BUY")) CpColorUtil.getColor(R.color.main_green) else CpColorUtil.getColor(R.color.main_red))
+        tv_type.setTextColor(CpColorUtil.getMainColorType(mContractPositionBean?.orderSide.equals("BUY")))
     }
 
 
@@ -735,10 +735,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
             if (CpBigDecimalUtils.compareTo(buff, "0") == 1) {
                 tv_estimate_stop_profit.setText(getString(R.string.cp_order_text38)+"：" + buff + " " + mMarginCoin)
-                tv_estimate_stop_profit.setTextColor(ContextCompat.getColor(this, R.color.main_green))
+                tv_estimate_stop_profit.setTextColor(CpColorUtil.getMainColorType(true))
             } else {
                 tv_estimate_stop_profit.setText(getString(R.string.cp_extra_text95) +"："+ buff + " " + mMarginCoin)
-                tv_estimate_stop_profit.setTextColor(ContextCompat.getColor(this, R.color.main_red))
+                tv_estimate_stop_profit.setTextColor(CpColorUtil.getMainColorType(false))
             }
         }
         stop_profit_position= et_stop_profit_position.text.toString().trim()
@@ -769,10 +769,10 @@ class CpContractStopRateLossActivity : CpNBaseActivity(), CpWsContractAgentManag
 
             if (CpBigDecimalUtils.compareTo(buff, "0") == 1) {
                 tv_estimate_loss_profit.setText(getString(R.string.cp_order_text38) +"："+ buff + " " + mMarginCoin)
-                tv_estimate_loss_profit.setTextColor(ContextCompat.getColor(this, R.color.main_green))
+                tv_estimate_loss_profit.setTextColor(CpColorUtil.getMainColorType(true))
             } else {
                 tv_estimate_loss_profit.setText(getString(R.string.cp_extra_text95)  +"："+ buff + " " + mMarginCoin)
-                tv_estimate_loss_profit.setTextColor(ContextCompat.getColor(this, R.color.main_red))
+                tv_estimate_loss_profit.setTextColor(CpColorUtil.getMainColorType(false))
             }
         }
 

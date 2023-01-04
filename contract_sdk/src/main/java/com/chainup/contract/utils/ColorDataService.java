@@ -1,8 +1,7 @@
-package com.yjkj.chainup.db.service;
+package com.chainup.contract.utils;
 
-import com.yjkj.chainup.db.MMKVDb;
-import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent;
+import com.yjkj.chainup.extra_service.eventbus.NLiveDataUtil;
 
 /**
  * @Description:  涨跌幅颜色设置

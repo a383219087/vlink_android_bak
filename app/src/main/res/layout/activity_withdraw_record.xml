@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_card_color"
         android:orientation="horizontal"
+        app:personalTitle=""
+        app:showTitle="true"
         app:bar_title_value="@string/sl_str_asset_record"
         app:showRightIc="true" />
 

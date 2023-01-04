@@ -12,6 +12,7 @@ import com.chainup.contract.utils.CpClLogicContractSetting
 import com.chainup.contract.utils.CpTimeFormatUtils
 import com.chainup.contract.view.CpContractUpDownItemLayout
 import com.chainup.contract.bean.CpCurrentOrderBean
+import com.chainup.contract.utils.CpColorUtil
 import java.math.BigDecimal
 import java.util.*
 
@@ -166,10 +167,10 @@ var cp_overview_text9 = ""
             helper.setGone(R.id.ll_common, false)
             when (sideStr) {
                 "BUY" -> {
-                    helper.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_green))
+                    helper.setTextColor(R.id.tv_type_common, CpColorUtil.getMainColorType(true))
                 }
                 "SELL" -> {
-                    helper.setTextColor(R.id.tv_type_common, context.resources.getColor(R.color.main_red))
+                    helper.setTextColor(R.id.tv_type_common, CpColorUtil.getMainColorType(false))
                 }
                 else -> {
                 }
@@ -218,11 +219,11 @@ var cp_overview_text9 = ""
             helper.setText(R.id.tv_only_reduce_position_common_key, if (isCurrentEntrust) cl_reduce_only_str else sl_str_pl + "(" + marginCoin + ")")
             val profitLossColor = if (CpBigDecimalUtils.compareTo(
                             CpBigDecimalUtils.showSNormal(item.realizedAmount, marginCoinPrecision), "0") == 1) {
-                R.color.main_green
+                CpColorUtil.getMainColorType(true)
             } else {
-                R.color.main_red
+                CpColorUtil.getMainColorType(false)
             }
-            helper.setTextColor(R.id.tv_only_reduce_position_common_value, ContextCompat.getColor(context, if (isCurrentEntrust) R.color.text_color else profitLossColor))
+            helper.setTextColor(R.id.tv_only_reduce_position_common_value, if (isCurrentEntrust) ContextCompat.getColor(context, R.color.text_color) else profitLossColor)
             helper.setText(R.id.tv_only_reduce_position_common_value, if (isCurrentEntrust) only_reduce_position else CpBigDecimalUtils.showSNormal(item.realizedAmount, marginCoinPrecision))
 //            helper.getView<ContractUpDownItemLayout>(R.id.item_only_reduce_position_common).contentTextColor = if (isCurrentEntrust) R.color.text_color else profitLossColor
 //            helper.getView<ContractUpDownItemLayout>(R.id.item_only_reduce_position_common).content =if (isCurrentEntrust) only_reduce_position else BigDecimalUtils.showSNormal(item.realizedAmount, item.pricePrecision)
@@ -256,10 +257,10 @@ var cp_overview_text9 = ""
             helper.setGone(R.id.ll_common, true)
             when (sideStr) {
                 "BUY" -> {
-                    helper?.setTextColor(R.id.tv_type_plan, context.resources.getColor(R.color.main_green))
+                    helper?.setTextColor(R.id.tv_type_plan, CpColorUtil.getMainColorType(true))
                 }
                 "SELL" -> {
-                    helper?.setTextColor(R.id.tv_type_plan, context.resources.getColor(R.color.main_red))
+                    helper?.setTextColor(R.id.tv_type_plan, CpColorUtil.getMainColorType(false))
                 }
                 else -> {
                 }

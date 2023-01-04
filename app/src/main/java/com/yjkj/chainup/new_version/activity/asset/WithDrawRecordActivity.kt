@@ -365,7 +365,8 @@ class WithDrawRecordActivity : NewBaseActivity() {
                 ll_label_layout?.visibility = View.GONE
                 spw_layout?.setInitView(WITHDRAWTYPE)
 //                collapsing_toolbar?.title = NCoinManager.getShowMarket(selectedCoin) + " " + LanguageUtil.getString(context, "withdraw_action_withdrawHistory")
-                title_layout?.setContentTitle(LanguageUtil.getString(this, "title_history"))
+//                title_layout?.setContentTitle(LanguageUtil.getString(this, "title_history"))
+                title_layout?.setTvTitle(false)
                 title_layout?.setRightVisible(false)
                 tv_number_title?.text = LanguageUtil.getString(context, "charge_text_volume")
                 tv_state?.text = LanguageUtil.getString(context, "charge_text_state")

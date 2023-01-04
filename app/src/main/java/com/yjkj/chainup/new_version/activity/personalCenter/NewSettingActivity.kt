@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.chainup.contract.utils.ColorDataService
 import com.timmy.tdialog.TDialog
 import com.yjkj.chainup.R
-import com.yjkj.chainup.db.service.ColorDataService
 import com.yjkj.chainup.db.service.PublicInfoDataService
 import com.yjkj.chainup.db.service.UserDataService
 import com.yjkj.chainup.extra_service.eventbus.MessageEvent

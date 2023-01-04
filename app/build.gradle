@@ -217,7 +217,6 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
     api project(path: ':logcollector')
-    api project(path: ':ws_library')
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
     implementation 'com.journeyapps:zxing-android-embedded:3.3.0'
@@ -272,11 +271,6 @@ dependencies {
      * 自定义 广告text
      */
     implementation 'com.github.paradoxie:AutoVerticalTextview:0.1'
-    /**
-     * MMKV:https://github.com/Tencent/MMKV/wiki/android_setup_cn
-     * 腾讯MMKV,替代SP
-     */
-    implementation "com.tencent:mmkv:$config.dependencies.mmkvVersion"
 
     /**
      * SuperTextView
