@@ -1,8 +1,10 @@
 package com.yjkj.chainup.new_version.activity.login
 
 import android.os.Bundle
+import android.text.Editable
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -21,14 +23,16 @@ import com.yjkj.chainup.net.HttpClient
 import com.yjkj.chainup.net.NDisposableObserver
 import com.yjkj.chainup.new_version.activity.FindPwd2verifyActivity
 import com.yjkj.chainup.new_version.view.ComVerifyView
+import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.util.*
-import com.yjkj.chainup.wedegit.VerificationCodeView
+//import com.yjkj.chainup.wedegit.VerificationCodeView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_version_phone_verification.*
+import kotlinx.android.synthetic.main.activity_new_version_register.*
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -39,7 +43,7 @@ import java.util.concurrent.TimeUnit
  * @description 手机or邮箱验证or谷歌验证
  */
 @Route(path = "/login/newphoneverificationactivity")
-class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCodeFinishListener {
+class NewPhoneVerificationActivity : NBaseActivity()/*, VerificationCodeView.OnCodeFinishListener*/ {
     override fun setContentView(): Int {
         return R.layout.activity_new_version_phone_verification
     }
@@ -131,7 +135,8 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         super.onInit(savedInstanceState)
         setTextContent()
         initView()
-        verificationcodeview?.setFocusable()
+//        verificationcodeview?.setFocusable()
+        et_send.requestFocus()
     }
 
 
@@ -152,22 +157,57 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         getData()
         setOnClick()
 
-        verificationcodeview.setOnCodeFinishListener(this)
+        //verificationcodeview.setOnCodeFinishListener(this)
+        confirm.isEnable(false)
+        et_send.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()) {
+                    confirm.isEnable(true)
+                } else {
+                    confirm.isEnable(false)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+        confirm?.listener = object : CommonlyUsedButton.OnBottonListener {
+            override fun bottonOnClick() {
+                setLoginStatus(et_send.text.toString().trim())
+            }
+        }
         when (statusPosition) {
 
             GOOGLE_VERIFY -> {
                 tv_title?.text = LanguageUtil.getString(mActivity, "safety_text_googleAuth")
                 tv_resend_code?.visibility = View.VISIBLE
-                tv_send_verification_code.setText(LanguageUtil.getString(this, "please_check_with_google_auth"))
+                tv_send_verification_code.setText(
+                    LanguageUtil.getString(
+                        this,
+                        "please_check_with_google_auth"
+                    )
+                )
                 tv_resend_code.setText(LanguageUtil.getString(this, "common_action_paste"))
                 tv_resend_code.setTextColor(ColorUtil.getColor(R.color.main_color))
+                tv_send_tip?.text = LanguageUtil.getString(mActivity, "google_code")
             }
 
 
             MOBiLE_VERIFY -> {
-                tv_send_verification_code.setText(LanguageUtil.getString(this, "phone_didSendCode_to") + " " + StringUtil.midleReplaceStar(account))
-                tv_title?.text = LanguageUtil.getString(mActivity, "personal_tip_inputPhoneCode")
+                tv_send_verification_code.setText(
+                    LanguageUtil.getString(
+                        this,
+                        "phone_didSendCode_to2"
+                    )/* + " " + StringUtil.midleReplaceStar(account)*/
+                )
+                tv_title?.text = LanguageUtil.getString(mActivity, "phone_verification")
+                tv_send_tip?.text = LanguageUtil.getString(mActivity, "mobile_code")
                 verifyType = ComVerifyView.MOBILE
                 when (isLogin) {
                     0 -> {
@@ -183,8 +223,14 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
             }
 
             EMAIL_VERIFY -> {
-                tv_send_verification_code.setText(LanguageUtil.getString(this, "mail_didSendCode_to") + " " + StringUtil.midleReplaceStar(account))
-                tv_title?.text = LanguageUtil.getString(mActivity, "personal_tip_inputMailCode")
+                tv_send_verification_code.setText(
+                    LanguageUtil.getString(
+                        this,
+                        "mail_didSendCode_to2"
+                    )/* + " " + StringUtil.midleReplaceStar(account)*/
+                )
+                tv_title?.text = LanguageUtil.getString(mActivity, "safety_text_mailAuth")
+                tv_send_tip?.text = LanguageUtil.getString(mActivity, "email_code")
                 verifyType = ComVerifyView.EMAIL
                 when (isLogin) {
                     0 -> {
@@ -217,7 +263,8 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         tv_resend_code.setOnClickListener {
             when (verifyType) {
                 ComVerifyView.GOOGLE -> {
-                    verificationcodeview?.setFillCode(ClipboardUtil.paste(this))
+//                    verificationcodeview?.setFillCode(ClipboardUtil.paste(this))
+                    et_send.setText(ClipboardUtil.paste(this))
                 }
 
                 ComVerifyView.MOBILE -> {
@@ -244,14 +291,38 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
     fun setLoginStatus(code: String) {
         when (isLogin) {
             0 -> {
-                addDisposable(getMainModel().confirmLogin(code, getType(statusPosition).toString(), token, consumer = MyNDisposableObserver(CONFIRMLOGIN_TYPE)))
+                addDisposable(
+                    getMainModel().confirmLogin(
+                        code,
+                        getType(statusPosition).toString(),
+                        token,
+                        consumer = MyNDisposableObserver(CONFIRMLOGIN_TYPE)
+                    )
+                )
             }
             1 -> {
-                addDisposable(getMainModel().reg4Step2(account, code, consumer = MyNDisposableObserver(REG4STEP2_TYPE)))
+                addDisposable(
+                    getMainModel().reg4Step2(
+                        account,
+                        code,
+                        consumer = MyNDisposableObserver(REG4STEP2_TYPE)
+                    )
+                )
 
             }
             2 -> {
-                addDisposable(getMainModel().findPwdStep2(token, code, "", "", "", "", "", consumer = MyNDisposableObserver(FINDPWDSTEP2_TYPE)))
+                addDisposable(
+                    getMainModel().findPwdStep2(
+                        token,
+                        code,
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        consumer = MyNDisposableObserver(FINDPWDSTEP2_TYPE)
+                    )
+                )
             }
             else -> {
                 val bundle = Bundle()
@@ -290,7 +361,12 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
                         /**
                          * 验证 Google , ID
                          */
-                        FindPwd2verifyActivity.enter2(token, isCertificateNumber.toInt(), isGoogleAuth.toInt(), account)
+                        FindPwd2verifyActivity.enter2(
+                            token,
+                            isCertificateNumber.toInt(),
+                            isGoogleAuth.toInt(),
+                            account
+                        )
                     }
                     finish()
                 }
@@ -308,7 +384,11 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
                      * 登录成功
                      */
 
-                    DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "login_tip_loginsuccess"), isSuc = true)
+                    DisplayUtil.showSnackBar(
+                        window?.decorView,
+                        LanguageUtil.getString(mActivity, "login_tip_loginsuccess"),
+                        isSuc = true
+                    )
 
                     ArouterUtil.refreshWebview()
                     KeyBoardUtils.closeKeyBoard(this@NewPhoneVerificationActivity)
@@ -345,7 +425,8 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
 
         override fun onResponseFailure(code: Int, msg: String?) {
             super.onResponseFailure(code, msg)
-            verificationcodeview.setEmpty()
+//            verificationcodeview.setEmpty()
+            et_send.setText("")
         }
 
     }
@@ -438,7 +519,12 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         ArouterUtil.navigation("/login/gesturespasswordactivity", bundle)
     }
 
-    fun sendVerify(verifyType: Int, accountValidation: Boolean = false, accountContent: String = "", token4last: String = "") {
+    fun sendVerify(
+        verifyType: Int,
+        accountValidation: Boolean = false,
+        accountContent: String = "",
+        token4last: String = ""
+    ) {
         if (!TextUtils.isEmpty(token4last)) {
             token = token4last
         }
@@ -495,7 +581,7 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
         sendSms(smsType, view, "", "", account)
     }
 
-    override fun onComplete(view: View?, content: String?) {
+    /*override fun onComplete(view: View?, content: String?) {
         LogUtil.e("onComplete", content.toString())
         if (content?.length == 6) {
             setLoginStatus(content.toString())
@@ -504,10 +590,12 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
 
     override fun onTextChange(view: View?, content: String?) {
 
-    }
+    }*/
 
-    private fun sendSmsByType(type: Int, countryCode: String?,
-                              token: String?, account: String?): Observable<Boolean> {
+    private fun sendSmsByType(
+        type: Int, countryCode: String?,
+        token: String?, account: String?
+    ): Observable<Boolean> {
         return Observable.just(type).flatMap {
             if (it == AppConstant.MOBILE_LOGIN) {
                 HttpClient.instance.sendMobileCode(otype = it, token = token!!)
@@ -527,10 +615,12 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
 
     private fun smsResult(type: Int, view: TextView, isSuccess: Boolean = false) {
         if (isSuccess) {
-            view.text = LanguageUtil.getString(this@NewPhoneVerificationActivity, when (type) {
-                AppConstant.EMAIL_LOGIN -> "get_code"
-                else -> "login_action_resendCode"
-            })
+            view.text = LanguageUtil.getString(
+                this@NewPhoneVerificationActivity, when (type) {
+                    AppConstant.EMAIL_LOGIN -> "get_code"
+                    else -> "login_action_resendCode"
+                }
+            )
             view.isClickable = true
             view.setTextColor(ColorUtil.getColor(R.color.main_blue))
         } else {
@@ -547,47 +637,49 @@ class NewPhoneVerificationActivity : NBaseActivity(), VerificationCodeView.OnCod
     }
 
     private var error: String = ""
-    private fun sendSms(smsType: Int, view: TextView, countryCode: String?,
-                        token: String?, account: String?) {
+    private fun sendSms(
+        smsType: Int, view: TextView, countryCode: String?,
+        token: String?, account: String?
+    ) {
         view.isClickable = false
         sendSmsByType(smsType, countryCode, token, account)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it) {
-                        Observable.interval(1, TimeUnit.SECONDS)
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(object : Observer<Long> {
-                                    var disposable: Disposable? = null
-                                    override fun onComplete() {
-                                    }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it) {
+                    Observable.interval(1, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(object : Observer<Long> {
+                            var disposable: Disposable? = null
+                            override fun onComplete() {
+                            }
 
-                                    override fun onError(e: Throwable) {
-                                        Log.d("-----------", "onError ${e.message}")
-                                    }
+                            override fun onError(e: Throwable) {
+                                Log.d("-----------", "onError ${e.message}")
+                            }
 
-                                    override fun onSubscribe(d: Disposable) {
-                                        disposable = d
-                                    }
+                            override fun onSubscribe(d: Disposable) {
+                                disposable = d
+                            }
 
-                                    override fun onNext(t: Long) {
-                                        smsResultTime(view, t)
-                                        if (t.toInt() == countTotalTime) {
-                                            smsResult(smsType, view, true)
-                                            disposable?.dispose()
-                                        }
-                                    }
-                                })
-                    } else {
-                        //  发送失败
-                        smsResult(smsType, view)
-                    }
-                    // 成功
-                }, {
-                    // 网络异常
-                    it.printStackTrace()
+                            override fun onNext(t: Long) {
+                                smsResultTime(view, t)
+                                if (t.toInt() == countTotalTime) {
+                                    smsResult(smsType, view, true)
+                                    disposable?.dispose()
+                                }
+                            }
+                        })
+                } else {
+                    //  发送失败
                     smsResult(smsType, view)
-                })
+                }
+                // 成功
+            }, {
+                // 网络异常
+                it.printStackTrace()
+                smsResult(smsType, view)
+            })
     }
 
 }
