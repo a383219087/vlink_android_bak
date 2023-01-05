@@ -98,6 +98,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_11"
+            android:layout_marginEnd="@dimen/dp_15"
             android:background="@drawable/bg_edit"
             android:gravity="center_vertical"
             android:hint="@string/email"
@@ -117,21 +118,57 @@
             android:textColor="@color/colorBlack"
             android:visibility="gone" />
 
-        <com.yjkj.chainup.new_version.view.CustomizeEditText
-            android:id="@+id/cet_view"
-            style="@style/NewVersionEditTextStyle"
-            android:layout_height="@dimen/dp_40"
+        <LinearLayout
+            android:id="@+id/layout_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_11"
             android:layout_marginEnd="@dimen/dp_15"
-            android:background="@drawable/bg_edit"
             android:gravity="center_vertical"
-            android:hint="@string/register_text_phone"
-            android:paddingStart="@dimen/dp_10"
-            android:textColor="@color/text_color"
-            android:textCursorDrawable="@drawable/et_cursor_color"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone" />
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/pws_view"
+                style="@style/NewVersionPwdStyle"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/bg_edit"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_area_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/default_area"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="6dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/login_unfold" />
+            </LinearLayout>
+
+            <com.yjkj.chainup.new_version.view.CustomizeEditText
+                android:id="@+id/cet_view"
+                style="@style/NewVersionEditTextStyle"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_9"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/bg_edit"
+                android:gravity="center_vertical"
+                android:hint="@string/register_text_phone"
+                android:paddingStart="@dimen/dp_10"
+                android:textColor="@color/text_color"
+                android:textCursorDrawable="@drawable/et_cursor_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,9 +187,9 @@
             android:layout_marginEnd="@dimen/dp_15"
             android:background="@drawable/bg_edit"
             app:hint_text="@string/register_tip_inputPassword"
-            app:pwd_text_content_color="@color/text_color"
             app:icon_res="@mipmap/login_eyesclose"
             app:isEditable="true"
+            app:pwd_text_content_color="@color/text_color"
             app:textContentSize="@dimen/sp_14" />
 
         <TextView
@@ -169,6 +206,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_11"
+            android:layout_marginEnd="@dimen/dp_15"
             android:background="@drawable/bg_edit"
             android:gravity="center_vertical"
             android:hint="@string/common_tip_inputInviteCode"
@@ -188,8 +226,8 @@
 
             <ImageView
                 android:id="@+id/iv_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
                 android:paddingStart="@dimen/dp_15"
                 android:paddingEnd="4dp"
                 android:src="@drawable/ic_radio" />
@@ -251,30 +289,6 @@
                 app:isEditable="false"
                 app:isPwdShow="false"
                 app:textContent="@string/default_area" />
-
-            <LinearLayout
-                android:id="@+id/pws_view"
-                style="@style/NewVersionPwdStyle"
-                android:layout_below="@+id/ll_register_title"
-                android:layout_marginTop="@dimen/dp_72"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_area_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/default_area"
-                    android:textColor="@color/text_color"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="14dp"
-                    android:layout_marginLeft="6dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/login_unfold" />
-            </LinearLayout>
 
             <View
                 android:id="@+id/cet_view_line"

@@ -142,12 +142,12 @@ class NewVersionRegisterActivity : NBaseActivity() {
     fun userRegTypeSetView(status: Boolean) {
         isEmailRegister = status
         if (isEmailRegister) {
-            pws_view?.visibility = View.GONE
+            //pws_view?.visibility = View.GONE
             cet_view?.hint = LanguageUtil.getString(this, "safety_tip_inputMail")
             cet_view?.inputType = InputType.TYPE_CLASS_TEXT
             cet_view?.setMaxLeng(110)
         } else {
-            pws_view?.visibility = View.VISIBLE
+            //pws_view?.visibility = View.VISIBLE
             cet_view?.hint = LanguageUtil.getString(this, "userinfo_tip_inputPhone")
             cet_view?.inputType = InputType.TYPE_CLASS_NUMBER
             cet_view?.setMaxLeng(11)
@@ -170,6 +170,22 @@ class NewVersionRegisterActivity : NBaseActivity() {
         }
 
         cet_view?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                accountContent = s.toString()
+                flushNextView()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        et_email?.addTextChangedListener(object :TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -213,7 +229,8 @@ class NewVersionRegisterActivity : NBaseActivity() {
             tv_title_email.visibility = View.VISIBLE
             et_email.visibility = View.VISIBLE
             tv_title_tel.visibility = View.GONE
-            cet_view.visibility = View.GONE
+//            cet_view.visibility = View.GONE
+            layout_tel.visibility = View.GONE
             flushNextView()
         }
 
@@ -225,7 +242,8 @@ class NewVersionRegisterActivity : NBaseActivity() {
             tv_title_email.visibility = View.GONE
             et_email.visibility = View.GONE
             tv_title_tel.visibility = View.VISIBLE
-            cet_view.visibility = View.VISIBLE
+//            cet_view.visibility = View.VISIBLE
+            layout_tel.visibility = View.VISIBLE
             flushNextView()
         }
 
@@ -235,7 +253,7 @@ class NewVersionRegisterActivity : NBaseActivity() {
 
         cub_view?.listener = object : CommonlyUsedButton.OnBottonListener {
             override fun bottonOnClick() {
-                if (isEmailRegister) {
+                if (et_email.visibility == View.VISIBLE) {
                     if (!StringUtils.checkEmail(accountContent)) {
                         DisplayUtil.showSnackBar(window?.decorView, LanguageUtil.getString(mActivity, "toast_email_error"), isSuc = false)
                         return
@@ -246,9 +264,7 @@ class NewVersionRegisterActivity : NBaseActivity() {
                         return
                     }
                 }
-
                 reg4Step1(country, accountContent)
-
             }
         }
 
