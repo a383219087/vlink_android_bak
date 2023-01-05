@@ -11,26 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_cancel"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:layout_marginLeft="@dimen/dp_32"
-            android:layout_marginTop="@dimen/dp_16"
-            android:scaleType="centerInside"
-            android:src="@drawable/login_back"
-            android:tint="@color/text_color" />
+            <ImageView
+                android:id="@+id/iv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:src="@mipmap/ic_login_back" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_register_logo" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/NewVersionTitle"
-            android:layout_below="@+id/iv_cancel"
-            android:layout_marginTop="26dp"
+            android:layout_below="@+id/layout_title"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_22"
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
             android:text="@string/personal_tip_inputPhoneCode"
+            android:textColor="@color/colorBlack"
             android:textStyle="bold" />
 
         <TextView
@@ -38,43 +49,83 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
-            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/login_tip_didSendCode"
-            android:textColor="@color/normal_text_color"
-            android:textSize="@dimen/sp_14" />
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_11" />
 
-        <com.yjkj.chainup.wedegit.VerificationCodeView
+        <TextView
+            android:id="@+id/tv_send_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_send_verification_code"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_60"
+            android:text="短信验证码"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_13"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_send"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@id/tv_send_tip"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_11"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:background="@drawable/bg_edit"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_send"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/verification_code_hint"
+                android:maxLength="6"
+                android:textColorHint="#CBCFDB"
+                android:paddingStart="@dimen/dp_10" />
+
+            <TextView
+                android:id="@+id/tv_resend_code"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/login_action_resendCode"
+                android:textColor="@color/hint_color"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+<!--        <com.yjkj.chainup.wedegit.VerificationCodeView
             android:id="@+id/verificationcodeview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_send_verification_code"
+            android:layout_below="@+id/layout_send"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             app:vcv_et_bg="@drawable/et_login_code"
             app:vcv_et_cursor="@drawable/et_cursor"
             app:vcv_et_inputType="number"
             app:vcv_et_number="6"
             app:vcv_et_text_color="@color/text_color"
-            app:vcv_et_text_size="6sp" />
+            app:vcv_et_text_size="6sp" />-->
 
-        <TextView
-            android:layout_below="@+id/verificationcodeview"
-            android:id="@+id/tv_resend_code"
-            android:layout_marginTop="19dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="@string/login_action_resendCode"
-            android:textColor="@color/hint_color"
-            android:textSize="14sp" />
-
-
-
-
+        <com.yjkj.chainup.new_version.view.CommonlyUsedButton
+            android:id="@+id/confirm"
+            style="@style/NewVersionCommonlyUsedButtonStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_15"
+            app:bgColor="@color/main_blue"
+            app:bottonTextContent="@string/confirm" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

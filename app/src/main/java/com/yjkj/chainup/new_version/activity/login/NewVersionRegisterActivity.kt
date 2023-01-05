@@ -272,6 +272,12 @@ class NewVersionRegisterActivity : NBaseActivity() {
             (!iv_radio.isSelected).also { iv_radio.isSelected = it }
             flushNextView()
         }
+
+        // TODO: test
+        et_email.setText("yubachang@163.com")
+        pws_pwd.text = "1"
+        et_inviteCode.setText("1")
+        iv_radio.isSelected = true
     }
 
     private fun flushNextView() {
@@ -402,7 +408,7 @@ class NewVersionRegisterActivity : NBaseActivity() {
                 geetest_validate = geetest_validate,
                 geetest_seccode = geetest_seccode, json = mJson, consumer = object : NDisposableObserver(mActivity, false) {
             override fun onResponseSuccess(jsonObject: JSONObject) {
-                if (isEmailRegister) {
+                if (et_email.visibility == View.VISIBLE) {
                     var bundle = Bundle()
                     bundle.putString("send_account", accountContent)
                     bundle.putString("send_token", "")

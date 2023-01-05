@@ -2529,7 +2529,9 @@ The trading bonus will be deducted at the end for paying fee or position loss</s
     <string name="password_reset_tips">The withdrawal will be disabled for 48 hours once password is changed.</string>
     <string name="please_check_with_google_auth">Please check with google auth</string>
     <string name="phone_didSendCode_to">We sent a code to</string>
+    <string name="phone_didSendCode_to2">We sent a code to</string>
     <string name="mail_didSendCode_to">We sent a code to</string>
+    <string name="mail_didSendCode_to2">We sent a code to</string>
     <string name="password_input_rule_tips">8-20 numbers and letters</string>
 
     <string name="assets_asset_allocation">Asset Allocation</string>

@@ -2626,7 +2626,9 @@
     <string name="password_reset_tips">修改密码后48小时不能提现</string>
     <string name="please_check_with_google_auth">请去谷歌验证器查看</string>
     <string name="phone_didSendCode_to">短信验证码已发送至</string>
+    <string name="phone_didSendCode_to2">请输入您在手机短信收到的6位验证码，验证码5分钟有效</string>
     <string name="mail_didSendCode_to">邮箱验证码已发送至</string>
+    <string name="mail_didSendCode_to2">请输入您在邮箱收到的6位验证码，验证码5分钟有效</string>
     <string name="password_input_rule_tips">8-20位数字和字符字母组合</string>
 
 
