@@ -711,10 +711,16 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             return
                         }
                         cancelOrderAll(true)
-
+                        saveContractIdList?.clear()
                         for (i in 0 until mList.size) {
                             val clickData = mList[i]
-                            closePosition(clickData, 2, "", "", clickData.canCloseVolume)
+                             if (clickData.canCloseVolume==clickData.positionVolume){
+                                 closePosition(clickData, 2, "", "", clickData.canCloseVolume)
+                             }else{
+                                 saveContractIdList?.add(clickData.contractId.toString())
+                             }
+
+
                         }
 
 
@@ -761,8 +767,20 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             }
 
         }
+        if (!saveContractIdList.isNullOrEmpty()){
+            for (i in 0 until mList.size) {
+                for (j in 0 until saveContractIdList!!.size) {
+                    if (mList[i].contractId.toString() == saveContractIdList!![j]&&mList[i].positionVolume==mList[i].canCloseVolume) {
+                        closeOpen(mList[i])
+                    }
+                }
+
+            }
+
+        }
     }
 
+    var  saveContractIdList :MutableList<String>?= mutableListOf()
     private fun closeOpen(clickData:CpContractPositionBean) {
         val obj = CpCreateOrderBean(
             contractId = clickData.contractId,
@@ -783,6 +801,9 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
         addDisposable(getContractModel().createOrder(obj,
             consumer = object : CpNDisposableObserver(mActivity, true) {
                 override fun onResponseSuccess(jsonObject: JSONObject) {
+                    if (!saveContractIdList.isNullOrEmpty()){
+                        saveContractIdList!!.remove(clickData.contractId.toString())
+                    }
 
                 }
             }))
@@ -949,8 +970,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         if (mOrderListJson != null) {
                             for (i in 0 until mOrderListJson.length()) {
                                 val obj = mOrderListJson.getString(i)
-                              val bean=Gson().fromJson(obj, CpContractPositionBean::class.java)
-                                lidt.add(bean)
+                                lidt.add(Gson().fromJson(obj, CpContractPositionBean::class.java))
                             }
                         }
                         mAllList = lidt
