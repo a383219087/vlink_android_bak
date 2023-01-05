@@ -274,21 +274,21 @@ class NewVersionRegisterActivity : NBaseActivity() {
         }
 
         // TODO: test
-        et_email.setText("yubachang@163.com")
-        pws_pwd.text = "1"
-        et_inviteCode.setText("1")
+//        et_email.setText("yubachang@163.com")
+//        pws_pwd.text = "1"
+//        et_inviteCode.setText("1")
         iv_radio.isSelected = true
     }
 
     private fun flushNextView() {
         if(et_email.visibility == View.VISIBLE) {
-            if(et_email.text.isNotEmpty() && pwdTextContent.isNotEmpty() && iv_radio.isSelected) {
+            if(et_email.text.isNotEmpty() && iv_radio.isSelected) {
                 cub_view?.isEnable(true)
             } else {
                 cub_view?.isEnable(false)
             }
         } else if(cet_view.visibility == View.VISIBLE) {
-            if (accountContent.isNotEmpty() && (accountContent.length >= 5) && pwdTextContent.isNotEmpty()&& iv_radio.isSelected) {
+            if (accountContent.isNotEmpty() && (accountContent.length >= 5)&& iv_radio.isSelected) {
                 cub_view?.isEnable(true)
             } else {
                 cub_view?.isEnable(false)

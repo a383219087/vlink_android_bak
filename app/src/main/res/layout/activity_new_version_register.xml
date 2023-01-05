@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_card_color"
@@ -175,6 +176,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_22"
+            android:visibility="gone"
+            tool:visibility="visible"
             android:text="@string/pwd"
             android:textColor="@color/colorBlack" />
 
@@ -185,6 +188,8 @@
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_11"
             android:layout_marginEnd="@dimen/dp_15"
+            android:visibility="gone"
+            tool:visibility="visible"
             android:background="@drawable/bg_edit"
             app:hint_text="@string/register_tip_inputPassword"
             app:icon_res="@mipmap/login_eyesclose"
@@ -196,6 +201,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_15"
+            android:visibility="gone"
+            tool:visibility="visible"
             android:layout_marginTop="@dimen/dp_22"
             android:text="@string/register_text_inviteCode"
             android:textColor="@color/colorBlack" />
@@ -207,6 +214,8 @@
             android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_11"
             android:layout_marginEnd="@dimen/dp_15"
+            android:visibility="gone"
+            tool:visibility="visible"
             android:background="@drawable/bg_edit"
             android:gravity="center_vertical"
             android:hint="@string/common_tip_inputInviteCode"
