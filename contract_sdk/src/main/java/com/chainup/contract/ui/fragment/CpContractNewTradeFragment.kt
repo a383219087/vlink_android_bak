@@ -439,6 +439,7 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                 jsonObject.optJSONObject("data").run {
                     openContract = optInt("openContract")
                     couponTag = optInt("couponTag")
+//                    positionModel = optInt("positionModel")//持仓类型 1持仓, 2双向持仓
                     futuresLocalLimit = optInt("futuresLocalLimit")
                     authLevel = optInt("authLevel")
                     v_horizontal_depth.setLoginContractLayout(CpClLogicContractSetting.isLogin(), openContract == 1)
@@ -451,6 +452,9 @@ class CpContractNewTradeFragment : CpNBaseFragment(), CpWsContractAgentManager.W
                     CpEventBusUtil.post(event)
                 } else {
                     ll_contract_account.visibility = View.VISIBLE
+                    val msgEvent = CpMessageEvent(CpMessageEvent.sl_contract_config)
+                    msgEvent.msg_content = jsonObject
+                    CpEventBusUtil.post(msgEvent)
                 }
                 swipeLayout.isRefreshing = false
                 getPositionAssetsList()

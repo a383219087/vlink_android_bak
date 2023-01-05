@@ -42,6 +42,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.cp_fragment_cl_contract_hold_new.*
+import kotlinx.android.synthetic.main.cp_fragment_cl_contract_trade_new.*
 
 
 /**
@@ -60,10 +61,11 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
     //合约id
     var mContractId = -1
 
-    //一键平仓成功数量
-    var num = 0
+
 
     var subscribe: Disposable? = null
+
+    var positionModel:Int = 1
 
 
     override fun setContentView(): Int {
@@ -144,62 +146,11 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         btn_close_position.listener = object : CpCommonlyUsedButton.OnBottonListener {
                             @SuppressLint("SuspiciousIndentation")
                             override fun bottonOnClick() {
-
-
-
-
-                                val obj = CpCreateOrderBean(
-                                    contractId = clickData.contractId,
-                                    positionType = clickData.positionType.toString(),
-                                    open = "CLOSE",
-                                    side = if (clickData.orderSide == "BUY") "SELL" else "BUY",
-                                    leverageLevel = clickData.leverageLevel,
-                                    price = "0",
-                                    volume = clickData.canCloseVolume,
-                                    type = 2,
-                                    isConditionOrder = false,
-                                    triggerPrice = "",
-                                    isOto = false,
-                                    takerProfitTrigger = "",
-                                    stopLossTrigger = "",
-                                    expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
-                                )
-
-                                addDisposable(getContractModel().createOrder(obj, consumer = object : CpNDisposableObserver(true) {
-                                    override fun onResponseSuccess(jsonObject: JSONObject) {
-                                        if (subscribe != null) {
-                                            subscribe?.dispose()
-                                        }
-                                        mReverseOpenDialog?.dismiss()
-                                        val num1 = CpBigDecimalUtils.mulStr(clickData.positionVolume, mMultiplier, mMultiplierPrecision)
-                                        val num3 = clickData.indexPrice
-
-                                        val obj1 = CpCreateOrderBean(
-                                            contractId = clickData.contractId,
-                                            positionType = clickData.positionType.toString(),
-                                            open = "OPEN",
-                                            side =if (clickData.orderSide == "BUY") "SELL" else "BUY",
-                                            leverageLevel = clickData.leverageLevel,
-                                            price = "0",
-                                            volume = CpBigDecimalUtils.mulStr(num1,num3,mPricePrecision),
-                                            type = 2,
-                                            isConditionOrder = false,
-                                            triggerPrice = "",
-                                            isOto = false,
-                                            takerProfitTrigger = "",
-                                            stopLossTrigger = "",
-                                            expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
-                                        )
-                                        cancelOrder(clickData.contractId.toString(), true) //开仓接口
-                                        addDisposable(getContractModel().createOrder(obj1, consumer = object : CpNDisposableObserver(mActivity, true) {
-                                            override fun onResponseSuccess(jsonObject: JSONObject) {
-                                                CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text53))
-
-                                            }
-                                        }))
-                                    }
-                                }))
-
+                                if (subscribe != null) {
+                                    subscribe?.dispose()
+                                }
+                                mReverseOpenDialog?.dismiss()
+                                reverseOpen(clickData)
                             }
                         }
 
@@ -754,16 +705,16 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 context!!.getString(R.string.cp_extra_text_hold3),
                 object : CpDialogUtil.DialogBottomListener {
                     override fun sendConfirm() {
-                        cancelOrderAll(true)
+
                         if (mList.isEmpty()) {
                             CpNToastUtil.showTopToastNet(activity, false, context?.getString(R.string.cp_tip_text711))
                             return
                         }
-                        num = 0
+                        cancelOrderAll(true)
 
                         for (i in 0 until mList.size) {
                             val clickData = mList[i]
-                            closePosition(clickData, 2, "", "", clickData.positionVolume)
+                            closePosition(clickData, 2, "", "", clickData.canCloseVolume)
                         }
 
 
@@ -802,7 +753,92 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             }
         }
         adapter?.setList(mList)
+        if (saveContractId.isNotEmpty()){
+            for (i in 0 until mList.size) {
+                if (mList[i].contractId.toString() == saveContractId&&mList[i].positionVolume==mList[i].canCloseVolume) {
+                    reverseOpen(mList[i])
+                }
+            }
+
+        }
     }
+
+    private fun closeOpen(clickData:CpContractPositionBean) {
+        val obj = CpCreateOrderBean(
+            contractId = clickData.contractId,
+            positionType = clickData.positionType.toString(),
+            open = "CLOSE",
+            side = if (clickData.orderSide == "BUY") "SELL" else "BUY",
+            leverageLevel = clickData.leverageLevel,
+            price = "0",
+            volume = clickData.canCloseVolume,
+            type = 2,
+            isConditionOrder = false,
+            triggerPrice = "",
+            isOto = false,
+            takerProfitTrigger = "",
+            stopLossTrigger = "",
+            expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
+        )
+        addDisposable(getContractModel().createOrder(obj,
+            consumer = object : CpNDisposableObserver(mActivity, true) {
+                override fun onResponseSuccess(jsonObject: JSONObject) {
+
+                }
+            }))
+    }
+
+
+      var  saveContractId=""
+    private fun reverseOpen(clickData:CpContractPositionBean) {
+        var mPricePrecision = CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, clickData.contractId)
+        val mMultiplierPrecision = CpClLogicContractSetting.getContractMultiplierPrecisionById(context, clickData.contractId)
+        val mMultiplier = CpClLogicContractSetting.getContractMultiplierById(context, clickData.contractId)
+        val obj = CpCreateOrderBean(
+            contractId = clickData.contractId,
+            positionType = clickData.positionType.toString(),
+            open = "CLOSE",
+            side = if (clickData.orderSide == "BUY") "SELL" else "BUY",
+            leverageLevel = clickData.leverageLevel,
+            price = "0",
+            volume = clickData.canCloseVolume,
+            type = 2,
+            isConditionOrder = false,
+            triggerPrice = "",
+            isOto = false,
+            takerProfitTrigger = "",
+            stopLossTrigger = "",
+            expireTime = CpClLogicContractSetting.getStrategyEffectTimeStr(context),
+        )
+             //总持仓等于可平仓位)
+             if (clickData.positionVolume==clickData.canCloseVolume){
+                 obj.open="CLOSE"
+                 obj.volume= clickData.canCloseVolume
+                 addDisposable(getContractModel().createOrder(obj,
+                     consumer = object : CpNDisposableObserver(mActivity, true) {
+                         override fun onResponseSuccess(jsonObject: JSONObject) {
+                             val num1 = CpBigDecimalUtils.mulStr( clickData.positionVolume, mMultiplier, mMultiplierPrecision)
+                             val num3 = clickData.indexPrice
+                             obj.open="OPEN"
+                             obj.volume= CpBigDecimalUtils.mulStr(num1, num3, mPricePrecision)
+                             addDisposable(getContractModel().createOrder(obj,
+                                 consumer = object : CpNDisposableObserver(mActivity, true) {
+                                     override fun onResponseSuccess(jsonObject: JSONObject) {
+                                         CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text53))
+                                         saveContractId=""
+                                     }
+                                 }))
+
+                         }
+                     }))
+
+             }else{
+                 saveContractId=clickData.contractId.toString()
+                 cancelOrder(clickData.contractId.toString(),true)
+             }
+
+    }
+
 
     //单个
     private fun cancelOrder(contractId: String, isisConditionOrder: Boolean) {
@@ -811,7 +847,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
             consumer = object : CpNDisposableObserver(activity, false) {
                 override fun onResponseSuccess(jsonObject: JSONObject) {
                     if (isisConditionOrder) {
-                        cancelOrderAll(false)
+                        cancelOrder(contractId,false)
                     }
                 }
             }))
@@ -875,39 +911,28 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 override fun onResponseSuccess(jsonObject: JSONObject) {
                     CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text109))
                     Observable.timer(500, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-                            CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_req_position_list_event))
-                        }
+                        CpEventBusUtil.post(CpMessageEvent(CpMessageEvent.sl_contract_req_position_list_event))
+                    }
                 }
             }))
     }
 
-    private fun quickClosePosition(contractId: String, open: String, side: String, positionType: String, showToast: Boolean = true) {
-        var side = if (side.equals("BUY")) "SELL" else "BUY"
-        addDisposable(getContractModel().lightClose(contractId, open, side, positionType, consumer = object : CpNDisposableObserver(true) {
-            override fun onResponseSuccess(jsonObject: JSONObject) {
-                if (showToast || num == mList.size) {
-                    CpNToastUtil.showTopToastNet(this.mActivity, true, getString(R.string.cp_extra_text109))
-                }
-                LogUtils.e("quickClosePosition :success")
-            }
-        }))
-    }
 
     @SuppressLint("CheckResult")
     private fun doShare(shareBitmap: Bitmap) {
         val rxPermissions = activity?.let { RxPermissions(it) }
         rxPermissions?.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)?.subscribe { granted ->
-                if (granted) {
-                    if (shareBitmap != null) {
-                        CpShareToolUtil.sendLocalShare(mActivity, shareBitmap)
-                    } else {
-                        CpDisplayUtils.showSnackBar(activity?.window?.decorView, getString(R.string.cp_extra_text128), false)
-                    }
+            if (granted) {
+                if (shareBitmap != null) {
+                    CpShareToolUtil.sendLocalShare(mActivity, shareBitmap)
                 } else {
                     CpDisplayUtils.showSnackBar(activity?.window?.decorView, getString(R.string.cp_extra_text128), false)
                 }
-
+            } else {
+                CpDisplayUtils.showSnackBar(activity?.window?.decorView, getString(R.string.cp_extra_text128), false)
             }
+
+        }
     }
 
 
@@ -924,7 +949,8 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         if (mOrderListJson != null) {
                             for (i in 0 until mOrderListJson.length()) {
                                 val obj = mOrderListJson.getString(i)
-                                lidt.add(Gson().fromJson(obj, CpContractPositionBean::class.java))
+                              val bean=Gson().fromJson(obj, CpContractPositionBean::class.java)
+                                lidt.add(bean)
                             }
                         }
                         mAllList = lidt
@@ -948,6 +974,13 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                 if (mContractId != id) {
                     mContractId = id
                     updateAdapter()
+                }
+
+            } //合约配置
+            CpMessageEvent.sl_contract_config -> {
+                val jsonObject = event.msg_content as JSONObject
+                jsonObject.optJSONObject("data").run {
+                    positionModel = optInt("positionModel") //持仓类型 1持仓, 2双向持仓
                 }
 
             }

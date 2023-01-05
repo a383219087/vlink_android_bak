@@ -140,7 +140,7 @@ class CpContractSettingActivity : CpNBaseActivity() {
                         currTriggerInfo = positionModeList[index]
                         positionModeDialog?.dismiss()
                         positionModel = if (index == 0) 1 else 2
-                        tv_position_mode_value.setText(currTriggerInfo?.name)
+                        tv_position_mode_value.text = currTriggerInfo?.name
                         CpClLogicContractSetting.setPositionModel(mActivity, positionModel)
                         CpEventBusUtil.post(
                                 CpMessageEvent(

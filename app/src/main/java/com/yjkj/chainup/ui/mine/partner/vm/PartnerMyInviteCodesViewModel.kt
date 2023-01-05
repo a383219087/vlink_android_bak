@@ -46,8 +46,7 @@ class PartnerMyInviteCodesViewModel : BaseViewModel() {
         override fun onClick(item: AgentCodeBean,view: View) {
             val activity: FragmentActivity= context.value!!
             val list: ArrayList<String> = arrayListOf()
-            val url = UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)
-                ?.get(0) + item.inviteCode
+            val url = UserDataService.getInstance()?.inviteUrl?.split(UserDataService.getInstance()?.inviteCode!!)?.get(0) + item.inviteCode
             list.add(url)
             list.add(url)
             dialog = NewDialogUtils.showInvitationPosters(activity, list, object : NewDialogUtils.DialogSharePostersListener {

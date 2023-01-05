@@ -46,8 +46,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_12"
-                    >
+                    android:layout_marginTop="@dimen/dp_12">
 
                     <com.youth.banner.Banner
                         android:id="@+id/banner_looper"

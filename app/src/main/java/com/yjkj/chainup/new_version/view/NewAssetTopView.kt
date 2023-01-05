@@ -495,6 +495,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         //                       "lockAmount":"0","totalEntity":859.0766631140086,
         //                       "totalMarginRate":"0.4501516570074769","partEntity":122.13408547997301,
         //                       "openRealizedAmount":"-9.63217097397833"}
+        //                       "totalAmount":"总余额"}
         //                        钱包余额 用 canUseAmount
         //                      sumHoldAmount 保证金余额
         //                        openRealizedAmount 为实现盈亏

@@ -121,6 +121,7 @@ public class CpMessageEvent {
     public static final int sl_contract_calc_switch_contract_id = 96;//选中合约的通知
     public static final int sl_contract_clear_event = 97;//清空合约那边的数据
     public static final int sl_contract_transfer = 98;//清空合约那边的数据
+    public static final int sl_contract_config = 99;//获取合约配置信息
 
     private CpMessageEvent() {
     }
