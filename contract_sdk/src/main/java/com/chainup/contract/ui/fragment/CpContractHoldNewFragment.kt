@@ -185,11 +185,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             CpClLogicContractSetting.getContractSymbolPricePrecisionById(activity, clickData.contractId))
                         it.setText(R.id.et_price, showPrice)
                         var checkedIdBuff = 0
-                        val rg_order_type = it.getView<RadioGroup>(R.id.rg_order_type)
                         val rg_trade = it.getView<RadioGroup>(R.id.rg_trade)
-                        val rb_1 = it.getView<RadioButton>(R.id.rb_1)
-                        val rb_2 = it.getView<RadioButton>(R.id.rb_2)
-                        val rb_3 = it.getView<RadioButton>(R.id.rb_3)
                         val rb_1st = it.getView<RadioButton>(R.id.rb_1st)
                         val rb_2nd = it.getView<RadioButton>(R.id.rb_2nd)
                         val rb_3rd = it.getView<RadioButton>(R.id.rb_3rd)
@@ -209,58 +205,14 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                         etPrice?.setOnFocusChangeListener { _, hasFocus ->
                             llPrice?.setBackgroundResource(if (hasFocus) R.drawable.cp_bg_trade_et_focused else R.drawable.cp_bg_trade_et_unfocused)
                         }
+                        tvOrderTips.setText(getString(R.string.cp_overview_text53))
+                        tvOrderTips.visibility = View.VISIBLE
+                        llPrice.visibility = View.GONE
+                        checkedIdBuff = -1
+                        etPrice.setText(showPrice)
+                        tvOrderTips.visibility = View.GONE
+                        llPrice.visibility = View.VISIBLE
 
-                        for (buff in 0 until rg_order_type?.childCount!!) {
-                            rg_order_type.getChildAt(buff).setOnClickListener {
-                                when (it.id) {
-                                    R.id.rb_1 -> {
-                                        tvOrderTips.setText(getString(R.string.cp_overview_text53))
-                                        tvOrderTips.visibility = View.VISIBLE
-                                        llPrice.visibility = View.GONE
-                                        if (checkedIdBuff == it.id) {
-                                            checkedIdBuff = -1
-                                            etPrice.setText(showPrice)
-                                            rg_order_type.clearCheck()
-                                            tvOrderTips.visibility = View.GONE
-                                            llPrice.visibility = View.VISIBLE
-                                        } else {
-                                            checkedIdBuff = it.id
-                                            rg_order_type.check(it.id)
-                                        }
-                                    }
-                                    R.id.rb_2 -> {
-                                        tvOrderTips.text = getString(R.string.cp_order_text44)
-                                        tvOrderTips.visibility = View.VISIBLE
-                                        llPrice.visibility = View.GONE
-                                        if (checkedIdBuff == it.id) {
-                                            checkedIdBuff = -1
-                                            etPrice.setText(showPrice)
-                                            rg_order_type.clearCheck()
-                                            tvOrderTips.visibility = View.GONE
-                                            llPrice.visibility = View.VISIBLE
-                                        } else {
-                                            checkedIdBuff = it.id
-                                            rg_order_type.check(it.id)
-                                        }
-                                    }
-                                    R.id.rb_3 -> {
-                                        tvOrderTips.text = getString(R.string.cp_order_text45)
-                                        tvOrderTips.visibility = View.VISIBLE
-                                        llPrice.visibility = View.GONE
-                                        if (checkedIdBuff == it.id) {
-                                            checkedIdBuff = -1
-                                            etPrice.setText(showPrice)
-                                            rg_order_type.clearCheck()
-                                            tvOrderTips.visibility = View.GONE
-                                            llPrice.visibility = View.VISIBLE
-                                        } else {
-                                            checkedIdBuff = it.id
-                                            rg_order_type.check(it.id)
-                                        }
-                                    }
-                                }
-                            }
-                        }
                         rg_trade?.setOnCheckedChangeListener { group, checkedId ->
                             if (checkedId == -1) {
                                 it.setText(R.id.et_volume, "")
@@ -318,12 +270,7 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                             it.setFocusableInTouchMode(true);
                             it.requestFocus();
                             it.findFocus();
-                            rg_order_type.clearCheck()
-                        } //                        etVolume.setOnClickListener {
-                        //                            it.setFocusable(true);
-                        //                            it.setFocusableInTouchMode(true);
-                        //                            it.requestFocus();
-                        //                        }
+                        }
 
                         val btn_close_position = it.getView<CpCommonlyUsedButton>(R.id.btn_close_position)
                         btn_close_position.isEnable(true)
@@ -333,28 +280,12 @@ class CpContractHoldNewFragment : CpNBaseFragment() {
                                 var volStr = etVolume.text.toString().trim()
                                 val multiplier = CpClLogicContractSetting.getContractMultiplierById(activity, clickData.contractId)
                                 volStr = CpBigDecimalUtils.getOrderNum(false, volStr, multiplier, 1)
-                                var type = 1
-                                var priceType = ""
-                                when {
-                                    rb_1.isChecked -> {
-                                        type = 2
-                                        priceStr = ""
-                                        showPrice = getString(R.string.cp_overview_text53)
-                                    }
-                                    rb_2.isChecked -> {
-                                        priceType = "1"
-                                        priceStr = "0"
-                                        showPrice = getString(R.string.cp_order_text44)
-                                    }
-                                    rb_3.isChecked -> {
-                                        priceType = "0"
-                                        priceStr = "0"
-                                        showPrice = getString(R.string.cp_order_text45)
-                                    }
-                                    else -> {
-                                        showPrice = priceStr + " " + CpClLogicContractSetting.getContractQuoteById(activity, clickData.contractId)
-                                    }
-                                }
+                                var type = 2
+                                val priceType = ""
+                                type = 2
+                                priceStr = ""
+                                showPrice = getString(R.string.cp_overview_text53)
+
                                 if (rb_1st.isChecked) {
                                     volStr = CpBigDecimalUtils.mulStrRoundUp(clickData.canCloseVolume, "0.10", 0)
                                 }

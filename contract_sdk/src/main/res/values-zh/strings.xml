@@ -3379,6 +3379,7 @@
     <string name="cp_contract_data_text21">保险基金余额</string>
     <string name="cp_contract_data_text22">合约指南</string>
     <string name="cp_market_text1">币本位</string>
+    <string name="cp_market_text4">市价</string>
     <string name="cp_market_text2">模拟</string>
     <string name="cp_market_text3">混合</string>
     <string name="cp_contract_setting_text1">全仓</string>

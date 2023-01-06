@@ -3379,6 +3379,7 @@
     <string name="cp_contract_data_text21">Insurance Fund Balance</string>
     <string name="cp_contract_data_text22">Contract Guide</string>
     <string name="cp_market_text1">Coin Margined</string>
+    <string name="cp_market_text4">Market</string>
     <string name="cp_market_text2">Simulated</string>
     <string name="cp_market_text3">Mixed Margined</string>
     <string name="cp_contract_setting_text1">Cross</string>
