@@ -37,7 +37,6 @@ import com.yjkj.chainup.new_version.dialog.NewDialogUtils
 import com.yjkj.chainup.new_version.view.CommonlyUsedButton
 import com.yjkj.chainup.new_version.view.PwdSettingView
 import com.yjkj.chainup.util.*
-import kotlinx.android.synthetic.main.activity_new_version_login.*
 import kotlinx.android.synthetic.main.activity_new_version_register.*
 import kotlinx.android.synthetic.main.activity_new_version_register.pws_view
 import kotlinx.android.synthetic.main.activity_new_version_register.tv_cancel

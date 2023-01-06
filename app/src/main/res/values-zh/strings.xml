@@ -3780,5 +3780,6 @@ ETF分为定时调仓和不定时调仓两种，其中定时调仓是指平台�
     <string name="assets_contract_security_advice_tips">今日盈亏=当前合约账户资产-今日零点合约账户资产-今日净充值和和净划入</string>
     <string name="share_tip_text">呼朋唤友 共赴未来</string>
     <string name="goto_invite">去邀请</string>
+    <string name="set_your_account_password">设置您的账号密码</string>
 </resources>
 

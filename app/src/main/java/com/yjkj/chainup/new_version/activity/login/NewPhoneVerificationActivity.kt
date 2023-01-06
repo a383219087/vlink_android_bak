@@ -43,7 +43,8 @@ import java.util.concurrent.TimeUnit
  * @description 手机or邮箱验证or谷歌验证
  */
 @Route(path = "/login/newphoneverificationactivity")
-class NewPhoneVerificationActivity : NBaseActivity()/*, VerificationCodeView.OnCodeFinishListener*/ {
+class NewPhoneVerificationActivity :
+    NBaseActivity()/*, VerificationCodeView.OnCodeFinishListener*/ {
     override fun setContentView(): Int {
         return R.layout.activity_new_version_phone_verification
     }
@@ -631,8 +632,9 @@ class NewPhoneVerificationActivity : NBaseActivity()/*, VerificationCodeView.OnC
     }
 
     private fun smsResultTime(view: TextView, t: Long) {
-        view.text = "(${(countTotalTime - t.toInt()).toString() + "s"}) " +
-                LanguageUtil.getString(this@NewPhoneVerificationActivity, "login_action_resendCode")
+        view.text =
+            LanguageUtil.getString(this@NewPhoneVerificationActivity, "login_action_resendCode") +
+                    "(${(countTotalTime - t.toInt()).toString() + "s"}) "
         view.setTextColor(ColorUtil.getColor(R.color.normal_text_color))
     }
 
