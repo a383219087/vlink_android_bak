@@ -118,6 +118,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         retainInstance = true
         arguments?.let {
             openContract = it.getInt(ARG_PARAM1)
@@ -164,7 +165,6 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
                 jsonObject.optJSONObject("data")?.run {
                     if (!isNull("accountList")) {
                         val mAccountListJson = optJSONArray("accountList")
-
                         for (i in 0 until mAccountListJson.length()) {
                             val data: JSONObject = mAccountListJson?.get(i) as JSONObject
                             if (data.optString("symbol") == "USDT") {
@@ -185,6 +185,8 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
         super.fragmentVisibile(isVisibleToUser)
         if (isVisibleToUser) {
             isLogined = UserDataService.getInstance().isLogined
+            rl_safety_advice.visibility =
+                if (PreferenceManager.getBoolean(mActivity, "isShowSafetyAdviceDialog", true)) View.VISIBLE else View.GONE
             if (isLogined) {
                 setAssetViewVisible()
                 getAccountBalance()
@@ -216,6 +218,7 @@ open class NewVersionMyAssetFragment : NBaseFragment() {
     private fun setAssetViewVisible() {
         isShowAssets = UserDataService.getInstance().isShowAssets
         Utils.showAssetsSwitch(isShowAssets, iv_hide_asset)
+
     }
 
     @SuppressLint("SuspiciousIndentation")

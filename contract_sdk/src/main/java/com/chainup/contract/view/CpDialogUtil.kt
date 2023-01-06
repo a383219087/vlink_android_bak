@@ -220,9 +220,9 @@ class CpDialogUtil {
                 list.add(CpTabInfo(context?.getString(R.string.cp_overview_text3)!!, 1))
                 list.add(CpTabInfo(context.getString(R.string.cp_overview_text4), 2))
                 list.add(CpTabInfo(context.getString(R.string.cp_overview_text5), 3))
-                list.add(CpTabInfo(context.getString(R.string.cp_overview_text511), 4))
-                list.add(CpTabInfo(context.getString(R.string.cp_overview_text521), 5))
-                list.add(CpTabInfo(context.getString(R.string.cp_overview_text531), 6))
+//                list.add(CpTabInfo(context.getString(R.string.cp_overview_text511), 4))
+//                list.add(CpTabInfo(context.getString(R.string.cp_overview_text521), 5))
+//                list.add(CpTabInfo(context.getString(R.string.cp_overview_text531), 6))
                 var adapter = CpPopAdapter(list, index)
                 rView?.layoutManager = LinearLayoutManager(context)
                 rView?.adapter = adapter

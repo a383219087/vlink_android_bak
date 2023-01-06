@@ -110,7 +110,7 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                 if (source == "QUANT-GRID") { //staText.solid = ContextCompat.getColor(context, R.color.bg_grid_order)
                     staText.setTextColor(ContextCompat.getColor(context, R.color.normal_text_color))
                 } else { //staText.solid = ContextCompat.getColor(context, R.color.tabbar_color)
-                    staText.setTextColor(ContextCompat.getColor(context, R.color.main_blue))
+                    staText.setTextColor(ContextCompat.getColor(context, R.color.normal_text_color))
                 }
                 val dealDouble = dealVolume.getTradeCoinVolume(coinMap).toDouble()
                 val volumeDouble = volume.getTradeCoinVolume(coinMap).toDouble()

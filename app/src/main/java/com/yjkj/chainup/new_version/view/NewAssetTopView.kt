@@ -171,7 +171,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
         /**
          * 查看安全建议
          */
-        if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", false)) {
+        if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", true)) {
             rl_safety_advice.visibility=View.VISIBLE
         }else{
             rl_safety_advice.visibility=View.GONE
@@ -187,7 +187,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
 
             }, object : NewDialogUtils.DialogBottomListener {
                 override fun sendConfirm() {
-                    if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", false)) {
+                    if (PreferenceManager.getBoolean(context as Activity?, "isShowSafetyAdviceDialog", true)) {
                         rl_safety_advice.visibility=View.VISIBLE
                     }else{
                         rl_safety_advice.visibility=View.GONE
@@ -439,7 +439,7 @@ class NewAssetTopView @JvmOverloads constructor(context: Activity, attrs: Attrib
                 ll_heyue_balance.visibility = View.VISIBLE
                 ll_heyue.visibility = View.VISIBLE
                 ll_payment_methods_layout?.visibility = View.GONE
-                img_assets_pie_chart?.visibility = View.VISIBLE
+                img_assets_pie_chart?.visibility = View.GONE
                 if (PublicInfoDataService.getInstance().contractCouponOpen(null)) View.VISIBLE else View.GONE
                 v_top_line?.visibility = View.VISIBLE
                 ll_otc_layout?.visibility = View.GONE

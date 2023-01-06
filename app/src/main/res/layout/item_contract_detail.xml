@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textSize="@dimen/sp_16"
         android:fontFamily="@font/dinpro_bold"
         android:singleLine="true"
         android:layout_marginTop="@dimen/dp_8"
@@ -64,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="5734.580000" />
+        tools:text="5734.580000" />
 
 
     <TextView

@@ -57,19 +57,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.cp_activity_market_detail4.*
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.customize_depth_chart
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.kline_tab_indicator
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_boll
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_kdj
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_ma
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_macd
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_rsi
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rb_wr
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rl_kline_ctrl
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_ctrl
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.rv_kline_scale
-import kotlinx.android.synthetic.main.cp_activity_market_detail4.v_kline
 import kotlinx.android.synthetic.main.cp_depth_chart_com.*
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -173,7 +162,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
         tv_high?.text = CpLanguageUtil.getString(this, "cp_extra_text111")
 //        tv_common_text_dayVolume?.text = CpLanguageUtil.getString(this, "common_text_dayVolume")
 //        tv_cp_extra_text112?.text = LanguageUtil.getString(this, "cp_extra_text112")
-        tv_indicator?.text = CpLanguageUtil.getString(this, "kline_text_scale")
+//        tv_indicator?.text = CpLanguageUtil.getString(this, "kline_text_scale")
 
         mklineCtrlList.add(
             CpKlineCtrlBean(
@@ -236,13 +225,13 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                 3
             )
         )
-        mklineCtrlList.add(
-            CpKlineCtrlBean(
-                CpLanguageUtil.getString(this, "cp_extra_text154"),
-                false,
-                2
-            )
-        )
+//        mklineCtrlList.add(
+//            CpKlineCtrlBean(
+//                CpLanguageUtil.getString(this, "cp_extra_text154"),
+//                false,
+//                2
+//            )
+//        )
         mCpContractKlineCtrlAdapter = CpContractKlineCtrlAdapter(mklineCtrlList)
         rv_kline_ctrl.layoutManager = GridLayoutManager(this, 7)
         rv_kline_ctrl.adapter = mCpContractKlineCtrlAdapter
@@ -1493,7 +1482,7 @@ class CpMarketDetail4Activity : CpNBaseActivity(), CpWsContractAgentManager.WsRe
                     showedView?.startAnimation(alphaAnimation)
                     showedView?.visibility = View.GONE
 
-                    (if (klineState == KLINE_SCALE) tv_scale else tv_indicator)?.run {
+                    ( tv_scale )?.run {
                         labelBackgroundColor = CpColorUtil.getColor(R.color.normal_icon_color)
                         textColor = CpColorUtil.getColor(R.color.normal_text_color)
                     }

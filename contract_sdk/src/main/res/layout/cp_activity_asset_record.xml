@@ -6,22 +6,31 @@
     android:layout_height="match_parent"
     android:background="@color/bg_card_color"
     android:orientation="vertical">
-    <ImageView
-        android:id="@+id/img_back"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/cp_ic_return" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/cp_assets_text8"
-        android:textColor="@color/text_color"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/cp_ic_return" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cp_assets_text8"
+            android:textColor="@color/color000728"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -45,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USDT"
-                android:textColor="@color/text_color"
+                android:textColor="@color/colorA2A9BD"
                 android:textSize="12sp" />
 
             <ImageView
@@ -76,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cp_order_text4"
-                android:textColor="@color/text_color"
+                android:textColor="@color/colorA2A9BD"
                 android:textSize="12sp" />
 
             <ImageView

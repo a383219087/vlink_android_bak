@@ -94,14 +94,14 @@ class CpContractAssetRecordActivity : CpNBaseActivity() {
         typeList.add(CpTabInfo(getString(R.string.cp_order_text4), 0,extras=0))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text13), 1,extras=1))
         typeList.add(CpTabInfo(getString(R.string.cp_extra_text14), 2,extras=2))
-        typeList.add(CpTabInfo(getString(R.string.cp_position_text3), 5,extras=3))
-        typeList.add(CpTabInfo(getString(R.string.cp_position_text5), 8,extras=4))
-        typeList.add(CpTabInfo(getString(R.string.cp_fee_share), 9,extras=5))
-        typeList.add(CpTabInfo(getString(R.string.cp_extra_text15), 10,extras=6))
-        typeList.add(CpTabInfo(getString(R.string.cp_extra_text16), 11,extras=7))
-        typeList.add(CpTabInfo(getString(R.string.cp_extra_text18), 6,extras=8))
-        typeList.add(CpTabInfo(getString(R.string.cp_extra_text19), 7,extras=9))
-        typeList.add(CpTabInfo(getString(R.string.cp_extra_text191), 13))
+//        typeList.add(CpTabInfo(getString(R.string.cp_position_text3), 5,extras=3))
+//        typeList.add(CpTabInfo(getString(R.string.cp_position_text5), 8,extras=4))
+//        typeList.add(CpTabInfo(getString(R.string.cp_fee_share), 9,extras=5))
+//        typeList.add(CpTabInfo(getString(R.string.cp_extra_text15), 10,extras=6))
+//        typeList.add(CpTabInfo(getString(R.string.cp_extra_text16), 11,extras=7))
+//        typeList.add(CpTabInfo(getString(R.string.cp_extra_text18), 6,extras=8))
+//        typeList.add(CpTabInfo(getString(R.string.cp_extra_text19), 7,extras=9))
+//        typeList.add(CpTabInfo(getString(R.string.cp_extra_text191), 13))
         for (typeItem in typeList) {
             if (typeItem.index == type) {
                 mCurrTypeInfo = typeItem

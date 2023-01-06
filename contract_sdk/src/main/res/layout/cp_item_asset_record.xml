@@ -26,6 +26,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="--"
+                android:textStyle="bold"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 tools:text="买入平空" />
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/dinpro_medium"
+                android:fontFamily="@font/dinpro_bold"
                 android:gravity="center_vertical"
                 android:text="--"
                 android:textColor="@color/normal_text_color"
@@ -57,7 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="center|right"
                 android:text="--"
-                android:fontFamily="@font/dinpro_medium"
+                android:fontFamily="@font/dinpro_bold"
                 android:textColor="@color/text_color"
                 android:textSize="14sp"
                 tools:text="0.5606" />
@@ -69,7 +70,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_weight="1.5"
                 android:gravity="center|left"
-                android:fontFamily="@font/dinpro_medium"
+                android:fontFamily="@font/dinpro_bold"
                 android:textColor="@color/normal_text_color"
                 android:textSize="12sp"
                 tools:text="2019/01/16 15:00:23" />
