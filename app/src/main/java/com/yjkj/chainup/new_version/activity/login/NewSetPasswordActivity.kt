@@ -27,7 +27,10 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_new_version_register.*
 import kotlinx.android.synthetic.main.activity_new_version_set_pwd.*
+import kotlinx.android.synthetic.main.activity_new_version_set_pwd.iv_radio
+import kotlinx.android.synthetic.main.activity_new_version_set_pwd.tv_terms_service
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -107,9 +110,9 @@ class NewSetPasswordActivity : NBaseActivity() {
 
         cet_pwd_invite_code_view?.isFocusable = true
         cet_pwd_invite_code_view?.isFocusableInTouchMode = true
-        cet_pwd_invite_code_view?.setOnFocusChangeListener { v, hasFocus ->
+        /*cet_pwd_invite_code_view?.setOnFocusChangeListener { v, hasFocus ->
             v_line_pwd?.setBackgroundResource(if (hasFocus) R.color.main_blue else R.color.new_edit_line_color)
-        }
+        }*/
 
         cet_pwd_again_view?.setHintEditText(LanguageUtil.getString(this, "register_tip_repeatPassword"))
         cet_pwd_invite_code_view?.hint = LanguageUtil.getString(this, "invite_code_hint")
@@ -131,7 +134,7 @@ class NewSetPasswordActivity : NBaseActivity() {
                 } else {
                     cet_pwd_invite_code_view?.hint = LanguageUtil.getString(mActivity, "register_text_inviteCode")
                 }
-                cet_pwd_again_view.visibility = View.GONE
+                //cet_pwd_again_view.visibility = View.GONE
                 /**
                  * 点击 服务条款
                  */
@@ -146,11 +149,10 @@ class NewSetPasswordActivity : NBaseActivity() {
             }
             1 -> {
                 tv_title?.text = LanguageUtil.getString(mActivity, "login_action_resetPassword")
-                tv_reset_password?.text = LanguageUtil.getString(mActivity, "password_reset_tips")
-                tv_reset_password?.visibility = View.VISIBLE
+                iv_radio?.visibility = View.GONE
                 tv_info?.visibility = View.GONE
                 cet_pwd_invite_code_view?.visibility = View.GONE
-                v_line_pwd?.visibility = View.GONE
+                //v_line_pwd?.visibility = View.GONE
                 tv_terms_service?.visibility = View.GONE
                 cubtn_view?.setContent(LanguageUtil.getString(mActivity, "common_text_btnConfirm"))
             }
@@ -160,6 +162,12 @@ class NewSetPasswordActivity : NBaseActivity() {
     }
 
     fun setOnclick() {
+
+        iv_radio.isSelected = true
+
+        iv_radio.setOnClickListener{
+            (!iv_radio.isSelected).also { iv_radio.isSelected = it }
+        }
 
         iv_cancel?.setOnClickListener { finish() }
 
