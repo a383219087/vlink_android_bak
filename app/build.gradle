@@ -372,4 +372,9 @@ dependencies {
 
 //    implementation 'com.google.firebase:firebase-analytics:21.1.0'
 //    implementation 'com.google.firebase:firebase-messaging:23.0.7'
+    implementation 'com.github.udesk:UdeskSDK-Android:5.3.6', {
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'me.relex:photodraweeview:1.1.3'
 }

@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.MutableLiveData
+import cn.udesk.UdeskSDKManager
+import cn.udesk.config.UdeskConfig
 import com.blankj.utilcode.util.SPUtils
 import com.chainup.contract.utils.CpClLogicContractSetting.getThemeMode
 import com.yjkj.chainup.BR
@@ -27,6 +29,8 @@ import com.yjkj.chainup.util.NToastUtil
 import com.yjkj.chainup.util.ToastUtils
 import io.reactivex.functions.Consumer
 import me.tatarka.bindingcollectionadapter2.ItemBinding
+import udesk.core.LocalManageUtil
+import udesk.core.UdeskConst
 import java.util.*
 
 
@@ -513,17 +517,37 @@ class NewVersionHomePageViewModel : HomePageViewModel() {
         if (!LoginManager.checkLogin(mActivity.value, true)) {
             return
         }
-        val lang = NLanguageUtil.getLanguage()
-        val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
-        val url =
-            "http://47.250.37.185/index/index/home?theme=7571f9&visiter_id=${UserDataService.getInstance().userInfo4UserId}" +
-                    "&visiter_name=${UserDataService.getInstance().nickName}&avatar=&business_id=1&groupid=0" +
-                    "&style=${style}&lan =${lang}"
+//        val lang = NLanguageUtil.getLanguage()
+//        val style = if (getThemeMode(mActivity.value) == 0) "white" else "black"
+//        val url =
+//            "http://47.250.37.185/index/index/home?theme=7571f9&visiter_id=${UserDataService.getInstance().userInfo4UserId}" +
+//                    "&visiter_name=${UserDataService.getInstance().nickName}&avatar=&business_id=1&groupid=0" +
+//                    "&style=${style}&lan =${lang}"
+//
+//        val bundle = Bundle()
+//        bundle.putString(ParamConstant.URL_4_SERVICE, url)
+//        bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, false)
+//        ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+//        LocalManageUtil.saveSelectLanguage(mActivity.value!!.applicationContext,Locale.getDefault())
+        val sdktoken = UserDataService.getInstance().userInfo4UserId
+        val info = TreeMap<String,String>()
+        //sdktoken 必填**
+        info.put(UdeskConst.UdeskUserInfo.USER_SDK_TOKEN, sdktoken)
+        //以下信息是可选
+        info.put(UdeskConst.UdeskUserInfo.NICK_NAME,UserDataService.getInstance().nickName)
+        info.put(UdeskConst.UdeskUserInfo.EMAIL,UserDataService.getInstance().email)
+        info.put(UdeskConst.UdeskUserInfo.CELLPHONE,UserDataService.getInstance().mobileNumber)
+//        info.put(UdeskConst.UdeskUserInfo.DESCRIPTION,"描述信息")
 
-        val bundle = Bundle()
-        bundle.putString(ParamConstant.URL_4_SERVICE, url)
-        bundle.putBoolean(ParamConstant.DEFAULT_NAME_ERROR, false)
-        ArouterUtil.greenChannel(RoutePath.UdeskWebViewActivity, bundle)
+        //只设置用户基本信息的配置
+        val builder = UdeskConfig.Builder()
+        builder.setDefaultUserInfo(info)
+            .setUseEmotion(true)
+            .setUsephoto(true)
+            .setUsecamera(true)
+            .setUsefile(true)
+            .setUserSDkPush(true)
+        UdeskSDKManager.getInstance().entryChat(mActivity.value!!.applicationContext, builder.build(), sdktoken);
     }
 
 }

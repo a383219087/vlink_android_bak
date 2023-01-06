@@ -13,6 +13,7 @@ import android.os.Process
 import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
+import cn.udesk.UdeskSDKManager
 import com.bilibili.boxing.BoxingCrop
 import com.bilibili.boxing.BoxingMediaLoader
 import com.blankj.utilcode.util.SPUtils
@@ -94,7 +95,8 @@ class ChainUpApp : CpMyApp() {
             // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
             PushManager.getInstance().setPrivacyPolicyStrategy(this, false)
         }
-
+        UdeskSDKManager.getInstance().initApiKey(this, "1559675.s4.udesk.cn","cef430ff4f679d943f0ec680d1492cc4","5a25c327d7ac172e")
+        UdeskSDKManager.getInstance().isShowLog(true)
     }
 
      fun changeNetwork(simulate: Boolean,first:Boolean=false){
