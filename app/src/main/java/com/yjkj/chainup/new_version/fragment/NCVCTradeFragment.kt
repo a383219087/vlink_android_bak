@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.SPUtils
-import com.chainup.contract.utils.CpNToastUtil
 import com.chainup.contract.view.CpDialogUtil
-import com.jakewharton.rxbinding2.view.RxView
 import com.timmy.tdialog.TDialog
 import com.timmy.tdialog.base.BindViewHolder
 import com.yjkj.chainup.R
