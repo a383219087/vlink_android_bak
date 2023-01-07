@@ -108,9 +108,9 @@ class NCurrentEntrustAdapter(data: ArrayList<JSONObject>) : NBaseAdapter(data, R
                 setText(R.id.tv_deal, dealVolume.getTradeCoinVolume(coinMap))
                 var staText = getView<SuperTextView>(R.id.tv_status)
                 if (source == "QUANT-GRID") { //staText.solid = ContextCompat.getColor(context, R.color.bg_grid_order)
-                    staText.setTextColor(ContextCompat.getColor(context, R.color.normal_text_color))
+                    staText.setTextColor(ContextCompat.getColor(context, R.color.text_color))
                 } else { //staText.solid = ContextCompat.getColor(context, R.color.tabbar_color)
-                    staText.setTextColor(ContextCompat.getColor(context, R.color.normal_text_color))
+                    staText.setTextColor(ContextCompat.getColor(context, R.color.text_color))
                 }
                 val dealDouble = dealVolume.getTradeCoinVolume(coinMap).toDouble()
                 val volumeDouble = volume.getTradeCoinVolume(coinMap).toDouble()
